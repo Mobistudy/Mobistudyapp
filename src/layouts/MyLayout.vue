@@ -1,11 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-layout-header>
-      <q-toolbar
+      <!--<q-toolbar
         color="primary"
         :glossy="$q.theme === 'mat'"
         :inverted="$q.theme === 'ios'"
-      >
+      >-->
+      <q-toolbar color="primary">
         <q-btn
           flat
           dense
@@ -17,8 +18,8 @@
         </q-btn>
 
         <q-toolbar-title>
-          Quasar App
-          <div slot="subtitle">Running on Quasar v{{ $q.version }}</div>
+          Mobistudy
+          <!--<div slot="subtitle">Running on Quasar v{{ $q.version }}</div>-->
         </q-toolbar-title>
       </q-toolbar>
     </q-layout-header>
@@ -31,9 +32,26 @@
         no-border
         link
         inset-delimiter
+        v-if="isLoggedIn()"
       >
-        <q-list-header>Essential Links</q-list-header>
-        <q-item @click.native="openURL('http://quasar-framework.org')">
+        <q-list-header>Logged in as Jameson Lee</q-list-header>
+        <q-item to="tasker">
+          <q-item-side icon="school" />
+          <q-item-main label="Clinical Study" sublabel="See upcoming events and tasks" />
+        </q-item>
+        <q-item to="profile">
+          <q-item-side icon="account_box" />
+          <q-item-main label="Profile" sublabel="Edit profile"/>
+        </q-item>
+        <q-item to="studies">
+          <q-item-side icon="settings" />
+          <q-item-main label="Manage Studies" sublabel="Add or withdraw from studies"/>
+        </q-item>
+        <q-item to="about">
+          <q-item-side icon="help" />
+          <q-item-main label="About" sublabel="Contact us"/>
+        </q-item>
+        <!--<q-item @click.native="openURL('http://quasar-framework.org')">
           <q-item-side icon="school" />
           <q-item-main label="Docs" sublabel="quasar-framework.org" />
         </q-item>
@@ -52,6 +70,22 @@
         <q-item @click.native="openURL('https://twitter.com/quasarframework')">
           <q-item-side icon="rss feed" />
           <q-item-main label="Twitter" sublabel="@quasarframework" />
+        </q-item>-->
+      </q-list>
+      <q-list
+        no-border
+        link
+        inset-delimiter
+        v-else
+      >
+        <q-list-header>Logged Out</q-list-header>
+        <q-item to="login">
+          <q-item-side icon="lock" />
+          <q-item-main label="Login" />
+        </q-item>
+        <q-item to="about">
+          <q-item-side icon="help" />
+          <q-item-main label="About" sublabel="Contact us"/>
         </q-item>
       </q-list>
     </q-layout-drawer>
@@ -69,11 +103,23 @@ export default {
   name: 'MyLayout',
   data () {
     return {
-      leftDrawerOpen: this.$q.platform.is.desktop
+      // leftDrawerOpen: this.$q.platform.is.desktop
+      leftDrawerOpen: false
     }
   },
   methods: {
-    openURL
+    openURL,
+    isLoggedIn () {
+      try {
+        if ((typeof window.profile.userID) !== 'undefined') {
+          return true
+        } else {
+          return false
+        }
+      } catch (e) {
+        return false
+      }
+    }
   }
 }
 </script>

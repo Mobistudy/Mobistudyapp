@@ -1,0 +1,89 @@
+<template>
+  <q-page padding>
+    <!-- content -->
+    <q-list highlight>
+      <q-list-header>Active studies</q-list-header>
+      <study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>
+      <!--<q-item>
+        <q-item-main label="John Radcliffe Study I" />
+        <q-item-side right>
+          <q-btn flat round dense icon="more_vert">
+            <q-popover>
+              <q-list link>
+                <q-item v-close-overlay>
+                  <q-item-main label="Withdraw from Study" />
+                </q-item>
+              </q-list>
+            </q-popover>
+          </q-btn>
+        </q-item-side>
+      </q-item>-->
+      <q-item-separator />
+      <q-list-header>Previous studies</q-list-header>
+      <study-previous v-for="study in previousStudies" v-bind:study="study" v-bind:key="study.id"></study-previous>
+    </q-list>
+    <q-btn
+      round
+      color="positive"
+      @click="promptNewStudy()"
+      class="fixed"
+      icon="add"
+      style="right: 18px; bottom: 18px"
+      size="lg"
+    />
+  </q-page>
+</template>
+
+<script>
+import StudyPrevious from 'components/Main/Studies/Previous'
+import StudyActive from 'components/Main/Studies/Active'
+
+export default {
+  // name: 'PageName',
+  components: {StudyActive, StudyPrevious},
+  data () {
+    return {
+      activeStudies: [
+        {
+          id: 0,
+          name: 'IBME Study II',
+          endDate: '28/11/2018'
+        },
+        {
+          id: 1,
+          name: 'John Radcliffe Orthopedic Study I',
+          endDate: '03/02/2019'
+        }
+      ],
+      previousStudies: [
+        {
+          id: 0,
+          name: 'IBME Study I',
+          endDate: '01/09/2018'
+        }
+      ]
+    }
+  },
+  methods: {
+    promptNewStudy () {
+      this.$q.dialog({
+        title: 'Add Study',
+        message: 'Please enter your study code below.',
+        prompt: {
+          model: '',
+          type: 'text' // optional
+        },
+        cancel: true,
+        color: 'secondary'
+      }).then(data => {
+        this.$q.notify(`You typed: "${data}"`)
+      }).catch(() => {
+        // this.$q.notify('Ok, no mood for talking, right?')
+      })
+    }
+  }
+}
+</script>
+
+<style>
+</style>
