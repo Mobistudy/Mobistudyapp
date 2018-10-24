@@ -10,7 +10,9 @@
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "moment": "^2.22.2"
+  },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "eslint": "^4.18.2",

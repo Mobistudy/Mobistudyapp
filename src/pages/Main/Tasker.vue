@@ -38,7 +38,8 @@ export default {
           main: 'blah',
           submitText: 'Take Questionnaire',
           icon: 'ballot',
-          future: false
+          future: false,
+          due: 1540479083000
         },
         {
           id: 1,
@@ -46,7 +47,8 @@ export default {
           main: 'blahblah',
           submitText: 'Take Questionnaire',
           icon: 'ballot',
-          future: false
+          future: false,
+          due: 1540651883000
         },
         {
           id: 2,
@@ -54,7 +56,8 @@ export default {
           main: 'We\'d like to analyse how many steps you\'ve taken over the past week',
           submitText: 'Send Data',
           icon: 'directions_walk',
-          future: true
+          future: true,
+          due: 1540612283000
         },
         {
           id: 3,
@@ -62,7 +65,8 @@ export default {
           main: 'We\'d like to analyse how many steps you\'ve taken over the past week',
           submitText: 'Send Data',
           icon: 'directions_walk',
-          future: true
+          future: true,
+          due: 1543290683000
         }
       ]
     }
