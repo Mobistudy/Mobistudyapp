@@ -8,10 +8,10 @@
     <q-list highlight>
       <q-list-header>Pending Tasks</q-list-header>
       <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
-      <taskListItem v-for="task in tasks" v-if="!task.future" v-bind:task="task" v-bind:key="task.id"></taskListItem>
+      <taskListItem v-for="(task,index) in tasks" v-if="!task.future" :task="task" :key="index"></taskListItem>
       <q-item-separator inset />
       <q-list-header>Future Tasks</q-list-header>
-      <taskListItem v-for="task in tasks" v-if="task.future" v-bind:task="task" v-bind:key="task.id"></taskListItem>
+      <taskListItem v-for="(task, index) in tasks" v-if="task.future" :task="task" :key="index"></taskListItem>
       <!--<study-previous v-for="study in previousStudies" v-bind:study="study" v-bind:key="study.id"></study-previous>-->
     </q-list>
   </q-page>
@@ -23,6 +23,9 @@
 <script>
 import taskCard from 'components/Main/TaskCard.vue'
 import taskListItem from 'components/Main/TaskListItem.vue'
+let db = require('src/modules/db.js')
+
+console.log(db.getUserSession())
 
 export default {
   name: 'PageIndex',
