@@ -23,14 +23,17 @@
 <script>
 import taskCard from 'components/Main/TaskCard.vue'
 import taskListItem from 'components/Main/TaskListItem.vue'
-let db = require('src/modules/db.js')
-
-console.log(db.getUserSession())
 
 export default {
   name: 'PageIndex',
   components: {
     taskCard, taskListItem
+  },
+  created () {
+
+  },
+  methods: {
+
   },
   data () {
     return {
