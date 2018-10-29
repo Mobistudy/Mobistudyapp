@@ -14,7 +14,7 @@
     </q-field>
     <br />
     <q-btn color="secondary" to="changePW" label="Change Password" />
-    <q-btn color="negative" class="float-right" label="Logout" @click="logout" />
+    <q-btn color="negative" class="float-right" label="Logout" @click="logout()" />
   </q-page>
 </template>
 
@@ -35,8 +35,15 @@ export default {
   },
   methods: {
     logout () {
-      delete window.profile
-      this.$router.push('/login')
+      let _this = this
+      db.rmUserSession(function (res) {
+        if (res) {
+          _this.$emit('recheck-login')
+          _this.$router.push('/login')
+        } else {
+          alert('logout failed')
+        }
+      })
     },
     getProfile () {
       let _this = this

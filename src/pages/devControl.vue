@@ -3,7 +3,7 @@
     <!-- content -->
     <q-btn label="get All Keys" @click="getDB()" />
     <q-btn label="get session info" @click="getSession()" />
-    <q-btn label="force update" @click="this.$forceUpdate()" />
+    <q-btn label="force update" @click="forceUpdate()" />
   </q-page>
 </template>
 
@@ -24,6 +24,10 @@ export default {
       storage.getItem('session', function (res) {
         alert(JSON.stringify(res))
       })
+    },
+    forceUpdate () {
+      // this.$forceupdate()
+      this.$router.go(0)
     }
   }
 }

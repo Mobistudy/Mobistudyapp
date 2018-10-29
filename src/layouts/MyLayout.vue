@@ -95,13 +95,13 @@
         </q-item>
         <q-item to="dev">
           <q-item-side icon="build" />
-          <q-item-main label="Developer Panel" />
+          <q-item-main label="Developer Panel" :sublabel="'State: ' + JSON.stringify(loggedIn)" />
         </q-item>
       </q-list>
     </q-layout-drawer>
 
     <q-page-container>
-      <router-view />
+      <router-view @recheck-login="isLoggedIn" />
     </q-page-container>
   </q-layout>
 </template>

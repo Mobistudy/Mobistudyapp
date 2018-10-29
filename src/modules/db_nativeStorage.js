@@ -6,6 +6,8 @@ let storage = window.NativeStorage
 Db.prototype.getUserSession = function (cb) {
   storage.getItem('session', function (res) {
     cb(res)
+  }, function (err) {
+    cb(false, err)
   })
 }
 
@@ -18,7 +20,7 @@ Db.prototype.setUserSession = function (session, cb) {
 }
 
 Db.prototype.rmUserSession = function (cb) {
-  storage.removeItem('session', function (res) {
+  storage.remove('session', function (res) {
     cb(true)
   }, function () {
     cb(false)

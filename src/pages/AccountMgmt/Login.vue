@@ -31,13 +31,15 @@ export default {
           email: 'jameson.lee@worc.ox.ac.uk'
         }
       ]
+      let _this = this
       let idx = users.findIndex(x => x.username.toLowerCase() === this.$data.username)
       if (idx !== -1 && users[idx].password === this.password) {
         db.setUserSession(users[idx], function (res) {
           if (res) {
-            this.$router.push('/tasker')
+            _this.$emit('recheck-login')
+            _this.$router.push('/tasker')
           } else {
-            this.error = true
+            _this.error = true
           }
         })
       } else {
