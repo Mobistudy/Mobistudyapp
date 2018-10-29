@@ -10,7 +10,8 @@ const routes = [
       { path: '/tasker', component: () => import('pages/Main/Tasker.vue') },
       { path: '/about', component: () => import('pages/About.vue') },
       { path: '/profile', component: () => import('pages/Main/Profile.vue') },
-      { path: '/studies', component: () => import('pages/Main/Studies.vue') }
+      { path: '/studies', component: () => import('pages/Main/Studies.vue') },
+      { path: '/dev', component: () => import('pages/devControl.vue') }
     ]
   },
   {

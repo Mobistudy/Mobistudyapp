@@ -32,7 +32,7 @@
         no-border
         link
         inset-delimiter
-        v-if="isLoggedIn()"
+        v-if="loggedIn"
       >
         <q-list-header>Logged in as Jameson Lee</q-list-header>
         <q-item to="tasker">
@@ -46,10 +46,6 @@
         <q-item to="studies">
           <q-item-side icon="settings" />
           <q-item-main label="Manage Studies" sublabel="Add or withdraw from studies"/>
-        </q-item>
-        <q-item to="about">
-          <q-item-side icon="help" />
-          <q-item-main label="About" sublabel="Contact us"/>
         </q-item>
         <!--<q-item @click.native="openURL('http://quasar-framework.org')">
           <q-item-side icon="school" />
@@ -83,9 +79,23 @@
           <q-item-side icon="lock" />
           <q-item-main label="Login" />
         </q-item>
+        <!--<q-item to="about">
+          <q-item-side icon="help" />
+          <q-item-main label="About" sublabel="Contact us"/>
+        </q-item>-->
+      </q-list>
+      <q-list
+        no-border
+        link
+        inset-delimiter
+        >
         <q-item to="about">
           <q-item-side icon="help" />
           <q-item-main label="About" sublabel="Contact us"/>
+        </q-item>
+        <q-item to="dev">
+          <q-item-side icon="build" />
+          <q-item-main label="Developer Panel" />
         </q-item>
       </q-list>
     </q-layout-drawer>
@@ -97,28 +107,42 @@
 </template>
 
 <script>
-import { openURL } from 'quasar'
+// import { openURL } from 'quasar'
+
+let db = require('src/modules/db.js')
 
 export default {
   name: 'MyLayout',
   data () {
     return {
       // leftDrawerOpen: this.$q.platform.is.desktop
-      leftDrawerOpen: false
+      leftDrawerOpen: false,
+      loggedIn: false
     }
   },
+  created () {
+    this.isLoggedIn()
+  },
   methods: {
-    openURL,
+    // openURL,
     isLoggedIn () {
-      try {
-        if ((typeof window.profile.userID) !== 'undefined') {
-          return true
+      let _this = this
+      db.getUserSession(function (res) {
+        if (res) {
+          _this.$data.loggedIn = true
         } else {
-          return false
+          _this.$data.loggedIn = false
         }
-      } catch (e) {
-        return false
-      }
+      })
+      // try {
+      //   if ((typeof window.profile.userID) !== 'undefined') {
+      //     return true
+      //   } else {
+      //     return false
+      //   }
+      // } catch (e) {
+      //   return false
+      // }
     }
   }
 }

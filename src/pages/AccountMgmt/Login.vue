@@ -15,6 +15,7 @@
 
 <script>
 /* eslint-disable no-return-assign */
+let db = require('src/modules/db')
 
 export default {
   // name: 'PageName',
@@ -32,8 +33,13 @@ export default {
       ]
       let idx = users.findIndex(x => x.username.toLowerCase() === this.$data.username)
       if (idx !== -1 && users[idx].password === this.password) {
-        window.profile = users[idx]
-        this.$router.push('/tasker')
+        db.setUserSession(users[idx], function (res) {
+          if (res) {
+            this.$router.push('/tasker')
+          } else {
+            this.error = true
+          }
+        })
       } else {
         this.error = true
       }

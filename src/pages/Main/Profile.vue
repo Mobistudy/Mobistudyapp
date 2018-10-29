@@ -19,16 +19,32 @@
 </template>
 
 <script>
+let db = require('src/modules/db')
+
 export default {
   data () {
     return {
-      profile: window.profile
+      profile: null
     }
+  },
+  created () {
+    this.getProfile()
+  },
+  computed: {
+
   },
   methods: {
     logout () {
       delete window.profile
       this.$router.push('/login')
+    },
+    getProfile () {
+      let _this = this
+      db.getUserSession(function (res, err) {
+        if (res !== -1) {
+          _this.profile = res
+        }
+      })
     }
   }
   // name: 'PageName',

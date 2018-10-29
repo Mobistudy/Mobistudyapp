@@ -6,8 +6,6 @@ let storage = window.NativeStorage
 Db.prototype.getUserSession = function (cb) {
   storage.getItem('session', function (res) {
     cb(res)
-  }, function (err) {
-    cb(-1, err)
   })
 }
 
