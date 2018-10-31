@@ -66,7 +66,10 @@ module.exports = function (ctx) {
         'QPopover',
         'QStepper',
         'QStep',
-        'QStepperNavigation'
+        'QStepperNavigation',
+        'QDatetime',
+        'QSelect',
+        'QToggle'
       ],
       directives: [
         'Ripple',

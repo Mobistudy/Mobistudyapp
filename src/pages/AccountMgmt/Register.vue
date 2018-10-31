@@ -4,16 +4,13 @@
     <h4>Registration</h4>
     <q-stepper vertical ref="stepper">
       <!-- Step: -->
-      <q-step default icon="account_circle" title="Profile" subtitle="Your Details">
+      <q-step default icon="account_circle" title="Account" subtitle="Setup your Mobistudy Account">
         <q-field icon="face" :error="error_name" error-label="Required">
           <q-input float-label="First Name" v-model="firstname" />
           <q-input float-label="Surname" v-model="surname" />
         </q-field>
         <q-field icon="mail_outline" :error="error_email" error-label="Required">
           <q-input float-label="Email" v-model="email" />
-        </q-field>
-        <q-field icon="lock" :error="error_username" error-label="Required">
-          <q-input float-label="Username" v-model="username" />
         </q-field>
         <q-field icon="vpn_key" :error="error_password" error-label="Passwords do not match">
           <q-input float-label="Password" v-model="pw1" type="password" />
@@ -22,14 +19,50 @@
         <q-stepper-navigation>
           <q-btn
             color="primary"
-            @click="stageOne()"
+            @click="$refs.stepper.next()"
             label="Next"
           />
         </q-stepper-navigation>
       </q-step>
 
       <!-- Step: -->
-      <q-step title="Study" subtitle="Add a clinical study">
+      <q-step title="Profile" subtitle="Tell us your details">
+        <q-field icon="wc">
+          <q-select float-label="Gender" :options="genderOptions" />
+        </q-field>
+        <q-field icon="cake">
+          <q-datetime minimal v-model="dob" float-label="Date of Birth" type="date" />
+        </q-field>
+        <q-field icon="local_hospital">
+          <q-select multiple chips float-label="Do you have any of these conditions?" v-model="diseases" :options="diseaseOptions" />
+        </q-field>
+        <q-field icon="local_pharmacy">
+          <q-select multiple chips float-label="Are you on any of these medications?" v-model="medications" :options="medicationOptions" />
+        </q-field>
+        <!--<q-field>-->
+        <br />
+          <q-toggle class="q-ma-sm" label="Do you smoke?" v-model="smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free" />
+        <!--</q-field>-->
+        <!--<q-field>-->
+          <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="activeLifestyle" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal" />
+        <br />
+        <!--</q-field>-->
+        <q-stepper-navigation>
+          <q-btn
+            flat
+            @click="$refs.stepper.previous()"
+            label="Back"
+          />
+          <q-btn
+            color="primary"
+            @click="$refs.stepper.next()"
+            label="Next"
+          />
+        </q-stepper-navigation>
+      </q-step>
+
+      <!-- Step: -->
+      <!--<q-step title="Study" subtitle="Add a clinical study">
         <q-field icon="school" :error="error_studyCode" error-label="Invalid Code">
           <q-input float-label="Study Code" v-model="studyCode" />
         </q-field>
@@ -41,11 +74,11 @@
           />
           <q-btn
             color="primary"
-            @click="stageTwo()"
+            @click="$refs.stepper.next()"
             label="Next"
           />
         </q-stepper-navigation>
-      </q-step>
+      </q-step>-->
 
       <!-- Step: -->
       <q-step title="Terms of Use">
@@ -61,7 +94,7 @@
           />
           <q-btn
             color="primary"
-            @click="stageThree()"
+            @click="$refs.stepper.next()"
             label="Accept"
           />
         </q-stepper-navigation>
@@ -84,37 +117,62 @@ export default {
   // name: 'PageName',
   data () {
     return {
-      error_name: false,
-      error_email: false,
-      error_username: false,
-      error_password: false,
       firstname: '',
       surname: '',
       email: '',
-      username: '',
       pw1: '',
       pw2: '',
-      error_studyCode: false,
-      studyCode: ''
+      dob: '',
+      smoker: false,
+      activeLifestyle: false,
+      diseases: [],
+      medications: [],
+      studyCode: '',
+      diseaseOptions: [
+        {
+          label: 'Asthma',
+          value: 'asthma'
+        },
+        {
+          label: 'Diabetes',
+          value: 'diabetes'
+        },
+        {
+          label: 'COPD',
+          value: 'copd'
+        }
+      ],
+      medicationOptions: [
+        {
+          label: 'Simvastatin',
+          value: 'simvastatin'
+        },
+        {
+          label: 'Omeprazole',
+          value: 'omeprazole'
+        },
+        {
+          label: 'Duloxetine',
+          value: 'duloxetine'
+        }
+      ],
+      genderOptions: [
+        {
+          label: 'Male',
+          value: 'male'
+        },
+        {
+          label: 'Female',
+          value: 'female'
+        },
+        {
+          label: 'Other',
+          value: 'other'
+        }
+      ]
     }
   },
   methods: {
-    stageOne () {
-      // Validate Form
-      this.$data.error_name = this.$data.firstname.length === 0 || this.$data.surname.length === 0
-      this.$data.error_email = this.$data.email.length === 0
-      this.$data.error_username = this.$data.username.length === 0
-      this.$data.error_password = this.$data.pw1.length === 0 || this.$data.pw1 !== this.$data.pw2
-      if (!(this.$data.error_name || this.$data.error_email || this.$data.error_username || this.$data.error_password)) {
-        this.$refs.stepper.next()
-      }
-    },
-    stageTwo () {
-      this.$refs.stepper.next()
-    },
-    stageThree () {
-      this.$refs.stepper.next()
-    }
   }
 }
 </script>
