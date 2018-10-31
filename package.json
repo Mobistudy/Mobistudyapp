@@ -11,7 +11,8 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "moment": "^2.22.2"
+    "moment": "^2.22.2",
+    "vuelidate": "^0.7.4"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

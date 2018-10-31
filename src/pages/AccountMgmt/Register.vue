@@ -5,21 +5,21 @@
     <q-stepper vertical ref="stepper">
       <!-- Step: -->
       <q-step default icon="account_circle" title="Account" subtitle="Setup your Mobistudy Account">
-        <q-field icon="face" :error="error_name" error-label="Required">
+        <q-field icon="face" :error="$v.firstname.$error || $v.surname.$error" error-label="Required">
           <q-input float-label="First Name" v-model="firstname" />
           <q-input float-label="Surname" v-model="surname" />
         </q-field>
-        <q-field icon="mail_outline" :error="error_email" error-label="Required">
-          <q-input float-label="Email" v-model="email" />
+        <q-field icon="mail_outline" :error="$v.email.$error" error-label="Please type a valid email">
+          <q-input float-label="Email" @blur="$v.email.$touch" v-model="email" />
         </q-field>
-        <q-field icon="vpn_key" :error="error_password" error-label="Passwords do not match">
+        <q-field icon="vpn_key" :error="$v.pw1.$error || $v.pw2.$error" error-label="Passwords do not match">
           <q-input float-label="Password" v-model="pw1" type="password" />
-          <q-input float-label="Confirm Password" v-model="pw2" type="password" />
+          <q-input float-label="Confirm Password" v-model="pw2" @blur="$v.pw2.$touch" type="password" />
         </q-field>
         <q-stepper-navigation>
           <q-btn
             color="primary"
-            @click="$refs.stepper.next()"
+            @click="nextStage()"
             label="Next"
           />
         </q-stepper-navigation>
@@ -27,10 +27,10 @@
 
       <!-- Step: -->
       <q-step title="Profile" subtitle="Tell us your details">
-        <q-field icon="wc">
+        <q-field icon="wc" :error="$v.gender.$error" error-label="Required">
           <q-select float-label="Gender" :options="genderOptions" />
         </q-field>
-        <q-field icon="cake">
+        <q-field icon="cake" :error="$v.dob.$error" error-label="Required">
           <q-datetime minimal v-model="dob" float-label="Date of Birth" type="date" />
         </q-field>
         <q-field icon="local_hospital">
@@ -55,7 +55,7 @@
           />
           <q-btn
             color="primary"
-            @click="$refs.stepper.next()"
+            @click="nextStage()"
             label="Next"
           />
         </q-stepper-navigation>
@@ -113,6 +113,8 @@
 </template>
 
 <script>
+import { required, email, sameAs } from 'vuelidate/lib/validators'
+
 export default {
   // name: 'PageName',
   data () {
@@ -172,7 +174,26 @@ export default {
       ]
     }
   },
+  validations: {
+    email: {required, email},
+    firstname: {required},
+    surname: {required},
+    pw1: {required},
+    pw2: {
+      sameAsPassword: sameAs('pw1')
+    },
+    dob: {required},
+    gender: {required}
+  },
   methods: {
+    nextStage () {
+      this.$v.touch()
+      if (this.$v.$invalid) {
+
+      } else {
+        this.$refs.stepper.next()
+      }
+    }
   }
 }
 </script>
