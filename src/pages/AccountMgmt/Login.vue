@@ -28,7 +28,13 @@ export default {
           userID: 'b61dbaac193a724ef623',
           firstname: 'Jameson',
           surname: 'Lee',
-          email: 'jameson.lee@worc.ox.ac.uk'
+          email: 'jameson.lee@worc.ox.ac.uk',
+          dob: '1997-08-28',
+          gender: 'male',
+          diseases: [],
+          medications: [],
+          smoker: false,
+          activeLifestyle: true
         }
       ]
       let _this = this

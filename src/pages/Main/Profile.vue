@@ -4,14 +4,37 @@
     <q-field
       icon="face"
     >
-      <q-input float-label="First Name" disabled v-model="profile.firstname" />
-      <q-input float-label="Surname" disabled v-model="profile.surname" />
+      <q-input float-label="First Name" disable v-model="profile.firstname" />
+      <q-input float-label="Surname" disable v-model="profile.surname" />
+    </q-field>
+    <q-field icon="cake">
+      <q-datetime minimal disable format="DD/MM/YYYY" v-model="profile.dob" float-label="Date of Birth" type="date"/>
     </q-field>
     <q-field
       icon="mail_outline"
     >
       <q-input float-label="Email" v-model="profile.email" />
     </q-field>
+    <q-field icon="wc">
+      <q-select float-label="Gender" v-model="profile.gender" :options="profileOptions.genders"/>
+    </q-field>
+    <q-field icon="local_hospital">
+      <q-select multiple chips float-label="Do you have any of these conditions?" v-model="profile.diseases"
+                :options="profileOptions.diseases"/>
+    </q-field>
+    <q-field icon="local_pharmacy">
+      <q-select multiple chips float-label="Are you on any of these medications?" v-model="profile.medications"
+                :options="profileOptions.medications"/>
+    </q-field>
+    <!--<q-field>-->
+    <br/>
+    <q-toggle class="q-ma-sm" label="Do you smoke?" v-model="profile.smoker" checked-icon="smoking_rooms"
+              unchecked-icon="smoke_free"/>
+    <!--</q-field>-->
+    <!--<q-field>-->
+    <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.activeLifestyle"
+              checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/>
+    <br/>
     <br />
     <q-btn color="secondary" to="changePW" label="Change Password" />
     <q-btn color="negative" class="float-right" label="Logout" @click="logout()" />
@@ -20,11 +43,13 @@
 
 <script>
 let db = require('src/modules/db')
+import profileOptions from 'src/modules/profileOptions'
 
 export default {
   data () {
     return {
-      profile: null
+      profile: null,
+      profileOptions: profileOptions
     }
   },
   created () {

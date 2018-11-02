@@ -32,7 +32,7 @@
           <q-select float-label="Gender" v-model="profile.gender" :options="profile.genderOptions"/>
         </q-field>
         <q-field icon="cake" :error="$v.profile.dob.$error" error-label="Required">
-          <q-datetime minimal v-model="profile.dob" float-label="Date of Birth" type="date"/>
+          <q-datetime minimal v-model="profile.dob" format="DD/MM/YYYY" float-label="Date of Birth" type="date"/>
         </q-field>
         <q-field icon="local_hospital">
           <q-select multiple chips float-label="Do you have any of these conditions?" v-model="profile.diseases"
@@ -132,6 +132,7 @@
 
 <script>
 import {required, email, sameAs} from 'vuelidate/lib/validators'
+import profileOptions from 'src/modules/profileOptions'
 
 export default {
   // name: 'PageName',
@@ -152,49 +153,9 @@ export default {
         medications: [],
         studyCode: '',
         gender: '',
-        diseaseOptions: [
-          {
-            label: 'Asthma',
-            value: 'asthma'
-          },
-          {
-            label: 'Diabetes',
-            value: 'diabetes'
-          },
-          {
-            label: 'COPD',
-            value: 'copd'
-          }
-        ],
-        medicationOptions: [
-          {
-            label: 'Simvastatin',
-            value: 'simvastatin'
-          },
-          {
-            label: 'Omeprazole',
-            value: 'omeprazole'
-          },
-          {
-            label: 'Duloxetine',
-            value: 'duloxetine'
-          }
-        ],
-        genderOptions: [
-          {
-            label: 'Male',
-            value: 'male'
-          },
-          {
-            label: 'Female',
-            value: 'female'
-          },
-          {
-            label: 'Other',
-            value: 'other'
-          }
-
-        ]
+        diseaseOptions: profileOptions.diseases,
+        medicationOptions: profileOptions.medications,
+        genderOptions: profileOptions.genders
       }
     }
   },
