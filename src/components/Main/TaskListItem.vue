@@ -1,5 +1,5 @@
 <template>
-  <q-item>
+  <q-item :to="'questionnaire/'+task.formKey">
     <q-item-side :icon="task.icon" />
     <q-item-main :label="task.title" :sublabel="task.main" />
     <q-item-side right :stamp="timeRemaining" />

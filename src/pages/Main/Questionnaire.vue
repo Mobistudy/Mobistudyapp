@@ -73,7 +73,8 @@ export default {
       _this.currentQuestion = 'Q1'
     }).catch(function (error) {
       alert(error)
-      // this.$router.go(-1) // TODO
+      _this.$q.loading.hide()
+      _this.$router.go(-1)
     })
   },
   methods: {

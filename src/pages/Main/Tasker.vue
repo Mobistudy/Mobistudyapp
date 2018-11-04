@@ -40,6 +40,7 @@ export default {
       tasks: [
         {
           id: 0,
+          formKey: 123456,
           title: 'Questionnaire 1',
           main: 'blah',
           submitText: 'Take Questionnaire',
@@ -49,6 +50,7 @@ export default {
         },
         {
           id: 1,
+          formKey: 1234,
           title: 'Questionnaire 2',
           main: 'blahblah',
           submitText: 'Take Questionnaire',
