@@ -49,6 +49,7 @@ module.exports = function (ctx) {
         'QToolbar',
         'QToolbarTitle',
         'QBtn',
+        'QBtnGroup',
         'QIcon',
         'QList',
         'QListHeader',
@@ -70,7 +71,9 @@ module.exports = function (ctx) {
         'QStepperNavigation',
         'QDatetime',
         'QSelect',
-        'QToggle'
+        'QToggle',
+        'QRadio',
+        'QJumbotron'
       ],
       directives: [
         'Ripple',
@@ -79,7 +82,8 @@ module.exports = function (ctx) {
       // Quasar plugins
       plugins: [
         'Notify',
-        'Dialog'
+        'Dialog',
+        'Loading'
       ]
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       // i18n: 'de' // Quasar language
