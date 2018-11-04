@@ -40,6 +40,7 @@
 <script>
 // let mobistudyAPI = require('src/modules/mobistudyAPI')
 import * as mobistudyAPI from 'src/modules/mobistudyAPI'
+let db = require('src/modules/db')
 let moment = require('moment')
 
 export default {
@@ -132,13 +133,28 @@ export default {
       for (let i = 0; i < this.responses.length; i++) {
         let type = this.responses[i].questionType
         if (type === 'singleChoice') {
-          this.responses[i].answer = JSON.parse(this.responses[i].answer)
+          if (typeof this.responses[i].answer === 'object') { // Black choice
+            this.responses[i].answer = ''
+          } else {
+            this.responses[i].answer = JSON.parse(this.responses[i].answer)
+          }
         } else if (type === 'multipleChoice') {
           for (let j = 0; j < this.responses[i].answer.length; j++) {
             this.responses[i].answer[j] = JSON.parse(this.responses[i].answer[j])
           }
         }
       }
+      db.retrieveServerQueue().then(function (res) {
+        console.log(res)
+      }).then(
+        db.pushToServerQueue(this.responses)
+      ).then(
+        db.retrieveServerQueue
+      ).then(function (res) {
+        console.log(res)
+      }).then(
+        db.clearServerQueue
+      )
       this.$router.push('/tasker')
     }
   }
