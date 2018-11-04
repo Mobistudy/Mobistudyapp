@@ -1,25 +1,22 @@
 /* eslint-disable standard/no-callback-literal */
-let Db = function () {}
 
 let storage = window.localStorage
 
-Db.prototype.getUserSession = function (cb) {
+export function getUserSession () {
   let session = storage.getItem('session')
   if (typeof session !== 'undefined') {
-    cb(JSON.parse(session))
+    return Promise.resolve(JSON.parse(session))
   } else {
-    cb(false)
+    return Promise.resolve(false)
   }
 }
 
-Db.prototype.setUserSession = function (session, cb) {
+export function setUserSession (session) {
   storage.setItem('session', JSON.stringify(session))
-  cb(true)
+  return Promise.resolve(true)
 }
 
-Db.prototype.rmUserSession = function (cb) {
+export function rmUserSession () {
   storage.removeItem('session')
-  cb(true)
+  return Promise.resolve(true)
 }
-
-module.exports = new Db()

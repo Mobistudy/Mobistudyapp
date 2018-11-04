@@ -40,14 +40,22 @@ export default {
       let _this = this
       let idx = users.findIndex(x => x.username.toLowerCase() === this.$data.username)
       if (idx !== -1 && users[idx].password === this.password) {
-        db.setUserSession(users[idx], function (res) {
+        db.setUserSession(users[idx]).then(function (res) {
+          _this.$emit('recheck-login')
+          _this.$router.push('/tasker')
+        }).catch(function (err) {
+          console.log(err)
+          _this.error = true
+        })
+        // Below code is callback equivalent
+        /* db.setUserSession(users[idx], function (res) {
           if (res) {
             _this.$emit('recheck-login')
             _this.$router.push('/tasker')
           } else {
             _this.error = true
           }
-        })
+        }) */
       } else {
         this.error = true
       }

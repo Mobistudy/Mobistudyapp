@@ -115,7 +115,6 @@ export default {
   name: 'MyLayout',
   data () {
     return {
-      // leftDrawerOpen: this.$q.platform.is.desktop
       leftDrawerOpen: false,
       loggedIn: false
     }
@@ -127,22 +126,21 @@ export default {
     // openURL,
     isLoggedIn () {
       let _this = this
-      db.getUserSession(function (res) {
+      db.getUserSession().then(function (res) {
         if (res) {
           _this.$data.loggedIn = true
         } else {
           _this.$data.loggedIn = false
         }
       })
-      // try {
-      //   if ((typeof window.profile.userID) !== 'undefined') {
-      //     return true
-      //   } else {
-      //     return false
-      //   }
-      // } catch (e) {
-      //   return false
-      // }
+      // Old callback code
+      /* db.getUserSession(function (res) {
+        if (res) {
+          _this.$data.loggedIn = true
+        } else {
+          _this.$data.loggedIn = false
+        }
+      }) */
     }
   }
 }

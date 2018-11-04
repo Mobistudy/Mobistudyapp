@@ -1,30 +1,27 @@
 /* eslint-disable standard/no-callback-literal */
-let Db = function () {}
 
 let storage = window.NativeStorage
 
-Db.prototype.getUserSession = function (cb) {
+export function getUserSession () {
   storage.getItem('session', function (res) {
-    cb(res)
+    return Promise.resolve(res)
   }, function (err) {
-    cb(false, err)
+    return Promise.reject(err)
   })
 }
 
-Db.prototype.setUserSession = function (session, cb) {
+export function setUserSession (session) {
   storage.setItem('session', session, function (res) {
-    cb(true)
-  }, function () {
-    cb(false)
+    return Promise.resolve(true)
+  }, function (err) {
+    return Promise.reject(err)
   })
 }
 
-Db.prototype.rmUserSession = function (cb) {
+export function rmUserSession () {
   storage.remove('session', function (res) {
-    cb(true)
-  }, function () {
-    cb(false)
+    return Promise.resolve(true)
+  }, function (err) {
+    return Promise.reject(err)
   })
 }
-
-module.exports = new Db()

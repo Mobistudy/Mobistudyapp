@@ -61,22 +61,34 @@ export default {
   methods: {
     logout () {
       let _this = this
-      db.rmUserSession(function (res) {
+      db.rmUserSession().then(function (res) {
+        _this.$emit('recheck-login')
+        _this.$router.push('/login')
+      }).catch(function (err) {
+        console.log(err)
+        alert('logout failed')
+      })
+      // Old callback code
+      /* db.rmUserSession(function (res) {
         if (res) {
           _this.$emit('recheck-login')
           _this.$router.push('/login')
         } else {
           alert('logout failed')
         }
-      })
+      }) */
     },
     getProfile () {
       let _this = this
-      db.getUserSession(function (res, err) {
+      db.getUserSession().then(function (res) {
+        _this.profile = res
+      })
+      // Old callback code
+      /* db.getUserSession(function (res, err) {
         if (res !== -1) {
           _this.profile = res
         }
-      })
+      }) */
     }
   }
   // name: 'PageName',
