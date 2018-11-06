@@ -1,7 +1,9 @@
 /* eslint-disable standard/no-callback-literal */
 
 let storage = window.localStorage
+let moment = require('moment')
 
+/* AUTHENTICATION */
 export function getUserSession () {
   let session = storage.getItem('session')
   if (typeof session !== 'undefined') {
@@ -21,6 +23,42 @@ export function rmUserSession () {
   return Promise.resolve(true)
 }
 
+/* STUDY MANAGEMENT */
+export function addStudy (studyKey) {
+  return getStudies().then(function (studyList) {
+    studyList.push({
+      key: studyKey,
+      start: moment().format()
+    })
+    storage.setItem('studies', JSON.stringify(studyList))
+    return Promise.resolve(true)
+  })
+}
+
+export function removeStudy (studyKey) {
+  return getStudies().then(function (studyList) {
+    let idx = studyList.findIndex(x => x.key === studyKey)
+    if (idx !== -1) {
+      studyList.splice(idx, 1)
+      storage.setItem('studies', JSON.stringify(studyList))
+      return Promise.resolve(true)
+    } else {
+      return Promise.reject(new Error('Study not found'))
+    }
+  })
+}
+
+export function getStudies () {
+  let studyList = storage.getItem('studies')
+  if (studyList === null) {
+    studyList = []
+  } else {
+    studyList = JSON.parse(studyList)
+  }
+  return Promise.resolve(studyList)
+}
+
+/* DATA/QUESTIONNAIRE HANDLING */
 export function pushToServerQueue (obj) {
   let serverQueue = storage.getItem('serverQueue')
   if (serverQueue === null) {
