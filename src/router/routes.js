@@ -21,7 +21,8 @@ const routes = [
       { path: '/register', component: () => import('pages/AccountMgmt/Register.vue') },
       { path: '/resetpw', component: () => import('pages/AccountMgmt/ResetPW.vue') },
       { path: '/changepw', component: () => import('pages/AccountMgmt/ChangePW.vue') },
-      { path: '/questionnaire/:key', component: () => import('pages/Main/Questionnaire.vue') }
+      { path: '/questionnaire/:key', component: () => import('pages/Main/Questionnaire.vue') },
+      { path: '/addStudy/:key', component: () => import('pages/Main/AddStudy.vue') }
     ]
   }
 ]

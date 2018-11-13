@@ -4,6 +4,9 @@
     <q-list highlight>
       <q-list-header>Active studies</q-list-header>
       <study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>
+      <q-item v-if="activeStudies.length === 0">
+        <q-item-main>No active studies found.  Press the green plus sign in the bottom right to add a study.</q-item-main>
+      </q-item>
       <!--<q-item>
         <q-item-main label="John Radcliffe Study I" />
         <q-item-side right>
@@ -18,8 +21,8 @@
           </q-btn>
         </q-item-side>
       </q-item>-->
-      <q-item-separator />
-      <q-list-header>Previous studies</q-list-header>
+      <q-item-separator v-if="previousStudies.length !== 0" />
+      <q-list-header v-if="previousStudies.length !== 0">Previous studies</q-list-header>
       <study-previous v-for="study in previousStudies" v-bind:study="study" v-bind:key="study.id"></study-previous>
     </q-list>
     <q-btn
@@ -66,6 +69,7 @@ export default {
   },
   methods: {
     promptNewStudy () {
+      let _this = this
       this.$q.dialog({
         title: 'Add Study',
         message: 'Please enter your study code below.',
@@ -76,7 +80,8 @@ export default {
         cancel: true,
         color: 'secondary'
       }).then(data => {
-        this.$q.notify(`You typed: "${data}"`)
+        _this.$q.loading.show()
+        _this.$router.push({ path: `addStudy/${data}` })
       }).catch(() => {
         // this.$q.notify('Ok, no mood for talking, right?')
       })
