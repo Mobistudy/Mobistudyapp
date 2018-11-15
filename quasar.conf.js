@@ -57,6 +57,7 @@ module.exports = function (ctx) {
         'QItemMain',
         'QItemSide',
         'QItemSeparator',
+        'QItemTile',
         'QCard',
         'QCardTitle',
         'QCardMain',
@@ -73,7 +74,9 @@ module.exports = function (ctx) {
         'QSelect',
         'QToggle',
         'QRadio',
-        'QJumbotron'
+        'QJumbotron',
+        'QCollapsible',
+        'QCheckbox'
       ],
       directives: [
         'Ripple',

@@ -24,14 +24,33 @@ export function rmUserSession () {
 }
 
 /* STUDY MANAGEMENT */
-export function addStudy (studyKey) {
+export function addStudy (studyKey, config) {
   return getStudies().then(function (studyList) {
     studyList.push({
       key: studyKey,
-      start: moment().format()
+      start: moment().utc().format(),
+      config: config
     })
     storage.setItem('studies', JSON.stringify(studyList))
     return Promise.resolve(true)
+  })
+}
+
+export function updateStudy (studyKey, config) {
+  return getStudies().then(function (studyList) {
+    let idx = studyList.findIndex(x => x.key === studyKey)
+    if (idx !== -1) {
+      let newStudy = {
+        key: studyKey,
+        start: studyList[idx].start,
+        config: config
+      }
+      studyList.splice(idx, 1, newStudy)
+      storage.setItem('studies', JSON.stringify(studyList))
+      return Promise.resolve(true)
+    } else {
+      return Promise.reject(new Error('Study not found'))
+    }
   })
 }
 
