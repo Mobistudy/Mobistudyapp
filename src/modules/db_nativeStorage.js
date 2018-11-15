@@ -7,7 +7,7 @@
 let storage = window.NativeStorage
 
 export function getUserSession () {
-  storage.getItem('session', function (res) {
+  return storage.getItem('session', function (res) {
     return Promise.resolve(res)
   }, function (err) {
     return Promise.reject(err)
@@ -15,7 +15,7 @@ export function getUserSession () {
 }
 
 export function setUserSession (session) {
-  storage.setItem('session', session, function (res) {
+  return storage.setItem('session', session, function (res) {
     return Promise.resolve(true)
   }, function (err) {
     return Promise.reject(err)
