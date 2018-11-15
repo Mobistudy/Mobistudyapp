@@ -1,4 +1,4 @@
-# Quasar App
+# Mobistudy App
 
 ## Introduction
 > TODO
