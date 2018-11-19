@@ -7,6 +7,7 @@
     <q-btn label="get studies" @click="getStudies" />
     <q-btn label="add study 9999" @click="set9Study()" />
     <q-btn label="rm study 9999" @click="rm9Study()" />
+    <q-btn label="add study 1234" @click="setStudy('1234')" />
     <q-btn label="rm study def" @click="rmStudy('def')" />
   </q-page>
 </template>
@@ -25,11 +26,14 @@ export default {
       })
     },
     setStudy (key) {
-      db.addStudy(key).then(function (res) {
-        console.log(res)
-      }).then(db.getStudies).then(function (res) {
-        console.log(res)
+      api.getStudyConfig(key).then(function (res) {
+        db.addStudy(key, res)
       })
+      // db.addStudy(key).then(function (res) {
+      //   console.log(res)
+      // }).then(db.getStudies).then(function (res) {
+      //   console.log(res)
+      // })
     },
     rmStudy (key) {
       db.removeStudy(key).then(function (res) {
@@ -44,7 +48,7 @@ export default {
       })
     },
     rm9Study () {
-      api.removeStudy('9999')
+      db.removeStudy('9999')
     },
     getDB () {
       storage.keys(function (res) {

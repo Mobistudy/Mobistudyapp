@@ -11,6 +11,7 @@ export async function generateTasker () {
   if (res.length === 0) {
     return Promise.resolve([])
   }
+  // console.log(res)
   let taskerItems = {
     upcoming: [],
     missed: []
@@ -27,9 +28,10 @@ export async function generateTasker () {
         startTime = startTime.clone().add(res[i].config.tasks[j].scheduling.startDelaySecs, 's') // Add seconds
       }
       let rrule = generateRRule(startTime, res[i].config.tasks[j].scheduling)
+      let pastNotDone
       if (typeof res[i].config.tasks[j].lastCompleted !== 'undefined') {
         // Task has been completed before
-        let pastNotDone = rrule.between(moment(res[i].config.tasks[j].lastCompleted).toDate(), moment().utc().toDate())
+        pastNotDone = rrule.between(moment(res[i].config.tasks[j].lastCompleted).toDate(), moment().startOf('day').utc().toDate())
         // Handle weird rrule behaviour
         if (pastNotDone.length > 0) {
           pastNotDone = pastNotDone[pastNotDone.length - 1]
@@ -38,19 +40,65 @@ export async function generateTasker () {
         }
       } else {
         // Task has never been completed
-        let pastNotDone = rrule.before(moment().utc().toDate())
+        pastNotDone = rrule.before(moment().startOf('day').utc().toDate())
       }
-      // Get next task within the next 24 hours
-      let upcoming = rrule.between(moment().utc().toDate(), moment().utc().add(24, 'h').toDate())
+      // Get next task within the day
+      let upcoming = rrule.between(moment().startOf('day').utc().toDate(), moment().endOf('day').utc().toDate())
       if (upcoming.length > 0) {
         upcoming = upcoming[0]
       } else {
         upcoming = null
       }
+      // console.log(res[i].config.tasks[j])
+      // console.log(upcoming)
+      // console.log(pastNotDone)
+      // console.log(rrule.all())
       // Construct tasker objects
+      // {
+      //   id: 2,
+      //     title: 'Pedometer Data',
+      //   main: 'We\'d like to analyse how many steps you\'ve taken over the past week',
+      //   submitText: 'Send Data',
+      //   icon: 'directions_walk',
+      //   future: true,
+      //   due: 1540612283000
+      // }
+      let templateObj = {}
+      switch (res[i].config.tasks[j].type) {
+        case 'dataQuery':
+          templateObj = {
+            title: 'Data Query',
+            main: 'We\'d like to request some data from you',
+            submitText: 'Send Data',
+            icon: 'directions_walk'
+          }
+          break
+        case 'form':
+          templateObj = {
+            title: res[i].config.tasks[j].formName,
+            main: 'We\'d like to ask you a few questions',
+            submitText: 'Take Questionnaire',
+            icon: 'ballot',
+            formKey: res[i].config.tasks[j].formKey
+          }
+          break
+      }
+      if (pastNotDone !== null && upcoming === null) {
+        taskerItems.missed.push(Object.assign({}, templateObj, {
+          missed: true,
+          due: moment(pastNotDone).valueOf()
+        }))
+      }
+      if (upcoming !== null) {
+        taskerItems.upcoming.push(Object.assign({}, templateObj, {
+          missed: false,
+          // due: moment(upcoming).valueOf()
+          due: moment().endOf('day').utc().valueOf()
+        }))
+      }
     }
   }
-  return res
+  return Promise.resolve(taskerItems)
 }
 
 export function generateRRule (startTime, scheduling) {
@@ -62,45 +110,47 @@ export function generateRRule (startTime, scheduling) {
   let freq
   switch (scheduling.intervalType) {
     case 'y':
-    freq = RRule.YEARLY
-    break
+      freq = RRule.YEARLY
+      break
     case 'm':
-    freq = RRule.MONTHLY
-    break
+      freq = RRule.MONTHLY
+      break
     case 'w':
-    freq = RRule.WEEKLY
-    break
+      freq = RRule.WEEKLY
+      break
     case 'd':
-    freq = RRule.DAILY
-    break
+      freq = RRule.DAILY
+      break
     default:
-    return Promise.reject(new Error('No Frequency Specified'))
+      return Promise.reject(new Error('No Frequency Specified'))
   }
   // byweekday
   let byweekday = []
-  for (let k = 0; k < scheduling.weekDays.length; k++) {
-    switch (scheduling.weekDays[k]) {
-      case 'mo':
-      byweekday.push(RRule.MO)
-      break
-      case 'tu':
-      byweekday.push(RRule.TU)
-      break
-      case 'we':
-      byweekday.push(RRule.WE)
-      break
-      case 'th':
-      byweekday.push(RRule.TH)
-      break
-      case 'fr':
-      byweekday.push(RRule.FR)
-      break
-      case 'sa':
-      byweekday.push(RRule.SA)
-      break
-      case 'su':
-      byweekday.push(RRule.SU)
-      break
+  if (scheduling.weekDays) {
+    for (let k = 0; k < scheduling.weekDays.length; k++) {
+      switch (scheduling.weekDays[k]) {
+        case 'mo':
+          byweekday.push(RRule.MO)
+          break
+        case 'tu':
+          byweekday.push(RRule.TU)
+          break
+        case 'we':
+          byweekday.push(RRule.WE)
+          break
+        case 'th':
+          byweekday.push(RRule.TH)
+          break
+        case 'fr':
+          byweekday.push(RRule.FR)
+          break
+        case 'sa':
+          byweekday.push(RRule.SA)
+          break
+        case 'su':
+          byweekday.push(RRule.SU)
+          break
+      }
     }
   }
   // Put into rrule config
