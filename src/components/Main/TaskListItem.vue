@@ -19,8 +19,8 @@ export default {
     toAddress: function () {
       if (this.task.formKey) {
         return 'questionnaire/' + this.task.formKey
-      } else if (this.task.dataConfig) {
-        return 'dataQuery/' + this.task.dataConfig
+      } else if (this.task.studyKey && this.task.taskID) {
+        return 'dataQuery/' + this.task.studyKey + '/' + this.task.taskID
       }
     }
   }

@@ -22,7 +22,8 @@ const routes = [
       { path: '/resetpw', component: () => import('pages/AccountMgmt/ResetPW.vue') },
       { path: '/changepw', component: () => import('pages/AccountMgmt/ChangePW.vue') },
       { path: '/questionnaire/:key', component: () => import('pages/Main/Questionnaire.vue') },
-      { path: '/addStudy/:key', component: () => import('pages/Main/AddStudy.vue') }
+      { path: '/addStudy/:key', component: () => import('pages/Main/AddStudy.vue') },
+      { path: '/dataQuery/:studyKey/:taskID', component: () => import('pages/Main/DataQuery') }
     ]
   }
 ]

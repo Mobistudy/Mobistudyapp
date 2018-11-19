@@ -71,7 +71,8 @@ export async function generateTasker () {
             main: 'We\'d like to request some data from you',
             submitText: 'Send Data',
             icon: 'directions_walk',
-            dataConfig: JSON.stringify(res[i].config.tasks[j])
+            studyKey: res[i].key,
+            taskID: res[i].config.tasks[j].id
           }
           break
         case 'form':
