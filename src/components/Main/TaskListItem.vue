@@ -1,5 +1,5 @@
 <template>
-  <q-item :to="'questionnaire/'+task.formKey">
+  <q-item :to="toAddress">
     <q-item-side :icon="task.icon" />
     <q-item-main :label="task.title" :sublabel="task.main" />
     <q-item-side right :stamp="timeRemaining" />
@@ -15,6 +15,13 @@ export default {
   computed: {
     timeRemaining: function () {
       return 'Due ' + moment(this.task.due).fromNow()
+    },
+    toAddress: function () {
+      if (this.task.formKey) {
+        return 'questionnaire/' + this.task.formKey
+      } else if (this.task.dataConfig) {
+        return 'dataQuery/' + this.task.dataConfig
+      }
     }
   }
 }

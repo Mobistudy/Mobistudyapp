@@ -70,7 +70,8 @@ export async function generateTasker () {
             title: 'Data Query',
             main: 'We\'d like to request some data from you',
             submitText: 'Send Data',
-            icon: 'directions_walk'
+            icon: 'directions_walk',
+            dataConfig: JSON.stringify(res[i].config.tasks[j])
           }
           break
         case 'form':
