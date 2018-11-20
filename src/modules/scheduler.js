@@ -169,6 +169,34 @@ export function generateRRule (startTime, scheduling) {
   return new RRule(rruleObj)
 }
 
+export function scheduleNotifications () {
+  let notification = cordova.plugins.notification.local
+  db.getStudies().then(function (res) {
+    // let scheduleItems = []
+    for (let i = 0; i < res.length; i++) {
+      for (let j = 0; j < res[i].config.tasks.length; j++) {
+        let startTime
+        if (res[i].config.tasks[j].startEvent === 'consent') {
+          startTime = moment(res[i].start)
+        } else {
+          startTime = moment(res[i].start)
+        }
+        if (typeof res[i].config.tasks[j].scheduling.startDelaySecs !== 'undefined') {
+          startTime = startTime.clone().add(res[i].config.tasks[j].scheduling.startDelaySecs, 's') // Add seconds
+        }
+        let rrule = generateRRule(startTime, res[i].config.tasks[j].scheduling)
+        let taskTimes = rrule.between(moment().endOf('day').utc().toDate(), moment().endOf('day').add(1, 'M').utc().toDate(), true)
+        for (let k = 0; k < taskTimes; k++) {
+          notification.schedule({
+            text: 'You have a new study task pending!',
+            trigger: { at: moment(taskTimes[k]).toDate }
+          })
+        }
+      }
+    }
+  })
+}
+
 /* export function generateStudiesRRules () {
 return db.getStudies().then(function (res) {
 if (res.length === 0) return Promise.resolve([])

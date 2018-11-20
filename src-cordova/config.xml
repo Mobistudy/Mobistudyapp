@@ -27,4 +27,5 @@
         <variable name="HEALTH_READ_PERMISSION" value="MobistudyApp needs read access" />
         <variable name="HEALTH_WRITE_PERMISSION" value="MobistudyApp needs write access" />
     </plugin>
+    <plugin name="cordova-plugin-local-notification" spec="^0.9.0-beta.2" />
 </widget>
