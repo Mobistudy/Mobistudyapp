@@ -23,4 +23,8 @@
     </platform>
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.2" />
     <engine name="android" spec="^7.1.1" />
+    <plugin name="cordova-plugin-health" spec="^1.1.0">
+        <variable name="HEALTH_READ_PERMISSION" value="MobistudyApp needs read access" />
+        <variable name="HEALTH_WRITE_PERMISSION" value="MobistudyApp needs write access" />
+    </plugin>
 </widget>
