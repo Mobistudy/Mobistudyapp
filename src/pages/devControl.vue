@@ -9,6 +9,9 @@
     <q-btn label="rm study 9999" @click="rm9Study()" />
     <q-btn label="add study 1234" @click="setStudy('1234')" />
     <q-btn label="rm study def" @click="rmStudy('def')" />
+    <q-btn label="set instant notification" @click="setNotification(0)" />
+    <q-btn label="set delayed notification 5s" @click="setNotification(5)" />
+    <q-btn label="set delayed notification 10s" @click="setNotification(10)" />
   </q-page>
 </template>
 
@@ -16,6 +19,7 @@
 let storage = window.NativeStorage
 let db = require('src/modules/db')
 let api = require('src/modules/mobistudyAPI')
+let moment = require('moment')
 
 export default {
   // name: 'PageName',
@@ -65,6 +69,12 @@ export default {
     forceUpdate () {
       // this.$forceupdate()
       this.$router.go(0)
+    },
+    setNotification (delay) {
+      cordova.plugins.notification.local.schedule({
+        text: 'You have a new study task pending!',
+        trigger: { at: moment().add(delay, 's').toDate() }
+      })
     }
   }
 }

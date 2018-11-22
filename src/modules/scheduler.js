@@ -189,7 +189,7 @@ export function scheduleNotifications () {
         for (let k = 0; k < taskTimes; k++) {
           notification.schedule({
             text: 'You have a new study task pending!',
-            trigger: { at: moment(taskTimes[k]).toDate }
+            trigger: { at: moment(taskTimes[k]).toDate() }
           })
         }
       }
