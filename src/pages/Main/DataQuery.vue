@@ -3,7 +3,6 @@
     <!-- content -->
     <div v-if="finished">
       {{ healthData }}
-      <q-btn label="hi" />
     </div>
   </q-page>
 </template>
@@ -52,7 +51,6 @@ export default {
   }
 }
 
-// eslint-disable-next-line no-unused-vars
 function getHealthData (_this, task, studyStart) {
   let checkHealthAvailibility = new Promise(function (resolve, reject) {
     navigator.health.isAvailable(function (available) {
@@ -72,64 +70,70 @@ function getHealthData (_this, task, studyStart) {
     })
   })
 
-  let getHealthAuthorisation = new Promise(function (resolve, reject) {
-    navigator.health.requestAuthorization([{read: [task.dataType]}], function () {
-      resolve()
-    }, function (err) {
-      reject(err)
-    })
-  })
-
-  let checkHealthAuthroisation = new Promise(function (resolve, reject) {
-    navigator.health.isAuthorized(function (authorised) {
-      if (authorised) {
+  function getHealthAuthorisation () {
+    return new Promise(function (resolve, reject) {
+      navigator.health.requestAuthorization([{read: [task.dataType]}], function () {
         resolve()
-      } else {
-        reject(new Error('App is not authorised'))
-      }
-    }, function (err) {
-      reject(err)
+      }, function (err) {
+        reject(err)
+      })
     })
-  })
+  }
 
-  let getHealthData = new Promise(function (resolve, reject) {
-    // Generate Start Date
-    let startDate
-    if (task.lastCompleted) {
-      startDate = moment(task.lastCompleted).startOf('day').utc().toDate()
-    } else {
-      // Calculate when the task should've last been completed
-      let rrule = scheduler.generateRRule(studyStart, task.scheduling)
-      let prev = rrule.before(moment().startOf('day').utc().toDate())
-      let next = rrule.after(moment().startOf('day').utc().toDate())
-      let diff
-      try {
-        diff = moment(next).diff(moment(prev))
-      } catch (e) {
-        reject(e)
+  function checkHealthAuthroisation () {
+    return new Promise(function (resolve, reject) {
+      navigator.health.isAuthorized([{read: [task.dataType]}], function (authorised) {
+        if (authorised) {
+          resolve()
+        } else {
+          reject(new Error('App is not authorised'))
+        }
+      }, function (err) {
+        reject(err)
+      })
+    })
+  }
+
+  function queryHealth () {
+    return new Promise(function (resolve, reject) {
+      // Generate Start Date
+      let startDate
+      if (task.lastCompleted) {
+        startDate = moment(task.lastCompleted).startOf('day').utc().toDate()
+      } else {
+        // Calculate when the task should've last been completed
+        let rrule = scheduler.generateRRule(studyStart, task.scheduling)
+        let prev = rrule.before(moment().startOf('day').utc().toDate())
+        let next = rrule.after(moment().startOf('day').utc().toDate())
+        let diff
+        try {
+          diff = moment(next).diff(moment(prev))
+        } catch (e) {
+          reject(e)
+        }
+        startDate = moment().subtract(diff, 'milliseconds').utc().toDate()
       }
-      startDate = moment().subtract(diff, 'seconds').utc().toDate()
-    }
-    if (task.aggregated) {
-      navigator.health.queryAggregated({
-        startDate: startDate,
-        endDate: new Date(),
-        dataType: task.dataType,
-        bucket: task.bucket
-      }, (data) => resolve(data), (err) => reject(err))
-    } else {
-      navigator.health.query({
-        startDate: startDate,
-        endDate: new Date(),
-        dataType: task.dataType
-      }, (data) => resolve(data), (err) => reject(err))
-    }
-  })
+      if (task.aggregated) {
+        navigator.health.queryAggregated({
+          startDate: startDate,
+          endDate: new Date(),
+          dataType: task.dataType,
+          bucket: task.bucket // Optional
+        }, (data) => resolve(data), (err) => reject(err))
+      } else {
+        navigator.health.query({
+          startDate: startDate,
+          endDate: new Date(),
+          dataType: task.dataType
+        }, (data) => resolve(data), (err) => reject(err))
+      }
+    })
+  }
 
   return checkHealthAvailibility
     .then(getHealthAuthorisation)
     .then(checkHealthAuthroisation)
-    .then(getHealthData)
+    .then(queryHealth)
 }
 
 </script>

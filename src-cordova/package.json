@@ -1,5 +1,5 @@
 {
-    "name": "org.mobistudy",
+    "name": "org.mobistudy.app",
     "displayName": "Mobistudy App",
     "version": "1.0.0",
     "description": "A sample Apache Cordova application that responds to the deviceready event.",
@@ -10,23 +10,16 @@
     "author": "Apache Cordova Team",
     "license": "Apache-2.0",
     "dependencies": {
-        "cordova-android": "^7.1.1",
-        "cordova-plugin-badge": "^0.8.8",
-        "cordova-plugin-device": "^2.0.2",
+        "cordova-android": "^7.1.3",
         "cordova-plugin-health": "^1.1.0",
-        "cordova-plugin-local-notification": "^0.9.0-beta.2",
         "cordova-plugin-nativestorage": "^2.3.2",
         "cordova-plugin-whitelist": "^1.3.3"
     },
     "cordova": {
         "plugins": {
             "cordova-plugin-whitelist": {},
-            "cordova-plugin-nativestorage": {},
-            "cordova-plugin-health": {
-                "HEALTH_READ_PERMISSION": "MobistudyApp needs read access",
-                "HEALTH_WRITE_PERMISSION": "MobistudyApp needs write access"
-            },
-            "cordova-plugin-local-notification": {}
+            "cordova-plugin-health": {},
+            "cordova-plugin-nativestorage": {}
         },
         "platforms": [
             "android"

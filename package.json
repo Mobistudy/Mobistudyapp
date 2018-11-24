@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Mobistudy Patients' App",
   "productName": "Mobistudy App",
-  "cordovaId": "org.mobistudy",
+  "cordovaId": "org.mobistudy.app",
   "author": "jamtholee",
   "private": true,
   "scripts": {

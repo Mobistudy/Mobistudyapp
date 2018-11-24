@@ -137,7 +137,7 @@ module.exports = function (ctx) {
       }
     },
     cordova: {
-      // id: 'org.cordova.quasar.app'
+      // id: 'org.mobistudy.app'
     },
     electron: {
       // bundler: 'builder', // or 'packager'
