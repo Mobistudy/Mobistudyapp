@@ -1,9 +1,14 @@
 <template>
   <q-page padding>
     <!-- content -->
-    <div v-if="finished">
-      {{ healthData }}
+    <h2>This is what we'll be sending to the clinician:</h2>
+    <div v-if="finished" style="text-align: center">
+      <div class="chart-container" style="position: relative; height:50vh; width:80vw; margin-left: auto; margin-right: auto">
+        <canvas id="chart"></canvas>
+      </div>
     </div>
+    <br />
+    <q-btn color="primary" class="q-py-sm q-px-xl float-center" size="lg" label="Click here to submit and continue" @click="submit" />
   </q-page>
 </template>
 
@@ -11,6 +16,7 @@
 let db = require('src/modules/db')
 let moment = require('moment')
 let scheduler = require('src/modules/scheduler')
+let chartjs = require('chart.js')
 
 export default {
   // name: 'PageName',
@@ -21,7 +27,7 @@ export default {
       healthData: null
     }
   },
-  created () {
+  mounted () {
     this.$q.loading.show()
     let _this = this
     db.getStudies().then(function (res) {
@@ -30,6 +36,7 @@ export default {
         let studyStart = moment(study.start)
         let task = study.config.tasks.find(x => x.id === Number(_this.$route.params.taskID))
         if (typeof task !== 'undefined') {
+          _this.task = task
           return Promise.resolve({task: task, studyStart: studyStart})
         } else {
           return Promise.reject(new Error('Task not found'))
@@ -42,11 +49,15 @@ export default {
     }).then(function (data) {
       _this.healthData = data
       _this.finished = true
+      return Promise.resolve()
+    }).then(function () {
+      plotHealthData(_this, _this.healthData)
+    }).then(function () {
       _this.$q.loading.hide()
     }).catch(function (err) {
       alert(err)
       _this.$q.loading.hide()
-      _this.$router.go(-1)
+      // _this.$router.go(-1)
     })
   }
 }
@@ -134,6 +145,54 @@ function getHealthData (_this, task, studyStart) {
     .then(getHealthAuthorisation)
     .then(checkHealthAuthroisation)
     .then(queryHealth)
+}
+
+function plotHealthData (_this, data) {
+  let ctx = document.getElementById('chart')
+  // console.log(ctx)
+  let chartData = {labels: [], values: []}
+  for (let i = 0; i < data.length; i++) {
+    chartData.labels.push(data[i].endDate)
+    chartData.values.push(data[i].value)
+  }
+
+  let chartJSData = {
+    labels: chartData.labels,
+    datasets: [{
+      label: _this.task.dataType.charAt(0).toUpperCase() + _this.task.dataType.slice(1),
+      data: chartData.values
+    }]
+  }
+
+  // Ensure buckets is a valid option
+  let validBuckets = ['second', 'minute', 'hour', 'day', 'month', 'quarter', 'year']
+  if (validBuckets.indexOf(_this.task.bucket) === -1) delete _this.task.bucket
+
+  let chartJSOptions = {
+    maintainAspectRatio: false,
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }],
+      xAxes: [{
+        type: 'time',
+        bounds: 'data',
+        time: {
+          unit: _this.task.bucket
+        }
+      }]
+    }
+  }
+
+  // eslint-disable-next-line no-unused-vars,new-cap
+  let chart = new chartjs(ctx, {
+    type: 'bar',
+    data: chartJSData,
+    options: chartJSOptions
+  })
+  return Promise.resolve()
 }
 
 </script>
