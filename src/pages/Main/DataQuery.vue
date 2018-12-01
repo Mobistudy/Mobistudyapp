@@ -1,14 +1,14 @@
 <template>
   <q-page padding>
     <!-- content -->
-    <h2>This is what we'll be sending to the clinician:</h2>
-    <div v-if="finished" style="text-align: center">
+    <div v-if="finished">
+    <h2 style="margin-top: 0">This is what we'll be sending to the clinician:</h2>
       <div class="chart-container" style="position: relative; height:50vh; width:80vw; margin-left: auto; margin-right: auto">
         <canvas id="chart"></canvas>
       </div>
-    </div>
     <br />
     <q-btn color="primary" class="q-py-sm q-px-xl float-center" size="lg" label="Click here to submit and continue" @click="submit" />
+    </div>
   </q-page>
 </template>
 
@@ -167,6 +167,8 @@ function plotHealthData (_this, data) {
   // Ensure buckets is a valid option
   let validBuckets = ['second', 'minute', 'hour', 'day', 'month', 'quarter', 'year']
   if (validBuckets.indexOf(_this.task.bucket) === -1) delete _this.task.bucket
+
+  // NEED TO SPLIT CODE HERE FOR DEPENDING ON DATA TYPE
 
   let chartJSOptions = {
     maintainAspectRatio: false,
