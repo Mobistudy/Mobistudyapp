@@ -46,6 +46,15 @@ export default {
       password: '',
       error: false
     }
+  },
+  created () {
+    // Check if user is logged in and redirect to tasker if so
+    let _this = this
+    db.getUserSession().then(function (session) {
+      if (session) {
+        _this.$router.push('/tasker')
+      }
+    })
   }
 }
 </script>
