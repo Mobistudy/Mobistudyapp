@@ -405,6 +405,9 @@ export function changePW (oldpw, newpw) {
 }
 
 // Updating details
+export function updateProfile (profile) {
+  return Promise.resolve(true)
+}
 
 // Token refresh - storage
 

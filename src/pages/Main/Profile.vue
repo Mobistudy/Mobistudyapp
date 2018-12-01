@@ -36,6 +36,7 @@
               checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/>
     <br/>
     <br />
+    <q-btn color="positive" label="Update" @click="updateProfile" />&nbsp;
     <q-btn color="secondary" to="changePW" label="Change Password" />
     <q-btn color="negative" class="float-right" label="Logout" @click="logout()" />
   </q-page>
@@ -43,7 +44,9 @@
 
 <script>
 let db = require('src/modules/db')
+let api = require('src/modules/mobistudyAPI')
 import profileOptions from 'src/modules/profileOptions'
+import {required, email} from 'vuelidate/lib/validators'
 
 export default {
   data () {
@@ -59,6 +62,28 @@ export default {
 
   },
   methods: {
+    updateProfile () {
+      this.$v.$touch()
+      let _this = this
+      if (!this.$v.$invalid) {
+        api.updateProfile(this.profile).then(function (success) {
+          if (success) {
+            _this.$q.notify({
+              message: 'Profile updated successfully!',
+              type: 'positive',
+              icon: 'profile'
+            })
+          }
+          return Promise.resolve(success)
+        }).then(function (success) {
+          if (success) {
+            return db.setUserSession(_this.profile)
+          }
+        }).catch(function (err) {
+          _this.$q.notify(err.message)
+        })
+      }
+    },
     logout () {
       let _this = this
       db.rmUserSession().then(function (res) {
@@ -89,6 +114,11 @@ export default {
           _this.profile = res
         }
       }) */
+    }
+  },
+  validations: {
+    profile: {
+      email: {email, required}
     }
   }
   // name: 'PageName',
