@@ -16,49 +16,28 @@
 <script>
 /* eslint-disable no-return-assign */
 let db = require('src/modules/db')
+let api = require('src/modules/mobistudyAPI')
 
 export default {
   // name: 'PageName',
   methods: {
     login () {
-      let users = [
-        {
-          username: 'jameson',
-          password: 'test',
-          userID: 'b61dbaac193a724ef623',
-          firstname: 'Jameson',
-          surname: 'Lee',
-          email: 'jameson.lee@worc.ox.ac.uk',
-          dob: '1997-08-28',
-          gender: 'male',
-          diseases: [],
-          medications: [],
-          smoker: false,
-          activeLifestyle: true
-        }
-      ]
       let _this = this
-      let idx = users.findIndex(x => x.username.toLowerCase() === this.$data.username)
-      if (idx !== -1 && users[idx].password === this.password) {
-        db.setUserSession(users[idx]).then(function (res) {
-          _this.$emit('recheck-login')
-          _this.$router.push('/tasker')
-        }).catch(function (err) {
-          console.log(err)
+      api.authUser(this.username, this.password).then(function (res) {
+        if (res === false) {
+          // user is unauthenticated
           _this.error = true
-        })
-        // Below code is callback equivalent
-        /* db.setUserSession(users[idx], function (res) {
-          if (res) {
+        } else {
+          // user is authenticated, return user object
+          db.setUserSession(res).then(function () {
             _this.$emit('recheck-login')
             _this.$router.push('/tasker')
-          } else {
-            _this.error = true
-          }
-        }) */
-      } else {
-        this.error = true
-      }
+          })
+        }
+      }).catch(function (err) {
+        console.log(err)
+        _this.error = true
+      })
     }
   },
   data () {

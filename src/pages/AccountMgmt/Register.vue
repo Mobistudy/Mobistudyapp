@@ -133,6 +133,7 @@
 <script>
 import {required, email, sameAs} from 'vuelidate/lib/validators'
 import profileOptions from 'src/modules/profileOptions'
+let api = require('src/modules/mobistudyAPI')
 
 export default {
   // name: 'PageName',
@@ -182,6 +183,14 @@ export default {
       } else {
         this.$refs.stepper.next()
       }
+    },
+    submit () {
+      let _this = this
+      api.registerUser(this.account, this.profile).then(function () {
+        _this.$router.push('/login')
+      }).catch(function (err) {
+        alert(err)
+      })
     }
   }
 }
