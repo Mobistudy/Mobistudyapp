@@ -17,12 +17,13 @@
 
 <script>
 let moment = require('moment')
+
 export default {
   // name: 'ComponentName',
   props: ['study'],
   computed: {
     endDate: function () {
-      return moment(this.study.config.generalities.endDate).toString() + 'hi'
+      return moment(this.study.config.generalities.endDate).format('DD/MM/YYYY')
     }
   }
 }
