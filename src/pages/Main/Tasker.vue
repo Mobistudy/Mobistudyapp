@@ -9,9 +9,15 @@
       <q-list-header>Current Tasks</q-list-header>
       <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
       <taskListItem v-for="(task,index) in tasks" v-if="!task.missed" :task="task" :key="index"></taskListItem>
+      <q-item v-if="taskNumbers.current === 0">
+        <q-item-main>No tasks pending.</q-item-main>
+      </q-item>
       <q-item-separator inset />
       <q-list-header>Missed Tasks</q-list-header>
       <taskListItem v-for="(task, index) in tasks" v-if="task.missed" :task="task" :key="index"></taskListItem>
+      <q-item v-if="taskNumbers.missed === 0">
+        <q-item-main>No tasks missed.</q-item-main>
+      </q-item>
       <!--<study-previous v-for="study in previousStudies" v-bind:study="study" v-bind:key="study.id"></study-previous>-->
     </q-list>
   </q-page>
@@ -35,6 +41,20 @@ export default {
     scheduler.generateTasker().then(function (res) {
       _this.tasks = _this.tasks.concat(res.upcoming, res.missed)
     })
+  },
+  computed: {
+    taskNumbers: function () {
+      let countCurrent = 0
+      let countMissed = 0
+      for (let i = 0; i < this.tasks; i++) {
+        if (this.tasks[i].missed) {
+          countMissed++
+        } else {
+          countCurrent++
+        }
+      }
+      return {current: countCurrent, missed: countMissed}
+    }
   },
   methods: {
   },
