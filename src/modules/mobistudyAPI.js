@@ -109,10 +109,6 @@ export function getQuestionnaire (key) {
   })
 }
 
-export function login () {
-
-}
-
 export function getUserStudies (userKey) {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
@@ -221,7 +217,7 @@ export function getStudyConfig (studyKey) {
                   'intervalType': 'd',
                   'interval': 12
                 },
-                'formKey': '12121212'
+                'formKey': '1234'
               }
             ],
             'consent': {
@@ -323,7 +319,7 @@ export function getStudyConfig (studyKey) {
                 'weekDays': [],
                 'interval': 1
               },
-              'formKey': '1277660',
+              'formKey': '1234',
               'formName': 'COPD Form'
             },
             {
@@ -367,6 +363,59 @@ export function getStudyConfig (studyKey) {
     }
   })
 }
+
+// Logging in
+export function authUser (username, password) {
+  let users = [
+    {
+      username: 'jameson',
+      password: 'test',
+      userID: 'b61dbaac193a724ef623',
+      firstname: 'Jameson',
+      surname: 'Lee',
+      email: 'jameson.lee@worc.ox.ac.uk',
+      dob: '1997-08-28',
+      gender: 'male',
+      diseases: [],
+      medications: [],
+      smoker: false,
+      activeLifestyle: true
+    }
+  ]
+  let idx = users.findIndex(x => x.username.toLowerCase() === username)
+  if (idx !== -1 && users[idx].password === password) {
+    return Promise.resolve(users[idx]) // Send back user profile data
+  } else {
+    return Promise.resolve(false) // Return false if user cannot be authenticated
+  }
+}
+
+// Registration
+export function registerUser (account, profile) {
+  return Promise.resolve(true)
+}
+
+// Password reset
+export function resetPW (email) {
+  return Promise.resolve(true)
+}
+
+// Change password
+export function changePW (oldpw, newpw) {
+  // Make api call here and branch depending on result
+  if (oldpw !== 'correct') {
+    return Promise.resolve(false) // Old password does not match
+  } else {
+    return Promise.resolve(true) // New password updated correctly
+  }
+}
+
+// Updating details
+export function updateProfile (profile) {
+  return Promise.resolve(true)
+}
+
+// Token refresh - storage
 
 export function removeStudy (studyKey) {
 
