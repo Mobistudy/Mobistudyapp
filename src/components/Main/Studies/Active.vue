@@ -1,6 +1,6 @@
 <template>
   <q-item>
-    <q-item-main :label="study.name" :sublabel="'End Date: ' + study.endDate" />
+    <q-item-main :label="study.config.generalities.title" :sublabel="'End Date: ' + endDate" />
     <q-item-side right>
       <q-btn flat round dense icon="more_vert">
         <q-popover>
@@ -16,9 +16,16 @@
 </template>
 
 <script>
+let moment = require('moment')
+
 export default {
   // name: 'ComponentName',
-  props: ['study']
+  props: ['study'],
+  computed: {
+    endDate: function () {
+      return moment(this.study.config.generalities.endDate).format('DD/MM/YYYY')
+    }
+  }
 }
 </script>
 

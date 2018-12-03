@@ -40,30 +40,48 @@
 <script>
 import StudyPrevious from 'components/Main/Studies/Previous'
 import StudyActive from 'components/Main/Studies/Active'
+let db = require('src/modules/db')
 
 export default {
   // name: 'PageName',
   components: {StudyActive, StudyPrevious},
+  created () {
+    let _this = this
+    db.getStudies().then(function (studies) {
+      console.log(studies)
+      for (let i = 0; i < studies.length; i++) {
+        if (studies[i].inactive) {
+          if (studies[i].hidden) {
+            // Do Nothing
+          } else {
+            _this.previousStudies.push(studies[i])
+          }
+        } else {
+          _this.activeStudies.push(studies[i])
+        }
+      }
+    })
+  },
   data () {
     return {
       activeStudies: [
-        {
-          id: 0,
-          name: 'IBME Study II',
-          endDate: '28/11/2018'
-        },
-        {
-          id: 1,
-          name: 'John Radcliffe Orthopedic Study I',
-          endDate: '03/02/2019'
-        }
+        // {
+        //   id: 0,
+        //   name: 'IBME Study II',
+        //   endDate: '28/11/2018'
+        // },
+        // {
+        //   id: 1,
+        //   name: 'John Radcliffe Orthopedic Study I',
+        //   endDate: '03/02/2019'
+        // }
       ],
       previousStudies: [
-        {
-          id: 0,
-          name: 'IBME Study I',
-          endDate: '01/09/2018'
-        }
+        // {
+        //   id: 0,
+        //   name: 'IBME Study I',
+        //   endDate: '01/09/2018'
+        // }
       ]
     }
   },
