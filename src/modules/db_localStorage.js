@@ -36,6 +36,11 @@ export function addStudy (studyKey, config) {
   })
 }
 
+export function setStudy (studies) {
+  storage.setItem('studies', JSON.stringify(studies))
+  return Promise.resolve(true)
+}
+
 export function updateStudy (studyKey, config) {
   return getStudies().then(function (studyList) {
     let idx = studyList.findIndex(x => x.key === studyKey)

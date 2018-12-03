@@ -29,10 +29,18 @@ export default {
           _this.error = true
         } else {
           // user is authenticated, return user object
-          db.setUserSession(res).then(function () {
-            _this.$emit('recheck-login')
-            _this.$router.push('/tasker')
-          })
+          db.setUserSession(res)
+            .then(function () {
+              return api.getUserStudies(res.userID)
+            })
+            .then(function (studies) {
+              console.log(studies)
+              return db.setStudy(studies)
+            })
+            .then(function () {
+              _this.$emit('recheck-login')
+              _this.$router.push('/tasker')
+            })
         }
       }).catch(function (err) {
         console.log(err)
