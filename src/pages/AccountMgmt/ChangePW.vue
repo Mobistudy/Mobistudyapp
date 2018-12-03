@@ -18,6 +18,7 @@
 <script>
 import {required, sameAs} from 'vuelidate/lib/validators'
 let api = require('src/modules/mobistudyAPI')
+let db = require('src/modules/db')
 
 export default {
   // name: 'PageName',
@@ -41,20 +42,25 @@ export default {
       this.$v.$touch()
       let _this = this
       if (!this.$v.$invalid) {
-        api.changePW(this.oldpw, this.newpw).then(function (success) {
-          if (success) {
-            _this.$q.notify({
-              message: 'Password changed successfully!',
-              type: 'positive',
-              icon: 'lock'
-            })
-            _this.$router.push('/tasker')
-          } else {
-            _this.oldpwmatch = false
-          }
-        }).catch(function (err) {
-          _this.$q.notify(err.message)
-        })
+        db.getUserSession()
+          .then(function (session) {
+            return api.changePW(session.userID, _this.oldpw, _this.newpw)
+          })
+          .then(function (success) {
+            if (success) {
+              _this.$q.notify({
+                message: 'Password changed successfully!',
+                type: 'positive',
+                icon: 'lock'
+              })
+              _this.$router.push('/tasker')
+            } else {
+              _this.oldpwmatch = false
+            }
+          })
+          .catch(function (err) {
+            _this.$q.notify(err.message)
+          })
       }
     }
   }
