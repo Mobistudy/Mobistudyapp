@@ -48,7 +48,6 @@ export default {
     taskNumbers: function () {
       let countCurrent = 0
       let countMissed = 0
-      console.log(this.tasks)
       for (let i = 0; i < this.tasks.length; i++) {
         if (this.tasks[i].missed) {
           countMissed++

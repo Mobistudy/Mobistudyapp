@@ -48,7 +48,6 @@ export default {
   created () {
     let _this = this
     db.getStudies().then(function (studies) {
-      console.log(studies)
       for (let i = 0; i < studies.length; i++) {
         if (studies[i].inactive) {
           if (studies[i].hidden) {
