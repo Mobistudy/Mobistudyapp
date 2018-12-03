@@ -395,7 +395,7 @@ export function resetPW (email) {
 }
 
 // Change password
-export function changePW (oldpw, newpw) {
+export function changePW (userKey, oldpw, newpw) {
   // Make api call here and branch depending on result
   if (oldpw !== 'correct') {
     return Promise.resolve(false) // Old password does not match
@@ -411,7 +411,7 @@ export function updateProfile (profile) {
 
 // Token refresh - storage
 
-export function removeStudy (studyKey) {
+export function removeStudy (userKey, studyKey) {
 
 }
 
