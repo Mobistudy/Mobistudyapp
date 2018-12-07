@@ -1,53 +1,29 @@
 <template>
-  <q-page padding class="flex flex-center">
-    <!-- content -->
-    <div style="width: 90vw">
-      <q-input v-model="username" :error="error" lower-case float-label="Username" />
-      <q-input v-model="password" :error="error" float-label="Password" type="password" />
-      <br />
-      <p v-if="error" class="text-negative q-caption">Incorrect username or password.</p>
-      <q-btn label="Register" to="register" color="secondary" />&nbsp;
-      <q-btn label="Reset Password" to="resetPW" color="secondary" />
-      <q-btn class="float-right" label="Login" color="positive" @click="login" type="submit" />
-    </div>
-  </q-page>
+  <q-layout>
+    <q-page-container>
+      <q-page padding class="flex flex-center">
+        <!-- content -->
+        <div style="width: 90vw">
+          <q-input v-model="username" lower-case float-label="Username" />
+          <q-input v-model="password" float-label="Password" type="password" />
+          <br />
+          <q-btn class="float-right" label="Login" color="positive" @click="login" type="submit" />
+          <br />
+          <q-btn label="Register" to="register" color="secondary" />&nbsp;
+          <q-btn label="Reset Password" to="resetPW" color="secondary" />
+        </div>
+      </q-page>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
-/* eslint-disable no-return-assign */
-let db = require('src/modules/db')
-let api = require('src/modules/API')
+import DB from '../../modules/db'
+import API from '../../modules/API'
+import userinfo from '../../modules/userinfo'
 
 export default {
-  // name: 'PageName',
-  methods: {
-    login () {
-      let _this = this
-      api.authUser(this.username, this.password).then(function (res) {
-        if (res === false) {
-          // user is unauthenticated
-          _this.error = true
-        } else {
-          // user is authenticated, return user object
-          db.setUserSession(res)
-            .then(function () {
-              return api.getUserStudies(res.userID)
-            })
-            .then(function (studies) {
-              console.log(studies)
-              return db.setStudy(studies)
-            })
-            .then(function () {
-              _this.$emit('recheck-login')
-              _this.$router.push('/tasker')
-            })
-        }
-      }).catch(function (err) {
-        console.log(err)
-        _this.error = true
-      })
-    }
-  },
+  name: 'LoginPage',
   data () {
     return {
       username: '',
@@ -55,14 +31,37 @@ export default {
       error: false
     }
   },
-  created () {
-    // Check if user is logged in and redirect to tasker if so
-    let _this = this
-    db.getUserSession().then(function (session) {
-      if (session) {
-        _this.$router.push('/tasker')
+  methods: {
+    async login () {
+      try {
+        let user = await API.login(this.username, this.password)
+        console.info('Logged in! ', user)
+        // user is authenticated, return user object
+        await userinfo.login(user)
+        API.setToken(userinfo.token)
+
+        let studies = await API.getUserStudies(user._key)
+        await DB.setStudies(studies)
+
+        this.$router.push('/tasker')
+      } catch (error) {
+        console.error(error)
+        this.error = true
+        if (error.response && error.response.status === 401) {
+          this.$q.notify({
+            color: 'negative',
+            message: 'Cannot login, wrong credentials',
+            icon: 'report_problem'
+          })
+        } else {
+          this.$q.notify({
+            color: 'negative',
+            message: 'Login failed: ' + error.message,
+            icon: 'report_problem'
+          })
+        }
       }
-    })
+    }
   }
 }
 </script>

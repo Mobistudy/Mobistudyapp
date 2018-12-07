@@ -1,6 +1,29 @@
-// const axios = require('axios')
+// Logging in
+export async function login (email, password) {
+  if (email !== 'jameson.lee@worc.ox.ac.uk' || password !== 'test') {
+    let enahncedError = new Error('bad credentials')
+    enahncedError.response = { status: 401 }
+    throw enahncedError
+  }
+  return {
+    _key: '1231232',
+    email: 'jameson.lee@worc.ox.ac.uk',
+    token: 'asdasdasdasdasd'
+  }
+}
 
-// const db = require('src/modules/db')
+// Registration
+export async function registerUser (account, profile) {
+  return true
+}
+
+export function setToken (token) {
+  console.log('Setting token: ' + token)
+}
+
+export function unsetToken () {
+  console.log('Unsetting token')
+}
 
 export function getQuestionnaire (key) {
   return new Promise(function (resolve, reject) {
@@ -362,37 +385,6 @@ export function getStudyConfig (studyKey) {
       }, Math.floor(Math.random() * 5000))
     }
   })
-}
-
-// Logging in
-export function authUser (username, password) {
-  let users = [
-    {
-      username: 'jameson',
-      password: 'test',
-      userID: 'b61dbaac193a724ef623',
-      firstname: 'Jameson',
-      surname: 'Lee',
-      email: 'jameson.lee@worc.ox.ac.uk',
-      dob: '1997-08-28',
-      gender: 'male',
-      diseases: [],
-      medications: [],
-      smoker: false,
-      activeLifestyle: true
-    }
-  ]
-  let idx = users.findIndex(x => x.username.toLowerCase() === username)
-  if (idx !== -1 && users[idx].password === password) {
-    return Promise.resolve(users[idx]) // Send back user profile data
-  } else {
-    return Promise.resolve(false) // Return false if user cannot be authenticated
-  }
-}
-
-// Registration
-export function registerUser (account, profile) {
-  return Promise.resolve(true)
 }
 
 // Password reset

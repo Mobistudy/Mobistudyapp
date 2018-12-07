@@ -5,7 +5,6 @@ const routes = [
     component: () => import('layouts/MyLayout.vue'),
     children: [
       { path: '', component: () => import('pages/AccountMgmt/Login.vue') },
-      { path: '/login', component: () => import('pages/AccountMgmt/Login.vue') },
       { path: '/index', component: () => import('pages/Index.vue') },
       { path: '/tasker', component: () => import('pages/Main/Tasker.vue') },
       { path: '/about', component: () => import('pages/About.vue') },
@@ -15,11 +14,26 @@ const routes = [
     ]
   },
   {
+    path: '/login',
+    component: () => import('pages/AccountMgmt/Login.vue')
+  },
+  {
+    path: '/register',
+    component: () => import('pages/AccountMgmt/Register.vue')
+  },
+  {
+    path: '/resetpw',
+    component: () => import('pages/AccountMgmt/ResetPW.vue')
+  },
+  {
+    path: '/changepw',
+    component: () => import('pages/AccountMgmt/ChangePW.vue')
+  },
+  {
     path: '/full',
     component: () => import('layouts/NoSidebar.vue'),
     children: [
       { path: '/register', component: () => import('pages/AccountMgmt/Register.vue') },
-      { path: '/resetpw', component: () => import('pages/AccountMgmt/ResetPW.vue') },
       { path: '/changepw', component: () => import('pages/AccountMgmt/ChangePW.vue') },
       { path: '/questionnaire/:key', component: () => import('pages/Main/Questionnaire.vue') },
       { path: '/addStudy/:key', component: () => import('pages/Main/AddStudy.vue') },
