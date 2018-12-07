@@ -2,16 +2,7 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MyLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/AccountMgmt/Login.vue') },
-      { path: '/index', component: () => import('pages/Index.vue') },
-      { path: '/tasker', component: () => import('pages/Main/Tasker.vue') },
-      { path: '/about', component: () => import('pages/About.vue') },
-      { path: '/profile', component: () => import('pages/Main/Profile.vue') },
-      { path: '/studies', component: () => import('pages/Main/Studies.vue') },
-      { path: '/dev', component: () => import('pages/devControl.vue') }
-    ]
+    component: () => import('pages/AccountMgmt/Login.vue')
   },
   {
     path: '/login',
@@ -28,6 +19,19 @@ const routes = [
   {
     path: '/changepw',
     component: () => import('pages/AccountMgmt/ChangePW.vue')
+  },
+  {
+    path: '/home',
+    component: () => import('layouts/HomeLayout.vue'),
+    children: [
+      { path: '/', component: () => import('pages/Index.vue') },
+      { path: '/index', component: () => import('pages/Index.vue') },
+      { path: '/tasker', component: () => import('pages/Main/Tasker.vue') },
+      { path: '/about', component: () => import('pages/About.vue') },
+      { path: '/profile', component: () => import('pages/Main/Profile.vue') },
+      { path: '/studies', component: () => import('pages/Main/Studies.vue') },
+      { path: '/dev', component: () => import('pages/devControl.vue') }
+    ]
   },
   {
     path: '/full',

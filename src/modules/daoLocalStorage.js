@@ -12,6 +12,10 @@ import * as storage from './db_localStorage'
 
 // TODO: the best solution would be including encryption, eg via https://www.npmjs.com/package/secure-web-storage
 
+export async function emptyDB () {
+  return storage.clear()
+}
+
 /* AUTHENTICATION */
 export async function getUserSession () {
   return storage.getItem('session')

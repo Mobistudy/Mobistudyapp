@@ -31,6 +31,13 @@ export default {
       error: false
     }
   },
+  async created () {
+    if (userinfo.user.loggedin) {
+      userinfo.logout()
+      API.unsetToken()
+      DB.emptyDB()
+    }
+  },
   methods: {
     async login () {
       try {

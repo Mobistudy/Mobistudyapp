@@ -1,10 +1,11 @@
 // Logging in
 export async function login (email, password) {
-  if (email !== 'jameson.lee@worc.ox.ac.uk' || password !== 'test') {
+  if (email !== 'jameson@test.test' || password !== '12345678') {
     let enahncedError = new Error('bad credentials')
     enahncedError.response = { status: 401 }
     throw enahncedError
   }
+  console.log('API- Logging in')
   return {
     _key: '1231232',
     email: 'jameson.lee@worc.ox.ac.uk',
@@ -13,8 +14,36 @@ export async function login (email, password) {
 }
 
 // Registration
-export async function registerUser (account, profile) {
+export async function registerUser (email, password) {
+  console.log('API- Registering user')
   return true
+}
+
+// Create the participant profile
+export async function createProfile (profile) {
+  console.log('API- Profile created', profile)
+  return true
+}
+
+// Updating details
+export async function updateProfile (profile) {
+  console.log('API- Profile updated', profile)
+  return true
+}
+
+// Password reset
+export function resetPW (email) {
+  return Promise.resolve(true)
+}
+
+// Change password
+export function changePW (userKey, oldpw, newpw) {
+  // Make api call here and branch depending on result
+  if (oldpw !== 'correct') {
+    return Promise.resolve(false) // Old password does not match
+  } else {
+    return Promise.resolve(true) // New password updated correctly
+  }
 }
 
 export function setToken (token) {
@@ -385,26 +414,6 @@ export function getStudyConfig (studyKey) {
       }, Math.floor(Math.random() * 5000))
     }
   })
-}
-
-// Password reset
-export function resetPW (email) {
-  return Promise.resolve(true)
-}
-
-// Change password
-export function changePW (userKey, oldpw, newpw) {
-  // Make api call here and branch depending on result
-  if (oldpw !== 'correct') {
-    return Promise.resolve(false) // Old password does not match
-  } else {
-    return Promise.resolve(true) // New password updated correctly
-  }
-}
-
-// Updating details
-export function updateProfile (profile) {
-  return Promise.resolve(true)
 }
 
 // Token refresh - storage
