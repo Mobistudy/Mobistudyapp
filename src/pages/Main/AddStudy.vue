@@ -82,7 +82,7 @@
 </template>
 
 <script>
-let api = require('src/modules/mobistudyAPI')
+let api = require('src/modules/API')
 
 export default {
   data () {

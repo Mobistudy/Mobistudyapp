@@ -44,7 +44,7 @@
 
 <script>
 let db = require('src/modules/db')
-let api = require('src/modules/mobistudyAPI')
+let api = require('src/modules/API')
 import profileOptions from 'src/modules/profileOptions'
 import {required, email} from 'vuelidate/lib/validators'
 

@@ -16,7 +16,7 @@
 <script>
 /* eslint-disable no-return-assign */
 let db = require('src/modules/db')
-let api = require('src/modules/mobistudyAPI')
+let api = require('src/modules/API')
 
 export default {
   // name: 'PageName',

@@ -17,7 +17,7 @@
 
 <script>
 import {required, sameAs} from 'vuelidate/lib/validators'
-let api = require('src/modules/mobistudyAPI')
+let api = require('src/modules/API')
 let db = require('src/modules/db')
 
 export default {

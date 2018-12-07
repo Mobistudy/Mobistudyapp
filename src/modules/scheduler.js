@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 let db = require('src/modules/db.js')
-let api = require('src/modules/mobistudyAPI')
+let api = require('src/modules/API')
 let moment = require('moment')
 import { RRule } from 'rrule'
 

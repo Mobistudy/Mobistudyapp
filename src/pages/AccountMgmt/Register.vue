@@ -133,7 +133,7 @@
 <script>
 import {required, email, sameAs} from 'vuelidate/lib/validators'
 import profileOptions from 'src/modules/profileOptions'
-let api = require('src/modules/mobistudyAPI')
+let api = require('src/modules/API')
 
 export default {
   // name: 'PageName',
