@@ -12,19 +12,12 @@
       </q-toolbar>
     </q-layout-header>
 
-    <q-layout-drawer
-      v-model="leftDrawerOpen"
-      :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
-    >
-      <q-list
-        no-border
-        link
-        inset-delimiter
-      >
-        <q-list-header>Logged in as Jameson Lee</q-list-header>
+    <q-layout-drawer v-model="leftDrawerOpen" :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null">
+      <q-list no-border link inset-delimiter >
+        <q-list-header>Logged in as {{ name }} {{ surname }}</q-list-header>
         <q-item to="tasker">
           <q-item-side icon="school" />
-          <q-item-main label="Clinical Study" sublabel="See upcoming events and tasks" />
+          <q-item-main label="Daily tasks" sublabel="See upcoming tasks" />
         </q-item>
         <q-item to="profile">
           <q-item-side icon="account_box" />
@@ -36,30 +29,34 @@
         </q-item>
         <q-item to="about">
           <q-item-side icon="help" />
-          <q-item-main label="About" sublabel="Contact us"/>
+          <q-item-main label="About" sublabel="About Mobistudy"/>
         </q-item>
         <q-item to="login">
           <q-item-side icon="exit_to_app" />
-          <q-item-main label="Log out" />
+          <q-item-main label="Log out" sublabel="logout from this account"/>
         </q-item>
         <q-item to="dev">
           <q-item-side icon="build" />
-          <q-item-main label="Developer Panel" :sublabel="'State: ' + JSON.stringify(loggedIn)" />
+          <q-item-main label="Developer Panel" />
         </q-item>
       </q-list>
     </q-layout-drawer>
 
     <q-page-container>
-      <router-view @recheck-login="isLoggedIn" />
+      <router-view/>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
+import userinfo from '../modules/userinfo'
+
 export default {
   name: 'HomeLayout',
   data () {
     return {
+      name: userinfo.user.name,
+      surname: userinfo.user.surname,
       leftDrawerOpen: false
     }
   }
