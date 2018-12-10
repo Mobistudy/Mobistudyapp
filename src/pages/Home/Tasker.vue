@@ -74,7 +74,6 @@ export default {
     }
 
     let res = scheduler.generateTasker(activestudies, activeStudiesDescr)
-    console.log(res)
     this.tasks = this.tasks.concat(res.upcoming, res.missed)
   },
   computed: {

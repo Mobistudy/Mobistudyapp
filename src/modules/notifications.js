@@ -15,7 +15,7 @@ if (!notification) {
         sendNotification(text)
       })
     } else {
-      let notification = new Notification(text, {
+      let notification = new Notification('Mobistudy', {
         body: text
       })
       notification.onclick = function () {
@@ -26,11 +26,28 @@ if (!notification) {
     }
   }
   notification = {
+    hasPermission (callback) {
+      let isgranted = Notification.permission === 'granted'
+      callback(isgranted)
+    },
+    requestPermission (callback) {
+      Notification.requestPermission(function (permission) {
+        let isgranted = permission === 'granted'
+        callback(isgranted)
+      })
+    },
     schedule (obj) {
-      console.log('Notification mockup - ', obj)
-      setTimeout(() => {
-        sendNotification(obj.text)
-      }, moment(obj.trigger.at).diff(moment())) // time difference in millis from trigger.at and now
+      let millis = moment(obj.trigger.at).diff(moment())
+      if (millis < 0) millis = 0
+      console.log('Notification mockup scheduled in ' + millis, obj)
+      setTimeout(function () {
+        console.info('Notification mockup!!! ' + obj.text)
+        // if (Notification && Notification.permission === 'granted') {
+        //   Notification('Mobistudy', {
+        //     body: obj.text
+        //   })
+        // }
+      }, millis) // time difference in millis from trigger.at and now
     }
   }
 }
