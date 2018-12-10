@@ -8,7 +8,7 @@
     <q-list highlight>
       <q-list-header>Current Tasks</q-list-header>
       <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
-      <taskListItem v-for="(task,index) in tasks" v-if="!task.missed" :task="task" :key="index"></taskListItem>
+      <taskListItem v-for="(task, index) in tasks" v-if="!task.missed" :task="task" :key="index"></taskListItem>
       <q-item v-if="taskNumbers.current === 0">
         <q-item-side icon="check" />
         <q-item-main sublabel="No tasks pending" />
@@ -31,18 +31,51 @@
 <script>
 import taskCard from 'components/Main/TaskCard.vue'
 import taskListItem from 'components/Main/TaskListItem.vue'
-let scheduler = require('src/modules/scheduler')
+import DB from '../../modules/db'
+import API from '../../modules/API'
+import * as scheduler from '../../modules/scheduler'
 
 export default {
-  name: 'PageIndex',
+  name: 'TaskerPage',
   components: {
     taskCard, taskListItem
   },
-  created () {
-    let _this = this
-    scheduler.generateTasker().then(function (res) {
-      _this.tasks = _this.tasks.concat(res.upcoming, res.missed)
+  data () {
+    return {
+      tasks: [ ]
+    }
+  },
+  async created () {
+    // retrieve studies
+    let studies = await DB.getStudiesParticipation()
+    if (!studies) {
+      // shouldn't happen, but just in case...
+      let profile = await API.getProfile()
+      await DB.setStudiesParticipation(profile.studies)
+    }
+
+    let activestudies = studies.filter((s) => {
+      return s.currentStatus === 'accepted'
     })
+
+    let activeStudiesDescr = []
+    for (const study of activestudies) {
+      let studyDescr = await DB.getStudyDescription(study.studyKey)
+      if (!studyDescr) {
+        studyDescr = await API.getStudyDescription(study.studyKey)
+        try {
+          await DB.setStudyDescription(study.studyKey, studyDescr)
+          scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
+        } catch (err) {
+          console.error('Cannot save study description on store?!?!?', err)
+        }
+      }
+      activeStudiesDescr.push(studyDescr)
+    }
+
+    let res = scheduler.generateTasker(activestudies, activeStudiesDescr)
+    console.log(res)
+    this.tasks = this.tasks.concat(res.upcoming, res.missed)
   },
   computed: {
     taskNumbers: function () {
@@ -56,52 +89,6 @@ export default {
         }
       }
       return {current: countCurrent, missed: countMissed}
-    }
-  },
-  methods: {
-  },
-  data () {
-    return {
-      tasks: [
-        // {
-        //   id: 0,
-        //   formKey: 123456,
-        //   title: 'Questionnaire 1',
-        //   main: 'blah',
-        //   submitText: 'Take Questionnaire',
-        //   icon: 'ballot',
-        //   future: false,
-        //   due: 1540479083000
-        // },
-        // {
-        //   id: 1,
-        //   formKey: 1234,
-        //   title: 'Questionnaire 2',
-        //   main: 'blahblah',
-        //   submitText: 'Take Questionnaire',
-        //   icon: 'ballot',
-        //   future: false,
-        //   due: 1540651883000
-        // },
-        // {
-        //   id: 2,
-        //   title: 'Pedometer Data',
-        //   main: 'We\'d like to analyse how many steps you\'ve taken over the past week',
-        //   submitText: 'Send Data',
-        //   icon: 'directions_walk',
-        //   future: true,
-        //   due: 1540612283000
-        // },
-        // {
-        //   id: 3,
-        //   title: 'Pedometer Data again',
-        //   main: 'We\'d like to analyse how many steps you\'ve taken over the past week',
-        //   submitText: 'Send Data',
-        //   icon: 'directions_walk',
-        //   future: true,
-        //   due: 1543290683000
-        // }
-      ]
     }
   }
 }

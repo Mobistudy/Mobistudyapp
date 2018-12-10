@@ -45,18 +45,15 @@ export default {
         console.info('Logged in! ', user)
         // user is authenticated, return user object
         await userinfo.login(user)
-        API.setToken(userinfo.token)
+        API.setToken(user.token)
 
         // retrieve the profile information
         // TODO: if the profile information is not available, it should go to a dedicated page where to fill it in
         let profile = await API.getProfile()
         await userinfo.setProfile(profile)
+        await DB.setStudiesParticipation(profile.studies)
 
-        // retrieve studies (why here???)
-        let studies = await API.getUserStudies(user._key)
-        await DB.setStudies(studies)
-
-        this.$router.push('/tasker')
+        this.$router.push('/home')
       } catch (error) {
         console.error(error)
         this.error = true

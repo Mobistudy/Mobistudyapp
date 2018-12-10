@@ -24,11 +24,11 @@ const routes = [
     path: '/home',
     component: () => import('layouts/HomeLayout.vue'),
     children: [
-      { path: '/', component: () => import('pages/Main/Tasker.vue') },
-      { path: '/tasker', component: () => import('pages/Main/Tasker.vue') },
-      { path: '/about', component: () => import('pages/About.vue') },
-      { path: '/profile', component: () => import('pages/Main/Profile.vue') },
-      { path: '/studies', component: () => import('pages/Main/Studies.vue') },
+      { path: '/', component: () => import('pages/Home/Tasker.vue') },
+      { path: '/tasker', component: () => import('pages/Home/Tasker.vue') },
+      { path: '/about', component: () => import('pages/Home/About.vue') },
+      { path: '/profile', component: () => import('pages/Home/Profile.vue') },
+      { path: '/studies', component: () => import('pages/Home/Studies.vue') },
       { path: '/dev', component: () => import('pages/devControl.vue') }
     ]
   },

@@ -30,53 +30,24 @@ export async function removeUserSession () {
 }
 
 /* STUDY MANAGEMENT */
-export async function getStudies () {
-  let studyList = await storage.getItem('studies')
-  if (studyList === null) {
-    studyList = []
-  }
-  return studyList
+export async function getStudiesParticipation () {
+  return storage.getItem('studiesParticipation')
 }
 
-export async function addStudy (studyKey, config) {
-  let studyList = await getStudies()
-  studyList.push({
-    key: studyKey,
-    start: new Date(),
-    config: config
-  })
-  return storage.setItem('studies', studyList)
+export async function setStudiesParticipation (studies) {
+  return storage.setItem('studiesParticipation', studies)
 }
 
-export async function setStudies (studies) {
-  return storage.setItem('studies', studies)
+export async function getStudyDescription (studyKey) {
+  return storage.getItem('study_' + studyKey)
 }
 
-export async function updateStudy (studyKey, config) {
-  let studyList = await getStudies()
-  let idx = studyList.findIndex(x => x.key === studyKey)
-  if (idx !== -1) {
-    let newStudy = {
-      key: studyKey,
-      start: studyList[idx].start,
-      config: config
-    }
-    studyList.splice(idx, 1, newStudy)
-    return storage.setItem('studies', studyList)
-  } else {
-    throw new Error('Study not found')
-  }
+export async function setStudyDescription (studyKey, config) {
+  return storage.setItem('study_' + studyKey, config)
 }
 
 export async function removeStudy (studyKey) {
-  let studyList = await getStudies()
-  let idx = studyList.findIndex(x => x.key === studyKey)
-  if (idx !== -1) {
-    studyList.splice(idx, 1)
-    return storage.setItem('studies', studyList)
-  } else {
-    throw new Error('Study not found')
-  }
+  return storage.removeItem('study_' + studyKey)
 }
 
 /* DATA/QUESTIONNAIRE HANDLING */
