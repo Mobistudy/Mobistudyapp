@@ -2,15 +2,15 @@
   <q-layout>
     <q-page-container>
       <q-page padding class="flex flex-center">
-        <!-- content -->
         <div style="width: 90vw">
+          <p class="q-headline">Login</p>
           <q-input v-model="username" lower-case float-label="Username" />
           <q-input v-model="password" float-label="Password" type="password" />
           <br />
           <q-btn class="float-right" label="Login" color="positive" @click="login" type="submit" />
           <br />
           <q-btn label="Register" to="register" color="secondary" />&nbsp;
-          <q-btn label="Reset Password" to="resetPW" color="secondary" />
+          <q-btn label="Reset Password" to="resetpw" color="secondary" />
         </div>
       </q-page>
     </q-page-container>
@@ -47,6 +47,12 @@ export default {
         await userinfo.login(user)
         API.setToken(userinfo.token)
 
+        // retrieve the profile information
+        // TODO: if the profile information is not available, it should go to a dedicated page where to fill it in
+        let profile = await API.getProfile()
+        await userinfo.setProfile(profile)
+
+        // retrieve studies (why here???)
         let studies = await API.getUserStudies(user._key)
         await DB.setStudies(studies)
 

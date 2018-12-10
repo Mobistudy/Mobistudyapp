@@ -3,7 +3,6 @@ import DB from './db'
 /**
 * Simple object store ofr user information
 */
-console.log('!!!!!!!!!!!!!!!!!!')
 export default {
   async init () {
     this.user = await DB.getUserSession()
@@ -11,21 +10,36 @@ export default {
       this.user = {
         loggedin: false,
         _key: undefined,
-        token: undefined
+        token: undefined,
+        name: undefined,
+        surname: undefined,
+        gender: undefined,
+        dob: undefined
       }
-    }
+    } else this.user.loggedin = true
   },
-  login (newuser) {
+  async login (newuser) {
     this.user.loggedin = true
     this.user._key = newuser._key
     this.user.token = newuser.token
-    DB.setUserSession(newuser)
+    await DB.setUserSession(this.user)
+  },
+  async setProfile (profile) {
+    this.user.name = profile.name
+    this.user.surname = profile.surname
+    this.user.dob = profile.dateOfBirth
+    this.user.gender = profile.gender
+    await DB.setUserSession(this.user)
   },
   logout () {
     this.user = {
       loggedin: false,
       _key: undefined,
-      token: undefined
+      token: undefined,
+      name: undefined,
+      surname: undefined,
+      gender: undefined,
+      dob: undefined
     }
     DB.removeUserSession()
   }

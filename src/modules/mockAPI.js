@@ -25,6 +25,30 @@ export async function createProfile (profile) {
   return true
 }
 
+// Get the participant profile
+export async function getProfile () {
+  let profile = {
+    userKey: '1231232',
+    createdTS: '2018-12-10T09:30:32.492Z',
+    name: 'Jameson',
+    surname: 'Lee',
+    dateOfBirth: '1986-11-10',
+    gender: 'male',
+    diseases: { '212132': 'heart failure' },
+    medications: { },
+    studies: [
+      {
+        studyKey: '1234',
+        currentStatus: 'accepted',
+        acceptedTS: '2018-12-10T09:30:32.492Z',
+        criteriaAnswers: [ 'Yes', 'No' ]
+      }
+    ]
+  }
+  console.log('API- Profile got', profile)
+  return profile
+}
+
 // Updating details
 export async function updateProfile (profile) {
   console.log('API- Profile updated', profile)
@@ -32,8 +56,9 @@ export async function updateProfile (profile) {
 }
 
 // Password reset
-export function resetPW (email) {
-  return Promise.resolve(true)
+export async function resetPW (email) {
+  console.log('API- Reset profile for email' + email)
+  return true
 }
 
 // Change password

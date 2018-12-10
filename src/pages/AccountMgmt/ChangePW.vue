@@ -1,71 +1,76 @@
 <template>
-  <q-page padding class="flex flex-center">
-    <!-- content -->
-    <div style="width: 80vw">
-      <q-field :error="$v.oldpw.$error || !oldpwmatch" error-label="Old password incorrect" >
-        <q-input float-label="Old Password" v-model="oldpw" type="password" />
-      </q-field>
-      <q-field :error="$v.newpw.$error || $v.confpw.$error" error-label="Passwords do not match">
-        <q-input float-label="New Password" v-model="newpw" type="password" />
-        <q-input float-label="Confirm Password" v-model="confpw" type="password" />
-      </q-field>
-      <br />
-      <q-btn class="float-right" label="Change Password" color="positive" type="submit" @click="submit" />
-    </div>
-  </q-page>
+  <q-layout>
+    <q-page-container>
+      <q-page padding class="flex flex-center">
+        If you're registered in the system, you should receive an email shortly.
+        Please copy/paste the token from your email to this form.
+        If you fill the form and change your password on the Mobistudy web page, please tap on Cancel.
+        <div style="width: 80vw">
+          <q-field label="Token" helper="As received on your email." :error="$v.token.$error" error-label="A token is required." >
+            <q-input v-model="token" type="text" @blur="$v.token.$touch" clearable/>
+          </q-field>
+          <q-field :error="$v.newpw.$error || $v.confpw.$error" error-label="Passwords do not match">
+            <q-input float-label="New Password" v-model="newpw" type="password" />
+            <q-input float-label="Confirm Password" v-model="confpw" type="password" />
+          </q-field>
+          <br />
+          <q-btn class="float-right" label="Change Password" color="positive" type="submit" @click="resetUserPassword" />
+          <q-btn class="float-right" label="Cancel" color="secondary"  to="login" />
+        </div>
+      </q-page>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
-import {required, sameAs} from 'vuelidate/lib/validators'
-let api = require('src/modules/API')
-let db = require('src/modules/db')
+import { required, sameAs } from 'vuelidate/lib/validators'
+import userinfo from '../../modules/userinfo'
+import API from '../../modules/API'
 
 export default {
-  // name: 'PageName',
+  name: 'ChangePasswordPage',
   data () {
     return {
-      oldpw: null,
-      newpw: null,
-      confpw: null,
-      oldpwmatch: true
+      token: undefined,
+      newpw: undefined,
+      confpw: undefined
     }
   },
   validations: {
-    oldpw: {required},
-    newpw: {required},
+    token: { required },
+    newpw: { required },
     confpw: {
       sameAsPassword: sameAs('newpw')
     }
   },
+  created () {
+    // at this point we must be logged out
+    userinfo.logout()
+  },
   methods: {
-    submit () {
+    async resetUserPassword () {
       this.$v.$touch()
-      let _this = this
-      if (!this.$v.$invalid) {
-        db.getUserSession()
-          .then(function (session) {
-            return api.changePW(session.userID, _this.oldpw, _this.newpw)
+      if (!this.$v.error) {
+        try {
+          await API.changePW(this.token, this.newpw)
+          this.$q.dialog({
+            title: 'New password set',
+            message: 'Now, you can login.',
+            ok: true,
+            cancel: false,
+            preventClose: true
+          }).then(() => {
+            this.$router.push('/login')
           })
-          .then(function (success) {
-            if (success) {
-              _this.$q.notify({
-                message: 'Password changed successfully!',
-                type: 'positive',
-                icon: 'lock'
-              })
-              _this.$router.push('/tasker')
-            } else {
-              _this.oldpwmatch = false
-            }
+        } catch (error) {
+          this.$q.notify({
+            color: 'negative',
+            message: 'Cannot change password: ' + error.message,
+            icon: 'report_problem'
           })
-          .catch(function (err) {
-            _this.$q.notify(err.message)
-          })
+        }
       }
     }
   }
 }
 </script>
-
-<style>
-</style>

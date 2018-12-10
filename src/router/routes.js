@@ -24,7 +24,7 @@ const routes = [
     path: '/home',
     component: () => import('layouts/HomeLayout.vue'),
     children: [
-      { path: '/', component: () => import('pages/Tasker.vue') },
+      { path: '/', component: () => import('pages/Main/Tasker.vue') },
       { path: '/tasker', component: () => import('pages/Main/Tasker.vue') },
       { path: '/about', component: () => import('pages/About.vue') },
       { path: '/profile', component: () => import('pages/Main/Profile.vue') },
