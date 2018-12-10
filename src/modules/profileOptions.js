@@ -26,22 +26,8 @@ let options = {
       label: 'Duloxetine',
       value: 'duloxetine'
     }
-  ],
-  genders: [
-    {
-      label: 'Male',
-      value: 'male'
-    },
-    {
-      label: 'Female',
-      value: 'female'
-    },
-    {
-      label: 'Other',
-      value: 'other'
-    }
-
   ]
+
 }
 
 export default options

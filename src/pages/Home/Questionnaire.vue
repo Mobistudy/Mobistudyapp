@@ -38,8 +38,7 @@
 </template>
 
 <script>
-// let mobistudyAPI = require('src/modules/mobistudyAPI')
-import * as mobistudyAPI from 'src/modules/mobistudyAPI'
+import API from 'src/modules/API'
 let db = require('src/modules/db')
 let moment = require('moment')
 
@@ -66,7 +65,7 @@ export default {
   created () {
     this.$q.loading.show()
     let _this = this
-    mobistudyAPI.getQuestionnaire(this.$route.params.key).then(function (questionnaireObject) {
+    API.getQuestionnaire(this.$route.params.key).then(function (questionnaireObject) {
       _this.questionnaire = questionnaireObject
       _this.generateResponseSkeleton()
       _this.$q.loading.hide()
