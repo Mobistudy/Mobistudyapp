@@ -11,7 +11,7 @@
     <q-btn label="rm study def" @click="rmStudy('def')" />
     <q-btn label="set instant notification" @click="setNotification(0)" />
     <q-btn label="set delayed notification 5s" @click="setNotification(5)" />
-    <q-btn label="set delayed notification 10s" @click="setNotification(10)" />
+    <q-btn label="set delayed notification 90s" @click="setNotification(90)" />
   </q-page>
 </template>
 
@@ -73,7 +73,7 @@ export default {
     setNotification (delay) {
       cordova.plugins.notification.local.schedule({
         text: 'You have a new study task pending!',
-        trigger: { at: moment().add(delay, 's').toDate() }
+        at: moment().add(delay, 's').toDate()
       })
     }
   }
