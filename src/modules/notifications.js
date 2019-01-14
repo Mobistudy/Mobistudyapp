@@ -26,6 +26,7 @@ if (!notification) {
     }
   }
   notification = {
+    timeoutIDs: [],
     hasPermission (callback) {
       let isgranted = Notification.permission === 'granted'
       callback(isgranted)
@@ -36,20 +37,55 @@ if (!notification) {
         callback(isgranted)
       })
     },
-    schedule (obj) {
+    schedule (obj, callback) {
       let millis = moment(obj.trigger.at).diff(moment())
       if (millis < 0) millis = 0
       console.log('Notification mockup scheduled in ' + millis, obj)
-      setTimeout(function () {
-        console.info('Notification mockup!!! ' + obj.text)
-        // if (Notification && Notification.permission === 'granted') {
-        //   Notification('Mobistudy', {
-        //     body: obj.text
-        //   })
-        // }
-      }, millis) // time difference in millis from trigger.at and now
+      if (millis <= 2147483647) {
+        let timeoutID = setTimeout(function () {
+          if (Notification && Notification.permission === 'granted') {
+            Notification('Mobistudy', {
+              body: obj.text
+            })
+          }
+        }, millis) // time difference in millis from trigger.at and now
+        this.timeoutIDs.push(timeoutID)
+      } else {
+        console.info('Notification too far in the future: ' + (millis / 86400000))
+      }
+      callback()
+    },
+    cancelAll (callback) {
+      for (let timeoutID of this.timeoutIDs) {
+        clearTimeout(timeoutID)
+      }
+      callback()
     }
   }
 }
 
-export default notification
+export default {
+  async hasPermission () {
+    return new Promise((resolve, reject) => {
+      notification.hasPermission(resolve)
+    })
+  },
+  async requestPermission () {
+    return new Promise((resolve, reject) => {
+      notification.requestPermission(function (isgranted) {
+        if (isgranted) resolve()
+        else reject(new Error('No permissions'))
+      })
+    })
+  },
+  async schedule (obj) {
+    return new Promise((resolve, reject) => {
+      notification.schedule(obj, resolve)
+    })
+  },
+  async cancelAll () {
+    return new Promise((resolve, reject) => {
+      notification.cancelAll(resolve)
+    })
+  }
+}

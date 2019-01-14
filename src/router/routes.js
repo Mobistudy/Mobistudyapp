@@ -29,7 +29,7 @@ const routes = [
       { path: '/about', component: () => import('pages/Home/About.vue') },
       { path: '/profile', component: () => import('pages/Home/Profile.vue') },
       { path: '/studies', component: () => import('pages/Home/Studies.vue') },
-      { path: '/addStudy/:key', component: () => import('pages/Main/AddStudy.vue') },
+      { path: '/addStudy/:key', component: () => import('pages/Home/AddStudy.vue') },
       { path: '/dev', component: () => import('pages/devControl.vue') }
     ]
   },
@@ -37,8 +37,8 @@ const routes = [
     path: '/tasks',
     component: () => import('layouts/TaskLayout.vue'),
     children: [
-      { path: '/questionnaire/:key', component: () => import('pages/Main/Questionnaire.vue') },
-      { path: '/dataQuery/:studyKey/:taskID', component: () => import('pages/Main/DataQuery') }
+      { path: '/questionnaire/:key', component: () => import('pages/Home/Questionnaire.vue') },
+      { path: '/dataQuery/:studyKey/:taskID', component: () => import('pages/Home/DataQuery') }
     ]
   }
 ]

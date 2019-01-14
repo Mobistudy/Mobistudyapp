@@ -65,11 +65,13 @@ export default {
         studyDescr = await API.getStudyDescription(study.studyKey)
         try {
           await DB.setStudyDescription(study.studyKey, studyDescr)
-          scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
         } catch (err) {
           console.error('Cannot save study description on store?!?!?', err)
         }
       }
+      console.log('Study was accepted on ', study.acceptedTS)
+      scheduler.cancelNotifications()
+      scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
       activeStudiesDescr.push(studyDescr)
     }
 

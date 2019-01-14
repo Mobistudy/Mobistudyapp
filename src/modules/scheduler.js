@@ -4,7 +4,7 @@ import { RRule } from 'rrule'
 import notifications from './notifications'
 
 // returns an array of tasks that need to be done today
-// these are tasks  that were "missed" between the last execution and the end of today
+// these are tasks that were "missed" between the last execution and the end of today
 export function generateTasker (studiesParts, studiesDescr) {
   let taskerItems = {
     upcoming: [],
@@ -168,13 +168,17 @@ export function scheduleNotificationsAllStudies (studiesParts, studiesDescr) {
   }
 }
 
-export function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) {
+export async function cancelNotifications () {
+  return notifications.cancelAll()
+}
+
+export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) {
   for (const task of studyDescr.tasks) {
     for (const task of studyDescr.tasks) {
       let rrule = generateRRule(acceptedTS, task.scheduling)
-      let taskTimes = rrule.between(acceptedTS, new Date(studyDescr.generalities.endDate), true)
+      let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
       for (const taskTime of taskTimes) {
-        notifications.schedule({
+        await notifications.schedule({
           text: 'You have a new study task pending!',
           trigger: { at: moment(taskTime).toDate() }
         })
