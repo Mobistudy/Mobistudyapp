@@ -29,6 +29,7 @@
 </style>
 
 <script>
+import session from '../../modules/session'
 import taskCard from 'components/Main/TaskCard.vue'
 import taskListItem from 'components/Main/TaskListItem.vue'
 import DB from '../../modules/db'
@@ -46,6 +47,9 @@ export default {
     }
   },
   async created () {
+    if (!session.notificationsScheduled) {
+      await scheduler.cancelNotifications()
+    }
     // retrieve studies
     let studies = await DB.getStudiesParticipation()
     if (!studies) {
@@ -68,12 +72,17 @@ export default {
         } catch (err) {
           console.error('Cannot save study description on store?!?!?', err)
         }
+        if (session.notificationsScheduled) {
+          await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
+        }
       }
-      console.log('Study was accepted on ', study.acceptedTS)
-      scheduler.cancelNotifications()
-      scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
+      if (!session.notificationsScheduled) {
+        await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
+      }
       activeStudiesDescr.push(studyDescr)
     }
+
+    session.notificationsScheduled = true
 
     let res = scheduler.generateTasker(activestudies, activeStudiesDescr)
     this.tasks = this.tasks.concat(res.upcoming, res.missed)
