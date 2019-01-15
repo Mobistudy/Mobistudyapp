@@ -22,6 +22,7 @@ import DB from '../../modules/db'
 import API from '../../modules/API'
 import userinfo from '../../modules/userinfo'
 import session from '../../modules/session'
+import notifications from '../../modules/notifications'
 
 export default {
   name: 'LoginPage',
@@ -35,6 +36,7 @@ export default {
   async created () {
     if (userinfo.user.loggedin) {
       session.notificationsScheduled = false
+      notifications.cancelAll()
       userinfo.logout()
       API.unsetToken()
       DB.emptyDB()

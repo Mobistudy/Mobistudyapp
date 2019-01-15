@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export function setToken (token) {
   console.log('API- Setting token: ' + token)
 }
@@ -16,7 +18,7 @@ export async function login (email, password) {
   console.log('API- Logging in')
   return {
     _key: '1231232',
-    email: 'jameson.lee@worc.ox.ac.uk',
+    email: 'jameson@test.test',
     token: 'asdasdasdasdasd'
   }
 }
@@ -42,7 +44,7 @@ export async function getProfile () {
     surname: 'Lee',
     dateOfBirth: '1986-11-10',
     gender: 'male',
-    diseases: { '212132': 'heart failure' },
+    diseases: { }, // 'Heart failure': '84114007'
     medications: { },
     studies: [
       {
@@ -70,7 +72,7 @@ export async function resetPW (email) {
 }
 
 // Change password
-export function changePW (userKey, oldpw, newpw) {
+export async function changePW (userKey, oldpw, newpw) {
   // Make api call here and branch depending on result
   if (oldpw !== 'correct') {
     return Promise.resolve(false) // Old password does not match
@@ -79,7 +81,53 @@ export function changePW (userKey, oldpw, newpw) {
   }
 }
 
-export function getStudyDescription (studyKey) {
+// search for disease on SNOMED
+export async function searchSNOMEDDisease (diseaseDescription) {
+  // Declare top level URL vars
+  const baseUrl = 'https://browser.ihtsdotools.org/api/v1/snomed/'
+  const edition = 'en-edition'
+  const version = '20180131'
+  // Construct Disease Query URL
+  const diseaseQueryURL = baseUrl + '/' + edition + '/v' + version + '/descriptions?query=' + encodeURIComponent(diseaseDescription) + '&limit=50&searchMode=partialMatching' + '&lang=english&statusFilter=activeOnly&skipTo=0' + '&semanticFilter=disorder' + '&returnLimit=100&normalize=true'
+
+  const response = await axios.get(diseaseQueryURL)
+  const dataDis = response.data
+  // Filter out already selected diseases
+  const resFiltByLen = dataDis.matches.filter(entry => entry['term'].length < 50)
+  const retval = resFiltByLen.map((item) => {
+    return {
+      label: item.term,
+      value: item.term,
+      conceptId: item.conceptId
+    }
+  })
+  return retval
+}
+
+// search for medications on SNOMED
+export async function searchSNOMEDMedication (medDescription) {
+  // Declare top level URL vars
+  var baseUrl = 'https://browser.ihtsdotools.org/api/v1/snomed/'
+  var edition = 'en-edition'
+  var version = '20180131'
+  // Construct medications Query URL
+  var medQueryURL = baseUrl + '/' + edition + '/v' + version + '/descriptions?query=' + encodeURIComponent(medDescription) + '&limit=50&searchMode=partialMatching' + '&lang=english&statusFilter=activeOnly&skipTo=0' + '&semanticFilter=substance' + '&returnLimit=100&normalize=true'
+
+  const response = await axios.get(medQueryURL)
+  const dataMed = response.data
+  // Filter out already selected medications
+  let resMedsFiltByLen = dataMed.matches.filter(entry => entry['term'].length < 50)
+  const retval = resMedsFiltByLen.map((item) => {
+    return {
+      label: item.term,
+      value: item.term,
+      conceptId: item.conceptId
+    }
+  })
+  return retval
+}
+
+export async function getStudyDescription (studyKey) {
   console.log('API- getting study ' + studyKey)
   return new Promise(function (resolve, reject) {
     if (studyKey === '9999') {
