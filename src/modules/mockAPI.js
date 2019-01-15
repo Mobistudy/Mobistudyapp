@@ -81,6 +81,12 @@ export async function changePW (userKey, oldpw, newpw) {
   }
 }
 
+// Permanently delete the user
+export async function deleteUser () {
+  console.log('API- permanently delete user')
+  return true
+}
+
 // search for disease on SNOMED
 export async function searchSNOMEDDisease (diseaseDescription) {
   // Declare top level URL vars

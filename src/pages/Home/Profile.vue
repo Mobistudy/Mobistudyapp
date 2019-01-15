@@ -32,7 +32,8 @@
       <div class="q-ma-sm"><q-btn color="positive" label="Update" @click="saveProfile()" /></div>
       <div class="q-ma-sm"><q-btn color="tertiary" label="Cancel" to="home" /></div>
       <div class="q-ma-sm"><q-btn color="secondary" to="changePW" label="Change Password" /></div>
-      <div class="q-ma-sm"><q-btn color="negative" class="float-right" label="Logout" to="Login" /></div>
+      <div class="q-ma-sm"><q-btn color="warning" class="float-right" label="Logout" to="Login" /></div>
+      <div class="q-ma-sm"><q-btn color="negative" class="float-right" label="Delete user" @click="deleteUser()" /></div>
     </div>
   </q-page>
 </template>
@@ -192,6 +193,26 @@ export default {
           })
         }
       }
+    },
+    async deleteUser () {
+      this.$q.dialog({
+        title: 'Warning',
+        message: 'Deleting your user will delete all the data permanently for all studies. Are you sure you want to continue?',
+        color: 'negative',
+        ok: 'DELETE',
+        cancel: true
+      }).then(async () => {
+        try {
+          await API.deleteUser()
+          this.$router.push('/login')
+        } catch (error) {
+          this.$q.notify({
+            color: 'negative',
+            message: 'Cannot delete user: ' + error.message,
+            icon: 'report_problem'
+          })
+        }
+      })
     }
   }
 }
