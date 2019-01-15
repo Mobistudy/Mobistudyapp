@@ -1,11 +1,6 @@
 <template>
-  <!--<q-page padding class="row items-start flex flex-center">-->
   <q-page padding>
-    <!--<div class="row">-->
-    <!--<img alt="Quasar logo" src="~assets/quasar-logo-full.svg">-->
-    <!--<taskCard v-for="task in tasks" v-bind:task="task" v-bind:key="task.id"></taskCard>-->
-    <!--</div>-->
-    <q-list highlight>
+    <q-list highlight v-show="!$q.loading.isActive">
       <q-list-header>Current Tasks</q-list-header>
       <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
       <taskListItem v-for="(task, index) in tasks" v-if="!task.missed" :task="task" :key="index"></taskListItem>
@@ -20,7 +15,6 @@
         <q-item-side icon="check" />
         <q-item-main sublabel="No tasks missed" />
       </q-item>
-      <!--<study-previous v-for="study in previousStudies" v-bind:study="study" v-bind:key="study.id"></study-previous>-->
     </q-list>
   </q-page>
 </template>
@@ -47,45 +41,7 @@ export default {
     }
   },
   async created () {
-    if (!session.notificationsScheduled) {
-      await scheduler.cancelNotifications()
-    }
-    // retrieve studies
-    let studies = await DB.getStudiesParticipation()
-    if (!studies) {
-      // shouldn't happen, but just in case...
-      let profile = await API.getProfile()
-      await DB.setStudiesParticipation(profile.studies)
-    }
-
-    let activestudies = studies.filter((s) => {
-      return s.currentStatus === 'accepted'
-    })
-
-    let activeStudiesDescr = []
-    for (const study of activestudies) {
-      let studyDescr = await DB.getStudyDescription(study.studyKey)
-      if (!studyDescr) {
-        studyDescr = await API.getStudyDescription(study.studyKey)
-        try {
-          await DB.setStudyDescription(study.studyKey, studyDescr)
-        } catch (err) {
-          console.error('Cannot save study description on store?!?!?', err)
-        }
-        if (session.notificationsScheduled) {
-          await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
-        }
-      }
-      if (!session.notificationsScheduled) {
-        await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
-      }
-      activeStudiesDescr.push(studyDescr)
-    }
-
-    session.notificationsScheduled = true
-
-    let res = scheduler.generateTasker(activestudies, activeStudiesDescr)
-    this.tasks = this.tasks.concat(res.upcoming, res.missed)
+    this.load()
   },
   computed: {
     taskNumbers: function () {
@@ -99,6 +55,74 @@ export default {
         }
       }
       return {current: countCurrent, missed: countMissed}
+    }
+  },
+  methods: {
+    async load () {
+      this.$q.loading.show()
+      try {
+        if (!session.notificationsScheduled) {
+          await scheduler.cancelNotifications()
+        }
+        // retrieve studies
+        let studies
+        try {
+          // update the profile, just in case there have been changes
+          let profile = await API.getProfile()
+          studies = profile.studies
+          await DB.setStudiesParticipation(studies)
+        } catch (err) {
+          // if no Internet, then take the stored value
+          studies = await DB.getStudiesParticipation()
+          if (!studies) {
+            // studies have never been retrieved, we can't do anything
+            throw new Error('No studies have aver been retrieved')
+          }
+        }
+
+        let activestudies = studies.filter((s) => {
+          return s.currentStatus === 'accepted'
+        })
+
+        let activeStudiesDescr = []
+        for (const study of activestudies) {
+          let studyDescr = await DB.getStudyDescription(study.studyKey)
+          if (!studyDescr) {
+            studyDescr = await API.getStudyDescription(study.studyKey)
+            await DB.setStudyDescription(study.studyKey, studyDescr)
+            if (session.notificationsScheduled) {
+              await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
+            }
+          }
+          if (!session.notificationsScheduled) {
+            await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
+          }
+          activeStudiesDescr.push(studyDescr)
+        }
+
+        session.notificationsScheduled = true
+
+        let res = scheduler.generateTasker(activestudies, activeStudiesDescr)
+        this.tasks = this.tasks.concat(res.upcoming, res.missed)
+
+        this.$q.loading.hide()
+      } catch (error) {
+        console.error(error)
+        this.$q.loading.hide()
+
+        this.$q.dialog({
+          title: 'Error',
+          message: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.',
+          color: 'warning',
+          ok: 'Retry',
+          preventClose: true
+        }).then(() => {
+          console.log('retry')
+          this.load()
+        }).catch(() => {
+          console.log('error')
+        })
+      }
     }
   }
 }

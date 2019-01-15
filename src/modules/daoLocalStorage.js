@@ -50,6 +50,7 @@ export async function setStudiesParticipation (studies) {
 
 export async function getStudyDescription (studyKey) {
   return storage.getItem('study_' + studyKey)
+  // return Promise.reject(new Error('test'))
 }
 
 export async function setStudyDescription (studyKey, config) {
