@@ -31,10 +31,6 @@
           <q-item-side icon="help" />
           <q-item-main label="About" sublabel="About Mobistudy"/>
         </q-item>
-        <q-item to="login">
-          <q-item-side icon="exit_to_app" />
-          <q-item-main label="Log out" sublabel="logout from this account"/>
-        </q-item>
         <q-item to="dev">
           <q-item-side icon="build" />
           <q-item-main label="Developer Panel" />
