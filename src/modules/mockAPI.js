@@ -204,15 +204,8 @@ export async function getStudyDescription (studyKey) {
                   'occurrences': 100,
                   'intervalType': 'd',
                   'interval': 12,
-                  'months': [
-                    1,
-                    2
-                  ],
-                  'monthDays': [
-                    1,
-                    12,
-                    24
-                  ],
+                  'months': [ 1, 2 ],
+                  'monthDays': [ 1, 12, 24 ],
                   'weekDays': [
                     1,
                     4,
@@ -328,13 +321,11 @@ export async function getStudyDescription (studyKey) {
               'type': 'form',
               'scheduling': {
                 'startEvent': 'consent',
-                'startDelaySecs': 1000,
-                'untilSecs': 1036800,
                 'intervalType': 'd',
+                'interval': 1,
                 'months': [],
                 'monthDays': [],
-                'weekDays': [],
-                'interval': 1
+                'weekDays': []
               },
               'formKey': '1234',
               'formName': 'COPD Form'
@@ -352,7 +343,7 @@ export async function getStudyDescription (studyKey) {
               },
               'dataType': 'steps',
               'aggregated': true,
-              'bucket': 'day'
+              'bucket': 'hour'
             }
           ],
           'consent': {

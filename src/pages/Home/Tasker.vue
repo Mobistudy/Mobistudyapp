@@ -3,15 +3,19 @@
     <q-list highlight v-show="!$q.loading.isActive">
       <q-list-header>Current Tasks</q-list-header>
       <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
-      <taskListItem v-for="(task, index) in tasks" v-if="!task.missed" :task="task" :key="index"></taskListItem>
-      <q-item v-if="taskNumbers.current === 0">
+      <div>
+        <taskListItem v-for="(task, uindex) in tasks.upcoming" :task="task" :key="uindex"></taskListItem>
+      </div>
+      <q-item v-if="tasks.upcoming.length === 0">
         <q-item-side icon="check" />
         <q-item-main sublabel="No tasks pending" />
       </q-item>
       <q-item-separator inset />
       <q-list-header>Missed Tasks</q-list-header>
-      <taskListItem v-for="(task, index) in tasks" v-if="task.missed" :task="task" :key="index"></taskListItem>
-      <q-item v-if="taskNumbers.missed === 0">
+      <div>
+        <taskListItem v-for="(task, mindex) in tasks.missed" :task="task" :key="mindex"></taskListItem>
+      </div>
+      <q-item v-if="tasks.missed.length === 0">
         <q-item-side icon="check" />
         <q-item-main sublabel="No tasks missed" />
       </q-item>
@@ -37,25 +41,14 @@ export default {
   },
   data () {
     return {
-      tasks: [ ]
+      tasks: {
+        upcoming: [],
+        missed: []
+      }
     }
   },
   async created () {
     this.load()
-  },
-  computed: {
-    taskNumbers: function () {
-      let countCurrent = 0
-      let countMissed = 0
-      for (let i = 0; i < this.tasks.length; i++) {
-        if (this.tasks[i].missed) {
-          countMissed++
-        } else {
-          countCurrent++
-        }
-      }
-      return {current: countCurrent, missed: countMissed}
-    }
   },
   methods: {
     async load () {
@@ -103,7 +96,7 @@ export default {
         session.notificationsScheduled = true
 
         let res = scheduler.generateTasker(activestudies, activeStudiesDescr)
-        this.tasks = this.tasks.concat(res.upcoming, res.missed)
+        this.tasks = res
 
         this.$q.loading.hide()
       } catch (error) {

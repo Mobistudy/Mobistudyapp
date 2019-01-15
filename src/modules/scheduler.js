@@ -62,15 +62,11 @@ export function generateTasker (studiesParts, studiesDescr) {
       } else throw new Error('task type ' + task.type + ' not supported')
       // missed executions of the task go into the missed array
       if (missed !== null) {
-        templateObj.missed = true
-        templateObj.due = missed
-        taskerItems.missed.push(templateObj)
+        taskerItems.missed.push(Object.assign({missed: true, due: missed}, templateObj))
       }
       // upcoming executions of the task go into the upcoming array
       if (upcoming !== null) {
-        templateObj.missed = false
-        templateObj.due = upcoming
-        taskerItems.upcoming.push(templateObj)
+        taskerItems.upcoming.push(Object.assign({missed: false, due: upcoming}, templateObj))
       }
     }
   }
