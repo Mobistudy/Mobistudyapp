@@ -485,6 +485,11 @@ export function removeStudy (userKey, studyKey) {
 
 }
 
-export function sendData () {
+export function sendAnswers () {
 
+}
+
+export function sendDataQuery (data) {
+  console.log('API - sending query data', data)
+  return Promise.resolve()
 }

@@ -45,11 +45,8 @@ export async function query (queryOpts) {
 }
 
 export async function queryAggregated (queryOpts) {
-  console.log(queryOpts)
-
   let retval = []
   let startDate = moment(queryOpts.startDate)
-  console.log(queryOpts.bucket + 's')
   startDate.subtract(1, queryOpts.bucket + 's')
 
   while (startDate.isBefore(moment(queryOpts.endDate))) {

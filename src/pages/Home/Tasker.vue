@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <q-list highlight v-show="!$q.loading.isActive">
-      <q-list-header>Current Tasks</q-list-header>
+      <q-list-header>Today's tasks</q-list-header>
       <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
       <div>
         <taskListItem v-for="(task, uindex) in tasks.upcoming" :task="task" :key="uindex"></taskListItem>
@@ -11,7 +11,7 @@
         <q-item-main sublabel="No tasks pending" />
       </q-item>
       <q-item-separator inset />
-      <q-list-header>Missed Tasks</q-list-header>
+      <q-list-header>Past days missed tasks</q-list-header>
       <div>
         <taskListItem v-for="(task, mindex) in tasks.missed" :task="task" :key="mindex"></taskListItem>
       </div>
@@ -60,6 +60,7 @@ export default {
         // retrieve studies
         let studies
         try {
+          // TODO: not sure we need to ask the API each time
           // update the profile, just in case there have been changes
           let profile = await API.getProfile()
           studies = profile.studies
@@ -94,7 +95,7 @@ export default {
         }
 
         session.notificationsScheduled = true
-
+        console.log('ACTIVE STUDIES', activestudies)
         let res = scheduler.generateTasker(activestudies, activeStudiesDescr)
         this.tasks = res
 

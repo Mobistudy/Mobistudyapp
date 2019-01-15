@@ -1,29 +1,31 @@
 <template>
   <q-page padding>
     <!-- content -->
-    <div v-if="finished">
-      <h2 style="margin-top: 0">This is what is giong to be sent</h2>
-      <div class="chart-container" style="position: relative; height:50vh; width:80vw; margin-left: auto; margin-right: auto">
-        <canvas ref="chart"></canvas>
+    <div v-if="chartData">
+      <p style="margin-top: 0">This is what is going to be sent</p>
+      <bar-chart :chart-data="chartData" :options="chartOptions"></bar-chart>
+      <div class="row">
+        <q-btn color="primary" class="col" label="Send" @click="submit()" />
       </div>
-      <br />
-      <q-btn color="primary" class="q-py-sm q-px-xl float-center" size="lg" label="Click here to submit and continue" @click="submit" />
     </div>
   </q-page>
 </template>
 
 <script>
 import * as healthstore from '../../modules/mockHealthstore'
+import BarChart from 'components/Main/BarChart.js'
 import DB from '../../modules/db'
-import Chartjs from 'chart.js'
+import API from '../../modules/API'
 import moment from 'moment'
 
 export default {
   name: 'DataQueryPage',
+  components: { BarChart },
   data: function () {
     return {
       task: {},
-      finished: false,
+      chartData: null,
+      chartOptions: null,
       healthData: null
     }
   },
@@ -47,52 +49,49 @@ export default {
       startDate.subtract(taskDescr.scheduling.interval, 'years')
     }
     try {
-      let healthData
       if (taskDescr.aggregated) {
         if (taskDescr.bucket) {
-          healthData = await healthstore.queryAggregated({
+          this.healthData = await healthstore.queryAggregated({
             startDate: startDate.toDate(),
             endDate: new Date(),
             dataType: taskDescr.dataType,
             bucket: taskDescr.bucket
           })
         } else {
-          healthData = await healthstore.queryAggregated({
+          this.healthData = await healthstore.queryAggregated({
             startDate: startDate.toDate(),
             endDate: new Date(),
             dataType: taskDescr.dataType
           })
         }
       } else {
-        healthData = await healthstore.query({
+        this.healthData = await healthstore.query({
           startDate: startDate.toDate(),
           endDate: new Date(),
           dataType: taskDescr.dataType
         })
       }
 
-      console.log(healthData)
       this.$q.loading.hide()
       // now plot the data
 
-      let ctx = this.$refs.chart
       let chartData = { labels: [], values: [] }
-      for (let i = 0; i < healthData.length; i++) {
-        chartData.labels.push(healthData[i].endDate)
-        chartData.values.push(healthData[i].value)
+      for (let i = 0; i < this.healthData.length; i++) {
+        chartData.labels.push(this.healthData[i].endDate)
+        chartData.values.push(this.healthData[i].value)
       }
 
-      let chartJSData = {
+      this.chartData = {
         labels: chartData.labels,
         datasets: [{
           label: taskDescr.dataType.charAt(0).toUpperCase() + taskDescr.dataType.slice(1),
-          data: chartData.values
+          data: chartData.values,
+          backgroundColor: '#800000'
         }]
       }
 
       // NEED TO SPLIT CODE HERE FOR DEPENDING ON DATA TYPE
-
-      let chartJSOptions = {
+      this.chartOptions = {
         maintainAspectRatio: false,
         scales: {
           yAxes: [{
@@ -109,12 +108,6 @@ export default {
           }]
         }
       }
-
-      Chartjs(ctx, {
-        type: 'bar',
-        data: chartJSData,
-        options: chartJSOptions
-      })
     } catch (error) {
       console.error(error)
       this.$q.loading.hide()
@@ -123,6 +116,27 @@ export default {
         message: 'Cannot retrieve data: ' + error.message,
         icon: 'report_problem'
       })
+    }
+  },
+  methods: {
+    async submit () {
+      try {
+        await API.sendDataQuery(this.healthData)
+        // mark last completion of the task in studies participation
+        let studies = await DB.getStudiesParticipation()
+        let sudyInd = studies.findIndex(x => x.studyKey === this.$route.params.studyKey)
+        if (!studies[sudyInd].tasksLastCompletion) studies[sudyInd].tasksLastCompletion = []
+        studies[sudyInd].tasksLastCompletion[this.$route.params.taskID] = new Date()
+        await DB.setStudiesParticipation(studies)
+        this.$router.push('/home')
+      } catch (error) {
+        console.error(error)
+        this.$q.notify({
+          color: 'negative',
+          message: 'Cannot send data: ' + error.message,
+          icon: 'report_problem'
+        })
+      }
     }
   }
 }

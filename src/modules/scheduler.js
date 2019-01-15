@@ -19,7 +19,9 @@ export function generateTasker (studiesParts, studiesDescr) {
       let missed
       // the time this task was completed last time is stored into the studyParticipation
       // example: tasksLastCompletion: { 'taskKey': 'ISO string' }
+      console.log('STUDYPART', studyPart)
       if (studyPart.tasksLastCompletion && studyPart.tasksLastCompletion[studyPart.studyKey]) {
+        console.log('TASK WAS COMPLETED ON ', studyPart.tasksLastCompletion[studyPart.studyKey])
         // Task has been completed before
         let lastCompletionTS = studyPart.tasksLastCompletion[studyPart.studyKey]
         missed = rrule.between(new Date(lastCompletionTS), moment().startOf('day').toDate())
@@ -60,13 +62,12 @@ export function generateTasker (studiesParts, studiesDescr) {
           formKey: task.formKey
         }
       } else throw new Error('task type ' + task.type + ' not supported')
-      // missed executions of the task go into the missed array
-      if (missed !== null) {
-        taskerItems.missed.push(Object.assign({missed: true, due: missed}, templateObj))
-      }
-      // upcoming executions of the task go into the upcoming array
       if (upcoming !== null) {
+        // upcoming executions of the task go into the upcoming array
         taskerItems.upcoming.push(Object.assign({missed: false, due: upcoming}, templateObj))
+      } else if (missed !== null) {
+        // missed executions of the task go into the missed array
+        taskerItems.missed.push(Object.assign({missed: true, due: missed}, templateObj))
       }
     }
   }
