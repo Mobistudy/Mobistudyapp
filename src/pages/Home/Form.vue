@@ -124,11 +124,13 @@ export default {
         answer.answer = this.freetextAnswer
       } else if (this.currentQuestion.type === 'singleChoice') {
         let chosenAnswerChoice = this.currentQuestion.answerChoices.find(x => x.id === this.singleChoiceAnswer)
-        answer.answer = {
-          answerText: chosenAnswerChoice.text,
-          answerId: chosenAnswerChoice.id
+        if (chosenAnswerChoice) {
+          answer.answer = {
+            answerText: chosenAnswerChoice.text,
+            answerId: chosenAnswerChoice.id
+          }
+          if (chosenAnswerChoice.nextQuestionId) nextQuestionId = chosenAnswerChoice.nextQuestionId
         }
-        if (chosenAnswerChoice.nextQuestionId) nextQuestionId = chosenAnswerChoice.nextQuestionId
       } else if (this.currentQuestion.type === 'multiChoice') {
         answer.answer = []
         for (let answerID of this.multiChoiceAnswer) {
