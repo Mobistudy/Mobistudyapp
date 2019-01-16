@@ -171,7 +171,7 @@ export default {
   methods: {
     async searchDisease (diseaseDescription, done) {
       try {
-        const results = API.searchSNOMEDDisease(diseaseDescription)
+        const results = await API.searchSNOMEDDisease(diseaseDescription)
         if (results.length === 0) {
           this.$q.notify('No matches.')
         }
@@ -192,11 +192,13 @@ export default {
     },
     async searchMeds (medDescription, done) {
       try {
-        const results = API.searchSNOMEDMedication(medDescription)
+        const results = await API.searchSNOMEDMedication(medDescription)
         if (results.length === 0) {
           this.$q.notify('No matches.')
         }
-        done(results)
+        const selMeds = Object.keys(this.profile.medications)
+        const medsFil = results.filter((entry) => !selMeds.includes(entry.term))
+        done(medsFil)
       } catch (error) {
         this.$q.notify('Cannot find medication. Please Try again.')
         console.error(error)
