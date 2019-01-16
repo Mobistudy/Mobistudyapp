@@ -14,6 +14,7 @@
 <script>
 import * as healthstore from '../../modules/mockHealthstore'
 import BarChart from 'components/Main/BarChart.js'
+import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
 import moment from 'moment'
@@ -121,8 +122,14 @@ export default {
   methods: {
     async submit () {
       try {
+        let studyKey = Number(this.$route.params.studyKey)
         let taskId = Number(this.$route.params.taskID)
-        await API.sendDataQuery(this.healthData)
+        await API.sendDataQuery({
+          userKey: userinfo._key,
+          studyKey: studyKey,
+          taskId: taskId,
+          healthData: this.healthData
+        })
         // mark last completion of the task in studies participation
         let studies = await DB.getStudiesParticipation()
         let sudyInd = studies.findIndex(x => x.studyKey === this.$route.params.studyKey)
