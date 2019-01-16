@@ -29,16 +29,6 @@ export async function removeUserSession () {
   return storage.removeItem('session')
 }
 
-/* Profile */
-
-export async function getProfile () {
-  return storage.getItem('profile')
-}
-
-export async function setProfile (profile) {
-  return storage.setItem('profile', profile)
-}
-
 /* STUDY MANAGEMENT */
 export async function getStudiesParticipation () {
   return storage.getItem('studiesParticipation')

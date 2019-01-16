@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import DB from '../../modules/db'
 import API from '../../modules/API'
 import userinfo from '../../modules/userinfo'
 import {required} from 'vuelidate/lib/validators'
@@ -66,20 +65,15 @@ export default {
     }
   },
   async created () {
-    const profile = await DB.getProfile()
-    if (profile) {
-      this.profile = profile
-    } else {
-      try {
-        this.profile = await API.getProfile()
-        await DB.setProfile(profile)
-      } catch (error) {
-        this.$q.notify({
-          color: 'negative',
-          message: 'Cannot update: ' + error.message,
-          icon: 'report_problem'
-        })
-      }
+    try {
+      this.profile = await API.getProfile()
+      await userinfo.setProfile(this.profile)
+    } catch (error) {
+      this.$q.notify({
+        color: 'negative',
+        message: 'Cannot update: ' + error.message,
+        icon: 'report_problem'
+      })
     }
   },
   validations: {
@@ -182,7 +176,7 @@ export default {
             medications: this.profile.medications
           }
           await API.updateProfile(profile)
-          await DB.setProfile(profile)
+          await userinfo.setProfile(profile)
 
           this.$router.push('/home')
         } catch (error) {

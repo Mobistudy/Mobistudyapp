@@ -257,10 +257,6 @@ export default {
             medications: this.profile.medications
           }
           await API.createProfile(profile)
-
-          let user = await API.login(this.account.email, this.account.pw1)
-          await userinfo.login(user)
-          API.setToken(userinfo.token)
           await userinfo.setProfile(profile)
 
           this.$router.push('/home')

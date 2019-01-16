@@ -53,7 +53,7 @@ export async function createProfile (profile) {
 // Get the participant profile
 export async function getProfile () {
   const resp = await axios.get(BASE_URL + '/participants', axiosConfig)
-  return resp.data
+  return resp.data[0]
 }
 
 // Updating details
