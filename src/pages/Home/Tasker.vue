@@ -1,6 +1,9 @@
 <template>
   <q-page padding>
-    <q-list highlight v-show="!$q.loading.isActive">
+    <div v-if="nostudies" class="q-title">
+      You are registered to no studies yet.
+    </div>
+    <q-list v-else highlight v-show="!$q.loading.isActive">
       <q-list-header>Today's pending tasks</q-list-header>
       <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
       <div>
@@ -41,6 +44,7 @@ export default {
   },
   data () {
     return {
+      nostudies: false,
       tasks: {
         upcoming: [],
         missed: []
@@ -54,14 +58,18 @@ export default {
     async load () {
       this.$q.loading.show()
       try {
-        let studiesPart
         if (!session.tasksSynchronised) {
           await scheduler.cancelNotifications()
 
           try {
             let profile = await API.getProfile()
-            studiesPart = profile.studies
-            await DB.setStudiesParticipation(studiesPart)
+            if (!profile.studies || profile.studies.length === 0) {
+              // this user has no studies !
+              this.$q.loading.hide()
+              this.nostudies = true
+              return
+            }
+            await DB.setStudiesParticipation(profile.studies)
           } catch (error) {
             console.error('Cannot connect to server, but thats OK', error)
             // if it fails, we just rely on the stored data
@@ -69,7 +77,13 @@ export default {
         }
 
         // retrieve studies
-        studiesPart = await DB.getStudiesParticipation()
+        let studiesPart = await DB.getStudiesParticipation()
+        if (!studiesPart) {
+          // this user has no studies !
+          this.$q.loading.hide()
+          this.nostudies = true
+          return
+        }
         let activestudiesPart = studiesPart.filter((s) => {
           return s.currentStatus === 'accepted'
         })
