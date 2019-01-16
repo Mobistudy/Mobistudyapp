@@ -121,12 +121,22 @@ export default {
   methods: {
     async submit () {
       try {
+        let taskId = Number(this.$route.params.taskID)
         await API.sendDataQuery(this.healthData)
         // mark last completion of the task in studies participation
         let studies = await DB.getStudiesParticipation()
         let sudyInd = studies.findIndex(x => x.studyKey === this.$route.params.studyKey)
-        if (!studies[sudyInd].tasksLastCompletion) studies[sudyInd].tasksLastCompletion = []
-        studies[sudyInd].tasksLastCompletion[this.$route.params.taskID] = new Date()
+        if (!studies[sudyInd].tasksStatus) studies[sudyInd].tasksStatus = []
+        let taksstatusInd = studies[sudyInd].tasksStatus.findIndex(x => x.taskId === taskId)
+        if (taksstatusInd < 0) {
+          // this case shouldn't happen really
+          studies[sudyInd].tasksStatus.push({
+            taskId: taskId, consented: true, lastExecuted: new Date()
+          })
+          taksstatusInd = 0
+        } else {
+          studies[sudyInd].tasksStatus[taksstatusInd].lastExecuted = new Date()
+        }
         await DB.setStudiesParticipation(studies)
         this.$router.push('/home')
       } catch (error) {

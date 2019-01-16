@@ -14,17 +14,27 @@ export function generateTasker (studiesParts, studiesDescr) {
     let studyDescr = studiesDescr.find(sd => {
       return sd._key === studyPart.studyKey
     })
-    for (const task of studyDescr.tasks) {
+    const consentedTasks = studyDescr.tasks.filter((tdescr) => {
+      const taskPart = studyPart.tasksStatus.find(x => x.taskId === tdescr.id)
+      return taskPart.consented
+    })
+    for (const task of consentedTasks) {
       let rrule = generateRRule(studyPart.acceptedTS, task.scheduling)
       let missed
       // the time this task was completed last time is stored into the studyParticipation
-      // example: tasksLastCompletion: { 'taskKey': 'ISO string' }
-      console.log('STUDYPART', studyPart)
-      if (studyPart.tasksLastCompletion && studyPart.tasksLastCompletion[studyPart.studyKey]) {
-        console.log('TASK WAS COMPLETED ON ', studyPart.tasksLastCompletion[studyPart.studyKey])
-        // Task has been completed before
-        let lastCompletionTS = studyPart.tasksLastCompletion[studyPart.studyKey]
-        missed = rrule.between(new Date(lastCompletionTS), moment().startOf('day').toDate())
+      // example: "tasksStatus": [ { "taskId": 1, "consented": true, "lastExecuted": "ISO string" } ]
+      let lastCompletionTS
+      if (studyPart.tasksStatus) {
+        const taskStatus = studyPart.tasksStatus.find(x => x.taskId === task.id)
+        if (taskStatus && taskStatus.lastExecuted) {
+          console.log('TASK WAS COMPLETED ON ', taskStatus.lastExecuted)
+          // Task has been completed before
+          lastCompletionTS = moment(new Date(taskStatus.lastExecuted))
+        }
+      }
+
+      if (lastCompletionTS) {
+        missed = rrule.between(lastCompletionTS.toDate(), moment().startOf('day').toDate())
         if (missed.length > 0) {
           missed = missed[missed.length - 1]
         } else {
@@ -36,11 +46,16 @@ export function generateTasker (studiesParts, studiesDescr) {
         missed = rrule.before(moment().startOf('day').toDate())
       }
       // Get next task within the day
-      let upcoming = rrule.between(moment().startOf('day').toDate(), moment().endOf('day').toDate())
-      if (upcoming.length > 0) {
-        upcoming = upcoming[0]
-      } else {
+      let upcoming
+      if (lastCompletionTS && lastCompletionTS.isAfter(moment().startOf('day'))) {
         upcoming = null
+      } else {
+        upcoming = rrule.between(moment().startOf('day').toDate(), moment().endOf('day').toDate())
+        if (upcoming.length > 0) {
+          upcoming = upcoming[0]
+        } else {
+          upcoming = null
+        }
       }
       let templateObj = {}
       if (task.type === 'dataQuery') {

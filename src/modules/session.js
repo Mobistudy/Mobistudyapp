@@ -3,5 +3,5 @@
 */
 export default {
   appStarted: undefined,
-  notificationsScheduled: false
+  tasksSynchronised: false
 }

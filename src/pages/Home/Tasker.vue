@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <q-list highlight v-show="!$q.loading.isActive">
-      <q-list-header>Today's tasks</q-list-header>
+      <q-list-header>Today's pending tasks</q-list-header>
       <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
       <div>
         <taskListItem v-for="(task, uindex) in tasks.upcoming" :task="task" :key="uindex"></taskListItem>
@@ -54,49 +54,47 @@ export default {
     async load () {
       this.$q.loading.show()
       try {
-        if (!session.notificationsScheduled) {
+        let studiesPart
+        if (!session.tasksSynchronised) {
           await scheduler.cancelNotifications()
-        }
-        // retrieve studies
-        let studies
-        try {
-          // TODO: not sure we need to ask the API each time
-          // update the profile, just in case there have been changes
-          let profile = await API.getProfile()
-          studies = profile.studies
-          await DB.setStudiesParticipation(studies)
-        } catch (err) {
-          // if no Internet, then take the stored value
-          studies = await DB.getStudiesParticipation()
-          if (!studies) {
-            // studies have never been retrieved, we can't do anything
-            throw new Error('No studies have aver been retrieved')
+
+          try {
+            let profile = await API.getProfile()
+            studiesPart = profile.studies
+            await DB.setStudiesParticipation(studiesPart)
+          } catch (error) {
+            console.error('Cannot connect to server, but thats OK', error)
+            // if it fails, we just rely on the stored data
           }
         }
 
-        let activestudies = studies.filter((s) => {
+        // retrieve studies
+        studiesPart = await DB.getStudiesParticipation()
+        let activestudiesPart = studiesPart.filter((s) => {
           return s.currentStatus === 'accepted'
         })
 
         let activeStudiesDescr = []
-        for (const study of activestudies) {
+        for (const study of activestudiesPart) {
           let studyDescr = await DB.getStudyDescription(study.studyKey)
           if (!studyDescr) {
+            // study description needs to be retrieved from the server
             studyDescr = await API.getStudyDescription(study.studyKey)
             await DB.setStudyDescription(study.studyKey, studyDescr)
-            if (session.notificationsScheduled) {
+            if (session.tasksSynchronised) {
+              // only schedule it here if we are not scheduling all of them
               await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
             }
           }
-          if (!session.notificationsScheduled) {
+          if (!session.tasksSynchronised) {
             await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
           }
           activeStudiesDescr.push(studyDescr)
         }
 
-        session.notificationsScheduled = true
-        console.log('ACTIVE STUDIES', activestudies)
-        let res = scheduler.generateTasker(activestudies, activeStudiesDescr)
+        session.tasksSynchronised = true
+        console.log('ACTIVE STUDIES', activestudiesPart)
+        let res = scheduler.generateTasker(activestudiesPart, activeStudiesDescr)
         this.tasks = res
 
         this.$q.loading.hide()

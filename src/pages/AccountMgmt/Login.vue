@@ -35,7 +35,7 @@ export default {
   },
   async created () {
     if (userinfo.user.loggedin) {
-      session.notificationsScheduled = false
+      session.tasksSynchronised = false
       notifications.cancelAll()
       userinfo.logout()
       API.unsetToken()

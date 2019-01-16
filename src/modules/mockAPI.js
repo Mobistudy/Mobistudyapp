@@ -51,7 +51,11 @@ export async function getProfile () {
         studyKey: '1234',
         currentStatus: 'accepted',
         acceptedTS: '2018-12-10T09:30:32.492Z',
-        criteriaAnswers: [ 'Yes', 'No' ]
+        criteriaAnswers: [ 'Yes', 'No' ],
+        tasksStatus: [
+          { taskId: 1, consented: true },
+          { taskId: 2, consented: true }
+        ]
       }
     ]
   }
@@ -62,6 +66,12 @@ export async function getProfile () {
 // Updating details
 export async function updateProfile (profile) {
   console.log('API- Profile updated', profile)
+  return true
+}
+
+// Update study participation details, it can come with missing information
+export async function updateStudyParticipation (userKey, studyStatus) {
+  console.log('API- Study participation updated', studyStatus)
   return true
 }
 
