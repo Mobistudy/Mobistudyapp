@@ -69,12 +69,6 @@ export async function updateProfile (profile) {
   return true
 }
 
-// Update study participation details, it can come with missing information
-export async function updateStudyParticipation (userKey, studyStatus) {
-  console.log('API- Study participation updated', studyStatus)
-  return true
-}
-
 // Password reset
 export async function resetPW (email) {
   console.log('API- Reset profile for email' + email)
@@ -82,17 +76,12 @@ export async function resetPW (email) {
 }
 
 // Change password
-export async function changePW (userKey, oldpw, newpw) {
-  // Make api call here and branch depending on result
-  if (oldpw !== 'correct') {
-    return Promise.resolve(false) // Old password does not match
-  } else {
-    return Promise.resolve(true) // New password updated correctly
-  }
+export async function changePW (token, newpw) {
+  return Promise.resolve(true)
 }
 
 // Permanently delete the user
-export async function deleteUser () {
+export async function deleteUser (userKey) {
   console.log('API- permanently delete user')
   return true
 }

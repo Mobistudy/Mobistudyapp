@@ -203,7 +203,7 @@ export default {
         cancel: true
       }).then(async () => {
         try {
-          await API.deleteUser()
+          await API.deleteUser(userinfo.user._key)
           this.$router.push('/login')
         } catch (error) {
           this.$q.notify({
