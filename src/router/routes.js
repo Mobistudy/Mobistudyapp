@@ -37,7 +37,7 @@ const routes = [
     path: '/tasks',
     component: () => import('layouts/TaskLayout.vue'),
     children: [
-      { path: '/questionnaire/:key', component: () => import('pages/Home/Questionnaire.vue') },
+      { path: '/form/:studyKey/:taskId/:formKey', component: () => import('pages/Home/Form.vue') },
       { path: '/dataQuery/:studyKey/:taskID', component: () => import('pages/Home/DataQuery') }
     ]
   }

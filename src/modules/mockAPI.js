@@ -382,7 +382,7 @@ export async function getStudyDescription (studyKey) {
   })
 }
 
-export function getQuestionnaire (key) {
+export function getForm (key) {
   return new Promise(function (resolve, reject) {
     if (key === '123456') {
       setTimeout(function () {
@@ -447,7 +447,7 @@ export function getQuestionnaire (key) {
                 {
                   'id': 'Q1A2',
                   'text': 'NO',
-                  'nextQuestionId': 'Q3'
+                  'nextQuestionId': 'ENDFORM'
                 }
               ]
             },
@@ -455,7 +455,7 @@ export function getQuestionnaire (key) {
               'id': 'Q2',
               'text': 'Fill in description.',
               'type': 'freetext',
-              'nextDefaultId': 'ENDFORM',
+              'nextDefaultId': 'Q3',
               'answerChoices': [
                 {
                   'id': 'Q2A1'
@@ -464,18 +464,21 @@ export function getQuestionnaire (key) {
             },
             {
               'id': 'Q3',
-              'text': 'Ice Cream?',
-              'type': 'singleChoice',
+              'text': 'Preferred food',
+              'type': 'multiChoice',
+              'nextDefaultId': 'ENDFORM',
               'answerChoices': [
                 {
                   'id': 'Q3A1',
-                  'text': 'YES',
-                  'nextQuestionId': 'ENDFORM'
+                  'text': 'Ice cream'
                 },
                 {
                   'id': 'Q3A2',
-                  'text': 'NO',
-                  'nextQuestionId': 'ENDFORM'
+                  'text': 'Cake'
+                },
+                {
+                  'id': 'Q3A3',
+                  'text': 'Chocolate'
                 }
               ]
             }
@@ -489,14 +492,9 @@ export function getQuestionnaire (key) {
   })
 }
 
-// Token refresh - storage
-
-export function removeStudy (userKey, studyKey) {
-
-}
-
-export function sendAnswers () {
-
+export function sendAnswers (answers) {
+  console.log('API - sending answers', answers)
+  return Promise.resolve()
 }
 
 export function sendDataQuery (data) {

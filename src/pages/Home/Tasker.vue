@@ -93,7 +93,6 @@ export default {
         }
 
         session.tasksSynchronised = true
-        console.log('ACTIVE STUDIES', activestudiesPart)
         let res = scheduler.generateTasker(activestudiesPart, activeStudiesDescr)
         this.tasks = res
 

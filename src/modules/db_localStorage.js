@@ -1,17 +1,17 @@
-var storage = window.localStorage
+const storage = window.localStorage
 
 export async function getItem (key) {
-  return JSON.parse(storage.getItem(key))
+  return Promise.resolve(JSON.parse(storage.getItem(key)))
 }
 
 export async function setItem (key, value) {
-  return storage.setItem(key, JSON.stringify(value))
+  return Promise.resolve(storage.setItem(key, JSON.stringify(value)))
 }
 
-export async function removeItem (key, value) {
-  return storage.removeItem(key)
+export async function removeItem (key) {
+  return Promise.resolve(storage.removeItem(key))
 }
 
 export async function clear () {
-  return storage.clear()
+  return Promise.resolve(storage.clear())
 }

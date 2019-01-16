@@ -57,26 +57,15 @@ export function generateTasker (studiesParts, studiesDescr) {
           upcoming = null
         }
       }
-      let templateObj = {}
-      if (task.type === 'dataQuery') {
-        templateObj = {
-          title: 'Data Query',
-          main: 'We\'d like to request some data from you',
-          submitText: 'Send Data',
-          icon: 'directions_walk',
-          studyKey: studyDescr._key,
-          taskID: task.id
-        }
-      } else if (task.type === 'form') {
-        templateObj = {
-          title: task.formName,
-          main: 'We\'d like to ask you a few questions',
-          submitText: 'Take Questionnaire',
-          icon: 'ballot',
-          taskID: task.id,
-          formKey: task.formKey
-        }
-      } else throw new Error('task type ' + task.type + ' not supported')
+      let templateObj = {
+        type: task.type,
+        studyKey: studyDescr._key,
+        taskID: task.id
+      }
+      if (task.type === 'form') {
+        templateObj.formTitle = task.formName
+        templateObj.formKey = task.formKey
+      }
       if (upcoming !== null) {
         // upcoming executions of the task go into the upcoming array
         taskerItems.upcoming.push(Object.assign({missed: false, due: upcoming}, templateObj))
