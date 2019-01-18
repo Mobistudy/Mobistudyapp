@@ -59,8 +59,8 @@
             </q-chips-input>
           </q-field>
 
-          <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
-          <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.activeLifestyle" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/>
+          <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
+          <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/>
           <q-stepper-navigation>
             <q-btn flat @click="$refs.stepper.previous()"  label="Back"/>
             <q-btn color="primary" @click="saveProfile()"  label="Next" />
@@ -98,11 +98,9 @@ export default {
         name: '',
         surname: '',
         dateOfBirth: '',
-        smoker: false,
-        activeLifestyle: false,
         diseases: [],
         medications: [],
-        studyCode: '',
+        lifestyle: {},
         gender: '',
         genderOptions: [
           {
@@ -121,38 +119,6 @@ export default {
       }
     }
   },
-  computed: {
-    diseasesVue: {
-      get: function () {
-        let keys = []
-        for (let key in this.profile.diseases) {
-          keys.push(key)
-        }
-        return keys
-      },
-      set: function (keys) {
-        for (let key in this.profile.diseases) {
-          // if key is not in keys, delete
-          if (!keys.includes(key)) delete this.profile.diseases[key]
-        }
-      }
-    },
-    medsVue: {
-      get: function () {
-        let keys = []
-        for (let key in this.profile.medications) {
-          keys.push(key)
-        }
-        return keys
-      },
-      set: function (keys) {
-        for (let key in this.profile.medications) {
-          // if key is not in keys, delete
-          if (!keys.includes(key)) delete this.profile.medications[key]
-        }
-      }
-    }
-  },
   validations: {
     account: {
       email: {required, email},
@@ -166,6 +132,28 @@ export default {
       surname: {required},
       dateOfBirth: {required},
       gender: {required}
+    }
+  },
+  computed: {
+    diseasesVue: {
+      get: function () {
+        return this.profile.diseases.map(x => x.name)
+      },
+      set: function (names) {
+        this.profile.diseases = this.profile.diseases.filter(x => {
+          return names.includes(x.name)
+        })
+      }
+    },
+    medsVue: {
+      get: function () {
+        return this.profile.medications.map(x => x.name)
+      },
+      set: function (names) {
+        this.profile.medications = this.profile.medications.filter(x => {
+          return names.includes(x.name)
+        })
+      }
     }
   },
   methods: {
@@ -185,7 +173,12 @@ export default {
       }
     },
     selectedDisease (item) {
-      this.profile.diseases[item.label] = item.conceptId
+      if (!this.profile.diseases.find(x => x.name === item.label)) {
+        this.profile.diseases.push({
+          name: item.label,
+          conceptId: item.conceptId
+        })
+      }
     },
     duplicatedDisease (label) {
       this.$q.notify(`"${label}" already in list`)
@@ -206,7 +199,12 @@ export default {
       }
     },
     selectedMeds (item) {
-      this.profile.medications[item.label] = item.conceptId
+      if (!this.profile.medications.find(x => x.name === item.label)) {
+        this.profile.medications.push({
+          name: item.label,
+          conceptId: item.conceptId
+        })
+      }
     },
     duplicatedMeds (label) {
       this.$q.notify(`"${label}" already in list`)
@@ -248,13 +246,14 @@ export default {
         try {
           let profile = {
             userKey: userinfo.user._key,
-            createdTS: new Date(),
-            dateOfBirth: this.profile.dateOfBirth.substring(0, 10),
+            updatedTS: new Date(),
             name: this.profile.name,
             surname: this.profile.surname,
+            dateOfBirth: this.profile.dateOfBirth.substring(0, 10),
             gender: this.profile.gender,
             diseases: this.profile.diseases,
-            medications: this.profile.medications
+            medications: this.profile.medications,
+            lifestyle: this.profile.lifestyle
           }
           await API.createProfile(profile)
           await userinfo.setProfile(profile)

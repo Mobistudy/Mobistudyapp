@@ -26,8 +26,8 @@
       </q-chips-input>
     </q-field>
 
-    <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
-    <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.activeLifestyle" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/>
+    <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
+    <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/>
     <div class="q-mt-lg row">
       <div class="q-ma-sm"><q-btn color="positive" label="Update" @click="saveProfile()" /></div>
       <div class="q-ma-sm"><q-btn color="tertiary" label="Cancel" to="home" /></div>
@@ -47,7 +47,11 @@ export default {
   name: 'ProfilePage',
   data () {
     return {
-      profile: {},
+      profile: {
+        diseases: [],
+        medications: [],
+        lifestyle: {}
+      },
       genderOptions: [
         {
           label: 'Male',
@@ -66,7 +70,7 @@ export default {
   },
   async created () {
     try {
-      this.profile = await API.getProfile()
+      this.profile = await API.getProfile(userinfo.user._key)
       await userinfo.setProfile(this.profile)
     } catch (error) {
       this.$q.notify({
@@ -87,32 +91,22 @@ export default {
   computed: {
     diseasesVue: {
       get: function () {
-        let keys = []
-        for (let key in this.profile.diseases) {
-          keys.push(key)
-        }
-        return keys
+        return this.profile.diseases.map(x => x.name)
       },
-      set: function (keys) {
-        for (let key in this.profile.diseases) {
-          // if key is not in keys, delete
-          if (!keys.includes(key)) delete this.profile.diseases[key]
-        }
+      set: function (names) {
+        this.profile.diseases = this.profile.diseases.filter(x => {
+          return names.includes(x.name)
+        })
       }
     },
     medsVue: {
       get: function () {
-        let keys = []
-        for (let key in this.profile.medications) {
-          keys.push(key)
-        }
-        return keys
+        return this.profile.medications.map(x => x.name)
       },
-      set: function (keys) {
-        for (let key in this.profile.medications) {
-          // if key is not in keys, delete
-          if (!keys.includes(key)) delete this.profile.medications[key]
-        }
+      set: function (names) {
+        this.profile.medications = this.profile.medications.filter(x => {
+          return names.includes(x.name)
+        })
       }
     }
   },
@@ -133,7 +127,12 @@ export default {
       }
     },
     selectedDisease (item) {
-      this.profile.diseases[item.label] = item.conceptId
+      if (!this.profile.diseases.find(x => x.name === item.label)) {
+        this.profile.diseases.push({
+          name: item.label,
+          conceptId: item.conceptId
+        })
+      }
     },
     duplicatedDisease (label) {
       this.$q.notify(`"${label}" already in list`)
@@ -154,7 +153,12 @@ export default {
       }
     },
     selectedMeds (item) {
-      this.profile.medications[item.label] = item.conceptId
+      if (!this.profile.medications.find(x => x.name === item.label)) {
+        this.profile.medications.push({
+          name: item.label,
+          conceptId: item.conceptId
+        })
+      }
     },
     duplicatedMeds (label) {
       this.$q.notify(`"${label}" already in list`)
@@ -173,7 +177,8 @@ export default {
             dateOfBirth: this.profile.dateOfBirth.substring(0, 10),
             gender: this.profile.gender,
             diseases: this.profile.diseases,
-            medications: this.profile.medications
+            medications: this.profile.medications,
+            lifestyle: this.profile.lifestyle
           }
           await API.updateProfile(profile)
           await userinfo.setProfile(profile)

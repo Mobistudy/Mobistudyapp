@@ -51,19 +51,27 @@ export async function createProfile (profile) {
 }
 
 // Get the participant profile
-export async function getProfile () {
-  const resp = await axios.get(BASE_URL + '/participants', axiosConfig)
-  return resp.data[0]
+export async function getProfile (userKey) {
+  const resp = await axios.get(BASE_URL + '/participants/byuserkey/' + userKey, axiosConfig)
+  return resp.data
 }
 
 // Updating details
 export async function updateProfile (profile) {
-  return axios.put(BASE_URL + '/participants/' + profile.userKey, axiosConfig)
+  return axios.patch(BASE_URL + '/participants/byuserkey/' + profile.userKey, profile, axiosConfig)
 }
 
 // Permanently delete the user
 export async function deleteUser (userKey) {
-  return axios.delete(BASE_URL + '/participants/' + userKey, axiosConfig)
+  return axios.delete(BASE_URL + '/participants/byuserkey/' + userKey, axiosConfig)
+}
+
+// update status of a study
+export async function updateStudyStatus (userKey, studyKey, status, details) {
+  let statusObj = {}
+  if (details) statusObj = details
+  statusObj.currentStatus = status
+  return axios.post(BASE_URL + `/participants/byuserkey/${userKey}/studies/${studyKey}/currentStatus`, statusObj, axiosConfig)
 }
 
 // search for disease on SNOMED

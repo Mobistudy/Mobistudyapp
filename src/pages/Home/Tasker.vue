@@ -33,6 +33,7 @@
 import session from '../../modules/session'
 import taskCard from 'components/Main/TaskCard.vue'
 import taskListItem from 'components/Main/TaskListItem.vue'
+import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
 import * as scheduler from '../../modules/scheduler'
@@ -62,14 +63,15 @@ export default {
           await scheduler.cancelNotifications()
 
           try {
-            let profile = await API.getProfile()
+            let profile = await API.getProfile(userinfo.user._key)
             if (!profile.studies || profile.studies.length === 0) {
               // this user has no studies !
               this.$q.loading.hide()
               this.nostudies = true
               return
+            } else {
+              await DB.setStudiesParticipation(profile.studies)
             }
-            await DB.setStudiesParticipation(profile.studies)
           } catch (error) {
             console.error('Cannot connect to server, but thats OK', error)
             // if it fails, we just rely on the stored data
