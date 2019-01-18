@@ -1,26 +1,27 @@
 <template>
-  <!--<q-page padding class="row items-start flex flex-center">-->
   <q-page padding>
-    <!--<div class="row">-->
-    <!--<img alt="Quasar logo" src="~assets/quasar-logo-full.svg">-->
-    <!--<taskCard v-for="task in tasks" v-bind:task="task" v-bind:key="task.id"></taskCard>-->
-    <!--</div>-->
-    <q-list highlight>
-      <q-list-header>Current Tasks</q-list-header>
+    <div v-if="nostudies" class="q-title">
+      You are registered to no studies yet.
+    </div>
+    <q-list v-else highlight v-show="!$q.loading.isActive">
+      <q-list-header>Today's pending tasks</q-list-header>
       <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
-      <taskListItem v-for="(task, index) in tasks" v-if="!task.missed" :task="task" :key="index"></taskListItem>
-      <q-item v-if="taskNumbers.current === 0">
+      <div>
+        <taskListItem v-for="(task, uindex) in tasks.upcoming" :task="task" :key="uindex"></taskListItem>
+      </div>
+      <q-item v-if="tasks.upcoming.length === 0">
         <q-item-side icon="check" />
         <q-item-main sublabel="No tasks pending" />
       </q-item>
       <q-item-separator inset />
-      <q-list-header>Missed Tasks</q-list-header>
-      <taskListItem v-for="(task, index) in tasks" v-if="task.missed" :task="task" :key="index"></taskListItem>
-      <q-item v-if="taskNumbers.missed === 0">
+      <q-list-header>Past days missed tasks</q-list-header>
+      <div>
+        <taskListItem v-for="(task, mindex) in tasks.missed" :task="task" :key="mindex"></taskListItem>
+      </div>
+      <q-item v-if="tasks.missed.length === 0">
         <q-item-side icon="check" />
         <q-item-main sublabel="No tasks missed" />
       </q-item>
-      <!--<study-previous v-for="study in previousStudies" v-bind:study="study" v-bind:key="study.id"></study-previous>-->
     </q-list>
   </q-page>
 </template>
@@ -29,8 +30,10 @@
 </style>
 
 <script>
+import session from '../../modules/session'
 import taskCard from 'components/Main/TaskCard.vue'
 import taskListItem from 'components/Main/TaskListItem.vue'
+import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
 import * as scheduler from '../../modules/scheduler'
@@ -42,52 +45,91 @@ export default {
   },
   data () {
     return {
-      tasks: [ ]
+      nostudies: false,
+      tasks: {
+        upcoming: [],
+        missed: []
+      }
     }
   },
   async created () {
-    // retrieve studies
-    let studies = await DB.getStudiesParticipation()
-    if (!studies) {
-      // shouldn't happen, but just in case...
-      let profile = await API.getProfile()
-      await DB.setStudiesParticipation(profile.studies)
-    }
-
-    let activestudies = studies.filter((s) => {
-      return s.currentStatus === 'accepted'
-    })
-
-    let activeStudiesDescr = []
-    for (const study of activestudies) {
-      let studyDescr = await DB.getStudyDescription(study.studyKey)
-      if (!studyDescr) {
-        studyDescr = await API.getStudyDescription(study.studyKey)
-        try {
-          await DB.setStudyDescription(study.studyKey, studyDescr)
-          scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
-        } catch (err) {
-          console.error('Cannot save study description on store?!?!?', err)
-        }
-      }
-      activeStudiesDescr.push(studyDescr)
-    }
-
-    let res = scheduler.generateTasker(activestudies, activeStudiesDescr)
-    this.tasks = this.tasks.concat(res.upcoming, res.missed)
+    this.load()
   },
-  computed: {
-    taskNumbers: function () {
-      let countCurrent = 0
-      let countMissed = 0
-      for (let i = 0; i < this.tasks.length; i++) {
-        if (this.tasks[i].missed) {
-          countMissed++
-        } else {
-          countCurrent++
+  methods: {
+    async load () {
+      this.$q.loading.show()
+      try {
+        if (!session.tasksSynchronised) {
+          await scheduler.cancelNotifications()
+
+          try {
+            let profile = await API.getProfile(userinfo.user._key)
+            if (!profile.studies || profile.studies.length === 0) {
+              // this user has no studies !
+              this.$q.loading.hide()
+              this.nostudies = true
+              return
+            } else {
+              await DB.setStudiesParticipation(profile.studies)
+            }
+          } catch (error) {
+            console.error('Cannot connect to server, but thats OK', error)
+            // if it fails, we just rely on the stored data
+          }
         }
+
+        // retrieve studies
+        let studiesPart = await DB.getStudiesParticipation()
+        if (!studiesPart) {
+          // this user has no studies !
+          this.$q.loading.hide()
+          this.nostudies = true
+          return
+        }
+        let activestudiesPart = studiesPart.filter((s) => {
+          return s.currentStatus === 'accepted'
+        })
+
+        let activeStudiesDescr = []
+        for (const study of activestudiesPart) {
+          let studyDescr = await DB.getStudyDescription(study.studyKey)
+          if (!studyDescr) {
+            // study description needs to be retrieved from the server
+            studyDescr = await API.getStudyDescription(study.studyKey)
+            await DB.setStudyDescription(study.studyKey, studyDescr)
+            if (session.tasksSynchronised) {
+              // only schedule it here if we are not scheduling all of them
+              await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
+            }
+          }
+          if (!session.tasksSynchronised) {
+            await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
+          }
+          activeStudiesDescr.push(studyDescr)
+        }
+
+        session.tasksSynchronised = true
+        let res = scheduler.generateTasker(activestudiesPart, activeStudiesDescr)
+        this.tasks = res
+
+        this.$q.loading.hide()
+      } catch (error) {
+        console.error(error)
+        this.$q.loading.hide()
+
+        this.$q.dialog({
+          title: 'Error',
+          message: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.',
+          color: 'warning',
+          ok: 'Retry',
+          preventClose: true
+        }).then(() => {
+          console.log('retry')
+          this.load()
+        }).catch(() => {
+          console.log('error')
+        })
       }
-      return {current: countCurrent, missed: countMissed}
     }
   }
 }

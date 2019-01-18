@@ -7,10 +7,12 @@
 <script>
 import userinfo from './modules/userinfo'
 import API from './modules/API'
+import session from './modules/session'
 
 export default {
   name: 'MobistudyApp',
   async created () {
+    session.appStarted = new Date()
     await userinfo.init()
     // check if already logged in, otherwise go to login
     let resettingpwd = (this.$route.path === '/resetpw') || (this.$route.path === '/changepw')

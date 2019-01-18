@@ -38,8 +38,27 @@ export async function setStudiesParticipation (studies) {
   return storage.setItem('studiesParticipation', studies)
 }
 
+export async function setTaskCompletion (studyKey, taskId, timestamp) {
+  let studies = await storage.getItem('studiesParticipation')
+  let sudyInd = studies.findIndex(x => x.studyKey === studyKey)
+  if (!studies[sudyInd].tasksStatus) studies[sudyInd].tasksStatus = []
+  let taksstatusInd = studies[sudyInd].tasksStatus.findIndex(x => x.taskId === taskId)
+  if (taksstatusInd < 0) {
+    // this case shouldn't happen really
+    studies[sudyInd].tasksStatus.push({
+      taskId: taskId, consented: true, lastExecuted: timestamp
+    })
+    taksstatusInd = 0
+  } else {
+    studies[sudyInd].tasksStatus[taksstatusInd].lastExecuted = timestamp
+  }
+  await setStudiesParticipation(studies)
+  return Promise.resolve()
+}
+
 export async function getStudyDescription (studyKey) {
   return storage.getItem('study_' + studyKey)
+  // return Promise.reject(new Error('test'))
 }
 
 export async function setStudyDescription (studyKey, config) {
@@ -50,25 +69,15 @@ export async function removeStudy (studyKey) {
   return storage.removeItem('study_' + studyKey)
 }
 
-/* DATA/QUESTIONNAIRE HANDLING */
-export async function pushToServerQueue (obj) {
-  let serverQueue = await storage.getItem('serverQueue')
-  if (serverQueue === null) {
-    serverQueue = []
-  }
-  serverQueue.push(obj)
-  return storage.setItem('serverQueue', serverQueue)
+/* QUESTIONNAIRES/FORMS */
+export async function getFormDescription (formkey) {
+  return storage.getItem('form_' + formkey)
 }
 
-export async function retrieveServerQueue () {
-  let serverQueue = await storage.getItem('serverQueue')
-  if (serverQueue === null) {
-    return []
-  } else {
-    return serverQueue
-  }
+export async function setFormDescription (formkey, decription) {
+  return storage.setItem('form_' + formkey, decription)
 }
 
-export function removeServerQueue () {
-  return storage.removeItem('serverQueue')
+export async function removeFormDescription (formkey) {
+  return storage.removeItem('form_' + formkey)
 }

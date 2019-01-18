@@ -1,202 +1,151 @@
 <template>
   <q-page padding>
     <!-- content -->
-    <div v-if="finished">
-    <h2 style="margin-top: 0">This is what we'll be sending to the clinician:</h2>
-      <div class="chart-container" style="position: relative; height:50vh; width:80vw; margin-left: auto; margin-right: auto">
-        <canvas id="chart"></canvas>
+    <div v-if="chartData">
+      <p style="margin-top: 0">This is what is going to be sent</p>
+      <bar-chart :chart-data="chartData" :options="chartOptions"></bar-chart>
+      <div class="row">
+        <q-btn color="primary" class="col" label="Send" @click="submit()" />
       </div>
-    <br />
-    <q-btn color="primary" class="q-py-sm q-px-xl float-center" size="lg" label="Click here to submit and continue" @click="submit" />
     </div>
   </q-page>
 </template>
 
 <script>
-let db = require('src/modules/db')
-let moment = require('moment')
-let scheduler = require('src/modules/scheduler')
-let chartjs = require('chart.js')
+import * as healthstore from '../../modules/mockHealthstore'
+import BarChart from 'components/Main/BarChart.js'
+import userinfo from '../../modules/userinfo'
+import DB from '../../modules/db'
+import API from '../../modules/API'
+import moment from 'moment'
 
 export default {
-  // name: 'PageName',
+  name: 'DataQueryPage',
+  components: { BarChart },
   data: function () {
     return {
       task: {},
-      finished: false,
+      chartData: null,
+      chartOptions: null,
       healthData: null
     }
   },
-  mounted () {
+  async mounted () {
     this.$q.loading.show()
-    let _this = this
-    db.getStudies().then(function (res) {
-      let study = res.find(x => x.key === _this.$route.params.studyKey)
-      if (typeof study !== 'undefined') {
-        let studyStart = moment(study.start)
-        let task = study.config.tasks.find(x => x.id === Number(_this.$route.params.taskID))
-        if (typeof task !== 'undefined') {
-          _this.task = task
-          return Promise.resolve({task: task, studyStart: studyStart})
-        } else {
-          return Promise.reject(new Error('Task not found'))
-        }
-      } else {
-        return Promise.reject(new Error('Study not found'))
-      }
-    }).then(function (res) {
-      return getHealthData(_this, res.task, res.studyStart)
-    }).then(function (data) {
-      _this.healthData = data
-      _this.finished = true
-      return Promise.resolve()
-    }).then(function () {
-      plotHealthData(_this, _this.healthData)
-    }).then(function () {
-      _this.$q.loading.hide()
-    }).catch(function (err) {
-      alert(err)
-      _this.$q.loading.hide()
-      // _this.$router.go(-1)
-    })
-  }
-}
+    const studyKey = this.$route.params.studyKey
+    const taskID = this.$route.params.taskID
 
-function getHealthData (_this, task, studyStart) {
-  let checkHealthAvailibility = new Promise(function (resolve, reject) {
-    navigator.health.isAvailable(function (available) {
-      if (available) {
-        resolve()
-      } else {
-        if (_this.$q.platform.is.android) {
-          navigator.health.promptInstallFit(function () {
-            reject(new Error('Please install Google Fit and relaunch'))
-          }, function (err) {
-            reject(err)
+    const studyDescr = await DB.getStudyDescription(studyKey)
+    const taskDescr = studyDescr.tasks.find(x => x.id === Number(taskID))
+
+    let startDate = moment()
+
+    if (taskDescr.scheduling.intervalType === 'd') {
+      startDate.subtract(taskDescr.scheduling.interval, 'days')
+    } else if (taskDescr.scheduling.intervalType === 'w') {
+      startDate.subtract(taskDescr.scheduling.interval, 'weeks')
+    } else if (taskDescr.scheduling.intervalType === 'm') {
+      startDate.subtract(taskDescr.scheduling.interval, 'months')
+    } else if (taskDescr.scheduling.intervalType === 'y') {
+      startDate.subtract(taskDescr.scheduling.interval, 'years')
+    }
+    try {
+      if (taskDescr.aggregated) {
+        if (taskDescr.bucket) {
+          this.healthData = await healthstore.queryAggregated({
+            startDate: startDate.toDate(),
+            endDate: new Date(),
+            dataType: taskDescr.dataType,
+            bucket: taskDescr.bucket
           })
         } else {
-          reject(new Error('Apple HealthKit or Google Fit is unavailable'))
+          this.healthData = await healthstore.queryAggregated({
+            startDate: startDate.toDate(),
+            endDate: new Date(),
+            dataType: taskDescr.dataType
+          })
         }
-      }
-    })
-  })
-
-  function getHealthAuthorisation () {
-    return new Promise(function (resolve, reject) {
-      navigator.health.requestAuthorization([{read: [task.dataType]}], function () {
-        resolve()
-      }, function (err) {
-        reject(err)
-      })
-    })
-  }
-
-  function checkHealthAuthroisation () {
-    return new Promise(function (resolve, reject) {
-      navigator.health.isAuthorized([{read: [task.dataType]}], function (authorised) {
-        if (authorised) {
-          resolve()
-        } else {
-          reject(new Error('App is not authorised'))
-        }
-      }, function (err) {
-        reject(err)
-      })
-    })
-  }
-
-  function queryHealth () {
-    return new Promise(function (resolve, reject) {
-      // Generate Start Date
-      let startDate
-      if (task.lastCompleted) {
-        startDate = moment(task.lastCompleted).startOf('day').utc().toDate()
       } else {
-        // Calculate when the task should've last been completed
-        let rrule = scheduler.generateRRule(studyStart, task.scheduling)
-        let prev = rrule.before(moment().startOf('day').utc().toDate())
-        let next = rrule.after(moment().startOf('day').utc().toDate())
-        let diff
-        try {
-          diff = moment(next).diff(moment(prev))
-        } catch (e) {
-          reject(e)
-        }
-        startDate = moment().subtract(diff, 'milliseconds').utc().toDate()
-      }
-      if (task.aggregated) {
-        navigator.health.queryAggregated({
-          startDate: startDate,
+        this.healthData = await healthstore.query({
+          startDate: startDate.toDate(),
           endDate: new Date(),
-          dataType: task.dataType,
-          bucket: task.bucket // Optional
-        }, (data) => resolve(data), (err) => reject(err))
-      } else {
-        navigator.health.query({
-          startDate: startDate,
-          endDate: new Date(),
-          dataType: task.dataType
-        }, (data) => resolve(data), (err) => reject(err))
+          dataType: taskDescr.dataType
+        })
       }
-    })
-  }
 
-  return checkHealthAvailibility
-    .then(getHealthAuthorisation)
-    .then(checkHealthAuthroisation)
-    .then(queryHealth)
-}
+      this.$q.loading.hide()
+      // now plot the data
 
-function plotHealthData (_this, data) {
-  let ctx = document.getElementById('chart')
-  // console.log(ctx)
-  let chartData = {labels: [], values: []}
-  for (let i = 0; i < data.length; i++) {
-    chartData.labels.push(data[i].endDate)
-    chartData.values.push(data[i].value)
-  }
+      let chartData = { labels: [], values: [] }
+      for (let i = 0; i < this.healthData.length; i++) {
+        chartData.labels.push(this.healthData[i].endDate)
+        chartData.values.push(this.healthData[i].value)
+      }
 
-  let chartJSData = {
-    labels: chartData.labels,
-    datasets: [{
-      label: _this.task.dataType.charAt(0).toUpperCase() + _this.task.dataType.slice(1),
-      data: chartData.values
-    }]
-  }
+      this.chartData = {
+        labels: chartData.labels,
+        datasets: [{
+          label: taskDescr.dataType.charAt(0).toUpperCase() + taskDescr.dataType.slice(1),
+          data: chartData.values,
+          backgroundColor: '#800000'
+        }]
+      }
 
-  // Ensure buckets is a valid option
-  let validBuckets = ['second', 'minute', 'hour', 'day', 'month', 'quarter', 'year']
-  if (validBuckets.indexOf(_this.task.bucket) === -1) delete _this.task.bucket
-
-  // NEED TO SPLIT CODE HERE FOR DEPENDING ON DATA TYPE
-
-  let chartJSOptions = {
-    maintainAspectRatio: false,
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
+      // NEED TO SPLIT CODE HERE FOR DEPENDING ON DATA TYPE
+      this.chartOptions = {
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }],
+          xAxes: [{
+            type: 'time',
+            bounds: 'data',
+            time: {
+              unit: taskDescr.bucket
+            }
+          }]
         }
-      }],
-      xAxes: [{
-        type: 'time',
-        bounds: 'data',
-        time: {
-          unit: _this.task.bucket
-        }
-      }]
+      }
+    } catch (error) {
+      console.error(error)
+      this.$q.loading.hide()
+      this.$q.notify({
+        color: 'negative',
+        message: 'Cannot retrieve data: ' + error.message,
+        icon: 'report_problem'
+      })
+    }
+  },
+  methods: {
+    async submit () {
+      try {
+        let studyKey = this.$route.params.studyKey
+        let taskId = Number(this.$route.params.taskID)
+        await API.sendDataQuery({
+          userKey: userinfo.user._key,
+          studyKey: studyKey,
+          taskId: taskId,
+          healthData: this.healthData
+        })
+        await DB.setTaskCompletion(studyKey, taskId, new Date())
+        this.$router.push('/home')
+      } catch (error) {
+        console.error(error)
+        this.$q.notify({
+          color: 'negative',
+          message: 'Cannot send data: ' + error.message,
+          icon: 'report_problem',
+          onDismiss () {
+            this.$router.push('/home')
+          }
+        })
+      }
     }
   }
-
-  // eslint-disable-next-line no-unused-vars,new-cap
-  let chart = new chartjs(ctx, {
-    type: 'bar',
-    data: chartJSData,
-    options: chartJSOptions
-  })
-  return Promise.resolve()
 }
-
 </script>
 
 <style>

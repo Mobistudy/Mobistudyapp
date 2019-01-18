@@ -6,11 +6,11 @@
           <p class="q-headline">Login</p>
           <q-input v-model="username" lower-case float-label="Username" />
           <q-input v-model="password" float-label="Password" type="password" />
-          <br />
-          <q-btn class="float-right" label="Login" color="positive" @click="login" type="submit" />
-          <br />
-          <q-btn label="Register" to="register" color="secondary" />&nbsp;
-          <q-btn label="Reset Password" to="resetpw" color="secondary" />
+          <div class="row">
+            <q-btn class="q-ma-sm" label="Login" color="positive" @click="login" type="submit" />
+            <q-btn class="q-ma-sm" label="Register" color="secondary" to="register" />
+            <q-btn class="q-ma-sm" label="Lost password" to="resetpw" color="tertiary" />
+          </div>
         </div>
       </q-page>
     </q-page-container>
@@ -21,6 +21,8 @@
 import DB from '../../modules/db'
 import API from '../../modules/API'
 import userinfo from '../../modules/userinfo'
+import session from '../../modules/session'
+import notifications from '../../modules/notifications'
 
 export default {
   name: 'LoginPage',
@@ -33,6 +35,8 @@ export default {
   },
   async created () {
     if (userinfo.user.loggedin) {
+      session.tasksSynchronised = false
+      notifications.cancelAll()
       userinfo.logout()
       API.unsetToken()
       DB.emptyDB()
@@ -49,9 +53,9 @@ export default {
 
         // retrieve the profile information
         // TODO: if the profile information is not available, it should go to a dedicated page where to fill it in
-        let profile = await API.getProfile()
+        let profile = await API.getProfile(userinfo.user._key)
         await userinfo.setProfile(profile)
-        await DB.setStudiesParticipation(profile.studies)
+        if (profile.studies) await DB.setStudiesParticipation(profile.studies)
 
         this.$router.push('/home')
       } catch (error) {

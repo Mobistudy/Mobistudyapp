@@ -7,13 +7,7 @@
         :inverted="$q.theme === 'ios'"
       >-->
       <q-toolbar color="primary">
-        <q-btn
-          flat
-          dense
-          round
-          @click="goBack()"
-          aria-label="Back"
-        >
+        <q-btn   flat dense   round @click="goBack()" aria-label="Back" >
           <q-icon name="arrow_back" />
         </q-btn>
 
@@ -32,7 +26,7 @@
 
 <script>
 export default {
-  // name: 'MyLayout',
+  name: 'TaskLayout',
   methods: {
     goBack () {
       this.$router.go(-1)

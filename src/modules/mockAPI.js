@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export function setToken (token) {
   console.log('API- Setting token: ' + token)
 }
@@ -16,7 +18,7 @@ export async function login (email, password) {
   console.log('API- Logging in')
   return {
     _key: '1231232',
-    email: 'jameson.lee@worc.ox.ac.uk',
+    email: 'jameson@test.test',
     token: 'asdasdasdasdasd'
   }
 }
@@ -34,7 +36,7 @@ export async function createProfile (profile) {
 }
 
 // Get the participant profile
-export async function getProfile () {
+export async function getProfile (userKey) {
   let profile = {
     userKey: '1231232',
     createdTS: '2018-12-10T09:30:32.492Z',
@@ -42,14 +44,22 @@ export async function getProfile () {
     surname: 'Lee',
     dateOfBirth: '1986-11-10',
     gender: 'male',
-    diseases: { '212132': 'heart failure' },
-    medications: { },
+    diseases: [],
+    medications: [],
+    lifestyle: {
+      active: false,
+      smoker: true
+    },
     studies: [
       {
         studyKey: '1234',
         currentStatus: 'accepted',
         acceptedTS: '2018-12-10T09:30:32.492Z',
-        criteriaAnswers: [ 'Yes', 'No' ]
+        criteriaAnswers: [ 'Yes', 'No' ],
+        tasksStatus: [
+          { taskId: 1, consented: true },
+          { taskId: 2, consented: true }
+        ]
       }
     ]
   }
@@ -63,6 +73,12 @@ export async function updateProfile (profile) {
   return true
 }
 
+// update status of a study
+export async function updateStudyStatus (userKey, studyKey, status, details) {
+  console.log('API- Study status updated', status)
+  return true
+}
+
 // Password reset
 export async function resetPW (email) {
   console.log('API- Reset profile for email' + email)
@@ -70,16 +86,63 @@ export async function resetPW (email) {
 }
 
 // Change password
-export function changePW (userKey, oldpw, newpw) {
-  // Make api call here and branch depending on result
-  if (oldpw !== 'correct') {
-    return Promise.resolve(false) // Old password does not match
-  } else {
-    return Promise.resolve(true) // New password updated correctly
-  }
+export async function changePW (token, newpw) {
+  return Promise.resolve(true)
 }
 
-export function getStudyDescription (studyKey) {
+// Permanently delete the user
+export async function deleteUser (userKey) {
+  console.log('API- permanently delete user')
+  return true
+}
+
+// search for disease on SNOMED
+export async function searchSNOMEDDisease (diseaseDescription) {
+  // Declare top level URL vars
+  const baseUrl = 'https://browser.ihtsdotools.org/api/v1/snomed/'
+  const edition = 'en-edition'
+  const version = '20180131'
+  // Construct Disease Query URL
+  const diseaseQueryURL = baseUrl + '/' + edition + '/v' + version + '/descriptions?query=' + encodeURIComponent(diseaseDescription) + '&limit=50&searchMode=partialMatching' + '&lang=english&statusFilter=activeOnly&skipTo=0' + '&semanticFilter=disorder' + '&returnLimit=100&normalize=true'
+
+  const response = await axios.get(diseaseQueryURL)
+  const dataDis = response.data
+  // Filter out already selected diseases
+  const resFiltByLen = dataDis.matches.filter(entry => entry['term'].length < 50)
+  const retval = resFiltByLen.map((item) => {
+    return {
+      label: item.term,
+      value: item.term,
+      conceptId: item.conceptId
+    }
+  })
+  return retval
+}
+
+// search for medications on SNOMED
+export async function searchSNOMEDMedication (medDescription) {
+  // Declare top level URL vars
+  var baseUrl = 'https://browser.ihtsdotools.org/api/v1/snomed/'
+  var edition = 'en-edition'
+  var version = '20180131'
+  // Construct medications Query URL
+  var medQueryURL = baseUrl + '/' + edition + '/v' + version + '/descriptions?query=' + encodeURIComponent(medDescription) + '&limit=50&searchMode=partialMatching' + '&lang=english&statusFilter=activeOnly&skipTo=0' + '&semanticFilter=substance' + '&returnLimit=100&normalize=true'
+
+  const response = await axios.get(medQueryURL)
+  const dataMed = response.data
+  // Filter out already selected medications
+  let resMedsFiltByLen = dataMed.matches.filter(entry => entry['term'].length < 50)
+  const retval = resMedsFiltByLen.map((item) => {
+    return {
+      label: item.term,
+      value: item.term,
+      conceptId: item.conceptId
+    }
+  })
+  return retval
+}
+
+export async function getStudyDescription (studyKey) {
   console.log('API- getting study ' + studyKey)
   return new Promise(function (resolve, reject) {
     if (studyKey === '9999') {
@@ -150,15 +213,8 @@ export function getStudyDescription (studyKey) {
                   'occurrences': 100,
                   'intervalType': 'd',
                   'interval': 12,
-                  'months': [
-                    1,
-                    2
-                  ],
-                  'monthDays': [
-                    1,
-                    12,
-                    24
-                  ],
+                  'months': [ 1, 2 ],
+                  'monthDays': [ 1, 12, 24 ],
                   'weekDays': [
                     1,
                     4,
@@ -274,13 +330,11 @@ export function getStudyDescription (studyKey) {
               'type': 'form',
               'scheduling': {
                 'startEvent': 'consent',
-                'startDelaySecs': 1000,
-                'untilSecs': 1036800,
                 'intervalType': 'd',
+                'interval': 1,
                 'months': [],
                 'monthDays': [],
-                'weekDays': [],
-                'interval': 1
+                'weekDays': []
               },
               'formKey': '1234',
               'formName': 'COPD Form'
@@ -298,7 +352,7 @@ export function getStudyDescription (studyKey) {
               },
               'dataType': 'steps',
               'aggregated': true,
-              'bucket': 'day'
+              'bucket': 'hour'
             }
           ],
           'consent': {
@@ -327,7 +381,7 @@ export function getStudyDescription (studyKey) {
   })
 }
 
-export function getQuestionnaire (key) {
+export function getForm (key) {
   return new Promise(function (resolve, reject) {
     if (key === '123456') {
       setTimeout(function () {
@@ -392,7 +446,7 @@ export function getQuestionnaire (key) {
                 {
                   'id': 'Q1A2',
                   'text': 'NO',
-                  'nextQuestionId': 'Q3'
+                  'nextQuestionId': 'ENDFORM'
                 }
               ]
             },
@@ -400,7 +454,7 @@ export function getQuestionnaire (key) {
               'id': 'Q2',
               'text': 'Fill in description.',
               'type': 'freetext',
-              'nextDefaultId': 'ENDFORM',
+              'nextDefaultId': 'Q3',
               'answerChoices': [
                 {
                   'id': 'Q2A1'
@@ -409,18 +463,21 @@ export function getQuestionnaire (key) {
             },
             {
               'id': 'Q3',
-              'text': 'Ice Cream?',
-              'type': 'singleChoice',
+              'text': 'Preferred food',
+              'type': 'multiChoice',
+              'nextDefaultId': 'ENDFORM',
               'answerChoices': [
                 {
                   'id': 'Q3A1',
-                  'text': 'YES',
-                  'nextQuestionId': 'ENDFORM'
+                  'text': 'Ice cream'
                 },
                 {
                   'id': 'Q3A2',
-                  'text': 'NO',
-                  'nextQuestionId': 'ENDFORM'
+                  'text': 'Cake'
+                },
+                {
+                  'id': 'Q3A3',
+                  'text': 'Chocolate'
                 }
               ]
             }
@@ -434,12 +491,12 @@ export function getQuestionnaire (key) {
   })
 }
 
-// Token refresh - storage
-
-export function removeStudy (userKey, studyKey) {
-
+export function sendAnswers (answers) {
+  console.log('API - sending answers', answers)
+  return Promise.resolve()
 }
 
-export function sendData () {
-
+export function sendDataQuery (data) {
+  console.log('API - sending query data', data)
+  return Promise.resolve()
 }

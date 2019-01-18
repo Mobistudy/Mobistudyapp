@@ -4,7 +4,7 @@ import { RRule } from 'rrule'
 import notifications from './notifications'
 
 // returns an array of tasks that need to be done today
-// these are tasks  that were "missed" between the last execution and the end of today
+// these are tasks that were "missed" between the last execution and the end of today
 export function generateTasker (studiesParts, studiesDescr) {
   let taskerItems = {
     upcoming: [],
@@ -14,15 +14,27 @@ export function generateTasker (studiesParts, studiesDescr) {
     let studyDescr = studiesDescr.find(sd => {
       return sd._key === studyPart.studyKey
     })
-    for (const task of studyDescr.tasks) {
+    const consentedTasks = studyDescr.tasks.filter((tdescr) => {
+      const taskPart = studyPart.tasksStatus.find(x => x.taskId === tdescr.id)
+      return taskPart.consented
+    })
+    for (const task of consentedTasks) {
       let rrule = generateRRule(studyPart.acceptedTS, task.scheduling)
       let missed
       // the time this task was completed last time is stored into the studyParticipation
-      // example: tasksLastCompletion: { 'taskKey': 'ISO string' }
-      if (studyPart.tasksLastCompletion && studyPart.tasksLastCompletion[studyPart.studyKey]) {
-        // Task has been completed before
-        let lastCompletionTS = studyPart.tasksLastCompletion[studyPart.studyKey]
-        missed = rrule.between(new Date(lastCompletionTS), moment().startOf('day').toDate())
+      // example: "tasksStatus": [ { "taskId": 1, "consented": true, "lastExecuted": "ISO string" } ]
+      let lastCompletionTS
+      if (studyPart.tasksStatus) {
+        const taskStatus = studyPart.tasksStatus.find(x => x.taskId === task.id)
+        if (taskStatus && taskStatus.lastExecuted) {
+          console.log('TASK WAS COMPLETED ON ', taskStatus.lastExecuted)
+          // Task has been completed before
+          lastCompletionTS = moment(new Date(taskStatus.lastExecuted))
+        }
+      }
+
+      if (lastCompletionTS) {
+        missed = rrule.between(lastCompletionTS.toDate(), moment().startOf('day').toDate())
         if (missed.length > 0) {
           missed = missed[missed.length - 1]
         } else {
@@ -34,43 +46,32 @@ export function generateTasker (studiesParts, studiesDescr) {
         missed = rrule.before(moment().startOf('day').toDate())
       }
       // Get next task within the day
-      let upcoming = rrule.between(moment().startOf('day').toDate(), moment().endOf('day').toDate())
-      if (upcoming.length > 0) {
-        upcoming = upcoming[0]
-      } else {
+      let upcoming
+      if (lastCompletionTS && lastCompletionTS.isAfter(moment().startOf('day'))) {
         upcoming = null
-      }
-      let templateObj = {}
-      if (task.type === 'dataQuery') {
-        templateObj = {
-          title: 'Data Query',
-          main: 'We\'d like to request some data from you',
-          submitText: 'Send Data',
-          icon: 'directions_walk',
-          studyKey: studyDescr._key,
-          taskID: task.id
+      } else {
+        upcoming = rrule.between(moment().startOf('day').toDate(), moment().endOf('day').toDate())
+        if (upcoming.length > 0) {
+          upcoming = upcoming[0]
+        } else {
+          upcoming = null
         }
-      } else if (task.type === 'form') {
-        templateObj = {
-          title: task.formName,
-          main: 'We\'d like to ask you a few questions',
-          submitText: 'Take Questionnaire',
-          icon: 'ballot',
-          taskID: task.id,
-          formKey: task.formKey
-        }
-      } else throw new Error('task type ' + task.type + ' not supported')
-      // missed executions of the task go into the missed array
-      if (missed !== null) {
-        templateObj.missed = true
-        templateObj.due = missed
-        taskerItems.missed.push(templateObj)
       }
-      // upcoming executions of the task go into the upcoming array
+      let templateObj = {
+        type: task.type,
+        studyKey: studyDescr._key,
+        taskID: task.id
+      }
+      if (task.type === 'form') {
+        templateObj.formTitle = task.formName
+        templateObj.formKey = task.formKey
+      }
       if (upcoming !== null) {
-        templateObj.missed = false
-        templateObj.due = upcoming
-        taskerItems.upcoming.push(templateObj)
+        // upcoming executions of the task go into the upcoming array
+        taskerItems.upcoming.push(Object.assign({missed: false, due: upcoming}, templateObj))
+      } else if (missed !== null) {
+        // missed executions of the task go into the missed array
+        taskerItems.missed.push(Object.assign({missed: true, due: missed}, templateObj))
       }
     }
   }
@@ -168,13 +169,17 @@ export function scheduleNotificationsAllStudies (studiesParts, studiesDescr) {
   }
 }
 
-export function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) {
+export async function cancelNotifications () {
+  return notifications.cancelAll()
+}
+
+export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) {
   for (const task of studyDescr.tasks) {
     for (const task of studyDescr.tasks) {
       let rrule = generateRRule(acceptedTS, task.scheduling)
-      let taskTimes = rrule.between(acceptedTS, new Date(studyDescr.generalities.endDate), true)
+      let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
       for (const taskTime of taskTimes) {
-        notifications.schedule({
+        await notifications.schedule({
           text: 'You have a new study task pending!',
           trigger: { at: moment(taskTime).toDate() }
         })
