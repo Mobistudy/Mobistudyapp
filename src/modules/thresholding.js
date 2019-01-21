@@ -41,6 +41,11 @@ export function Thresholding (data, resolution = 1, scope = 3) {
     }
     return {x: xVals, y: yVals}
   }
+  this.percentile = function (x) {
+    x = x / 100
+    let cdf = this.cdf()
+    return cdf.x[closestIndex(x, cdf.y)]
+  }
 }
 
 function range (start, end, step = 1) {
