@@ -16,6 +16,7 @@
     "moment": "^2.22.2",
     "rrule": "^2.5.6",
     "science": "^1.9.3",
+    "vue-chartjs": "^3.4.0",
     "vuelidate": "^0.7.4"
   },
   "devDependencies": {
@@ -29,7 +30,7 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^4.3.0",
-    "quasar-cli": "^0.17.0",
+    "quasar-cli": "^0.17.23",
     "strip-ansi": "=3.0.1"
   },
   "engines": {

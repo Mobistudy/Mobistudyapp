@@ -1,15 +1,27 @@
 # Mobistudy App
 
-## Introduction
-> TODO
+his repository contains the patient app for Mobistudy.
+The app is developed with Cordova and uses Quasar framework.
 
-## Installation
-1. `npm install`
-1. Configure db.js to either use nativeStorage or localStorage - localStorage recommended for testing
-1. Run Quasar
-  * Browser: `quasar dev`
-  * Android: `quasar dev -m cordova -T android`
+## Pre-requisites
 
-## Known issues
-* nativeStorage currently untested
-* iOS is as yet untested
+- nodejs with npm
+- [Apache Cordova](https://cordova.apache.org/)
+- [quasar command line tool](https://quasar-framework.org/guide/quasar-cli.html)
+
+
+## Develop
+
+In the project folder, run `npm install` to download the dependencies.
+
+To start the interface, run `quasar dev`, this will spawn a web browser emulating the app.
+The web environment is handy for developing and testing, but some modules are mocked there.
+
+To run it on an Android device: `quasar dev -m cordova -T android`.
+
+You will need the MobistudyAPI running in parallel (see MobistudyAPI docs), or use the mockAPI.
+
+## Deploy
+
+Run `quasar build`.
+This will generate the material UI interfaces and make it available under `./dist/`

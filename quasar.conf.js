@@ -4,7 +4,7 @@ module.exports = function (ctx) {
   return {
     // app plugins (/src/plugins)
     plugins: [
-      'vuelidate'
+      'axios', 'vuelidate'
     ],
     css: [
       'app.styl'
@@ -35,42 +35,53 @@ module.exports = function (ctx) {
     },
     devServer: {
       // https: true,
-      // port: 8080,
-      open: true // opens browser window automatically
+      port: 8080,
+      open: true, // opens browser window automatically
+      proxy: {
+        // proxy all requests starting with /api to jsonplaceholder
+        '/api': {
+          target: 'http://127.0.0.1:3000',
+          changeOrigin: true
+        }
+      }
     },
     // framework: 'all' --- includes everything; for dev only!
     framework: {
       components: [
-        'QLayout',
-        'QLayoutHeader',
-        'QLayoutDrawer',
-        'QPageContainer',
-        'QPage',
-        'QToolbar',
-        'QToolbarTitle',
+        'QAutocomplete',
         'QBtn',
         'QBtnGroup',
-        'QIcon',
-        'QList',
-        'QListHeader',
-        'QItem',
-        'QItemMain',
-        'QItemSide',
-        'QItemSeparator',
-        'QItemTile',
         'QCard',
         'QCardTitle',
         'QCardMain',
         'QCardMedia',
         'QCardSeparator',
         'QCardActions',
+        'QCheckbox',
+        'QChipsInput',
+        'QCollapsible',
+        'QDatetime',
         'QField',
+        'QIcon',
         'QInput',
+        'QItem',
+        'QItemMain',
+        'QItemSide',
+        'QItemSeparator',
+        'QItemTile',
+        'QJumbotron',
+        'QLayout',
+        'QLayoutHeader',
+        'QList',
+        'QListHeader',
+        'QLayoutDrawer',
+        'QPageContainer',
+        'QPage',
         'QPopover',
+        'QRadio',
         'QStepper',
         'QStep',
         'QStepperNavigation',
-        'QDatetime',
         'QSelect',
         'QToggle',
         'QRadio',
@@ -80,7 +91,9 @@ module.exports = function (ctx) {
         'QTabs',
         'QTab',
         'QTabPane',
-        'QRouteTab'
+        'QRouteTab',
+        'QToolbar',
+        'QToolbarTitle'
       ],
       directives: [
         'Ripple',

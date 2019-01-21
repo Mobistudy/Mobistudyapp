@@ -20,7 +20,7 @@
 <script>
 let storage = window.NativeStorage
 let db = require('src/modules/db')
-let api = require('src/modules/mobistudyAPI')
+let api = require('src/modules/API')
 let moment = require('moment')
 
 export default {

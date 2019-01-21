@@ -1,112 +1,102 @@
 /* eslint-disable no-unused-vars */
-let db = require('src/modules/db.js')
-let api = require('src/modules/mobistudyAPI')
-let moment = require('moment')
+import moment from 'moment'
 import { RRule } from 'rrule'
+import notifications from './notifications'
 
 // returns an array of tasks that need to be done today
-// these are tasks  that were "missed" between the last execution and the end of today
-export async function generateTasker () {
-  let res = await db.getStudies()
-  if (res.length === 0) {
-    return Promise.resolve([])
-  }
-  // console.log(res)
+// these are tasks that were "missed" between the last execution and the end of today
+export function generateTasker (studiesParts, studiesDescr) {
   let taskerItems = {
     upcoming: [],
     missed: []
   }
-  for (let i = 0; i < res.length; i++) {
-    for (let j = 0; j < res[i].config.tasks.length; j++) {
-      let startTime
-      if (res[i].config.tasks[j].startEvent === 'consent') {
-        startTime = moment(res[i].start)
-      } else {
-        startTime = moment(res[i].start)
+  for (const studyPart of studiesParts) {
+    let studyDescr = studiesDescr.find(sd => {
+      return sd._key === studyPart.studyKey
+    })
+    const consentedTasks = studyDescr.tasks.filter((tdescr) => {
+      const taskPart = studyPart.tasksStatus.find(x => x.taskId === tdescr.id)
+      return taskPart.consented
+    })
+    for (const task of consentedTasks) {
+      let rrule = generateRRule(studyPart.acceptedTS, task.scheduling)
+      let missed
+      // the time this task was completed last time is stored into the studyParticipation
+      // example: "tasksStatus": [ { "taskId": 1, "consented": true, "lastExecuted": "ISO string" } ]
+      let lastCompletionTS
+      if (studyPart.tasksStatus) {
+        const taskStatus = studyPart.tasksStatus.find(x => x.taskId === task.id)
+        if (taskStatus && taskStatus.lastExecuted) {
+          console.log('TASK WAS COMPLETED ON ', taskStatus.lastExecuted)
+          // Task has been completed before
+          lastCompletionTS = moment(new Date(taskStatus.lastExecuted))
+        }
       }
-      if (typeof res[i].config.tasks[j].scheduling.startDelaySecs !== 'undefined') {
-        startTime = startTime.clone().add(res[i].config.tasks[j].scheduling.startDelaySecs, 's') // Add seconds
-      }
-      let rrule = generateRRule(startTime, res[i].config.tasks[j].scheduling)
-      let pastNotDone
-      if (typeof res[i].config.tasks[j].lastCompleted !== 'undefined') {
-        // Task has been completed before
-        pastNotDone = rrule.between(moment(res[i].config.tasks[j].lastCompleted).toDate(), moment().startOf('day').utc().toDate())
-        // Handle weird rrule behaviour
-        if (pastNotDone.length > 0) {
-          pastNotDone = pastNotDone[pastNotDone.length - 1]
+
+      if (lastCompletionTS) {
+        missed = rrule.between(lastCompletionTS.toDate(), moment().startOf('day').toDate())
+        if (missed.length > 0) {
+          missed = missed[missed.length - 1]
         } else {
-          pastNotDone = null
+          missed = null
         }
       } else {
         // Task has never been completed
-        pastNotDone = rrule.before(moment().startOf('day').utc().toDate())
+        // get the last occurrence of the rrule before today
+        missed = rrule.before(moment().startOf('day').toDate())
       }
       // Get next task within the day
-      let upcoming = rrule.between(moment().startOf('day').utc().toDate(), moment().endOf('day').utc().toDate())
-      if (upcoming.length > 0) {
-        upcoming = upcoming[0]
-      } else {
+      let upcoming
+      if (lastCompletionTS && lastCompletionTS.isAfter(moment().startOf('day'))) {
         upcoming = null
+      } else {
+        upcoming = rrule.between(moment().startOf('day').toDate(), moment().endOf('day').toDate())
+        if (upcoming.length > 0) {
+          upcoming = upcoming[0]
+        } else {
+          upcoming = null
+        }
       }
-      // console.log(res[i].config.tasks[j])
-      // console.log(upcoming)
-      // console.log(pastNotDone)
-      // console.log(rrule.all())
-      // Construct tasker objects
-      // {
-      //   id: 2,
-      //     title: 'Pedometer Data',
-      //   main: 'We\'d like to analyse how many steps you\'ve taken over the past week',
-      //   submitText: 'Send Data',
-      //   icon: 'directions_walk',
-      //   future: true,
-      //   due: 1540612283000
-      // }
-      let templateObj = {}
-      switch (res[i].config.tasks[j].type) {
-        case 'dataQuery':
-          templateObj = {
-            title: 'Data Query',
-            main: 'We\'d like to request some data from you',
-            submitText: 'Send Data',
-            icon: 'directions_walk',
-            studyKey: res[i].key,
-            taskID: res[i].config.tasks[j].id
-          }
-          break
-        case 'form':
-          templateObj = {
-            title: res[i].config.tasks[j].formName,
-            main: 'We\'d like to ask you a few questions',
-            submitText: 'Take Questionnaire',
-            icon: 'ballot',
-            formKey: res[i].config.tasks[j].formKey
-          }
-          break
+      let templateObj = {
+        type: task.type,
+        studyKey: studyDescr._key,
+        taskID: task.id
       }
-      if (pastNotDone !== null && upcoming === null) {
-        taskerItems.missed.push(Object.assign({}, templateObj, {
-          missed: true,
-          due: moment(pastNotDone).valueOf()
-        }))
+      if (task.type === 'form') {
+        templateObj.formTitle = task.formName
+        templateObj.formKey = task.formKey
       }
       if (upcoming !== null) {
-        taskerItems.upcoming.push(Object.assign({}, templateObj, {
-          missed: false,
-          // due: moment(upcoming).valueOf()
-          due: moment().endOf('day').utc().valueOf()
-        }))
+        // upcoming executions of the task go into the upcoming array
+        taskerItems.upcoming.push(Object.assign({missed: false, due: upcoming}, templateObj))
+      } else if (missed !== null) {
+        // missed executions of the task go into the missed array
+        taskerItems.missed.push(Object.assign({missed: true, due: missed}, templateObj))
       }
     }
   }
-  return Promise.resolve(taskerItems)
+  return taskerItems
 }
 
+/**
+* generates an instance of RRule
+* startTime - standard JS date
+* scheduling - as from the study description
+*/
 export function generateRRule (startTime, scheduling) {
+  let startTimeM = moment(startTime)
+  if (scheduling.startEvent === 'consent') {
+    if (scheduling.startDelaySecs) {
+      // add start delay
+      startTimeM = startTimeM.clone().add(scheduling.startDelaySecs, 's') // Add seconds
+    }
+  } else {
+    // TODO!!!
+    throw new Error('The only start event recognised is consent')
+  }
   let endTime = -1
-  if (typeof scheduling.untilSecs !== 'undefined') {
-    endTime = startTime.clone().add(scheduling.untilSecs, 's')
+  if (scheduling.untilSecs) {
+    endTime = startTimeM.clone().add(scheduling.untilSecs, 's')
   }
   // Frequency
   let freq
@@ -124,7 +114,7 @@ export function generateRRule (startTime, scheduling) {
       freq = RRule.DAILY
       break
     default:
-      return Promise.reject(new Error('No Frequency Specified'))
+      throw new Error('No Frequency Specified')
   }
   // byweekday
   let byweekday = []
@@ -157,138 +147,43 @@ export function generateRRule (startTime, scheduling) {
   }
   // Put into rrule config
   let rruleObj = {}
-  rruleObj.dtstart = startTime.utc().toDate()
-  if (endTime !== -1) rruleObj.until = endTime.utc().toDate()
+  rruleObj.dtstart = startTimeM.toDate()
+  if (endTime !== -1) rruleObj.until = endTime.toDate()
   rruleObj.freq = freq
-  if (typeof scheduling.interval !== 'undefined') rruleObj.interval = scheduling.interval
-  if (typeof scheduling.months !== 'undefined') rruleObj.bymonth = scheduling.months
-  if (typeof scheduling.monthDays !== 'undefined') rruleObj.bymonthday = scheduling.monthDays
+  if (scheduling.interval) rruleObj.interval = scheduling.interval
+  if (scheduling.months) rruleObj.bymonth = scheduling.months
+  if (scheduling.monthDays) rruleObj.bymonthday = scheduling.monthDays
   rruleObj.byweekday = byweekday
-  if (typeof scheduling.occurrences !== 'undefined') rruleObj.count = scheduling.occurrences
+  if (scheduling.occurrences) rruleObj.count = scheduling.occurrences
 
   return new RRule(rruleObj)
 }
 
-export function scheduleNotifications () {
-  let notification = cordova.plugins.notification.local
-  db.getStudies().then(function (res) {
-    // let scheduleItems = []
-    for (let i = 0; i < res.length; i++) {
-      for (let j = 0; j < res[i].config.tasks.length; j++) {
-        let startTime
-        if (res[i].config.tasks[j].startEvent === 'consent') {
-          startTime = moment(res[i].start)
-        } else {
-          startTime = moment(res[i].start)
-        }
-        if (typeof res[i].config.tasks[j].scheduling.startDelaySecs !== 'undefined') {
-          startTime = startTime.clone().add(res[i].config.tasks[j].scheduling.startDelaySecs, 's') // Add seconds
-        }
-        let rrule = generateRRule(startTime, res[i].config.tasks[j].scheduling)
-        let taskTimes = rrule.between(moment().endOf('day').utc().toDate(), moment().endOf('day').add(1, 'M').utc().toDate(), true)
-        for (let k = 0; k < taskTimes; k++) {
-          notification.schedule({
-            text: 'You have a new study task pending!',
-            trigger: { at: moment(taskTimes[k]).toDate() }
-          })
-        }
+export function scheduleNotificationsAllStudies (studiesParts, studiesDescr) {
+  for (const studyPart of studiesParts) {
+    let acceptedTS = studyPart.acceptedTS
+    let studyDescr = studiesDescr.find(sd => {
+      return sd._key === studyPart.studyKey
+    })
+    scheduleNotificationsSingleStudy(acceptedTS, studyDescr)
+  }
+}
+
+export async function cancelNotifications () {
+  return notifications.cancelAll()
+}
+
+export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) {
+  for (const task of studyDescr.tasks) {
+    for (const task of studyDescr.tasks) {
+      let rrule = generateRRule(acceptedTS, task.scheduling)
+      let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
+      for (const taskTime of taskTimes) {
+        await notifications.schedule({
+          text: 'You have a new study task pending!',
+          trigger: { at: moment(taskTime).toDate() }
+        })
       }
     }
-  })
-}
-
-/* export function generateStudiesRRules () {
-return db.getStudies().then(function (res) {
-if (res.length === 0) return Promise.resolve([])
-for (let i = 0; i < res.length; i++) {
-for (let j = 0; j < res[i].config.tasks.length; j++) {
-// Declare rrule object
-let rruleObj = {}
-// Compute start time
-let startTime
-if (res[i].config.tasks[j].startEvent === 'consent') {
-startTime = moment(res[i].start)
-} else {
-startTime = moment(res[i].start)
-}
-if (typeof res[i].config.tasks[j].scheduling.startDelaySecs !== 'undefined') {
-startTime = startTime.clone().add(res[i].config.tasks[j].scheduling.startDelaySecs, 's') // Add seconds
-}
-// Compute end time
-let endTime = -1
-if (typeof res[i].config.tasks[j].scheduling.untilSecs !== 'undefined') {
-endTime = startTime.clone().add(res[i].config.tasks[j].scheduling.untilSecs, 's')
-}
-// Frequency
-let freq
-switch (res[i].config.tasks[j].scheduling.intervalType) {
-case 'y':
-freq = RRule.YEARLY
-break
-case 'm':
-freq = RRule.MONTHLY
-break
-case 'w':
-freq = RRule.WEEKLY
-break
-case 'd':
-freq = RRule.DAILY
-break
-default:
-return Promise.reject(new Error('No Frequency Specified'))
-}
-// byweekday
-let byweekday = []
-for (let k = 0; k < res[i].config.tasks[j].scheduling.weekDays.length; k++) {
-switch (res[i].config.tasks[j].scheduling.weekDays[k]) {
-case 'mo':
-byweekday.push(RRule.MO)
-break
-case 'tu':
-byweekday.push(RRule.TU)
-break
-case 'we':
-byweekday.push(RRule.WE)
-break
-case 'th':
-byweekday.push(RRule.TH)
-break
-case 'fr':
-byweekday.push(RRule.FR)
-break
-case 'sa':
-byweekday.push(RRule.SA)
-break
-case 'su':
-byweekday.push(RRule.SU)
-break
-}
-}
-// Put into rrule config
-rruleObj.dtstart = startTime.utc().toDate()
-if (endTime !== -1) rruleObj.until = endTime.utc().toDate()
-rruleObj.freq = freq
-if (typeof res[i].config.tasks[j].scheduling.interval !== 'undefined') rruleObj.interval = res[i].config.tasks[j].scheduling.interval
-if (typeof res[i].config.tasks[j].scheduling.months !== 'undefined') rruleObj.bymonth = res[i].config.tasks[j].scheduling.months
-if (typeof res[i].config.tasks[j].scheduling.monthDays !== 'undefined') rruleObj.bymonthday = res[i].config.tasks[j].scheduling.monthDays
-rruleObj.byweekday = byweekday
-if (typeof res[i].config.tasks[j].scheduling.occurrences !== 'undefined') rruleObj.count = res[i].config.tasks[j].scheduling.occurrences
-
-res[i].config.tasks[j].rrule = new RRule(rruleObj)
-}
-}
-return Promise.resolve(res)
-})
-} */
-
-export function updateStudiesList (userKey) {
-
-}
-
-export function updateTasksList (studyKey) {
-
-}
-
-export function scheduleNotification (message, date) {
-
+  }
 }

@@ -1,9 +1,7 @@
 <template>
   <q-page padding class="flex flex-center">
-    <!-- content -->
-    <br />
     <div style="text-align: center">
-      <img src="~assets/apple-touch-icon.png" /><br/><br/>
+      <img src="~assets/oxforduni_logo.png" /><br/><br/>
       <p>Institute of Biomedical Engineering</p>
       <p>University of Oxford</p>
       <p><a href="mailto:ibme-enquries@eng.ox.ac.uk">ibme-enquiries@eng.ox.ac.uk</a></p>
@@ -14,7 +12,7 @@
 
 <script>
 export default {
-  // name: 'PageName',
+  name: 'AboutPage'
 }
 </script>
 
