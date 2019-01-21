@@ -12,6 +12,8 @@
     <q-btn label="set instant notification" @click="setNotification(0)" />
     <q-btn label="set delayed notification 5s" @click="setNotification(5)" />
     <q-btn label="set delayed notification 90s" @click="setNotification(90)" />
+    <q-btn label="thresholding" to="/thresholding" />
+    <q-btn label="charting" to="/charting" />
   </q-page>
 </template>
 

@@ -12,7 +12,8 @@ const routes = [
       { path: '/profile', component: () => import('pages/Main/Profile.vue') },
       { path: '/studies', component: () => import('pages/Main/Studies.vue') },
       { path: '/dev', component: () => import('pages/devControl.vue') },
-      { path: '/thresholding', component: () => import('pages/Thresholding.vue') }
+      { path: '/thresholding', component: () => import('pages/Thresholding.vue') },
+      { path: '/charting', component: () => import('pages/Charting.vue') }
     ]
   },
   {
