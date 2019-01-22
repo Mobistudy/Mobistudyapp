@@ -40,24 +40,23 @@
 <script>
 import StudyPrevious from 'components/Main/Studies/Previous'
 import StudyActive from 'components/Main/Studies/Active'
-let db = require('src/modules/db')
+import DB from '../../modules/db'
 
 export default {
   // name: 'PageName',
   components: {StudyActive, StudyPrevious},
   created () {
     let _this = this
-    db.getStudies().then(function (studies) {
+    DB.getStudiesParticipation().then(function (studies) {
+      console.log(studies)
       for (let i = 0; i < studies.length; i++) {
-        if (studies[i].inactive) {
-          if (studies[i].hidden) {
-            // Do Nothing
-          } else {
-            _this.previousStudies.push(studies[i])
+        DB.getStudyDescription(studies[i].studyKey).then(function (description) {
+          if (studies[i].currentStatus === 'accepted') {
+            _this.activeStudies.push(description)
+          } else { // I think this needs to be an if else for another status, but I'm not sure what the other status is
+            _this.previousStudies.push(description)
           }
-        } else {
-          _this.activeStudies.push(studies[i])
-        }
+        })
       }
     })
   },
