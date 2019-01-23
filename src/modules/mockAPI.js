@@ -36,7 +36,7 @@ export async function createProfile (profile) {
 }
 
 // Get the participant profile
-export async function getProfile () {
+export async function getProfile (userKey) {
   let profile = {
     userKey: '1231232',
     createdTS: '2018-12-10T09:30:32.492Z',
@@ -44,8 +44,12 @@ export async function getProfile () {
     surname: 'Lee',
     dateOfBirth: '1986-11-10',
     gender: 'male',
-    diseases: { }, // 'Heart failure': '84114007'
-    medications: { },
+    diseases: [],
+    medications: [],
+    lifestyle: {
+      active: false,
+      smoker: true
+    },
     studies: [
       {
         studyKey: '1234',
@@ -66,6 +70,12 @@ export async function getProfile () {
 // Updating details
 export async function updateProfile (profile) {
   console.log('API- Profile updated', profile)
+  return true
+}
+
+// update status of a study
+export async function updateStudyStatus (userKey, studyKey, status, details) {
+  console.log('API- Study status updated', status)
   return true
 }
 

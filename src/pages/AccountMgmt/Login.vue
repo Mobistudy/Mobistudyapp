@@ -53,9 +53,9 @@ export default {
 
         // retrieve the profile information
         // TODO: if the profile information is not available, it should go to a dedicated page where to fill it in
-        let profile = await API.getProfile()
+        let profile = await API.getProfile(userinfo.user._key)
         await userinfo.setProfile(profile)
-        await DB.setStudiesParticipation(profile.studies)
+        if (profile.studies) await DB.setStudiesParticipation(profile.studies)
 
         this.$router.push('/home')
       } catch (error) {
