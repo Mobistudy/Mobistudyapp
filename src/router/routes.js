@@ -6,14 +6,17 @@ const routes = [
   },
   {
     path: '/login',
+    name: 'login',
     component: () => import('pages/AccountMgmt/Login.vue')
   },
   {
     path: '/register',
+    name: 'register',
     component: () => import('pages/AccountMgmt/Register.vue')
   },
   {
     path: '/resetpw',
+    name: 'resetpw',
     component: () => import('pages/AccountMgmt/ResetPW.vue')
   },
   {
@@ -24,11 +27,11 @@ const routes = [
     path: '/home',
     component: () => import('layouts/HomeLayout.vue'),
     children: [
-      { path: '/', component: () => import('pages/Home/Tasker.vue') },
-      { path: '/tasker', component: () => import('pages/Home/Tasker.vue') },
-      { path: '/about', component: () => import('pages/Home/About.vue') },
-      { path: '/profile', component: () => import('pages/Home/Profile.vue') },
-      { path: '/studies', component: () => import('pages/Home/Studies.vue') },
+      { path: '/', name: 'home', component: () => import('pages/Home/Tasker.vue'), props: true },
+      { path: '/tasker', name: 'tasker', component: () => import('pages/Home/Tasker.vue'), props: true },
+      { path: '/about', name: 'about', component: () => import('pages/Home/About.vue') },
+      { path: '/profile', name: 'profile', component: () => import('pages/Home/Profile.vue') },
+      { path: '/studies', name: 'studies', component: () => import('pages/Home/Studies.vue') },
       { path: '/addStudy/:key', component: () => import('pages/Home/AddStudy.vue') },
       { path: '/dev', component: () => import('pages/devControl.vue') },
       { path: '/thresholding', component: () => import('pages/Thresholding.vue') },
@@ -39,8 +42,8 @@ const routes = [
     path: '/tasks',
     component: () => import('layouts/TaskLayout.vue'),
     children: [
-      { path: '/form/:studyKey/:taskId/:formKey', component: () => import('pages/Home/Form.vue') },
-      { path: '/dataQuery/:studyKey/:taskID', component: () => import('pages/Home/DataQuery') }
+      { path: '/form/:studyKey/:taskId/:formKey', name: 'form', component: () => import('pages/Home/Form.vue') },
+      { path: '/dataQuery/:studyKey/:taskID', name: 'dataQuery', component: () => import('pages/Home/DataQuery') }
     ]
   }
 ]

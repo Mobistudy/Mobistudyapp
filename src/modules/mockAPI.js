@@ -381,7 +381,11 @@ export async function getStudyDescription (studyKey) {
   })
 }
 
-export function getForm (key) {
+export async function getNewStudiesKeys () {
+  return ['9999']
+}
+
+export async function getForm (key) {
   return new Promise(function (resolve, reject) {
     if (key === '123456') {
       setTimeout(function () {

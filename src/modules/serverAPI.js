@@ -126,6 +126,12 @@ export async function getStudyDescription (studyKey) {
   return resp.data
 }
 
+// retrieves the keys of the new studies already filtered out by inclusion criteria
+export async function getNewStudiesKeys () {
+  let resp = await axios.get(BASE_URL + '/newStudies/', axiosConfig)
+  return resp.data
+}
+
 // gets a form given its key
 export async function getForm (formKey) {
   let resp = await axios.get(BASE_URL + '/forms/' + formKey, axiosConfig)

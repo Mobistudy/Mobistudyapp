@@ -1,7 +1,10 @@
 <template>
   <q-page padding>
+    <q-alert class="q-mb-lg" v-if="newstudies" icon="new_releases" type="warning" :actions="[
+          { label: 'Check it', handler: () => { this.$router.push('/studies') } }
+        ]">New study available!</q-alert>
     <div v-if="nostudies" class="q-title">
-      You are registered to no studies yet.
+      You are currently not participating in any study.
     </div>
     <q-list v-else highlight v-show="!$q.loading.isActive">
       <q-list-header>Today's pending tasks</q-list-header>
@@ -30,7 +33,6 @@
 </style>
 
 <script>
-import session from '../../modules/session'
 import taskCard from 'components/Main/TaskCard.vue'
 import taskListItem from 'components/Main/TaskListItem.vue'
 import userinfo from '../../modules/userinfo'
@@ -43,9 +45,11 @@ export default {
   components: {
     taskCard, taskListItem
   },
+  props: ['rescheduleTasks', 'checkNewStudies'],
   data () {
     return {
       nostudies: false,
+      newstudies: false,
       tasks: {
         upcoming: [],
         missed: []
@@ -59,10 +63,29 @@ export default {
     async load () {
       this.$q.loading.show()
       try {
-        if (!session.tasksSynchronised) {
+        console.log('rescheduleTasks', this.rescheduleTasks)
+        console.log('checkNewStudies', this.checkNewStudies)
+        if (this.checkNewStudies) {
+          // let's see if there are any new eligible studies
+          try {
+            let newStudyIds = await API.getNewStudiesKeys()
+            console.log('New studies', newStudyIds)
+            if (newStudyIds.length > 0) {
+              // there's a new study in town! warn the user!
+              this.newstudies = true
+            }
+          } catch (error) {
+            console.error('Cannot connect to server, but thats OK', error)
+            // if it fails it's fine
+          }
+        }
+
+        if (this.rescheduleTasks) {
+          // the first time we show this component, tasks are re-scheduled
           await scheduler.cancelNotifications()
 
           try {
+            // let's retrieve the studies from the API, just in case
             let profile = await API.getProfile(userinfo.user._key)
             if (!profile.studies || profile.studies.length === 0) {
               // this user has no studies !
@@ -97,18 +120,18 @@ export default {
             // study description needs to be retrieved from the server
             studyDescr = await API.getStudyDescription(study.studyKey)
             await DB.setStudyDescription(study.studyKey, studyDescr)
-            if (session.tasksSynchronised) {
+            if (!this.rescheduleTasks) {
               // only schedule it here if we are not scheduling all of them
               await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
             }
           }
-          if (!session.tasksSynchronised) {
+          if (this.rescheduleTasks) {
+            // schedule all of them
             await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
           }
           activeStudiesDescr.push(studyDescr)
         }
 
-        session.tasksSynchronised = true
         let res = scheduler.generateTasker(activestudiesPart, activeStudiesDescr)
         this.tasks = res
 

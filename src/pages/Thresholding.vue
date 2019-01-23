@@ -10,7 +10,7 @@
 <script>
 // let science = require('science')
 let chartjs = require('chart.js')
-let Thresholding = require('src/modules/thresholding').Thresholding
+let Thresholding = require('../modules/thresholding').Thresholding
 
 export default {
   // name: 'PageName',

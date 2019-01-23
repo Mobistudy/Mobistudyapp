@@ -258,7 +258,7 @@ export default {
           await API.createProfile(profile)
           await userinfo.setProfile(profile)
 
-          this.$router.push('/home')
+          this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
         } catch (error) {
           if (error.response && error.response.status === 409) {
             this.$q.notify({

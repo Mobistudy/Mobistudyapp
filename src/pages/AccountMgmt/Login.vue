@@ -21,7 +21,6 @@
 import DB from '../../modules/db'
 import API from '../../modules/API'
 import userinfo from '../../modules/userinfo'
-import session from '../../modules/session'
 import notifications from '../../modules/notifications'
 
 export default {
@@ -35,7 +34,6 @@ export default {
   },
   async created () {
     if (userinfo.user.loggedin) {
-      session.tasksSynchronised = false
       notifications.cancelAll()
       userinfo.logout()
       API.unsetToken()
@@ -57,7 +55,7 @@ export default {
         await userinfo.setProfile(profile)
         if (profile.studies) await DB.setStudiesParticipation(profile.studies)
 
-        this.$router.push('/home')
+        this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
       } catch (error) {
         console.error(error)
         this.error = true

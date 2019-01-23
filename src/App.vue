@@ -7,12 +7,10 @@
 <script>
 import userinfo from './modules/userinfo'
 import API from './modules/API'
-import session from './modules/session'
 
 export default {
   name: 'MobistudyApp',
   async created () {
-    session.appStarted = new Date()
     await userinfo.init()
     // check if already logged in, otherwise go to login
     let resettingpwd = (this.$route.path === '/resetpw') || (this.$route.path === '/changepw')
@@ -21,7 +19,11 @@ export default {
       this.$router.push('/login')
       return
     } else {
-      if (!resettingpwd) API.setToken(userinfo.user.token)
+      if (!resettingpwd) {
+        API.setToken(userinfo.user.token)
+        console.log('LOGGED IN, REDIRECTING TO HOME')
+        this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
+      }
     }
     // Add a 401 response interceptor
     this.$axios.interceptors.response.use(function (response) {
