@@ -58,7 +58,7 @@ export async function getProfile () {
 
 // Updating details
 export async function updateProfile (profile) {
-  return axios.put(BASE_URL + '/participants/' + profile.userKey, axiosConfig)
+  return axios.put(BASE_URL + '/participants/' + profile.userKey, profile, axiosConfig)
 }
 
 // Permanently delete the user
