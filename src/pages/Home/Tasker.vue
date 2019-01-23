@@ -63,8 +63,6 @@ export default {
     async load () {
       this.$q.loading.show()
       try {
-        console.log('rescheduleTasks', this.rescheduleTasks)
-        console.log('checkNewStudies', this.checkNewStudies)
         if (this.checkNewStudies) {
           // let's see if there are any new eligible studies
           try {
