@@ -23,7 +23,7 @@ export default {
   props: ['studyDescription'],
   methods: {
     accept () {
-      this.$router.push({ name: 'invitation', params: { studyDescription: this.studyDescription } })
+      this.$router.push({ name: 'consentItems', params: { studyDescription: this.studyDescription } })
     },
     async deny () {
       try {
