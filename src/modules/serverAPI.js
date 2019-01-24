@@ -67,11 +67,8 @@ export async function deleteUser (userKey) {
 }
 
 // update status of a study
-export async function updateStudyStatus (userKey, studyKey, status, details) {
-  let statusObj = {}
-  if (details) statusObj = details
-  statusObj.currentStatus = status
-  return axios.post(BASE_URL + `/participants/byuserkey/${userKey}/studies/${studyKey}/currentStatus`, statusObj, axiosConfig)
+export async function updateStudyStatus (userKey, studyKey, studyParticipation) {
+  return axios.patch(BASE_URL + `/participants/byuserkey/${userKey}/studies/${studyKey}`, studyParticipation, axiosConfig)
 }
 
 // search for disease on SNOMED

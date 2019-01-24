@@ -86,6 +86,7 @@ export default {
             // let's retrieve the studies from the API, just in case
             let profile = await API.getProfile(userinfo.user._key)
             if (!profile.studies || profile.studies.length === 0) {
+              await DB.setStudiesParticipation([])
               // this user has no studies !
               this.$q.loading.hide()
               this.nostudies = true
@@ -110,6 +111,13 @@ export default {
         let activestudiesPart = studiesPart.filter((s) => {
           return s.currentStatus === 'accepted'
         })
+
+        if (!activestudiesPart || activestudiesPart.length === 0) {
+          // this user has no studies !
+          this.$q.loading.hide()
+          this.nostudies = true
+          return
+        }
 
         let activeStudiesDescr = []
         for (const study of activestudiesPart) {

@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
 
@@ -165,10 +166,24 @@ export default {
           studyParticipation.rejectedTS = new Date()
         }
         console.log(studyParticipation)
-        // call the API
-        // call the DB
-        this.newStudies.splice(index, 1)
-        this.newStudiesCustomAnswers.splice(index, 1)
+        try {
+          // call the API
+          await API.updateStudyStatus(userinfo.user._key, study._key, studyParticipation)
+          // call the DB
+          let studies = await DB.getStudiesParticipation()
+          if (!studies) studies = []
+          studies.push(studyParticipation)
+          await DB.setStudiesParticipation(studies)
+          this.newStudies.splice(index, 1)
+          this.newStudiesCustomAnswers.splice(index, 1)
+        } catch (error) {
+          console.error('Cannot connect to server', error)
+          this.$q.notify({
+            color: 'negative',
+            message: 'Cannot discard this study: ' + error.message,
+            icon: 'report_problem'
+          })
+        }
       } catch (e) {
         // do nothing
       }

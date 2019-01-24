@@ -74,8 +74,8 @@ export async function updateProfile (profile) {
 }
 
 // update status of a study
-export async function updateStudyStatus (userKey, studyKey, status, details) {
-  console.log('API- Study status updated', status)
+export async function updateStudyStatus (userKey, studyKey, studyParticipation) {
+  console.log('API- Study status updated', studyParticipation)
   return true
 }
 
