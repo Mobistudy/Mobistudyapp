@@ -1,64 +1,87 @@
 <template>
   <q-page padding>
     <!-- content -->
-    <q-list highlight>
-      <q-list-header>New studies</q-list-header>
-      <q-item v-for="study in newStudies" :key="study.id">
+    <q-list v-for="(study, studyIndex) in newStudies" :key="studyIndex">
+      <q-list-header>You are invited to join</q-list-header>
+      <q-item >
         <q-item-main>
           <q-item-tile label>{{study.generalities.title}}</q-item-tile>
           <q-item-tile sublabel>{{study.generalities.description}}</q-item-tile>
-          <div v-for="(question, index) in study.inclusionCriteria.criteriaQuestions" :key="index">
+        </q-item-main>
+      </q-item>
+      <q-list-header>Answer the following to know if you are eligible</q-list-header>
+      <q-item v-for="(question, questionIndex) in study.inclusionCriteria.criteriaQuestions" :key="questionIndex">
+        <q-item-main>
+          <p>
             {{question.title}}
-            <q-radio v-model="newStudiesCustomAnswers[study._key][index]" val="Yes" label="Yes" />
-            <q-radio v-model="newStudiesCustomAnswers[study._key][index]" val="No" label="No" />
+          </p>
+          <div class="row">
+            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="yes" label="Yes" />
+            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="no" label="No" />
           </div>
         </q-item-main>
       </q-item>
-    </q-list>
+      <q-item>
+        <q-item-main>
+          <div class="q-ma-sm text-negative" v-show="!eligible[studyIndex] && newStudiesCustomAnswers[studyIndex].length === study.inclusionCriteria.criteriaQuestions.length"
+          color="negative">
+          You are not eligible for this study
+        </div>
+        <div class="row justify-center">
+          <div class="col">
+            <q-btn color="primary" label="Join" :disable="!eligible[studyIndex]"></q-btn>
+          </div>
+          <div class="col">
+            <q-btn color="negative" label="Discard" @click="discardStudy(studyIndex)"></q-btn>
+          </div>
+        </div>
+      </q-item-main>
+    </q-item>
+  </q-list>
 
-    <q-list highlight>
-      <q-list-header>Active studies</q-list-header>
-      <q-item v-for="study in activeStudies" :key="study.id">
-        <q-item-main :label="study.generalities.title" :sublabel="'End Date: ' + endDate" />
-        <q-item-side right>
-          <q-btn flat round dense icon="more_vert">
-            <q-popover>
-              <q-list link>
-                <q-item v-close-overlay>
-                  <q-item-main class="text-negative" label="Withdraw from Study" />
-                </q-item>
-              </q-list>
-            </q-popover>
-          </q-btn>
-        </q-item-side>
-      </q-item>
+  <q-list highlight>
+    <q-list-header>Active studies</q-list-header>
+    <q-item v-for="study in activeStudies" :key="study.id">
+      <q-item-main :label="study.generalities.title" :sublabel="'End Date: ' + endDate" />
+      <q-item-side right>
+        <q-btn flat round dense icon="more_vert">
+          <q-popover>
+            <q-list link>
+              <q-item v-close-overlay>
+                <q-item-main class="text-negative" label="Withdraw from Study" />
+              </q-item>
+            </q-list>
+          </q-popover>
+        </q-btn>
+      </q-item-side>
+    </q-item>
 
-      <q-item v-if="activeStudies.length === 0">
-        <q-item-main>No active studies found.  Press the green plus sign in the bottom right to add a study.</q-item-main>
-      </q-item>
-      <q-item-separator v-if="previousStudies.length !== 0" />
-      <q-list-header v-if="previousStudies.length !== 0">Previous studies</q-list-header>
-      <q-item v-for="study in previousStudies" :key="study.id">
-        <q-item-main :label="study.generalities.title" :sublabel="'Ended: ' + endDate" />
-        <q-item-side right>
-          <q-btn flat round dense icon="more_vert">
-            <q-popover>
-              <q-list link>
-                <q-item v-close-overlay>
-                  <q-item-main label="Hide" />
-                </q-item>
-              </q-list>
-            </q-popover>
-          </q-btn>
-        </q-item-side>
-      </q-item>
-    </q-list>
-    <q-btn round color="positive" @click="promptNewStudy()" class="fixed" icon="add" style="right: 18px; bottom: 18px" size="lg" />
-  </q-page>
+    <q-item v-if="activeStudies.length === 0">
+      <q-item-main>No active studies found.  Press the green plus sign in the bottom right to add a study.</q-item-main>
+    </q-item>
+    <q-item-separator v-if="previousStudies.length !== 0" />
+    <q-list-header v-if="previousStudies.length !== 0">Previous studies</q-list-header>
+    <q-item v-for="study in previousStudies" :key="study.id">
+      <q-item-main :label="study.generalities.title" :sublabel="'Ended: ' + endDate" />
+      <q-item-side right>
+        <q-btn flat round dense icon="more_vert">
+          <q-popover>
+            <q-list link>
+              <q-item v-close-overlay>
+                <q-item-main label="Hide" />
+              </q-item>
+            </q-list>
+          </q-popover>
+        </q-btn>
+      </q-item-side>
+    </q-item>
+  </q-list>
+  <q-btn round color="positive" @click="promptNewStudy()" class="fixed" icon="add" style="right: 18px; bottom: 18px" size="lg" />
+</q-page>
 </template>
 
 <script>
-// import DB from '../../modules/db'
+import DB from '../../modules/db'
 import API from '../../modules/API'
 
 export default {
@@ -66,7 +89,7 @@ export default {
   data () {
     return {
       newStudies: [],
-      newStudiesCustomAnswers: {},
+      newStudiesCustomAnswers: [],
       activeStudies: [],
       previousStudies: []
     }
@@ -75,23 +98,81 @@ export default {
     // let's see if there are any new eligible studies
     try {
       let newStudiesKeys = await API.getNewStudiesKeys()
-      console.log('New studies', newStudiesKeys)
-      for (let studyKey of newStudiesKeys) {
+      for (let i = 0; i < newStudiesKeys.length; i++) {
+        let studyKey = newStudiesKeys[i]
         let studyDescr = await API.getStudyDescription(studyKey)
+        this.newStudiesCustomAnswers.push([])
         this.newStudies.push(studyDescr)
-        this.newStudiesCustomAnswers[studyKey] = []
-        console.log(this.newStudiesCustomAnswers)
       }
     } catch (error) {
       console.error('Cannot connect to server', error)
       this.$q.notify({
         color: 'negative',
-        message: 'Cannot delete user: ' + error.message,
+        message: 'Cannot retrieve study description: ' + error.message,
         icon: 'report_problem'
       })
     }
+
+    // existing studies
+    let studies = await DB.getStudiesParticipation()
+    if (studies) {
+      this.activeStudies = studies.filter(s => { return s.currentStatus === 'accepted' })
+      this.previousStudies = studies.filter(s => { return (s.currentStatus === 'withdrawn' || s.currentStatus === 'completed') })
+    }
+  },
+  computed: {
+    eligible () {
+      let eligibleRet = []
+      for (let i = 0; i < this.newStudies.length; i++) {
+        let study = this.newStudies[i]
+        if (!study.inclusionCriteria.criteriaQuestions || study.inclusionCriteria.criteriaQuestions.length === 0) eligibleRet.push(true)
+        else {
+          let allOK = true
+          for (let j = 0; j < study.inclusionCriteria.criteriaQuestions.length; j++) {
+            if (study.inclusionCriteria.criteriaQuestions[j].answer !== this.newStudiesCustomAnswers[i][j]) {
+              allOK = false
+              break
+            }
+          }
+          eligibleRet.push(allOK)
+        }
+      }
+      return eligibleRet
+    }
   },
   methods: {
+    async discardStudy (index) {
+      try {
+        await this.$q.dialog({
+          title: 'Discard study',
+          message: 'Are you sure you want to discard this study',
+          color: 'primary',
+          ok: 'Yes',
+          cancel: 'Cancel'
+        })
+        let study = this.newStudies[index]
+        let studyParticipation = {
+          studyKey: study._key
+        }
+        if (!this.eligible[index] && (this.newStudiesCustomAnswers[index].length === study.inclusionCriteria.criteriaQuestions.length)) {
+          // excluded
+          studyParticipation.currentStatus = 'excluded'
+          studyParticipation.excludedTS = new Date()
+          studyParticipation.criteriaAnswers = this.newStudiesCustomAnswers[index]
+        } else {
+          // rejected
+          studyParticipation.currentStatus = 'rejected'
+          studyParticipation.rejectedTS = new Date()
+        }
+        console.log(studyParticipation)
+        // call the API
+        // call the DB
+        this.newStudies.splice(index, 1)
+        this.newStudiesCustomAnswers.splice(index, 1)
+      } catch (e) {
+        // do nothing
+      }
+    },
     promptNewStudy () {
       let _this = this
       this.$q.dialog({
