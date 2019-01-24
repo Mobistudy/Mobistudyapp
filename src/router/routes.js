@@ -39,6 +39,15 @@ const routes = [
     ]
   },
   {
+    path: '/consent',
+    component: () => import('layouts/ConsentLayout.vue'),
+    children: [
+      { path: '/invitation', name: 'invitation', component: () => import('pages/Consent/Invitation.vue'), props: true },
+      { path: '/studyDetails', name: 'studyDetails', component: () => import('pages/Consent/StudyDetails.vue'), props: true },
+      { path: '/privacyPolicy', name: 'privacyPolicy', component: () => import('pages/Consent/PrivacyPolicy.vue'), props: true }
+    ]
+  },
+  {
     path: '/tasks',
     component: () => import('layouts/TaskLayout.vue'),
     children: [

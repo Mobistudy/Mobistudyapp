@@ -29,7 +29,7 @@
         </div>
         <div class="row justify-center">
           <div class="col">
-            <q-btn color="primary" label="Join" :disable="!eligible[studyIndex]"></q-btn>
+            <q-btn color="primary" label="Join" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
           </div>
           <div class="col">
             <q-btn color="negative" label="Discard" @click="discardStudy(studyIndex)"></q-btn>
@@ -57,7 +57,7 @@
     </q-item>
 
     <q-item v-if="activeStudies.length === 0">
-      <q-item-main>No active studies found.  Press the green plus sign in the bottom right to add a study.</q-item-main>
+      <q-item-main>No active studies found.</q-item-main>
     </q-item>
     <q-item-separator v-if="previousStudies.length !== 0" />
     <q-list-header v-if="previousStudies.length !== 0">Previous studies</q-list-header>
@@ -76,7 +76,6 @@
       </q-item-side>
     </q-item>
   </q-list>
-  <q-btn round color="positive" @click="promptNewStudy()" class="fixed" icon="add" style="right: 18px; bottom: 18px" size="lg" />
 </q-page>
 </template>
 
@@ -96,14 +95,21 @@ export default {
     }
   },
   async created () {
-    // let's see if there are any new eligible studies
+    this.$q.loading.show()
     try {
+      // let's see if there are any new eligible studies
       let newStudiesKeys = await API.getNewStudiesKeys()
       for (let i = 0; i < newStudiesKeys.length; i++) {
         let studyKey = newStudiesKeys[i]
         let studyDescr = await API.getStudyDescription(studyKey)
         this.newStudiesCustomAnswers.push([])
         this.newStudies.push(studyDescr)
+      }
+      // existing studies
+      let studies = await DB.getStudiesParticipation()
+      if (studies) {
+        this.activeStudies = studies.filter(s => { return s.currentStatus === 'accepted' })
+        this.previousStudies = studies.filter(s => { return (s.currentStatus === 'withdrawn' || s.currentStatus === 'completed') })
       }
     } catch (error) {
       console.error('Cannot connect to server', error)
@@ -113,13 +119,7 @@ export default {
         icon: 'report_problem'
       })
     }
-
-    // existing studies
-    let studies = await DB.getStudiesParticipation()
-    if (studies) {
-      this.activeStudies = studies.filter(s => { return s.currentStatus === 'accepted' })
-      this.previousStudies = studies.filter(s => { return (s.currentStatus === 'withdrawn' || s.currentStatus === 'completed') })
-    }
+    this.$q.loading.hide()
   },
   computed: {
     eligible () {
@@ -188,23 +188,9 @@ export default {
         // do nothing
       }
     },
-    promptNewStudy () {
-      let _this = this
-      this.$q.dialog({
-        title: 'Add Study',
-        message: 'Please enter your study code below.',
-        prompt: {
-          model: '',
-          type: 'text' // optional
-        },
-        cancel: true,
-        color: 'secondary'
-      }).then(data => {
-        _this.$q.loading.show()
-        _this.$router.push({ path: `addStudy/${data}` })
-      }).catch(() => {
-        // this.$q.notify('Ok, no mood for talking, right?')
-      })
+    async joinStudy (index) {
+      let study = this.newStudies[index]
+      this.$router.push({ name: 'invitation', params: { studyDescription: study } })
     }
   }
 }
