@@ -3,7 +3,7 @@
     <q-tabs animated swipeable inverted color="secondary" align="justify">
       <q-tab default name="info" slot="title" icon="info" label="Info" />
       <q-tab name="privacy" slot="title" icon="lock" label="Privacy" />
-      <q-tab v-if="studyParticipation.currentStatus == 'active'" name="consent" slot="title" icon="done" label="Consent" />
+      <q-tab v-if="studyParticipation.currentStatus == 'accepted'" name="consent" slot="title" icon="done" label="Consent" />
 
       <q-tab-pane name="info">
         <p class="q-title" style="text-align: center">
@@ -46,7 +46,7 @@
         </div>
       </q-tab-pane>
       <q-tab-pane name="privacy">{{studyDescription.consent.privacyPolicy}}</q-tab-pane>
-      <q-tab-pane v-if="studyParticipation.currentStatus == 'active'" name="consent">
+      <q-tab-pane v-if="studyParticipation.currentStatus == 'accepted'" name="consent">
         <p class="q-subheading">
           You can opt-in or opt-out of these items whenever you want:
         </p>
