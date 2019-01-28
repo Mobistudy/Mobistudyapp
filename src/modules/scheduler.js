@@ -15,17 +15,17 @@ export function generateTasker (studiesParts, studiesDescr) {
       return sd._key === studyPart.studyKey
     })
     const consentedTasks = studyDescr.tasks.filter((tdescr) => {
-      const taskPart = studyPart.tasksStatus.find(x => x.taskId === tdescr.id)
+      const taskPart = studyPart.taskItemsConsent.find(x => x.taskId === tdescr.id)
       return taskPart.consented
     })
     for (const task of consentedTasks) {
       let rrule = generateRRule(studyPart.acceptedTS, task.scheduling)
       let missed
       // the time this task was completed last time is stored into the studyParticipation
-      // example: "tasksStatus": [ { "taskId": 1, "consented": true, "lastExecuted": "ISO string" } ]
+      // example: "taskItemsConsent": [ { "taskId": 1, "consented": true, "lastExecuted": "ISO string" } ]
       let lastCompletionTS
-      if (studyPart.tasksStatus) {
-        const taskStatus = studyPart.tasksStatus.find(x => x.taskId === task.id)
+      if (studyPart.taskItemsConsent) {
+        const taskStatus = studyPart.taskItemsConsent.find(x => x.taskId === task.id)
         if (taskStatus && taskStatus.lastExecuted) {
           console.log('TASK WAS COMPLETED ON ', taskStatus.lastExecuted)
           // Task has been completed before

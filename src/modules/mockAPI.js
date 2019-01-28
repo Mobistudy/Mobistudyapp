@@ -56,7 +56,7 @@ export async function getProfile (userKey) {
         currentStatus: 'accepted',
         acceptedTS: '2018-12-10T09:30:32.492Z',
         criteriaAnswers: [ 'Yes', 'No' ],
-        tasksStatus: [
+        taskItemsConsent: [
           { taskId: 1, consented: true },
           { taskId: 2, consented: true }
         ]

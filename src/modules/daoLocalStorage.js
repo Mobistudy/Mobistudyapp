@@ -41,16 +41,16 @@ export async function setStudiesParticipation (studies) {
 export async function setTaskCompletion (studyKey, taskId, timestamp) {
   let studies = await storage.getItem('studiesParticipation')
   let sudyInd = studies.findIndex(x => x.studyKey === studyKey)
-  if (!studies[sudyInd].tasksStatus) studies[sudyInd].tasksStatus = []
-  let taksstatusInd = studies[sudyInd].tasksStatus.findIndex(x => x.taskId === taskId)
+  if (!studies[sudyInd].taskItemsConsent) studies[sudyInd].taskItemsConsent = []
+  let taksstatusInd = studies[sudyInd].taskItemsConsent.findIndex(x => x.taskId === taskId)
   if (taksstatusInd < 0) {
     // this case shouldn't happen really
-    studies[sudyInd].tasksStatus.push({
+    studies[sudyInd].taskItemsConsent.push({
       taskId: taskId, consented: true, lastExecuted: timestamp
     })
     taksstatusInd = 0
   } else {
-    studies[sudyInd].tasksStatus[taksstatusInd].lastExecuted = timestamp
+    studies[sudyInd].taskItemsConsent[taksstatusInd].taskItemsConsent = timestamp
   }
   await setStudiesParticipation(studies)
   return Promise.resolve()

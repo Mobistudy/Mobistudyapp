@@ -14,8 +14,11 @@
       </div>
       <q-item v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems" :key="taskIndex">
         <q-item-main :label="taskItem.description">
-          <div class="q-mt-sm text-secondary" v-if="taskType[taskIndex] === 'dataQuery'">
-            This may require the app to access some functionalities on the phone.
+          <div v-if="taskType[taskIndex] === 'dataQuery'">
+            <div class="q-mt-sm text-secondary">
+              This item requires the app to access some functionalities on the phone.
+            </div>
+            <q-btn label="Give permission to this app" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" @click="requestDQPermission(taskIndex)"></q-btn>
           </div>
         </q-item-main>
         <q-item-side>
@@ -25,7 +28,7 @@
     </q-list>
     <div class="q-my-md row justify-between">
       <q-btn label="Deny" color="negative" @click="deny()"></q-btn>
-      <q-btn label="Accept" color="primary" @click="accept()"></q-btn>
+      <q-btn label="Join the study" color="primary" :disabled="!canAccept" @click="accept()"></q-btn>
     </div>
   </q-page>
 </template>
@@ -34,6 +37,7 @@
 import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
+import * as healthStore from '../../modules/mockHealthstore'
 
 export default {
   name: 'ConsentItemsPage',
@@ -41,7 +45,8 @@ export default {
   data () {
     return {
       consentedExtraItems: [],
-      consentedTaskItems: []
+      consentedTaskItems: [],
+      permissionsGiven: []
     }
   },
   created () {
@@ -51,6 +56,7 @@ export default {
     }
     for (let i = 0; i < this.studyDescription.consent.taskItems.length; i++) {
       this.consentedTaskItems.push(false)
+      this.permissionsGiven.push(false)
     }
   },
   computed: {
@@ -58,11 +64,76 @@ export default {
       return this.studyDescription.consent.taskItems.map(ti => {
         return this.studyDescription.tasks.find(t => t.id === ti.taskId).type
       })
+    },
+    canAccept () {
+      for (let i = 0; i < this.taskType.length; i++) {
+        if (this.taskType[i] === 'dataQuery' && this.consentedTaskItems[i] && !this.permissionsGiven[i]) {
+          return false
+        }
+      }
+      return true
     }
   },
   methods: {
-    accept () {
-      this.$router.push({ name: 'invitation', params: { studyDescription: this.studyDescription } })
+    async accept () {
+      try {
+        // set the study as accepted
+        let studyParticipation = {
+          studyKey: this.studyDescription._key,
+          currentStatus: 'acceptedTS',
+          acceptedTS: new Date(),
+          taskItemsConsent: [],
+          extraItemsConsent: []
+        }
+        for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
+          studyParticipation.extraItemsConsent.push({
+            consented: this.consentedExtraItems[i]
+          })
+        }
+        for (let i = 0; i < this.studyDescription.consent.taskItems.length; i++) {
+          studyParticipation.taskItemsConsent.push({
+            taskId: this.studyDescription.consent.taskItems[i].taskId, consented: this.consentedTaskItems[i]
+          })
+        }
+        // call the API
+        await API.updateStudyStatus(userinfo.user._key, this.studyDescription._key, studyParticipation)
+        // call the DB
+        let studies = await DB.getStudiesParticipation()
+        if (!studies) studies = []
+        studies.push(studyParticipation)
+        await DB.setStudiesParticipation(studies)
+        this.$router.push({ name: 'studies' })
+      } catch (error) {
+        console.error('Cannot join study', error)
+        this.$q.notify({
+          color: 'negative',
+          message: 'Cannot join this study: ' + error.message,
+          icon: 'report_problem'
+        })
+      }
+      this.$router.push({ name: 'accepted', params: { studyDescription: this.studyDescription } })
+    },
+    async requestDQPermission (taskIndex) {
+      let taskId = this.studyDescription.consent.taskItems[taskIndex].taskId
+      let taskdescr = this.studyDescription.tasks.find(t => t.id === taskId)
+      if (taskdescr && taskdescr.dataType) {
+        try {
+          await healthStore.requestAuthorization([taskdescr.dataType])
+          this.$set(this.permissionsGiven, taskIndex, true)
+          this.$q.notify({
+            color: 'positive',
+            message: 'Permission given',
+            icon: 'check'
+          })
+        } catch (error) {
+          console.error('Cannot get authorisation for health', error)
+          this.$q.notify({
+            color: 'negative',
+            message: 'Cannot be authorised: ' + error.message,
+            icon: 'report_problem'
+          })
+        }
+      }
     },
     async deny () {
       try {
