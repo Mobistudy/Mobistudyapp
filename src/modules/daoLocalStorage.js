@@ -50,7 +50,7 @@ export async function setTaskCompletion (studyKey, taskId, timestamp) {
     })
     taksstatusInd = 0
   } else {
-    studies[sudyInd].taskItemsConsent[taksstatusInd].taskItemsConsent = timestamp
+    studies[sudyInd].taskItemsConsent[taksstatusInd].lastExecuted = timestamp
   }
   await setStudiesParticipation(studies)
   return Promise.resolve()
