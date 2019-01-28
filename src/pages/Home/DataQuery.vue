@@ -128,6 +128,7 @@ export default {
           userKey: userinfo.user._key,
           studyKey: studyKey,
           taskId: taskId,
+          generatedTS: new Date(),
           healthData: this.healthData
         })
         await DB.setTaskCompletion(studyKey, taskId, new Date())
