@@ -49,7 +49,7 @@ export default {
   props: ['studyDescription'],
   methods: {
     next () {
-      this.$router.push({ name: 'tasker' })
+      this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
     }
   }
 }

@@ -67,7 +67,6 @@ export default {
           // let's see if there are any new eligible studies
           try {
             let newStudyIds = await API.getNewStudiesKeys()
-            console.log('New studies', newStudyIds)
             if (newStudyIds.length > 0) {
               // there's a new study in town! warn the user!
               this.newstudies = true

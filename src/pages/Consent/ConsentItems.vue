@@ -80,7 +80,7 @@ export default {
         // set the study as accepted
         let studyParticipation = {
           studyKey: this.studyDescription._key,
-          currentStatus: 'acceptedTS',
+          currentStatus: 'accepted',
           acceptedTS: new Date(),
           taskItemsConsent: [],
           extraItemsConsent: []
