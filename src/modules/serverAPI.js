@@ -142,5 +142,5 @@ export function sendAnswers (answers) {
 
 // send health data from query
 export function sendDataQuery (data) {
-  return axios.post(BASE_URL + '/healthdata', data, axiosConfig)
+  return axios.post(BASE_URL + '/healthStoreData', data, axiosConfig)
 }
