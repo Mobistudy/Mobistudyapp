@@ -39,41 +39,21 @@
     </q-item>
   </q-list>
 
-  <q-list highlight>
+  <q-list link>
     <q-list-header>Active studies</q-list-header>
     <q-item v-for="study in activeStudies" :key="study.id">
-      <q-item-main :label="study.generalities.title" :sublabel="'End Date: ' + endDate" />
-      <q-item-side right>
-        <q-btn flat round dense icon="more_vert">
-          <q-popover>
-            <q-list link>
-              <q-item v-close-overlay>
-                <q-item-main class="text-negative" label="Withdraw from Study" />
-              </q-item>
-            </q-list>
-          </q-popover>
-        </q-btn>
-      </q-item-side>
+      <q-item-main :label="study.generalities.title" :sublabel="'End Date: ' + nicerDate(study.generalities.endDate)" @click.native="showDetails(study)"/>
     </q-item>
 
     <q-item v-if="activeStudies.length === 0">
       <q-item-main>No active studies found.</q-item-main>
     </q-item>
+
     <q-item-separator v-if="previousStudies.length !== 0" />
+
     <q-list-header v-if="previousStudies.length !== 0">Previous studies</q-list-header>
     <q-item v-for="study in previousStudies" :key="study.id">
-      <q-item-main :label="study.generalities.title" :sublabel="'Ended: ' + endDate" />
-      <q-item-side right>
-        <q-btn flat round dense icon="more_vert">
-          <q-popover>
-            <q-list link>
-              <q-item v-close-overlay>
-                <q-item-main label="Hide" />
-              </q-item>
-            </q-list>
-          </q-popover>
-        </q-btn>
-      </q-item-side>
+      <q-item-main :label="study.generalities.title" @click.native="showDetails(study)"/>
     </q-item>
   </q-list>
 </q-page>
@@ -83,6 +63,7 @@
 import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
+import { date } from 'quasar'
 
 export default {
   name: 'Studies',
@@ -106,10 +87,17 @@ export default {
         this.newStudies.push(studyDescr)
       }
       // existing studies
-      let studies = await DB.getStudiesParticipation()
-      if (studies) {
-        this.activeStudies = studies.filter(s => { return s.currentStatus === 'accepted' })
-        this.previousStudies = studies.filter(s => { return (s.currentStatus === 'withdrawn' || s.currentStatus === 'completed') })
+      let studiesParts = await DB.getStudiesParticipation()
+      if (studiesParts) {
+        for (let studyPart of studiesParts) {
+          if (studyPart.currentStatus === 'accepted') {
+            let s = await DB.getStudyDescription(studyPart.studyKey)
+            this.activeStudies.push(s)
+          } else if (studyPart.currentStatus === 'withdrawn' || studyPart.currentStatus === 'completed') {
+            let s = await DB.getStudyDescription(studyPart.studyKey)
+            this.previousStudies.push(s)
+          }
+        }
       }
     } catch (error) {
       console.error('Cannot connect to server', error)
@@ -142,6 +130,12 @@ export default {
     }
   },
   methods: {
+    nicerDate (d) {
+      return date.formatDate(d, 'DD/MM/YY')
+    },
+    showDetails (study) {
+      this.$router.push({ name: 'studyConfig', params: { studyDescription: study } })
+    },
     async discardStudy (index) {
       try {
         await this.$q.dialog({
@@ -165,7 +159,6 @@ export default {
           studyParticipation.currentStatus = 'rejected'
           studyParticipation.rejectedTS = new Date()
         }
-        console.log(studyParticipation)
         try {
           // call the API
           await API.updateStudyStatus(userinfo.user._key, study._key, studyParticipation)

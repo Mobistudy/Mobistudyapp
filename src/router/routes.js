@@ -33,6 +33,7 @@ const routes = [
       { path: '/profile', name: 'profile', component: () => import('pages/Home/Profile.vue') },
       { path: '/studies', name: 'studies', component: () => import('pages/Home/Studies.vue') },
       { path: '/addStudy/:key', component: () => import('pages/Home/AddStudy.vue') },
+      { path: '/studyConfig', name: 'studyConfig', component: () => import('pages/Home/StudyConfig.vue'), props: true },
       { path: '/dev', component: () => import('pages/devControl.vue') },
       { path: '/thresholding', component: () => import('pages/Thresholding.vue') },
       { path: '/charting', component: () => import('pages/Charting.vue') }
@@ -46,7 +47,7 @@ const routes = [
       { path: '/studyDetails', name: 'studyDetails', component: () => import('pages/Consent/StudyDetails.vue'), props: true },
       { path: '/privacyPolicy', name: 'privacyPolicy', component: () => import('pages/Consent/PrivacyPolicy.vue'), props: true },
       { path: '/consentItems', name: 'consentItems', component: () => import('pages/Consent/ConsentItems.vue'), props: true },
-      { path: '/consentItems', name: 'accepted', component: () => import('pages/Consent/Accepted.vue'), props: true }
+      { path: '/accepted', name: 'accepted', component: () => import('pages/Consent/Accepted.vue'), props: true }
     ]
   },
   {

@@ -34,6 +34,18 @@ export async function getStudiesParticipation () {
   return storage.getItem('studiesParticipation')
 }
 
+export async function getStudyParticipation (studyKey) {
+  let studies = await storage.getItem('studiesParticipation')
+  return studies.find(sp => sp.studyKey === studyKey)
+}
+
+export async function setStudyParticipation (studyPart) {
+  let studies = await storage.getItem('studiesParticipation')
+  let studyIndex = studies.findIndex(sp => sp.studyKey === studyPart.studyKey)
+  studies[studyIndex] = studyPart
+  return storage.setItem('studiesParticipation', studies)
+}
+
 export async function setStudiesParticipation (studies) {
   return storage.setItem('studiesParticipation', studies)
 }
