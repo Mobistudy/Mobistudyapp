@@ -2,7 +2,8 @@ let science = require('science')
 
 export function Thresholding (data, resolution = 1, scope = 3) {
   this.data = data
-  this.kde = science.stats.kde().sample(data)
+  // this.kde = science.stats.kde().kernel(halfGaussian).sample(data)
+  this.kde = truncGaussKDE().sample(data)
   this.mean = science.stats.mean(this.data)
   this.variance = science.stats.variance(this.data)
   this.sd = Math.sqrt(this.variance)
@@ -76,3 +77,61 @@ function round (value, step) {
   var inv = 1.0 / step
   return Math.round(value * inv) / inv
 }
+
+/* eslint-disable-next-line */
+function halfGaussian (x) {
+  if (x >= 0) {
+    return science.stats.kernel.gaussian(x)
+  } else {
+    return 0
+  }
+}
+
+function truncGaussian (x, u, bw) {
+  let val = science.stats.kernel.gaussian((x - u) / bw)
+  if (x >= 0) {
+    return val / (1 - 0.5 * (1 + science.stats.erf((0 - u) / Math.sqrt(2))))
+  } else {
+    return 0
+  }
+}
+
+function truncGaussKDE () {
+  let kernel = science.stats.kernel.gaussian,
+    sample = [],
+    bandwidth = science.stats.bandwidth.nrd
+
+  function kde (points, i) {
+    let bw = bandwidth.call(this, sample)
+    return points.map(function (x) {
+      let i = -1,
+        y = 0,
+        n = sample.length
+      while (++i < n) {
+        // y += kernel((x - sample[i]) / bw)
+        y += truncGaussian(x, sample[i], bw)
+      }
+      return [x, y / bw / n]
+    })
+  }
+
+  kde.kernel = function (x) {
+    if (!arguments.length) return kernel
+    kernel = x
+    return kde
+  }
+
+  kde.sample = function (x) {
+    if (!arguments.length) return sample
+    sample = x
+    return kde
+  }
+
+  kde.bandwidth = function (x) {
+    if (!arguments.length) return bandwidth
+    bandwidth = science.functor(x)
+    return kde
+  }
+
+  return kde
+};
