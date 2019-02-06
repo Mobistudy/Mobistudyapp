@@ -48,6 +48,16 @@ export default {
   mounted () {
     let i = 0
 
+    function getPerms () {
+      return new Promise(function (resolve, reject) {
+        navigator.health.requestAuthorization([{read: tabs}], function () {
+          resolve()
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
     function getTabChart (iter) {
       console.log(iter)
       let dataType = tabs[iter]
@@ -61,9 +71,18 @@ export default {
             getTabChart(i)
           }
         })
+        .catch(function (err) {
+          console.log(err)
+          if (i < tabs.length) {
+            i++
+            getTabChart(i)
+          }
+        })
     }
 
-    getTabChart(0)
+    getPerms()
+      .then(getTabChart(0))
+
     this.changeTab('heart_rate')
 
     // this.changeTab('heart_rate')
@@ -225,29 +244,29 @@ function getHealthData (_this, dataType) {
     })
   })
 
-  function getHealthAuthorisation () {
-    return new Promise(function (resolve, reject) {
-      navigator.health.requestAuthorization([{read: [dataType]}], function () {
-        resolve()
-      }, function (err) {
-        reject(err)
-      })
-    })
-  }
-
-  function checkHealthAuthroisation () {
-    return new Promise(function (resolve, reject) {
-      navigator.health.isAuthorized([{read: [dataType]}], function (authorised) {
-        if (authorised) {
-          resolve()
-        } else {
-          reject(new Error('App is not authorised'))
-        }
-      }, function (err) {
-        reject(err)
-      })
-    })
-  }
+  // function getHealthAuthorisation () {
+  //   return new Promise(function (resolve, reject) {
+  //     navigator.health.requestAuthorization([{read: [dataType]}], function () {
+  //       resolve()
+  //     }, function (err) {
+  //       reject(err)
+  //     })
+  //   })
+  // }
+  //
+  // function checkHealthAuthroisation () {
+  //   return new Promise(function (resolve, reject) {
+  //     navigator.health.isAuthorized([{read: [dataType]}], function (authorised) {
+  //       if (authorised) {
+  //         resolve()
+  //       } else {
+  //         reject(new Error('App is not authorised'))
+  //       }
+  //     }, function (err) {
+  //       reject(err)
+  //     })
+  //   })
+  // }
 
   function queryHealth () {
     return new Promise(function (resolve, reject) {
@@ -281,8 +300,6 @@ function getHealthData (_this, dataType) {
   }
 
   return checkHealthAvailibility
-    .then(getHealthAuthorisation)
-    .then(checkHealthAuthroisation)
     .then(queryHealth)
 }
 
