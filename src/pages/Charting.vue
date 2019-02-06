@@ -2,13 +2,36 @@
   <q-page padding>
     <!-- content -->
     <q-tabs underline-color="secondary" align="center" class="">
-      <q-tab @click="changeTab('heart_rate')" default slot="title" icon="favorite_border" label="Heart Rate" />
-      <q-tab @click="changeTab('steps')" slot="title" icon="directions_walk" label="Steps" />
-      <q-tab @click="changeTab('calories')" slot="title" icon="whatshot" label="Calories" />
+      <q-tab name="heart_rate" @click="changeTab('heart_rate')" default slot="title" icon="favorite_border" label="Heart Rate" />
+      <q-tab name="steps" @click="changeTab('steps')" slot="title" icon="directions_walk" label="Steps" />
+      <q-tab name="calories" @click="changeTab('calories')" slot="title" icon="whatshot" label="Calories" />
+
+      <!--<q-tab-pane name="heart_rate">-->
+        <!--<div class="chart-container" style="position: relative; height:66vh; width:80vw; margin-left: auto; margin-right: auto">-->
+          <!--<canvas id="chart_heart_rate"></canvas>-->
+        <!--</div>-->
+      <!--</q-tab-pane>-->
+      <!--<q-tab-pane name="steps">-->
+        <!--<div class="chart-container" style="position: relative; height:66vh; width:80vw; margin-left: auto; margin-right: auto">-->
+          <!--<canvas id="chart_steps"></canvas>-->
+        <!--</div>-->
+      <!--</q-tab-pane>-->
+      <!--<q-tab-pane name="calories">-->
+        <!--<div class="chart-container" style="position: relative; height:66vh; width:80vw; margin-left: auto; margin-right: auto">-->
+          <!--<canvas id="chart_calories"></canvas>-->
+        <!--</div>-->
+      <!--</q-tab-pane>-->
     </q-tabs>
+
     <br />
-    <div class="chart-container" style="position: relative; height:66vh; width:80vw; margin-left: auto; margin-right: auto">
-      <canvas id="chart"></canvas>
+    <div class="chart-container" id="div_heart_rate" style="position: relative; height:66vh; width:80vw; margin-left: auto; margin-right: auto">
+      <canvas id="chart_heart_rate"></canvas>
+    </div>
+    <div class="chart-container" id="div_steps" style="position: relative; height:66vh; width:80vw; margin-left: auto; margin-right: auto">
+      <canvas id="chart_steps"></canvas>
+    </div>
+    <div class="chart-container" id="div_calories" style="position: relative; height:66vh; width:80vw; margin-left: auto; margin-right: auto">
+      <canvas id="chart_calories"></canvas>
     </div>
   </q-page>
 </template>
@@ -18,11 +41,32 @@
 let chartjs = require('chart.js')
 let Thresholding = require('../modules/thresholding').Thresholding
 let moment = require('moment')
+let tabs = ['heart_rate', 'steps', 'calories']
 
 export default {
   // name: 'PageName',
   mounted () {
+    let i = 0
+
+    function getTabChart (iter) {
+      console.log(iter)
+      let dataType = tabs[iter]
+      getHealthData(this, dataType)
+        .then(function (res) {
+          plotChart(res, dataType)
+        })
+        .then(function (res) {
+          if (i < tabs.length) {
+            i++
+            getTabChart(i)
+          }
+        })
+    }
+
+    getTabChart(0)
     this.changeTab('heart_rate')
+
+    // this.changeTab('heart_rate')
     // Generate random uniform data
     // let data = [...Array.from({length: 20000}, () => Math.floor(Math.random() * 10)), ...Array.from({length: 10000}, () => Math.floor(Math.random() * 10 + 30))]
     // Sample HR data
@@ -38,121 +82,127 @@ export default {
   },
   methods: {
     changeTab (dataType) {
-      getHealthData(this, dataType)
-        .then(function (res) {
-          console.log(res)
-          let x = []
-          let y = []
-          for (let i = 0; i < res.length; i++) {
-            if (res[i].value !== 0) {
-              x.push(res[i].startDate)
-              y.push(res[i].value)
-            }
-          }
-          let ctx = document.getElementById('chart')
-          let thresholding = new Thresholding(y)
-          // let lineData = thresholding.pdf().y
-          // let cdf = thresholding.cdf().y
-          // let labels = thresholding.range
-          // let barData = thresholding.condenseData().y
-
-          console.log(thresholding)
-
-          // eslint-disable-next-line no-unused-vars
-          let chartJSOptions = {
-            maintainAspectRatio: false,
-            scales: {
-              // yAxes: [{
-              //   ticks: {
-              //     beginAtZero: true
-              //   }
-              // }]
-              yAxes: [{
-                id: 'A',
-                type: 'linear',
-                position: 'left'
-              }],
-              xAxes: [{
-                type: 'time'
-              }]
-            }
-          }
-
-          let upperPercent = 95
-          let lowerPercent = 5
-
-          let upper = new Array(y.length).fill(thresholding.percentile(upperPercent))
-          let lower = new Array(y.length).fill(thresholding.percentile(lowerPercent))
-
-          console.log(thresholding.percentile(upperPercent))
-          console.log(thresholding.percentile(lowerPercent))
-
-          // Sums PDF as a check to ensure that it adds up to 1
-          // console.log(lineData.reduce((a, b) => a + b, 0))
-
-          if (dataType === 'heart_rate') {
-            // eslint-disable-next-line no-unused-vars,new-cap
-            let chart = new chartjs(ctx, {
-              type: 'line',
-              options: chartJSOptions,
-              data: {
-                datasets: [{
-                  label: 'Raw Data',
-                  yAxisID: 'A',
-                  data: y,
-                  fill: false,
-                  pointRadius: 0,
-                  lineTension: 0
-                }, {
-                  label: upperPercent + ' Percent',
-                  data: upper,
-                  fill: 'end',
-                  pointRadius: 0,
-                  backgroundColor: 'rgba(153,0,0,0.3)'
-                }, {
-                  label: lowerPercent + ' Percent',
-                  data: lower,
-                  fill: 'start',
-                  pointRadius: 0,
-                  backgroundColor: 'rgba(153,0,0,0.3)'
-                }],
-                labels: x
-              }
-            })
-          } else if (dataType === 'calories' || dataType === 'steps') {
-            // eslint-disable-next-line no-unused-vars,new-cap
-            let chart = new chartjs(ctx, {
-              type: 'bar',
-              options: chartJSOptions,
-              data: {
-                datasets: [{
-                  label: 'Raw Data',
-                  yAxisID: 'A',
-                  data: y,
-                  fill: false,
-                  pointRadius: 0,
-                  lineTension: 0
-                }, {
-                  label: upperPercent + ' Percent',
-                  data: upper,
-                  fill: 'end',
-                  pointRadius: 0,
-                  backgroundColor: 'rgba(153,0,0,0.3)',
-                  type: 'line'
-                }, {
-                  label: lowerPercent + ' Percent',
-                  data: lower,
-                  fill: 'start',
-                  pointRadius: 0,
-                  backgroundColor: 'rgba(153,0,0,0.3)',
-                  type: 'line'
-                }],
-                labels: x
-              }
-            })
-          }
-        })
+      for (let i = 0; i < tabs.length; i++) {
+        document.getElementById('div_' + tabs[i]).style.setProperty('display', 'none')
+      }
+      document.getElementById('div_' + dataType).style.setProperty('display', 'block')
     }
+    // changeTab (dataType) {
+    //   getHealthData(this, dataType)
+    //     .then(function (res) {
+    //       console.log(res)
+    //       let x = []
+    //       let y = []
+    //       for (let i = 0; i < res.length; i++) {
+    //         // if (res[i].value !== 0) {
+    //         x.push(res[i].startDate)
+    //         y.push(res[i].value)
+    //         // }
+    //       }
+    //       let ctx = document.getElementById('chart')
+    //       let thresholding = new Thresholding(y)
+    //       // let lineData = thresholding.pdf().y
+    //       // let cdf = thresholding.cdf().y
+    //       // let labels = thresholding.range
+    //       // let barData = thresholding.condenseData().y
+    //
+    //       console.log(thresholding)
+    //
+    //       // eslint-disable-next-line no-unused-vars
+    //       let chartJSOptions = {
+    //         maintainAspectRatio: false,
+    //         scales: {
+    //           // yAxes: [{
+    //           //   ticks: {
+    //           //     beginAtZero: true
+    //           //   }
+    //           // }]
+    //           yAxes: [{
+    //             id: 'A',
+    //             type: 'linear',
+    //             position: 'left'
+    //           }],
+    //           xAxes: [{
+    //             type: 'time'
+    //           }]
+    //         }
+    //       }
+    //
+    //       let upperPercent = 95
+    //       let lowerPercent = 5
+    //
+    //       let upper = new Array(y.length).fill(thresholding.percentile(upperPercent))
+    //       let lower = new Array(y.length).fill(thresholding.percentile(lowerPercent))
+    //
+    //       console.log(thresholding.percentile(upperPercent))
+    //       console.log(thresholding.percentile(lowerPercent))
+    //
+    //       // Sums PDF as a check to ensure that it adds up to 1
+    //       // console.log(lineData.reduce((a, b) => a + b, 0))
+    //
+    //       if (dataType === 'heart_rate') {
+    //         // eslint-disable-next-line no-unused-vars,new-cap
+    //         let chart = new chartjs(ctx, {
+    //           type: 'line',
+    //           options: chartJSOptions,
+    //           data: {
+    //             datasets: [{
+    //               label: 'Raw Data',
+    //               yAxisID: 'A',
+    //               data: y,
+    //               fill: false,
+    //               pointRadius: 0,
+    //               lineTension: 0
+    //             }, {
+    //               label: upperPercent + ' Percent',
+    //               data: upper,
+    //               fill: 'end',
+    //               pointRadius: 0,
+    //               backgroundColor: 'rgba(153,0,0,0.3)'
+    //             }, {
+    //               label: lowerPercent + ' Percent',
+    //               data: lower,
+    //               fill: 'start',
+    //               pointRadius: 0,
+    //               backgroundColor: 'rgba(153,0,0,0.3)'
+    //             }],
+    //             labels: x
+    //           }
+    //         })
+    //       } else if (dataType === 'calories' || dataType === 'steps') {
+    //         // eslint-disable-next-line no-unused-vars,new-cap
+    //         let chart = new chartjs(ctx, {
+    //           type: 'bar',
+    //           options: chartJSOptions,
+    //           data: {
+    //             datasets: [{
+    //               label: 'Raw Data',
+    //               yAxisID: 'A',
+    //               data: y,
+    //               fill: false,
+    //               pointRadius: 0,
+    //               lineTension: 0
+    //             }, {
+    //               label: upperPercent + ' Percent',
+    //               data: upper,
+    //               fill: 'end',
+    //               pointRadius: 0,
+    //               backgroundColor: 'rgba(153,0,0,0.3)',
+    //               type: 'line'
+    //             }, {
+    //               label: lowerPercent + ' Percent',
+    //               data: lower,
+    //               fill: 'start',
+    //               pointRadius: 0,
+    //               backgroundColor: 'rgba(153,0,0,0.3)',
+    //               type: 'line'
+    //             }],
+    //             labels: x
+    //           }
+    //         })
+    //       }
+    //     })
+    // }
   }
 }
 
@@ -202,7 +252,7 @@ function getHealthData (_this, dataType) {
   function queryHealth () {
     return new Promise(function (resolve, reject) {
       // Generate Start Date
-      let startDate = moment().subtract(7, 'days').toDate()
+      let startDate = moment().subtract(31, 'days').toDate()
 
       let aggregated
       let bucket
@@ -210,7 +260,7 @@ function getHealthData (_this, dataType) {
         aggregated = false
       } else if (dataType === 'calories' || dataType === 'steps') {
         aggregated = true
-        bucket = 'hour'
+        bucket = 'day'
       }
 
       if (aggregated) {
@@ -234,6 +284,135 @@ function getHealthData (_this, dataType) {
     .then(getHealthAuthorisation)
     .then(checkHealthAuthroisation)
     .then(queryHealth)
+}
+
+function plotChart (res, dataType) {
+  console.log(res)
+  if (res.length === 0) {
+    document.getElementById('div_' + dataType).innerHTML = 'No Data Available'
+    return true
+  }
+
+  let x = []
+  let y = []
+  let xchart = []
+  let ychart = []
+
+  for (let i = 0; i < res.length; i++) {
+    x.push(res[i].startDate)
+    y.push(res[i].value)
+
+    if (moment(res[i].startDate).isSameOrAfter(moment().subtract(8, 'days'))) {
+      xchart.push(res[i].startDate)
+      ychart.push(res[i].value)
+    }
+  }
+  let ctx = document.getElementById('chart_' + dataType)
+  let thresholding = new Thresholding(y)
+  // let lineData = thresholding.pdf().y
+  // let cdf = thresholding.cdf().y
+  // let labels = thresholding.range
+  // let barData = thresholding.condenseData().y
+
+  console.log(thresholding)
+
+  // eslint-disable-next-line no-unused-vars
+  let chartJSOptions = {
+    maintainAspectRatio: false,
+    scales: {
+      // yAxes: [{
+      //   ticks: {
+      //     beginAtZero: true
+      //   }
+      // }]
+      yAxes: [{
+        id: 'A',
+        type: 'linear',
+        position: 'left'
+      }],
+      xAxes: [{
+        type: 'time',
+        bounds: 'data'
+      }]
+    },
+    legend: {
+      display: false
+    }
+  }
+
+  let upperPercent = 95
+  let lowerPercent = 5
+
+  let upper = new Array(ychart.length).fill(thresholding.percentile(upperPercent))
+  let lower = new Array(ychart.length).fill(thresholding.percentile(lowerPercent))
+
+  console.log(thresholding.percentile(upperPercent))
+  console.log(thresholding.percentile(lowerPercent))
+
+  // Sums PDF as a check to ensure that it adds up to 1
+  // console.log(lineData.reduce((a, b) => a + b, 0))
+
+  if (dataType === 'heart_rate') {
+    // eslint-disable-next-line no-unused-vars,new-cap
+    let chart = new chartjs(ctx, {
+      type: 'line',
+      options: chartJSOptions,
+      data: {
+        datasets: [{
+          label: 'Raw Data',
+          yAxisID: 'A',
+          data: ychart,
+          fill: false,
+          pointRadius: 0,
+          lineTension: 0
+        }, {
+          label: upperPercent + ' Percent',
+          data: upper,
+          fill: 'end',
+          pointRadius: 0,
+          backgroundColor: 'rgba(153,0,0,0.3)'
+        }, {
+          label: lowerPercent + ' Percent',
+          data: lower,
+          fill: 'start',
+          pointRadius: 0,
+          backgroundColor: 'rgba(153,0,0,0.3)'
+        }],
+        labels: xchart
+      }
+    })
+  } else if (dataType === 'calories' || dataType === 'steps') {
+    // eslint-disable-next-line no-unused-vars,new-cap
+    let chart = new chartjs(ctx, {
+      type: 'bar',
+      options: chartJSOptions,
+      data: {
+        datasets: [{
+          label: 'Raw Data',
+          yAxisID: 'A',
+          data: ychart,
+          fill: false,
+          pointRadius: 0,
+          lineTension: 0
+        }, {
+          label: upperPercent + ' Percent',
+          data: upper,
+          fill: 'end',
+          pointRadius: 0,
+          backgroundColor: 'rgba(153,0,0,0.3)',
+          type: 'line'
+        }, {
+          label: lowerPercent + ' Percent',
+          data: lower,
+          fill: 'start',
+          pointRadius: 0,
+          backgroundColor: 'rgba(153,0,0,0.3)',
+          type: 'line'
+        }],
+        labels: xchart
+      }
+    })
+  }
 }
 </script>
 
