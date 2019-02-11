@@ -21,11 +21,16 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <plugin name="cordova-plugin-health" spec="^1.1.0" />
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.2" />
-    <engine name="android" spec="~7.1.4" />
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="^0.8.5" />
     <plugin name="cordova-android-support-gradle-release" spec="^2.0.1">
         <variable name="ANDROID_SUPPORT_VERSION" value="27.+" />
     </plugin>
+    <plugin name="cordova-plugin-health" spec="^1.1.1">
+        <variable name="HEALTH_READ_PERMISSION" value="Mobistudy needs read access" />
+        <variable name="HEALTH_WRITE_PERMISSION" value="Mobistudy needs write access" />
+    </plugin>
+    <preference name="DisallowOverscroll" value="true" />
+    <engine name="android" spec="^7.1.4" />
+    <engine name="ios" spec="^4.5.5" />
 </widget>
