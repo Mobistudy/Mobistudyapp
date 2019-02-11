@@ -244,17 +244,27 @@ export default {
         this.$q.notify('Please correct the indicated fields.')
       } else {
         try {
+          // iOS SAFARI COMPATIBILITY
+          let dobTemp = ''
+          try {
+            dobTemp = this.profile.dateOfBirth.substring(0, 10)
+          } catch (e) {
+            dobTemp = this.profile.dateOfBirth.toISOString().substring(0, 10)
+          }
           let profile = {
             userKey: userinfo.user._key,
             updatedTS: new Date(),
             name: this.profile.name,
             surname: this.profile.surname,
-            dateOfBirth: this.profile.dateOfBirth.substring(0, 10),
+            // dateOfBirth: this.profile.dateOfBirth.substring(0, 10),
+            dateOfBirth: dobTemp,
             gender: this.profile.gender,
             diseases: this.profile.diseases,
             medications: this.profile.medications,
             lifestyle: this.profile.lifestyle
           }
+          console.log(profile)
+          debugger
           await API.createProfile(profile)
           await userinfo.setProfile(profile)
 
