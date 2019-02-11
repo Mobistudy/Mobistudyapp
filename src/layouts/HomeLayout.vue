@@ -31,10 +31,14 @@
           <q-item-side icon="help" />
           <q-item-main label="About" sublabel="About Mobistudy"/>
         </q-item>
-        <q-item to="dev">
-          <q-item-side icon="build" />
-          <q-item-main label="Developer Panel" />
+        <q-item to="charting">
+          <q-item-side icon="" />
+          <q-item-main label="Your Fitness" sublabel="Your data from the last week" />
         </q-item>
+        <!--<q-item to="dev">-->
+          <!--<q-item-side icon="build" />-->
+          <!--<q-item-main label="Developer Panel" />-->
+        <!--</q-item>-->
       </q-list>
     </q-layout-drawer>
 
