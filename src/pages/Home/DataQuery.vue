@@ -17,6 +17,7 @@ import BarChart from 'components/Main/BarChart.js'
 import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
+import HealthDataEnum from '../../modules/healthstoreDataTypesEnum'
 import moment from 'moment'
 
 export default {
@@ -85,29 +86,45 @@ export default {
       this.chartData = {
         labels: chartData.labels,
         datasets: [{
-          label: taskDescr.dataType.charAt(0).toUpperCase() + taskDescr.dataType.slice(1),
+          label: HealthDataEnum.valueToString(taskDescr.dataType),
           data: chartData.values,
           backgroundColor: '#800000'
         }]
       }
 
-      // NEED TO SPLIT CODE HERE FOR DEPENDING ON DATA TYPE
-      this.chartOptions = {
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }],
-          xAxes: [{
-            type: 'time',
-            bounds: 'data',
-            time: {
-              unit: taskDescr.bucket
-            }
-          }]
+      let unit = ''
+      if (taskDescr.bucket) unit = taskDescr.bucket
+      else if (this.healthData.length) unit = this.healthData[0].unit
+
+      // TODO: NEED TO SPLIT CODE HERE FOR DEPENDING ON DATA TYPE
+      if (taskDescr.dataType === 'steps' ||
+      taskDescr.dataType === 'weight' ||
+      taskDescr.dataType === 'height' ||
+      taskDescr.dataType === 'heart_rate' ||
+      taskDescr.dataType === 'heart_rate.variability' ||
+      taskDescr.dataType === 'calories' ||
+      taskDescr.dataType === 'distance') {
+        this.chartOptions = {
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }],
+            xAxes: [{
+              type: 'time',
+              bounds: 'data',
+              time: {
+                unit: unit
+              }
+            }]
+          }
         }
+      } else if (taskDescr.dataType === 'activity') {
+        // TODO: the activity chart depends if it's aggregated or not
+        // aggregated: a bar chart with different bars per activity type, indicating the time in hours
+        // not aggregated: stepped line with activities instead of numbers on the y axis
       }
     } catch (error) {
       console.error(error)

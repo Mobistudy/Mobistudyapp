@@ -2,6 +2,8 @@
 import moment from 'moment'
 import { RRule } from 'rrule'
 import notifications from './notifications'
+import { Platform } from 'quasar'
+import HealthDataEnum from './healthstoreDataTypesEnum'
 
 // returns an array of tasks that need to be done today
 // these are tasks that were "missed" between the last execution and the end of today
@@ -19,6 +21,10 @@ export function generateTasker (studiesParts, studiesDescr) {
       return taskPart.consented
     })
     for (const task of consentedTasks) {
+      if (task.type === 'dataQuery') {
+        if (Platform.is.iphone && HealthDataEnum.isAndroidOnly(task.dataType)) continue
+        if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
+      }
       let rrule = generateRRule(studyPart.acceptedTS, task.scheduling)
       let missed
       // the time this task was completed last time is stored into the studyParticipation
@@ -176,6 +182,10 @@ export async function cancelNotifications () {
 export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) {
   for (const task of studyDescr.tasks) {
     for (const task of studyDescr.tasks) {
+      if (task.type === 'dataQuery') {
+        if (Platform.is.iphone && HealthDataEnum.isAndroidOnly(task.dataType)) continue
+        if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
+      }
       let rrule = generateRRule(acceptedTS, task.scheduling)
       let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
       for (const taskTime of taskTimes) {
