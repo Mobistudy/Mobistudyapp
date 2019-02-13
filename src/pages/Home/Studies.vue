@@ -6,7 +6,7 @@
       <q-item >
         <q-item-main>
           <q-item-tile label>{{study.generalities.title}}</q-item-tile>
-          <q-item-tile sublabel>{{study.generalities.description}}</q-item-tile>
+          <q-item-tile sublabel>{{study.generalities.shortDescription}}</q-item-tile>
         </q-item-main>
       </q-item>
       <q-list-header>Answer the following to know if you are eligible</q-list-header>

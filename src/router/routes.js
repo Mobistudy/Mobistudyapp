@@ -32,7 +32,6 @@ const routes = [
       { path: '/about', name: 'about', component: () => import('pages/Home/About.vue') },
       { path: '/profile', name: 'profile', component: () => import('pages/Home/Profile.vue') },
       { path: '/studies', name: 'studies', component: () => import('pages/Home/Studies.vue') },
-      { path: '/addStudy/:key', component: () => import('pages/Home/AddStudy.vue') },
       { path: '/studyConfig', name: 'studyConfig', component: () => import('pages/Home/StudyConfig.vue'), props: true },
       { path: '/dev', component: () => import('pages/devControl.vue') },
       { path: '/thresholding', component: () => import('pages/Thresholding.vue') },

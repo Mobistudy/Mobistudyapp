@@ -7,7 +7,7 @@
       Title of this study: {{studyDescription.generalities.title}}
     </p>
     <p class="q-subheading">
-      {{studyDescription.generalities.description}}
+      {{studyDescription.generalities.longDescription}}
     </p>
 
     <div class="q-my-lg">

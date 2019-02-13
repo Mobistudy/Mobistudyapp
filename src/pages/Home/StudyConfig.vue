@@ -10,7 +10,7 @@
           {{studyDescription.generalities.title}}
         </p>
         <p class="q-subheading">
-          {{studyDescription.generalities.description}}
+          {{studyDescription.generalities.longDescription}}
         </p>
         <p class="q-subheading">
           Principal investigators:
