@@ -31,37 +31,16 @@
     <div class="q-title">
       Privacy policy
     </div>
-    <p>
-      Mobistudy will collect the following information from you, regardless of if
-      have joined or not any research study:
-      <ul>
-        <li>Your email address</li>
-        <li>Your name and surname</li>
-        <li>Your date of bith</li>
-        <li>Your gender</li>
-        <li>Your list of self-declared long-term health conditions</li>
-        <li>Your list of self-declared frequently-used medications</li>
-        <li>Your list of self-declared lifestyle flags (e.g. if you smoke)</li>
-      </ul>
-      These data will stored on a server hosted and managed by the University of Oxford.
-      Personnell from the University of Oxford may access your data for technical maintenance.
-      <br />
-      If you decide to join a research study, further study-specific conditions
-      will apply, which will be clearly shown to you when consenting to participate
-      in the study.
-      <br />
-      Under no circumstances rather than the ones specified above, your data will
-      be shared with other parties or individuals.
-    </p>
-    <p>
-      For any question or doubt, please contact rishi.goburdhun@eng.ox.ac.uk.
-    </p>
+    <main-privacy-policy></main-privacy-policy>
   </q-page>
 </template>
 
 <script>
+import MainPrivacyPolicy from '../../components/MainPrivacyPolicy'
+
 export default {
-  name: 'AboutPage'
+  name: 'AboutPage',
+  components: { MainPrivacyPolicy }
 }
 </script>
 
