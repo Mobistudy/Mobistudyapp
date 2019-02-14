@@ -8,6 +8,8 @@
             <q-input lower-case float-label="Email" v-model="email" />
           </q-field>
           <br />
+          <q-btn label="Cancel" color="secondary" @click="$router.push('login')"/>
+
           <q-btn class="float-right" label="Reset Password" color="positive" type="submit" @click="submit" />
         </div>
       </q-page>
