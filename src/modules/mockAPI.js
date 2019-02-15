@@ -169,7 +169,8 @@ export async function getStudyDescription (studyKey) {
                 {
                   'name': 'University of Oxford',
                   'contact': 'asdasd',
-                  'dataAccess': 'full'
+                  'dataAccess': 'full',
+                  'reasonForDataAccess': 'Data Access to allow clinical decisions'
                 },
                 {
                   'name': 'NHS Oxfordshire',
@@ -292,12 +293,14 @@ export async function getStudyDescription (studyKey) {
               {
                 'name': 'University of Oxford, IBME',
                 'contact': 'Old Road Campus',
-                'dataAccess': 'full'
+                'dataAccess': 'full',
+                'reasonForDataAccess': 'Data Access to allow clinical decisions'
               },
               {
                 'name': 'University of Oxford, Worcester',
                 'contact': 'Worcester College',
-                'dataAccess': 'full'
+                'dataAccess': 'full',
+                'reasonForDataAccess': 'Data Access to allow clinical decisions'
               }
             ]
           },
