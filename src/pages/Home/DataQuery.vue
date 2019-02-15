@@ -26,6 +26,7 @@ export default {
   data: function () {
     return {
       task: {},
+      taskDescr: {},
       chartData: null,
       chartOptions: null,
       healthData: null
@@ -37,40 +38,40 @@ export default {
     const taskID = this.$route.params.taskID
 
     const studyDescr = await DB.getStudyDescription(studyKey)
-    const taskDescr = studyDescr.tasks.find(x => x.id === Number(taskID))
+    this.taskDescr = studyDescr.tasks.find(x => x.id === Number(taskID))
 
     let startDate = moment()
 
-    if (taskDescr.scheduling.intervalType === 'd') {
-      startDate.subtract(taskDescr.scheduling.interval, 'days')
-    } else if (taskDescr.scheduling.intervalType === 'w') {
-      startDate.subtract(taskDescr.scheduling.interval, 'weeks')
-    } else if (taskDescr.scheduling.intervalType === 'm') {
-      startDate.subtract(taskDescr.scheduling.interval, 'months')
-    } else if (taskDescr.scheduling.intervalType === 'y') {
-      startDate.subtract(taskDescr.scheduling.interval, 'years')
+    if (this.taskDescr.scheduling.intervalType === 'd') {
+      startDate.subtract(this.taskDescr.scheduling.interval, 'days')
+    } else if (this.taskDescr.scheduling.intervalType === 'w') {
+      startDate.subtract(this.taskDescr.scheduling.interval, 'weeks')
+    } else if (this.taskDescr.scheduling.intervalType === 'm') {
+      startDate.subtract(this.taskDescr.scheduling.interval, 'months')
+    } else if (this.taskDescr.scheduling.intervalType === 'y') {
+      startDate.subtract(this.taskDescr.scheduling.interval, 'years')
     }
     try {
-      if (taskDescr.aggregated) {
-        if (taskDescr.bucket) {
+      if (this.taskDescr.aggregated) {
+        if (this.taskDescr.bucket) {
           this.healthData = await healthstore.queryAggregated({
             startDate: startDate.toDate(),
             endDate: new Date(),
-            dataType: taskDescr.dataType,
-            bucket: taskDescr.bucket
+            dataType: this.taskDescr.dataType,
+            bucket: this.taskDescr.bucket
           })
         } else {
           this.healthData = await healthstore.queryAggregated({
             startDate: startDate.toDate(),
             endDate: new Date(),
-            dataType: taskDescr.dataType
+            dataType: this.taskDescr.dataType
           })
         }
       } else {
         this.healthData = await healthstore.query({
           startDate: startDate.toDate(),
           endDate: new Date(),
-          dataType: taskDescr.dataType
+          dataType: this.taskDescr.dataType
         })
       }
 
@@ -86,24 +87,24 @@ export default {
       this.chartData = {
         labels: chartData.labels,
         datasets: [{
-          label: HealthDataEnum.valueToString(taskDescr.dataType),
+          label: HealthDataEnum.valueToString(this.taskDescr.dataType),
           data: chartData.values,
           backgroundColor: '#800000'
         }]
       }
 
       let unit = ''
-      if (taskDescr.bucket) unit = taskDescr.bucket
+      if (this.taskDescr.bucket) unit = this.taskDescr.bucket
       else if (this.healthData.length) unit = this.healthData[0].unit
 
       // TODO: NEED TO SPLIT CODE HERE FOR DEPENDING ON DATA TYPE
-      if (taskDescr.dataType === 'steps' ||
-      taskDescr.dataType === 'weight' ||
-      taskDescr.dataType === 'height' ||
-      taskDescr.dataType === 'heart_rate' ||
-      taskDescr.dataType === 'heart_rate.variability' ||
-      taskDescr.dataType === 'calories' ||
-      taskDescr.dataType === 'distance') {
+      if (this.taskDescr.dataType === 'steps' ||
+      this.taskDescr.dataType === 'weight' ||
+      this.taskDescr.dataType === 'height' ||
+      this.taskDescr.dataType === 'heart_rate' ||
+      this.taskDescr.dataType === 'heart_rate.variability' ||
+      this.taskDescr.dataType === 'calories' ||
+      this.taskDescr.dataType === 'distance') {
         this.chartOptions = {
           maintainAspectRatio: false,
           scales: {
@@ -121,7 +122,7 @@ export default {
             }]
           }
         }
-      } else if (taskDescr.dataType === 'activity') {
+      } else if (this.taskDescr.dataType === 'activity') {
         // TODO: the activity chart depends if it's aggregated or not
         // aggregated: a bar chart with different bars per activity type, indicating the time in hours
         // not aggregated: stepped line with activities instead of numbers on the y axis
@@ -145,6 +146,7 @@ export default {
           userKey: userinfo.user._key,
           studyKey: studyKey,
           taskId: taskId,
+          dataType: this.taskDescr.dataType,
           generatedTS: new Date(),
           healthData: this.healthData
         })
