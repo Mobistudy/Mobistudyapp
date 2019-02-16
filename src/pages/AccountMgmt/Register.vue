@@ -298,7 +298,6 @@ export default {
         this.$q.notify('Please correct the indicated fields.')
       } else {
         try {
-          debugger
           // iOS SAFARI COMPATIBILITY
           let dobTemp = ''
           if (this.profile.dateOfBirth instanceof Date) {
