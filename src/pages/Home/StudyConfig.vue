@@ -45,7 +45,7 @@
           </div>
         </div>
       </q-tab-pane>
-      <q-tab-pane name="privacy">{{studyDescription.consent.privacyPolicy}}</q-tab-pane>
+      <q-tab-pane name="privacy" v-html="studyDescription.consent.privacyPolicy.replace(new RegExp('\n', 'g'), '<br>')">{{studyDescription.consent.privacyPolicy}}</q-tab-pane>
       <q-tab-pane v-if="studyParticipation.currentStatus == 'accepted'" name="consent">
         <p class="q-subheading">
           You can opt-in or opt-out of these items whenever you want:

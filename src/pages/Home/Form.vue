@@ -27,8 +27,11 @@
         </div>
       </div>
       <div v-show="currentQuestion.type === 'multiChoice'">
-        <q-checkbox v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="index" class="q-ml-md q-mb-md"
-        v-model="multiChoiceAnswer" :val="answerChoice.id" :label="answerChoice.text"/>
+        <div v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="index">
+          <q-checkbox class="q-ml-md q-mb-md" v-model="multiChoiceAnswer" :val="answerChoice.id" :label="answerChoice.text"/>
+          <br />
+        </div>
+
       </div>
       <div class="row justify-between q-ma-lg">
         <q-btn v-show="!isFirstQuestion" icon="arrow_back" color="secondary" @click="back()" label="Back" />
@@ -150,8 +153,14 @@ export default {
       this.singleChoiceAnswer = undefined
 
       if (!nextQuestionId) {
-        if (this.currentIndex === (this.form.questions.length - 1)) nextQuestionId = 'ENDFORM'
-        else nextQuestionId = 'Q' + (this.currentIndex + 2)
+        if (this.currentQuestion.id === this.formDescr.questions[(this.formDescr.questions.length - 1)].id) {
+          // last question
+          nextQuestionId = 'ENDFORM'
+        } else {
+          // next one in the list
+          let index = this.formDescr.questions.findIndex(x => x.id === this.currentQuestion.id)
+          nextQuestionId = 'Q' + (index + 2)
+        }
       }
 
       if (nextQuestionId === 'ENDFORM') {
@@ -181,7 +190,6 @@ export default {
       this.responses.pop()
     },
     async send () {
-      console.log(userinfo)
       const studyKey = this.$route.params.studyKey
       const taskId = Number(this.$route.params.taskId)
       let answers = {

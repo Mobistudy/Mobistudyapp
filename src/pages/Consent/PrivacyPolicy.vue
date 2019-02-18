@@ -3,8 +3,7 @@
     <p class="flex flex-center q-headline">
       Privacy Policy
     </p>
-    <div >
-      {{studyDescription.consent.privacyPolicy}}
+    <div v-html="studyDescription.consent.privacyPolicy.replace(new RegExp('\n', 'g'), '<br>')">
     </div>
     <div class="q-my-md row justify-between">
       <q-btn label="Deny" color="negative" @click="deny()"></q-btn>

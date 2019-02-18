@@ -60,8 +60,30 @@ export async function queryAggregated (queryOpts) {
         unit: 'count',
         value: Math.floor((Math.random() * 5000) + 500)
       })
+    } else if (queryOpts.dataType === 'activity') {
+      retval.push({
+        startDate: startDate.toDate(),
+        endDate: endDate.toDate(),
+        unit: 'activitySummary',
+        value: {
+          still: {
+            duration: Math.floor((Math.random() * 64800000) + 28800000),
+            calories: 1500,
+            distance: 0
+          },
+          walking: {
+            duration: Math.floor((Math.random() * 10800000) + 1800000),
+            calories: 20,
+            distance: 1250
+          },
+          in_vehicle: {
+            duration: Math.floor((Math.random() * 10800000) + 1800000),
+            calories: 20,
+            distance: 3520
+          }
+        }
+      })
     }
   }
-
   return retval
 }
