@@ -20,6 +20,19 @@ import API from '../../modules/API'
 import HealthDataEnum from '../../modules/healthstoreDataTypesEnum'
 import moment from 'moment'
 
+const chartColors = [
+  '#800000',
+  '#778000',
+  '#118000',
+  '#008080',
+  '#003780',
+  '#080080',
+  '#440080',
+  '#790080',
+  '#800046',
+  '#800046'
+]
+
 export default {
   name: 'DataQueryPage',
   components: { BarChart },
@@ -74,59 +87,94 @@ export default {
           dataType: this.taskDescr.dataType
         })
       }
+      console.log('raw health data', this.healthData)
 
-      this.$q.loading.hide()
       // now plot the data
-
-      let chartData = { labels: [], values: [] }
-      for (let i = 0; i < this.healthData.length; i++) {
-        chartData.labels.push(this.healthData[i].endDate)
-        chartData.values.push(this.healthData[i].value)
-      }
-
-      this.chartData = {
-        labels: chartData.labels,
-        datasets: [{
-          label: HealthDataEnum.valueToString(this.taskDescr.dataType),
-          data: chartData.values,
-          backgroundColor: '#800000'
-        }]
-      }
-
       let unit = ''
       if (this.taskDescr.bucket) unit = this.taskDescr.bucket
       else if (this.healthData.length) unit = this.healthData[0].unit
 
-      // TODO: NEED TO SPLIT CODE HERE FOR DEPENDING ON DATA TYPE
-      if (this.taskDescr.dataType === 'steps' ||
-      this.taskDescr.dataType === 'weight' ||
-      this.taskDescr.dataType === 'height' ||
-      this.taskDescr.dataType === 'heart_rate' ||
-      this.taskDescr.dataType === 'heart_rate.variability' ||
-      this.taskDescr.dataType === 'calories' ||
-      this.taskDescr.dataType === 'distance') {
-        this.chartOptions = {
-          maintainAspectRatio: false,
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
+      // TODO: NEED TO SPLIT CODE HERE FOR DEPENDING ON DATA TYPE AND IF AGGREGATED OR NOT
+      let tempData = { labels: [], datasets: [] }
+
+      if (this.taskDescr.aggregated) {
+        // AGGREGATED
+        if (this.taskDescr.dataType === 'steps' ||
+        this.taskDescr.dataType === 'calories' ||
+        this.taskDescr.dataType === 'distance') {
+          tempData.datasets.push({
+            label: HealthDataEnum.valueToString(this.taskDescr.dataType),
+            data: [],
+            backgroundColor: '#800000'
+          })
+          for (let i = 0; i < this.healthData.length; i++) {
+            tempData.labels.push(this.healthData[i].endDate)
+            tempData.datasets[0].data.push(this.healthData[i].value)
+          }
+
+          this.chartOptions = {
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }],
+              xAxes: [{
+                type: 'time',
+                bounds: 'data',
+                time: {
+                  unit: unit
+                }
+              }]
+            }
+          }
+        } else if (this.taskDescr.dataType === 'activity') {
+          // TODO: a bar chart with different bars per activity type, indicating the time in hours
+          let activityTypes = []
+          for (let i = 0; i < this.healthData.length; i++) {
+            tempData.labels.push(this.healthData[i].endDate)
+            for (let activityType in this.healthData[i].value) {
+              let dataSetIndex = activityTypes.indexOf(activityType)
+              if (dataSetIndex < 0) {
+                dataSetIndex = tempData.datasets.length
+                activityTypes.push(activityType)
+                tempData.datasets.push({
+                  label: activityType,
+                  data: [],
+                  backgroundColor: chartColors[dataSetIndex]
+                })
               }
-            }],
-            xAxes: [{
-              type: 'time',
-              bounds: 'data',
-              time: {
-                unit: unit
-              }
-            }]
+              let duration = parseInt(this.healthData[i].value[activityType].duration / 3600000)
+              tempData.datasets[dataSetIndex].data.push(duration)
+            }
+          }
+
+          this.chartOptions = {
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }],
+              xAxes: [{
+                type: 'time',
+                bounds: 'data',
+                time: {
+                  unit: unit
+                }
+              }]
+            }
           }
         }
-      } else if (this.taskDescr.dataType === 'activity') {
-        // TODO: the activity chart depends if it's aggregated or not
-        // aggregated: a bar chart with different bars per activity type, indicating the time in hours
-        // not aggregated: stepped line with activities instead of numbers on the y axis
+      } else {
+        // NOT AGGREGATED
+        // TODO: not aggregated activity: stepped line with activities instead of numbers on the y axis
       }
+
+      this.chartData = tempData
+      this.$q.loading.hide()
     } catch (error) {
       console.error(error)
       this.$q.loading.hide()
