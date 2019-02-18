@@ -74,6 +74,9 @@
           <div v-if="institution.dataAccess == 'full'">
             This institution will have full access to your data.
           </div>
+          <div>
+            Reason For Data Access': {{institution.reasonForDataAccess}}
+          </div>
         </div>
         <q-card-separator v-if="index != studyDescription.generalities.institutions.length-1"/>
       </div>

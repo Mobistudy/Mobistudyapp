@@ -17,28 +17,7 @@
           </q-step>
 
           <q-step icon="lock" title="Privacy policy">
-            <p>
-              Mobistudy will collect the following information from you, regardless of if
-              have joined or not any research study:
-              <ul>
-                <li>Your email address</li>
-                <li>Your name and surname</li>
-                <li>Your date of bith</li>
-                <li>Your gender</li>
-                <li>Your list of self-declared long-term health conditions</li>
-                <li>Your list of self-declared frequently-used medications</li>
-                <li>Your list of self-declared lifestyle flags (e.g. if you smoke)</li>
-              </ul>
-              These data will stored on a server hosted and managed by the University of Oxford.
-              Personnell from the University of Oxford may access your data for technical maintenance.
-              <br />
-              If you decide to join a research study, further study-specific conditions
-              will apply, which will be clearly shown to you when consenting to participate
-              in the study.
-              <br />
-              Under no circumstances rather than the ones specified above, your data will
-              be shared with other parties or individuals.
-            </p>
+            <main-privacy-policy></main-privacy-policy>
             <q-stepper-navigation>
               <q-btn flat @click="$refs.stepper.previous()"  label="Back"/>
               <q-btn color="primary" @click="$refs.stepper.next()" label="Accept" />
@@ -105,6 +84,7 @@ import owasp from 'owasp-password-strength-test'
 import API from '../../modules/API'
 import userinfo from '../../modules/userinfo'
 import {required, email, sameAs} from 'vuelidate/lib/validators'
+import MainPrivacyPolicy from '../../components/MainPrivacyPolicy'
 
 owasp.config({
   allowPassphrases: true,
@@ -133,6 +113,7 @@ function checkPwdStrength (pwd) {
 
 export default {
   name: 'RegisterPage',
+  components: { MainPrivacyPolicy },
   data () {
     return {
       account: {
@@ -317,7 +298,6 @@ export default {
         this.$q.notify('Please correct the indicated fields.')
       } else {
         try {
-          debugger
           // iOS SAFARI COMPATIBILITY
           let dobTemp = ''
           if (this.profile.dateOfBirth instanceof Date) {
