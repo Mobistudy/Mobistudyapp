@@ -149,7 +149,12 @@ export default {
       this.multiChoice = undefined
       this.singleChoiceAnswer = undefined
 
-      if (nextQuestionId === 'ENDFORM' || !nextQuestionId) {
+      if (!nextQuestionId) {
+        if (this.currentIndex === (this.form.questions.length - 1)) nextQuestionId = 'ENDFORM'
+        else nextQuestionId = 'Q' + (this.currentIndex + 2)
+      }
+
+      if (nextQuestionId === 'ENDFORM') {
         // completed !
         this.finished = true
       } else {
