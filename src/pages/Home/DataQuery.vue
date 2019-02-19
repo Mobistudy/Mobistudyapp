@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import * as healthstore from '../../modules/mockHealthstore'
+import healthstore from '../../modules/healthstore'
 import BarChart from 'components/Main/BarChart.js'
 import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
@@ -20,6 +20,8 @@ import API from '../../modules/API'
 import HealthDataEnum from '../../modules/healthstoreDataTypesEnum'
 import moment from 'moment'
 
+// a bunch of colors that nicely fit together on a multi-line or bar chart
+// if there are more than 10 colors, we are in trouble
 const chartColors = [
   '#800000',
   '#778000',
@@ -130,7 +132,6 @@ export default {
             }
           }
         } else if (this.taskDescr.dataType === 'activity') {
-          // TODO: a bar chart with different bars per activity type, indicating the time in hours
           let activityTypes = []
           for (let i = 0; i < this.healthData.length; i++) {
             tempData.labels.push(this.healthData[i].endDate)
@@ -154,11 +155,13 @@ export default {
             maintainAspectRatio: false,
             scales: {
               yAxes: [{
+                stacked: true,
                 ticks: {
                   beginAtZero: true
                 }
               }],
               xAxes: [{
+                stacked: true,
                 type: 'time',
                 bounds: 'data',
                 time: {

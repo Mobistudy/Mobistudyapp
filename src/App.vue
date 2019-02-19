@@ -7,10 +7,14 @@
 <script>
 import userinfo from './modules/userinfo'
 import API from './modules/API'
+import DB from './modules/db'
 
 export default {
   name: 'MobistudyApp',
   async created () {
+    console.info('Starting Mobistudy app version', process.env.APP_VERSION)
+    DB.setCurrentAppVersion(process.env.APP_VERSION)
+
     await userinfo.init()
     // check if already logged in, otherwise go to login
     let resettingpwd = (this.$route.path === '/resetpw') || (this.$route.path === '/changepw')

@@ -37,7 +37,7 @@
 import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
-import * as healthStore from '../../modules/mockHealthstore'
+import healthStore from '../../modules/healthstore'
 
 export default {
   name: 'ConsentItemsPage',

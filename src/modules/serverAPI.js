@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = '/api'
-// const BASE_URL = 'https://ibme-linuxdev.eng.ox.ac.uk:7777/api'
+const BASE_URL = process.env.API_ENDPOINT + '/api'
 let axiosConfig = {}
 
 export function setToken (newtoken) {

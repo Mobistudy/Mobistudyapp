@@ -21,6 +21,15 @@ To run it on an Android device: `quasar dev -m cordova -T android`.
 
 You will need the MobistudyAPI running in parallel (see MobistudyAPI docs), or use the mockAPI.
 
+## Test
+
+There are some variables that you can use to set a mock environment or test server.
+Check the quasar.conf.js under build.env, particularly:
+
+- API_ENDPOINT: use 'MOCK' for mock api, '' for local server or 'https://ibme-linuxdev.eng.ox.ac.uk:7777/' for test server
+- HEALTHSTORE: use 'MOCK' for mock healthstore or 'cordova-health' for the cordova health plugin
+
+
 ## Deploy
 
 Run `quasar build`.

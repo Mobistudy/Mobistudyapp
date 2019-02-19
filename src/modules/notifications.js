@@ -40,7 +40,7 @@ if (!notification) {
     schedule (obj, callback) {
       let millis = moment(obj.trigger.at).diff(moment())
       if (millis < 0) millis = 0
-      console.log('Notification mockup scheduled in ' + millis, obj)
+      // console.log('Notification mockup scheduled in ' + millis, obj)
       if (millis <= 2147483647) {
         let timeoutID = setTimeout(function () {
           if (Notification && Notification.permission === 'granted') {
@@ -51,7 +51,7 @@ if (!notification) {
         }, millis) // time difference in millis from trigger.at and now
         this.timeoutIDs.push(timeoutID)
       } else {
-        console.info('Notification too far in the future: ' + (millis / 86400000))
+        // console.info('Notification too far in the future: ' + (millis / 86400000))
       }
       callback()
     },

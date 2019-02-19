@@ -2,10 +2,14 @@
 
 // This wraps the API either from a mock or the actual server
 
-// import * as actualAPI from './mockAPI'
-import * as actualAPI from './serverAPI'
+import * as mockAPI from './mockAPI'
+import * as serverAPI from './serverAPI'
 
 let API = {}
-API = Object.assign(actualAPI, API)
+if (process.env.API_ENDPOINT === 'MOCK') {
+  API = Object.assign(mockAPI, API)
+} else {
+  API = Object.assign(serverAPI, API)
+}
 
 export default API

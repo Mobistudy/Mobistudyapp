@@ -1,11 +1,11 @@
 {
   "name": "mobistudyapp",
-  "version": "1.0.0",
-  "description": "Mobistudy Patients' App",
+  "version": "0.1.0",
+  "description": "Mobistudy Participants' App",
   "productName": "Mobistudy App",
   "cordovaId": "org.mobistudy.app",
-  "author": "jamtholee",
-  "private": true,
+  "author": "Jameson Lee, Dario Salvi",
+  "private": false,
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0"

@@ -1,50 +1,15 @@
 'use strict'
 
-export async function isAvailable () {
-  return new Promise((resolve, reject) => {
-    if (!navigator.health) reject(new Error('Cordova Health is not installed'))
-    navigator.health.isAvailable(resolve, reject)
-  })
+// This wraps the HealthStore either from a mock or the actual implementation
+
+import * as mockHS from './mockHealthstore'
+import * as cordovaHS from './cordovaHealthstore'
+
+let HS = {}
+if (process.env.HEALTHSTORE === 'MOCK') {
+  HS = Object.assign(mockHS, HS)
+} else {
+  HS = Object.assign(cordovaHS, HS)
 }
 
-export async function promptInstallFit () {
-  return new Promise((resolve, reject) => {
-    if (!navigator.health) reject(new Error('Cordova Health is not installed'))
-    navigator.health.promptInstallFit(resolve, reject)
-  })
-}
-
-export async function requestAuthorization (datatypes) {
-  return new Promise((resolve, reject) => {
-    if (!navigator.health) reject(new Error('Cordova Health is not installed'))
-    navigator.health.requestAuthorization(datatypes, resolve, reject)
-  })
-}
-
-export async function isAuthorized (datatypes) {
-  return new Promise((resolve, reject) => {
-    if (!navigator.health) reject(new Error('Cordova Health is not installed'))
-    navigator.health.isAuthorized(datatypes, resolve, reject)
-  })
-}
-
-export async function disconnect () {
-  return new Promise((resolve, reject) => {
-    if (!navigator.health) reject(new Error('Cordova Health is not installed'))
-    navigator.health.disconnect(resolve, reject)
-  })
-}
-
-export async function query (queryOpts) {
-  return new Promise((resolve, reject) => {
-    if (!navigator.health) reject(new Error('Cordova Health is not installed'))
-    navigator.health.query(queryOpts, resolve, reject)
-  })
-}
-
-export async function queryAggregated (queryOpts) {
-  return new Promise((resolve, reject) => {
-    if (!navigator.health) reject(new Error('Cordova Health is not installed'))
-    navigator.health.queryAggregated(queryOpts, resolve, reject)
-  })
-}
+export default HS
