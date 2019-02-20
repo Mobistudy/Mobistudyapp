@@ -26,6 +26,20 @@
         <q-item-main sublabel="No tasks missed" />
       </q-item>
     </q-list>
+
+    <q-modal v-if="this.tasks.completedStudyAlert" v-model="completedStudyModal" maximized>
+      <div class="q-pa-lg">
+        <div class="q-display-1 q-mb-md">You have completed a study!</div>
+        <div class="text-center">
+          <img src="statics/icons/confetti.svg" style="width:30vw; max-width:150px;" ><br />
+          <p>You have completed all the tasks for the {{this.tasks.completedStudyAlert.studyTitle}} study.</p>
+          <p>Thanks very much for this!</p>
+        </div>
+        <p>Please, be aware that some studies may require some further action,
+          Check the study description in the "Manage Studies" menu.</p>
+        <q-btn color="tertiary" @click="studyCompleted()" label="Close" />
+      </div>
+    </q-modal>
   </q-page>
 </template>
 
@@ -52,8 +66,12 @@ export default {
       newstudies: false,
       tasks: {
         upcoming: [],
-        missed: []
-      }
+        missed: [],
+        completedStudyAlert: {
+          studyTitle: undefined
+        }
+      },
+      completedStudyModal: false
     }
   },
   async created () {
@@ -140,6 +158,7 @@ export default {
         let res = scheduler.generateTasker(activestudiesPart, activeStudiesDescr)
         this.tasks = res
 
+        if (res.completedStudyAlert) this.completedStudyModal = true
         this.$q.loading.hide()
       } catch (error) {
         console.error(error)
@@ -156,6 +175,27 @@ export default {
           this.load()
         }).catch(() => {
           console.log('error')
+        })
+      }
+    },
+    async studyCompleted () {
+      let studyPart = this.tasks.completedStudyAlert.studyPart
+      // set the study as completed
+      studyPart.currentStatus = 'completed'
+      studyPart.completedTS = new Date()
+      try {
+        await API.updateStudyStatus(userinfo.user._key, studyPart.studyKey, studyPart)
+        delete studyPart.extraItemsConsent
+        delete studyPart.taskItemsConsent
+        await DB.setStudyParticipation(studyPart)
+        this.load()
+        this.completedStudyModal = false
+      } catch (error) {
+        console.error('Cannot set the study as completed', error)
+        this.$q.notify({
+          color: 'negative',
+          message: 'Cannot set the study as completed: ' + error.message,
+          icon: 'report_problem'
         })
       }
     }

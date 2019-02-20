@@ -80,6 +80,7 @@ module.exports = function (ctx) {
         'QLayoutHeader',
         'QList',
         'QListHeader',
+        'QModal',
         'QLayoutDrawer',
         'QPageContainer',
         'QPage',
