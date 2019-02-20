@@ -319,13 +319,7 @@ function plotChart (res, dataType) {
     x.push(res[i].startDate)
     y.push(res[i].value)
 
-    let plotDays = 8
-    // TODO: TEST THIS
-    if (dataType === 'heart_rate') {
-      plotDays = 1
-    }
-
-    if (moment(res[i].startDate).isSameOrAfter(moment().subtract(plotDays, 'days'))) {
+    if (moment(res[i].startDate).isSameOrAfter(moment().subtract(8, 'days'))) {
       xchart.push(res[i].startDate)
       ychart.push(res[i].value)
     }
