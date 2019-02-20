@@ -204,19 +204,17 @@ export async function cancelNotifications () {
 
 export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) {
   for (const task of studyDescr.tasks) {
-    for (const task of studyDescr.tasks) {
-      if (task.type === 'dataQuery') {
-        if (Platform.is.iphone && HealthDataEnum.isAndroidOnly(task.dataType)) continue
-        if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
-      }
-      let rrule = generateRRule(acceptedTS, new Date(studyDescr.generalities.endDate), task.scheduling)
-      let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
-      for (const taskTime of taskTimes) {
-        await notifications.schedule({
-          text: 'You have a new study task pending!',
-          trigger: { at: moment(taskTime).toDate() }
-        })
-      }
+    if (task.type === 'dataQuery') {
+      if (Platform.is.iphone && HealthDataEnum.isAndroidOnly(task.dataType)) continue
+      if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
+    }
+    let rrule = generateRRule(acceptedTS, new Date(studyDescr.generalities.endDate), task.scheduling)
+    let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
+    for (const taskTime of taskTimes) {
+      await notifications.schedule({
+        text: 'You have a new study task pending!',
+        trigger: { at: moment(taskTime).toDate() }
+      })
     }
   }
 }

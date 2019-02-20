@@ -42,7 +42,7 @@ if (process.env.NOTIFICATIONS === 'MOCK') {
     schedule (obj, callback) {
       let millis = moment(obj.trigger.at).diff(moment())
       if (millis < 0) millis = 0
-      console.log('notification scheduled in ' + millis, obj)
+      console.log('notification scheduled ' + obj.trigger.at + ' in ' + millis, obj)
       if (millis <= 2147483647) {
         let timeoutID = setTimeout(function () {
           if (Notification && Notification.permission === 'granted') {
