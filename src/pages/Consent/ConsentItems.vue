@@ -25,6 +25,20 @@
           <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
         </q-item-side>
       </q-item>
+      <q-item-separator />
+      <q-item>
+        <q-item-main label="I want to receive reminders about the tasks of this study">
+          <div v-if="remindersPermissionNeeded">
+            <div class="q-mt-sm text-secondary">
+              You need to allow the app to send reminders.
+            </div>
+            <q-btn label="Allow reminders" :disabled="!reminders || remindersPermissionGiven" @click="requestNotificationsPermission()"></q-btn>
+          </div>
+        </q-item-main>
+        <q-item-side>
+          <q-checkbox v-model="reminders"/>
+        </q-item-side>
+      </q-item>
     </q-list>
     <div class="q-my-md row justify-between">
       <q-btn label="Deny" color="negative" @click="deny()"></q-btn>
@@ -38,6 +52,7 @@ import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
 import healthStore from '../../modules/healthstore'
+import notifications from '../../modules/notifications'
 
 export default {
   name: 'ConsentItemsPage',
@@ -46,10 +61,17 @@ export default {
     return {
       consentedExtraItems: [],
       consentedTaskItems: [],
-      permissionsGiven: []
+      permissionsGiven: [],
+      reminders: false,
+      remindersPermissionNeeded: true,
+      remindersPermissionGiven: false
     }
   },
-  created () {
+  async created () {
+    let hasPermissionsAlready = await notifications.hasPermission()
+    this.remindersPermissionNeeded = !hasPermissionsAlready
+    this.remindersPermissionGiven = hasPermissionsAlready
+
     for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
       if (this.studyDescription.consent.extraItems[i].optional) this.consentedExtraItems.push(false)
       else this.consentedExtraItems.push(true)
@@ -66,6 +88,7 @@ export default {
       })
     },
     canAccept () {
+      if (this.reminders && !this.remindersPermissionGiven) return false
       for (let i = 0; i < this.taskType.length; i++) {
         if (this.taskType[i] === 'dataQuery' && this.consentedTaskItems[i] && !this.permissionsGiven[i]) {
           return false
@@ -82,6 +105,7 @@ export default {
           studyKey: this.studyDescription._key,
           currentStatus: 'accepted',
           acceptedTS: new Date(),
+          reminders: this.reminders,
           taskItemsConsent: [],
           extraItemsConsent: []
         }
@@ -133,6 +157,23 @@ export default {
             icon: 'report_problem'
           })
         }
+      }
+    },
+    async requestNotificationsPermission () {
+      try {
+        this.remindersPermissionGiven = await notifications.requestPermission()
+        this.$q.notify({
+          color: 'positive',
+          message: 'Permission given',
+          icon: 'check'
+        })
+      } catch (error) {
+        console.error('Cannot get authorisation for sending reminders', error)
+        this.$q.notify({
+          color: 'negative',
+          message: 'Cannot be authorised: ' + error.message,
+          icon: 'report_problem'
+        })
       }
     },
     async deny () {

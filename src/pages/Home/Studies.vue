@@ -41,9 +41,11 @@
 
   <q-list link>
     <q-list-header>Active studies</q-list-header>
-    <q-item v-for="(study, activeStudyIndex) in activeStudies" :key="activeStudyIndex">
-      <q-item-main :label="study.generalities.title" :sublabel="'End Date: ' + nicerDate(study.generalities.endDate)" @click.native="showDetails(study)"/>
-    </q-item>
+    <div>
+      <q-item v-for="(study, activeStudyIndex) in activeStudies" :key="activeStudyIndex">
+        <q-item-main :label="study.generalities.title" :sublabel="'End Date: ' + nicerDate(study.generalities.endDate)" @click.native="showDetails(study)"/>
+      </q-item>
+    </div>
 
     <q-item v-if="activeStudies.length === 0">
       <q-item-main>No active studies found.</q-item-main>

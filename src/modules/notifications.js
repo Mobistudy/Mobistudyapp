@@ -5,7 +5,7 @@ if (typeof cordova !== 'undefined' && cordova.plugins && cordova.plugins.notific
   notification = cordova.plugins.notification.local
 }
 // mock the plugin when on browser
-if (!notification) {
+if (process.env.NOTIFICATIONS === 'MOCK') {
   var sendNotification = function (text) {
     if (Notification && Notification.permission !== 'granted') {
       Notification.requestPermission(function (permission) {
@@ -29,18 +29,20 @@ if (!notification) {
     timeoutIDs: [],
     hasPermission (callback) {
       let isgranted = Notification.permission === 'granted'
+      console.log('permission for notifications?', isgranted)
       callback(isgranted)
     },
     requestPermission (callback) {
       Notification.requestPermission(function (permission) {
         let isgranted = permission === 'granted'
+        console.log('requesting permission for notifications, granted?', isgranted)
         callback(isgranted)
       })
     },
     schedule (obj, callback) {
       let millis = moment(obj.trigger.at).diff(moment())
       if (millis < 0) millis = 0
-      // console.log('Notification mockup scheduled in ' + millis, obj)
+      console.log('notification scheduled in ' + millis, obj)
       if (millis <= 2147483647) {
         let timeoutID = setTimeout(function () {
           if (Notification && Notification.permission === 'granted') {
@@ -59,6 +61,7 @@ if (!notification) {
       for (let timeoutID of this.timeoutIDs) {
         clearTimeout(timeoutID)
       }
+      console.log('all notifications cancelled')
       callback()
     }
   }
@@ -72,10 +75,7 @@ export default {
   },
   async requestPermission () {
     return new Promise((resolve, reject) => {
-      notification.requestPermission(function (isgranted) {
-        if (isgranted) resolve()
-        else reject(new Error('No permissions'))
-      })
+      notification.requestPermission(resolve)
     })
   },
   async schedule (obj) {

@@ -72,6 +72,20 @@
               <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
             </q-item-side>
           </q-item>
+          <q-item-separator />
+          <q-item>
+            <q-item-main label="I want to receive reminders about the tasks of this study">
+              <div v-if="remindersPermissionNeeded">
+                <div class="q-mt-sm text-secondary">
+                  You need to allow the app to send reminders.
+                </div>
+                <q-btn label="Allow reminders" :disabled="!reminders || remindersPermissionGiven" @click="requestNotificationsPermission()"></q-btn>
+              </div>
+            </q-item-main>
+            <q-item-side>
+              <q-checkbox v-model="reminders"/>
+            </q-item-side>
+          </q-item>
         </q-list>
         <div class="q-my-md row justify-center">
           <q-btn label="Update consent" color="primary" :disabled="!canUpdate" @click="updateConsent()"></q-btn>
@@ -88,6 +102,8 @@
 import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
+import healthStore from '../../modules/healthstore'
+import notifications from '../../modules/notifications'
 
 export default {
   name: 'StudyConfigPage',
@@ -97,11 +113,23 @@ export default {
       consentedExtraItems: [],
       consentedTaskItems: [],
       permissionsGiven: [],
-      studyParticipation: {}
+      studyParticipation: {},
+      reminders: false,
+      remindersPermissionNeeded: true,
+      remindersPermissionGiven: false
     }
   },
   async created () {
     this.studyParticipation = await DB.getStudyParticipation(this.studyDescription._key)
+    this.reminders = this.studyParticipation.reminders
+    if (this.reminders) {
+      this.remindersPermissionNeeded = false
+      this.remindersPermissionGiven = true
+    } else {
+      let hasPermissionsAlready = await notifications.hasPermission()
+      this.remindersPermissionNeeded = !hasPermissionsAlready
+      this.remindersPermissionGiven = hasPermissionsAlready
+    }
     for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
       this.consentedExtraItems.push(this.studyParticipation.extraItemsConsent[i].consented)
     }
@@ -117,6 +145,10 @@ export default {
       })
     },
     canUpdate () {
+      if (this.reminders !== this.studyParticipation.reminders) {
+        if (this.reminders && !this.remindersPermissionGiven) return false
+        return true
+      }
       if (!this.studyParticipation || !this.studyParticipation.extraItemsConsent) return false
       for (let i = 0; i < this.studyParticipation.extraItemsConsent.length; i++) {
         if (this.consentedExtraItems[i] !== this.studyParticipation.extraItemsConsent[i].consented) {
@@ -133,6 +165,7 @@ export default {
   },
   methods: {
     async updateConsent () {
+      this.studyParticipation.reminders = this.reminders
       for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
         this.studyParticipation.extraItemsConsent[i].consented = this.consentedExtraItems[i]
       }
@@ -147,6 +180,45 @@ export default {
         message: 'Consent updated',
         icon: 'check'
       })
+    },
+    async requestDQPermission (taskIndex) {
+      let taskId = this.studyDescription.consent.taskItems[taskIndex].taskId
+      let taskdescr = this.studyDescription.tasks.find(t => t.id === taskId)
+      if (taskdescr && taskdescr.dataType) {
+        try {
+          await healthStore.requestAuthorization([taskdescr.dataType])
+          this.$set(this.permissionsGiven, taskIndex, true)
+          this.$q.notify({
+            color: 'positive',
+            message: 'Permission given',
+            icon: 'check'
+          })
+        } catch (error) {
+          console.error('Cannot get authorisation for health', error)
+          this.$q.notify({
+            color: 'negative',
+            message: 'Cannot be authorised: ' + error.message,
+            icon: 'report_problem'
+          })
+        }
+      }
+    },
+    async requestNotificationsPermission () {
+      try {
+        this.remindersPermissionGiven = await notifications.requestPermission()
+        this.$q.notify({
+          color: 'positive',
+          message: 'Permission given',
+          icon: 'check'
+        })
+      } catch (error) {
+        console.error('Cannot get authorisation for sending reminders', error)
+        this.$q.notify({
+          color: 'negative',
+          message: 'Cannot be authorised: ' + error.message,
+          icon: 'report_problem'
+        })
+      }
     },
     async withdraw () {
       try {

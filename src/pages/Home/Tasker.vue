@@ -125,34 +125,35 @@ export default {
           this.nostudies = true
           return
         }
-        let activestudiesPart = studiesPart.filter((s) => {
-          return s.currentStatus === 'accepted'
-        })
 
-        if (!activestudiesPart || activestudiesPart.length === 0) {
+        let activestudiesPart = []
+        let activeStudiesDescr = []
+        for (const studyPart of studiesPart) {
+          let studyDescr = await DB.getStudyDescription(studyPart.studyKey)
+          if (!studyDescr) {
+            // study description needs to be retrieved from the server
+            studyDescr = await API.getStudyDescription(studyPart.studyKey)
+            await DB.setStudyDescription(studyPart.studyKey, studyDescr)
+            if (studyPart.currentStatus === 'accepted' && !this.rescheduleTasks && studyPart.reminders) {
+              // only schedule it here if we are not scheduling all of them
+              await scheduler.scheduleNotificationsSingleStudy(new Date(studyPart.acceptedTS), studyDescr)
+            }
+          }
+          if (studyPart.currentStatus === 'accepted' && this.rescheduleTasks && studyPart.reminders) {
+            // schedule all of them
+            await scheduler.scheduleNotificationsSingleStudy(new Date(studyPart.acceptedTS), studyDescr)
+          }
+          if (studyPart.currentStatus === 'accepted') {
+            activestudiesPart.push(studyPart)
+            activeStudiesDescr.push(studyDescr)
+          }
+        }
+
+        if (activeStudiesDescr.length === 0) {
           // this user has no studies !
           this.$q.loading.hide()
           this.nostudies = true
           return
-        }
-
-        let activeStudiesDescr = []
-        for (const study of activestudiesPart) {
-          let studyDescr = await DB.getStudyDescription(study.studyKey)
-          if (!studyDescr) {
-            // study description needs to be retrieved from the server
-            studyDescr = await API.getStudyDescription(study.studyKey)
-            await DB.setStudyDescription(study.studyKey, studyDescr)
-            if (!this.rescheduleTasks) {
-              // only schedule it here if we are not scheduling all of them
-              await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
-            }
-          }
-          if (this.rescheduleTasks) {
-            // schedule all of them
-            await scheduler.scheduleNotificationsSingleStudy(new Date(study.acceptedTS), studyDescr)
-          }
-          activeStudiesDescr.push(studyDescr)
         }
 
         let res = scheduler.generateTasker(activestudiesPart, activeStudiesDescr)
