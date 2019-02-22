@@ -32,7 +32,7 @@
           <q-item-main label="About" sublabel="About Mobistudy"/>
         </q-item>
         <q-item to="charting">
-          <q-item-side icon="" />
+          <q-item-side icon="directions_run" />
           <q-item-main label="Your Fitness" sublabel="Your data from the last week" />
         </q-item>
         <!--<q-item to="dev">-->
