@@ -18,7 +18,7 @@
             <div class="q-mt-sm text-secondary">
               This item requires the app to access some functionalities on the phone.
             </div>
-            <q-btn label="Give permission to this app" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" @click="requestDQPermission(taskIndex)"></q-btn>
+            <q-btn label="Give permission to this app" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" color="amber" outline="true" @click="requestDQPermission(taskIndex)"></q-btn>
           </div>
         </q-item-main>
         <q-item-side>
