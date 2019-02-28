@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-layout-header>
-      <q-toolbar color="primary" glossy="false" :inverted="$q.theme === 'ios'">
+      <q-toolbar color="primary">
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
           <q-icon name="menu" />
         </q-btn>

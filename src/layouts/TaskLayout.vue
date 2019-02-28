@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-layout-header>
       <q-toolbar color="primary">
-        <q-btn   flat dense   round @click="goBack()" aria-label="Back" >
+        <q-btn flat dense round @click="goBack()" aria-label="Back" >
           <q-icon name="arrow_back" />
         </q-btn>
 
