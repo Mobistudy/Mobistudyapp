@@ -1,4 +1,4 @@
-import axios from 'axios'
+// MOCK API implementation
 
 export function setToken (token) {
   console.log('API- Setting token: ' + token)
@@ -29,6 +29,17 @@ export async function registerUser (email, password) {
   return true
 }
 
+// Password reset
+export async function resetPW (email) {
+  console.log('API- Reset profile for email' + email)
+  return true
+}
+
+// Change password
+export async function changePW (token, newpw) {
+  return Promise.resolve(true)
+}
+
 // Create the participant profile
 export async function createProfile (profile) {
   console.log('API- Profile created', profile)
@@ -42,8 +53,8 @@ export async function getProfile (userKey) {
     createdTS: '2018-12-10T09:30:32.492Z',
     name: 'Jameson',
     surname: 'Lee',
-    dateOfBirth: '1986-11-10',
     gender: 'male',
+    dateOfBirth: '1986-11-10',
     diseases: [],
     medications: [],
     lifestyle: {
@@ -57,8 +68,8 @@ export async function getProfile (userKey) {
         acceptedTS: '2018-12-10T09:30:32.492Z',
         criteriaAnswers: [ 'Yes', 'No' ],
         taskItemsConsent: [
-          { taskId: 1, consented: true },
-          { taskId: 2, consented: true }
+          { taskId: 1, consented: true, lastExecuted: new Date(new Date().getTime() - 86400000).toISOString() },
+          { taskId: 2, consented: true, lastExecuted: new Date(new Date().getTime() - 172800000).toISOString() }
         ]
       }
     ]
@@ -73,73 +84,54 @@ export async function updateProfile (profile) {
   return true
 }
 
-// update status of a study
-export async function updateStudyStatus (userKey, studyKey, studyParticipation) {
-  console.log('API- Study status updated', studyParticipation)
-  return true
-}
-
-// Password reset
-export async function resetPW (email) {
-  console.log('API- Reset profile for email' + email)
-  return true
-}
-
-// Change password
-export async function changePW (token, newpw) {
-  return Promise.resolve(true)
-}
-
 // Permanently delete the user
 export async function deleteUser (userKey) {
   console.log('API- permanently delete user')
   return true
 }
 
+// update status of a study
+export async function updateStudyStatus (userKey, studyKey, studyParticipation) {
+  console.log('API- Study status updated', studyParticipation)
+  return true
+}
+
 // search for disease on SNOMED
 export async function searchSNOMEDDisease (diseaseDescription) {
-  // Declare top level URL vars
-  const baseUrl = 'https://browser.ihtsdotools.org/api/v1/snomed/'
-  const edition = 'en-edition'
-  const version = '20180131'
-  // Construct Disease Query URL
-  const diseaseQueryURL = baseUrl + '/' + edition + '/v' + version + '/descriptions?query=' + encodeURIComponent(diseaseDescription) + '&limit=50&searchMode=partialMatching' + '&lang=english&statusFilter=activeOnly&skipTo=0' + '&semanticFilter=disorder' + '&returnLimit=100&normalize=true'
-
-  const response = await axios.get(diseaseQueryURL)
-  const dataDis = response.data
-  // Filter out already selected diseases
-  const resFiltByLen = dataDis.matches.filter(entry => entry['term'].length < 50)
-  const retval = resFiltByLen.map((item) => {
-    return {
-      label: item.term,
-      value: item.term,
-      conceptId: item.conceptId
-    }
+  return [{
+    label: 'Heart Failure',
+    value: 'Heart Failure',
+    conceptId: 3344
+  }, {
+    label: 'Weak Heart',
+    value: 'Weak Heart',
+    conceptId: 3345
+  }, {
+    label: 'COPD',
+    value: 'COPD',
+    conceptId: 2211
+  }].filter(i => {
+    return i.label.toLowerCase().indexOf(diseaseDescription.toLowerCase()) > -1
   })
-  return retval
 }
 
 // search for medications on SNOMED
 export async function searchSNOMEDMedication (medDescription) {
-  // Declare top level URL vars
-  var baseUrl = 'https://browser.ihtsdotools.org/api/v1/snomed/'
-  var edition = 'en-edition'
-  var version = '20180131'
-  // Construct medications Query URL
-  var medQueryURL = baseUrl + '/' + edition + '/v' + version + '/descriptions?query=' + encodeURIComponent(medDescription) + '&limit=50&searchMode=partialMatching' + '&lang=english&statusFilter=activeOnly&skipTo=0' + '&semanticFilter=substance' + '&returnLimit=100&normalize=true'
-
-  const response = await axios.get(medQueryURL)
-  const dataMed = response.data
-  // Filter out already selected medications
-  let resMedsFiltByLen = dataMed.matches.filter(entry => entry['term'].length < 50)
-  const retval = resMedsFiltByLen.map((item) => {
-    return {
-      label: item.term,
-      value: item.term,
-      conceptId: item.conceptId
-    }
+  return [{
+    label: 'Aspirin',
+    value: 'Aspirin',
+    conceptId: 3344
+  }, {
+    label: 'Paracetamol',
+    value: 'Paracetamol',
+    conceptId: 3345
+  }, {
+    label: 'Iboprufen',
+    value: 'Iboprufen',
+    conceptId: 2211
+  }].filter(i => {
+    return i.label.toLowerCase().indexOf(medDescription.toLowerCase()) > -1
   })
-  return retval
 }
 
 export async function getStudyDescription (studyKey) {
