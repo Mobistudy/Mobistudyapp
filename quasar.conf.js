@@ -34,9 +34,9 @@ module.exports = function (ctx) {
       },
       env: {
         APP_VERSION: JSON.stringify(require('./package.json').version),
-        API_ENDPOINT: JSON.stringify(''), // use 'MOCK' for mock api, '' for local server or 'https://ibme-linuxdev.eng.ox.ac.uk:7777/' for test server
-        HEALTHSTORE: JSON.stringify('MOCK'), // use 'MOCK' for mock healthstore or 'cordova-health' for the cordova health plugin
-        NOTIFICATIONS: JSON.stringify('MOCK') // use 'MOCK' for browser notifications or 'cordova-notification-local' for the cordova plugin
+        API_ENDPOINT: JSON.stringify('https://ibme-linuxdev.eng.ox.ac.uk:7777'), // use 'MOCK' for mock api, '' for local server or 'https://ibme-linuxdev.eng.ox.ac.uk:7777' for test server
+        HEALTHSTORE: JSON.stringify('cordova-health'), // use 'MOCK' for mock healthstore or 'cordova-health' for the cordova health plugin
+        NOTIFICATIONS: JSON.stringify('cordova-notification-local') // use 'MOCK' for browser notifications or 'cordova-notification-local' for the cordova plugin
       }
     },
     devServer: {
