@@ -66,6 +66,7 @@ export async function getProfile (userKey) {
         studyKey: '1234',
         currentStatus: 'accepted',
         acceptedTS: '2018-12-10T09:30:32.492Z',
+        reminders: true,
         criteriaAnswers: [ 'Yes', 'No' ],
         taskItemsConsent: [
           { taskId: 1, consented: true, lastExecuted: new Date(new Date().getTime() - 86400000).toISOString() },
@@ -147,7 +148,8 @@ export async function getStudyDescription (studyKey) {
             'published': '2018-12-09T09:30:32.492Z',
             'generalities': {
               'title': 'My amazing study',
-              'description': 'This is a study about amazing people',
+              shortDescription: 'This is a study about amazing people',
+              longDescription: 'We want to understand how amazing you are',
               'startDate': '2018-09-11',
               'endDate': '2020-10-12',
               'principalInvestigators': [
@@ -201,18 +203,11 @@ export async function getStudyDescription (studyKey) {
                 'type': 'dataQuery',
                 'scheduling': {
                   'startEvent': 'consent',
-                  'startDelaySecs': 1000,
-                  'untilSecs': 100000000,
-                  'occurrences': 100,
+                  'startDelaySecs': 0,
+                  'untilSecs': 2592000, // 1 month
                   'intervalType': 'd',
                   'interval': 12,
-                  'months': [ 1, 2 ],
-                  'monthDays': [ 1, 12, 24 ],
-                  'weekDays': [
-                    1,
-                    4,
-                    7
-                  ]
+                  'weekDays': [ 1, 4, 7 ]
                 },
                 'dataType': 'steps',
                 'aggregated': true,
@@ -224,7 +219,7 @@ export async function getStudyDescription (studyKey) {
                 'scheduling': {
                   'startEvent': 'consent',
                   'startDelaySecs': 0,
-                  'occurrences': 2,
+                  'occurrences': 20,
                   'intervalType': 'd',
                   'interval': 12
                 },
@@ -263,109 +258,111 @@ export async function getStudyDescription (studyKey) {
       setTimeout(function () {
         resolve({
           _key: '1234',
-          'published': '2018-11-09T11:09:20.498Z',
-          'generalities': {
-            'title': 'COPD Study',
-            'description': "It's a study",
-            'startDate': '2018-11-10T00:00:00.000+00:00',
-            'endDate': '2019-05-24T00:00:00.000+01:00',
-            'principalInvestigators': [
+          published: '2018-11-09T11:09:20.498Z',
+          generalities: {
+            title: 'COPD Study',
+            shortDescription: 'It\'s a study',
+            longDescription: 'This study is about COPD, we want to assess your COPD level.',
+            startDate: new Date(new Date().getTime() - 1296000000).toISOString(), // 15 days ago
+            endDate: new Date(new Date().getTime() + 5184000000).toISOString(), // 60 days from now
+            principalInvestigators: [
               {
-                'name': 'J Lee',
-                'contact': 'IBME Oxford',
-                'institution': 'University of Oxford'
+                name: 'J Lee',
+                contact: 'IBME Oxford',
+                institution: 'University of Oxford'
               },
               {
-                'name': 'C Velardo',
-                'contact': 'IBME Oxford',
-                'institution': 'University of Oxford'
+                name: 'C Velardo',
+                contact: 'IBME Oxford',
+                institution: 'University of Oxford'
               }
             ],
-            'institutions': [
+            institutions: [
               {
-                'name': 'University of Oxford, IBME',
-                'contact': 'Old Road Campus',
-                'dataAccess': 'full',
-                'reasonForDataAccess': 'Data Access to allow clinical decisions'
+                name: 'University of Oxford, IBME',
+                contact: 'Old Road Campus',
+                dataAccess: 'full',
+                reasonForDataAccess: 'Data Access to allow clinical decisions'
               },
               {
-                'name': 'University of Oxford, Worcester',
-                'contact': 'Worcester College',
-                'dataAccess': 'full',
-                'reasonForDataAccess': 'Data Access to allow clinical decisions'
+                name: 'University of Oxford, Worcester',
+                contact: 'Worcester College',
+                dataAccess: 'full',
+                reasonForDataAccess: 'Data Access to allow clinical decisions'
               }
             ]
           },
-          'inclusionCriteria': {
-            'minAge': 18,
-            'maxAge': 100,
-            'gender': [
+          inclusionCriteria: {
+            minAge: 18,
+            maxAge: 100,
+            gender: [
               'male',
               'female',
               'other'
             ],
-            'lifestyle': {
-              'active': 'notrequired',
-              'smoker': 'notrequired'
+            lifestyle: {
+              active: 'notrequired',
+              smoker: 'notrequired'
             },
-            'criteriaQuestions': [
+            criteriaQuestions: [
               {
-                'title': 'Are you a smoker?',
-                'answer': 'no'
+                title: 'Are you a smoker?',
+                answer: 'no'
               }
             ],
-            'diseases': {
+            diseases: {
               'Acute exacerbation of COPD': '195951007'
             },
-            'medications': {}
+            medications: {}
           },
-          'tasks': [
+          tasks: [
             {
-              'id': 1,
-              'type': 'form',
-              'scheduling': {
-                'startEvent': 'consent',
-                'intervalType': 'd',
-                'interval': 1,
-                'months': [],
-                'monthDays': [],
-                'weekDays': []
+              id: 1,
+              type: 'form',
+              scheduling: {
+                startEvent: 'consent',
+                intervalType: 'd',
+                // untilSecs: 2592000, // 1 month
+                interval: 1,
+                months: [],
+                monthDays: [],
+                weekDays: []
               },
-              'formKey': '1234',
-              'formName': 'COPD Form'
+              formKey: '1234',
+              formName: 'COPD Form'
             },
             {
-              'id': 2,
-              'type': 'dataQuery',
-              'scheduling': {
-                'startEvent': 'consent',
-                'intervalType': 'd',
-                'interval': 1,
-                'months': [],
-                'monthDays': [],
-                'weekDays': []
+              id: 2,
+              type: 'dataQuery',
+              scheduling: {
+                startEvent: 'consent',
+                intervalType: 'd',
+                interval: 1,
+                // occurrences: 20,
+                months: [],
+                monthDays: [],
+                weekDays: [1, 3, 5]
               },
-              'dataType': 'steps',
-              'aggregated': true,
-              'bucket': 'hour'
+              dataType: 'steps',
+              aggregated: true,
+              bucket: 'hour'
             }
           ],
-          'consent': {
-            'invitation': 'Something something consent',
-            'privacyPolicy': 'Something something consent',
-            'taskItems': [
+          consent: {
+            invitation: 'Something something consent',
+            privacyPolicy: 'Something something consent',
+            taskItems: [
               {
-                'description': 'You agree to answer the "COPD Form" form. 5 days after you have consented. Until 12 days after you have consented. Repeated daily.',
-                'taskId': 1
+                description: 'You agree to answer the "COPD Form" form. 5 days after you have consented. Until 12 days after you have consented. Repeated daily.',
+                taskId: 1
               },
               {
-                'description': 'You agree to send your data about Steps. Repeated daily.',
-                'taskId': 2
+                description: 'You agree to send your data about Steps. Repeated daily.',
+                taskId: 2
               }
             ],
-            'extraItems': []
-          },
-          'created': '2018-11-09T11:09:20.589Z'
+            extraItems: []
+          }
         })
       }, 2000)
     } else {
