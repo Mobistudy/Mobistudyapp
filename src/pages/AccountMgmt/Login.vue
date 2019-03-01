@@ -43,7 +43,7 @@ export default {
   methods: {
     async login () {
       try {
-        let user = await API.login(this.username, this.password)
+        let user = await API.login(this.username.toLowerCase(), this.password)
         console.info('Logged in! ', user)
         // user is authenticated, return user object
         await userinfo.login(user)

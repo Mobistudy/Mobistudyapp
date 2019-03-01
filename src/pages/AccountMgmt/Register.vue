@@ -269,8 +269,8 @@ export default {
         this.$q.notify('Please correct the indicated fields.')
       } else {
         try {
-          await API.registerUser(this.account.email, this.account.pw1)
-          let user = await API.login(this.account.email, this.account.pw1)
+          await API.registerUser(this.account.email.toLowerCase(), this.account.pw1)
+          let user = await API.login(this.account.email.toLowerCase(), this.account.pw1)
           await userinfo.login(user)
           API.setToken(user.token)
 

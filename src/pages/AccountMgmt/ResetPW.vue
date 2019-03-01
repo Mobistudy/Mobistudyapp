@@ -35,7 +35,7 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid) {
         try {
-          await API.resetPW(this.email)
+          await API.resetPW(this.email.toLowerCase())
           this.$router.push('/changepw')
         } catch (error) {
           this.$q.notify({
