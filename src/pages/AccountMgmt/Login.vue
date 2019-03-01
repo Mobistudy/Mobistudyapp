@@ -4,7 +4,7 @@
       <q-page padding class="flex flex-center">
         <div style="width: 90vw">
           <p class="q-headline">Login</p>
-          <q-input v-model="username" lower-case float-label="Username" />
+          <q-input v-model="username" float-label="Username" />
           <q-input v-model="password" float-label="Password" type="password" />
           <div class="row">
             <q-btn class="q-ma-sm" label="Login" color="positive" @click="login" type="submit" />

@@ -5,7 +5,7 @@
         <div style="width: 90vw">
           <p class="q-headline">Reset password</p>
             <q-field :error="$v.email.$error" error-label="Valid email required">
-            <q-input lower-case float-label="Email" v-model="email" />
+            <q-input float-label="Email" v-model="email" />
           </q-field>
           <br />
           <q-btn class="float-left" label="Cancel" color="secondary" @click="$router.push('login')" />
