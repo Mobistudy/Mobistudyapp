@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <q-tabs animated swipeable inverted color="secondary" align="justify">
+    <q-tabs animated inverted color="secondary" align="justify">
       <q-tab default name="info" slot="title" icon="info" label="Info" />
       <q-tab name="privacy" slot="title" icon="lock" label="Privacy" />
       <q-tab v-if="studyParticipation.currentStatus == 'accepted'" name="consent" slot="title" icon="done" label="Consent" />
