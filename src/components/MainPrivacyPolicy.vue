@@ -5,7 +5,7 @@
     <ul>
       <li>Your email address</li>
       <li>Your name and surname</li>
-      <li>Your date of bith</li>
+      <li>Your date of birth</li>
       <li>Your gender</li>
       <li>Your list of self-declared long-term health conditions</li>
       <li>Your list of self-declared frequently-used medications</li>
@@ -28,7 +28,7 @@
     will remove all the produced data, except the technical logs.
     <br />
     You can download the data in a machine-readable format.
-    Contact snatpht@gmail.com if you need to.
+    Contact mobistudyOX@gmail.com if you need to.
   </p>
 </template>
 
