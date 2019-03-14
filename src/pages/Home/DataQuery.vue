@@ -3,7 +3,8 @@
     <!-- content -->
     <div v-if="chartData">
       <p style="margin-top: 0">This is what is going to be sent</p>
-      <bar-chart :chart-data="chartData" :options="chartOptions"></bar-chart>
+      <bar-chart v-if="plotBar" :chart-data="chartData" :options="chartOptions"></bar-chart>
+      <line-chart v-if="plotLine" :chart-data="chartData" :options="chartOptions"></line-chart>
       <div class="row">
         <q-btn color="primary" class="col" label="Send" @click="submit()" />
       </div>
@@ -14,6 +15,7 @@
 <script>
 import healthstore from '../../modules/healthstore'
 import BarChart from 'components/Main/BarChart.js'
+import LineChart from 'components/Main/LineChart.js'
 import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
@@ -37,14 +39,16 @@ const chartColors = [
 
 export default {
   name: 'DataQueryPage',
-  components: { BarChart },
+  components: { BarChart, LineChart },
   data: function () {
     return {
       task: {},
       taskDescr: {},
       chartData: null,
       chartOptions: null,
-      healthData: null
+      healthData: null,
+      plotLine: false,
+      plotBar: false
     }
   },
   async mounted () {
@@ -131,6 +135,8 @@ export default {
               }]
             }
           }
+
+          this.plotBar = true
         } else if (this.taskDescr.dataType === 'activity') {
           let activityTypes = []
           for (let i = 0; i < this.healthData.length; i++) {
@@ -170,13 +176,50 @@ export default {
               }]
             }
           }
+
+          this.plotBar = true
         }
       } else {
         // NOT AGGREGATED
         // TODO: not aggregated activity: stepped line with activities instead of numbers on the y axis
+        if (this.taskDescr.dataType === 'heart_rate') {
+          tempData.datasets.push({
+            label: HealthDataEnum.valueToString(this.taskDescr.dataType),
+            data: [],
+            fill: false,
+            pointRadius: 0,
+            lineTension: 0
+            // backgroundColor: '#800000'
+          })
+          for (let i = 0; i < this.healthData.length; i++) {
+            tempData.labels.push(this.healthData[i].endDate)
+            tempData.datasets[0].data.push(this.healthData[i].value)
+          }
+
+          this.chartOptions = {
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }],
+              xAxes: [{
+                type: 'time',
+                bounds: 'data'
+                // time: {
+                //   unit: unit
+                // }
+              }]
+            }
+          }
+
+          this.plotLine = true
+        }
       }
 
       this.chartData = tempData
+      console.log(this.chartData)
       this.$q.loading.hide()
     } catch (error) {
       console.error(error)
