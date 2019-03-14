@@ -188,8 +188,9 @@ export default {
             data: [],
             fill: false,
             pointRadius: 0,
-            lineTension: 0
-            // backgroundColor: '#800000'
+            lineTension: 0,
+            backgroundColor: '#800000',
+            borderColor: 'rgba(128,0,0,0.66)'
           })
           for (let i = 0; i < this.healthData.length; i++) {
             tempData.labels.push(this.healthData[i].endDate)
