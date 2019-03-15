@@ -4,11 +4,11 @@
     have joined or not any research study:
     <ul>
       <li>Your email address</li>
-      <li>Your name and surname</li>
-      <li>Your date of birth</li>
+      <!-- <li>Your name and surname</li> -->
+      <!-- <li>Your date of birth</li> -->
       <li>Your gender</li>
-      <li>Your list of self-declared long-term health conditions</li>
-      <li>Your list of self-declared frequently-used medications</li>
+      <!-- <li>Your list of self-declared long-term health conditions</li>
+      <li>Your list of self-declared frequently-used medications</li> -->
       <li>Your list of self-declared lifestyle flags (e.g. if you smoke)</li>
       <li>Technical logs indicating the time you have accessed the system.
         These logs are needed for security reasons and will be kept for 5 years in all circumstances.

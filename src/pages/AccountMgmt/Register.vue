@@ -41,19 +41,20 @@
           </q-step>
 
           <!-- Step: -->
+          <!-- Following commented out for 4YP. To be uncommented after. -->
           <q-step icon="assignment_ind" title="Profile" subtitle="Tell us your details">
-            <q-field icon="face" :error="$v.profile.name.$error || $v.profile.surname.$error" error-label="Required">
+            <!-- <q-field icon="face" :error="$v.profile.name.$error || $v.profile.surname.$error" error-label="Required">
               <q-input float-label="First Name" v-model="profile.name"/>
               <q-input float-label="Surname" v-model="profile.surname"/>
-            </q-field>
+            </q-field> -->
             <q-field icon="wc" :error="$v.profile.gender.$error" error-label="Required">
               <q-select float-label="Gender" v-model="profile.gender" :options="profile.genderOptions"/>
             </q-field>
-            <q-field icon="cake" :error="$v.profile.dateOfBirth.$error" error-label="Required">
+            <!-- <q-field icon="cake" :error="$v.profile.dateOfBirth.$error" error-label="Required">
               <q-datetime type="date" v-model="profile.dateOfBirth" format="DD/MM/YYYY" float-label="Date of Birth"/>
-            </q-field>
+            </q-field> -->
 
-            <q-field class="q-mt-sm" icon="local_hospital" helper="Do you suffer from any long-term medical condition?">
+            <!-- <q-field class="q-mt-sm" icon="local_hospital" helper="Do you suffer from any long-term medical condition?">
               <q-chips-input placeholder="Conditions" v-model="diseasesVue" @duplicate="duplicatedDisease">
                 <q-autocomplete @search="searchDisease" @selected="selectedDisease" />
               </q-chips-input>
@@ -63,7 +64,7 @@
               <q-chips-input placeholder="Medications" v-model="medsVue" @duplicate="duplicatedMeds">
                 <q-autocomplete @search="searchMeds" @selected="selectedMeds" />
               </q-chips-input>
-            </q-field>
+            </q-field> -->
 
             <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
             <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/>
@@ -122,11 +123,12 @@ export default {
         pw2: ''
       },
       profile: {
-        name: '',
-        surname: '',
-        dateOfBirth: '',
-        diseases: [],
-        medications: [],
+        // Following commented out for 4YP. To be uncommented after.
+        // name: '',
+        // surname: '',
+        // dateOfBirth: '',
+        // diseases: [],
+        // medications: [],
         lifestyle: {
           smoker: false,
           active: true
@@ -156,34 +158,36 @@ export default {
       pw2: { sameAsPassword: sameAs('pw1') }
     },
     profile: {
-      name: {required},
-      surname: {required},
-      dateOfBirth: {required},
+      // Following commented out for 4YP. To be uncommented after.
+      // name: {required},
+      // surname: {required},
+      // dateOfBirth: {required},
       gender: {required}
     }
   },
-  computed: {
-    diseasesVue: {
-      get: function () {
-        return this.profile.diseases.map(x => x.name)
-      },
-      set: function (names) {
-        this.profile.diseases = this.profile.diseases.filter(x => {
-          return names.includes(x.name)
-        })
-      }
-    },
-    medsVue: {
-      get: function () {
-        return this.profile.medications.map(x => x.name)
-      },
-      set: function (names) {
-        this.profile.medications = this.profile.medications.filter(x => {
-          return names.includes(x.name)
-        })
-      }
-    }
-  },
+  // Following commented out for 4YP. To be uncommented after.
+  // computed: {
+  //   diseasesVue: {
+  //     get: function () {
+  //       return this.profile.diseases.map(x => x.name)
+  //     },
+  //     set: function (names) {
+  //       this.profile.diseases = this.profile.diseases.filter(x => {
+  //         return names.includes(x.name)
+  //       })
+  //     }
+  //   },
+  //   medsVue: {
+  //     get: function () {
+  //       return this.profile.medications.map(x => x.name)
+  //     },
+  //     set: function (names) {
+  //       this.profile.medications = this.profile.medications.filter(x => {
+  //         return names.includes(x.name)
+  //       })
+  //     }
+  //   }
+  // },
   methods: {
     getFirstPwdCheckError (pwd) {
       if (this.account.email) {
@@ -299,24 +303,25 @@ export default {
       } else {
         try {
           // iOS SAFARI COMPATIBILITY
-          let dobTemp = ''
-          if (this.profile.dateOfBirth instanceof Date) {
-            dobTemp = this.profile.dateOfBirth.toISOString().substring(0, 10)
-          } else if (typeof this.profile.dateOfBirth === 'string') {
-            dobTemp = this.profile.dateOfBirth.substring(0, 10)
-          } else {
-            dobTemp = this.profile.dateOfBirth
-            console.error(this.profile.dateOfBirth + ' cannot be cut to date only')
-          }
+          // Following commented out for 4YP. To be uncommented after.
+          // let dobTemp = ''
+          // if (this.profile.dateOfBirth instanceof Date) {
+          //   dobTemp = this.profile.dateOfBirth.toISOString().substring(0, 10)
+          // } else if (typeof this.profile.dateOfBirth === 'string') {
+          //   dobTemp = this.profile.dateOfBirth.substring(0, 10)
+          // } else {
+          //   dobTemp = this.profile.dateOfBirth
+          //   console.error(this.profile.dateOfBirth + ' cannot be cut to date only')
+          // }
           let profile = {
             userKey: userinfo.user._key,
             updatedTS: new Date(),
-            name: this.profile.name,
-            surname: this.profile.surname,
-            dateOfBirth: dobTemp,
+            // name: this.profile.name,
+            // surname: this.profile.surname,
+            // dateOfBirth: dobTemp,
             gender: this.profile.gender,
-            diseases: this.profile.diseases,
-            medications: this.profile.medications,
+            // diseases: this.profile.diseases,
+            // medications: this.profile.medications,
             lifestyle: this.profile.lifestyle
           }
           await API.createProfile(profile)
