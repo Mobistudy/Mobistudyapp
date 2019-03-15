@@ -213,7 +213,8 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) 
     for (const taskTime of taskTimes) {
       await notifications.schedule({
         text: 'You have a new study task pending!',
-        trigger: { at: moment(taskTime).toDate() }
+        // trigger: { at: moment(taskTime).toDate() } // THIS LINE MIGHT BE NEEDED FOR IT TO WORK ON ANDROID
+        at: moment(taskTime).toDate()
       })
     }
   }
