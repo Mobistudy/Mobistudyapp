@@ -59,17 +59,27 @@ export default {
     const studyDescr = await DB.getStudyDescription(studyKey)
     this.taskDescr = studyDescr.tasks.find(x => x.id === Number(taskID))
 
+    let studyParticipation = await DB.getStudyParticipation(studyKey)
+    let lastCompleted = studyParticipation.taskItemsConsent.find(x => x.taskId === Number(taskID)).lastExecuted
+
     let startDate = moment()
 
-    if (this.taskDescr.scheduling.intervalType === 'd') {
-      startDate.subtract(this.taskDescr.scheduling.interval, 'days')
-    } else if (this.taskDescr.scheduling.intervalType === 'w') {
-      startDate.subtract(this.taskDescr.scheduling.interval, 'weeks')
-    } else if (this.taskDescr.scheduling.intervalType === 'm') {
-      startDate.subtract(this.taskDescr.scheduling.interval, 'months')
-    } else if (this.taskDescr.scheduling.intervalType === 'y') {
-      startDate.subtract(this.taskDescr.scheduling.interval, 'years')
+    if (typeof lastCompleted !== 'undefined') {
+      startDate = moment(lastCompleted)
+    } else {
+      if (this.taskDescr.scheduling.intervalType === 'd') {
+        startDate.subtract(this.taskDescr.scheduling.interval, 'days')
+      } else if (this.taskDescr.scheduling.intervalType === 'w') {
+        startDate.subtract(this.taskDescr.scheduling.interval, 'weeks')
+      } else if (this.taskDescr.scheduling.intervalType === 'm') {
+        startDate.subtract(this.taskDescr.scheduling.interval, 'months')
+      } else if (this.taskDescr.scheduling.intervalType === 'y') {
+        startDate.subtract(this.taskDescr.scheduling.interval, 'years')
+      }
     }
+
+    console.log('Start Date: ' + startDate.toDate())
+
     try {
       if (this.taskDescr.aggregated) {
         if (this.taskDescr.bucket) {
