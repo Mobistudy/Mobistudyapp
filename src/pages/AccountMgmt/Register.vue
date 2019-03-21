@@ -6,9 +6,9 @@
         <q-stepper vertical ref="stepper">
           <q-step title="Terms of Use">
             <p>
-              This is an alpha version of Mobistudy and is meant to be used for technical
-              testing only. Please do not use this app unless you are a member of the
-              development team of Mobistudy.
+              This version of the Mobistudy is meant to be used of technical testing and to support the PAS-4YP study.
+              Once you have completed the study, please delete this app.
+              An official and permanent version of this app will become available in the future.
             </p>
             <q-stepper-navigation>
               <q-btn flat @click="$router.push('login')"  label="Back"/>
