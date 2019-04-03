@@ -6,8 +6,7 @@
     <p class="q-title">
       Title of this study: {{studyDescription.generalities.title}}
     </p>
-    <p class="q-subheading">
-      {{studyDescription.generalities.longDescription}}
+    <p v-html="studyDescription.generalities.longDescription.replace(new RegExp('\n', 'g'), '<br>')">
     </p>
 
     <div class="q-my-lg">

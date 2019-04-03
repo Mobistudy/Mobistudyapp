@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="q-pa-lg flex flex-center">
-      {{studyDescription.consent.invitation}}
+      <p v-html="studyDescription.consent.invitation.replace(new RegExp('\n', 'g'), '<br>')"></p>
       <q-btn class="q-mt-lg" label="Next" @click="next()"></q-btn>
     </div>
 
