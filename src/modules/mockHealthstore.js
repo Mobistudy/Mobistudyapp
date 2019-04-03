@@ -23,9 +23,9 @@ export async function disconnect () {
 }
 
 export async function query (queryOpts) {
+  let retval = []
   if (queryOpts.dataType === 'steps') {
     const days = Math.round((queryOpts.endDate.getTime() - queryOpts.startDate.getTime()) / 1000 * 60 * 60 * 24)
-    let retval = []
     for (let day = 0; day < days; day++) {
       for (let hour = 0; hour < 4; hour++) {
         let startDate = queryOpts.startDate
@@ -40,8 +40,9 @@ export async function query (queryOpts) {
         })
       }
     }
-    return retval
   }
+
+  return retval
 }
 
 export async function queryAggregated (queryOpts) {
