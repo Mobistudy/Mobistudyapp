@@ -8,14 +8,15 @@
       <q-input float-label="First Name" v-model="profile.name"/>
       <q-input float-label="Surname" v-model="profile.surname"/>
     </q-field> -->
+
     <q-field icon="wc" :error="$v.profile.gender.$error" error-label="Required">
       <q-select float-label="Gender" v-model="profile.gender" :options="genderOptions"/>
     </q-field>
-    <!-- Following commented out for 4YP. To be uncommented after. -->
-    <!-- <q-field icon="cake" :error="$v.profile.dateOfBirth.$error" error-label="Required">
+    <q-field icon="cake" :error="$v.profile.dateOfBirth.$error" error-label="Required">
       <q-datetime type="date" v-model="profile.dateOfBirth" format="DD/MM/YYYY" float-label="Date of Birth"/>
-    </q-field> -->
+    </q-field>
 
+    <!-- Following commented out for 4YP. To be uncommented after. -->
     <!-- <q-field class="q-mt-sm" icon="local_hospital" helper="Do you suffer from any long-term medical condition?">
       <q-chips-input placeholder="Conditions" v-model="diseasesVue" @duplicate="duplicatedDisease">
         <q-autocomplete @search="searchDisease" @selected="selectedDisease" />
@@ -28,8 +29,8 @@
       </q-chips-input>
     </q-field> -->
 
-    <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
-    <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/>
+    <!-- <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
+    <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/> -->
     <div class="q-mt-lg row">
       <div class="q-ma-sm"><q-btn color="positive" label="Update" @click="saveProfile()" /></div>
       <div class="q-ma-sm"><q-btn color="tertiary" label="Cancel" to="home" /></div>
@@ -53,7 +54,7 @@ export default {
         // Following commented out for 4YP. To be uncommented after.
         // diseases: [],
         // medications: [],
-        lifestyle: {}
+        // lifestyle: {}
       },
       genderOptions: [
         {
@@ -87,7 +88,7 @@ export default {
     profile: {
       // name: {required},
       // surname: {required},
-      // dateOfBirth: {required},
+      dateOfBirth: {required},
       gender: {required}
     }
   },
@@ -179,11 +180,11 @@ export default {
             // Following commented out for 4YP. To be uncommented after.
             // name: this.profile.name,
             // surname: this.profile.surname,
-            // dateOfBirth: this.profile.dateOfBirth.substring(0, 10),
-            gender: this.profile.gender,
+            dateOfBirth: this.profile.dateOfBirth.substring(0, 10),
+            gender: this.profile.gender
             // diseases: this.profile.diseases,
             // medications: this.profile.medications,
-            lifestyle: this.profile.lifestyle
+            // lifestyle: this.profile.lifestyle
           }
           await API.updateProfile(profile)
           await userinfo.setProfile(profile)
