@@ -34,6 +34,7 @@ Check the quasar.conf.js under build.env, particularly:
 
 - API_ENDPOINT: use 'MOCK' for mock api, '' for local server or 'https://ibme-linuxdev.eng.ox.ac.uk:7777/' for test server
 - HEALTHSTORE: use 'MOCK' for mock healthstore or 'cordova-health' for the cordova health plugin
+- NOTIFICATIONS: use 'MOCK' for browser notifications or 'cordova-notification-local' for the cordova plugin
 
 
 ## Deploy it
