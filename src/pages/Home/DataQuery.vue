@@ -77,8 +77,8 @@ export default {
         startDate.subtract(this.taskDescr.scheduling.interval, 'years')
       }
     }
-
-    console.log('Start Date: ' + startDate.toDate())
+    // console.log(`Retrieving ${this.taskDescr.dataType}, aggregated: ${this.taskDescr.aggregated}, bucket: ${this.taskDescr.bucket}`)
+    // console.log('Start Date: ' + startDate.toDate())
 
     try {
       if (this.taskDescr.aggregated) {
@@ -103,7 +103,7 @@ export default {
           dataType: this.taskDescr.dataType
         })
       }
-      console.log('raw health data', this.healthData)
+      // console.log('raw health data', this.healthData)
 
       // now plot the data
       let unit = ''
