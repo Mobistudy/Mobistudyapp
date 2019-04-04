@@ -41,8 +41,8 @@ export default {
       // Following commented out for 4YP. To be uncommented after.
       // name: undefined,
       // surname: undefined,
-      gender: undefined
-      // dob: undefined
+      gender: undefined,
+      dob: undefined
     }
     DB.removeUserSession()
   }
