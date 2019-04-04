@@ -77,8 +77,8 @@ export default {
         startDate.subtract(this.taskDescr.scheduling.interval, 'years')
       }
     }
-    // console.log(`Retrieving ${this.taskDescr.dataType}, aggregated: ${this.taskDescr.aggregated}, bucket: ${this.taskDescr.bucket}`)
-    // console.log('Start Date: ' + startDate.toDate())
+    console.log(`Retrieving ${this.taskDescr.dataType}, aggregated: ${this.taskDescr.aggregated}, bucket: ${this.taskDescr.bucket}`)
+    console.log('Start Date: ' + startDate.toDate())
 
     try {
       if (this.taskDescr.aggregated) {
@@ -103,7 +103,7 @@ export default {
           dataType: this.taskDescr.dataType
         })
       }
-      // console.log('raw health data', this.healthData)
+      console.log('raw health data', this.healthData)
 
       // now plot the data
       let unit = ''
@@ -115,39 +115,7 @@ export default {
 
       if (this.taskDescr.aggregated) {
         // AGGREGATED
-        if (this.taskDescr.dataType === 'steps' ||
-        this.taskDescr.dataType === 'calories' ||
-        this.taskDescr.dataType === 'distance') {
-          tempData.datasets.push({
-            label: HealthDataEnum.valueToString(this.taskDescr.dataType),
-            data: [],
-            backgroundColor: '#800000'
-          })
-          for (let i = 0; i < this.healthData.length; i++) {
-            tempData.labels.push(this.healthData[i].endDate)
-            tempData.datasets[0].data.push(this.healthData[i].value)
-          }
-
-          this.chartOptions = {
-            maintainAspectRatio: false,
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }],
-              xAxes: [{
-                type: 'time',
-                bounds: 'data',
-                time: {
-                  unit: unit
-                }
-              }]
-            }
-          }
-
-          this.plotBar = true
-        } else if (this.taskDescr.dataType === 'activity') {
+        if (this.taskDescr.dataType === 'activity') {
           let activityTypes = []
           for (let i = 0; i < this.healthData.length; i++) {
             tempData.labels.push(this.healthData[i].endDate)
@@ -186,21 +154,11 @@ export default {
               }]
             }
           }
-
-          this.plotBar = true
-        }
-      } else {
-        // NOT AGGREGATED
-        // TODO: not aggregated activity: stepped line with activities instead of numbers on the y axis
-        if (this.taskDescr.dataType === 'heart_rate') {
+        } else {
           tempData.datasets.push({
             label: HealthDataEnum.valueToString(this.taskDescr.dataType),
             data: [],
-            fill: false,
-            pointRadius: 0,
-            lineTension: 0,
-            backgroundColor: '#800000',
-            borderColor: 'rgba(128,0,0,0.66)'
+            backgroundColor: '#800000'
           })
           for (let i = 0; i < this.healthData.length; i++) {
             tempData.labels.push(this.healthData[i].endDate)
@@ -217,20 +175,54 @@ export default {
               }],
               xAxes: [{
                 type: 'time',
-                bounds: 'data'
-                // time: {
-                //   unit: unit
-                // }
+                bounds: 'data',
+                time: {
+                  unit: unit
+                }
               }]
             }
           }
-
-          this.plotLine = true
         }
+        this.plotBar = true
+      } else {
+        // NOT AGGREGATED
+        tempData.datasets.push({
+          label: HealthDataEnum.valueToString(this.taskDescr.dataType),
+          data: [],
+          fill: false,
+          pointRadius: 0,
+          lineTension: 0,
+          backgroundColor: '#800000',
+          borderColor: 'rgba(128,0,0,0.66)'
+        })
+        for (let i = 0; i < this.healthData.length; i++) {
+          tempData.labels.push(this.healthData[i].endDate)
+          tempData.datasets[0].data.push(this.healthData[i].value)
+        }
+
+        this.chartOptions = {
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }],
+            xAxes: [{
+              type: 'time',
+              bounds: 'data'
+              // time: {
+              //   unit: unit
+              // }
+            }]
+          }
+        }
+
+        this.plotLine = true
+        // TODO: not aggregated activity: stepped line with activities instead of numbers on the y axis
       }
 
       this.chartData = tempData
-      console.log(this.chartData)
       this.$q.loading.hide()
     } catch (error) {
       console.error(error)
