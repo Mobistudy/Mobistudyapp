@@ -2,9 +2,7 @@ import moment from 'moment'
 import { Platform } from 'quasar'
 
 let notification
-if (Platform.is.cordova && cordova.plugins && cordova.plugins.notification && cordova.plugins.notification.local) {
-  notification = cordova.plugins.notification.local
-}
+
 // mock the plugin when on browser
 if (process.env.NOTIFICATIONS === 'MOCK') {
   var sendNotification = function (text) {
@@ -68,6 +66,8 @@ if (process.env.NOTIFICATIONS === 'MOCK') {
       callback()
     }
   }
+} else {
+  notification = cordova.plugins.notification.local
 }
 
 export default {
