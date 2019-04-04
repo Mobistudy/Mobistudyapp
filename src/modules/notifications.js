@@ -1,7 +1,8 @@
 import moment from 'moment'
+import { Platform } from 'quasar'
 
 let notification
-if (typeof cordova !== 'undefined' && cordova.plugins && cordova.plugins.notification && cordova.plugins.notification.local) {
+if (Platform.is.cordova && cordova.plugins && cordova.plugins.notification && cordova.plugins.notification.local) {
   notification = cordova.plugins.notification.local
 }
 // mock the plugin when on browser
@@ -39,21 +40,23 @@ if (process.env.NOTIFICATIONS === 'MOCK') {
         callback(isgranted)
       })
     },
-    schedule (obj, callback) {
-      let millis = moment(obj.trigger.at).diff(moment())
-      if (millis < 0) millis = 0
-      console.log('notification scheduled ' + obj.trigger.at + ' in ' + millis, obj)
-      if (millis <= 2147483647) {
-        let timeoutID = setTimeout(function () {
-          if (Notification && Notification.permission === 'granted') {
-            Notification('Mobistudy', {
-              body: obj.text
-            })
-          }
-        }, millis) // time difference in millis from trigger.at and now
-        this.timeoutIDs.push(timeoutID)
-      } else {
-        // console.info('Notification too far in the future: ' + (millis / 86400000))
+    schedule (nots, callback) {
+      for (let not of nots) {
+        let millis = moment(not.trigger.at).diff(moment())
+        if (millis < 0) millis = 0
+        console.log('notification scheduled ' + not.trigger.at + ' in ' + millis, not)
+        if (millis <= 2147483647) {
+          let timeoutID = setTimeout(function () {
+            if (Notification && Notification.permission === 'granted') {
+              Notification('Mobistudy', {
+                body: not.text
+              })
+            }
+          }, millis) // time difference in millis from trigger.at and now
+          this.timeoutIDs.push(timeoutID)
+        } else {
+          // console.info('Notification too far in the future: ' + (millis / 86400000))
+        }
       }
       callback()
     },
@@ -69,9 +72,18 @@ if (process.env.NOTIFICATIONS === 'MOCK') {
 
 export default {
   async hasPermission () {
-    return new Promise((resolve, reject) => {
-      notification.hasPermission(resolve)
-    })
+    if (Platform.is.cordova) {
+      // has permission does not make sense on Android and does not work on iOS
+      // so we'll return immediately that we do not have permission if on iOS and
+      // that we do have permission on Android
+      if (Platform.is.android) return Promise.resolve(true)
+      else return Promise.resolve(false)
+    } else {
+      // on web, it actually makes sense
+      return new Promise((resolve, reject) => {
+        resolve(true)
+      })
+    }
   },
   async requestPermission () {
     return new Promise((resolve, reject) => {
