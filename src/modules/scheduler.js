@@ -198,17 +198,12 @@ export function scheduleNotificationsAllStudies (studiesParts, studiesDescr) {
   }
 }
 
-// I apologise profusely for this hack
-let notificationStack = []
-let timeStack = []
-
 export async function cancelNotifications () {
-  notificationStack = []
-  timeStack = []
   return notifications.cancelAll()
 }
 
 export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) {
+  let notificationStack = []
   for (const task of studyDescr.tasks) {
     if (task.type === 'dataQuery') {
       if (Platform.is.iphone && HealthDataEnum.isAndroidOnly(task.dataType)) continue
@@ -216,23 +211,33 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) 
     }
     let rrule = generateRRule(acceptedTS, new Date(studyDescr.generalities.endDate), task.scheduling)
     let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
-    for (const taskTime of taskTimes) {
-      if (timeStack.indexOf(moment(taskTime).unix()) === -1) {
-        notificationStack.push({
-          id: notificationStack.length,
-          text: 'You have a new study task pending!',
-          at: moment(taskTime).toDate()
-        })
-        timeStack.push(moment(taskTime).unix())
+    for (let scheduleI = 0; scheduleI < taskTimes.length && scheduleI < 1000; scheduleI++) {
+      let taskTime = taskTimes[scheduleI]
+      let executionDate = moment(taskTime).toDate()
+      // we could use the unix timestamp of the execution date as id, but we
+      // don't knwo how internally the ids are stored, so it's better to keep
+      // their length to less than 9 digits
+      // we generate the id by combining the study id, the task id and the single schedule
+
+      let id = ''
+      // study ids can be quite long, let's use only the final 4 digits
+      // hoping that a participant doesn't have 2 active studies with the same final 4 digits
+      if (studyDescr._key) {
+        let keyStr = studyDescr._key.toString()
+        id += keyStr.slice(-4)
       }
-      // await notifications.schedule({
-      //   text: 'You have a new study task pending!',
-      //   // trigger: { at: moment(taskTime).toDate() } // THIS LINE MIGHT BE NEEDED FOR IT TO WORK ON ANDROID
-      //   at: moment(taskTime).toDate()
-      // })
+      id += task.id // tasks will rarely be more than 2 decimals
+      id += scheduleI // this is capped to 999 anyway
+      notificationStack.push({
+        id: parseInt(id),
+        title: 'Mobistudy task due!',
+        // TODO: change the text according to the type of task
+        text: 'Tap here to open the app',
+        foreground: true,
+        trigger: { at: executionDate }
+      })
     }
   }
   console.log(notificationStack)
-  await notifications.cancelAll()
   await notifications.schedule(notificationStack)
 }

@@ -53,6 +53,12 @@ module.exports = function (ctx) {
     },
     // framework: 'all' --- includes everything; for dev only!
     framework: {
+      config: {
+        cordova: {
+          iosStatusBarPadding: true/false, // add the dynamic top padding on iOS mobile devices
+          // backButtonExit: true/false // Quasar handles app exit on mobile phone back button
+        }
+      },
       components: [
         'QAlert',
         'QAutocomplete',

@@ -9,8 +9,7 @@
         <p class="q-title" style="text-align: center">
           {{studyDescription.generalities.title}}
         </p>
-        <p class="q-subheading">
-          {{studyDescription.generalities.longDescription}}
+        <p v-html="studyDescription.generalities.longDescription.replace(new RegExp('\n', 'g'), '<br>')">
         </p>
         <p class="q-subheading">
           Principal investigators:
