@@ -200,9 +200,11 @@ export function scheduleNotificationsAllStudies (studiesParts, studiesDescr) {
 
 // I apologise profusely for this hack
 let notificationStack = []
+let timeStack = []
 
 export async function cancelNotifications () {
   notificationStack = []
+  timeStack = []
   return notifications.cancelAll()
 }
 
@@ -215,11 +217,14 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) 
     let rrule = generateRRule(acceptedTS, new Date(studyDescr.generalities.endDate), task.scheduling)
     let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
     for (const taskTime of taskTimes) {
-      notificationStack.push({
-        id: notificationStack.length,
-        text: 'You have a new study task pending!',
-        at: moment(taskTime).toDate()
-      })
+      if (timeStack.indexOf(moment(taskTime).unix()) === -1) {
+        notificationStack.push({
+          id: notificationStack.length,
+          text: 'You have a new study task pending!',
+          at: moment(taskTime).toDate()
+        })
+        timeStack.push(moment(taskTime).unix())
+      }
       // await notifications.schedule({
       //   text: 'You have a new study task pending!',
       //   // trigger: { at: moment(taskTime).toDate() } // THIS LINE MIGHT BE NEEDED FOR IT TO WORK ON ANDROID
