@@ -75,8 +75,8 @@ export default {
   },
   async requestPermission () {
     return new Promise((resolve, reject) => {
-      // notification.requestPermission(resolve)
-      notification.registerPermission(resolve)
+      // notification.registerPermission(resolve) ???
+      notification.requestPermission(resolve)
     })
   },
   async schedule (obj) {
