@@ -92,29 +92,28 @@ export default {
       gender: {required}
     }
   },
-  // Following commented out for 4YP. To be uncommented after.
-  // computed: {
-  //   diseasesVue: {
-  //     get: function () {
-  //       return this.profile.diseases.map(x => x.name)
-  //     },
-  //     set: function (names) {
-  //       this.profile.diseases = this.profile.diseases.filter(x => {
-  //         return names.includes(x.name)
-  //       })
-  //     }
-  //   },
-  //   medsVue: {
-  //     get: function () {
-  //       return this.profile.medications.map(x => x.name)
-  //     },
-  //     set: function (names) {
-  //       this.profile.medications = this.profile.medications.filter(x => {
-  //         return names.includes(x.name)
-  //       })
-  //     }
-  //   }
-  // },
+  computed: {
+    diseasesVue: {
+      get: function () {
+        return this.profile.diseases.map(x => x.name)
+      },
+      set: function (names) {
+        this.profile.diseases = this.profile.diseases.filter(x => {
+          return names.includes(x.name)
+        })
+      }
+    },
+    medsVue: {
+      get: function () {
+        return this.profile.medications.map(x => x.name)
+      },
+      set: function (names) {
+        this.profile.medications = this.profile.medications.filter(x => {
+          return names.includes(x.name)
+        })
+      }
+    }
+  },
   methods: {
     async searchDisease (diseaseDescription, done) {
       try {

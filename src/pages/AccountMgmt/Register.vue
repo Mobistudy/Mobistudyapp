@@ -50,7 +50,7 @@
             <q-field icon="wc" :error="$v.profile.gender.$error" error-label="Required">
               <q-select float-label="Gender" v-model="profile.gender" :options="profile.genderOptions"/>
             </q-field>
-            <q-field icon="cake" :error="$v.profile.c.$error" error-label="Required">
+            <q-field icon="cake" :error="$v.profile.dateOfBirth.$error" error-label="Required">
               <q-datetime type="date" v-model="profile.dateOfBirth" format="DD/MM/YYYY" float-label="Date of Birth"/>
             </q-field>
 
