@@ -165,29 +165,28 @@ export default {
       gender: {required}
     }
   },
-  // Following commented out for 4YP. To be uncommented after.
-  // computed: {
-  //   diseasesVue: {
-  //     get: function () {
-  //       return this.profile.diseases.map(x => x.name)
-  //     },
-  //     set: function (names) {
-  //       this.profile.diseases = this.profile.diseases.filter(x => {
-  //         return names.includes(x.name)
-  //       })
-  //     }
-  //   },
-  //   medsVue: {
-  //     get: function () {
-  //       return this.profile.medications.map(x => x.name)
-  //     },
-  //     set: function (names) {
-  //       this.profile.medications = this.profile.medications.filter(x => {
-  //         return names.includes(x.name)
-  //       })
-  //     }
-  //   }
-  // },
+  computed: {
+    diseasesVue: {
+      get: function () {
+        return this.profile.diseases.map(x => x.name)
+      },
+      set: function (names) {
+        this.profile.diseases = this.profile.diseases.filter(x => {
+          return names.includes(x.name)
+        })
+      }
+    },
+    medsVue: {
+      get: function () {
+        return this.profile.medications.map(x => x.name)
+      },
+      set: function (names) {
+        this.profile.medications = this.profile.medications.filter(x => {
+          return names.includes(x.name)
+        })
+      }
+    }
+  },
   methods: {
     getFirstPwdCheckError (pwd) {
       if (this.account.email) {
@@ -208,6 +207,7 @@ export default {
         if (result.feedback) {
           let mesg = 'The password is too simple'
           if (result.feedback.warning) mesg = result.feedback.warning
+          // uncomment this code to show also suggestions
           // if (result.feedback.suggestions && result.feedback.suggestions.length) {
           //   mesg += '.\nSuggestion: ' + result.feedback.suggestions[0]
           // }
@@ -318,7 +318,7 @@ export default {
             // name: this.profile.name,
             // surname: this.profile.surname,
             dateOfBirth: dobTemp,
-            gender: this.profile.gender,
+            gender: this.profile.gender
             // diseases: this.profile.diseases,
             // medications: this.profile.medications,
             // lifestyle: this.profile.lifestyle
