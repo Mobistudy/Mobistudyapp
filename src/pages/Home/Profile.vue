@@ -3,10 +3,12 @@
     <p class="q-title">
       Your profile
     </p>
-    <q-field icon="face" :error="$v.profile.name.$error || $v.profile.surname.$error" error-label="Required">
+    <!-- Following commented out for 4YP. To be uncommented after. -->
+    <!-- <q-field icon="face" :error="$v.profile.name.$error || $v.profile.surname.$error" error-label="Required">
       <q-input float-label="First Name" v-model="profile.name"/>
       <q-input float-label="Surname" v-model="profile.surname"/>
-    </q-field>
+    </q-field> -->
+
     <q-field icon="wc" :error="$v.profile.gender.$error" error-label="Required">
       <q-select float-label="Gender" v-model="profile.gender" :options="genderOptions"/>
     </q-field>
@@ -14,7 +16,8 @@
       <q-datetime type="date" v-model="profile.dateOfBirth" format="DD/MM/YYYY" float-label="Date of Birth"/>
     </q-field>
 
-    <q-field class="q-mt-sm" icon="local_hospital" helper="Do you suffer from any long-term medical condition?">
+    <!-- Following commented out for 4YP. To be uncommented after. -->
+    <!-- <q-field class="q-mt-sm" icon="local_hospital" helper="Do you suffer from any long-term medical condition?">
       <q-chips-input placeholder="Conditions" v-model="diseasesVue" @duplicate="duplicatedDisease">
         <q-autocomplete @search="searchDisease" @selected="selectedDisease" />
       </q-chips-input>
@@ -24,10 +27,10 @@
       <q-chips-input placeholder="Medications" v-model="medsVue" @duplicate="duplicatedMeds">
         <q-autocomplete @search="searchMeds" @selected="selectedMeds" />
       </q-chips-input>
-    </q-field>
+    </q-field> -->
 
-    <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
-    <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/>
+    <!-- <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
+    <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/> -->
     <div class="q-mt-lg row">
       <div class="q-ma-sm"><q-btn color="positive" label="Update" @click="saveProfile()" /></div>
       <div class="q-ma-sm"><q-btn color="tertiary" label="Cancel" to="home" /></div>
@@ -48,9 +51,10 @@ export default {
   data () {
     return {
       profile: {
-        diseases: [],
-        medications: [],
-        lifestyle: {}
+        // Following commented out for 4YP. To be uncommented after.
+        // diseases: [],
+        // medications: [],
+        // lifestyle: {}
       },
       genderOptions: [
         {
@@ -82,34 +86,35 @@ export default {
   },
   validations: {
     profile: {
-      name: {required},
-      surname: {required},
+      // name: {required},
+      // surname: {required},
       dateOfBirth: {required},
       gender: {required}
     }
   },
-  computed: {
-    diseasesVue: {
-      get: function () {
-        return this.profile.diseases.map(x => x.name)
-      },
-      set: function (names) {
-        this.profile.diseases = this.profile.diseases.filter(x => {
-          return names.includes(x.name)
-        })
-      }
-    },
-    medsVue: {
-      get: function () {
-        return this.profile.medications.map(x => x.name)
-      },
-      set: function (names) {
-        this.profile.medications = this.profile.medications.filter(x => {
-          return names.includes(x.name)
-        })
-      }
-    }
-  },
+  // Following commented out for 4YP. To be uncommented after.
+  // computed: {
+  //   diseasesVue: {
+  //     get: function () {
+  //       return this.profile.diseases.map(x => x.name)
+  //     },
+  //     set: function (names) {
+  //       this.profile.diseases = this.profile.diseases.filter(x => {
+  //         return names.includes(x.name)
+  //       })
+  //     }
+  //   },
+  //   medsVue: {
+  //     get: function () {
+  //       return this.profile.medications.map(x => x.name)
+  //     },
+  //     set: function (names) {
+  //       this.profile.medications = this.profile.medications.filter(x => {
+  //         return names.includes(x.name)
+  //       })
+  //     }
+  //   }
+  // },
   methods: {
     async searchDisease (diseaseDescription, done) {
       try {
@@ -172,13 +177,14 @@ export default {
           let profile = {
             userKey: userinfo.user._key,
             updatedTS: new Date(),
-            name: this.profile.name,
-            surname: this.profile.surname,
+            // Following commented out for 4YP. To be uncommented after.
+            // name: this.profile.name,
+            // surname: this.profile.surname,
             dateOfBirth: this.profile.dateOfBirth.substring(0, 10),
-            gender: this.profile.gender,
-            diseases: this.profile.diseases,
-            medications: this.profile.medications,
-            lifestyle: this.profile.lifestyle
+            gender: this.profile.gender
+            // diseases: this.profile.diseases,
+            // medications: this.profile.medications,
+            // lifestyle: this.profile.lifestyle
           }
           await API.updateProfile(profile)
           await userinfo.setProfile(profile)
