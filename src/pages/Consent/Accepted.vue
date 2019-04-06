@@ -38,7 +38,7 @@
     </div>
 
     <div class="q-my-md flex flex-center">
-      <q-btn label="Next" @click="next()"></q-btn>
+      <q-btn label="Next" color="primary" @click="next()"></q-btn>
     </div>
   </q-page>
 </template>
