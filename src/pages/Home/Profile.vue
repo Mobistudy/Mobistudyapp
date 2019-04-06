@@ -173,13 +173,23 @@ export default {
         this.$q.notify('Please correct the indicated fields.')
       } else {
         try {
+          // iOS SAFARI COMPATIBILITY
+          let dobTemp = ''
+          if (this.profile.dateOfBirth instanceof Date) {
+            dobTemp = this.profile.dateOfBirth.toISOString().substring(0, 10)
+          } else if (typeof this.profile.dateOfBirth === 'string') {
+            dobTemp = this.profile.dateOfBirth.substring(0, 10)
+          } else {
+            dobTemp = this.profile.dateOfBirth
+            console.error(this.profile.dateOfBirth + ' cannot be cut to date only')
+          }
           let profile = {
             userKey: userinfo.user._key,
             updatedTS: new Date(),
             // Following commented out for 4YP. To be uncommented after.
             // name: this.profile.name,
             // surname: this.profile.surname,
-            dateOfBirth: this.profile.dateOfBirth.substring(0, 10),
+            dateOfBirth: dobTemp,
             gender: this.profile.gender
             // diseases: this.profile.diseases,
             // medications: this.profile.medications,
