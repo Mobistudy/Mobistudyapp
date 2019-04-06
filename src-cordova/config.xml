@@ -44,11 +44,11 @@
         <icon height="87" src="res/icons/icon-87x87.png" width="87" />
         <icon height="50" src="res/icons/icon-50x50.png" width="50" />
         <icon height="100" src="res/icons/icon-100x100.png" width="100" />
+        <gap:plugin name="cordova-plugin-statusbar" source="npm" />
+        <preference name="StatusBarOverlaysWebView" value="false" />
+        <preference name="StatusBarBackgroundColor" value="#ffffff" />
+        <preference name="StatusBarStyle" value="default" />
     </platform>
-    <gap:plugin name="cordova-plugin-statusbar" source="npm" />
-    <preference name="StatusBarOverlaysWebView" value="false" />
-    <preference name="StatusBarBackgroundColor" value="#ffffff" />
-    <preference name="StatusBarStyle" value="default" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <engine name="ios" spec="^5.0.0" />
     <engine name="android" spec="^8.0.0" />
