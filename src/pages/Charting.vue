@@ -89,6 +89,15 @@ export default {
 
     getPerms()
       .then(getTabChart(0))
+      .catch(function (err) {
+        _this.$q.loading.hide()
+        console.log(err)
+        _this.$q.notify({
+          color: 'negative',
+          message: 'Charting failed: ' + err,
+          icon: 'report_problem'
+        })
+      })
 
     this.changeTab('heart_rate')
 
