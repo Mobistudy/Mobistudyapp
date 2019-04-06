@@ -45,4 +45,6 @@
         <icon height="50" src="res/icons/icon-50x50.png" width="50" />
         <icon height="100" src="res/icons/icon-100x100.png" width="100" />
     </platform>
+    <engine name="ios" spec="^5.0.0" />
+    <engine name="android" spec="^8.0.0" />
 </widget>
