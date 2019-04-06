@@ -73,15 +73,18 @@ export default {
     }
   },
   async created () {
+    this.$q.loading.show()
     try {
       this.profile = await API.getProfile(userinfo.user._key)
       await userinfo.setProfile(this.profile)
+      this.$q.loading.hide()
     } catch (error) {
       this.$q.notify({
         color: 'negative',
         message: 'Cannot update: ' + error.message,
         icon: 'report_problem'
       })
+      this.$q.loading.hide()
     }
   },
   validations: {
