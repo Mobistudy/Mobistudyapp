@@ -32,7 +32,7 @@
             <div class="q-mt-sm text-secondary">
               You need to allow the app to send reminders.
             </div>
-            <q-btn label="Allow reminders" :disabled="!reminders || remindersPermissionGiven" @click="requestNotificationsPermission()"></q-btn>
+            <q-btn label="Allow reminders" :disabled="!reminders || remindersPermissionGiven" color="amber" :outline="true" @click="requestNotificationsPermission()"></q-btn>
           </div>
         </q-item-main>
         <q-item-side>
