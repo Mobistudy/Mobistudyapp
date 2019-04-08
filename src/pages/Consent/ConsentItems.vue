@@ -18,7 +18,7 @@
             <div class="q-mt-sm text-secondary">
               This item requires the app to access some functionalities on the phone.
             </div>
-            <q-btn label="Give permission to this app" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" color="amber" :outline="true" @click="requestDQPermission(taskIndex)"></q-btn>
+            <q-btn label="Give permission to this app" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" :color="getColour(taskIndex)" :outline="getOutline(taskIndex)" @click="requestDQPermission(taskIndex)"></q-btn>
           </div>
         </q-item-main>
         <q-item-side>
@@ -32,7 +32,7 @@
             <div class="q-mt-sm text-secondary">
               You need to allow the app to send reminders.
             </div>
-            <q-btn label="Allow reminders" :disabled="!reminders || remindersPermissionGiven" @click="requestNotificationsPermission()"></q-btn>
+            <q-btn label="Allow reminders" :disabled="!reminders || remindersPermissionGiven" :color="getReminderColour()" :outline="getReminderOutline()" @click="requestNotificationsPermission()"></q-btn>
           </div>
         </q-item-main>
         <q-item-side>
@@ -210,6 +210,42 @@ export default {
         }
       } catch (e) {
         // do nothing
+      }
+    },
+    getColour (taskIndex) {
+      if (!this.consentedTaskItems[taskIndex]) {
+        return 'amber'
+      } else if (this.permissionsGiven[taskIndex]) {
+        return 'positive'
+      } else {
+        return 'amber'
+      }
+    },
+    getOutline (taskIndex) {
+      if (!this.consentedTaskItems[taskIndex]) {
+        return true
+      } else if (this.permissionsGiven[taskIndex]) {
+        return true
+      } else {
+        return false
+      }
+    },
+    getReminderColour () {
+      if (!this.reminders) {
+        return 'amber'
+      } else if (this.remindersPermissionGiven) {
+        return 'positive'
+      } else {
+        return 'amber'
+      }
+    },
+    getReminderOutline () {
+      if (!this.reminders) {
+        return true
+      } else if (this.remindersPermissionGiven) {
+        return true
+      } else {
+        return false
       }
     }
   }

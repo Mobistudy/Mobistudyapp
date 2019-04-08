@@ -14,7 +14,8 @@
 
     <q-layout-drawer v-model="leftDrawerOpen" :content-class="$q.theme === 'mat' ? 'bg-grey-3' : null">
       <q-list no-border link inset-delimiter >
-        <q-list-header>Logged in as {{ name }} {{ surname }}</q-list-header>
+        <!--<q-list-header>Logged in as {{ name }} {{ surname }}</q-list-header>-->
+        <q-list-header>Logged in.</q-list-header>
         <q-item to="tasker">
           <q-item-side icon="school" />
           <q-item-main label="Daily tasks" sublabel="See upcoming tasks" />

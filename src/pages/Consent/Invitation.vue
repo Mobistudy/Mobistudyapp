@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="q-pa-lg flex flex-center">
       <p v-html="studyDescription.consent.invitation.replace(new RegExp('\n', 'g'), '<br>')"></p>
-      <q-btn class="q-mt-lg" label="Next" @click="next()"></q-btn>
+      <q-btn class="q-mt-lg" label="Next" color="primary" @click="next()"></q-btn>
     </div>
 
   </q-page>

@@ -18,7 +18,7 @@
       University of Oxford.
     </p>
     <div class="text-center q-mb-lg">
-      <img src="~assets/oxforduni_logo.png" />
+      &nbsp;<img src="~assets/oxforduni_logo.png" />&nbsp;
     </div>
     <div class="q-title">
       Terms and conditions
