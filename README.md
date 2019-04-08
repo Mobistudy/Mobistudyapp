@@ -12,15 +12,18 @@ The app is developed with Cordova and uses Quasar framework.
 - [quasar command line tool](https://quasar-framework.org/guide/quasar-cli.html)
 
 In the project folder, run `npm install` to download the dependencies.
+Then go to the `src-cordova` folder and run `npm install` there too.
 
 ## Run it
 
 To start the interface, run `quasar dev`, this will spawn a web browser emulating the app.
 The web environment is handy for developing and testing, but some modules are mocked there.
 
-To run it on an Android device: `quasar dev -m cordova -T android`, or on an iPhone: `quasar dev -m cordova -T ios -t ios`
-
-You will need the MobistudyAPI running in parallel (see MobistudyAPI docs), or use the mockAPI.
+To run it on an Android device: `quasar dev -m cordova -T android`,
+or on an iPhone: `quasar dev -m cordova -T ios -t ios`.
+You can run this command from both the root project folder or the `src-cordova` folder.
+The `src-cordova` is a cordova project folder, so you can also run standard cordova commands,
+but you need quasar to prepare the content of the app first.
 
 On iPhones, you will need a provisioning profile that allows access to HealthKit
 and configure your Xcode environment to use that profile.
@@ -28,6 +31,10 @@ An easy way for doing it is by launching the `quasar dev` command once, it will 
 then open the project with Xcode and set the provisioning profiles and then run
 quasar dev again.
 
+Either if you are running on the browser of the phone, you will need to set the API to
+`MOCK` or to `''` for using a local server.
+If you want to use a local server, you need to have the MobistudyAPI running in parallel
+(see MobistudyAPI docs).
 
 ## Develop it
 
