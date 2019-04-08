@@ -82,14 +82,13 @@ export default {
 
     try {
       if (this.taskDescr.aggregated) {
-        if (this.taskDescr.bucket) {
-          let query = {
+        if (this.taskDescr.bucket && this.taskDescr.bucket !== 'none') {
+          this.healthData = await healthstore.queryAggregated({
             startDate: startDate.toDate(),
             endDate: new Date(),
-            dataType: this.taskDescr.dataType
-          }
-          if (this.taskDescr.bucket && this.taskDescr.bucket !== 'none') query.bucket = this.taskDescr.bucket
-          this.healthData = await healthstore.queryAggregated(query)
+            dataType: this.taskDescr.dataType,
+            bucket: this.taskDescr.bucket
+          })
         } else {
           this.healthData = await healthstore.queryAggregated({
             startDate: startDate.toDate(),
@@ -108,19 +107,84 @@ export default {
 
       // now plot the data
       let unit = ''
-      if (this.taskDescr.bucket) unit = this.taskDescr.bucket
+      if (this.taskDescr.bucket && this.taskDescr.bucket !== 'none') unit = this.taskDescr.bucket
+      else if (this.healthData.unit) unit = this.healthData.unit
       else if (this.healthData.length) unit = this.healthData[0].unit
 
       // TODO: NEED TO SPLIT CODE HERE FOR DEPENDING ON DATA TYPE AND IF AGGREGATED OR NOT
       let tempData = { labels: [], datasets: [] }
 
       if (this.taskDescr.aggregated) {
-        // AGGREGATED
-        if (this.taskDescr.dataType === 'activity') {
-          let activityTypes = []
-          for (let i = 0; i < this.healthData.length; i++) {
-            tempData.labels.push(this.healthData[i].endDate)
-            for (let activityType in this.healthData[i].value) {
+        if (this.taskDescr.bucket && this.taskDescr.bucket !== 'none') {
+          // AGGREGATED and BUCKETED
+          if (this.taskDescr.dataType === 'activity') {
+            // activity is treated differently
+            let activityTypes = []
+            for (let i = 0; i < this.healthData.length; i++) {
+              tempData.labels.push(this.healthData[i].endDate)
+              for (let activityType in this.healthData[i].value) {
+                let dataSetIndex = activityTypes.indexOf(activityType)
+                if (dataSetIndex < 0) {
+                  dataSetIndex = tempData.datasets.length
+                  activityTypes.push(activityType)
+                  tempData.datasets.push({
+                    label: activityType,
+                    data: [],
+                    backgroundColor: chartColors[dataSetIndex]
+                  })
+                }
+                let duration = parseInt(this.healthData[i].value[activityType].duration / 3600000)
+                tempData.datasets[dataSetIndex].data.push(duration)
+              }
+            }
+
+            this.chartOptions = {
+              maintainAspectRatio: false,
+              scales: {
+                yAxes: [{
+                  stacked: true,
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }],
+                xAxes: [{
+                  stacked: true,
+                  type: 'time',
+                  bounds: 'data',
+                  time: { unit: unit }
+                }]
+              }
+            }
+          } else {
+            tempData.datasets.push({
+              label: HealthDataEnum.valueToString(this.taskDescr.dataType),
+              data: [],
+              backgroundColor: '#800000'
+            })
+            for (let i = 0; i < this.healthData.length; i++) {
+              tempData.labels.push(this.healthData[i].endDate)
+              tempData.datasets[0].data.push(this.healthData[i].value)
+            }
+
+            this.chartOptions = {
+              maintainAspectRatio: false,
+              scales: {
+                yAxes: [{ ticks: { beginAtZero: true } }],
+                xAxes: [{
+                  type: 'time',
+                  bounds: 'data',
+                  time: { unit: unit }
+                }]
+              }
+            }
+          }
+        } else {
+          // AGGREGATED but not BUCKETED
+          if (this.taskDescr.dataType === 'activity') {
+            // activity is treated differently
+            let activityTypes = []
+            tempData.labels.push(moment(this.healthData.startDate).format('D/M/YY HH:mm') + ' to ' + moment(this.healthData.endDate).format('D/M/YY HH:mm'))
+            for (let activityType in this.healthData.value) {
               let dataSetIndex = activityTypes.indexOf(activityType)
               if (dataSetIndex < 0) {
                 dataSetIndex = tempData.datasets.length
@@ -131,59 +195,40 @@ export default {
                   backgroundColor: chartColors[dataSetIndex]
                 })
               }
-              let duration = parseInt(this.healthData[i].value[activityType].duration / 3600000)
+              let duration = parseInt(this.healthData.value[activityType].duration / 3600000)
               tempData.datasets[dataSetIndex].data.push(duration)
             }
-          }
 
-          this.chartOptions = {
-            maintainAspectRatio: false,
-            scales: {
-              yAxes: [{
-                stacked: true,
-                ticks: {
-                  beginAtZero: true
-                }
-              }],
-              xAxes: [{
-                stacked: true,
-                type: 'time',
-                bounds: 'data',
-                time: {
-                  unit: unit
-                }
-              }]
+            this.chartOptions = {
+              maintainAspectRatio: false,
+              scales: {
+                yAxes: [{
+                  stacked: true,
+                  ticks: { beginAtZero: true }
+                }],
+                xAxes: [{
+                  stacked: true
+                }]
+              }
             }
-          }
-        } else {
-          tempData.datasets.push({
-            label: HealthDataEnum.valueToString(this.taskDescr.dataType),
-            data: [],
-            backgroundColor: '#800000'
-          })
-          for (let i = 0; i < this.healthData.length; i++) {
-            tempData.labels.push(this.healthData[i].endDate)
-            tempData.datasets[0].data.push(this.healthData[i].value)
-          }
+          } else {
+            tempData.datasets.push({
+              label: HealthDataEnum.valueToString(this.taskDescr.dataType),
+              data: [],
+              backgroundColor: '#800000'
+            })
+            tempData.labels.push(moment(this.healthData.startDate).format('D/M/YY HH:mm') + ' to ' + moment(this.healthData.endDate).format('D/M/YY HH:mm'))
+            tempData.datasets[0].data.push(this.healthData.value)
 
-          this.chartOptions = {
-            maintainAspectRatio: false,
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }],
-              xAxes: [{
-                type: 'time',
-                bounds: 'data',
-                time: {
-                  unit: unit
-                }
-              }]
+            this.chartOptions = {
+              maintainAspectRatio: false,
+              scales: {
+                yAxes: [{ ticks: { beginAtZero: true } }]
+              }
             }
           }
         }
+
         this.plotBar = true
       } else {
         // NOT AGGREGATED
