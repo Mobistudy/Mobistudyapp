@@ -15,6 +15,7 @@ import * as storage from './db_localStorage'
 export default {
   version: 'localStorage',
   async emptyDB () {
+    // TODO: we need to keep app_version and other non-user dependant variables !!!
     return storage.clear()
   },
   async getCurrentAppVersion () {
