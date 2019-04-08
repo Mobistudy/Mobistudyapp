@@ -46,44 +46,71 @@ export async function query (queryOpts) {
 }
 
 export async function queryAggregated (queryOpts) {
-  let retval = []
+  let retval
   let startDate = moment(queryOpts.startDate)
-  startDate.subtract(1, queryOpts.bucket + 's')
+  let endDate = moment(queryOpts.endDate)
+  if (queryOpts.bucket && queryOpts.bucket !== 'none') {
+    retval = []
+    startDate.subtract(1, queryOpts.bucket + 's')
 
-  while (startDate.isBefore(moment(queryOpts.endDate))) {
-    startDate.add(1, queryOpts.bucket + 's')
-    let endDate = startDate.clone()
-    endDate.add(1, queryOpts.bucket + 's')
-    if (queryOpts.dataType === 'steps') {
-      retval.push({
-        startDate: startDate.toDate(),
-        endDate: endDate.toDate(),
-        unit: 'count',
-        value: Math.floor((Math.random() * 5000) + 500)
-      })
-    } else if (queryOpts.dataType === 'activity') {
-      retval.push({
-        startDate: startDate.toDate(),
-        endDate: endDate.toDate(),
-        unit: 'activitySummary',
-        value: {
-          still: {
-            duration: Math.floor((Math.random() * 64800000) + 28800000),
-            calories: 1500,
-            distance: 0
-          },
-          walking: {
-            duration: Math.floor((Math.random() * 10800000) + 1800000),
-            calories: 20,
-            distance: 1250
-          },
-          in_vehicle: {
-            duration: Math.floor((Math.random() * 10800000) + 1800000),
-            calories: 20,
-            distance: 3520
+    while (startDate.isBefore(moment(queryOpts.endDate))) {
+      startDate.add(1, queryOpts.bucket + 's')
+      endDate = startDate.clone()
+      endDate.add(1, queryOpts.bucket + 's')
+      if (queryOpts.dataType === 'steps') {
+        retval.push({
+          startDate: startDate.toDate(),
+          endDate: endDate.toDate(),
+          unit: 'count',
+          value: Math.floor((Math.random() * 5000) + 500)
+        })
+      } else if (queryOpts.dataType === 'activity') {
+        retval.push({
+          startDate: startDate.toDate(),
+          endDate: endDate.toDate(),
+          unit: 'activitySummary',
+          value: {
+            still: {
+              duration: Math.floor((Math.random() * 64800000) + 28800000),
+              calories: 1500,
+              distance: 0
+            },
+            walking: {
+              duration: Math.floor((Math.random() * 10800000) + 1800000),
+              calories: 20,
+              distance: 1250
+            },
+            in_vehicle: {
+              duration: Math.floor((Math.random() * 10800000) + 1800000),
+              calories: 20,
+              distance: 3520
+            }
           }
+        })
+      }
+    }
+  } else {
+    retval = {
+      startDate: startDate.toDate(),
+      endDate: endDate.toDate(),
+      unit: 'activitySummary',
+      value: {
+        still: {
+          duration: Math.floor((Math.random() * 64800000) + 28800000),
+          calories: 1500,
+          distance: 0
+        },
+        walking: {
+          duration: Math.floor((Math.random() * 10800000) + 1800000),
+          calories: 20,
+          distance: 1250
+        },
+        in_vehicle: {
+          duration: Math.floor((Math.random() * 10800000) + 1800000),
+          calories: 20,
+          distance: 3520
         }
-      })
+      }
     }
   }
   return retval
