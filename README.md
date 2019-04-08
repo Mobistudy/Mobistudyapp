@@ -1,7 +1,5 @@
 # Mobistudy App
 
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZWFtS2V5IjoiMTUwMCIsImlhdCI6MTU1NDI4NDY0MCwiZXhwIjoxNTU0ODg5NDQwfQ.X7LpUcA-BP-SVia2YCNBEzqrDO4Bi8ISqHzh6EBO6sA
-
 his repository contains the patient app for Mobistudy.
 The app is developed with Cordova and uses Quasar framework.
 
