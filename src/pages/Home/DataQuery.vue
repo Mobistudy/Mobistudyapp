@@ -83,12 +83,13 @@ export default {
     try {
       if (this.taskDescr.aggregated) {
         if (this.taskDescr.bucket) {
-          this.healthData = await healthstore.queryAggregated({
+          let query = {
             startDate: startDate.toDate(),
             endDate: new Date(),
-            dataType: this.taskDescr.dataType,
-            bucket: this.taskDescr.bucket
-          })
+            dataType: this.taskDescr.dataType
+          }
+          if (this.taskDescr.bucket && this.taskDescr.bucket !== 'none') query.bucket = this.taskDescr.bucket
+          this.healthData = await healthstore.queryAggregated(query)
         } else {
           this.healthData = await healthstore.queryAggregated({
             startDate: startDate.toDate(),
