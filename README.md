@@ -56,3 +56,5 @@ Check the quasar.conf.js under build.env, particularly:
 Run `quasar build -m cordova -T android` or `quasar build -m cordova -T ios -t ios`.
 
 This will generate the installable apps and make them available for upload to the app stores.
+On iPhones, the process may fail due to provisioning profiles. If that happens, use Xcode to
+bundle the app and submit it.
