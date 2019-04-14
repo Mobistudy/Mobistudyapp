@@ -51,6 +51,18 @@ Check the quasar.conf.js under build.env, particularly:
 - NOTIFICATIONS: use 'MOCK' for browser notifications or 'cordova-notification-local' for the cordova plugin
 
 
+### Google Fit access
+
+The app needs to access Google Fit. You need to have a project on the Google Console
+and grant your development keys access to the Fitness APIs.
+See [here](https://developers.google.com/fit/android/get-api-key) for more.
+
+### Apple Healthkit access
+
+The app needs to access HealhtKit. Make sure your app id has the 'HealthKit' entitlement
+and use a provisioning profile that includes that app id.
+Access to HealthKit must also be set on Xcode.
+
 ## Deploy it
 
 Run `quasar build -m cordova -T android` or `quasar build -m cordova -T ios -t ios`.
