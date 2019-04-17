@@ -204,6 +204,7 @@ export async function cancelNotifications () {
 
 export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) {
   let notificationStack = []
+  let timeStack = []
   for (const task of studyDescr.tasks) {
     if (task.type === 'dataQuery') {
       if (Platform.is.iphone && HealthDataEnum.isAndroidOnly(task.dataType)) continue
@@ -213,7 +214,7 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) 
     let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
     for (let scheduleI = 0; scheduleI < taskTimes.length && scheduleI < 1000; scheduleI++) {
       let taskTime = taskTimes[scheduleI]
-      let executionDate = moment(taskTime).toDate()
+      let executionDate = moment(taskTime).startOf('minute').toDate()
       // we could use the unix timestamp of the execution date as id, but we
       // don't knwo how internally the ids are stored, so it's better to keep
       // their length to less than 9 digits
@@ -228,16 +229,19 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) 
       }
       id += task.id // tasks will rarely be more than 2 decimals
       id += scheduleI // this is capped to 999 anyway
-      notificationStack.push({
-        id: parseInt(id),
-        title: 'Mobistudy task due!',
-        // TODO: change the text according to the type of task
-        text: 'Tap here to open the app',
-        foreground: true,
-        trigger: { at: executionDate }
-      })
+      if (timeStack.indexOf(moment(executionDate).unix()) === -1) {
+        timeStack.push(moment(executionDate).unix())
+        notificationStack.push({
+          id: parseInt(id),
+          title: 'Mobistudy task due!',
+          // TODO: change the text according to the type of task
+          text: 'Tap here to open the app',
+          foreground: true,
+          trigger: {at: executionDate}
+        })
+      }
     }
   }
-  console.log(notificationStack)
+  // console.log(notificationStack)
   await notifications.schedule(notificationStack)
 }
