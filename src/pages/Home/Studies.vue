@@ -44,6 +44,7 @@
     <div>
       <q-item v-for="(study, activeStudyIndex) in activeStudies" :key="activeStudyIndex">
         <q-item-main :label="study.generalities.title" :sublabel="'End Date: ' + nicerDate(study.generalities.endDate)" @click.native="showDetails(study)"/>
+        <q-item-side right icon="settings" @click.native="showDetails(study)" />
       </q-item>
     </div>
 
