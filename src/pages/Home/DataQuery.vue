@@ -6,7 +6,7 @@
       <bar-chart v-if="plotBar" :chart-data="chartData" :options="chartOptions"></bar-chart>
       <line-chart v-if="plotLine" :chart-data="chartData" :options="chartOptions"></line-chart>
       <div class="row">
-        <q-btn color="primary" class="col" label="Send" @click="submit()" />
+        <q-btn color="primary" :loading="loading" class="col" label="Send" @click="submit()" />
       </div>
     </div>
   </q-page>
@@ -48,7 +48,8 @@ export default {
       chartOptions: null,
       healthData: null,
       plotLine: false,
-      plotBar: false
+      plotBar: false,
+      loading: false
     }
   },
   async mounted () {
@@ -282,6 +283,7 @@ export default {
   },
   methods: {
     async submit () {
+      this.loading = true
       try {
         let studyKey = this.$route.params.studyKey
         let taskId = Number(this.$route.params.taskID)
@@ -296,6 +298,7 @@ export default {
         await DB.setTaskCompletion(studyKey, taskId, new Date())
         this.$router.push('/home')
       } catch (error) {
+        this.loading = false
         console.error(error)
         this.$q.notify({
           color: 'negative',
