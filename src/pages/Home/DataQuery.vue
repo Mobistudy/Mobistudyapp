@@ -296,6 +296,11 @@ export default {
           healthData: this.healthData
         })
         await DB.setTaskCompletion(studyKey, taskId, new Date())
+        this.$q.notify({
+          color: 'positive',
+          message: 'Data sent successfully!',
+          icon: 'check'
+        })
         this.$router.push('/home')
       } catch (error) {
         this.loading = false

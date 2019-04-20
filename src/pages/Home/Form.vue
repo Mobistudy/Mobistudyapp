@@ -202,6 +202,11 @@ export default {
       try {
         await API.sendAnswers(answers)
         await DB.setTaskCompletion(studyKey, taskId, new Date())
+        this.$q.notify({
+          color: 'positive',
+          message: 'Form sent successfully!',
+          icon: 'check'
+        })
         this.$router.push('/home')
       } catch (error) {
         console.error(error)
