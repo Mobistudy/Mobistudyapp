@@ -43,7 +43,7 @@
       <p class="q-title">
         Form completed. Thank you.
       </p>
-      <q-btn color="secondary" @click="send()" label="Send" />
+      <q-btn color="secondary" @click="send()" :loading="loading" label="Send" />
     </div>
 
   </q-page>
@@ -190,6 +190,7 @@ export default {
       this.responses.pop()
     },
     async send () {
+      this.loading = true
       const studyKey = this.$route.params.studyKey
       const taskId = Number(this.$route.params.taskId)
       let answers = {
@@ -210,6 +211,7 @@ export default {
         this.$router.push('/home')
       } catch (error) {
         console.error(error)
+        this.loading = false
         this.$q.notify({
           color: 'negative',
           message: 'Cannot send data: ' + error.message,
