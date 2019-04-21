@@ -208,7 +208,10 @@ export default {
           message: 'Form sent successfully!',
           icon: 'check'
         })
-        this.$router.push('/home')
+        let _this = this
+        this.$router.push('/home', function () {
+          _this.$router.go()
+        })
       } catch (error) {
         console.error(error)
         this.loading = false
