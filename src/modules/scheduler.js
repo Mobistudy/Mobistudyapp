@@ -194,7 +194,7 @@ export function scheduleNotificationsAllStudies (studiesParts, studiesDescr) {
     let studyDescr = studiesDescr.find(sd => {
       return sd._key === studyPart.studyKey
     })
-    scheduleNotificationsSingleStudy(acceptedTS, studyDescr)
+    scheduleNotificationsSingleStudy(acceptedTS, studyDescr, studyPart)
   }
 }
 
@@ -202,7 +202,8 @@ export async function cancelNotifications () {
   return notifications.cancelAll()
 }
 
-export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) {
+export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, studyPart) {
+  console.log(studyPart)
   let notificationStack = []
   let timeStack = []
   for (const task of studyDescr.tasks) {
@@ -229,7 +230,25 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr) 
       }
       id += task.id // tasks will rarely be more than 2 decimals
       id += scheduleI // this is capped to 999 anyway
-      if (timeStack.indexOf(moment(executionDate).unix()) === -1) {
+
+      // Check if tasks was completed within the last day:
+      let lastCompletionTS
+      if (studyPart.taskItemsConsent) {
+        const taskStatus = studyPart.taskItemsConsent.find(x => x.taskId === task.id)
+        if (taskStatus && taskStatus.lastExecuted) {
+          // console.log('TASK WAS COMPLETED ON ', taskStatus.lastExecuted)
+          // Task has been completed before
+          lastCompletionTS = moment(new Date(taskStatus.lastExecuted))
+        }
+      }
+
+      let taskCompletedWithinDay = false
+      // Checks if the task was completed before and the notification to be scheduled is today
+      if (lastCompletionTS && moment(executionDate).isBetween(moment().startOf('day'), moment().endOf('day')) && lastCompletionTS.isBetween(moment().startOf('day'), moment(executionDate))) {
+        taskCompletedWithinDay = true
+      }
+
+      if (timeStack.indexOf(moment(executionDate).unix()) === -1 && !taskCompletedWithinDay) {
         timeStack.push(moment(executionDate).unix())
         notificationStack.push({
           id: parseInt(id),

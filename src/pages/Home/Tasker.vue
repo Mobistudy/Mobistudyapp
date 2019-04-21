@@ -136,12 +136,12 @@ export default {
             await DB.setStudyDescription(studyPart.studyKey, studyDescr)
             if (studyPart.currentStatus === 'accepted' && !this.rescheduleTasks && studyPart.reminders) {
               // only schedule it here if we are not scheduling all of them
-              await scheduler.scheduleNotificationsSingleStudy(new Date(studyPart.acceptedTS), studyDescr)
+              await scheduler.scheduleNotificationsSingleStudy(new Date(studyPart.acceptedTS), studyDescr, studyPart)
             }
           }
           if (studyPart.currentStatus === 'accepted' && this.rescheduleTasks && studyPart.reminders) {
             // schedule all of them
-            await scheduler.scheduleNotificationsSingleStudy(new Date(studyPart.acceptedTS), studyDescr)
+            await scheduler.scheduleNotificationsSingleStudy(new Date(studyPart.acceptedTS), studyDescr, studyPart)
           }
           if (studyPart.currentStatus === 'accepted') {
             activestudiesPart.push(studyPart)
