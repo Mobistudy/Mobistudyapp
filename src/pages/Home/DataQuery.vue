@@ -301,9 +301,10 @@ export default {
           message: 'Data sent successfully!',
           icon: 'check'
         })
-        let _this = this
+        // let _this = this
         this.$router.push('/home', function () {
-          _this.$router.go() // I think this refreshes /home so that notifications are rescheduled appropriately
+          // _this.$router.go() // I think this refreshes /home so that notifications are rescheduled appropriately
+          window.location.reload(true)
         })
       } catch (error) {
         this.loading = false
