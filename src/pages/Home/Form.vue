@@ -68,7 +68,8 @@ export default {
         description: ''
       },
       finished: false,
-      currentQuestion: undefined
+      currentQuestion: undefined,
+      loading: false
     }
   },
   async created () {
