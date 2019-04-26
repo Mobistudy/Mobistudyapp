@@ -489,7 +489,11 @@ export async function getForm (key) {
 
 export function sendAnswers (answers) {
   console.log('API - sending answers', answers)
-  return Promise.resolve()
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      resolve()
+    }, 1000)
+  })
 }
 
 export function sendDataQuery (data) {
