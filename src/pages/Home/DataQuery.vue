@@ -296,11 +296,11 @@ export default {
           healthData: this.healthData
         })
         await DB.setTaskCompletion(studyKey, taskId, new Date())
-        this.$q.notify({
-          color: 'positive',
-          message: 'Data sent successfully!',
-          icon: 'check'
-        })
+        // this.$q.notify({
+        //   color: 'positive',
+        //   message: 'Data sent successfully!',
+        //   icon: 'check'
+        // })
         // let _this = this
         this.$router.push('/home', function () {
           // _this.$router.go() // I think this refreshes /home so that notifications are rescheduled appropriately
