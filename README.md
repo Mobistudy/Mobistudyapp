@@ -70,3 +70,7 @@ Run `quasar build -m cordova -T android` or `quasar build -m cordova -T ios -t i
 This will generate the installable apps and make them available for upload to the app stores.
 On iPhones, the process may fail due to provisioning profiles. If that happens, use Xcode to
 bundle the app and submit it.
+
+For a signed apk, after having used quasar, enter the src-cordova folder and run:
+
+`cordova run android --release -- --keystore=my-release-key.keystore --storePassword=password --alias=alias_name --password=password`
