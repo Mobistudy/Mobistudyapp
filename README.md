@@ -73,4 +73,4 @@ bundle the app and submit it.
 
 For a signed apk, after having used quasar, enter the src-cordova folder and run:
 
-`cordova run android --release -- --keystore=my-release-key.keystore --storePassword=password --alias=alias_name --password=password`
+`cordova build android --release -- --keystore=my-release-key.keystore --storePassword=password --alias=alias_name --password=password`
