@@ -8,13 +8,8 @@
     <content src="index.html" />
     <icon src="res/icons/icon-512x512.png" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
-    <access origin="*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
+    <access origin="https://ibme-linuxdev.eng.ox.ac.uk:7777/*" />
+    <allow-intent href="https://ibme-linuxdev.eng.ox.ac.uk:7777/*" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="res/icons/icon-36x36.png" />
