@@ -147,8 +147,8 @@ export async function getStudyDescription (studyKey) {
             'updated': '2018-12-09T09:30:32.492Z',
             'published': '2018-12-09T09:30:32.492Z',
             'generalities': {
-              'title': 'My amazing study',
-              shortDescription: 'This is a study about amazing people',
+              'title': 'Pregnancy Hypertension Study',
+              shortDescription: 'Self management of hypertension in pregnancy.',
               longDescription: 'We want to understand how amazing you are',
               'startDate': '2018-09-11',
               'endDate': '2020-10-12',
