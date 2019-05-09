@@ -1,26 +1,9 @@
 <template>
   <q-page padding>
-    <!-- content -->
     <q-tabs underline-color="secondary" align="center" class="">
       <q-tab name="heart_rate" @click="changeTab('heart_rate')" default slot="title" icon="favorite_border" label="Heart Rate" />
       <q-tab name="steps" @click="changeTab('steps')" slot="title" icon="directions_walk" label="Steps" />
       <q-tab name="calories" @click="changeTab('calories')" slot="title" icon="whatshot" label="Calories" />
-
-      <!--<q-tab-pane name="heart_rate">-->
-        <!--<div class="chart-container" style="position: relative; height:66vh; width:80vw; margin-left: auto; margin-right: auto">-->
-          <!--<canvas id="chart_heart_rate"></canvas>-->
-        <!--</div>-->
-      <!--</q-tab-pane>-->
-      <!--<q-tab-pane name="steps">-->
-        <!--<div class="chart-container" style="position: relative; height:66vh; width:80vw; margin-left: auto; margin-right: auto">-->
-          <!--<canvas id="chart_steps"></canvas>-->
-        <!--</div>-->
-      <!--</q-tab-pane>-->
-      <!--<q-tab-pane name="calories">-->
-        <!--<div class="chart-container" style="position: relative; height:66vh; width:80vw; margin-left: auto; margin-right: auto">-->
-          <!--<canvas id="chart_calories"></canvas>-->
-        <!--</div>-->
-      <!--</q-tab-pane>-->
     </q-tabs>
 
     <br />
@@ -36,7 +19,7 @@
 
     <q-modal v-model="opened" maximized>
       <div style="padding: 50px">
-        <div class="q-display-1 q-mb-md">Your Fitness</div><p>These charts take data from HealthKit and plot your normality bands - i.e. Where your 10th percentile and 90th percentile points lie.</p>
+        <div class="q-display-1 q-mb-md">Your Fitness</div><p>These charts take data from the Health app and plot your normality bands - i.e. Where your 10th percentile and 90th percentile points lie.</p>
         <q-btn color="tertiary" @click="opened = false" label="Go to the charts!" />
       </div>
     </q-modal>
