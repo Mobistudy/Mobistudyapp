@@ -39,6 +39,7 @@
         <icon height="87" src="res/icons/icon-87x87.png" width="87" />
         <icon height="50" src="res/icons/icon-50x50.png" width="50" />
         <icon height="100" src="res/icons/icon-100x100.png" width="100" />
+        <!-- <icon height="1024" src="res/icons/icon-1024x1024.png" width="1024" /> -->
         <gap:plugin name="cordova-plugin-statusbar" source="npm" />
         <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="StatusBarBackgroundColor" value="#ffffff" />
