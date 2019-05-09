@@ -33,6 +33,13 @@
     <div class="chart-container" id="div_calories" style="position: relative; height:66vh; width:80vw; margin-left: auto; margin-right: auto">
       <canvas id="chart_calories"></canvas>
     </div>
+
+    <q-modal v-model="opened" maximized>
+      <div style="padding: 50px">
+        <div class="q-display-1 q-mb-md">Your Fitness</div><p>These charts take data from HealthKit and plot your normality bands - i.e. Where your 10th percentile and 90th percentile points lie.</p>
+        <q-btn color="tertiary" @click="opened = false" label="Go to the charts!" />
+      </div>
+    </q-modal>
   </q-page>
 </template>
 
@@ -45,7 +52,17 @@ let tabs = ['heart_rate', 'steps', 'calories']
 
 export default {
   // name: 'PageName',
+  data () {
+    return {
+      opened: false
+    }
+  },
   mounted () {
+    // Check if apple and need to show modal:
+    if (this.$q.platform.is.ios) {
+      this.opened = true
+    }
+
     let _this = this
 
     this.$q.loading.show()
