@@ -93,6 +93,7 @@ module.exports = function (ctx) {
         'QPage',
         'QPopover',
         'QRadio',
+        'QScrollArea',
         'QStepper',
         'QStep',
         'QStepperNavigation',

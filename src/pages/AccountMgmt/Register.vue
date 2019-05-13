@@ -17,7 +17,9 @@
           </q-step>
 
           <q-step icon="lock" title="Privacy policy">
-            <main-privacy-policy></main-privacy-policy>
+            <q-scroll-area style="height: 50vh">
+              <main-privacy-policy></main-privacy-policy>
+            </q-scroll-area>
             <q-stepper-navigation>
               <q-btn flat @click="$refs.stepper.previous()"  label="Back"/>
               <q-btn color="primary" @click="$refs.stepper.next()" label="Accept" />
