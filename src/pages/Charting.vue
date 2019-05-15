@@ -52,15 +52,13 @@ export default {
 
     let i = 0
 
-    function getPerms () {
-      return new Promise(function (resolve, reject) {
-        navigator.health.requestAuthorization([{read: tabs}], function () {
-          resolve()
-        }, function (err) {
-          reject(err)
-        })
+    let getPerms = new Promise(function (resolve, reject) {
+      navigator.health.requestAuthorization([{read: tabs}], function () {
+        resolve()
+      }, function (err) {
+        reject(err)
       })
-    }
+    })
 
     function getTabChart (iter) {
       console.log(iter)
@@ -87,19 +85,29 @@ export default {
         })
     }
 
-    getPerms()
-      .then(getTabChart(0))
-      .catch(function (err) {
-        _this.$q.loading.hide()
-        console.log(err)
-        _this.$q.notify({
-          color: 'negative',
-          message: 'Charting failed: ' + err,
-          icon: 'report_problem'
+    try {
+      getPerms
+        .then(getTabChart(0))
+        .catch(function (err) {
+          _this.$q.loading.hide()
+          console.log(err)
+          _this.$q.notify({
+            color: 'negative',
+            message: 'Charting failed: ' + err,
+            icon: 'report_problem'
+          })
         })
-      })
 
-    this.changeTab('heart_rate')
+      this.changeTab('heart_rate')
+    } catch (err) {
+      _this.$q.loading.hide()
+      console.log(err)
+      _this.$q.notify({
+        color: 'negative',
+        message: 'Charting failed: ' + err,
+        icon: 'report_problem'
+      })
+    }
 
     // this.changeTab('heart_rate')
     // Generate random uniform data
@@ -324,6 +332,7 @@ function plotChart (res, dataType) {
     console.log(res)
     if (res.length === 0) {
       document.getElementById('div_' + dataType).innerHTML = 'No Data Available'
+      resolve()
       return true
     }
 
