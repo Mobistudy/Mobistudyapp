@@ -40,7 +40,7 @@ export default {
       opened: false
     }
   },
-  mounted () {
+  async mounted () {
     // Check if apple and need to show modal:
     if (this.$q.platform.is.ios) {
       this.opened = true
@@ -52,15 +52,27 @@ export default {
 
     let i = 0
 
-    let getPerms = new Promise(function (resolve, reject) {
-      navigator.health.requestAuthorization([{read: tabs}], function () {
-        resolve()
-      }, function (err) {
-        reject(err)
+    async function getPerms () {
+      return new Promise((resolve, reject) => {
+        navigator.health.requestAuthorization([{read: tabs}], () => {
+          console.log('auth given')
+          resolve()
+        }, (err) => {
+          reject(err)
+        })
       })
-    })
+    }
 
-    function getTabChart (iter) {
+    // let getPerms = new Promise(function (resolve, reject) {
+    //   navigator.health.requestAuthorization([{read: tabs}], function () {
+    //     console.log('auth given')
+    //     resolve()
+    //   }, function (err) {
+    //     reject(err)
+    //   })
+    // })
+
+    async function getTabChart (iter) {
       console.log(iter)
       let dataType = tabs[iter]
       return getHealthData(this, dataType)
@@ -86,18 +98,8 @@ export default {
     }
 
     try {
-      getPerms
-        .then(getTabChart(0))
-        .catch(function (err) {
-          _this.$q.loading.hide()
-          console.log(err)
-          _this.$q.notify({
-            color: 'negative',
-            message: 'Charting failed: ' + err,
-            icon: 'report_problem'
-          })
-        })
-
+      await getPerms()
+      await getTabChart(0)
       this.changeTab('heart_rate')
     } catch (err) {
       _this.$q.loading.hide()
