@@ -5,19 +5,23 @@ import notifications from './notifications'
 import { Platform } from 'quasar'
 import HealthDataEnum from './healthstoreDataTypesEnum'
 
-// returns an array of tasks that need to be done today
-// these are tasks that were "missed" between the last execution and the end of today
+// Returns an array of tasks that need to be done today.
+// These are tasks that were "missed" between the last execution and the end of
+// today and those that are to be done by the end of today.
+// Params:
 // studiesParts: the participation to studies
-// description of the studies, at least those that have been consented
+// studiesDescr: description of the studies, at least those that have been consented
+// returns an object with:
+// upcoming: an array of {type: 'form', studyKey: '2121', taskID: 1, missed: false, due: '2019-04-02'}
+// missed: an array of {type: 'form', studyKey: '2121', taskID: 1, missed: true, due: '2019-04-02'}
 // if there is a study that has been completed because no tasks are to be done
-// until the end of the study, and currentStatus is accepted, then
-// completedStudyAlert will contain the _key of the study
+// then the returned object also contains:
+// completedStudyAlert: an object like { studyTitle: 'MyStudy', studyPart: participation object for that study }
 export function generateTasker (studiesParts, studiesDescr) {
   let taskerItems = {
     upcoming: [],
     missed: []
   }
-  // completedStudyAlert
   for (const studyPart of studiesParts) {
     if (studyPart.currentStatus === 'accepted') {
       let studyDescr = studiesDescr.find(sd => {

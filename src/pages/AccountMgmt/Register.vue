@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import PWDchecker from 'zxcvbn'
+import zxcvbn from 'zxcvbn'
 import owasp from 'owasp-password-strength-test'
 import API from '../../modules/API'
 import userinfo from '../../modules/userinfo'
@@ -108,10 +108,12 @@ function checkPwdStrength (pwd) {
       }
     }
   }
-  if (owasp.test(pwd).strong) {
-    let strength = PWDchecker(pwd)
-    return strength.score >= 2
-  } else return false
+  if (!owasp.test(pwd).strong) return false
+
+  let strengthCheck = zxcvbn(pwd)
+  if (strengthCheck.score < 2) return false
+
+  return true
 }
 
 export default {
@@ -205,7 +207,7 @@ export default {
       if (!result.strong) {
         return result.errors[0]
       } else {
-        result = PWDchecker(pwd)
+        result = zxcvbn(pwd)
         if (result.feedback) {
           let mesg = 'The password is too simple'
           if (result.feedback.warning) mesg = result.feedback.warning
