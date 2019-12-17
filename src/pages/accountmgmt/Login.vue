@@ -1,16 +1,42 @@
 <template>
   <q-layout>
     <q-page-container>
-      <q-page padding class="flex flex-center">
+      <q-page
+        padding
+        class="flex flex-center"
+      >
         <div style="width: 90vw">
           <p class="text-h4">Login</p>
           <!--<q-input v-model="username" float-label="Username" />-->
-          <q-input v-model="username" label="Email" />
-          <q-input v-model="password" label="Password" type="password" />
+          <q-input
+            v-model="username"
+            label="Email"
+          />
+          <q-input
+            v-model="password"
+            label="Password"
+            type="password"
+          />
           <div class="row">
-            <q-btn class="q-ma-sm" label="Login" color="positive" @click="login" type="submit" />
-            <q-btn class="q-ma-sm" label="Register" color="secondary" to="register" />
-            <q-btn class="q-ma-sm" label="Lost password" color="accent" to="resetpw"/>
+            <q-btn
+              class="q-ma-sm"
+              label="Login"
+              color="positive"
+              @click="login"
+              type="submit"
+            />
+            <q-btn
+              class="q-ma-sm"
+              label="Register"
+              color="secondary"
+              to="register_tc"
+            />
+            <q-btn
+              class="q-ma-sm"
+              label="Lost password"
+              color="accent"
+              to="resetpw"
+            />
           </div>
         </div>
       </q-page>

@@ -3,7 +3,7 @@
     <q-page-container>
       <q-page padding class="flex flex-center">
         <div style="width: 90vw">
-          <p class="q-headline">Reset password</p>
+          <p class="text-h4">Reset password</p>
             <q-field :error="$v.email.$error" error-message="An email address is required.">
                 <q-input v-model.trim="$v.email.$model" type="email" float-label="Email" placeholder="e.g. email@email.com"
                  autocomplete="on" @blur="$v.email.$touch"/>

@@ -2,64 +2,20 @@
   <q-layout>
     <q-page-container>
       <q-page padding>
-        <p class="text-h4">Registration</p>
-        <q-stepper vertical ref="stepper">
-          <q-step title="Terms of Use">
-            <p>
-              This version of the Mobistudy is meant to be used of technical testing and to support the PAS-4YP study.
-              Once you have completed the study, please delete this app.
-              An official and permanent version of this app will become available in the future.
-            </p>
-            <q-stepper-navigation>
-              <q-btn flat @click="$router.push('login')"  label="Back"/>
-              <q-btn color="primary" @click="$refs.stepper.next()" label="Accept" />
-            </q-stepper-navigation>
-          </q-step>
-
-          <q-step icon="lock" title="Privacy policy">
-            <q-scroll-area style="height: 50vh">
-              <main-privacy-policy></main-privacy-policy>
-            </q-scroll-area>
-            <q-stepper-navigation>
-              <q-btn flat @click="$refs.stepper.previous()"  label="Back"/>
-              <q-btn color="primary" @click="$refs.stepper.next()" label="Accept" />
-            </q-stepper-navigation>
-          </q-step>
-
-          <!-- THESE FOLLOWING THREE Q-FIELDS & Q-STEPPER TO BE PUT IN WHEN THE ERRORHANDLING IS SOLVED -->
-          <!--<q-step default icon="account_circle" title="Account" subtitle="Setup your Mobistudy Account">
-            <q-field icon="mail_outline" :error="$v.account.email.$error" error-label="Please type a valid email">
-              <q-input float-label="Email" @blur="$v.account.email.$touch" v-model="account.email"/>
-            </q-field>
-            <q-field icon="vpn_key" :error="$v.account.pw1.$error" :error-label="getFirstPwdCheckError(account.pw1)">
-              <q-input float-label="Password" v-model="account.pw1" @blur="$v.account.pw1.$touch" type="password"/>
-            </q-field>
-            <q-field icon="vpn_key" :error="$v.account.pw2.$error" error-label="Passwords must match">
-              <q-input float-label="Confirm Password" v-model="account.pw2" @blur="$v.account.pw2.$touch" type="password"/>
-            </q-field>
-            <q-stepper-navigation>
-              <q-btn flat @click="$refs.stepper.previous()"  label="Back"/>
-              <q-btn color="primary" :disable="$v.account.$error" @click="register()" label="Next" />
-            </q-stepper-navigation>
-          </q-step> -->
-
-          <!-- Step: -->
-          <!-- Following commented out for 4YP. To be uncommented after. -->
-          <q-step icon="assignment_ind" title="Profile" subtitle="Tell us your details">
-            <!-- <q-field icon="face" :error="$v.profile.name.$error || $v.profile.surname.$error" error-label="Required">
+        <p class="text-h4">Sign up</p>
+             <q-field icon="face" :error="$v.profile.name.$error || $v.profile.surname.$error" error-label="Required">
               <q-input float-label="First Name" v-model="profile.name"/>
               <q-input float-label="Surname" v-model="profile.surname"/>
-            </q-field> -->
+            </q-field>
 
-            <!-- THESE FOLLOWING TWO Q-FIELDS TO BE PUT IN WHEN THE ERRORHANDLING IS SOLVED -->
-            <!-- <q-field icon="wc" :error="$v.profile.gender.$error" error-label="Required">
+            <q-field icon="wc" :error="$v.profile.gender.$error" error-label="Required">
               <q-select float-label="Gender" v-model="profile.gender" :options="profile.genderOptions"/>
             </q-field>
             <q-field icon="cake" :error="$v.profile.dateOfBirth.$error" error-label="Required">
               <q-datetime type="date" v-model="profile.dateOfBirth" format="DD/MM/YYYY" float-label="Date of Birth"/>
-            </q-field> -->
+            </q-field>
 
-            <!-- <q-field class="q-mt-sm" icon="local_hospital" helper="Do you suffer from any long-term medical condition?">
+            <q-field class="q-mt-sm" icon="local_hospital" helper="Do you suffer from any long-term medical condition?">
               <q-chips-input placeholder="Conditions" v-model="diseasesVue" @duplicate="duplicatedDisease">
                 <q-autocomplete @search="searchDisease" @selected="selectedDisease" />
               </q-chips-input>
@@ -69,24 +25,18 @@
               <q-chips-input placeholder="Medications" v-model="medsVue" @duplicate="duplicatedMeds">
                 <q-autocomplete @search="searchMeds" @selected="selectedMeds" />
               </q-chips-input>
-            </q-field> -->
+            </q-field>
 
-            <!-- <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
-            <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/> -->
-            <q-stepper-navigation>
-              <q-btn flat @click="$refs.stepper.previous()"  label="Back"/>
-              <q-btn color="primary" @click="saveProfile()"  label="Next" />
-            </q-stepper-navigation>
-          </q-step>
-      </q-stepper>
+            <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
+            <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/>
+            <q-btn flat @click="$refs.stepper.previous()"  label="Back"/>
+            <q-btn color="primary" @click="saveProfile()"  label="Next" />
     </q-page>
   </q-page-container>
 </q-layout>
 </template>
 
 <script>
-import zxcvbn from 'zxcvbn'
-import owasp from 'owasp-password-strength-test'
 import API from '../../modules/API'
 import userinfo from '../../modules/userinfo'
 import { required, email, sameAs } from 'vuelidate/lib/validators'
@@ -121,27 +71,20 @@ function checkPwdStrength (pwd) {
 
 export default {
   name: 'RegisterPage',
-  components: { MainPrivacyPolicy },
   data () {
     return {
-      account: {
-        email: '',
-        pw1: '',
-        pw2: ''
-      },
       profile: {
-        // Following commented out for 4YP. To be uncommented after.
-        // name: '',
-        // surname: '',
+        name: '',
+        surname: '',
         dateOfBirth: '',
-        // diseases: [],
-        // medications: [],
-        // lifestyle: {
-        //   smoker: false,
-        //   active: true
-        // },
-        gender: '',
-        genderOptions: [
+        diseases: [],
+        medications: [],
+        lifestyle: {
+          smoker: false,
+          active: true
+        },
+        sex: '',
+        sexOptions: [
           {
             label: 'Male',
             value: 'male'
@@ -159,17 +102,11 @@ export default {
     }
   },
   validations: {
-    account: {
-      email: { required, email },
-      pw1: { required, checkPwdStrength },
-      pw2: { sameAsPassword: sameAs('pw1') }
-    },
     profile: {
-      // Following commented out for 4YP. To be uncommented after.
-      // name: {required},
-      // surname: {required},
+      name: {required},
+      surname: {required},
       dateOfBirth: { required },
-      gender: { required }
+      sex: { required }
     }
   },
   computed: {
@@ -322,13 +259,13 @@ export default {
           let profile = {
             userKey: userinfo.user._key,
             updatedTS: new Date(),
-            // name: this.profile.name,
-            // surname: this.profile.surname,
+            name: this.profile.name,
+            surname: this.profile.surname,
             dateOfBirth: dobTemp,
-            gender: this.profile.gender
-            // diseases: this.profile.diseases,
-            // medications: this.profile.medications,
-            // lifestyle: this.profile.lifestyle
+            sex: this.profile.sex
+            diseases: this.profile.diseases,
+            medications: this.profile.medications,
+            lifestyle: this.profile.lifestyle
           }
           await API.createProfile(profile)
           await userinfo.setProfile(profile)
