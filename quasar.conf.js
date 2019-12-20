@@ -1,5 +1,14 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
+const webpack = require('webpack')
+const fs = require('fs')
+
+// USE THESE TO TWEAK THE COMPILATION OPTIONS
+const API_ENDPOINT = 'MOCK' // use 'MOCK' for mock api, '' for local server or 'https://ibme-linuxdev.eng.ox.ac.uk:7777' for test server
+const HEALTHSTORE = 'MOCK' // use 'MOCK' for mock healthstore or 'cordova-health' for the cordova health plugin
+const NOTIFICATIONS = 'MOCK' // use 'MOCK' for browser notifications or 'cordova-notification-local' for the cordova plugin
+const STORAGE = 'native' // use 'local' for browser localStorage or 'native' for cordova native storage
+
 
 module.exports = function (ctx) {
   return {
@@ -65,7 +74,10 @@ module.exports = function (ctx) {
       // analyze: true,
       // preloadChunks: false,
       // extractCSS: false,
-
+      env: {
+        // version of the app is passed as environmental variable
+        APP_VERSION: JSON.stringify(require('./package.json').version)
+      },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
         cfg.module.rules.push({
@@ -77,12 +89,22 @@ module.exports = function (ctx) {
             formatter: require('eslint').CLIEngine.getFormatter('stylish')
           }
         })
-      },
-      env: {
-        APP_VERSION: JSON.stringify(require('./package.json').version),
-        API_ENDPOINT: JSON.stringify('MOCK'), // use 'MOCK' for mock api, '' for local server or 'https://ibme-linuxdev.eng.ox.ac.uk:7777' for test server
-        HEALTHSTORE: JSON.stringify('MOCK'), // use 'MOCK' for mock healthstore or 'cordova-health' for the cordova health plugin
-        NOTIFICATIONS: JSON.stringify('MOCK') // use 'MOCK' for browser notifications or 'cordova-notification-local' for the cordova plugin
+        cfg.plugins.push(new webpack.NormalModuleReplacementPlugin(
+          /.*\/modules\/API|.*\/modules\/notifications|.*\/modules\/storage/g,
+          function(resource) {
+            if (!!resource.request && (resource.request.indexOf('API') != -1) && API_ENDPOINT === 'MOCK') {
+              resource.request = resource.request.replace(/API/g, 'API.mock')
+              fs.appendFileSync('OUT.txt', resource.request + '\n')
+            }
+            if (!!resource.request && (resource.request.indexOf('notifications') != -1) && NOTIFICATIONS === 'MOCK') {
+              resource.request = resource.request.replace(/notifications/g, 'notifications.mock')
+            }
+            if (!!resource.request && (resource.request.indexOf('storage') != -1) && STORAGE === 'native') {
+              resource.request = resource.request.replace(/storage.local/g, 'storage.native')
+              fs.appendFileSync('OUT.txt', resource.request + '\n')
+            }
+          })
+        )
       }
     },
 
