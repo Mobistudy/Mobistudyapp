@@ -46,8 +46,7 @@ const routes = [
       { path: '/tasker', name: 'tasker', component: () => import('pages/home/Tasker.vue'), props: true },
       { path: '/profile', name: 'profile', component: () => import('pages/home/Profile.vue') },
       { path: '/studies', name: 'studies', component: () => import('pages/home/Studies.vue') },
-      { path: '/about', name: 'about', component: () => import('pages/home/About.vue') },
-      { path: '/charting', component: () => import('pages/home/Charting.vue') }
+      { path: '/about', name: 'about', component: () => import('pages/home/About.vue') }
     ]
   }
 ]
