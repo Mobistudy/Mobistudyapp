@@ -1,3 +1,7 @@
+q-alert
+
+   Replaced by q-banner
+
 q-btn-dropdown
 
    still exists, but the content has changed to:

@@ -2,35 +2,115 @@
   <q-layout>
     <q-page-container>
       <q-page padding>
-        <p class="text-h4">Sign up</p>
-             <q-field icon="face" :error="$v.profile.name.$error || $v.profile.surname.$error" error-label="Required">
-              <q-input float-label="First Name" v-model="profile.name"/>
-              <q-input float-label="Surname" v-model="profile.surname"/>
+        <p class="text-h4">Create Profile</p>
+          <div class="q-pa-md">
+            <q-field :error="$v.profile.name.$error || $v.profile.surname.$error" error-message="First Name and Surname required">
+              <q-input label="First Name" v-model="profile.name" @blur="$v.profile.name.$touch"/>
+              <q-input label="Surname" v-model="profile.surname" @blur="$v.profile.surname.$touch"/>
+              <template v-slot:before>
+                  <q-icon name="face" />
+              </template>
             </q-field>
 
-            <q-field icon="wc" :error="$v.profile.gender.$error" error-label="Required">
-              <q-select float-label="Gender" v-model="profile.gender" :options="profile.genderOptions"/>
-            </q-field>
-            <q-field icon="cake" :error="$v.profile.dateOfBirth.$error" error-label="Required">
-              <q-datetime type="date" v-model="profile.dateOfBirth" format="DD/MM/YYYY" float-label="Date of Birth"/>
-            </q-field>
+            <div class="q-gutter-md">
+              <q-select v-model="profile.sex" :options="profile.sexOptions" :error="$v.profile.sex.$error" @blur="$v.profile.sex.$touch" label="Sex" error-message="Required">
+                <template v-slot:before>
+                  <q-icon name="wc" />
+                </template>
+              </q-select>
+            </div>
 
-            <q-field class="q-mt-sm" icon="local_hospital" helper="Do you suffer from any long-term medical condition?">
-              <q-chips-input placeholder="Conditions" v-model="diseasesVue" @duplicate="duplicatedDisease">
-                <q-autocomplete @search="searchDisease" @selected="selectedDisease" />
-              </q-chips-input>
-            </q-field>
+            <div class="q-gutter-md">
+              <!-- TODO: NEED TO FIX VALIDATION-RULES FOR CUSTOM FORMAT! -->
+              <q-input v-model="profile.dateOfBirth" mask="##/##/####" :rules="['DD/MM/YYYY']" label="Date of Birth" error-message="Required" :error="$v.profile.dateOfBirth.$error" @blur="$v.profile.dateOfBirth.$touch">
+                <template v-slot:before>
+                  <q-icon name="cake" />
+                </template>
+                <template v-slot:append>
+                  <q-icon name="calendar_today" class="cursor-pointer">
+                    <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                      <q-date v-model="profile.dateOfBirth" @input="() => $refs.qDateProxy.hide()" mask="DD/MM/YYYY" format="DD/MM/YYYY" title="Date of Birth" />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
 
+          <!-- <q-field class="q-mt-sm" icon="local_hospital" helper="Do you suffer from any long-term medical condition?">
+            <q-chips-input placeholder="Conditions" v-model="diseasesVue" @duplicate="duplicatedDisease">
+              <q-autocomplete @search="searchDisease" @selected="selectedDisease" />
+            </q-chips-input>
+          </q-field> -->
+
+            <!-- TODO: FIX SEARCH, DOESN'T WORK YET -->
+            <div class="q-gutter-md">
+              <q-select
+                icon="local_hospital"
+                v-model="diseasesVue"
+                use-input
+                use-chips
+                hide-selected
+                fill-input
+                input-debounce="0"
+                :options="diseasesVue"
+                @filter="searchDisease"
+                @selected="selectedDisease"
+                label="Conditions"
+                hint="Do you suffer from any long-term medical condition?">
+                <template v-slot:no-option>
+                  <q-item>
+                    <q-item-section class="text-grey">
+                      No results
+                    </q-item-section>
+                  </q-item>
+                </template>
+                <template v-slot:before>
+                  <q-icon name="local_hospital" />
+                </template>
+              </q-select>
+            </div>
+
+          <!--
             <q-field class="q-mt-lg" icon="local_pharmacy" helper="Are you on any long-term medication?">
               <q-chips-input placeholder="Medications" v-model="medsVue" @duplicate="duplicatedMeds">
                 <q-autocomplete @search="searchMeds" @selected="selectedMeds" />
               </q-chips-input>
-            </q-field>
+            </q-field> -->
 
-            <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
-            <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/>
-            <q-btn flat @click="$refs.stepper.previous()"  label="Back"/>
+            <!-- TODO: FIX SEARCH, DOESN'T WORK YET -->
+            <div class="q-gutter-md">
+              <q-select
+                v-model="medsVue"
+                use-input
+                use-chips
+                hide-selected
+                fill-input
+                input-debounce="0"
+                :options="medsVue"
+                @filter="searchMeds"
+                @selected="selectedMeds"
+                label="Medications"
+                hint="Are you on any long-term medication?">
+                <template v-slot:no-option>
+                  <q-item>
+                    <q-item-section class="text-grey">
+                      No results
+                    </q-item-section>
+                  </q-item>
+                </template>
+                <template v-slot:before>
+                  <q-icon name="local_pharmacy" />
+                </template>
+              </q-select>
+            </div>
+
+            <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/><br/>
+            <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/><br/>
+            <!-- <q-btn flat @click="$refs.stepper.previous()"  label="Back"/> -->
+
+            <!-- TODO: FIX VALIDATION ON CLICK, DOESN'T WORK YET -->
             <q-btn color="primary" @click="saveProfile()"  label="Next" />
+          </div>
     </q-page>
   </q-page-container>
 </q-layout>
@@ -39,35 +119,7 @@
 <script>
 import API from '../../modules/API'
 import userinfo from '../../modules/userinfo'
-import { required, email, sameAs } from 'vuelidate/lib/validators'
-import MainPrivacyPolicy from '../../components/MainPrivacyPolicy'
-
-owasp.config({
-  allowPassphrases: true,
-  maxLength: 70,
-  minLength: 8,
-  minPhraseLength: 10,
-  minOptionalTestsToPass: 3
-})
-
-function checkPwdStrength (pwd) {
-  if (this.account.email) {
-    // check if password includes name in email
-    let i = this.account.email.indexOf('@')
-    if (i > 0) {
-      let userName = this.account.email.substring(0, i)
-      if (pwd.toUpperCase().includes(userName.toUpperCase())) {
-        return false
-      }
-    }
-  }
-  if (!owasp.test(pwd).strong) return false
-
-  let strengthCheck = zxcvbn(pwd)
-  if (strengthCheck.score < 2) return false
-
-  return true
-}
+import { required } from 'vuelidate/lib/validators'
 
 export default {
   name: 'RegisterPage',
@@ -103,8 +155,8 @@ export default {
   },
   validations: {
     profile: {
-      name: {required},
-      surname: {required},
+      name: { required },
+      surname: { required },
       dateOfBirth: { required },
       sex: { required }
     }
@@ -132,34 +184,8 @@ export default {
     }
   },
   methods: {
-    getFirstPwdCheckError (pwd) {
-      if (this.account.email) {
-        // check if password includes name in email
-        let i = this.account.email.indexOf('@')
-        if (i > 0) {
-          let userName = this.account.email.substring(0, i)
-          if (pwd.toUpperCase().includes(userName.toUpperCase())) {
-            return 'Password cannot contain email'
-          }
-        }
-      }
-      let result = owasp.test(pwd)
-      if (!result.strong) {
-        return result.errors[0]
-      } else {
-        result = zxcvbn(pwd)
-        if (result.feedback) {
-          let mesg = 'The password is too simple'
-          if (result.feedback.warning) mesg = result.feedback.warning
-          // uncomment this code to show also suggestions
-          // if (result.feedback.suggestions && result.feedback.suggestions.length) {
-          //   mesg += '.\nSuggestion: ' + result.feedback.suggestions[0]
-          // }
-          return mesg
-        } else return 'All OK'
-      }
-    },
     async searchDisease (diseaseDescription, done) {
+      console.log(diseaseDescription)
       try {
         const results = await API.searchSNOMEDDisease(diseaseDescription)
         if (results.length === 0) {
@@ -262,7 +288,7 @@ export default {
             name: this.profile.name,
             surname: this.profile.surname,
             dateOfBirth: dobTemp,
-            sex: this.profile.sex
+            sex: this.profile.sex,
             diseases: this.profile.diseases,
             medications: this.profile.medications,
             lifestyle: this.profile.lifestyle

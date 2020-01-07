@@ -8,7 +8,6 @@ const HEALTHSTORE = 'MOCK' // use 'MOCK' for mock healthstore or 'cordova-health
 const NOTIFICATIONS = 'WEB' // use 'WEB' for browser notifications or 'cordova-notification-local' for the cordova plugin
 const STORAGE = 'local' // use 'local' for browser localStorage or 'native' for cordova native storage
 
-
 module.exports = function (ctx) {
   return {
     // app boot file (/src/boot)
@@ -57,7 +56,8 @@ module.exports = function (ctx) {
 
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'Dialog'
       ]
     },
 
@@ -91,7 +91,7 @@ module.exports = function (ctx) {
         // substitutes modules with alternatives depending on compilation flags
         cfg.plugins.push(new webpack.NormalModuleReplacementPlugin(
           /.*\/API|.*\/notifications|.*\/storage\.local/g,
-          function(resource) {
+          function (resource) {
             if (!!resource.request && (resource.request.indexOf('API') != -1) && API_ENDPOINT === 'MOCK') {
               resource.request = resource.request.replace(/API/g, 'API.mock')
             }

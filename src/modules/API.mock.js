@@ -11,7 +11,7 @@ export default {
 
   // Logging in
   login: async function (email, password) {
-    if (email !== 'jameson@test.test' || password !== '12345678') {
+    if (email !== 'jameson@test.test' || password !== '12345678aAbB!') {
       let err = new Error('bad credentials')
       err.response = { status: 401 }
       throw err
@@ -55,6 +55,7 @@ export default {
       name: 'Jameson',
       surname: 'Lee',
       gender: 'male',
+      completed: false,
       dateOfBirth: '1986-11-10',
       diseases: [],
       medications: [],

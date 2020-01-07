@@ -25,9 +25,30 @@ const routes = [
     component: () => import('pages/accountmgmt/Reg_PrivacyPolicy.vue')
   },
   {
+    path: '/register_profile',
+    name: 'register_profile',
+    component: () => import('pages/accountmgmt/Reg_Profile.vue')
+  },
+  {
     path: '/signup',
     name: 'signup',
     component: () => import('pages/accountmgmt/Reg_SignUp.vue')
+  },
+  {
+    path: '/changepw',
+    component: () => import('pages/accountmgmt/ChangePW.vue')
+  },
+  {
+    path: '/home',
+    component: () => import('layouts/HomeLayout.vue'),
+    children: [
+      { path: '/', name: 'home', component: () => import('pages/home/Tasker.vue'), props: true },
+      { path: '/tasker', name: 'tasker', component: () => import('pages/home/Tasker.vue'), props: true },
+      { path: '/profile', name: 'profile', component: () => import('pages/home/Profile.vue') },
+      { path: '/studies', name: 'studies', component: () => import('pages/home/Studies.vue') },
+      { path: '/about', name: 'about', component: () => import('pages/home/About.vue') },
+      { path: '/charting', component: () => import('pages/home/Charting.vue') }
+    ]
   }
 ]
 

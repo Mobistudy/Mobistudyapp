@@ -34,15 +34,18 @@ export default {
   },
   methods: {
     async submit () {
-      try {
-        await API.resetPW(this.email.toLowerCase())
-        this.$router.push('/changepw')
-      } catch (error) {
-        this.$q.notify({
-          color: 'negative',
-          message: 'Login failed: ' + error.message,
-          icon: 'report_problem'
-        })
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        try {
+          await API.resetPW(this.email.toLowerCase())
+          this.$router.push('/changepw')
+        } catch (error) {
+          this.$q.notify({
+            color: 'negative',
+            message: 'Login failed: ' + error.message,
+            icon: 'report_problem'
+          })
+        }
       }
     }
   }

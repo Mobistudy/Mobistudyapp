@@ -3,11 +3,11 @@
 
 export default {
   loginPage: {
-    login: 'Login',
-    email: 'Email',
-    password: 'Password',
-    register: 'Register',
-    lostpw: 'Lost Password'
+    login: 'Logga in',
+    email: 'ePost',
+    password: 'Lösenord',
+    register: 'Registrera',
+    lostpw: 'Glömt Lösenord'
   },
   failed: 'Action failed',
   success: 'Action was successful'

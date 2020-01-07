@@ -7,10 +7,10 @@
         <q-field
           icon="mail_outline"
           :error="$v.account.email.$error"
-          error-label="Please type a valid email"
+          error-message="Please type a valid email"
         >
           <q-input
-            float-label="Email"
+            label="Email"
             @blur="$v.account.email.$touch"
             v-model="account.email"
           />
@@ -18,10 +18,10 @@
         <q-field
           icon="vpn_key"
           :error="$v.account.pw1.$error"
-          :error-label="getFirstPwdCheckError(account.pw1)"
+          :error-message="getFirstPwdCheckError(account.pw1)"
         >
           <q-input
-            float-label="Password"
+            label="Password"
             v-model="account.pw1"
             @blur="$v.account.pw1.$touch"
             type="password"
@@ -30,10 +30,10 @@
         <q-field
           icon="vpn_key"
           :error="$v.account.pw2.$error"
-          error-label="Passwords must match"
+          error-message="Passwords must match"
         >
           <q-input
-            float-label="Confirm Password"
+            label="Confirm Password"
             v-model="account.pw2"
             @blur="$v.account.pw2.$touch"
             type="password"
@@ -41,7 +41,7 @@
         </q-field>
         <q-btn
           flat
-          @click="$refs.stepper.previous()"
+          to="register_pp"
           label="Back"
         />
         <q-btn
@@ -147,7 +147,7 @@ export default {
           await userinfo.login(user)
           API.setToken(user.token)
 
-          this.$refs.stepper.next()
+          this.$router.push('/register_profile')
         } catch (error) {
           if (error.response && error.response.status === 409) {
             this.$q.notify({
