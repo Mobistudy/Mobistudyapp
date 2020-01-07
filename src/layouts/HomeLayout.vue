@@ -55,19 +55,6 @@
             <q-item-label caption>About Mobistudy</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item to="charting">
-          <q-item-section avatar>
-            <q-icon color="grey" name="directions_run" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Your Fitness</q-item-label>
-            <q-item-label caption>Your data from the last week</q-item-label>
-          </q-item-section>
-        </q-item>
-        <!--<q-item to="dev">-->
-          <!--<q-item-side icon="build" />-->
-          <!--<q-item-main label="Developer Panel" />-->
-        <!--</q-item>-->
       </q-list>
     </q-drawer>
 
