@@ -109,7 +109,7 @@ module.exports = function (ctx) {
               resource.request = resource.request.replace(/storage\.local/g, 'storage.native')
             }
             if (!!resource.request && (resource.request.indexOf('healthstore') != -1) && HEALTHSTORE === 'MOCK') {
-              resource.request = resource.request.replace(/storage\.local/g, 'healthstore.mock')
+              resource.request = resource.request.replace(/healthstore/g, 'healthstore.mock')
             }
           })
         )
