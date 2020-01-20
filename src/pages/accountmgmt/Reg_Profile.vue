@@ -1,119 +1,114 @@
 <template>
-  <q-layout>
-    <q-page-container>
       <q-page padding>
-        <p class="text-h4">Create Profile</p>
-          <div class="q-pa-md">
-            <q-field :error="$v.profile.name.$error || $v.profile.surname.$error" error-message="First Name and Surname required">
-              <q-input label="First Name" v-model="profile.name" @blur="$v.profile.name.$touch"/>
-              <q-input label="Surname" v-model="profile.surname" @blur="$v.profile.surname.$touch"/>
-              <template v-slot:before>
-                  <q-icon name="face" />
-              </template>
-            </q-field>
+        <q-list>
+          <q-item>
+            <q-item-section>
+              <q-item-label class="text-h6 text-center q-pt-md">Create Profile</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+        <q-list>
+          <q-input label="First Name" :error="$v.profile.name.$error" error-message="First Name required" v-model="profile.name" @blur="$v.profile.name.$touch">
+            <template v-slot:before>
+              <q-icon name="face" />
+            </template>
+          </q-input>
+        </q-list>
 
-            <div class="q-gutter-md">
-              <q-select v-model="profile.sex" :options="profile.sexOptions" :error="$v.profile.sex.$error" @blur="$v.profile.sex.$touch" label="Sex" error-message="Required">
-                <template v-slot:before>
-                  <q-icon name="wc" />
-                </template>
-              </q-select>
-            </div>
+        <q-list>
+          <q-input label="Surname" :error="$v.profile.surname.$error" error-message="Surname required" v-model="profile.surname" @blur="$v.profile.surname.$touch">
+            <template v-slot:before>
+              <q-icon name="face" color="white" />
+            </template>
+          </q-input>
+        </q-list>
 
-            <div class="q-gutter-md">
-              <!-- TODO: NEED TO FIX VALIDATION-RULES FOR CUSTOM FORMAT! -->
-              <q-input v-model="profile.dateOfBirth" mask="##/##/####" :rules="['DD/MM/YYYY']" label="Date of Birth" error-message="Required" :error="$v.profile.dateOfBirth.$error" @blur="$v.profile.dateOfBirth.$touch">
-                <template v-slot:before>
-                  <q-icon name="cake" />
-                </template>
-                <template v-slot:append>
-                  <q-icon name="calendar_today" class="cursor-pointer">
-                    <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                      <q-date v-model="profile.dateOfBirth" @input="() => $refs.qDateProxy.hide()" mask="DD/MM/YYYY" format="DD/MM/YYYY" title="Date of Birth" />
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
-            </div>
+        <q-list>
+          <q-select v-model="profile.sex" :options="profile.sexOptions" :error="$v.profile.sex.$error" @blur="$v.profile.sex.$touch" label="Sex" error-message="Required">
+            <template v-slot:before>
+              <q-icon name="wc" />
+            </template>
+          </q-select>
+        </q-list>
 
-          <!-- <q-field class="q-mt-sm" icon="local_hospital" helper="Do you suffer from any long-term medical condition?">
-            <q-chips-input placeholder="Conditions" v-model="diseasesVue" @duplicate="duplicatedDisease">
-              <q-autocomplete @search="searchDisease" @selected="selectedDisease" />
-            </q-chips-input>
-          </q-field> -->
+        <q-list>
+          <q-input v-model="profile.dateOfBirth" mask="####/##/##" :rules="['YYYY/MM/DD']" label="Date of Birth" error-message="Required" :error="$v.profile.dateOfBirth.$error" @blur="$v.profile.dateOfBirth.$touch">
+            <template v-slot:before>
+              <q-icon name="cake" />
+            </template>
+            <template v-slot:append>
+              <q-icon name="calendar_today" class="cursor-pointer">
+                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                  <q-date v-model="profile.dateOfBirth" @input="() => $refs.qDateProxy.hide()" mask="YYYY/MM/DD" format="YYYY/MM/DD" title="Date of Birth" />
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </q-list>
 
-            <!-- TODO: FIX SEARCH, DOESN'T WORK YET -->
-            <div class="q-gutter-md">
-              <q-select
-                icon="local_hospital"
-                v-model="diseasesVue"
-                use-input
-                use-chips
-                hide-selected
-                fill-input
-                input-debounce="0"
-                :options="diseasesVue"
-                @filter="searchDisease"
-                @selected="selectedDisease"
-                label="Conditions"
-                hint="Do you suffer from any long-term medical condition?">
-                <template v-slot:no-option>
-                  <q-item>
-                    <q-item-section class="text-grey">
-                      No results
-                    </q-item-section>
-                  </q-item>
-                </template>
-                <template v-slot:before>
-                  <q-icon name="local_hospital" />
-                </template>
-              </q-select>
-            </div>
+        <q-list>
+          <q-select
+            icon="local_hospital"
+            v-model="diseasesVue"
+            use-input
+            use-chips
+            hide-selected
+            fill-input
+            input-debounce="0"
+            :options="diseasesVue"
+            @filter="searchDisease"
+            @selected="selectedDisease"
+            label="Conditions"
+            hint="Do you suffer from any long-term medical condition?">
+            <template v-slot:no-option>
+              <q-item>
+                <q-item-section class="text-grey">
+                  No results
+                </q-item-section>
+              </q-item>
+            </template>
+            <template v-slot:before>
+              <q-icon name="local_hospital" />
+            </template>
+          </q-select>
+        </q-list>
 
-          <!--
-            <q-field class="q-mt-lg" icon="local_pharmacy" helper="Are you on any long-term medication?">
-              <q-chips-input placeholder="Medications" v-model="medsVue" @duplicate="duplicatedMeds">
-                <q-autocomplete @search="searchMeds" @selected="selectedMeds" />
-              </q-chips-input>
-            </q-field> -->
+        <q-list>
+          <q-select
+            v-model="medsVue"
+            use-input
+            use-chips
+            hide-selected
+            fill-input
+            input-debounce="0"
+            :options="medsVue"
+            @filter="searchMeds"
+            @selected="selectedMeds"
+            label="Medications"
+            hint="Are you on any long-term medication?">
+            <template v-slot:no-option>
+              <q-item>
+                <q-item-section class="text-grey">
+                  No results
+                </q-item-section>
+              </q-item>
+            </template>
+            <template v-slot:before>
+              <q-icon name="local_pharmacy" />
+            </template>
+          </q-select>
+        </q-list>
 
-            <!-- TODO: FIX SEARCH, DOESN'T WORK YET -->
-            <div class="q-gutter-md">
-              <q-select
-                v-model="medsVue"
-                use-input
-                use-chips
-                hide-selected
-                fill-input
-                input-debounce="0"
-                :options="medsVue"
-                @filter="searchMeds"
-                @selected="selectedMeds"
-                label="Medications"
-                hint="Are you on any long-term medication?">
-                <template v-slot:no-option>
-                  <q-item>
-                    <q-item-section class="text-grey">
-                      No results
-                    </q-item-section>
-                  </q-item>
-                </template>
-                <template v-slot:before>
-                  <q-icon name="local_pharmacy" />
-                </template>
-              </q-select>
-            </div>
+        <q-list>
+          <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/><br/>
+          <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/><br/>
+        </q-list>
 
-            <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/><br/>
-            <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/><br/>
-            <!-- <q-btn flat @click="$refs.stepper.previous()"  label="Back"/> -->
+        <q-list>
+          <q-btn class="full-width q-mt-md q-mb-lg" color="primary" @click="saveProfile()"  label="Next" />
+        </q-list>
 
-            <!-- TODO: FIX VALIDATION ON CLICK, DOESN'T WORK YET -->
-            <q-btn color="primary" @click="saveProfile()"  label="Next" />
-          </div>
     </q-page>
-  </q-page-container>
-</q-layout>
 </template>
 
 <script>

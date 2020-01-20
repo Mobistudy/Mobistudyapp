@@ -1,26 +1,18 @@
 <template>
-  <q-layout>
-    <q-page-container>
-      <q-page padding>
-        <p class="text-h4">Privacy Policy</p>
-        <main-privacy-policy></main-privacy-policy>
-        <div class="row justify-evenly">
-          <q-btn
-            class="q-ma-sm"
-            label="Cancel"
-            color="secondary"
-            to="login"
-          />
-          <q-btn
-            class="q-ma-sm"
-            label="Accept"
-            color="primary"
-            to="signup"
-          />
-        </div>
-      </q-page>
-    </q-page-container>
-  </q-layout>
+  <q-page>
+    <q-list>
+      <q-item>
+        <q-item-section>
+          <q-item-label class="text-h6 text-center q-py-md">{{ $t('accountMgmt.privacy.privacyPol') }}</q-item-label>
+          <q-item-label caption><main-privacy-policy></main-privacy-policy></q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-item class="row justify-evenly">
+        <q-btn class="q-ma-sm" label="Cancel" color="secondary" to="login" />
+        <q-btn class="q-ma-sm" label="Accept" color="primary" to="signup" />
+      </q-item>
+    </q-list>
+  </q-page>
 </template>
 
 <script>

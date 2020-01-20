@@ -44,20 +44,22 @@
     <div>
       <!-- TODO: Replace QItemMain/-Side WITH QItemSections WHEN THERE IS DATA TO TEST -->
       <q-item v-for="(study, activeStudyIndex) in activeStudies" :key="activeStudyIndex">
-        <q-item-main :label="study.generalities.title" :sublabel="'End Date: ' + nicerDate(study.generalities.endDate)" @click.native="showDetails(study)"/>
-        <q-item-side right icon="settings" @click.native="showDetails(study)" />
+        <q-item-section :sublabel="'End Date: ' + nicerDate(study.generalities.endDate)" @click.native="showDetails(study)">
+          <q-item-label>{{study.generalities.title}}</q-item-label>
+        </q-item-section>
+        <q-item-section avatar right icon="settings" @click.native="showDetails(study)" />
       </q-item>
     </div>
 
     <q-item v-if="activeStudies.length === 0">
-      <q-item-main>No active studies found.</q-item-main>
+      <q-item-section>No active studies found.</q-item-section>
     </q-item>
 
     <q-item-separator v-if="previousStudies.length !== 0" />
     <!-- TODO: Replace QItemMain/-Side WITH QItemSections WHEN THERE IS DATA TO TEST -->
     <q-item-label header v-if="previousStudies.length !== 0">Previous studies</q-item-label>
     <q-item v-for="(study, previousStudyIndex) in previousStudies" :key="previousStudyIndex">
-      <q-item-main :label="study.generalities.title" @click.native="showDetails(study)"/>
+      <q-item-section :label="study.generalities.title" @click.native="showDetails(study)"/>
     </q-item>
   </q-list>
 </q-page>

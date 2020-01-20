@@ -1,37 +1,54 @@
 <template>
-  <q-page>
-    <p class="text-h6 q-mt-md q-mb-lg q-px-md">
-      Your profile
-    </p>
-    <!-- Following commented out for 4YP. To be uncommented after. -->
-    <!-- <q-field icon="face" :error="$v.profile.name.$error || $v.profile.surname.$error" error-label="Required">
-      <q-input float-label="First Name" v-model="profile.name"/>
-      <q-input float-label="Surname" v-model="profile.surname"/>
-    </q-field> -->
+  <q-page padding>
+    <q-list>
+      <q-item>
+        <q-item-section>
+          <q-item-label class="text-h6 text-center q-pt-md">
+            Your profile
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-list>
 
-    <div class="q-gutter-md q-px-md">
-      <q-select v-model="profile.sex" :options="sexOptions" :error="$v.profile.sex.$error" @blur="$v.profile.sex.$touch" label="Sex" error-message="Required">
+    <q-list>
+      <q-input label="First Name" :error="$v.profile.name.$error" error-message="First Name required" v-model="profile.name" @blur="$v.profile.name.$touch">
+        <template v-slot:before>
+          <q-icon name="face" />
+        </template>
+      </q-input>
+    </q-list>
+
+    <q-list>
+      <q-input label="Surname" :error="$v.profile.surname.$error" error-message="Surname required" v-model="profile.surname" @blur="$v.profile.surname.$touch">
+        <template v-slot:before>
+          <q-icon name="face" color="white" />
+        </template>
+      </q-input>
+    </q-list>
+
+    <q-list>
+      <q-select v-model="profile.sex" map-options :options="sexOptions" :error="$v.profile.sex.$error" @blur="$v.profile.sex.$touch" label="Sex" error-message="Required">
         <template v-slot:before>
           <q-icon name="wc" />
         </template>
       </q-select>
-    </div>
+    </q-list>
 
-    <div class="q-gutter-md q-px-md">
+    <q-list>
       <!-- TODO: NEED TO FIX VALIDATION-RULES FOR CUSTOM FORMAT! AS IN Reg_Profile.vue -->
-      <q-input v-model="profile.dateOfBirth" mask="##/##/####" :rules="['DD/MM/YYYY']" label="Date of Birth" error-message="Required" :error="$v.profile.dateOfBirth.$error" @blur="$v.profile.dateOfBirth.$touch">
+      <q-input v-model="profile.dateOfBirth" mask="####/##/##" :rules="['YYYY/MM/DD']" label="Date of Birth" error-message="Required" :error="$v.profile.dateOfBirth.$error" @blur="$v.profile.dateOfBirth.$touch">
         <template v-slot:before>
           <q-icon name="cake" />
         </template>
         <template v-slot:append>
           <q-icon name="calendar_today" class="cursor-pointer">
             <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-              <q-date v-model="profile.dateOfBirth" @input="() => $refs.qDateProxy.hide()" mask="DD/MM/YYYY" format="DD/MM/YYYY" title="Date of Birth" />
+              <q-date v-model="profile.dateOfBirth" @input="() => $refs.qDateProxy.hide()" mask="YYYY/MM/DD" format="YYYY/MM/DD" title="Date of Birth" />
             </q-popup-proxy>
           </q-icon>
         </template>
       </q-input>
-    </div>
+    </q-list>
 
     <!-- Following commented out for 4YP. To be uncommented after. -->
     <!-- <q-field class="q-mt-sm" icon="local_hospital" helper="Do you suffer from any long-term medical condition?">
@@ -137,8 +154,8 @@ export default {
   },
   validations: {
     profile: {
-      // name: {required},
-      // surname: {required},
+      name: { required },
+      surname: { required },
       dateOfBirth: { required },
       sex: { required }
     }

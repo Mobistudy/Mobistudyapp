@@ -1,7 +1,5 @@
 <template>
-  <q-layout>
-    <q-page-container>
-      <q-page padding>
+      <q-page padding class="flex flex-center">
         <p class="text-h4">Registration</p>
         <q-stepper vertical ref="stepper">
           <q-step title="Terms of Use">
@@ -80,8 +78,6 @@
           </q-step>
       </q-stepper>
     </q-page>
-  </q-page-container>
-</q-layout>
 </template>
 
 <script>

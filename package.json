@@ -20,6 +20,7 @@
     "quasar": "^1.0.0",
     "rrule": "^2.6.4",
     "science": "^1.9.3",
+    "vue-chartjs": "^3.5.0",
     "vue-i18n": "^8.0.0",
     "vuelidate": "^0.7.4",
     "zxcvbn": "^4.4.2"

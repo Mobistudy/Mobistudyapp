@@ -1,8 +1,8 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-layout-header>
-      <q-toolbar color="primary">
-        <q-btn flat dense round @click="cancel()" aria-label="Back" >
+    <q-header reveal elevated class="bg-primary text-white">
+      <q-toolbar>
+        <q-btn flat dense round @click="cancel()" aria-label="Back">
           <q-icon name="arrow_back" />
         </q-btn>
 
@@ -10,7 +10,7 @@
           New study
         </q-toolbar-title>
       </q-toolbar>
-    </q-layout-header>
+    </q-header>
 
     <q-page-container>
       <router-view />

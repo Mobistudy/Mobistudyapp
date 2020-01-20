@@ -2,24 +2,22 @@
   <q-layout>
     <q-page-container>
       <q-page padding class="flex flex-center">
-        If you're registered in the system, you should receive an email shortly.
-        Please copy/paste the token from your email to this form.
-        If you fill the form and change your password on the Mobistudy web page, please tap on Cancel.
+        {{ $t('accountMgmt.changePw.hint') }}
         <div>
-          <q-field label="Token" hint="As received on your email." :error="$v.token.$error" error-message="A token is required." >
+          <q-field v-bind:label="$t('accountMgmt.changePw.token')" :hint="$t('accountMgmt.changePw.tokenHint')" :error="$v.token.$error" :error-message="$t('accountMgmt.changePw.tokenError')" >
             <q-input v-model="token" type="text" @blur="$v.token.$touch" clearable/>
           </q-field>
-          <q-field :error="$v.newpw.$error || $v.confpw.$error" error-message="Passwords do not match">
-            <q-input label="New Password" v-model="newpw" type="password" />
-            <q-input label="Confirm Password" v-model="confpw" type="password" />
+          <q-field :error="$v.newpw.$error || $v.confpw.$error" :error-message="$t('accountMgmt.changePw.pwError')">
+            <q-input :label="$t('accountMgmt.changePw.newPw')" v-model="newpw" type="password" />
+            <q-input :label="$t('accountMgmt.changePw.confPw')" v-model="confpw" type="password" />
           </q-field>
           <br />
           <div class="q-mt-lg row">
             <div class="q-ma-sm">
-              <q-btn class="float-right" label="Cancel" flat="true" color="grey" to="login" />
+              <q-btn class="float-right" :label="$t('accountMgmt.changePw.cancel')" flat="true" color="grey" to="login" />
             </div>
             <div class="q-ma-sm">
-              <q-btn class="float-right" label="Change Password" color="positive" type="submit" @click="resetUserPassword" />
+              <q-btn class="float-right" :label="$t('accountMgmt.changePw.changePw')" color="positive" type="submit" @click="resetUserPassword" />
             </div>
           </div>
         </div>

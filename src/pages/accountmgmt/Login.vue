@@ -1,40 +1,33 @@
 <template>
   <q-layout>
     <q-page-container>
-      <q-page
-        padding
-        class="flex flex-center"
-      >
+      <q-page padding class="flex flex-center">
+        <p class="q-title q-mt-lg" style="text-align: center">
+          <img src="~/assets/mobistudy_logo.svg" style="width:30vw; max-width:150px;" ><br />
+        </p>
         <div style="width: 90vw">
-          <q-item>
-            <div class="text-center q-mb-lg">
-              <div class="col-12">
-                <img src="~/assets/mobistudy_logo.svg" style="max-width:35%"/>
-              </div>
-            </div>
-          </q-item>
-          <p class="text-h5">{{ $t('loginPage.login') }}</p>
+          <p class="text-h5">{{ $t('accountMgmt.loginPage.login') }}</p>
           <!--<q-input v-model="username" float-label="Username" />-->
           <q-input
             v-model="username"
-            v-bind:label="$t('loginPage.email')"
+            v-bind:label="$t('accountMgmt.loginPage.email')"
           />
           <q-input
             v-model="password"
-            v-bind:label="$t('loginPage.password')"
+            v-bind:label="$t('accountMgmt.loginPage.password')"
             type="password"
           />
           <div class="row">
             <q-btn
               class="q-ma-sm full-width"
-              v-bind:label="$t('loginPage.login')"
+              v-bind:label="$t('accountMgmt.loginPage.login')"
               color="positive"
               @click="login"
               type="submit"
             />
             <q-btn
               class="q-ma-sm q-mb-lg full-width"
-              v-bind:label="$t('loginPage.lostpw')"
+              v-bind:label="$t('accountMgmt.loginPage.lostpw')"
               color="grey"
               flat outline
               to="resetpw"
@@ -42,14 +35,14 @@
             <q-list class="full-width">
               <q-separator />
               <q-item class="full-width">
-                <q-item-selection class="full-width">
-                  <q-item-label class="text-center q-mt-lg q-mb-md">No account yet? Register in 3 steps!</q-item-label>
-                </q-item-selection>
+                <q-item-section class="full-width">
+                  <q-item-label class="text-center q-mt-lg q-mb-md">{{ $t('accountMgmt.loginPage.noAcc') }}</q-item-label>
+                </q-item-section>
               </q-item>
               <q-item class="full-width">
-                <q-item-selection class="full-width">
-                  <q-btn class="full-width" v-bind:label="$t('loginPage.register')" color="grey" to="register_tc"/>
-                </q-item-selection>
+                <q-item-section class="full-width">
+                  <q-btn class="full-width" v-bind:label="$t('accountMgmt.loginPage.register')" color="grey" to="register_tc"/>
+                </q-item-section>
               </q-item>
             </q-list>
           </div>
@@ -97,7 +90,7 @@ export default {
         await userinfo.setProfile(profile)
 
         // TODO: IMPLEMENT PROFILE COMPLETED FLAG TO ACTUALLY BE ABLE TO USE THIS CHECK
-        if (!profile.completed) {
+        if (!profile) {
           this.$router.push('/register_profile')
         } else {
           if (profile.studies) await DB.setStudiesParticipation(profile.studies)

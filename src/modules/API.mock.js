@@ -54,7 +54,7 @@ export default {
       createdTS: '2018-12-10T09:30:32.492Z',
       name: 'Jameson',
       surname: 'Lee',
-      gender: 'male',
+      sex: 'male',
       completed: false,
       dateOfBirth: '1986-11-10',
       diseases: [],
@@ -177,7 +177,7 @@ export default {
               'inclusionCriteria': {
                 'minAge': 18,
                 'maxAge': 100,
-                'gender': [
+                'sex': [
                   'male',
                   'female',
                   'other'
@@ -297,7 +297,7 @@ export default {
             inclusionCriteria: {
               minAge: 18,
               maxAge: 100,
-              gender: [
+              sex: [
                 'male',
                 'female',
                 'other'

@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <q-banner rounded inline-actions class="bg-warning text-white q-mb-lg" v-if="newstudies" icon="new_releases" type="warning">
+    <q-banner rounded inline-actions class="bg-warning text-white q-mb-sm" v-if="newstudies" icon="new_releases" type="warning">
         New study available!
         <template v-slot:action>
           <q-btn flat color="white" label="Check it" to="studies"/>
