@@ -55,5 +55,15 @@ export default {
   },
   error404: {},
   failed: 'Action failed',
-  success: 'Action was successful'
+  success: 'Action was successful',
+  healthDataTypes: {
+    steps: 'steps',
+    weight: 'weight',
+    height: 'height',
+    activity: 'activity',
+    heart_rate: 'heart rate',
+    heart_rate_variability: 'heart rate variability',
+    calories: 'calories',
+    distance: 'distance'
+  }
 }

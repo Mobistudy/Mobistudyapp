@@ -87,21 +87,21 @@ export default {
           this.healthData = await healthstore.queryAggregated({
             startDate: startDate.toDate(),
             endDate: new Date(),
-            dataType: this.taskDescr.dataType,
+            dataType: HealthDataEnum.toNativeType(this.taskDescr.dataType),
             bucket: this.taskDescr.bucket
           })
         } else {
           this.healthData = await healthstore.queryAggregated({
             startDate: startDate.toDate(),
             endDate: new Date(),
-            dataType: this.taskDescr.dataType
+            dataType: HealthDataEnum.toNativeType(this.taskDescr.dataType)
           })
         }
       } else {
         this.healthData = await healthstore.query({
           startDate: startDate.toDate(),
           endDate: new Date(),
-          dataType: this.taskDescr.dataType
+          dataType: HealthDataEnum.toNativeType(this.taskDescr.dataType)
         })
       }
       console.log('raw health data', this.healthData)
@@ -158,7 +158,7 @@ export default {
             }
           } else {
             tempData.datasets.push({
-              label: HealthDataEnum.valueToString(this.taskDescr.dataType),
+              label: this.$i18n.t('healthDataTypes.' + this.taskDescr.dataType),
               data: [],
               backgroundColor: '#800000'
             })
@@ -214,7 +214,7 @@ export default {
             }
           } else {
             tempData.datasets.push({
-              label: HealthDataEnum.valueToString(this.taskDescr.dataType),
+              label: this.$i18n.t('healthDataTypes.' + this.taskDescr.dataType),
               data: [],
               backgroundColor: '#800000'
             })
@@ -234,7 +234,7 @@ export default {
       } else {
         // NOT AGGREGATED
         tempData.datasets.push({
-          label: HealthDataEnum.valueToString(this.taskDescr.dataType),
+          label: this.$i18n.t('healthDataTypes.' + this.taskDescr.dataType),
           data: [],
           fill: false,
           pointRadius: 0,
