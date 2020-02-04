@@ -3,7 +3,7 @@ import moment from 'moment'
 import { RRule } from 'rrule'
 import notifications from './notifications'
 import { Platform } from 'quasar'
-import HealthDataEnum from './healthstoreDataTypesEnum'
+import HealthDataEnum from './healthDataTypesEnum'
 
 // Returns an array of tasks that need to be done today.
 // These are tasks that were "missed" between the last execution and the end of

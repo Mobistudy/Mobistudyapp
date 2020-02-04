@@ -1,15 +1,53 @@
 'use strict'
 
-// This wraps the HealthStore either from a mock or the actual implementation
+export default {
+  isAvailable: async function () {
+    return new Promise((resolve, reject) => {
+      if (!navigator.health) reject(new Error('Cordova Health is not installed'))
+      navigator.health.isAvailable(resolve, reject)
+    })
+  },
 
-import * as mockHS from './mockHealthstore'
-import * as cordovaHS from './cordovaHealthstore'
+  promptInstallFit: async function () {
+    return new Promise((resolve, reject) => {
+      if (!navigator.health) reject(new Error('Cordova Health is not installed'))
+      navigator.health.promptInstallFit(resolve, reject)
+    })
+  },
 
-let HS = {}
-if (process.env.HEALTHSTORE === 'MOCK') {
-  HS = Object.assign(mockHS, HS)
-} else {
-  HS = Object.assign(cordovaHS, HS)
+  requestAuthorization: async function (datatypes) {
+    return new Promise((resolve, reject) => {
+      if (!navigator.health) reject(new Error('Cordova Health is not installed'))
+      navigator.health.requestAuthorization(datatypes, resolve, reject)
+    })
+  },
+
+  isAuthorized: async function (datatypes) {
+    return new Promise((resolve, reject) => {
+      if (!navigator.health) reject(new Error('Cordova Health is not installed'))
+      navigator.health.isAuthorized(datatypes, resolve, reject)
+    })
+  },
+
+  disconnect: async function () {
+    return new Promise((resolve, reject) => {
+      if (!navigator.health) reject(new Error('Cordova Health is not installed'))
+      navigator.health.disconnect(resolve, reject)
+    })
+  },
+
+  query: async function (queryOpts) {
+    return new Promise((resolve, reject) => {
+      if (!navigator.health) reject(new Error('Cordova Health is not installed'))
+      navigator.health.query(queryOpts, resolve, reject)
+    })
+  },
+
+  queryAggregated: async function (queryOpts) {
+    return new Promise((resolve, reject) => {
+      if (!navigator.health) reject(new Error('Cordova Health is not installed'))
+      navigator.health.queryAggregated(queryOpts, resolve, reject)
+    })
+  }
+
 }
-
-export default HS

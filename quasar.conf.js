@@ -82,7 +82,8 @@ module.exports = function (ctx) {
       // extractCSS: false,
       env: {
         // version of the app is passed as environmental variable
-        APP_VERSION: JSON.stringify(require('./package.json').version)
+        APP_VERSION: JSON.stringify(require('./package.json').version),
+        API_ENDPOINT: API_ENDPOINT
       },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
@@ -97,7 +98,7 @@ module.exports = function (ctx) {
         })
         // substitutes modules with alternatives depending on compilation flags
         cfg.plugins.push(new webpack.NormalModuleReplacementPlugin(
-          /.*\/API|.*\/notifications|.*\/storage\.local/g,
+          /.*\/API|.*\/notifications|.*\/storage\.local|.*\/healthstore/g,
           function (resource) {
             if (!!resource.request && (resource.request.indexOf('API') != -1) && API_ENDPOINT === 'MOCK') {
               resource.request = resource.request.replace(/API/g, 'API.mock')

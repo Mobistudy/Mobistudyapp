@@ -59,7 +59,6 @@
 </style>
 
 <script>
-// import taskCard from 'components/Main/TaskCard.vue'
 import taskListItem from 'components/Main/TaskListItem.vue'
 import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
@@ -69,7 +68,7 @@ import * as scheduler from '../../modules/scheduler'
 export default {
   name: 'TaskerPage',
   components: {
-    /* taskCard, */ taskListItem
+    taskListItem
   },
   props: ['rescheduleTasks', 'checkNewStudies'],
   data () {
