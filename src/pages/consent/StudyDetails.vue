@@ -37,7 +37,7 @@
       </q-item>
     </q-list>
 
-    <q-list v-for="(pi, index) in studyDescription.generalities.principalInvestigators" :key="index">
+    <q-list v-for="(pi, index) in studyDescription.generalities.principalInvestigators" :key="index+ 'pi'">
       <q-item>
         <q-item-section>
           <q-item-label>
@@ -81,7 +81,7 @@
       </q-item>
     </q-list>
 
-    <q-list v-for="(institution, index) in studyDescription.generalities.institutions" :key="index">
+    <q-list v-for="(institution, index) in studyDescription.generalities.institutions" :key="index + 'in'">
       <q-item>
         <q-item-section>
           <q-item-label>
@@ -124,61 +124,9 @@
         </q-item-section>
       </q-item>
 
-      <!-- <div v-if="institution.dataAccess == 'anonymised'">
-            This institution will have access to your data in an anonymised way.
-          </div>
-          <div v-if="institution.dataAccess == 'no'">
-            This institution will not have access to your data.
-          </div>
-          <div v-if="institution.dataAccess == 'full'">
-            This institution will have full access to your data.
-          </div>
-          <div>
-            Reason For Data Access': {{institution.reasonForDataAccess}}
-          </div> -->
-
       <q-separator class="q-my-md" inset v-if="index != studyDescription.generalities.institutions.length-1"/>
 
     </q-list>
-
-    <!-- <div class="q-my-lg">
-      <div class="q-title">
-        Involved institutions:
-      </div>
-      <div class="q-my-sm" v-for="(institution, index) in studyDescription.generalities.institutions" :key="index">
-        <div class="q-mb-sm row">
-          <div class="col-4">
-            Name:
-          </div>
-          <div class="col">
-            {{institution.name}}
-          </div>
-        </div>
-        <div class="q-mb-sm row">
-          <div class="col-4">
-            Contact details:
-          </div>
-          <div class="col">
-            {{institution.contact}}
-          </div>
-        </div>
-        <div class="q-mb-sm row">
-          <div v-if="institution.dataAccess == 'anonymised'">
-            This institution will have access to your data in an anonymised way.
-          </div>
-          <div v-if="institution.dataAccess == 'no'">
-            This institution will not have access to your data.
-          </div>
-          <div v-if="institution.dataAccess == 'full'">
-            This institution will have full access to your data.
-          </div>
-          <div>
-            Reason For Data Access': {{institution.reasonForDataAccess}}
-          </div>
-        </div>
-        <q-separator v-if="index != studyDescription.generalities.institutions.length-1"/>
-      </div>
-    </div> -->
 
     <div class="q-my-md flex flex-center">
       <q-btn class="full-width q-mt-sm q-mb-lg" label="Next" @click="next()"></q-btn>
