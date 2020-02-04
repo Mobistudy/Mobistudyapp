@@ -1,7 +1,7 @@
-import enUS from './en-us'
-import svSV from './sv'
+import en from './en'
+import sv from './sv'
 
 export default {
-  'en-us': enUS,
-  sv: svSV
+  'en': en,
+  'sv': sv
 }
