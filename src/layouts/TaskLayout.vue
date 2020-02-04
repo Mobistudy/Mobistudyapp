@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-layout-header>
+    <q-item-label header>
       <q-toolbar color="primary">
         <q-btn flat dense round @click="goBack()" aria-label="Back" >
           <q-icon name="arrow_back" />
@@ -10,7 +10,7 @@
           Task
         </q-toolbar-title>
       </q-toolbar>
-    </q-layout-header>
+    </q-item-label>
 
     <q-page-container>
       <router-view />

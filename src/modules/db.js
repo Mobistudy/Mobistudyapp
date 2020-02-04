@@ -4,16 +4,10 @@
 * Simple DAO from local storage
 * Different implementations of local storage can be used, as long as they are promisified
 */
-
-// use standard local storage for testst on browsers
-import * as storage from './db_localStorage'
-// use native local storage for apps
-// import * as DB from './db_nativeStorage'
-
+import * as storage from './storage.local'
 // TODO: the best solution would be including encryption, eg via https://www.npmjs.com/package/secure-web-storage
 
 export default {
-  version: 'localStorage',
   async emptyDB () {
     // TODO: we need to keep app_version and other non-user dependant variables !!!
     return storage.clear()

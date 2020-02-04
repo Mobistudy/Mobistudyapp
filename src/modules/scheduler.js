@@ -3,7 +3,7 @@ import moment from 'moment'
 import { RRule } from 'rrule'
 import notifications from './notifications'
 import { Platform } from 'quasar'
-import HealthDataEnum from './healthstoreDataTypesEnum'
+import HealthDataEnum from './healthDataTypesEnum'
 
 // Returns an array of tasks that need to be done today.
 // These are tasks that were "missed" between the last execution and the end of
@@ -92,10 +92,10 @@ export function generateTasker (studiesParts, studiesDescr) {
         }
         if (upcoming !== null) {
           // upcoming executions of the task go into the upcoming array
-          taskerItems.upcoming.push(Object.assign({missed: false, due: upcoming}, templateObj))
+          taskerItems.upcoming.push(Object.assign({ missed: false, due: upcoming }, templateObj))
         } else if (missed !== null) {
           // missed executions of the task go into the missed array
-          taskerItems.missed.push(Object.assign({missed: true, due: missed}, templateObj))
+          taskerItems.missed.push(Object.assign({ missed: true, due: missed }, templateObj))
         }
       }
       if (allTasksCompleted) {
@@ -260,7 +260,7 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
           // TODO: change the text according to the type of task
           text: 'Tap here to open the app',
           foreground: true,
-          trigger: {at: executionDate}
+          trigger: { at: executionDate }
         })
       }
     }

@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-layout-header>
-      <q-toolbar color="primary">
+    <q-header reveal elevated class="bg-primary text-white">
+      <q-toolbar>
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
           <q-icon name="menu" />
         </q-btn>
@@ -10,41 +10,56 @@
           Mobistudy
         </q-toolbar-title>
       </q-toolbar>
-    </q-layout-header>
+    </q-header>
 
-    <q-layout-drawer v-model="leftDrawerOpen" :content-class="$q.theme === 'mat' ? 'bg-grey-3' : null">
+    <q-drawer v-model="leftDrawerOpen" :content-class="$q.theme === 'mat' ? 'bg-grey-3' : null" overlay behavior="mobile" elevated>
       <q-list no-border link inset-delimiter >
         <!--<q-list-header>Logged in as {{ name }} {{ surname }}</q-list-header>-->
-        <q-list-header>Logged in.</q-list-header>
+        <q-item-label header>Logged in.</q-item-label>
+
+        <q-separator />
+
         <q-item to="tasker">
-          <q-item-side icon="school" />
-          <q-item-main label="Daily tasks" sublabel="See upcoming tasks" />
+          <q-item-section avatar>
+            <q-icon color="primary" name="school" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Daily tasks</q-item-label>
+            <q-item-label caption>See upcoming tasks</q-item-label>
+          </q-item-section>
         </q-item>
         <q-item to="profile">
-          <q-item-side icon="account_box" />
-          <q-item-main label="Profile" sublabel="Edit profile"/>
+          <q-item-section avatar>
+            <q-icon color="grey" name="account_box" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Profile</q-item-label>
+            <q-item-label caption>Edit profile</q-item-label>
+          </q-item-section>
         </q-item>
         <q-item to="studies">
-          <q-item-side icon="settings" />
-          <q-item-main label="Manage Studies" sublabel="Add or withdraw from studies"/>
+          <q-item-section avatar>
+            <q-icon color="grey" name="settings" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Manage Studies</q-item-label>
+            <q-item-label caption>Add or withdraw from studies</q-item-label>
+          </q-item-section>
         </q-item>
         <q-item to="about">
-          <q-item-side icon="help" />
-          <q-item-main label="About" sublabel="About Mobistudy"/>
+          <q-item-section avatar>
+            <q-icon color="grey" name="help" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>About</q-item-label>
+            <q-item-label caption>About Mobistudy</q-item-label>
+          </q-item-section>
         </q-item>
-        <q-item to="charting">
-          <q-item-side icon="directions_run" />
-          <q-item-main label="Your Fitness" sublabel="Your data from the last week" />
-        </q-item>
-        <!--<q-item to="dev">-->
-          <!--<q-item-side icon="build" />-->
-          <!--<q-item-main label="Developer Panel" />-->
-        <!--</q-item>-->
       </q-list>
-    </q-layout-drawer>
+    </q-drawer>
 
     <q-page-container>
-      <router-view/>
+      <router-view></router-view>
     </q-page-container>
   </q-layout>
 </template>

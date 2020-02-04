@@ -1,8 +1,14 @@
+/* eslint-disable vue/return-in-computed-property */
 <template>
   <q-item :to="toAddress">
-    <q-item-side :icon="icon" />
-    <q-item-main :label="title" :sublabel="main" />
-    <q-item-side right :stamp="timeRemaining" />
+    <q-item-section avatar>
+      <q-icon color="grey" :name="icon" />
+    </q-item-section>
+    <q-item-section>
+      <q-item-label>{{ title }}</q-item-label>
+      <q-item-label caption>{{ main }}</q-item-label>
+    </q-item-section>
+    <q-item-section side top>{{ timeRemaining }}</q-item-section>
   </q-item>
 </template>
 
@@ -39,6 +45,11 @@ export default {
         return 'form/' + this.task.studyKey + '/' + this.task.taskID + '/' + this.task.formKey
       } else if (this.task.studyKey && this.task.taskID) {
         return 'dataQuery/' + this.task.studyKey + '/' + this.task.taskID
+      // eslint-disable-next-line brace-style
+      }
+      // NEED TO CHECK IF THE FOLLOWING ELSE BREAKS THE CODE, HAD TO PUT IT IN SO THE FUNCTION ALWAYS RETURNS A VALUE-> FOR DOC SEE: https://eslint.vuejs.org/rules/return-in-computed-property.html
+      else {
+        return false
       }
     }
   }
