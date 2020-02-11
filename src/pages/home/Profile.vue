@@ -4,14 +4,14 @@
       <q-item>
         <q-item-section>
           <q-item-label class="text-h6 text-center q-pt-md">
-            Your profile
+            {{$t('home.profile.headline')}}
           </q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
 
     <q-list>
-      <q-input label="First Name" :error="$v.profile.name.$error" error-message="First Name required" v-model="profile.name" @blur="$v.profile.name.$touch">
+      <q-input :label="$t('home.profile.firstNameLabel')" :error="$v.profile.name.$error" :error-message="$t('home.profile.firstNameError')" v-model="profile.name" @blur="$v.profile.name.$touch">
         <template v-slot:before>
           <q-icon name="face" />
         </template>
@@ -19,7 +19,7 @@
     </q-list>
 
     <q-list>
-      <q-input label="Surname" :error="$v.profile.surname.$error" error-message="Surname required" v-model="profile.surname" @blur="$v.profile.surname.$touch">
+      <q-input :label="$t('home.profile.surnameLabel')" :error="$v.profile.surname.$error" :error-message="$t('home.profile.surnameError')" v-model="profile.surname" @blur="$v.profile.surname.$touch">
         <template v-slot:before>
           <q-icon name="face" color="white" />
         </template>
@@ -27,7 +27,7 @@
     </q-list>
 
     <q-list>
-      <q-select v-model="profile.sex" map-options :options="sexOptions" :error="$v.profile.sex.$error" @blur="$v.profile.sex.$touch" label="Sex" error-message="Required">
+      <q-select v-model="profile.sex" map-options :options="sexOptions" :error="$v.profile.sex.$error" @blur="$v.profile.sex.$touch" :label="$t('home.profile.sexLabel')" :error-message="$t('home.profile.sexError')">
         <template v-slot:before>
           <q-icon name="wc" />
         </template>
@@ -36,14 +36,14 @@
 
     <q-list>
       <!-- TODO: NEED TO FIX VALIDATION-RULES FOR CUSTOM FORMAT! AS IN Reg_Profile.vue -->
-      <q-input v-model="profile.dateOfBirth" mask="####/##/##" :rules="['YYYY/MM/DD']" label="Date of Birth" error-message="Required" :error="$v.profile.dateOfBirth.$error" @blur="$v.profile.dateOfBirth.$touch">
+      <q-input v-model="profile.dateOfBirth" mask="####/##/##" :rules="['YYYY/MM/DD']" :label="$t('home.profile.dateOfBirthLabel')" :error-message="$t('home.profile.dateOfBirthError')" :error="$v.profile.dateOfBirth.$error" @blur="$v.profile.dateOfBirth.$touch">
         <template v-slot:before>
           <q-icon name="cake" />
         </template>
         <template v-slot:append>
           <q-icon name="calendar_today" class="cursor-pointer">
             <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-              <q-date v-model="profile.dateOfBirth" @input="() => $refs.qDateProxy.hide()" mask="YYYY/MM/DD" format="YYYY/MM/DD" title="Date of Birth" />
+              <q-date v-model="profile.dateOfBirth" @input="() => $refs.qDateProxy.hide()" mask="YYYY/MM/DD" format="YYYY/MM/DD" :title="$t('home.profile.dateOfBirthTitle')" />
             </q-popup-proxy>
           </q-icon>
         </template>
@@ -66,8 +66,8 @@
     <!-- <q-toggle class="q-mt-lg q-ma-sm" label="Do you smoke?" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/>
     <q-toggle class="q-ma-sm" label="Do you have an active lifestyle?" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/> -->
     <div class="q-mt-md q-mb-lg row q-px-md">
-      <div class="q-ma-sm"><q-btn color="primary" label="Update" @click="saveProfile()" /></div>
-      <div class="q-ma-sm"><q-btn color="grey" label="Cancel" to="home" /></div>
+      <div class="q-ma-sm"><q-btn color="primary" :label="$t('home.profile.buttonUpdate')" @click="saveProfile()" /></div>
+      <div class="q-ma-sm"><q-btn color="grey" :label="$t('home.profile.buttonCancel')" to="home" /></div>
     </div>
     <q-separator />
     <q-item class="q-mt-md">
@@ -75,9 +75,9 @@
           <q-icon color="grey" name="security" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>Change your Password</q-item-label>
-          <q-item-label caption>To change your password you'll get a mail with a verification token, enter the token on the next screen and choose a new password.</q-item-label>
-          <div class="q-my-md"><q-btn color="secondary" to="changePW" label="Change Password" /></div>
+          <q-item-label>{{$t('home.profile.changePwHeadline')}}</q-item-label>
+          <q-item-label caption>{{$t('home.profile.changePwText')}}</q-item-label>
+          <div class="q-my-md"><q-btn color="secondary" to="changePW" :label="$t('home.profile.buttonChangePw')" /></div>
         </q-item-section>
     </q-item>
     <q-separator inset />
@@ -86,9 +86,9 @@
           <q-icon color="grey" name="exit_to_app" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>Logout</q-item-label>
-          <q-item-label caption>You can temporarily logout of your Mobistudy App, please take note, that Mobistudy won't collect any data while you are logged out and thus won't submit any data to the studies you are participating in.</q-item-label>
-          <div class="q-my-md"><q-btn color="warning" to="Login" label="Logout" /></div>
+          <q-item-label>{{$t('home.profile.logoutHeadline')}}</q-item-label>
+          <q-item-label caption>{{$t('home.profile.logoutText')}}</q-item-label>
+          <div class="q-my-md"><q-btn color="warning" to="Login" :label="$t('home.profile.buttonLogout')" /></div>
         </q-item-section>
       </q-item>
     <q-separator inset />
@@ -97,9 +97,9 @@
           <q-icon color="grey" name="delete_forever" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>Delete your Account</q-item-label>
-          <q-item-label caption>You can permanently delete your account, Mobistudy won't ever collect anymore data if you don't create a new account.</q-item-label>
-          <div class="q-my-md"><q-btn color="negative" label="Delete Account" @click="deleteUser()" /></div>
+          <q-item-label>{{$t('home.profile.deleteHeadline')}}</q-item-label>
+          <q-item-label caption>{{$t('home.profile.deleteText')}}</q-item-label>
+          <div class="q-my-md"><q-btn color="negative" :label="$t('home.profile.buttonDelete')" @click="deleteUser()" /></div>
         </q-item-section>
       </q-item>
     <q-separator inset />

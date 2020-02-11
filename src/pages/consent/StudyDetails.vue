@@ -3,7 +3,7 @@
     <q-list class="flex flex-center">
       <q-item>
         <q-item-label class="text-h5">
-          Study details
+          {{ $t('consent.studyDetails.headline')}}
         </q-item-label>
       </q-item>
     </q-list>
@@ -12,7 +12,7 @@
       <q-item>
         <q-item-section>
           <q-item-label class="text-h6">
-            Title of this study:<br />{{studyDescription.generalities.title}}
+            {{ $t('consent.studyDetails.studyHeadline')}}:<br />{{studyDescription.generalities.title}}
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -31,7 +31,7 @@
       <q-item>
         <q-item-section>
           <q-item-label class="text-subtitle1">
-            Principal investigators:
+            {{ $t('consent.studyDetails.investigatorListHeadline')}}:
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -41,7 +41,7 @@
       <q-item>
         <q-item-section>
           <q-item-label>
-            Name:
+            {{ $t('consent.studyDetails.name')}}:
           </q-item-label>
           <q-item-label caption>
             {{pi.name}}
@@ -51,7 +51,7 @@
       <q-item>
         <q-item-section>
           <q-item-label>
-            Institution:
+            {{ $t('consent.studyDetails.institution')}}:
           </q-item-label>
           <q-item-label caption>
             {{pi.institution}}
@@ -61,7 +61,7 @@
       <q-item>
         <q-item-section>
           <q-item-label>
-            Contact details:
+            {{ $t('consent.studyDetails.contact')}}:
           </q-item-label>
           <q-item-label caption>
             {{pi.contact}}
@@ -75,7 +75,7 @@
       <q-item>
         <q-item-section>
           <q-item-label class="text-subtitle1 q-mt-md">
-            Involved institutions:
+            {{ $t('consent.studyDetails.involvedInstitutions')}}:
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -85,7 +85,7 @@
       <q-item>
         <q-item-section>
           <q-item-label>
-            Name:
+            {{ $t('consent.studyDetails.institutionName')}}:
           </q-item-label>
           <q-item-label caption>
             {{institution.name}}
@@ -95,7 +95,7 @@
       <q-item>
         <q-item-section>
           <q-item-label>
-            Contact details:
+            {{ $t('consent.studyDetails.institutionContact')}}:
           </q-item-label>
           <q-item-label caption>
             {{institution.contact}}
@@ -104,22 +104,22 @@
       </q-item>
       <q-item v-if="institution.dataAccess == 'anonymised'">
         <q-item-section>
-          <q-item-label>This institution will have access to your data in an anonymised way.</q-item-label>
+          <q-item-label>{{ $t('consent.studyDetails.dataAccess.anonymised')}}</q-item-label>
         </q-item-section>
       </q-item>
       <q-item v-if="institution.dataAccess == 'no'">
         <q-item-section>
-          <q-item-label>This institution will not have access to your data.</q-item-label>
+          <q-item-label>{{ $t('consent.studyDetails.dataAccess.no')}}</q-item-label>
         </q-item-section>
       </q-item>
       <q-item v-if="institution.dataAccess == 'full'">
         <q-item-section>
-          <q-item-label>This institution will have full access to your data.</q-item-label>
+          <q-item-label>{{ $t('consent.studyDetails.dataAccess.full')}}</q-item-label>
         </q-item-section>
       </q-item>
       <q-item v-if="institution.reasonForDataAccess">
         <q-item-section>
-          <q-item-label>Reason For Data Access:</q-item-label>
+          <q-item-label>{{ $t('consent.studyDetails.dataAccess.reasonHeadline')}}:</q-item-label>
           <q-item-label caption>{{institution.reasonForDataAccess}}</q-item-label>
         </q-item-section>
       </q-item>
@@ -129,7 +129,7 @@
     </q-list>
 
     <div class="q-my-md flex flex-center">
-      <q-btn class="full-width q-mt-sm q-mb-lg" label="Next" @click="next()"></q-btn>
+      <q-btn class="full-width q-mt-sm q-mb-lg" :label="$t('consent.studyDetails.buttonNext')" @click="next()"></q-btn>
     </div>
   </q-page>
 </template>

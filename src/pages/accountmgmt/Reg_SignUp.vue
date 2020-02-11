@@ -3,7 +3,7 @@
         <q-list>
           <q-item>
             <q-item-section>
-              <q-item-label class="text-h6 text-center q-pt-md">Sign up</q-item-label>
+              <q-item-label class="text-h6 text-center q-pt-md">{{ $t('accountMgmt.signUp.headline') }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -11,8 +11,8 @@
         <q-list>
           <q-item class="q-py-none">
             <q-item-section>
-              <q-field :error="$v.account.email.$error" error-message="Please type a valid email">
-                <q-input label="Email" @blur="$v.account.email.$touch" v-model="account.email" />
+              <q-field :error="$v.account.email.$error" :error-message="$t('accountMgmt.signUp.emailError')">
+                <q-input :label="$t('accountMgmt.signUp.email')" @blur="$v.account.email.$touch" v-model="account.email" />
                 <template v-slot:before>
                   <q-icon name="mail_outline" />
                 </template>
@@ -25,7 +25,7 @@
           <q-item class="q-py-none">
             <q-item-section>
               <q-field :error="$v.account.pw1.$error" :error-message="getFirstPwdCheckError(account.pw1)">
-                <q-input label="Password" v-model="account.pw1" @blur="$v.account.pw1.$touch" type="password" />
+                <q-input :label="$t('accountMgmt.signUp.password')" v-model="account.pw1" @blur="$v.account.pw1.$touch" type="password" />
                 <template v-slot:before>
                   <q-icon name="vpn_key" />
                 </template>
@@ -37,8 +37,8 @@
         <q-list>
           <q-item class="q-py-none">
             <q-item-section>
-              <q-field icon="vpn_key" :error="$v.account.pw2.$error" error-message="Passwords must match">
-                <q-input label="Confirm Password" v-model="account.pw2" @blur="$v.account.pw2.$touch" type="password" />
+              <q-field icon="vpn_key" :error="$v.account.pw2.$error" :error-message="$t('accountMgmt.signUp.confirmPWError')">
+                <q-input :label="$t('accountMgmt.signUp.confirmPW')" v-model="account.pw2" @blur="$v.account.pw2.$touch" type="password" />
                 <template v-slot:before>
                   <q-icon name="vpn_key" />
                 </template>
@@ -48,8 +48,8 @@
         </q-list>
 
         <q-item class="row justify-evenly">
-          <q-btn flat to="register_pp" label="Cancel" />
-          <q-btn color="primary" :disable="$v.account.$error" @click="register()" label="Create Account" />
+          <q-btn flat to="register_pp" :label="$t('accountMgmt.signUp.buttonCancel')" />
+          <q-btn color="primary" :disable="$v.account.$error" @click="register()" :label="$t('accountMgmt.signUp.buttonNext')" />
         </q-item>
       </q-page>
 </template>

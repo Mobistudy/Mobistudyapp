@@ -4,7 +4,7 @@
       <q-item>
         <q-item-section>
           <q-item-label class="text-h5 text-center">
-            Privacy Policy
+            {{$t('consent.privacy.headline')}}
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -19,8 +19,8 @@
 
     <q-list>
       <q-item class="row justify-between">
-        <q-btn label="Deny" color="negative" @click="deny()"></q-btn>
-        <q-btn label="Accept" color="primary" @click="accept()"></q-btn>
+        <q-btn :label="$t('consent.privacy.buttonBack')" color="negative" @click="deny()"></q-btn>
+        <q-btn :label="$t('consent.privacy.buttonNext')" color="primary" @click="accept()"></q-btn>
       </q-item>
     </q-list>
 

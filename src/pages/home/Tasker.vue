@@ -1,17 +1,17 @@
 <template>
   <q-page padding>
     <q-banner rounded inline-actions class="bg-warning text-white q-mb-sm" v-if="newstudies" icon="new_releases" type="warning">
-        New study available!
+        {{ $t('home.tasker.newStudy') }}!
         <template v-slot:action>
-          <q-btn flat color="white" label="Check it" to="studies"/>
+          <q-btn flat color="white" :label="$t('home.tasker.buttonNewStudy')" to="studies"/>
         </template>
     </q-banner>
 
     <div v-if="nostudies" class="q-title">
-      You are currently not participating in any study.
+      {{ $t('home.tasker.noStudies') }}
     </div>
     <q-list v-else highlight>
-      <q-item-label header>Today's pending tasks</q-item-label>
+      <q-item-label header>{{ $t('home.tasker.tasksHeadline') }}</q-item-label>
       <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
       <div>
         <taskListItem v-for="(task, uindex) in tasks.upcoming" :task="task" :key="uindex"></taskListItem>
@@ -21,11 +21,11 @@
           <q-icon color="primary" name="check" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>No tasks pending</q-item-label>
+          <q-item-label>{{ $t('home.tasker.noTasks') }}</q-item-label>
         </q-item-section>
       </q-item>
       <q-separator inset />
-      <q-item-label header>Past days missed tasks</q-item-label>
+      <q-item-label header>{{ $t('home.tasker.pastDayMissedTasks') }}</q-item-label>
       <div>
         <taskListItem v-for="(task, mindex) in tasks.missed" :task="task" :key="mindex"></taskListItem>
       </div>
@@ -34,22 +34,21 @@
           <q-icon color="primary" name="check" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>No tasks missed</q-item-label>
+          <q-item-label>{{ $t('home.tasker.noTasksMissed') }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
 
     <q-dialog v-if="this.tasks.completedStudyAlert" v-model="completedStudyModal" maximized>
       <div class="q-pa-lg text-center" style="background-color:white">
-        <div class="text-h4 q-mb-md">You have completed a study!</div>
+        <div class="text-h4 q-mb-md">{{ $t('home.tasker.studyCompletedHeadline') }}!</div>
         <div>
           <img src="statics/icons/confetti.svg" style="width:30vw; max-width:150px;" ><br />
-          <p>You have completed all the tasks for the {{this.tasks.completedStudyAlert.studyTitle}} study.</p>
-          <p>Thank very much for this!</p>
+          <p>{{ $t('home.tasker.studyCompletedText') }} {{this.tasks.completedStudyAlert.studyTitle}}.</p>
+          <p>{{ $t('home.tasker.studyCompletedThanks') }}!</p>
         </div>
-        <p>Please, be aware that some studies may require some further action,
-          Check the study description in the "Manage Studies" menu.</p>
-        <q-btn color="primary" @click="studyCompleted()" label="Close" />
+        <p>{{ $t('home.tasker.studyCompletedReminder') }}</p>
+        <q-btn color="primary" @click="studyCompleted()" :label="$t('home.tasker.buttonCloseStudyCompleted')" />
       </div>
     </q-dialog>
   </q-page>

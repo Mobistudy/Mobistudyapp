@@ -2,22 +2,22 @@
   <q-page padding>
     <!-- content -->
     <q-list v-for="(study, studyIndex) in newStudies" :key="studyIndex">
-      <q-item-label header>You are invited to join</q-item-label>
+      <q-item-label header>{{ $t('home.studies.headline') }}</q-item-label>
       <q-item >
         <q-item-section>
           <q-item-label>{{study.generalities.title}}</q-item-label>
           <q-item-label caption>{{study.generalities.shortDescription}}</q-item-label>
         </q-item-section>
       </q-item>
-      <q-item-label header>Answer the following to know if you are eligible</q-item-label>
+      <q-item-label header>{{ $t('home.studies.questionsHeadline') }}</q-item-label>
       <q-item v-for="(question, questionIndex) in study.inclusionCriteria.criteriaQuestions" :key="questionIndex">
         <q-item-section>
           <p>
             {{question.title}}
           </p>
           <div class="row">
-            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="yes" label="Yes" />
-            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="no" label="No" />
+            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="yes" :label="$t('home.studies.questionYes')" />
+            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="no" :label="$t('home.studies.questionNo')" />
           </div>
         </q-item-section>
       </q-item>
@@ -25,14 +25,14 @@
         <q-item-section>
           <div class="q-ma-sm text-negative" v-show="!eligible[studyIndex] && newStudiesCustomAnswers[studyIndex].length === study.inclusionCriteria.criteriaQuestions.length"
           color="negative">
-          You are not eligible for this study
+          {{ $t('home.studies.notEligible') }}
         </div>
         <div class="row justify-center">
           <div class="col">
-            <q-btn color="primary" label="Join" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
+            <q-btn color="primary" :label="$t('home.studies.buttonJoin')" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
           </div>
           <div class="col">
-            <q-btn color="negative" label="Discard" @click="discardStudy(studyIndex)"></q-btn>
+            <q-btn color="negative" :label="$t('home.studies.buttonDiscard')" @click="discardStudy(studyIndex)"></q-btn>
           </div>
         </div>
       </q-item-section>
@@ -40,7 +40,7 @@
   </q-list>
 
   <q-list link>
-    <q-item-label header>Active studies</q-item-label>
+    <q-item-label header>{{ $t('home.studies.activeStudies') }}</q-item-label>
     <div>
       <!-- TODO: Replace QItemMain/-Side WITH QItemSections WHEN THERE IS DATA TO TEST -->
       <q-item v-for="(study, activeStudyIndex) in activeStudies" :key="activeStudyIndex">
@@ -52,12 +52,12 @@
     </div>
 
     <q-item v-if="activeStudies.length === 0">
-      <q-item-section>No active studies found.</q-item-section>
+      <q-item-section>{{ $t('home.studies.noActiveStudies') }}</q-item-section>
     </q-item>
 
     <q-item-separator v-if="previousStudies.length !== 0" />
     <!-- TODO: Replace QItemMain/-Side WITH QItemSections WHEN THERE IS DATA TO TEST -->
-    <q-item-label header v-if="previousStudies.length !== 0">Previous studies</q-item-label>
+    <q-item-label header v-if="previousStudies.length !== 0">{{ $t('home.studies.previousStudies') }}</q-item-label>
     <q-item v-for="(study, previousStudyIndex) in previousStudies" :key="previousStudyIndex">
       <q-item-section :label="study.generalities.title" @click.native="showDetails(study)"/>
     </q-item>

@@ -7,7 +7,7 @@
         </q-btn>
 
         <q-toolbar-title>
-          Mobistudy
+          {{ $t('layoutPages.home.headline') }}
         </q-toolbar-title>
       </q-toolbar>
     </q-header>

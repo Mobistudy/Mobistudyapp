@@ -3,14 +3,14 @@
     <q-page-container>
       <q-page padding class="flex flex-center">
         <div style="width: 90vw">
-          <p class="text-h4">Reset password</p>
-            <q-field :error="$v.email.$error" error-message="An email address is required.">
-                <q-input v-model.trim="$v.email.$model" type="email" float-label="Email" placeholder="e.g. email@email.com"
+          <p class="text-h4">{{ $t('accountMgmt.resetPw.headline') }}</p>
+            <q-field :error="$v.email.$error" :error-message="$t('accountMgmt.resetPw.emailError')">
+                <q-input v-model.trim="$v.email.$model" type="email" :label="$t('accountMgmt.resetPw.email')" :placeholder="$t('accountMgmt.resetPw.emailPlaceholder')"
                  autocomplete="on" @blur="$v.email.$touch"/>
               </q-field>
             <br />
-            <q-btn class="float-left" label="Cancel" color="secondary" @click="$router.push('login')" />
-            <q-btn class="float-right" label="Reset Password" color="positive" type="submit" @click="submit" />
+            <q-btn class="float-left" :label="$t('accountMgmt.resetPw.buttonBack')" color="secondary" @click="$router.push('login')" />
+            <q-btn class="float-right" :label="$t('accountMgmt.resetPw.buttonNext')" color="positive" type="submit" @click="submit" />
         </div>
       </q-page>
     </q-page-container>
