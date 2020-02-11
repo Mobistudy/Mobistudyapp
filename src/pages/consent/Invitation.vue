@@ -7,7 +7,7 @@
         </q-item-section>
       </q-item>
       <q-item>
-        <q-btn class="q-mt-lg full-width" label="Next" color="primary" @click="next()"></q-btn>
+        <q-btn class="q-mt-lg full-width" :label="$t('consent.invitation.buttonNext')" color="primary" @click="next()"></q-btn>
       </q-item>
     </q-list>
   </q-page>

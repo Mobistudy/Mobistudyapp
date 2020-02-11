@@ -10,7 +10,7 @@
         </q-item>
         <q-item>
           <q-item-section>
-            <q-btn color="primary" @click="start()" label="Start" />
+            <q-btn color="primary" @click="start()" :label="$t('home.form.buttonStart')" />
           </q-item-section>
         </q-item>
       </q-list>
@@ -26,7 +26,7 @@
         </q-item>
       </q-list>
       <q-list>
-        <q-input v-show="currentQuestion.type === 'freetext'" v-model="freetextAnswer" type="textarea" float-label="Type your answer" width="100%" :max-height="100" rows="5"></q-input>
+        <q-input v-show="currentQuestion.type === 'freetext'" v-model="freetextAnswer" type="textarea" :label="$t('home.form.freeTextLabel')" width="100%" :max-height="100" rows="5"></q-input>
         <q-item v-show="currentQuestion.type === 'singleChoice'" v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="index">
           <q-radio v-model="singleChoiceAnswer" :val="answerChoice.id" :label="answerChoice.text"/>
         </q-item>
@@ -35,8 +35,8 @@
         </q-item>
       </q-list>
       <div class="row justify-between q-ma-lg">
-        <q-btn v-show="!isFirstQuestion" icon="arrow_back" color="secondary" @click="back()" label="Back" />
-        <q-btn icon-right="arrow_forward" color="primary" @click="next()" label="Next" />
+        <q-btn v-show="!isFirstQuestion" icon="arrow_back" color="secondary" @click="back()" :label="$t('home.form.buttonBack')" />
+        <q-btn icon-right="arrow_forward" color="primary" @click="next()" :label="$t('home.form.buttonNext')" />
       </div>
     </div>
 
@@ -45,13 +45,13 @@
         <q-item>
           <q-item-section>
             <q-item-label class="text-center text-h6">
-              Form completed. Thank you.
+              {{$t('home.form.completedText')}}
             </q-item-label>
           </q-item-section>
         </q-item>
         <q-item>
           <q-item-section>
-            <q-btn color="primary" @click="send()" :loading="loading" label="Send" />
+            <q-btn color="primary" @click="send()" :loading="loading" :label="$t('home.form.buttonSend')" />
           </q-item-section>
         </q-item>
       </q-list>

@@ -12,9 +12,9 @@
               align="justify"
               narrow-indicator
             >
-              <q-tab name="info" icon="info" label="Info" />
-              <q-tab name="privacy" icon="lock" label="Privacy" />
-              <q-tab v-if="studyParticipation.currentStatus == 'accepted'" name="consent" icon="done" label="Consent" />
+              <q-tab name="info" icon="info" :label="$t('home.studyConfig.tabs.info.title')" />
+              <q-tab name="privacy" icon="lock" :label="$t('home.studyConfig.tabs.privacy.title')" />
+              <q-tab v-if="studyParticipation.currentStatus == 'accepted'" name="consent" icon="done" :label="$t('home.studyConfig.tabs.consent.title')" />
             </q-tabs>
 
             <q-separator />
@@ -36,26 +36,26 @@
                   </q-item>
                   <q-item>
                     <q-item-section>
-                      <q-item-label class="text-subtitle1">Principal investigators:</q-item-label>
+                      <q-item-label class="text-subtitle1">{{ $t('home.studyConfig.tabs.info.investigatorListHeadline') }}:</q-item-label>
                     </q-item-section>
                   </q-item>
                 </q-list>
                 <q-list v-for="(pi, index) in studyDescription.generalities.principalInvestigators" :key="index">
                   <q-item>
                     <q-item-section>
-                      <q-item-label>Name:</q-item-label>
+                      <q-item-label>{{ $t('home.studyConfig.tabs.info.name') }}:</q-item-label>
                       <q-item-label caption>{{pi.name}}</q-item-label>
                     </q-item-section>
                   </q-item>
                   <q-item>
                     <q-item-section>
-                      <q-item-label>Institution:</q-item-label>
+                      <q-item-label>{{ $t('home.studyConfig.tabs.info.institution') }}:</q-item-label>
                       <q-item-label caption>{{pi.institution}}</q-item-label>
                     </q-item-section>
                   </q-item>
                   <q-item>
                     <q-item-section>
-                      <q-item-label>Contact details:</q-item-label>
+                      <q-item-label>{{ $t('home.studyConfig.tabs.info.contact') }}:</q-item-label>
                       <q-item-label caption>{{pi.contact}}</q-item-label>
                     </q-item-section>
                   </q-item>
@@ -71,7 +71,7 @@
                 <q-list>
                   <q-item>
                     <q-item-section>
-                      <q-item-label class="text-subtitle1">You can opt-in or opt-out of these items whenever you want:</q-item-label>
+                      <q-item-label class="text-subtitle1">{{ $t('home.studyConfig.tabs.consent.subtitle') }}:</q-item-label>
                     </q-item-section>
                   </q-item>
                 </q-list>
@@ -91,9 +91,9 @@
                       <q-item-label>{{taskItem.description}}</q-item-label>
                       <div v-if="taskType[taskIndex] === 'dataQuery' && !permissionsGiven[taskIndex]">
                         <div class="q-mt-sm text-secondary">
-                          This item requires the app to access some functionalities on the phone.
+                          {{ $t('home.studyConfig.tabs.consent.permissionText') }}
                         </div>
-                        <q-btn label="Give permission to this app" :disabled="!consentedTaskItems[taskIndex]" @click="requestDQPermission(taskIndex)"></q-btn>
+                        <q-btn :label="$t('home.studyConfig.tabs.consent.buttonPermissions')" :disabled="!consentedTaskItems[taskIndex]" @click="requestDQPermission(taskIndex)"></q-btn>
                       </div>
                     </q-item-section>
                     <q-item-section avatar>
@@ -105,9 +105,9 @@
                 <q-list>
                   <q-item>
                     <q-item-section>
-                      <q-item-label>I want to receive reminders about the tasks of this study</q-item-label>
-                      <q-item-label caption>You need to allow the app to send reminders.</q-item-label>
-                      <q-btn class="q-mt-lg" label="Allow reminders" :disabled="!reminders || remindersPermissionGiven" @click="requestNotificationsPermission()"></q-btn>
+                      <q-item-label>{{ $t('home.studyConfig.tabs.consent.remindersText') }}</q-item-label>
+                      <q-item-label caption>{{ $t('home.studyConfig.tabs.consent.remindersText2') }}</q-item-label>
+                      <q-btn class="q-mt-lg" :label="$t('home.studyConfig.tabs.consent.buttonReminders')" :disabled="!reminders || remindersPermissionGiven" @click="requestNotificationsPermission()"></q-btn>
                     </q-item-section>
                     <q-item-section avatar>
                       <q-checkbox v-model="reminders"/>
@@ -115,10 +115,10 @@
                   </q-item>
                 </q-list>
                 <div class="q-my-md row justify-center">
-                  <q-btn label="Update consent" color="primary" :disabled="!canUpdate" @click="updateConsent()"></q-btn>
+                  <q-btn :label="$t('home.studyConfig.tabs.consent.buttonUpdate')" color="primary" :disabled="!canUpdate" @click="updateConsent()"></q-btn>
                 </div>
                 <div class="q-my-md row justify-center">
-                  <q-btn label="Withdraw from the study" color="negative" @click="withdraw()"></q-btn>
+                  <q-btn :label="$t('home.studyConfig.tabs.consent.buttonWithdraw')" color="negative" @click="withdraw()"></q-btn>
                 </div>
               </q-tab-panel>
             </q-tab-panels>

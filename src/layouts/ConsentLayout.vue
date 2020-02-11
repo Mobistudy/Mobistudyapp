@@ -5,9 +5,8 @@
         <q-btn flat dense round @click="cancel()" aria-label="Back">
           <q-icon name="arrow_back" />
         </q-btn>
-
         <q-toolbar-title>
-          New study
+          {{ $t('layoutPages.consent.headline') }}
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
