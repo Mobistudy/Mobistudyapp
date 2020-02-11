@@ -3,7 +3,7 @@
 const webpack = require('webpack')
 
 // USE THESE TO TWEAK THE COMPILATION OPTIONS
-const API_ENDPOINT = 'MOCK' // use 'MOCK' for mock api, '' for local server or 'https://ibme-linuxdev.eng.ox.ac.uk:7777' for test server
+const API_ENDPOINT = 'MOCK' // use 'MOCK' for mock api, '/api' for local server
 const HEALTHSTORE = 'MOCK' // use 'MOCK' for mock healthstore or 'cordova-health' for the cordova health plugin
 const NOTIFICATIONS = 'WEB' // use 'WEB' for browser notifications or 'cordova-notification-local' for the cordova plugin
 const STORAGE = 'local' // use 'local' for browser localStorage or 'native' for cordova native storage
@@ -83,7 +83,7 @@ module.exports = function (ctx) {
       env: {
         // version of the app is passed as environmental variable
         APP_VERSION: JSON.stringify(require('./package.json').version),
-        API_ENDPOINT: API_ENDPOINT
+        API_ENDPOINT: JSON.stringify(API_ENDPOINT)
       },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {

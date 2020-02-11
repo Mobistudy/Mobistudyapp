@@ -1,13 +1,16 @@
 // MOCK API implementation
 import study1234 from './mockdata/study1234.js'
+import form1234 from './mockdata/form1234.js'
+import study9999 from './mockdata/study9999.js'
+import form9999 from './mockdata/form9999.js'
 
 export default {
   setToken: function (token) {
-    console.log('API- Setting token: ' + token)
+    console.log('API - Setting token: ' + token)
   },
 
   unsetToken: function () {
-    console.log('API- Unsetting token')
+    console.log('API - Unsetting token')
   },
 
   // Logging in
@@ -17,7 +20,7 @@ export default {
       err.response = { status: 401 }
       throw err
     }
-    console.log('API- Logging in')
+    console.log('API - Logging in')
     return {
       _key: '1231232',
       email: 'jameson@test.test',
@@ -27,18 +30,19 @@ export default {
 
   // Registration
   registerUser: async (email, password) => {
-    console.log('API- Registering user')
+    console.log('API - Registering user')
     return true
   },
 
   // Password reset
   resetPW: async (email) => {
-    console.log('API- Reset profile for email' + email)
+    console.log('API - Reset profile for email' + email)
     return true
   },
 
   // Change password
   changePW: async (token, newpw) => {
+    console.log('API - change PWD')
     return Promise.resolve(true)
   },
 
@@ -102,6 +106,7 @@ export default {
 
   // search for disease on SNOMED
   searchSNOMEDDisease: async (diseaseDescription) => {
+    console.log('API - search disease', diseaseDescription)
     return [{
       label: 'Heart Failure',
       value: 'Heart Failure',
@@ -121,6 +126,7 @@ export default {
 
   // search for medications on SNOMED
   searchSNOMEDMedication: async (medDescription) => {
+    console.log('API - search med', medDescription)
     return [{
       label: 'Aspirin',
       value: 'Aspirin',
@@ -145,121 +151,33 @@ export default {
         setTimeout(function () {
           resolve(study1234)
         }, 2000)
+      } else if (studyKey === '9999') {
+        setTimeout(function () {
+          resolve(study9999)
+        }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study not found'))
-        }, 1000)
+        }, 500)
       }
     })
   },
 
   getNewStudiesKeys: async () => {
+    console.log('API - getting new study')
     return ['9999']
   },
 
   getForm: async (key) => {
+    console.log('API - getting form', key)
     return new Promise(function (resolve, reject) {
-      if (key === '123456') {
+      if (key === '9999') {
         setTimeout(function () {
-          resolve({
-            'created': '2018-10-25T10:09:53.222Z',
-            'name': 'My cool form',
-            'description': 'a short form',
-            'questions': [{
-              'id': 'Q1',
-              'type': 'singleChoice',
-              'text': 'What do you prefer?',
-              'helper': 'Some details here',
-              'nextDefaultId': 'Q2',
-              'answerChoices': [{
-                'id': '1',
-                'text': 'Red',
-                'nextQuestionId': 'Q2'
-              }, {
-                'id': '2',
-                'text': 'Green',
-                'nextQuestionId': 'Q3'
-              }]
-            }, {
-              'id': 'Q2',
-              'type': 'multipleChoice',
-              'text': 'Best options',
-              'helper': 'Some details here',
-              'nextDefaultId': 'Q3',
-              'answerChoices': [{
-                'id': 'Q2A1',
-                'text': 'A'
-              }, {
-                'id': 'Q2A2',
-                'text': 'B'
-              }]
-            }, {
-              'id': 'Q3',
-              'type': 'freetext',
-              'text': 'Type some freetext here',
-              'helper': 'freetext',
-              'nextDefaultId': 'ENDFORM'
-            }]
-          })
+          resolve(form9999)
         }, Math.floor(Math.random() * 5000))
       } else if (key === '1234') {
         setTimeout(function () {
-          resolve({
-            'name': 'COPD Form',
-            'description': 'Form for COPD Patients',
-            'questions': [
-              {
-                'id': 'Q1',
-                'text': 'Are you ready for this test?',
-                'helper': 'Do you want to continue?',
-                'type': 'singleChoice',
-                'answerChoices': [
-                  {
-                    'id': 'Q1A1',
-                    'text': 'Yes',
-                    'nextQuestionId': 'Q2'
-                  },
-                  {
-                    'id': 'Q1A2',
-                    'text': 'NO',
-                    'nextQuestionId': 'ENDFORM'
-                  }
-                ]
-              },
-              {
-                'id': 'Q2',
-                'text': 'Fill in description.',
-                'type': 'freetext',
-                'nextDefaultId': 'Q3',
-                'answerChoices': [
-                  {
-                    'id': 'Q2A1'
-                  }
-                ]
-              },
-              {
-                'id': 'Q3',
-                'text': 'Preferred food',
-                'type': 'multiChoice',
-                'nextDefaultId': 'ENDFORM',
-                'answerChoices': [
-                  {
-                    'id': 'Q3A1',
-                    'text': 'Ice cream'
-                  },
-                  {
-                    'id': 'Q3A2',
-                    'text': 'Cake'
-                  },
-                  {
-                    'id': 'Q3A3',
-                    'text': 'Chocolate'
-                  }
-                ]
-              }
-            ],
-            'created': '2018-11-09T10:49:50.473Z'
-          })
+          resolve(form1234)
         }, Math.floor(Math.random() * 2000))
       } else {
         reject(new Error('Questionnaire not found'))
