@@ -14,26 +14,6 @@ const routes = [
     name: 'resetpw',
     component: () => import('pages/accountmgmt/ResetPW.vue')
   },
-  /* {
-    path: '/register_tc',
-    name: 'register_tc',
-    component: () => import('pages/accountmgmt/Reg_TermsAndConditions.vue')
-  },
-  {
-    path: '/register_pp',
-    name: 'register_pp',
-    component: () => import('pages/accountmgmt/Reg_PrivacyPolicy.vue')
-  },
-  {
-    path: '/register_profile',
-    name: 'register_profile',
-    component: () => import('pages/accountmgmt/Reg_Profile.vue')
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: () => import('pages/accountmgmt/Reg_SignUp.vue')
-  }, */
   {
     path: '/changepw',
     component: () => import('pages/accountmgmt/ChangePW.vue')
