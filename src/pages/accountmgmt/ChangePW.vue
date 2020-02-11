@@ -1,24 +1,35 @@
 <template>
   <q-layout>
     <q-page-container>
-      <q-page padding class="flex flex-center">
-        {{ $t('accountMgmt.changePw.hint') }}
-        <div>
-          <q-field v-bind:label="$t('accountMgmt.changePw.token')" :hint="$t('accountMgmt.changePw.tokenHint')" :error="$v.token.$error" :error-message="$t('accountMgmt.changePw.tokenError')" >
-            <q-input v-model="token" type="text" @blur="$v.token.$touch" clearable/>
-          </q-field>
-          <q-field :error="$v.newpw.$error || $v.confpw.$error" :error-message="$t('accountMgmt.changePw.pwError')">
-            <q-input :label="$t('accountMgmt.changePw.newPw')" v-model="newpw" type="password" />
-            <q-input :label="$t('accountMgmt.changePw.confPw')" v-model="confpw" type="password" />
-          </q-field>
-          <br />
-          <div class="q-mt-lg row">
-            <div class="q-ma-sm">
-              <q-btn class="float-right" :label="$t('accountMgmt.changePw.cancel')" flat="true" color="grey" to="login" />
-            </div>
-            <div class="q-ma-sm">
-              <q-btn class="float-right" :label="$t('accountMgmt.changePw.changePw')" color="positive" type="submit" @click="resetUserPassword" />
-            </div>
+      <q-page padding>
+        <div class="fit row justify-center">
+          <div class="text-h4">{{ $t('accountMgmt.resetPassword.newPassword') }}</div>
+        </div>
+        <div class="fit row justify-center q-mt-lg">
+          <p class="col">{{ $t('accountMgmt.resetPassword.newPasswordExplanation') }}</p>
+        </div>
+        <div class="fit row justify-center q-mt-lg">
+          <q-input class= "col-grow" v-model="token" type="text" @blur="$v.token.$touch" clearable
+          :label="$t('accountMgmt.resetPassword.token')"
+          :hint="$t('accountMgmt.resetPassword.tokenHint')"
+          :error="$v.token.$error" :error-message="$t('accountMgmt.resetPassword.tokenError')" />
+        </div>
+        <div class="fit row justify-center q-mt-lg">
+          <q-input class= "col-grow" :label="$t('accountMgmt.resetPassword.newPw')"
+          v-model="newpw" type="password" @blur="$v.newpw.$touch"
+          :error="$v.newpw.$error" :error-message="pwdCheckErrorMsg()"/>
+        </div>
+        <div class="fit row justify-center q-mt-lg">
+          <q-input class= "col-grow" :label="$t('accountMgmt.resetPassword.confPw')"
+          v-model="confpw" type="password" @blur="$v.confpw.$touch"
+          :error="$v.confpw.$error" :error-message="$t('accountMgmt.resetPassword.pwdMustMatch')"/>
+        </div>
+        <div class="fit row justify-center q-mt-lg">
+          <div class="q-ma-sm">
+            <q-btn class="float-right" :label="$t('common.cancel')" color="secondary" to="login" />
+          </div>
+          <div class="q-ma-sm">
+            <q-btn class="float-right" :label="$t('accountMgmt.resetPassword.changePw')" color="positive" type="submit" @click="resetUserPassword" />
           </div>
         </div>
       </q-page>
@@ -27,25 +38,29 @@
 </template>
 
 <script>
-// TODO: NEED TO ADD PROPER PW SECURITY CHECK AS IN INITIAL PW
+import { checkPwdStrength, pwdCheckError, owaspConfig } from '../../modules/passwordChecker'
 import { required, sameAs } from 'vuelidate/lib/validators'
 import userinfo from '../../modules/userinfo'
 import API from '../../modules/API'
 
 export default {
   name: 'ChangePasswordPage',
+  props: [ 'email' ],
   data () {
     return {
+      userEmail: this.email,
       token: undefined,
       newpw: undefined,
       confpw: undefined
     }
   },
-  validations: {
-    token: { required },
-    newpw: { required },
-    confpw: {
-      sameAsPassword: sameAs('newpw')
+  validations () {
+    return {
+      token: { required },
+      newpw: { required, pwdStrength: checkPwdStrength(this.userEmail) },
+      confpw: {
+        sameAsPassword: sameAs('newpw')
+      }
     }
   },
   created () {
@@ -53,6 +68,12 @@ export default {
     userinfo.logout()
   },
   methods: {
+    pwdCheckErrorMsg () {
+      let pwdError = pwdCheckError(this.email, this.newpw)
+      let msg = this.$i18n.t(pwdError, owaspConfig)
+      console.log(msg)
+      return msg
+    },
     async resetUserPassword () {
       this.$v.$touch()
       if (!this.$v.error) {
@@ -64,7 +85,7 @@ export default {
             ok: true,
             cancel: false,
             preventClose: true
-          }).then(() => {
+          }).onOk(() => {
             this.$router.push('/login')
           })
         } catch (error) {

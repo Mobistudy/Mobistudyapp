@@ -2,15 +2,16 @@
   <q-layout>
     <q-page-container>
       <q-page padding class="flex flex-center">
+        <div class="text-h4">{{ $t('accountMgmt.resetPassword.resetPassword') }}</div>
         <div style="width: 90vw">
-          <p class="text-h4">{{ $t('accountMgmt.resetPw.headline') }}</p>
-            <q-field :error="$v.email.$error" :error-message="$t('accountMgmt.resetPw.emailError')">
-                <q-input v-model.trim="$v.email.$model" type="email" :label="$t('accountMgmt.resetPw.email')" :placeholder="$t('accountMgmt.resetPw.emailPlaceholder')"
-                 autocomplete="on" @blur="$v.email.$touch"/>
-              </q-field>
-            <br />
-            <q-btn class="float-left" :label="$t('accountMgmt.resetPw.buttonBack')" color="secondary" @click="$router.push('login')" />
-            <q-btn class="float-right" :label="$t('accountMgmt.resetPw.buttonNext')" color="positive" type="submit" @click="submit" />
+          <q-input v-model.trim="$v.email.$model" type="email" :label="$t('common.email')"
+          :placeholder="$t('accountMgmt.resetPassword.emailPlaceholder')"
+          autocomplete="on" @blur="$v.email.$touch"
+          :error-message="$t('accountMgmt.resetPassword.emailError')"
+          :error="$v.email.$error"/>
+          <br>
+          <q-btn class="float-left" :label="$t('common.cancel')" color="secondary" @click="$router.push('login')" />
+          <q-btn class="float-right" :label="$t('accountMgmt.resetPassword.resetPassword')" color="positive" type="submit" @click="submit" />
         </div>
       </q-page>
     </q-page-container>
@@ -38,7 +39,7 @@ export default {
       if (!this.$v.$invalid) {
         try {
           await API.resetPW(this.email.toLowerCase())
-          this.$router.push('/changepw')
+          this.$router.push({ name: 'changepw', params: { email: this.email } })
         } catch (error) {
           this.$q.notify({
             color: 'negative',

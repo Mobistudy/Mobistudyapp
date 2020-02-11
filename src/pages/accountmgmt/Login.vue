@@ -6,28 +6,27 @@
           <img src="~/assets/mobistudy_logo.svg" style="width:30vw; max-width:150px;" ><br />
         </p>
         <div style="width: 90vw">
-          <p class="text-h5">{{ $t('accountMgmt.loginPage.login') }}</p>
-          <!--<q-input v-model="username" float-label="Username" />-->
+          <p class="text-h5">{{ $t('accountMgmt.login.login') }}</p>
           <q-input
             v-model="username"
-            v-bind:label="$t('accountMgmt.loginPage.email')"
+            :label="$t('common.email')"
           />
           <q-input
             v-model="password"
-            v-bind:label="$t('accountMgmt.loginPage.password')"
+            :label="$t('accountMgmt.login.password')"
             type="password"
           />
           <div class="row">
             <q-btn
               class="q-ma-sm full-width"
-              v-bind:label="$t('accountMgmt.loginPage.login')"
+              :label="$t('accountMgmt.login.login')"
               color="positive"
               @click="login"
               type="submit"
             />
             <q-btn
               class="q-ma-sm q-mb-lg full-width"
-              v-bind:label="$t('accountMgmt.loginPage.lostpw')"
+              :label="$t('accountMgmt.login.lostpw')"
               color="grey"
               flat outline
               to="resetpw"
@@ -36,12 +35,12 @@
               <q-separator />
               <q-item class="full-width">
                 <q-item-section class="full-width">
-                  <q-item-label class="text-center q-mt-lg q-mb-md">{{ $t('accountMgmt.loginPage.noAcc') }}</q-item-label>
+                  <q-item-label class="text-center q-mt-lg q-mb-md">{{ $t('accountMgmt.login.noAcc') }}</q-item-label>
                 </q-item-section>
               </q-item>
               <q-item class="full-width">
                 <q-item-section class="full-width">
-                  <q-btn class="full-width" v-bind:label="$t('accountMgmt.loginPage.register')" color="grey" to="register_tc"/>
+                  <q-btn class="full-width" :label="$t('accountMgmt.login.register')" color="grey" to="register_tc"/>
                 </q-item-section>
               </q-item>
             </q-list>

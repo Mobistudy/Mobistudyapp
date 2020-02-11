@@ -15,7 +15,9 @@ const routes = [
     component: () => import('pages/accountmgmt/ResetPW.vue')
   },
   {
-    path: '/changepw',
+    path: '/changepw/:email',
+    name: 'changepw',
+    props: true,
     component: () => import('pages/accountmgmt/ChangePW.vue')
   },
   {

@@ -1,4 +1,10 @@
 export default {
+  common: {
+    next: 'Next',
+    cancel: 'Cancel',
+    accept: 'Accept',
+    email: 'Email'
+  },
   layoutPages: {
     consent: {
       headline: 'New study'
@@ -13,25 +19,53 @@ export default {
       headline: 'Task'
     }
   },
+  passwordCheck: {
+    ok: 'All OK',
+    tooShort: 'Password is too short.',
+    tooSimple: 'The password is too simple.',
+    noEmail: 'Password cannot contain email.',
+    minChars: 'Password must contain at least {minLength} characters.',
+    maxChars: 'Password must contain less than {maxLength} characters.',
+    noRepeat: 'Password may not contain sequences of three or more repeated characters.',
+    lowerCase: 'The password must contain at least one lowercase letter.',
+    upperCase: 'The password must contain at least one uppercase letter.',
+    number: 'The password must contain at least one number',
+    specialChar: 'The password must contain at least one special character.',
+    noKeysRow: 'Straight rows of keys are easy to guess.',
+    noShortPattern: 'Short keyboard patterns are easy to guess.',
+    noRepeat2: 'Repeats like "aaa" are easy to guess.',
+    noRepeat3: 'Repeats like "abcabcabc" are only slightly harder to guess than "abc".',
+    noSequence: 'Sequences like abc or 6543 are easy to guess.',
+    noRecentYear: 'Recent years are easy to guess.',
+    noDate: 'Dates are often easy to guess.',
+    noTop10: 'This is a top-10 common password.',
+    noTop100: 'This is a top-100 common password.',
+    noCommonPwd: 'This is a very common password.',
+    noCommonPwdSimilar: 'This is similar to a commonly used password.',
+    no1Word: 'A word by itself is easy to guess.',
+    noNames: 'Names and surnames by themselves are easy to guess.'
+  },
   accountMgmt: {
-    changePw: {
-      hint: "If you're registered in the system, you should receive an email shortly. Please copy/paste the token from your email to this form. If you fill the form and change your password on the Mobistudy web page, please tap on Cancel.",
+    login: {
+      login: 'Login',
+      password: 'Password',
+      register: 'Register',
+      lostpw: 'Lost Password',
+      noAcc: 'No account yet? Register in 3 steps!'
+    },
+    resetPassword: {
+      resetPassword: 'Reset Password',
+      newPassword: 'New password',
+      emailPlaceholder: 'e.g. email@email.com',
+      emailError: 'An email address is required.',
+      newPasswordExplanation: "If you're registered in the system, you should receive an email shortly. Please copy/paste the token from your email to this form. If you change your password on the Mobistudy web page instead, then tap on Cancel and login with your new password.",
       token: 'Token',
       tokenHint: 'As received on your email.',
       tokenError: 'A token is required.',
       newPw: 'New Password',
       confPw: 'Confirm Password',
-      pwError: 'Passwords do not match',
-      cancel: 'Cancel',
+      pwdMustMatch: 'Passwords do not match',
       changePw: 'Change Password'
-    },
-    loginPage: {
-      login: 'Login',
-      email: 'Email',
-      password: 'Password',
-      register: 'Register',
-      lostpw: 'Lost Password',
-      noAcc: 'No account yet? Register in 3 steps!'
     },
     privacy: {
       headline: 'Privacy Policy',
@@ -68,17 +102,10 @@ export default {
     },
     tAndC: {
       headline: 'Terms and Condtions',
-      tAndCText: 'This version of the Mobistudy is meant to be used of technical testing and to support the PAS-4YP study. Once you have completed the study, please delete this app. An official and permanent version of this app will become available in the future.',
+      tAndCText: `This app is meant to be used only by citizens of the United Kingdom and Sweden.
+The user of this app must be able to read and understand English or Swedish.`,
       buttonCancel: 'Cancel',
       buttonNext: 'Accept'
-    },
-    resetPw: {
-      headline: 'Reset password',
-      email: 'Email',
-      emailPlaceholder: 'e.g. email@email.com',
-      emailError: 'An email address is required.',
-      buttonBack: 'Cancel',
-      buttonNext: 'Reset Password'
     }
   },
   consent: {
