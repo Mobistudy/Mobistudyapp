@@ -26,7 +26,7 @@
         </div>
         <div class="fit row justify-center q-mt-lg">
           <div class="q-ma-sm">
-            <q-btn class="float-right" :label="$t('common.cancel')" color="secondary" to="login" />
+            <q-btn class="float-right" :label="$t('common.cancel')" color="secondary" to="/login" />
           </div>
           <div class="q-ma-sm">
             <q-btn class="float-right" :label="$t('accountMgmt.resetPassword.changePw')" color="positive" type="submit" @click="resetUserPassword" />
@@ -71,7 +71,6 @@ export default {
     pwdCheckErrorMsg () {
       let pwdError = pwdCheckError(this.email, this.newpw)
       let msg = this.$i18n.t(pwdError, owaspConfig)
-      console.log(msg)
       return msg
     },
     async resetUserPassword () {

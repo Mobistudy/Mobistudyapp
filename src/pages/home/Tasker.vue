@@ -44,6 +44,7 @@
         <div class="text-h4 q-mb-md">{{ $t('home.tasker.studyCompletedHeadline') }}!</div>
         <div>
           <img src="statics/icons/confetti.svg" style="width:30vw; max-width:150px;" ><br />
+          <!-- TODO: title must be localised! -->
           <p>{{ $t('home.tasker.studyCompletedText') }} {{this.tasks.completedStudyAlert.studyTitle}}.</p>
           <p>{{ $t('home.tasker.studyCompletedThanks') }}!</p>
         </div>

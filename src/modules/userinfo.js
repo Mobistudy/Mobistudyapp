@@ -14,7 +14,8 @@ export default {
         name: undefined,
         surname: undefined,
         gender: undefined,
-        dob: undefined
+        dob: undefined,
+        language: undefined
       }
     } else this.user.loggedin = true
   },
@@ -29,6 +30,7 @@ export default {
     this.user.surname = profile.surname
     this.user.dob = profile.dateOfBirth
     this.user.gender = profile.gender
+    this.user.language = profile.language
     await DB.setUserSession(this.user)
   },
   logout () {
@@ -39,7 +41,8 @@ export default {
       name: undefined,
       surname: undefined,
       gender: undefined,
-      dob: undefined
+      dob: undefined,
+      language: undefined
     }
     DB.removeUserSession()
   }

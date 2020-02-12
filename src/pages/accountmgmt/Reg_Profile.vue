@@ -1,155 +1,123 @@
 <template>
       <q-page padding>
-        <q-list>
-          <q-item>
-            <q-item-section>
-              <q-item-label class="text-h6 text-center q-pt-md">{{ $t('accountMgmt.profile.headline') }}</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list>
-        <q-list>
-          <q-input :label="$t('accountMgmt.profile.firstName')" :error="$v.profile.name.$error" :error-message="$t('accountMgmt.profile.firstNameError')" v-model="profile.name" @blur="$v.profile.name.$touch">
-            <template v-slot:before>
-              <q-icon name="face" />
-            </template>
-          </q-input>
-        </q-list>
+        <div class="row fit justify-center">
+          <div class="text-h6 text-center q-pt-md">
+            {{ $t('accountMgmt.registration.createProfile') }}
+          </div>
+        </div>
+        <q-input :label="$t('accountMgmt.profile.firstName')"
+        :error="$v.profile.name.$error" :error-message="$t('accountMgmt.profile.firstNameError')"
+        v-model="profile.name" @blur="$v.profile.name.$touch">
+          <template v-slot:before>
+            <q-icon name="face" />
+          </template>
+        </q-input>
 
-        <q-list>
-          <q-input :label="$t('accountMgmt.profile.surname')" :error="$v.profile.surname.$error" :error-message="$t('accountMgmt.profile.surnameError')" v-model="profile.surname" @blur="$v.profile.surname.$touch">
-            <template v-slot:before>
-              <q-icon name="face" color="white" />
-            </template>
-          </q-input>
-        </q-list>
+        <!-- surname -->
+        <q-input :label="$t('accountMgmt.profile.surname')"
+        :error="$v.profile.surname.$error" :error-message="$t('accountMgmt.profile.surnameError')"
+        v-model="profile.surname" @blur="$v.profile.surname.$touch">
+          <template v-slot:before>
+            <q-icon name="face" color="white" />
+          </template>
+        </q-input>
 
-        <q-list>
-          <q-select v-model="profile.sex" :options="profile.sexOptions" :error="$v.profile.sex.$error" @blur="$v.profile.sex.$touch" :label="$t('accountMgmt.profile.sex')" :error-message="$t('accountMgmt.profile.sexError')">
-            <template v-slot:before>
-              <q-icon name="wc" />
-            </template>
-          </q-select>
-        </q-list>
+        <!-- lanuage -->
+        <q-select v-model="profile.language" :options="languageOptions"
+        emit-value map-options @input="selectLanguage()"
+        :error="$v.profile.language.$error" @blur="$v.profile.language.$touch"
+        :label="$t('accountMgmt.profile.language')" :error-message="$t('accountMgmt.profile.languageError')">
+          <template v-slot:before>
+            <q-icon name="language" />
+          </template>
+        </q-select>
 
-        <q-list>
-          <q-input v-model="profile.dateOfBirth" mask="####/##/##" :rules="['YYYY/MM/DD']" :label="$t('accountMgmt.profile.dateOfBirth')" :error-message="$t('accountMgmt.profile.dateOfBirthError')" :error="$v.profile.dateOfBirth.$error" @blur="$v.profile.dateOfBirth.$touch">
-            <template v-slot:before>
-              <q-icon name="cake" />
-            </template>
-            <template v-slot:append>
-              <q-icon name="calendar_today" class="cursor-pointer">
-                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                  <q-date v-model="profile.dateOfBirth" @input="() => $refs.qDateProxy.hide()" mask="YYYY/MM/DD" format="YYYY/MM/DD" :title="$t('accountMgmt.profile.dateOfBirth')" />
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
-        </q-list>
+        <q-select v-model="profile.country" :options="countryOptions"
+        emit-value map-options
+        :error="$v.profile.country.$error" @blur="$v.profile.country.$touch"
+        :label="$t('accountMgmt.profile.country')" :error-message="$t('accountMgmt.profile.countryError')">
+          <template v-slot:before>
+            <q-icon name="flag" />
+          </template>
+        </q-select>
 
-        <q-list>
-          <q-select
-            v-model="profile.diseases"
-            use-input
-            use-chips
-            multiple
-            input-debounce="500"
-            :label="$t('accountMgmt.profile.conditions')"
-            :hint="$t('accountMgmt.profile.conditionsHint')"
-            :options="diseaseOptions"
-            @filter="searchDisease">
-            <template v-slot:no-option>
-              <q-item>
-                <q-item-section class="text-grey">
-                  {{ noResultTextDisease }}
-                </q-item-section>
-              </q-item>
-            </template>
-            <template v-slot:before>
-              <q-icon name="local_hospital"/>
-            </template>
-            <template v-slot:loading >
-              <div class="q-pa-md">
-                <div class="q-gutter-md row">
-                  <q-spinner
-                    color="primary"
-                    size="3em"
-                    :thickness="2"
-                  />
-                </div>
-              </div>
-            </template>
-          </q-select>
-        </q-list>
+        <q-select v-model="profile.sex" :options="sexOptions"
+        emit-value map-options
+        :error="$v.profile.sex.$error" @blur="$v.profile.sex.$touch"
+        :label="$t('accountMgmt.profile.sex')" :error-message="$t('accountMgmt.profile.sexError')">
+          <template v-slot:before>
+            <q-icon name="wc" />
+          </template>
+        </q-select>
 
-        <!-- <q-list>
-          <q-select
-            v-model="medsVue"
-            use-input
-            use-chips
-            hide-selected
-            fill-input
-            input-debounce="0"
-            :options="medsVue"
-            @filter="searchMeds"
-            @selected="selectedMeds"
-            label="Medications"
-            hint="Are you on any long-term medication?">
-            <template v-slot:no-option>
-              <q-item>
-                <q-item-section class="text-grey">
-                  No results
-                </q-item-section>
-              </q-item>
-            </template>
-            <template v-slot:before>
-              <q-icon name="local_pharmacy" />
-            </template>
-          </q-select>
-        </q-list> -->
+        <q-input v-model="profile.dateOfBirth" mask="####/##/##" :rules="['YYYY/MM/DD']"
+        :label="$t('accountMgmt.profile.dateOfBirth')"
+        :error-message="$t('accountMgmt.profile.dateOfBirthError')" :error="$v.profile.dateOfBirth.$error"
+        @blur="$v.profile.dateOfBirth.$touch">
+          <template v-slot:before>
+            <q-icon name="cake" />
+          </template>
+          <template v-slot:append>
+            <q-icon name="calendar_today" class="cursor-pointer">
+              <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                <q-date v-model="profile.dateOfBirth" @input="() => $refs.qDateProxy.hide()" mask="YYYY/MM/DD" format="YYYY/MM/DD" :title="$t('accountMgmt.profile.dateOfBirth')" />
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
 
-        <q-list>
-          <q-select
-            v-model="profile.medications"
-            use-input
-            use-chips
-            multiple
-            input-debounce="500"
-            :label="$t('accountMgmt.profile.medications')"
-            :hint="$t('accountMgmt.profile.medicationsHint')"
-            :options="medOptions"
-            @filter="searchMeds">
-            <template v-slot:no-option>
-              <q-item>
-                <q-item-section class="text-grey">
-                  {{ noResultTextMeds }}
-                </q-item-section>
-              </q-item>
-            </template>
-            <template v-slot:before>
-              <q-icon name="local_pharmacy"/>
-            </template>
-            <template v-slot:loading >
-              <div class="q-pa-md">
-                <div class="q-gutter-md row">
-                  <q-spinner
-                    color="primary"
-                    size="3em"
-                    :thickness="2"
-                  />
-                </div>
-              </div>
-            </template>
-          </q-select>
-        </q-list>
+        <q-select
+          v-model="diseasesVue"
+          use-input
+          use-chips
+          multiple
+          input-debounce="500"
+          :label="$t('accountMgmt.profile.conditions')"
+          :options="diseaseOptions"
+          @filter="searchDisease">
+          <template v-slot:no-option>
+            <q-item>
+              <q-item-section class="text-grey">
+                {{ noResultTextDisease }}
+              </q-item-section>
+            </q-item>
+          </template>
+          <template v-slot:before>
+            <q-icon name="local_hospital"/>
+          </template>
+        </q-select>
 
-        <q-list>
-          <q-toggle class="q-mt-lg q-ma-sm" :label="$t('accountMgmt.profile.smoke')" v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms" unchecked-icon="smoke_free"/><br/>
-          <q-toggle class="q-ma-sm" :label="$t('accountMgmt.profile.lifestyle')" v-model="profile.lifestyle.active" checked-icon="directions_run" unchecked-icon="airline_seat_recline_normal"/><br/>
-        </q-list>
+        <q-select
+          v-model="medsVue"
+          use-input
+          use-chips
+          multiple
+          input-debounce="500"
+          :label="$t('accountMgmt.profile.medications')"
+          :options="medOptions"
+          @filter="searchMeds">
+          <template v-slot:no-option>
+            <q-item>
+              <q-item-section class="text-grey">
+                {{ noResultTextMeds }}
+              </q-item-section>
+            </q-item>
+          </template>
+          <template v-slot:before>
+            <q-icon name="local_pharmacy"/>
+          </template>
+        </q-select>
 
-        <q-list>
-          <q-btn class="full-width q-mt-md q-mb-lg" color="primary" :disable="$v.profile.$anyError" @click="saveProfile()"  :label="$t('accountMgmt.profile.buttonNext')" />
-        </q-list>
+        <q-toggle class="q-mt-lg q-ma-sm" :label="$t('accountMgmt.profile.smoke')"
+        v-model="profile.lifestyle.smoker" checked-icon="smoking_rooms"
+        unchecked-icon="smoke_free"/><br/>
+        <q-toggle class="q-ma-sm" :label="$t('accountMgmt.profile.lifestyle')"
+        v-model="profile.lifestyle.active" checked-icon="directions_run"
+        unchecked-icon="airline_seat_recline_normal"/>
+
+        <q-btn class="full-width q-mt-md q-mb-lg" color="positive"
+        :disable="$v.profile.$error" @click="saveProfile()"
+        :label="$t('common.next')" />
 
     </q-page>
 </template>
@@ -167,28 +135,50 @@ export default {
         name: '',
         surname: '',
         dateOfBirth: '',
+        country: '',
+        language: '',
+        sex: '',
         diseases: [],
         medications: [],
         lifestyle: {
           smoker: false,
-          active: true
-        },
-        sex: '',
-        sexOptions: [
-          {
-            label: 'Male',
-            value: 'male'
-          },
-          {
-            label: 'Female',
-            value: 'female'
-          },
-          {
-            label: 'Other',
-            value: 'other'
-          }
-        ]
+          active: false
+        }
       },
+      sexOptions: [
+        {
+          label: this.$i18n.t('accountMgmt.profile.sexes.male'),
+          value: 'male'
+        },
+        {
+          label: this.$i18n.t('accountMgmt.profile.sexes.female'),
+          value: 'female'
+        },
+        {
+          label: this.$i18n.t('accountMgmt.profile.sexes.other'),
+          value: 'other'
+        }
+      ],
+      languageOptions: [
+        {
+          label: this.$i18n.t('accountMgmt.profile.languages.en'),
+          value: 'en'
+        },
+        {
+          label: this.$i18n.t('accountMgmt.profile.languages.sv'),
+          value: 'sv'
+        }
+      ],
+      countryOptions: [
+        {
+          label: this.$i18n.t('accountMgmt.profile.countries.gb'),
+          value: 'gb'
+        },
+        {
+          label: this.$i18n.t('accountMgmt.profile.countries.se'),
+          value: 'se'
+        }
+      ],
       diseaseOptions: [],
       medOptions: [],
       noResultTextDisease: '',
@@ -200,130 +190,134 @@ export default {
       name: { required },
       surname: { required },
       dateOfBirth: { required },
-      sex: { required }
+      sex: { required },
+      language: { required },
+      country: { required }
     }
   },
   computed: {
-    // TODO: Commented out since the computed Models somehow didn't properly work -> Diseases and Meds are directly set to profile.diseases/.medications
-    /* diseasesVue: {
+    // these are used to map label and value to term and conceptId
+    diseasesVue: {
       get: function () {
-        return this.profile.diseases.map(x => x.name)
+        if (this.profile.diseases && this.profile.diseases.length) {
+          return this.profile.diseases.map(x => {
+            return {
+              label: x.term,
+              value: x.conceptId,
+              vocabulary: x.vocabulary
+            }
+          })
+        } else return []
       },
-      set: function (names) {
-        this.profile.diseases = this.profile.diseases.filter(x => {
-          return names.includes(x.name)
+      set: function (diseasesOpts) {
+        this.profile.diseases = diseasesOpts.map(x => {
+          return {
+            term: x.label,
+            conceptId: x.value,
+            vocabulary: x.vocabulary
+          }
         })
       }
     },
     medsVue: {
       get: function () {
-        return this.profile.medications.map(x => x.name)
+        if (this.profile.medications && this.profile.medications.length) {
+          return this.profile.medications.map(x => {
+            return {
+              label: x.term,
+              value: x.conceptId,
+              vocabulary: x.vocabulary
+            }
+          })
+        } else return []
       },
-      set: function (names) {
-        this.profile.medications = this.profile.medications.filter(x => {
-          return names.includes(x.name)
+      set: function (medOptions) {
+        this.profile.medications = medOptions.map(x => {
+          return {
+            term: x.label,
+            conceptId: x.value,
+            vocabulary: x.vocabulary
+          }
         })
       }
-    }  */
+    }
   },
   methods: {
-    async searchDisease (diseaseDescription, done, abort) {
-      console.log(diseaseDescription)
+    selectLanguage () {
+      this.$root.$i18n.locale = this.profile.language
+    },
+    async searchDisease (diseaseDescription, update, abort) {
+      if (diseaseDescription.length < 3) {
+        update(() => {
+          this.diseaseOptions = []
+          this.noResultTextDisease = this.$i18n.t('accountMgmt.profile.conditionsSearch')
+        })
+        return
+      }
       try {
-        const results = await API.searchSNOMEDDisease(diseaseDescription)
-
-        if (diseaseDescription === '') {
-          done(() => {
+        const concepts = await API.searchDiseaseConcept(diseaseDescription)
+        if (concepts.length) {
+          update(() => {
+            this.diseaseOptions = concepts.map((c) => {
+              return {
+                label: c.term,
+                value: c.conceptId,
+                vocabulary: c.vocabulary
+              }
+            })
+          })
+        } else {
+          update(() => {
             this.diseaseOptions = []
+            this.noResultTextDisease = this.$i18n.t('accountMgmt.profile.noResults')
           })
-          this.noResultTextDisease = 'Search for medical conditions'
-          return
-        } else {
-          this.noResultTextDisease = 'No results'
         }
-        if (results.length === 0) {
-          this.$q.notify('No matches.')
-        }
-        done(() => {
-          const selDis = Object.keys(this.profile.diseases)
-          const disFil = results.filter((entry) => !selDis.includes(entry.term))
-          this.diseaseOptions = disFil
-        })
       } catch (error) {
-        this.$q.notify('Cannot find diseases. Please Try again.')
         console.error(error)
-        done([])
+        this.$q.notify({
+          color: 'negative',
+          message: 'Cannot find disease: ' + error.message,
+          icon: 'report_problem'
+        })
+        abort()
       }
     },
-    async searchMeds (medDescription, done, abort) {
-      console.log(medDescription)
+    async searchMeds (medDescription, update, abort) {
+      if (medDescription.length < 3) {
+        update(() => {
+          this.medOptions = []
+          this.noResultTextMeds = this.$i18n.t('accountMgmt.profile.conditionsSearch')
+        })
+        return
+      }
       try {
-        const results = await API.searchSNOMEDMedication(medDescription)
-
-        if (medDescription === '') {
-          done(() => {
+        const concepts = await API.searchMedicationConcept(medDescription)
+        if (concepts.length) {
+          update(() => {
+            this.medOptions = concepts.map((c) => {
+              return {
+                label: c.term,
+                value: c.conceptId,
+                vocabulary: c.vocabulary
+              }
+            })
+          })
+        } else {
+          update(() => {
             this.medOptions = []
+            this.noResultTextMeds = this.$i18n.t('accountMgmt.profile.noResults')
           })
-          this.noResultTextMeds = 'Search for medications'
-          return
-        } else {
-          this.noResultTextMeds = 'No results'
         }
-        if (results.length === 0) {
-          this.$q.notify('No matches.')
-        }
-        done(() => {
-          const selMed = Object.keys(this.profile.medications)
-          const medFil = results.filter((entry) => !selMed.includes(entry.term))
-          this.medOptions = medFil
-        })
       } catch (error) {
-        this.$q.notify('Cannot find meds. Please Try again.')
         console.error(error)
-        done([])
-      }
-    },
-    /* selectedDisease (item, done) {
-      this.profile.diseases.push({
-        name: item.label,
-        conceptId: item.conceptId
-      })
-      // if (!this.profile.diseases.find(x => x.name === item.label)) {
-      //  this.profile.diseases.push({
-      //    name: item.label,
-      //    conceptId: item.conceptId
-      //  })
-      // }
-    },
-    duplicatedDisease (label) {
-      this.$q.notify(`"${label}" already in list`)
-    },
-    async searchMeds (medDescription, done) {
-      try {
-        const results = await API.searchSNOMEDMedication(medDescription)
-        if (results.length === 0) {
-          this.$q.notify('No matches.')
-        }
-        const selMeds = Object.keys(this.profile.medications)
-        const medsFil = results.filter((entry) => !selMeds.includes(entry.term))
-        done(medsFil)
-      } catch (error) {
-        this.$q.notify('Cannot find medication. Please Try again.')
-        console.error(error)
-        done([])
-      }
-    },  */
-    /* selectedMeds (item) {
-      if (!this.profile.medications.find(x => x.name === item.label)) {
-        this.profile.medications.push({
-          name: item.label,
-          conceptId: item.conceptId
+        this.$q.notify({
+          color: 'negative',
+          message: 'Cannot find medication: ' + error.message,
+          icon: 'report_problem'
         })
+        abort()
       }
     },
-    duplicatedMeds (label) {
-      this.$q.notify(`"${label}" already in list`)
-    }, */
     async register () {
       this.$v.account.$touch()
       if (this.$v.account.$error) {

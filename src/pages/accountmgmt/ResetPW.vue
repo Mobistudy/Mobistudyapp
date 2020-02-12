@@ -4,10 +4,9 @@
       <q-page padding class="flex flex-center">
         <div class="text-h4">{{ $t('accountMgmt.resetPassword.resetPassword') }}</div>
         <div style="width: 90vw">
-          <q-input v-model.trim="$v.email.$model" type="email" :label="$t('common.email')"
-          :placeholder="$t('accountMgmt.resetPassword.emailPlaceholder')"
+          <q-input v-model.trim="$v.email.$model" type="email" :label="$t('accountMgmt.email')"
           autocomplete="on" @blur="$v.email.$touch"
-          :error-message="$t('accountMgmt.resetPassword.emailError')"
+          :error-message="$t('accountMgmt.emailRequiredError')"
           :error="$v.email.$error"/>
           <br>
           <q-btn class="float-left" :label="$t('common.cancel')" color="secondary" @click="$router.push('login')" />

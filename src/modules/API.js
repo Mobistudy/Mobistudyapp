@@ -37,6 +37,26 @@ export default {
   changePW: async (token, newpw) => {
     return axios.post(BASE_URL + '/resetPassword', { token: token, password: newpw })
   },
+  searchDiseaseConcept: async (disease, lang) => {
+    // TODO: MOCKED! NEEDS TO ACTUALLY CALL SERVER!!!
+    return [
+      {
+        term: 'heart failure',
+        conceptId: '1234567',
+        vocabulary: 'SNOMED'
+      }
+    ]
+  },
+  searchMedicationConcept: async (disease, lang) => {
+    // TODO: MOCKED! NEEDS TO ACTUALLY CALL SERVER!!!
+    return [
+      {
+        term: 'aspirin',
+        conceptId: '212123123',
+        vocabulary: 'SNOMED'
+      }
+    ]
+  },
   /// ////////////////////////////////////
   // from here on, we need to use tokens
   /// ////////////////////////////////////
@@ -65,52 +85,6 @@ export default {
   // update status of a study
   updateStudyStatus: async function (userKey, studyKey, studyParticipation) {
     return axios.patch(BASE_URL + `/participants/byuserkey/${userKey}/studies/${studyKey}`, studyParticipation, axiosConfig)
-  },
-
-  // search for disease on SNOMED
-  searchSNOMEDDisease: async function (diseaseDescription) {
-    // Declare top level URL vars
-    const baseUrl = 'https://browser.ihtsdotools.org/api/v1/snomed/'
-    const edition = 'en-edition'
-    const version = '20180131'
-    // Construct Disease Query URL
-    const diseaseQueryURL = baseUrl + '/' + edition + '/v' + version + '/descriptions?query=' + encodeURIComponent(diseaseDescription) + '&limit=50&searchMode=partialMatching' + '&lang=english&statusFilter=activeOnly&skipTo=0' + '&semanticFilter=disorder' + '&returnLimit=100&normalize=true'
-
-    const response = await axios.get(diseaseQueryURL)
-    const dataDis = response.data
-    // Filter out already selected diseases
-    const resFiltByLen = dataDis.matches.filter(entry => entry['term'].length < 50)
-    const retval = resFiltByLen.map((item) => {
-      return {
-        label: item.term,
-        value: item.term,
-        conceptId: item.conceptId
-      }
-    })
-    return retval
-  },
-
-  // search for medications on SNOMED
-  searchSNOMEDMedication: async function (medDescription) {
-    // Declare top level URL vars
-    var baseUrl = 'https://browser.ihtsdotools.org/api/v1/snomed/'
-    var edition = 'en-edition'
-    var version = '20180131'
-    // Construct medications Query URL
-    var medQueryURL = baseUrl + '/' + edition + '/v' + version + '/descriptions?query=' + encodeURIComponent(medDescription) + '&limit=50&searchMode=partialMatching' + '&lang=english&statusFilter=activeOnly&skipTo=0' + '&semanticFilter=substance' + '&returnLimit=100&normalize=true'
-
-    const response = await axios.get(medQueryURL)
-    const dataMed = response.data
-    // Filter out already selected medications
-    let resMedsFiltByLen = dataMed.matches.filter(entry => entry['term'].length < 50)
-    const retval = resMedsFiltByLen.map((item) => {
-      return {
-        label: item.term,
-        value: item.term,
-        conceptId: item.conceptId
-      }
-    })
-    return retval
   },
 
   // retrieves study descritpion

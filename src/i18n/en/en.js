@@ -2,22 +2,13 @@ export default {
   common: {
     next: 'Next',
     cancel: 'Cancel',
-    accept: 'Accept',
-    email: 'Email'
+    accept: 'Accept'
   },
-  layoutPages: {
-    consent: {
-      headline: 'New study'
-    },
-    home: {
-      headline: 'Mobistudy'
-    },
-    registration: {
-      headline: 'Register'
-    },
-    task: {
-      headline: 'Task'
-    }
+  layouts: {
+    consent: 'New study',
+    home: 'Mobistudy',
+    registration: 'Register',
+    task: 'Task'
   },
   passwordCheck: {
     ok: 'All OK',
@@ -46,19 +37,22 @@ export default {
     noNames: 'Names and surnames by themselves are easy to guess.'
   },
   accountMgmt: {
+    email: 'Email',
+    emailRequiredError: 'A valid email address is required.',
+    password: 'Password',
+    passwordRequiredError: 'Password is required',
+    confirmPassword: 'Confirm Password',
+    confirmPasswordError: 'Passwords must match',
+    register: 'Register',
     login: {
       login: 'Login',
-      password: 'Password',
-      register: 'Register',
       lostpw: 'Lost Password',
       noAcc: 'No account yet? Register in 3 steps!'
     },
     resetPassword: {
       resetPassword: 'Reset Password',
       newPassword: 'New password',
-      emailPlaceholder: 'e.g. email@email.com',
-      emailError: 'An email address is required.',
-      newPasswordExplanation: "If you're registered in the system, you should receive an email shortly. Please copy/paste the token from your email to this form. If you change your password on the Mobistudy web page instead, then tap on Cancel and login with your new password.",
+      newPasswordExplanation: 'If you\'re registered in the system, you should receive an email shortly. Please copy/paste the token from your email onto this form. If you change your password on the Mobistudy web page instead, then tap on cancel and login with your new password.',
       token: 'Token',
       tokenHint: 'As received on your email.',
       tokenError: 'A token is required.',
@@ -67,45 +61,98 @@ export default {
       pwdMustMatch: 'Passwords do not match',
       changePw: 'Change Password'
     },
-    privacy: {
-      headline: 'Privacy Policy',
-      buttonCancel: 'Cancel',
-      buttonNext: 'Accept'
+    registration: {
+      signUp: 'Sign up',
+      termsAndConditions: 'Terms and Condtions',
+      createAccount: 'Create Account',
+      createProfile: 'Create Profile',
+      termsAndConditionsFull: `This app is meant to be used only by citizens of the United Kingdom and Sweden.
+The user of this app must be able to read and understand English or Swedish.`,
+      privacyPolicy: 'Privacy Policy',
+      privacyPolicyFull: `<p>
+            If you download Mobistudy to your phone, the app will collect the following information
+            from you, regardless of whether you have joined any research study or not:
+            <ul>
+              <li>
+                Your email address.
+                This is needed to identify you, allow you to login and to recover your password.
+              </li>
+              <li>
+                Your date of birth.
+                This is needed to match your profile with the inclusion criteria of available studies.
+              </li>
+              <li>
+                Your gender.
+                This is also needed to match your profile with the inclusion criteria of available studies.
+              </li>
+              <li>
+                Technical logs indicating the time you have accessed the system and what data you have sent.
+                These are needed for security reasons and will be kept for 1 year in all circumstances, also if you decide to delete your account.
+              </li>
+            </ul>
+          </p>
+          <p>
+            These data will be securely transferred (via HTTPS) and stored on a server
+            hosted and managed by the University of Oxford. Personnel from the University
+            of Oxford may access the server and your data for technical maintenance, but
+            will not download or analyse any of these data.
+          </p>
+          <p>
+            We use Gmail for managing the emails sent by Mobistudy.
+            This means that your email address, together with the content of the email sent
+            by us will be managed by Google according to their Privacy Policy (https://policies.google.com/privacy?hl=en-US).
+          </p>
+          <p>
+            If you decide to join a research study, further study-specific conditions will
+            apply, which will be clearly shown to you when consenting to participate in the study.
+          </p>
+          <p>
+            Under no circumstances other than the ones specified above, will your data be shared with other parties or individuals.
+          </p>
+          <p>
+            You can remove your profile from Mobistudy whenever you want. This will remove all your data, except the technical logs.
+          </p>
+          <p>
+            You can download the data in a machine-readable format. Contact carmelo.velardo@eng.ox.ac.uk if you need to.
+          </p>
+          <p>
+            All your data will be removed after 3 years from your registration or from the
+            end of any study you joined while using the Mobistudy app, whichever is the latest.
+          </p>`
     },
     profile: {
-      headline: 'Create Profile',
+      profile: 'Profile',
       firstName: 'First Name',
-      firstNameError: 'First Name required',
+      firstNameError: 'First name is required.',
       surname: 'Surname',
-      surnameError: 'Surname required',
+      surnameError: 'Surname is required.',
+      language: 'Language',
+      languageError: 'Language is required.',
+      languages: {
+        en: 'English',
+        sv: 'Swedish'
+      },
+      country: 'Country',
+      countryError: 'Country is required.',
+      countries: {
+        gb: 'United Kingdom',
+        se: 'Sweden'
+      },
       sex: 'Sex',
-      sexError: 'Required',
+      sexes: {
+        male: 'Male',
+        female: 'Female',
+        other: 'Other'
+      },
+      sexError: 'Please select one option.',
       dateOfBirth: 'Date of Birth',
-      dateOfBirthError: 'Required',
-      conditions: 'Conditions',
-      conditionsHint: 'Do you suffer from any long-term medical condition?',
-      medications: 'Medications',
-      medicationsHint: 'Are you on any long-term medication?',
+      dateOfBirthError: 'Date of birth is required',
+      conditions: 'Long-term conditions',
+      conditionsSearch: 'Type a word to search for a condition',
+      noResults: 'No results',
+      medications: 'Long-term medications',
       smoke: 'Do you smoke?',
-      lifestyle: 'Do you have an active lifestyle?',
-      buttonNext: 'Next'
-    },
-    signUp: {
-      headline: 'Sign up',
-      email: 'Email',
-      emailError: 'Please type a valid email',
-      password: 'Password',
-      confirmPW: 'Confirm Password',
-      confirmPWError: 'Passwords must match',
-      buttonCancel: 'Cancel',
-      buttonNext: 'Create Account'
-    },
-    tAndC: {
-      headline: 'Terms and Condtions',
-      tAndCText: `This app is meant to be used only by citizens of the United Kingdom and Sweden.
-The user of this app must be able to read and understand English or Swedish.`,
-      buttonCancel: 'Cancel',
-      buttonNext: 'Accept'
+      lifestyle: 'Do you have an active lifestyle?'
     }
   },
   consent: {

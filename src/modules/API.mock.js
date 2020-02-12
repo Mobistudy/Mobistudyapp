@@ -15,7 +15,7 @@ export default {
 
   // Logging in
   login: async function (email, password) {
-    if (email !== 'jameson@test.test' || password !== '12345678aAbB!') {
+    if (email !== 'jameson@test.test' || password !== 'outerZpace') {
       let err = new Error('bad credentials')
       err.response = { status: 401 }
       throw err
@@ -36,7 +36,7 @@ export default {
 
   // Password reset
   resetPW: async (email) => {
-    console.log('API - Reset profile for email' + email)
+    console.log('API - Reset password for email', email)
     return true
   },
 
@@ -44,6 +44,56 @@ export default {
   changePW: async (token, newpw) => {
     console.log('API - change PWD')
     return Promise.resolve(true)
+  },
+
+  searchDiseaseConcept: async (disease, lang) => {
+    console.log('API - searching for', disease)
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (disease.indexOf('hea') !== -1) {
+          resolve([
+            {
+              term: 'heart failure',
+              conceptId: '123456',
+              vocabulary: 'SNOMED'
+            },
+            {
+              term: 'congenital heart disease',
+              conceptId: '172635',
+              vocabulary: 'SNOMED'
+            }
+          ])
+        }
+        if (disease.indexOf('ast') !== -1) {
+          resolve([
+            {
+              term: 'asthma',
+              conceptId: '987653',
+              vocabulary: 'SNOMED'
+            }
+          ])
+        }
+        resolve([])
+      }, 1000)
+    })
+  },
+
+  searchMedicationConcept: async (medication, lang) => {
+    console.log('API - searching for', medication)
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (medication.indexOf('asp') !== -1) {
+          resolve([
+            {
+              term: 'aspirin',
+              conceptId: '126374',
+              vocabulary: 'SNOMED'
+            }
+          ])
+        }
+        resolve([])
+      }, 1000)
+    })
   },
 
   // Create the participant profile

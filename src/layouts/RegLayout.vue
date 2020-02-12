@@ -6,7 +6,7 @@
           <q-icon name="arrow_back" />
         </q-btn>
         <q-toolbar-title>
-          {{ $t('layoutPages.registration.headline') }}
+          {{ $t('layouts.registration') }}
         </q-toolbar-title>
       </q-toolbar>
     </q-header>

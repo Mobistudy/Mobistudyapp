@@ -30,18 +30,15 @@
     <q-item class="q-mt-md">
         <q-item-section>
           <q-item-label class="q-pb-sm">{{$t('home.about.privacyHeadline')}}</q-item-label>
-          <q-item-label caption><main-privacy-policy></main-privacy-policy></q-item-label>
+          <q-item-label caption>{{ $t('accountMgmt.registration.PP') }}</q-item-label>
         </q-item-section>
     </q-item>
   </q-page>
 </template>
 
 <script>
-import MainPrivacyPolicy from '../../components/MainPrivacyPolicy'
-
 export default {
-  name: 'AboutPage',
-  components: { MainPrivacyPolicy }
+  name: 'AboutPage'
 }
 </script>
 

@@ -17,7 +17,6 @@ export let owaspConfig = config
 // see https://vuelidate.js.org/#sub-extra-parameters
 export function checkPwdStrength (email) {
   return (pwd) => {
-    console.log('pwd strength ' + email + ' ' + pwd)
     if (!pwd) return false
     if (email) {
       // check if password includes name in email

@@ -7,7 +7,7 @@
         </q-btn>
 
         <q-toolbar-title>
-          {{ $t('layoutPages.task.headline') }}
+          {{ $t('layouts.task') }}
         </q-toolbar-title>
       </q-toolbar>
     </q-item-label>

@@ -6,7 +6,7 @@
           <q-icon name="arrow_back" />
         </q-btn>
         <q-toolbar-title>
-          {{ $t('layoutPages.consent.headline') }}
+          {{ $t('layouts.consent') }}
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
