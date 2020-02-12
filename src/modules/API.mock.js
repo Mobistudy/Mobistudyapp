@@ -3,6 +3,7 @@ import study1234 from './mockdata/study1234.js'
 import form1234 from './mockdata/form1234.js'
 import study9999 from './mockdata/study9999.js'
 import form9999 from './mockdata/form9999.js'
+import participant from './mockdata/participant.js'
 
 export default {
   setToken: function (token) {
@@ -104,36 +105,8 @@ export default {
 
   // Get the participant profile
   getProfile: async (userKey) => {
-    let profile = {
-      userKey: '1231232',
-      createdTS: '2018-12-10T09:30:32.492Z',
-      name: 'Jameson',
-      surname: 'Lee',
-      sex: 'male',
-      completed: false,
-      dateOfBirth: '1986-11-10',
-      diseases: [],
-      medications: [],
-      lifestyle: {
-        active: false,
-        smoker: true
-      },
-      studies: [
-        {
-          studyKey: '1234',
-          currentStatus: 'accepted',
-          acceptedTS: '2018-12-10T09:30:32.492Z',
-          reminders: true,
-          criteriaAnswers: [ 'Yes', 'No' ],
-          taskItemsConsent: [
-            { taskId: 1, consented: true, lastExecuted: new Date(new Date().getTime() - 86400000).toISOString() },
-            { taskId: 2, consented: true, lastExecuted: new Date(new Date().getTime() - 172800000).toISOString() }
-          ]
-        }
-      ]
-    }
-    console.log('API- Profile got', profile)
-    return profile
+    console.log('API- Profile got', participant)
+    return participant
   },
 
   // Updating details
