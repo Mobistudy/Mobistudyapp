@@ -349,7 +349,7 @@ export default {
     },
     async saveProfile () {
       this.$v.profile.$touch()
-      if (this.$v.profile.error) {
+      if (this.$v.profile.$error) {
         this.$q.notify('Please correct the indicated fields.')
       } else {
         try {
