@@ -17,7 +17,7 @@ export default {
 
     await userinfo.init()
     if (userinfo.user.language) {
-      console.log('Setting locale', userinfo.user.language)
+      console.log('Setting locale to', userinfo.user.language)
       this.$root.$i18n.locale = userinfo.user.language
     }
     // check if already logged in, otherwise go to login

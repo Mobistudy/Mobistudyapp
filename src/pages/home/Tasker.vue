@@ -1,17 +1,17 @@
 <template>
   <q-page padding>
     <q-banner rounded inline-actions class="bg-warning text-white q-mb-sm" v-if="newstudies" icon="new_releases" type="warning">
-        {{ $t('home.tasker.newStudy') }}!
+        {{ $t('studies.newStudy') }}!
         <template v-slot:action>
-          <q-btn flat color="white" :label="$t('home.tasker.buttonNewStudy')" to="studies"/>
+          <q-btn flat color="white" :label="$t('studies.checkNewStusy')" to="studies"/>
         </template>
     </q-banner>
 
     <div v-if="nostudies" class="q-title">
-      {{ $t('home.tasker.noStudies') }}
+      {{ $t('studies.noStudies') }}
     </div>
     <q-list v-else highlight>
-      <q-item-label header>{{ $t('home.tasker.tasksHeadline') }}</q-item-label>
+      <q-item-label header>{{ $t('studies.tasks.pendingTasks') }}</q-item-label>
       <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
       <div>
         <taskListItem v-for="(task, uindex) in tasks.upcoming" :task="task" :key="uindex"></taskListItem>
@@ -21,11 +21,11 @@
           <q-icon color="primary" name="check" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>{{ $t('home.tasker.noTasks') }}</q-item-label>
+          <q-item-label>{{ $t('studies.tasks.noPendingTasks') }}</q-item-label>
         </q-item-section>
       </q-item>
       <q-separator inset />
-      <q-item-label header>{{ $t('home.tasker.pastDayMissedTasks') }}</q-item-label>
+      <q-item-label header>{{ $t('studies.tasks.missedTasks') }}</q-item-label>
       <div>
         <taskListItem v-for="(task, mindex) in tasks.missed" :task="task" :key="mindex"></taskListItem>
       </div>
@@ -34,22 +34,19 @@
           <q-icon color="primary" name="check" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>{{ $t('home.tasker.noTasksMissed') }}</q-item-label>
+          <q-item-label>{{ $t('studies.tasks.noMissedTasks') }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
 
     <q-dialog v-if="this.tasks.completedStudyAlert" v-model="completedStudyModal" maximized>
       <div class="q-pa-lg text-center" style="background-color:white">
-        <div class="text-h4 q-mb-md">{{ $t('home.tasker.studyCompletedHeadline') }}!</div>
+        <div class="text-h4 q-mb-md">{{ $t('studies.studyCompletedHeadline') }}!</div>
         <div>
-          <img src="statics/icons/confetti.svg" style="width:30vw; max-width:150px;" ><br />
-          <!-- TODO: title must be localised! -->
-          <p>{{ $t('home.tasker.studyCompletedText') }} {{this.tasks.completedStudyAlert.studyTitle}}.</p>
-          <p>{{ $t('home.tasker.studyCompletedThanks') }}!</p>
+          <img src="statics/icons/confetti.svg" style="width:30vw; max-width:150px;">
         </div>
-        <p>{{ $t('home.tasker.studyCompletedReminder') }}</p>
-        <q-btn color="primary" @click="studyCompleted()" :label="$t('home.tasker.buttonCloseStudyCompleted')" />
+        <p v-html="$t('studies.studyCompletedText', { studyname: completedStudyTitle })"></p>
+        <q-btn color="primary" @click="studyCompleted()" :label="$t('common.close')" />
       </div>
     </q-dialog>
   </q-page>
@@ -78,9 +75,8 @@ export default {
       tasks: {
         upcoming: [],
         missed: [],
-        completedStudyAlert: {
-          studyTitle: undefined
-        }
+        completedStudyAlert: undefined,
+        completedStudyTitle: undefined
       },
       completedStudyModal: false
     }
@@ -170,7 +166,10 @@ export default {
         let res = scheduler.generateTasker(activestudiesPart, activeStudiesDescr)
         this.tasks = res
 
-        if (res.completedStudyAlert) this.completedStudyModal = true
+        if (res.completedStudyAlert) {
+          this.completedStudyTitle = res.completedStudyAlert.studyTitle[this.$root.$i18n.locale]
+          this.completedStudyModal = true
+        }
         this.$q.loading.hide()
       } catch (error) {
         console.error(error)
@@ -178,7 +177,7 @@ export default {
 
         this.$q.dialog({
           title: 'Error',
-          message: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.',
+          message: this.$i18n.t('generalError'),
           color: 'warning',
           ok: 'Retry',
           preventClose: true

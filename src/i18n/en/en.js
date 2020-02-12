@@ -1,8 +1,10 @@
 export default {
+  generalError: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.',
   common: {
     next: 'Next',
     cancel: 'Cancel',
-    accept: 'Accept'
+    accept: 'Accept',
+    close: 'Close'
   },
   layouts: {
     consent: 'New study',
@@ -155,6 +157,27 @@ The user of this app must be able to read and understand English or Swedish.`,
       lifestyle: 'Do you have an active lifestyle?'
     }
   },
+  studies: {
+    newStudy: 'New study available',
+    checkNewStusy: 'Check it',
+    noStudies: 'You are currently not participating in any study.',
+    studyCompletedHeadline: 'You have completed a study',
+    studyCompletedText: 'You have completed all the tasks for the {studyname}.<br><br>Thanks very much for this!<br><br>Please, be aware that some studies may require some further action, check the study description in the "Manage Studies" menu.',
+    tasks: {
+      noPendingTasks: 'No tasks pending',
+      pendingTasks: "Today's pending tasks",
+      missedTasks: 'Missed tasks',
+      noMissedTasks: 'No tasks missed',
+      dataQuery: {
+        title: 'Data query',
+        shortDescription: 'Extract data from your phone'
+      },
+      form: {
+        title: '{formname} form',
+        shortDescription: 'Answer a few questions'
+      }
+    }
+  },
   consent: {
     accepted: {
       joined: "You've just joined",
@@ -277,23 +300,8 @@ The user of this app must be able to read and understand English or Swedish.`,
           buttonWithdraw: 'Withdraw from the study'
         }
       }
-    },
-    tasker: {
-      newStudy: 'New study available',
-      buttonNewStudy: 'Check it',
-      noStudies: 'You are currently not participating in any study.',
-      tasksHeadline: "Today's pending tasks",
-      noTasks: 'No tasks pending',
-      pastDayMissedTasks: 'Past days missed tasks',
-      noTasksMissed: 'No tasks missed',
-      studyCompletedHeadline: 'You have completed a study',
-      studyCompletedText: 'You have completed all the tasks for the',
-      studyCompletedThanks: 'Thanks very much for this',
-      studyCompletedReminder: 'Please, be aware that some studies may require some further action, check the study description in the "Manage Studies" menu.',
-      buttonCloseStudyCompleted: 'Close'
     }
   },
-  error404: {},
   failed: 'Action failed',
   success: 'Action was successful',
   healthDataTypes: {
