@@ -4,7 +4,9 @@ export default {
     next: 'Next',
     cancel: 'Cancel',
     accept: 'Accept',
-    close: 'Close'
+    close: 'Close',
+    update: 'Update',
+    delete: 'Delete'
   },
   layouts: {
     consent: 'New study',
@@ -46,14 +48,19 @@ export default {
     confirmPassword: 'Confirm Password',
     confirmPasswordError: 'Passwords must match',
     register: 'Register',
+    deleteAccount: 'Delete Account',
+    deleteShort: "You can permanently delete your account, Mobistudy won't ever collect anymore data unless you create a new account.",
     login: {
       login: 'Login',
+      logout: 'Logout',
+      logoutShort: 'You can logout of your Mobistudy App, no data will be collected while you are logged out.',
       lostpw: 'Lost Password',
       noAcc: 'No account yet? Register in 3 steps!'
     },
     resetPassword: {
       resetPassword: 'Reset Password',
       newPassword: 'New password',
+      resetPasswordShort: "To change your password you'll get a mail with a verification token, enter the token on the next screen and choose a new password.",
       newPasswordExplanation: 'If you\'re registered in the system, you should receive an email shortly. Please copy/paste the token from your email onto this form. If you change your password on the Mobistudy web page instead, then tap on cancel and login with your new password.',
       token: 'Token',
       tokenHint: 'As received on your email.',
@@ -244,29 +251,6 @@ The user of this app must be able to read and understand English or Swedish.`,
       buttonNext: 'Next',
       completedText: 'Form completed. Thank you.',
       buttonSend: 'Send'
-    },
-    profile: {
-      headline: 'Your profile',
-      firstNameLabel: 'First Name',
-      firstNameError: 'First Name required',
-      surnameLabel: 'Surname',
-      surnameError: 'Surname required',
-      sexLabel: 'Sex',
-      sexError: 'Required',
-      dateOfBirthLabel: 'Date of Birth',
-      dateOfBirthError: 'Required',
-      dateOfBirthTitle: 'Date of Birth',
-      buttonUpdate: 'Update',
-      buttonCancel: 'Cancel',
-      changePwHeadline: 'Change your Password',
-      changePwText: "To change your password you'll get a mail with a verification token, enter the token on the next screen and choose a new password.",
-      buttonChangePw: 'Change Password',
-      logoutHeadline: 'Logout',
-      logoutText: "You can temporarily logout of your Mobistudy App, please take note, that Mobistudy won't collect any data while you are logged out and thus won't submit any data to the studies you are participating in.",
-      buttonLogout: 'Logout',
-      deleteHeadline: 'Delete your Account',
-      deleteText: "You can permanently delete your account, Mobistudy won't ever collect anymore data if you don't create a new account.",
-      buttonDelete: 'Delete Account'
     },
     studies: {
       headline: 'You are invited to join',

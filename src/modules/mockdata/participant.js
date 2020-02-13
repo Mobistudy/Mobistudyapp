@@ -7,7 +7,13 @@ export default {
   language: 'en',
   sex: 'male',
   dateOfBirth: '1986-11-10',
-  diseases: [],
+  diseases: [
+    {
+      term: 'asthma',
+      conceptId: '987653',
+      vocabulary: 'SNOMED'
+    }
+  ],
   medications: [],
   lifestyle: {
     active: false,
