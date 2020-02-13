@@ -1,38 +1,21 @@
 <template>
-  <q-page padding class="flex flex-center">
-    <div class="text-h6 q-mt-lg">
-      {{ $t('home.about.headline') }}
-    </div>
-    <q-item class="q-mt-md">
-        <q-item-section>
-          <q-item-label class="q-pb-sm">{{$t('home.about.introHeadline')}}</q-item-label>
-          <q-item-label caption>{{$t('home.about.introText')}}</q-item-label>
-        </q-item-section>
-    </q-item>
-    <q-item class="q-mt-md q-mb-lg">
-        <q-item-section>
-          <q-item-label caption>{{$t('home.about.managedByText')}}</q-item-label>
-        </q-item-section>
-    </q-item>
-    <q-item>
-      <div class="text-center">
-        <div class="col-12">
-          <img src="~/assets/malmo_logo.png" style="max-width:50%"/>
-        </div>
+  <q-page padding>
+    <div class="row justify-center">
+      <div class="text-h5 q-mt-lg">
+        {{ $t('info.about') }}
       </div>
-    </q-item>
-    <q-item class="q-mt-md">
-        <q-item-section>
-          <q-item-label class="q-pb-sm">{{$t('home.about.tAndCHeadline')}}</q-item-label>
-          <q-item-label caption>{{$t('home.about.tAndCText')}}</q-item-label>
-        </q-item-section>
-    </q-item>
-    <q-item class="q-mt-md">
-        <q-item-section>
-          <q-item-label class="q-pb-sm">{{$t('home.about.privacyHeadline')}}</q-item-label>
-          <q-item-label caption>{{ $t('accountMgmt.registration.PP') }}</q-item-label>
-        </q-item-section>
-    </q-item>
+    </div>
+    <p class="text-h6">{{$t('info.introduction')}}</p>
+    <p v-html="$t('info.introductionFull')"></p>
+    <div class="row justify-center">
+        <img src="~/assets/malmo_logo.png" style="max-width:50%"/>
+    </div>
+
+    <p class="text-h6 q-mt-lg">{{$t('accountMgmt.registration.termsAndConditions')}}</p>
+    <p v-html="$t('accountMgmt.registration.termsAndConditionsFull')"></p>
+
+    <p class="text-h6 q-mt-lg">{{$t('accountMgmt.registration.privacyPolicy')}}</p>
+    <p v-html="$t('accountMgmt.registration.privacyPolicyFull')"></p>
   </q-page>
 </template>
 

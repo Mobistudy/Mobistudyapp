@@ -178,6 +178,19 @@ The user of this app must be able to read and understand English or Swedish.`,
       }
     }
   },
+  info: {
+    about: 'About',
+    introduction: 'Introduction',
+    introductionFull: `Mobistudy is an open iniative that allows citizens to help \
+    health research with their data. Participants download an app (iOS or Android) \
+    and, after registering and filling-in a short profile, they are proposed with \
+    research studies. If they find a study they may be interested in, they are \
+    guided through an easy-to-understand informed consent process. Upon acceptance, \
+    participants are then proposed "tasks", such as filling forms and questionnaires \
+    and provide their health data through Google Fit or Apple HealthKit.<br><br>
+    Mobistudy is currently managed by the Internet Of Things and People research\
+    center, Malmö University.`
+  },
   consent: {
     accepted: {
       joined: "You've just joined",
@@ -227,8 +240,7 @@ The user of this app must be able to read and understand English or Swedish.`,
     about: {
       headline: 'About',
       introHeadline: 'Introduction',
-      introText: 'Mobistudy is an open iniative that allows citizens to help health research with their data. Participants download an app (iOS or Android) and, after registering and filling-in a short profile, they are proposed with research studies. If they find a study they may be interested in, they are guided through an easy-to-understand informed consent process. Upon acceptance, participants are then proposed "tasks", such as filling forms and questionnaires and provide their health data through Google Fit or Apple HealthKit.',
-      managedByText: 'Mobistudy is currently managed by the Internet Of Things and People research center, Malmö University.',
+      managedByText: '',
       tAndCHeadline: 'Terms and Conditions',
       tAndCText: 'This is an alpha version of Mobistudy and is meant to be used for technical testing only. Please do not use this app unless you are a member of the development team of Mobistudy.',
       privacyHeadline: 'Privacy policy'
