@@ -237,14 +237,6 @@ The user of this app must be able to read and understand English or Swedish.`,
     }
   },
   home: {
-    about: {
-      headline: 'About',
-      introHeadline: 'Introduction',
-      managedByText: '',
-      tAndCHeadline: 'Terms and Conditions',
-      tAndCText: 'This is an alpha version of Mobistudy and is meant to be used for technical testing only. Please do not use this app unless you are a member of the development team of Mobistudy.',
-      privacyHeadline: 'Privacy policy'
-    },
     form: {
       buttonStart: 'Start',
       freeTextLabel: 'Type your answer',

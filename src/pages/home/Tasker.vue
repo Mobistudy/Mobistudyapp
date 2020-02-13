@@ -56,7 +56,7 @@
 </style>
 
 <script>
-import taskListItem from 'components/Main/TaskListItem.vue'
+import taskListItem from 'components/TaskListItem.vue'
 import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
