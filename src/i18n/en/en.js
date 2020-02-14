@@ -53,14 +53,14 @@ export default {
     login: {
       login: 'Login',
       logout: 'Logout',
-      logoutShort: 'You can logout of your Mobistudy App, no data will be collected while you are logged out.',
+      logoutShort: 'If you logout from the Mobistudy App no data will be collected.',
       lostpw: 'Lost Password',
       noAcc: 'No account yet? Register in 3 steps!'
     },
     resetPassword: {
       resetPassword: 'Reset Password',
       newPassword: 'New password',
-      resetPasswordShort: "To change your password you'll get a mail with a verification token, enter the token on the next screen and choose a new password.",
+      resetPasswordShort: "To change your password you'll get a mail with a verification token, enter the token on the next screen and choose a new password. Warning! this will also log you out.",
       newPasswordExplanation: 'If you\'re registered in the system, you should receive an email shortly. Please copy/paste the token from your email onto this form. If you change your password on the Mobistudy web page instead, then tap on cancel and login with your new password.',
       token: 'Token',
       tokenHint: 'As received on your email.',

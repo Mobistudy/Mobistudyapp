@@ -23,7 +23,7 @@
         <q-item-label>{{$t('accountMgmt.resetPassword.resetPassword')}}</q-item-label>
         <q-item-label caption>{{$t('accountMgmt.resetPassword.resetPasswordShort')}}</q-item-label>
         <div class="q-my-md">
-          <q-btn color="primary" to="changePW" :label="$t('accountMgmt.resetPassword.resetPassword')" />
+          <q-btn color="primary" @click="resetPwd()" :label="$t('accountMgmt.resetPassword.resetPassword')" />
         </div>
       </q-item-section>
     </q-item>
@@ -59,6 +59,8 @@
 <script>
 import ProfileEditor from '../../components/ProfileEditor'
 import API from '../../modules/API'
+import DB from '../../modules/db'
+import notifications from '../../modules/notifications'
 import userinfo from '../../modules/userinfo'
 
 export default {
@@ -91,7 +93,7 @@ export default {
     } catch (error) {
       this.$q.notify({
         color: 'negative',
-        message: 'Cannot update: ' + error.message,
+        message: 'Cannot load profile: ' + error.message,
         icon: 'report_problem'
       })
       this.$q.loading.hide()
@@ -130,7 +132,26 @@ export default {
       } catch (error) {
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot update: ' + error.message,
+          message: 'Cannot save profile: ' + error.message,
+          icon: 'report_problem'
+        })
+      }
+    },
+    async resetPwd () {
+      // get the token and go to the change password screen
+      try {
+        await API.resetPW(userinfo.user.email.toLowerCase())
+        // keep a copy of the email before it's deleted by logout
+        let email = userinfo.user.email
+        notifications.cancelAll()
+        userinfo.logout()
+        API.unsetToken()
+        DB.emptyUserData()
+        this.$router.push({ name: 'changepw', params: { email: email } })
+      } catch (error) {
+        this.$q.notify({
+          color: 'negative',
+          message: 'Cannot reset password: ' + error.message,
           icon: 'report_problem'
         })
       }
@@ -151,7 +172,7 @@ export default {
         }
       }).onOk(async () => {
         try {
-          await API.deleteUser(userinfo.user._key)
+          await API.deleteUser(userinfo.user.user._key)
           this.$router.push('/login')
         } catch (error) {
           this.$q.notify({

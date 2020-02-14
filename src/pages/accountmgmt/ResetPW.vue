@@ -42,7 +42,7 @@ export default {
         } catch (error) {
           this.$q.notify({
             color: 'negative',
-            message: 'Login failed: ' + error.message,
+            message: 'Cannot reset password: ' + error.message,
             icon: 'report_problem'
           })
         }
