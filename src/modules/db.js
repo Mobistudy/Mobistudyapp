@@ -9,8 +9,13 @@ import * as storage from './storage.local'
 
 export default {
   async emptyDB () {
-    // TODO: we need to keep app_version and other non-user dependant variables !!!
     return storage.clear()
+  },
+  async emptyUserData () {
+    let appversion = await storage.getItem('app_version')
+    await storage.clear()
+    // do not delete the app version, only delete user data
+    await storage.setItem('app_version', appversion)
   },
   async getCurrentAppVersion () {
     return storage.getItem('app_version')

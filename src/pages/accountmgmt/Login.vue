@@ -80,7 +80,7 @@ export default {
       notifications.cancelAll()
       userinfo.logout()
       API.unsetToken()
-      DB.emptyDB()
+      DB.emptyUserData()
     }
   },
   methods: {
