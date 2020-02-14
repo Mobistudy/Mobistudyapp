@@ -10,6 +10,7 @@ export default {
       this.user = {
         loggedin: false,
         _key: undefined,
+        email: undefined,
         token: undefined,
         name: undefined,
         surname: undefined,
@@ -20,8 +21,10 @@ export default {
     } else this.user.loggedin = true
   },
   async login (newuser) {
+    console.log('login', newuser)
     this.user.loggedin = true
     this.user._key = newuser._key
+    this.user.email = newuser.email
     this.user.token = newuser.token
     await DB.setUserSession(this.user)
   },
@@ -37,6 +40,7 @@ export default {
     this.user = {
       loggedin: false,
       _key: undefined,
+      email: undefined,
       token: undefined,
       name: undefined,
       surname: undefined,
