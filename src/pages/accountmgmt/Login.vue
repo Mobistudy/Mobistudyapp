@@ -94,14 +94,14 @@ export default {
           API.setToken(user.token)
 
           // retrieve the profile information
-          // TODO: if the profile information is not available, it should go to a dedicated page where to fill it in
           let profile = await API.getProfile(userinfo.user._key)
-          await userinfo.setProfile(profile)
 
-          // TODO: IMPLEMENT PROFILE COMPLETED FLAG TO ACTUALLY BE ABLE TO USE THIS CHECK
           if (!profile) {
+            // profile has not been filled in yet! must fill in now
             this.$router.push('/register_profile')
           } else {
+            // profile exists
+            await userinfo.setProfile(profile)
             if (profile.studies) await DB.setStudiesParticipation(profile.studies)
             this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
           }
