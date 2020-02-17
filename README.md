@@ -26,6 +26,14 @@ To start the app in development mode (hot-code reloading, error reporting, etc.)
 quasar dev
 ```
 
+## Test it
+
+The repository contains some unit tests, to run them:
+
+```bash
+npm run test:unit
+```
+
 ## Develop it
 
 The code is consistent with how projects are structured in Quasar.
