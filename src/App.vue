@@ -23,7 +23,7 @@ export default {
     // check if already logged in, otherwise go to login
     let resettingpwd =
       this.$route.path === '/resetpw' || this.$route.path === '/changepw'
-    if (!userinfo.user.loggedin && !resettingpwd) {
+    if ((!userinfo.user.loggedin || !userinfo.user.name) && !resettingpwd) {
       console.log('LOGGED OUT, GOING TO LOGIN')
       this.$router.push('/login')
       return
