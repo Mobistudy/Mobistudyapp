@@ -6,7 +6,7 @@
       </div>
     </div>
 
-    <profile-editor v-model="profile" />
+    <profile-editor v-model="profile" :buttonOk="$t('common.next')" @buttonOk="saveProfile()" />
 
     <div class="q-my-md row justify-evenly">
       <q-btn :label="$t('common.cancel')" color="secondary" to="home" />

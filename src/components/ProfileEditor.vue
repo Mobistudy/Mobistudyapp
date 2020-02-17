@@ -138,6 +138,12 @@
       @input="update()"
       checked-icon="directions_run"
       unchecked-icon="airline_seat_recline_normal" />
+
+    <div class="q-my-md row justify-evenly">
+      <q-btn v-if="buttonCancel" :label="buttonCancel" color="secondary" @click="buttonCancelClick()" />
+      <q-btn  v-if="buttonOk" :label="buttonOk" color="positive" @click="buttonOkClick()" />
+    </div>
+
   </div>
 </template>
 
@@ -147,7 +153,7 @@ import API from '../modules/API'
 
 export default {
   name: 'ProfileEditor',
-  props: ['value', 'v'],
+  props: ['value', 'buttonCancel', 'buttonOk'],
   data () {
     return {
       sexOptions: [
@@ -338,6 +344,17 @@ export default {
     },
     update () {
       this.$emit('input', this.value)
+    },
+    buttonCancelClick () {
+      this.$emit('buttonCancel', this.value)
+    },
+    buttonOkClick () {
+      this.$v.value.$touch()
+      if (this.$v.value.$error) {
+        this.$q.notify('Please correct the indicated fields.')
+      } else {
+        this.$emit('buttonOk', this.value)
+      }
     }
   }
 }

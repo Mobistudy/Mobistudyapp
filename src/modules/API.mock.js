@@ -99,31 +99,31 @@ export default {
 
   // Create the participant profile
   createProfile: async (profile) => {
-    console.log('API- Profile created', profile)
+    console.log('API - Profile created', profile)
     return true
   },
 
   // Get the participant profile
   getProfile: async (userKey) => {
-    console.log('API- Profile got', participant)
+    console.log('API - Profile ', participant)
     return participant
   },
 
   // Updating details
   updateProfile: async (profile) => {
-    console.log('API- Profile updated', profile)
+    console.log('API - Profile updated', profile)
     return true
   },
 
   // Permanently delete the user
   deleteUser: async (userKey) => {
-    console.log('API- permanently delete user')
+    console.log('API - Permanently delete user')
     return true
   },
 
   // update status of a study
   updateStudyStatus: async (userKey, studyKey, studyParticipation) => {
-    console.log('API- Study status updated', studyParticipation)
+    console.log('API - Study status updated', studyParticipation)
     return true
   },
 
