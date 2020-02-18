@@ -15,7 +15,7 @@ export default {
         sv: 'I genomsnitt under den senaste veckan, hur ofta kände du andnöd i vila?'
       },
       helper: {
-        en: 'Choose one option,',
+        en: 'Choose one option.',
         sv: 'Välj ett alternativ.'
       },
       type: 'singleChoice',
@@ -71,7 +71,7 @@ export default {
         sv: 'I genomsnitt under den senaste veckan, hur ofta kände du kort andedräkt som gör fysiska aktiviteter'
       },
       helper: {
-        en: 'Choose one option,',
+        en: 'Choose one option.',
         sv: 'Välj ett alternativ.'
       },
       type: 'singleChoice',
@@ -127,7 +127,7 @@ export default {
         sv: 'I genomsnitt under den senaste veckan, hur ofta kände du dig bekymrad över att bli förkylt eller att andningen blev värre?'
       },
       helper: {
-        en: 'Choose one option,',
+        en: 'Choose one option.',
         sv: 'Välj ett alternativ.'
       },
       type: 'singleChoice',
@@ -183,7 +183,7 @@ export default {
         sv: 'I genomsnitt under den senaste veckan, hur ofta kände du deprimerad på grund av dina andningsproblem?'
       },
       helper: {
-        en: 'Choose one option,',
+        en: 'Choose one option.',
         sv: 'Välj ett alternativ.'
       },
       type: 'singleChoice',

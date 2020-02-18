@@ -18,7 +18,10 @@ export default {
     info: 'Info',
     privacy: 'Privacy',
     consent: 'Consent',
-    retry: 'Retry'
+    retry: 'Retry',
+    start: 'Start',
+    send: 'Send',
+    back: 'Back'
   },
   layouts: {
     consent: 'New study',
@@ -166,7 +169,9 @@ export default {
       },
       form: {
         title: '{formname} form',
-        shortDescription: 'Answer a few questions'
+        shortDescription: 'Answer a few questions',
+        formCompleted: 'Form completed. Thank you.',
+        freeTextExplanation: 'Type your answer'
       }
     },
     consent: {
@@ -198,16 +203,6 @@ export default {
     and provide their health data through Google Fit or Apple HealthKit.<br><br>
     Mobistudy is currently managed by the Internet Of Things and People research\
     center, Malmö University.`
-  },
-  home: {
-    form: {
-      buttonStart: 'Start',
-      freeTextLabel: 'Type your answer',
-      buttonBack: 'Back',
-      buttonNext: 'Next',
-      completedText: 'Form completed. Thank you.',
-      buttonSend: 'Send'
-    }
   },
   healthDataTypes: {
     steps: 'steps',
