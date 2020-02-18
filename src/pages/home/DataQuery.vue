@@ -14,8 +14,8 @@
 
 <script>
 import healthstore from '../../modules/healthstore.js'
-import BarChart from 'components/Main/BarChart.js'
-import LineChart from 'components/Main/LineChart.js'
+import BarChart from 'components/BarChart.js'
+import LineChart from 'components/LineChart.js'
 import userinfo from '../../modules/userinfo.js'
 import DB from '../../modules/db.js'
 import API from '../../modules/API.js'

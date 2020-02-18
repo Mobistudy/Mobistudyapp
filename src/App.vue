@@ -16,10 +16,14 @@ export default {
     DB.setCurrentAppVersion(process.env.APP_VERSION)
 
     await userinfo.init()
+    if (userinfo.user.language) {
+      console.log('Setting locale to', userinfo.user.language)
+      this.$root.$i18n.locale = userinfo.user.language
+    }
     // check if already logged in, otherwise go to login
     let resettingpwd =
       this.$route.path === '/resetpw' || this.$route.path === '/changepw'
-    if (!userinfo.user.loggedin && !resettingpwd) {
+    if ((!userinfo.user.loggedin || !userinfo.user.name) && !resettingpwd) {
       console.log('LOGGED OUT, GOING TO LOGIN')
       this.$router.push('/login')
       return

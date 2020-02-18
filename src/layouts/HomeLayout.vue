@@ -7,17 +7,13 @@
         </q-btn>
 
         <q-toolbar-title>
-          Mobistudy
+          {{ $t('layouts.home') }}
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" :content-class="$q.theme === 'mat' ? 'bg-grey-3' : null" overlay behavior="mobile" elevated>
       <q-list no-border link inset-delimiter >
-        <!--<q-list-header>Logged in as {{ name }} {{ surname }}</q-list-header>-->
-        <q-item-label header>Logged in.</q-item-label>
-
-        <q-separator />
 
         <q-item to="tasker">
           <q-item-section avatar>
@@ -28,6 +24,7 @@
             <q-item-label caption>See upcoming tasks</q-item-label>
           </q-item-section>
         </q-item>
+
         <q-item to="profile">
           <q-item-section avatar>
             <q-icon color="grey" name="account_box" />
@@ -37,6 +34,7 @@
             <q-item-label caption>Edit profile</q-item-label>
           </q-item-section>
         </q-item>
+
         <q-item to="studies">
           <q-item-section avatar>
             <q-icon color="grey" name="settings" />
@@ -65,14 +63,10 @@
 </template>
 
 <script>
-import userinfo from '../modules/userinfo'
-
 export default {
   name: 'HomeLayout',
   data () {
     return {
-      name: userinfo.user.name,
-      surname: userinfo.user.surname,
       leftDrawerOpen: false
     }
   }

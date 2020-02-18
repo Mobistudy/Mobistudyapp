@@ -1,5 +1,5 @@
-import en from './en'
-import sv from './sv'
+import en from './en/en'
+import sv from './sv/sv'
 
 export default {
   'en': en,

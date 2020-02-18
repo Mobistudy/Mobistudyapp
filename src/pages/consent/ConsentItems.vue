@@ -4,7 +4,7 @@
       <q-item>
         <q-item-section>
           <q-item-label class="text-center text-h5">
-            Consent to these items
+            {{ $t('consent.consentItems.headline') }}
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -26,7 +26,7 @@
         <q-item v-if="taskType[taskIndex] === 'dataQuery'">
           <q-item-section>
             <q-item-label class="q-my-md">{{taskItem.description}}</q-item-label>
-            <q-btn label="Give permission to this app" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" :color="getColour(taskIndex)" :outline="getOutline(taskIndex)" @click="requestDQPermission(taskIndex)"></q-btn>
+            <q-btn :label="$t('consent.consentItems.buttonPermissions')" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" :color="getColour(taskIndex)" :outline="getOutline(taskIndex)" @click="requestDQPermission(taskIndex)"></q-btn>
           </q-item-section>
           <q-item-section avatar v-if="taskType[taskIndex] === 'dataQuery'">
             <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
@@ -36,12 +36,12 @@
       </q-list>
       <q-separator v-if="remindersPermissionNeeded" />
       <q-item v-if="remindersPermissionNeeded">
-        <q-item-section label="I want to receive reminders about the tasks of this study">
+        <q-item-section :label="$t('consent.consentItems.remindersText')">
           <div>
-            <div class="q-mt-sm text-secondary">
-              You need to allow the app to send reminders.
+            <div class="q-my-md">
+              {{$t('consent.consentItems.remindersText2')}}
             </div>
-            <q-btn label="Allow reminders" :disabled="!reminders || remindersPermissionGiven" :color="getReminderColour()" :outline="getReminderOutline()" @click="requestNotificationsPermission()"></q-btn>
+            <q-btn :label="$t('consent.consentItems.buttonReminders')" :disabled="!reminders || remindersPermissionGiven" :color="getReminderColour()" :outline="getReminderOutline()" @click="requestNotificationsPermission()"></q-btn>
           </div>
         </q-item-section>
         <q-item-section avatar>
@@ -50,8 +50,8 @@
       </q-item>
     </q-list>
     <div class="q-my-md row justify-between">
-      <q-btn label="Deny" color="negative" @click="deny()"></q-btn>
-      <q-btn label="Join the study" color="primary" :disabled="!canAccept" @click="accept()"></q-btn>
+      <q-btn :label="$t('consent.consentItems.buttonBack')" color="negative" @click="deny()"></q-btn>
+      <q-btn :label="$t('consent.consentItems.buttonNext')" color="primary" :disabled="!canAccept" @click="accept()"></q-btn>
     </div>
   </q-page>
 </template>
