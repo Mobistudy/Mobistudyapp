@@ -143,14 +143,13 @@ export default {
       this.$router.push({ name: 'studyConfig', params: { studyDescription: study } })
     },
     async discardStudy (index) {
-      try {
-        await this.$q.dialog({
-          title: 'Discard study',
-          message: 'Are you sure you want to discard this study',
-          color: 'primary',
-          ok: 'Yes',
-          cancel: 'Cancel'
-        })
+      this.$q.dialog({
+        title: this.$i18n.t('studies.discardStudy'),
+        message: this.$i18n.t('studies.discardStudyConfirm'),
+        color: 'primary',
+        ok: this.$i18n.t('common.yes'),
+        cancel: this.$i18n.t('common.cancel')
+      }).onOk(async () => {
         let study = this.newStudies[index]
         let studyParticipation = {
           studyKey: study._key
@@ -183,9 +182,7 @@ export default {
             icon: 'report_problem'
           })
         }
-      } catch (e) {
-        // do nothing
-      }
+      })
     },
     async joinStudy (index) {
       let study = this.newStudies[index]

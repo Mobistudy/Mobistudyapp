@@ -1,5 +1,6 @@
 export default {
   errors: {
+    error: 'Error',
     generalError: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.',
     connectionError: 'Cannot contact server',
     correctFields: 'Please correct the indicated fields'
@@ -15,7 +16,8 @@ export default {
     no: 'No',
     info: 'Info',
     privacy: 'Privacy',
-    consent: 'Consent'
+    consent: 'Consent',
+    retry: 'Retry'
   },
   layouts: {
     consent: 'New study',
@@ -139,6 +141,7 @@ export default {
     noStudies: 'You are currently not participating in any study.',
     joinStudy: 'Join',
     discardStudy: 'Discard',
+    discardStudyConfirm: 'Are you sure you want to discard this study?',
     activeStudies: 'Active studies',
     noActiveStudies: 'No active studies found.',
     previousStudies: 'Previous studies',

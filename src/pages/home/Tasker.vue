@@ -176,16 +176,14 @@ export default {
         this.$q.loading.hide()
 
         this.$q.dialog({
-          title: 'Error',
+          title: this.$i18n.t('errors.error'),
           message: this.$i18n.t('errors.generalError'),
           color: 'warning',
-          ok: 'Retry',
+          ok: this.$i18n.t('common.retry'),
           preventClose: true
-        }).then(() => {
+        }).onOk(() => {
           console.log('retry')
           this.load()
-        }).catch(() => {
-          console.log('error')
         })
       }
     },

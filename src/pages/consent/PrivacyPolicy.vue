@@ -43,14 +43,13 @@ export default {
       this.$router.push({ name: 'consentItems', params: { studyDescription: this.studyDescription } })
     },
     async deny () {
-      try {
-        await this.$q.dialog({
-          title: 'Discard study',
-          message: 'Are you sure you want to discard this study',
-          color: 'primary',
-          ok: 'Yes',
-          cancel: 'Cancel'
-        })
+      this.$q.dialog({
+        title: 'Discard study',
+        message: 'Are you sure you want to discard this study',
+        color: 'primary',
+        ok: 'Yes',
+        cancel: 'Cancel'
+      }).onOk(async () => {
         let studyParticipation = {
           studyKey: this.studyDescription._key,
           currentStatus: 'rejected',
@@ -74,9 +73,7 @@ export default {
             icon: 'report_problem'
           })
         }
-      } catch (e) {
-        // do nothing
-      }
+      })
     }
   }
 }
