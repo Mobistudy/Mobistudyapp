@@ -1,20 +1,16 @@
 <template>
-  <q-page padding>
-    <q-list>
-      <q-item>
-        <q-item-section>
-          <q-item-label class="text-center text-h5">
-            {{ $t('consent.consentItems.headline') }}
-          </q-item-label>
-        </q-item-section>
-      </q-item>
-    </q-list>
+  <q-page padding><div class="text-h5 text-center">
+      {{$t('studies.consent.informedConsent')}}
+    </div>
+    <div class="text-body2">
+      {{$t('studies.consent.consentExplanation')}}
+    </div>
 
     <q-list>
       <div v-if="studyDescription.consent.extraItems">
         <q-item v-for="(extraItem, extraIndex) in studyDescription.consent.extraItems" :key="extraIndex" >
           <q-item-section>
-            <q-item-label>{{extraItem.description}}</q-item-label>
+            <q-item-label>{{extraItem.description[$i18n.locale]}}</q-item-label>
           </q-item-section>
           <q-item-section avatar>
             <q-checkbox v-model="consentedExtraItems[extraIndex]" :disable="!extraItem.optional"/>
@@ -25,8 +21,8 @@
       <q-list v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems" :key="taskIndex">
         <q-item v-if="taskType[taskIndex] === 'dataQuery'">
           <q-item-section>
-            <q-item-label class="q-my-md">{{taskItem.description}}</q-item-label>
-            <q-btn :label="$t('consent.consentItems.buttonPermissions')" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" :color="getColour(taskIndex)" :outline="getOutline(taskIndex)" @click="requestDQPermission(taskIndex)"></q-btn>
+            <q-item-label class="q-my-md">{{taskItem.description[$i18n.locale]}}</q-item-label>
+            <q-btn :label="$t('studies.consent.giveOSPermission')" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" :color="getColour(taskIndex)" :outline="getOutline(taskIndex)" @click="requestDQPermission(taskIndex)"></q-btn>
           </q-item-section>
           <q-item-section avatar v-if="taskType[taskIndex] === 'dataQuery'">
             <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
@@ -36,12 +32,12 @@
       </q-list>
       <q-separator v-if="remindersPermissionNeeded" />
       <q-item v-if="remindersPermissionNeeded">
-        <q-item-section :label="$t('consent.consentItems.remindersText')">
+        <q-item-section :label="$t('studies.consent.remindersConsent')">
           <div>
             <div class="q-my-md">
-              {{$t('consent.consentItems.remindersText2')}}
+              {{$t('studies.consent.remindersOSPermission')}}
             </div>
-            <q-btn :label="$t('consent.consentItems.buttonReminders')" :disabled="!reminders || remindersPermissionGiven" :color="getReminderColour()" :outline="getReminderOutline()" @click="requestNotificationsPermission()"></q-btn>
+            <q-btn :label="$t('studies.consent.giveRemindersOSPermission')" :disabled="!reminders || remindersPermissionGiven" :color="getReminderColour()" :outline="getReminderOutline()" @click="requestNotificationsPermission()"></q-btn>
           </div>
         </q-item-section>
         <q-item-section avatar>
@@ -50,8 +46,8 @@
       </q-item>
     </q-list>
     <div class="q-my-md row justify-between">
-      <q-btn :label="$t('consent.consentItems.buttonBack')" color="negative" @click="deny()"></q-btn>
-      <q-btn :label="$t('consent.consentItems.buttonNext')" color="primary" :disabled="!canAccept" @click="accept()"></q-btn>
+      <q-btn :label="$t('common.reject')" color="negative" @click="deny()"></q-btn>
+      <q-btn :label="$t('studies.consent.joinStudy')" color="positive" :disabled="!canAccept" @click="accept()"></q-btn>
     </div>
   </q-page>
 </template>
@@ -81,10 +77,13 @@ export default {
     this.remindersPermissionNeeded = !hasPermissionsAlready
     this.remindersPermissionGiven = hasPermissionsAlready
 
-    for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
-      if (this.studyDescription.consent.extraItems[i].optional) this.consentedExtraItems.push(false)
-      else this.consentedExtraItems.push(true)
+    if (this.studyDescription.consent.extraItems && this.studyDescription.consent.extraItems.length) {
+      for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
+        if (this.studyDescription.consent.extraItems[i].optional) this.consentedExtraItems.push(false)
+        else this.consentedExtraItems.push(true)
+      }
     }
+
     for (let i = 0; i < this.studyDescription.consent.taskItems.length; i++) {
       this.consentedTaskItems.push(false)
       this.permissionsGiven.push(false)
@@ -155,14 +154,14 @@ export default {
           this.$set(this.permissionsGiven, taskIndex, true)
           this.$q.notify({
             color: 'positive',
-            message: 'Permission given',
+            message: this.$i18n.t('studies.consent.OSPermissionGiven'),
             icon: 'check'
           })
         } catch (error) {
           console.error('Cannot get authorisation for health', error)
           this.$q.notify({
             color: 'negative',
-            message: 'Cannot be authorised: ' + error.message,
+            message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error.message,
             icon: 'report_problem'
           })
         }
@@ -173,25 +172,25 @@ export default {
         this.remindersPermissionGiven = await notifications.requestPermission()
         this.$q.notify({
           color: 'positive',
-          message: 'Permission given',
+          message: this.$i18n.t('studies.consent.OSPermissionGiven'),
           icon: 'check'
         })
       } catch (error) {
         console.error('Cannot get authorisation for sending reminders', error)
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot be authorised: ' + error.message,
+          message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error.message,
           icon: 'report_problem'
         })
       }
     },
     async deny () {
       this.$q.dialog({
-        title: 'Discard study',
-        message: 'Are you sure you want to discard this study',
+        title: this.$i18n.t('studies.discardStudy'),
+        message: this.$i18n.t('studies.discardStudyConfirm'),
         color: 'primary',
-        ok: 'Yes',
-        cancel: 'Cancel'
+        ok: this.$i18n.t('common.yes'),
+        cancel: this.$i18n.t('common.cancel')
       }).onOk(async () => {
         let studyParticipation = {
           studyKey: this.studyDescription._key,
@@ -212,7 +211,7 @@ export default {
           console.error('Cannot connect to server', error)
           this.$q.notify({
             color: 'negative',
-            message: 'Cannot discard this study: ' + error.message,
+            message: this.$i18n.t('errors.connectionError') + ': ' + error.message,
             icon: 'report_problem'
           })
         }

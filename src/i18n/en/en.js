@@ -9,6 +9,7 @@ export default {
     next: 'Next',
     cancel: 'Cancel',
     accept: 'Accept',
+    reject: 'Reject',
     close: 'Close',
     update: 'Update',
     delete: 'Delete',
@@ -142,6 +143,7 @@ export default {
     joinStudy: 'Join',
     discardStudy: 'Discard',
     discardStudyConfirm: 'Are you sure you want to discard this study?',
+    privacyPolicy: 'Privacy Policy',
     activeStudies: 'Active studies',
     noActiveStudies: 'No active studies found.',
     previousStudies: 'Previous studies',
@@ -151,6 +153,8 @@ export default {
     investigatorName: 'Name',
     institution: 'Institution',
     contact: 'Contact details',
+    studyDetails: 'Study details',
+    studyTitle: 'Study title',
     tasks: {
       noPendingTasks: 'No tasks pending',
       pendingTasks: "Today's pending tasks",
@@ -174,9 +178,12 @@ export default {
       remindersConsent: 'I want to receive reminders about the tasks of this study',
       remindersOSPermission: 'You need to allow the app to send reminders.',
       giveRemindersOSPermission: 'Allow reminders',
+      informedConsent: 'Informed consent',
+      consentExplanation: 'Consent to the following items to join the study. You do not have to consent to all of them, however some items may be required to join the study. When an item requires access to the phone\'s functions, you can tap the button to grant access to this app.',
       updateConsent: 'Update consent',
       consentUpdated: 'Consent updated',
-      withdraw: 'Withdraw from the study'
+      withdraw: 'Withdraw from the study',
+      joinStudy: 'Join study'
     }
   },
   info: {
@@ -191,51 +198,6 @@ export default {
     and provide their health data through Google Fit or Apple HealthKit.<br><br>
     Mobistudy is currently managed by the Internet Of Things and People research\
     center, Malmö University.`
-  },
-  consent: {
-    accepted: {
-      joined: "You've just joined",
-      reminder: 'Remember, you can always contact the principal investigators at:',
-      name: 'Name:',
-      institution: 'Institution:',
-      contact: 'Contact details:',
-      buttonNext: 'Next'
-    },
-    consentItems: {
-      headline: 'Consent to these items',
-      buttonPermissions: 'Give permission to this app',
-      remindersText: 'I want to receive reminders about the tasks of this study',
-      remindersText2: 'You need to allow the app to send reminders.',
-      buttonReminders: 'Allow reminders',
-      buttonBack: 'Deny',
-      buttonNext: 'Join the study'
-    },
-    invitation: {
-      buttonNext: 'Next'
-    },
-    privacy: {
-      headline: 'Privacy Policy',
-      buttonBack: 'Deny',
-      buttonNext: 'Accept'
-    },
-    studyDetails: {
-      headline: 'Study details',
-      studyHeadline: 'Title of this study',
-      investigatorListHeadline: 'Principle investigators',
-      name: 'Name',
-      institution: 'Institution',
-      contact: 'Contact details',
-      involvedInstitutions: 'Involved institutions',
-      institutionName: 'Name',
-      institutionContact: 'Contact details',
-      dataAccess: {
-        anonymised: 'This institution will have access to your data in an anonymised way.',
-        no: 'This institution will not have access to your data.',
-        full: 'This institution will have full access to your data.',
-        reasonHeadline: 'Reason For Data Access'
-      },
-      buttonNext: 'Next'
-    }
   },
   home: {
     form: {

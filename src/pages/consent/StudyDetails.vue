@@ -3,40 +3,30 @@
     <q-list class="flex flex-center">
       <q-item>
         <q-item-label class="text-h5">
-          {{ $t('consent.studyDetails.headline')}}
+          {{ $t('studies.studyDetails')}}
         </q-item-label>
       </q-item>
-    </q-list>
-
-    <q-list>
       <q-item>
         <q-item-section>
           <q-item-label class="text-h6">
-            {{ $t('consent.studyDetails.studyHeadline')}}:<br />{{studyDescription.generalities.title}}
+            {{studyDescription.generalities.title[$i18n.locale]}}
           </q-item-label>
         </q-item-section>
       </q-item>
-    </q-list>
-
-    <q-list>
       <q-item>
         <q-item-section>
-          <q-item-label v-html="studyDescription.generalities.longDescription.replace(new RegExp('\n', 'g'), '<br>')">
+          <q-item-label v-html="studyDescription.generalities.longDescription[$i18n.locale].replace(new RegExp('\n', 'g'), '<br>')">
           </q-item-label>
         </q-item-section>
       </q-item>
-    </q-list>
-
-    <q-list>
       <q-item>
         <q-item-section>
           <q-item-label class="text-subtitle1">
-            {{ $t('consent.studyDetails.investigatorListHeadline')}}:
+            {{ $t('studies.principalInvestigators')}}:
           </q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
-
     <q-list v-for="(pi, index) in studyDescription.generalities.principalInvestigators" :key="index+ 'pi'">
       <q-item>
         <q-item-section>
@@ -120,7 +110,7 @@
       <q-item v-if="institution.reasonForDataAccess">
         <q-item-section>
           <q-item-label>{{ $t('consent.studyDetails.dataAccess.reasonHeadline')}}:</q-item-label>
-          <q-item-label caption>{{institution.reasonForDataAccess}}</q-item-label>
+          <q-item-label caption>{{institution.reasonForDataAccess[$i18n.locale]}}</q-item-label>
         </q-item-section>
       </q-item>
 
@@ -129,7 +119,7 @@
     </q-list>
 
     <div class="q-my-md flex flex-center">
-      <q-btn class="full-width q-mt-sm q-mb-lg" :label="$t('consent.studyDetails.buttonNext')" @click="next()"></q-btn>
+      <q-btn color="primary" class="full-width q-mt-sm q-mb-lg" :label="$t('consent.studyDetails.buttonNext')" @click="next()"></q-btn>
     </div>
   </q-page>
 </template>
