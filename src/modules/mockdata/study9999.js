@@ -3,107 +3,116 @@ export default {
   publishedTS: '2018-12-09T09:30:32.492Z',
   generalities: {
     languages: ['en', 'sv'],
-    title: 'Pregnancy Hypertension Study',
-    shortDescription: 'Self management of hypertension in pregnancy.',
-    longDescription: 'We want to understand how amazing you are',
-    'startDate': '2018-09-11',
-    'endDate': '2020-10-12',
-    'principalInvestigators': [
+    title: {
+      en: 'Pregnancy in Hypertension Study',
+      sv: 'Graviditet i hypertoniundersökning'
+    },
+    shortDescription: {
+      en: 'Self management of hypertension in pregnancy.',
+      sv: 'Självhantering av hypertoni under graviditet'
+    },
+    longDescription: {
+      en: 'This study tries to identify early markers of hypertension in pregnancy using a wireless blood pressure cuff.',
+      sv: 'Denna studie försöker identifiera tidiga markörer för hypertoni under graviditet med hjälp av en trådlös manschet.'
+    },
+    startDate: '2020-01-01',
+    endDate: '2022-10-12',
+    principalInvestigators: [
       {
-        'name': 'Arvin Goburdhun',
-        'contact': 'arvin@something.com',
-        'institution': 'University of Oxford'
+        name: 'Arvin Goburdhun',
+        contact: 'arvin@something.com',
+        institution: 'University of Oxford'
       }
     ],
-    'institutions': [
+    institutions: [
       {
-        'name': 'University of Oxford',
-        'contact': 'asdasd',
-        'dataAccess': 'full',
-        'reasonForDataAccess': 'Data Access to allow clinical decisions'
+        name: 'University of Oxford',
+        contact: 'Oxford, UK',
+        dataAccess: 'full',
+        reasonForDataAccess: {
+          en: 'Data Access to allow clinical decisions',
+          sv: 'Dataåtkomst för att tillåta kliniska beslut'
+        }
       },
       {
-        'name': 'NHS Oxfordshire',
-        'contact': 'https://www.oxfordhealth.nhs.uk/'
+        name: 'NHS Oxfordshire',
+        contact: 'https://www.oxfordhealth.nhs.uk/',
+        dataAccess: 'none'
       }
     ]
   },
-  'inclusionCriteria': {
-    'minAge': 18,
-    'maxAge': 100,
-    'sex': [
-      'male',
-      'female',
-      'other'
+  inclusionCriteria: {
+    minAge: 18,
+    maxAge: 100,
+    sex: [
+      'female'
     ],
-    'lifestyle': {
-      'active': 'yes',
-      'smoker': 'notrequired'
+    lifestyle: {
+      active: 'notrequired',
+      smoker: 'notrequired'
     },
-    'criteriaQuestions': [
+    criteriaQuestions: [
       {
-        'title': 'Are you pregnant?',
-        'answer': 'yes'
+        title: {
+          en: 'Are you pregnant?',
+          sv: 'Är du gravid?'
+        },
+        answer: 'yes'
       }
-    ],
-    'diseases': {
-      'COPD': '123123123'
-    },
-    'medications': {
-      'Aspirin': '13123123'
-    }
+    ]
   },
-  'tasks': [
+  tasks: [
     {
-      'id': 1,
-      'type': 'dataQuery',
-      'scheduling': {
-        'startEvent': 'consent',
-        'startDelaySecs': 0,
-        'untilSecs': 2592000, // 1 month
-        'intervalType': 'd',
-        'interval': 12,
-        'weekDays': [ 1, 4, 7 ]
+      id: 1,
+      type: 'dataQuery',
+      scheduling: {
+        startEvent: 'consent',
+        startDelaySecs: 0,
+        untilSecs: 2592000, // 1 month
+        intervalType: 'd',
+        interval: 12,
+        weekDays: [ 1, 4, 7 ]
       },
-      'dataType': 'steps',
-      'aggregated': true,
-      'bucket': 'week'
+      dataType: 'steps',
+      aggregated: true,
+      bucket: 'week'
     },
     {
-      'id': 2,
-      'type': 'form',
-      'scheduling': {
-        'startEvent': 'consent',
-        'startDelaySecs': 0,
-        'occurrences': 20,
-        'intervalType': 'd',
-        'interval': 12
+      id: 2,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
+        startDelaySecs: 0,
+        occurrences: 20,
+        intervalType: 'd',
+        interval: 2
       },
-      'formKey': '1234'
+      formKey: '9999'
     }
   ],
-  'consent': {
-    'invitation': 'We would like to invite you to take part in our research study.',
-    'privacyPolicy': 'This is a semi-automatically generated text.',
-    'taskItems': [
+  consent: {
+    invitation: {
+      en: 'We would like to invite you to take part in our research study.',
+      sv: 'Vi vill inbjuda dig att delta i vår forskningsstudie..'
+    },
+    privacyPolicy: {
+      en: 'We are going to collect your answers to the form and the number of steps per week.',
+      sv: 'Vi kommer att samla in dina svar på formuläret och antalet steg per vecka.'
+    },
+    taskItems: [
       {
-        'description': 'I agree to send my data related to steps every week.',
-        'taskId': 1
+        description: {
+          en: 'I agree to send my data related to steps every week.',
+          sv: 'Jag accepterar att skicka min information relaterad till steg varje vecka.'
+        },
+        taskId: 1
       },
       {
-        'description': 'I agree to answer the QoL form every day.',
-        'taskId': 2
-      }
-    ],
-    'extraItems': [
-      {
-        'description': 'I agree to answer the QoL form every day.',
-        'optional': true,
-        'taskId': 2
-      },
-      {
-        'description': 'I agree to do some analysis',
-        'optional': false
+        description: {
+          en: 'I agree to answer the questionnaire every other day.',
+          sv: 'Jag accepterar att besvara frågeformuläret varannan dag'
+        },
+        taskId: 2
       }
     ]
   }

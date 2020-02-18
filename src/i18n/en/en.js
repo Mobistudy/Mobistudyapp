@@ -253,7 +253,7 @@ The user of this app must be able to read and understand English or Swedish.`,
       buttonSend: 'Send'
     },
     studies: {
-      headline: 'You are invited to join',
+      headline: 'You are invited to a new study!',
       questionsHeadline: 'Answer the following to know if you are eligible',
       questionYes: 'Yes',
       questionNo: 'No',

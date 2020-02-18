@@ -1,55 +1,50 @@
 <template>
   <q-page padding>
-    <!-- content -->
-    <q-list v-for="(study, studyIndex) in newStudies" :key="studyIndex">
-      <q-item-label header>{{ $t('home.studies.headline') }}</q-item-label>
-      <q-item >
-        <q-item-section>
-          <q-item-label>{{study.generalities.title}}</q-item-label>
-          <q-item-label caption>{{study.generalities.shortDescription}}</q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-item-label header>{{ $t('home.studies.questionsHeadline') }}</q-item-label>
-      <q-item v-for="(question, questionIndex) in study.inclusionCriteria.criteriaQuestions" :key="questionIndex">
-        <q-item-section>
-          <p>
-            {{question.title}}
-          </p>
+    <q-card bordered v-for="(study, studyIndex) in newStudies" :key="studyIndex" class="q-mb-md">
+      <q-card-section>
+        <div class="row no-wrap">
+          <div class="col">
+            <div class="text-h6">{{ $t('home.studies.headline') }}</div>
+            <div class="text-subtitle1">{{study.generalities.title[$i18n.locale]}}</div>
+            <div class="text-subtitle2">{{study.generalities.shortDescription[$i18n.locale]}}</div>
+          </div>
+        </div>
+      </q-card-section>
+      <q-card-section>
+        {{ $t('home.studies.questionsHeadline') }}:
+        <div v-for="(question, questionIndex) in study.inclusionCriteria.criteriaQuestions" :key="questionIndex">
+          <p class="q-mt-md text-subtitle2">{{question.title[$i18n.locale]}}</p>
           <div class="row">
             <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="yes" :label="$t('home.studies.questionYes')" />
             <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="no" :label="$t('home.studies.questionNo')" />
           </div>
-        </q-item-section>
-      </q-item>
-      <q-item>
-        <q-item-section>
-          <div class="q-ma-sm text-negative" v-show="!eligible[studyIndex] && newStudiesCustomAnswers[studyIndex].length === study.inclusionCriteria.criteriaQuestions.length"
-          color="negative">
+        </div>
+      </q-card-section>
+
+      <q-separator />
+      <div class="q-ma-sm text-negative" color="negative">
+        <span v-show="!eligible[studyIndex] && newStudiesCustomAnswers[studyIndex].length === study.inclusionCriteria.criteriaQuestions.length">
           {{ $t('home.studies.notEligible') }}
-        </div>
-        <div class="row justify-center">
-          <div class="col">
-            <q-btn color="primary" :label="$t('home.studies.buttonJoin')" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
-          </div>
-          <div class="col">
-            <q-btn color="negative" :label="$t('home.studies.buttonDiscard')" @click="discardStudy(studyIndex)"></q-btn>
-          </div>
-        </div>
+        </span>
+      </div>
+
+      <q-card-actions align="around">
+        <q-btn flat color="primary" :label="$t('home.studies.buttonJoin')" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
+        <q-btn flat color="negative" :label="$t('home.studies.buttonDiscard')" @click="discardStudy(studyIndex)"></q-btn>
+      </q-card-actions>
+    </q-card>
+
+  <q-list separator bordered>
+    <q-item-label header>{{ $t('home.studies.activeStudies') }}</q-item-label>
+    <q-item clickable v-ripple v-for="(study, activeStudyIndex) in activeStudies" :key="activeStudyIndex" @click.native="showDetails(study)">
+      <q-item-section avatar>
+          <q-icon color="primary" name="settings" />
+        </q-item-section>
+      <q-item-section>
+        <q-item-label>{{study.generalities.title[$i18n.locale]}}</q-item-label>
+        <q-item-label caption lines="1">End Date: {{nicerDate(study.generalities.endDate)}}</q-item-label>
       </q-item-section>
     </q-item>
-  </q-list>
-
-  <q-list link>
-    <q-item-label header>{{ $t('home.studies.activeStudies') }}</q-item-label>
-    <div>
-      <!-- TODO: Replace QItemMain/-Side WITH QItemSections WHEN THERE IS DATA TO TEST -->
-      <q-item v-for="(study, activeStudyIndex) in activeStudies" :key="activeStudyIndex">
-        <q-item-section :sublabel="'End Date: ' + nicerDate(study.generalities.endDate)" @click.native="showDetails(study)">
-          <q-item-label>{{study.generalities.title}}</q-item-label>
-        </q-item-section>
-        <q-item-section avatar right icon="settings" @click.native="showDetails(study)" />
-      </q-item>
-    </div>
 
     <q-item v-if="activeStudies.length === 0">
       <q-item-section>{{ $t('home.studies.noActiveStudies') }}</q-item-section>
