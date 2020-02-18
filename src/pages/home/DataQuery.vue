@@ -2,11 +2,11 @@
   <q-page padding>
     <!-- content -->
     <div v-if="chartData">
-      <p style="margin-top: 0">This is what is going to be sent</p>
+      <p style="margin-top: 0">{{$t('studies.tasks.dataQuery.dataQueryExplanation')}}</p>
       <bar-chart v-if="plotBar" :chart-data="chartData" :options="chartOptions"></bar-chart>
       <line-chart v-if="plotLine" :chart-data="chartData" :options="chartOptions"></line-chart>
       <div class="row">
-        <q-btn color="primary" :loading="loading" class="col" label="Send" @click="submit()" />
+        <q-btn color="primary" :loading="loading" class="col" :label="$t('common.send')" @click="submit()" />
       </div>
     </div>
   </q-page>

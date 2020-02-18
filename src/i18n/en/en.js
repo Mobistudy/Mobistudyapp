@@ -165,7 +165,8 @@ export default {
       noMissedTasks: 'No tasks missed',
       dataQuery: {
         title: 'Data query',
-        shortDescription: 'Extract data from your phone'
+        shortDescription: 'Extract data from your phone',
+        dataQueryExplanation: 'This data has been extracted from your phone. If you agree to send it, tap on Send.'
       },
       form: {
         title: '{formname} form',
