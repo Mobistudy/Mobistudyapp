@@ -12,10 +12,10 @@
     </div>
 
     <p class="text-h6 q-mt-lg">{{$t('accountMgmt.registration.termsAndConditions')}}</p>
-    <p v-html="$t('accountMgmt.registration.termsAndConditionsFull')"></p>
+    <p v-html="$t('termsAndConditionsFull')"></p>
 
     <p class="text-h6 q-mt-lg">{{$t('accountMgmt.registration.privacyPolicy')}}</p>
-    <p v-html="$t('accountMgmt.registration.privacyPolicyFull')"></p>
+    <p v-html="$t('privacyPolicyFull')"></p>
   </q-page>
 </template>
 

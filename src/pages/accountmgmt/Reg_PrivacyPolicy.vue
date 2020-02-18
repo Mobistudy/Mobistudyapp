@@ -4,7 +4,7 @@
       <q-item>
         <q-item-section>
           <q-item-label class="text-h6 text-center q-py-md">{{ $t('accountMgmt.registration.privacyPolicy') }}</q-item-label>
-          <q-item-label v-html="$t('accountMgmt.registration.privacyPolicyFull')" caption />
+          <q-item-label v-html="$t('privacyPolicyFull')" caption />
         </q-item-section>
       </q-item>
       <q-item class="row justify-evenly">

@@ -4,7 +4,7 @@
       <q-item>
         <q-item-section>
           <q-item-label class="text-h6 text-center q-pb-md">{{ $t('accountMgmt.registration.termsAndConditions') }}</q-item-label>
-          <q-item-label caption>{{ $t('accountMgmt.registration.termsAndConditionsFull') }}</q-item-label>
+          <q-item-label caption>{{ $t('termsAndConditionsFull') }}</q-item-label>
         </q-item-section>
       </q-item>
       <q-item class="row justify-evenly">
