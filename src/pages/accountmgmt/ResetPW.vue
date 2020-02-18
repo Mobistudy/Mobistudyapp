@@ -42,7 +42,7 @@ export default {
         } catch (error) {
           this.$q.notify({
             color: 'negative',
-            message: 'Cannot reset password: ' + error.message,
+            message: this.$i18n.t('accountMgmt.resetPassword.resetPasswordError') + ': ' + error.message,
             icon: 'report_problem'
           })
         }

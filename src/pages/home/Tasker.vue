@@ -205,7 +205,7 @@ export default {
         console.error('Cannot set the study as completed', error)
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot set the study as completed: ' + error.message,
+          message: this.$i18n.t('errors.connectionError') + ': ' + error.message,
           icon: 'report_problem'
         })
       }

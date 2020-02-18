@@ -300,7 +300,7 @@ export default {
         console.error(error)
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot find disease: ' + error.message,
+          message: this.$i18n.t('accountMgmt.profile.conditionSearchError') + ': ' + error.message,
           icon: 'report_problem'
         })
         abort()
@@ -336,7 +336,7 @@ export default {
         console.error(error)
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot find medication: ' + error.message,
+          message: this.$i18n.t('accountMgmt.profile.medicationSearchError') + ': ' + error.message,
           icon: 'report_problem'
         })
         abort()
@@ -351,7 +351,7 @@ export default {
     buttonOkClick () {
       this.$v.value.$touch()
       if (this.$v.value.$error) {
-        this.$q.notify('Please correct the indicated fields.')
+        this.$q.notify(this.$i18n.t('errors.correctFields'))
       } else {
         this.$emit('buttonOk', this.value)
       }

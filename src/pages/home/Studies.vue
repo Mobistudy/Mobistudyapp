@@ -109,7 +109,7 @@ export default {
       console.error('Cannot connect to server', error)
       this.$q.notify({
         color: 'negative',
-        message: 'Cannot retrieve study description: ' + error.message,
+        message: this.$i18n.t('errors.connectionError') + ': ' + error.message,
         icon: 'report_problem'
       })
     }
@@ -179,7 +179,7 @@ export default {
           console.error('Cannot connect to server', error)
           this.$q.notify({
             color: 'negative',
-            message: 'Cannot discard this study: ' + error.message,
+            message: this.$i18n.t('errors.connectionError') + ': ' + error.message,
             icon: 'report_problem'
           })
         }

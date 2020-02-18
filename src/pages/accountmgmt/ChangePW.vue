@@ -15,12 +15,12 @@
           :error="$v.token.$error" :error-message="$t('accountMgmt.resetPassword.tokenError')" />
         </div>
         <div class="fit row justify-center q-mt-lg">
-          <q-input class= "col-grow" :label="$t('accountMgmt.resetPassword.newPw')"
+          <q-input class= "col-grow" :label="$t('accountMgmt.resetPassword.newPassword')"
           v-model="newpw" type="password" @blur="$v.newpw.$touch"
           :error="$v.newpw.$error" :error-message="pwdCheckErrorMsg()"/>
         </div>
         <div class="fit row justify-center q-mt-lg">
-          <q-input class= "col-grow" :label="$t('accountMgmt.resetPassword.confPw')"
+          <q-input class= "col-grow" :label="$t('accountMgmt.resetPassword.confirmPwd')"
           v-model="confpw" type="password" @blur="$v.confpw.$touch"
           :error="$v.confpw.$error" :error-message="$t('accountMgmt.resetPassword.pwdMustMatch')"/>
         </div>
@@ -29,7 +29,7 @@
             <q-btn class="float-right" :label="$t('common.cancel')" color="secondary" to="/login" />
           </div>
           <div class="q-ma-sm">
-            <q-btn class="float-right" :label="$t('accountMgmt.resetPassword.changePw')" color="positive" type="submit" @click="resetUserPassword" />
+            <q-btn class="float-right" :label="$t('accountMgmt.resetPassword.changePassword')" color="positive" type="submit" @click="resetUserPassword" />
           </div>
         </div>
       </q-page>
@@ -79,8 +79,8 @@ export default {
         try {
           await API.changePW(this.token, this.newpw)
           this.$q.dialog({
-            title: 'New password set',
-            message: 'Now, you can login.',
+            title: this.$i18n.t('accountMgmt.resetPassword.passwordChanged'),
+            message: this.$i18n.t('accountMgmt.resetPassword.passwordChangedExplanation'),
             ok: true,
             cancel: false,
             preventClose: true
@@ -90,7 +90,7 @@ export default {
         } catch (error) {
           this.$q.notify({
             color: 'negative',
-            message: 'Cannot change password: ' + error.message,
+            message: this.$i18n.t('accountMgmt.resetPassword.changePasswordError') + ': ' + error.message,
             icon: 'report_problem'
           })
         }

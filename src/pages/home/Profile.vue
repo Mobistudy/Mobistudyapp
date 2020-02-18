@@ -6,12 +6,7 @@
       </div>
     </div>
 
-    <profile-editor v-model="profile" :buttonOk="$t('common.next')" @buttonOk="saveProfile()" />
-
-    <div class="q-my-md row justify-evenly">
-      <q-btn :label="$t('common.cancel')" color="secondary" to="home" />
-      <q-btn :label="$t('common.update')" color="positive" @click="saveProfile()" />
-    </div>
+    <profile-editor v-model="profile" :buttonOk="$t('common.update')" @buttonOk="saveProfile()"/>
 
     <q-separator />
 
@@ -93,7 +88,7 @@ export default {
     } catch (error) {
       this.$q.notify({
         color: 'negative',
-        message: 'Cannot load profile: ' + error.message,
+        message: this.$i18n.t('errors.connectionError') + ': ' + error.message,
         icon: 'report_problem'
       })
       this.$q.loading.hide()
@@ -132,7 +127,7 @@ export default {
       } catch (error) {
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot save profile: ' + error.message,
+          message: this.$i18n.t('errors.connectionError') + ': ' + error.message,
           icon: 'report_problem'
         })
       }
@@ -151,7 +146,7 @@ export default {
       } catch (error) {
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot reset password: ' + error.message,
+          message: this.$i18n.t('errors.connectionError') + ': ' + error.message,
           icon: 'report_problem'
         })
       }
@@ -177,7 +172,7 @@ export default {
         } catch (error) {
           this.$q.notify({
             color: 'negative',
-            message: 'Cannot delete user: ' + error.message,
+            message: this.$i18n.t('errors.connectionError') + ': ' + error.message,
             icon: 'report_problem'
           })
         }

@@ -140,7 +140,7 @@ export default {
         console.error('Cannot join study', error)
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot join this study: ' + error.message,
+          message: this.$i18n.t('errors.connectionError') + ': ' + error.message,
           icon: 'report_problem'
         })
       }

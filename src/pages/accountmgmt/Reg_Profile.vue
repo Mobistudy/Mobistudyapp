@@ -66,19 +66,11 @@ export default {
 
         this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
       } catch (error) {
-        if (error.response && error.response.status === 409) {
-          this.$q.notify({
-            color: 'negative',
-            message: 'User already exists',
-            icon: 'report_problem'
-          })
-        } else {
-          this.$q.notify({
-            color: 'negative',
-            message: 'Registration failed: ' + error.message,
-            icon: 'report_problem'
-          })
-        }
+        this.$q.notify({
+          color: 'negative',
+          message: this.$i18n.t('accountMgmt.registration.registrationError') + ': ' + error.message,
+          icon: 'report_problem'
+        })
       }
     }
   }

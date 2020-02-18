@@ -111,13 +111,13 @@ export default {
           if (error.response && error.response.status === 401) {
             this.$q.notify({
               color: 'negative',
-              message: 'Cannot login, wrong credentials',
+              message: this.$i18n.t('accountMgmt.login.loginErrorCredentials'),
               icon: 'report_problem'
             })
           } else {
             this.$q.notify({
               color: 'negative',
-              message: 'Login failed: ' + error.message,
+              message: this.$i18n.t('accountMgmt.login.loginError') + ': ' + error.message,
               icon: 'report_problem'
             })
           }
