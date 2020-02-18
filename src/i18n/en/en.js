@@ -1,14 +1,19 @@
 export default {
-  generalError: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.',
-  actionFailed: 'Action failed',
-  actionSuccess: 'Action was successful',
+  errors: {
+    generalError: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.'
+  },
   common: {
     next: 'Next',
     cancel: 'Cancel',
     accept: 'Accept',
     close: 'Close',
     update: 'Update',
-    delete: 'Delete'
+    delete: 'Delete',
+    yes: 'Yes',
+    no: 'No',
+    info: 'Info',
+    privacy: 'Privacy',
+    consent: 'Consent'
   },
   layouts: {
     consent: 'New study',
@@ -117,9 +122,21 @@ export default {
   studies: {
     newStudy: 'New study available',
     checkNewStusy: 'Check it',
+    newStudyInvite: 'You are invited to a new study!',
+    newStudyExtraCriteria: 'Answer the following to know if you are eligible',
+    notEligible: 'You are not eligible for this study',
     noStudies: 'You are currently not participating in any study.',
+    joinStudy: 'Join',
+    discardStudy: 'Discard',
+    activeStudies: 'Active studies',
+    noActiveStudies: 'No active studies found.',
+    previousStudies: 'Previous studies',
     studyCompletedHeadline: 'You have completed a study',
     studyCompletedText: 'You have completed all the tasks for the {studyname}.<br><br>Thanks very much for this!<br><br>Please, be aware that some studies may require some further action, check the study description in the "Manage Studies" menu.',
+    principalInvestigators: 'Principal investigators',
+    investigatorName: 'Name',
+    institution: 'Institution',
+    contact: 'Contact details',
     tasks: {
       noPendingTasks: 'No tasks pending',
       pendingTasks: "Today's pending tasks",
@@ -133,6 +150,19 @@ export default {
         title: '{formname} form',
         shortDescription: 'Answer a few questions'
       }
+    },
+    consent: {
+      itemsExplanation: 'You can opt-in or opt-out of these items whenever you want',
+      OSpermission: 'This item requires the app to access some functionalities on the phone.',
+      giveOSPermission: 'Give permission to this app',
+      OSPermissionGiven: 'Permission given',
+      OSPermissionNotGiven: 'Could not get permission',
+      remindersConsent: 'I want to receive reminders about the tasks of this study',
+      remindersOSPermission: 'You need to allow the app to send reminders.',
+      giveRemindersOSPermission: 'Allow reminders',
+      updateConsent: 'Update consent',
+      consentUpdated: 'Consent updated',
+      withdraw: 'Withdraw from the study'
     }
   },
   info: {
@@ -201,43 +231,6 @@ export default {
       buttonNext: 'Next',
       completedText: 'Form completed. Thank you.',
       buttonSend: 'Send'
-    },
-    studies: {
-      headline: 'You are invited to a new study!',
-      questionsHeadline: 'Answer the following to know if you are eligible',
-      questionYes: 'Yes',
-      questionNo: 'No',
-      notEligible: 'You are not eligible for this study',
-      buttonJoin: 'Join',
-      buttonDiscard: 'Discard',
-      activeStudies: 'Active studies',
-      noActiveStudies: 'No active studies found.',
-      previousStudies: 'Previous studies'
-    },
-    studyConfig: {
-      tabs: {
-        info: {
-          title: 'Info',
-          investigatorListHeadline: 'Principal investigators',
-          name: 'Name',
-          institution: 'Institution',
-          contact: 'Contact details'
-        },
-        privacy: {
-          title: 'Privacy'
-        },
-        consent: {
-          title: 'Consent',
-          subtitle: 'You can opt-in or opt-out of these items whenever you want',
-          permissionsText: 'This item requires the app to access some functionalities on the phone.',
-          buttonPermissions: 'Give permission to this app',
-          remindersText: 'I want to receive reminders about the tasks of this study',
-          remindersText2: 'You need to allow the app to send reminders.',
-          buttonReminders: 'Allow reminders',
-          buttonUpdate: 'Update consent',
-          buttonWithdraw: 'Withdraw from the study'
-        }
-      }
     }
   },
   healthDataTypes: {

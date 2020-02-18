@@ -4,19 +4,19 @@
       <q-card-section>
         <div class="row no-wrap">
           <div class="col">
-            <div class="text-h6">{{ $t('home.studies.headline') }}</div>
+            <div class="text-h6">{{ $t('studies.newStudyInvite') }}</div>
             <div class="text-subtitle1">{{study.generalities.title[$i18n.locale]}}</div>
             <div class="text-subtitle2">{{study.generalities.shortDescription[$i18n.locale]}}</div>
           </div>
         </div>
       </q-card-section>
       <q-card-section>
-        {{ $t('home.studies.questionsHeadline') }}:
+        {{ $t('studies.newStudyExtraCriteria') }}:
         <div v-for="(question, questionIndex) in study.inclusionCriteria.criteriaQuestions" :key="questionIndex">
           <p class="q-mt-md text-subtitle2">{{question.title[$i18n.locale]}}</p>
           <div class="row">
-            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="yes" :label="$t('home.studies.questionYes')" />
-            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="no" :label="$t('home.studies.questionNo')" />
+            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="yes" :label="$t('common.yes')" />
+            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="no" :label="$t('common.no')" />
           </div>
         </div>
       </q-card-section>
@@ -24,19 +24,19 @@
       <q-separator />
       <div class="q-ma-sm text-negative" color="negative">
         <span v-show="!eligible[studyIndex] && newStudiesCustomAnswers[studyIndex].length === study.inclusionCriteria.criteriaQuestions.length">
-          {{ $t('home.studies.notEligible') }}
+          {{ $t('studies.notEligible') }}
         </span>
       </div>
 
       <q-card-actions align="around">
-        <q-btn flat color="primary" :label="$t('home.studies.buttonJoin')" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
-        <q-btn flat color="negative" :label="$t('home.studies.buttonDiscard')" @click="discardStudy(studyIndex)"></q-btn>
+        <q-btn flat color="primary" :label="$t('studies.joinStudy')" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
+        <q-btn flat color="negative" :label="$t('studies.discardStudy')" @click="discardStudy(studyIndex)"></q-btn>
       </q-card-actions>
     </q-card>
 
   <q-list separator bordered>
-    <q-item-label header>{{ $t('home.studies.activeStudies') }}</q-item-label>
-    <q-item clickable v-ripple v-for="(study, activeStudyIndex) in activeStudies" :key="activeStudyIndex" @click.native="showDetails(study)">
+    <q-item-label header>{{ $t('studies.activeStudies') }}</q-item-label>
+    <q-item clickable v-ripple v-for="(study, index) in activeStudies" :key="'ps' + index" @click.native="showDetails(study)">
       <q-item-section avatar>
           <q-icon color="primary" name="settings" />
         </q-item-section>
@@ -47,14 +47,19 @@
     </q-item>
 
     <q-item v-if="activeStudies.length === 0">
-      <q-item-section>{{ $t('home.studies.noActiveStudies') }}</q-item-section>
+      <q-item-section>{{ $t('studies.noActiveStudies') }}</q-item-section>
     </q-item>
 
-    <q-item-separator v-if="previousStudies.length !== 0" />
-    <!-- TODO: Replace QItemMain/-Side WITH QItemSections WHEN THERE IS DATA TO TEST -->
-    <q-item-label header v-if="previousStudies.length !== 0">{{ $t('home.studies.previousStudies') }}</q-item-label>
-    <q-item v-for="(study, previousStudyIndex) in previousStudies" :key="previousStudyIndex">
-      <q-item-section :label="study.generalities.title" @click.native="showDetails(study)"/>
+    <q-separator v-if="previousStudies.length !== 0"/>
+
+    <q-item-label header v-if="previousStudies.length !== 0">{{ $t('studies.previousStudies') }}</q-item-label>
+    <q-item clickable v-ripple v-for="(study, index) in previousStudies" :key="'ps' + index" @click.native="showDetails(study)">
+      <q-item-section avatar>
+          <q-icon color="primary" name="settings" />
+        </q-item-section>
+      <q-item-section>
+        <q-item-label>{{study.generalities.title[$i18n.locale]}}</q-item-label>
+      </q-item-section>
     </q-item>
   </q-list>
 </q-page>

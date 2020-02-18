@@ -177,7 +177,7 @@ export default {
 
         this.$q.dialog({
           title: 'Error',
-          message: this.$i18n.t('generalError'),
+          message: this.$i18n.t('errors.generalError'),
           color: 'warning',
           ok: 'Retry',
           preventClose: true
