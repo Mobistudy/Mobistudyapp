@@ -1,6 +1,5 @@
 <template>
   <q-page padding>
-    <q-card>
       <q-tabs
       v-model="tab"
       dense
@@ -13,117 +12,78 @@
       <q-tab name="info" icon="info" :label="$t('common.info')" />
       <q-tab name="privacy" icon="lock" :label="$t('common.privacy')" />
       <q-tab v-if="studyParticipation.currentStatus == 'accepted'" name="consent" icon="done" :label="$t('common.consent')" />
-    </q-tabs>
+      </q-tabs>
 
-    <q-separator />
+      <q-separator />
 
-    <q-tab-panels v-model="tab" animated>
-      <q-tab-panel name="info">
+      <q-tab-panels v-model="tab" animated>
+        <q-tab-panel name="info">
+          <study-info :studyDescription="studyDescription" />
+        </q-tab-panel>
+
+      <q-tab-panel name="privacy" v-html="studyDescription.consent.privacyPolicy[$i18n.locale].replace(new RegExp('\n', 'g'), '<br>')">
+      </q-tab-panel>
+
+      <q-tab-panel name="consent">
         <q-list>
           <q-item>
             <q-item-section>
-              <q-item-label class="text-h6 text-center">
-                {{studyDescription.generalities.title[$i18n.locale]}}
-              </q-item-label>
+              <q-item-label class="text-subtitle1">{{ $t('studies.consent.itemsExplanation') }}:</q-item-label>
             </q-item-section>
           </q-item>
+        </q-list>
+        <q-list v-if="studyDescription.consent.extraItems">
+          <q-item v-for="(extraItem, extraIndex) in studyDescription.consent.extraItems" :key="extraIndex">
+            <q-item-section>
+              <q-item-label>{{extraItem.description[$i18n.locale]}}</q-item-label>
+            </q-item-section>
+            <q-item-section avatar>
+              <q-checkbox v-model="consentedExtraItems[extraIndex]" :disabled="!extraItem.optional"/>
+            </q-item-section>
+          </q-item>
+        </q-list>
+        <q-list>
+          <q-item v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems" :key="taskIndex">
+            <q-item-section>
+              <q-item-label>{{taskItem.description[$i18n.locale]}}</q-item-label>
+              <div v-if="taskType[taskIndex] === 'dataQuery' && !permissionsGiven[taskIndex]">
+                <div class="q-mt-sm text-secondary">
+                  {{ $t('studies.consent.OSpermission') }}
+                </div>
+                <q-btn :label="$t('studies.consent.giveOSPermission')" :disabled="!consentedTaskItems[taskIndex]" @click="requestDQPermission(taskIndex)"></q-btn>
+              </div>
+            </q-item-section>
+            <q-item-section avatar>
+              <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
+            </q-item-section>
+          </q-item>
+        </q-list>
+        <q-separator/>
+        <q-list>
           <q-item>
             <q-item-section>
-              <q-item-label v-html="studyDescription.generalities.longDescription[$i18n.locale].replace(new RegExp('\n', 'g'), '<br>')" />
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label class="text-subtitle1">{{ $t('studies.principalInvestigators') }}:</q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list>
-          <q-list v-for="(pi, index) in studyDescription.generalities.principalInvestigators" :key="index">
-            <q-item>
-              <q-item-section>
-                <q-item-label>{{ $t('studies.investigatorName') }}:</q-item-label>
-                <q-item-label caption>{{pi.name}}</q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label>{{ $t('studies.institution') }}:</q-item-label>
-                <q-item-label caption>{{pi.institution}}</q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label>{{ $t('studies.contact') }}:</q-item-label>
-                <q-item-label caption>{{pi.contact}}</q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-separator class="q-mt-sm" v-if="index != studyDescription.generalities.principalInvestigators.length-1" />
-          </q-list>
-        </q-tab-panel>
-
-        <q-tab-panel name="privacy" v-html="studyDescription.consent.privacyPolicy[$i18n.locale].replace(new RegExp('\n', 'g'), '<br>')">
-        </q-tab-panel>
-
-        <q-tab-panel name="consent">
-          <q-list>
-            <q-item>
-              <q-item-section>
-                <q-item-label class="text-subtitle1">{{ $t('studies.consent.itemsExplanation') }}:</q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list>
-          <q-list v-if="studyDescription.consent.extraItems">
-            <q-item v-for="(extraItem, extraIndex) in studyDescription.consent.extraItems" :key="extraIndex">
-              <q-item-section>
-                <q-item-label>{{extraItem.description[$i18n.locale]}}</q-item-label>
-              </q-item-section>
-              <q-item-section avatar>
-                <q-checkbox v-model="consentedExtraItems[extraIndex]" :disabled="!extraItem.optional"/>
-              </q-item-section>
-            </q-item>
-          </q-list>
-          <q-list>
-            <q-item v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems" :key="taskIndex">
-              <q-item-section>
-                <q-item-label>{{taskItem.description[$i18n.locale]}}</q-item-label>
-                <div v-if="taskType[taskIndex] === 'dataQuery' && !permissionsGiven[taskIndex]">
-                  <div class="q-mt-sm text-secondary">
-                    {{ $t('studies.consent.OSpermission') }}
-                  </div>
-                  <q-btn :label="$t('studies.consent.giveOSPermission')" :disabled="!consentedTaskItems[taskIndex]" @click="requestDQPermission(taskIndex)"></q-btn>
-                </div>
-              </q-item-section>
-              <q-item-section avatar>
-                <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
-              </q-item-section>
-            </q-item>
-          </q-list>
-          <q-separator/>
-          <q-list>
-            <q-item>
-              <q-item-section>
-                <q-item-label>{{ $t('studies.consent.remindersConsent') }}</q-item-label>
-                <q-item-label caption>{{ $t('studies.consent.remindersOSPermission') }}</q-item-label>
-                <q-btn class="q-mt-lg" :label="$t('studies.consent.giveRemindersOSPermission')" :disabled="!reminders || remindersPermissionGiven" @click="requestNotificationsPermission()"></q-btn>
-              </q-item-section>
-              <q-item-section avatar>
-                <q-checkbox v-model="reminders"/>
-              </q-item-section>
-            </q-item>
-          </q-list>
-          <div class="q-my-md row justify-center">
-            <q-btn :label="$t('studies.consent.updateConsent')" color="primary" :disabled="!canUpdate" @click="updateConsent()"></q-btn>
-          </div>
-          <div class="q-my-md row justify-center">
-            <q-btn :label="$t('studies.consent.withdraw')" color="negative" @click="withdraw()"></q-btn>
-          </div>
-        </q-tab-panel>
-      </q-tab-panels>
-    </q-card>
+              <q-item-label>{{ $t('studies.consent.remindersConsent') }}</q-item-label>
+              <q-item-label caption>{{ $t('studies.consent.remindersOSPermission') }}</q-item-label>
+              <q-btn class="q-mt-lg" :label="$t('studies.consent.giveRemindersOSPermission')" :disabled="!reminders || remindersPermissionGiven" @click="requestNotificationsPermission()"></q-btn>
+            </q-item-section>
+            <q-item-section avatar>
+              <q-checkbox v-model="reminders"/>
+            </q-item-section>
+          </q-item>
+        </q-list>
+        <div class="q-my-md row justify-center">
+          <q-btn :label="$t('studies.consent.updateConsent')" color="primary" :disabled="!canUpdate" @click="updateConsent()"></q-btn>
+        </div>
+        <div class="q-my-md row justify-center">
+          <q-btn :label="$t('studies.consent.withdraw')" color="negative" @click="withdraw()"></q-btn>
+        </div>
+      </q-tab-panel>
+    </q-tab-panels>
   </q-page>
 </template>
 
 <script>
+import StudyInfo from '../../components/StudyInfo'
 import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
@@ -133,6 +93,7 @@ import notifications from '../../modules/notifications'
 export default {
   name: 'StudyConfigPage',
   props: ['studyDescription'],
+  components: { StudyInfo },
   data () {
     return {
       consentedExtraItems: [],

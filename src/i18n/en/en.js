@@ -155,9 +155,16 @@ export default {
     principalInvestigators: 'Principal investigators',
     investigatorName: 'Name',
     institution: 'Institution',
+    institutions: 'Involved institutions',
     contact: 'Contact details',
     studyDetails: 'Study details',
     studyTitle: 'Study title',
+    dataAccess: {
+      anonymised: 'This institution will access your data in an anonymised way',
+      noAccess: 'This institution will have no access to your data',
+      full: 'This institution will access your data',
+      reason: 'Reason'
+    },
     tasks: {
       noPendingTasks: 'No tasks pending',
       pendingTasks: "Today's pending tasks",
