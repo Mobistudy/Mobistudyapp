@@ -2,11 +2,11 @@
   <q-page padding>
     <!-- content -->
     <div v-if="chartData">
-      <p style="margin-top: 0">This is what is going to be sent</p>
+      <p style="margin-top: 0">{{$t('studies.tasks.dataQuery.dataQueryExplanation')}}</p>
       <bar-chart v-if="plotBar" :chart-data="chartData" :options="chartOptions"></bar-chart>
       <line-chart v-if="plotLine" :chart-data="chartData" :options="chartOptions"></line-chart>
       <div class="row">
-        <q-btn color="primary" :loading="loading" class="col" label="Send" @click="submit()" />
+        <q-btn color="primary" :loading="loading" class="col" :label="$t('common.send')" @click="submit()" />
       </div>
     </div>
   </q-page>
@@ -14,8 +14,8 @@
 
 <script>
 import healthstore from '../../modules/healthstore.js'
-import BarChart from 'components/Main/BarChart.js'
-import LineChart from 'components/Main/LineChart.js'
+import BarChart from 'components/BarChart.js'
+import LineChart from 'components/LineChart.js'
 import userinfo from '../../modules/userinfo.js'
 import DB from '../../modules/db.js'
 import API from '../../modules/API.js'

@@ -3,11 +3,11 @@
     <q-list>
       <q-item>
         <q-item-section>
-          <q-item-label class="text-center" v-html="studyDescription.consent.invitation.replace(new RegExp('\n', 'g'), '<br>')"></q-item-label>
+          <q-item-label class="text-center" v-html="studyDescription.consent.invitation[$i18n.locale].replace(new RegExp('\n', 'g'), '<br>')"></q-item-label>
         </q-item-section>
       </q-item>
       <q-item>
-        <q-btn class="q-mt-lg full-width" label="Next" color="primary" @click="next()"></q-btn>
+        <q-btn class="q-mt-lg full-width" :label="$t('common.next')" color="primary" @click="next()"></q-btn>
       </q-item>
     </q-list>
   </q-page>

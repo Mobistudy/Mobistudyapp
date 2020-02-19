@@ -1,17 +1,17 @@
 <template>
   <q-page padding>
     <q-banner rounded inline-actions class="bg-warning text-white q-mb-sm" v-if="newstudies" icon="new_releases" type="warning">
-        New study available!
+        {{ $t('studies.newStudy') }}!
         <template v-slot:action>
-          <q-btn flat color="white" label="Check it" to="studies"/>
+          <q-btn flat color="white" :label="$t('studies.checkNewStusy')" to="studies"/>
         </template>
     </q-banner>
 
     <div v-if="nostudies" class="q-title">
-      You are currently not participating in any study.
+      {{ $t('studies.noStudies') }}
     </div>
     <q-list v-else highlight>
-      <q-item-label header>Today's pending tasks</q-item-label>
+      <q-item-label header>{{ $t('studies.tasks.pendingTasks') }}</q-item-label>
       <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
       <div>
         <taskListItem v-for="(task, uindex) in tasks.upcoming" :task="task" :key="uindex"></taskListItem>
@@ -21,11 +21,11 @@
           <q-icon color="primary" name="check" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>No tasks pending</q-item-label>
+          <q-item-label>{{ $t('studies.tasks.noPendingTasks') }}</q-item-label>
         </q-item-section>
       </q-item>
       <q-separator inset />
-      <q-item-label header>Past days missed tasks</q-item-label>
+      <q-item-label header>{{ $t('studies.tasks.missedTasks') }}</q-item-label>
       <div>
         <taskListItem v-for="(task, mindex) in tasks.missed" :task="task" :key="mindex"></taskListItem>
       </div>
@@ -34,22 +34,19 @@
           <q-icon color="primary" name="check" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>No tasks missed</q-item-label>
+          <q-item-label>{{ $t('studies.tasks.noMissedTasks') }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
 
     <q-dialog v-if="this.tasks.completedStudyAlert" v-model="completedStudyModal" maximized>
       <div class="q-pa-lg text-center" style="background-color:white">
-        <div class="text-h4 q-mb-md">You have completed a study!</div>
+        <div class="text-h4 q-mb-md">{{ $t('studies.studyCompletedHeadline') }}!</div>
         <div>
-          <img src="statics/icons/confetti.svg" style="width:30vw; max-width:150px;" ><br />
-          <p>You have completed all the tasks for the {{this.tasks.completedStudyAlert.studyTitle}} study.</p>
-          <p>Thank very much for this!</p>
+          <img src="statics/icons/confetti.svg" style="width:30vw; max-width:150px;">
         </div>
-        <p>Please, be aware that some studies may require some further action,
-          Check the study description in the "Manage Studies" menu.</p>
-        <q-btn color="primary" @click="studyCompleted()" label="Close" />
+        <p v-html="$t('studies.studyCompletedText', { studyname: completedStudyTitle })"></p>
+        <q-btn color="primary" @click="studyCompleted()" :label="$t('common.close')" />
       </div>
     </q-dialog>
   </q-page>
@@ -59,7 +56,7 @@
 </style>
 
 <script>
-import taskListItem from 'components/Main/TaskListItem.vue'
+import taskListItem from 'components/TaskListItem.vue'
 import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
 import API from '../../modules/API'
@@ -78,9 +75,8 @@ export default {
       tasks: {
         upcoming: [],
         missed: [],
-        completedStudyAlert: {
-          studyTitle: undefined
-        }
+        completedStudyAlert: undefined,
+        completedStudyTitle: undefined
       },
       completedStudyModal: false
     }
@@ -170,23 +166,24 @@ export default {
         let res = scheduler.generateTasker(activestudiesPart, activeStudiesDescr)
         this.tasks = res
 
-        if (res.completedStudyAlert) this.completedStudyModal = true
+        if (res.completedStudyAlert) {
+          this.completedStudyTitle = res.completedStudyAlert.studyTitle[this.$root.$i18n.locale]
+          this.completedStudyModal = true
+        }
         this.$q.loading.hide()
       } catch (error) {
         console.error(error)
         this.$q.loading.hide()
 
         this.$q.dialog({
-          title: 'Error',
-          message: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.',
+          title: this.$i18n.t('errors.error'),
+          message: this.$i18n.t('errors.generalError'),
           color: 'warning',
-          ok: 'Retry',
+          ok: this.$i18n.t('common.retry'),
           preventClose: true
-        }).then(() => {
+        }).onOk(() => {
           console.log('retry')
           this.load()
-        }).catch(() => {
-          console.log('error')
         })
       }
     },
@@ -206,7 +203,7 @@ export default {
         console.error('Cannot set the study as completed', error)
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot set the study as completed: ' + error.message,
+          message: this.$i18n.t('errors.connectionError') + ': ' + error.message,
           icon: 'report_problem'
         })
       }

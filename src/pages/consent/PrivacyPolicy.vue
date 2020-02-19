@@ -1,31 +1,13 @@
 <template>
   <q-page padding>
-    <q-list>
-      <q-item>
-        <q-item-section>
-          <q-item-label class="text-h5 text-center">
-            Privacy Policy
-          </q-item-label>
-        </q-item-section>
-      </q-item>
-    </q-list>
-    <q-list>
-      <q-item>
-        <q-item-section>
-          <q-item-label v-html="studyDescription.consent.privacyPolicy.replace(new RegExp('\n', 'g'), '<br>')"></q-item-label>
-        </q-item-section>
-      </q-item>
-    </q-list>
+    <div class="text-h5 text-center">
+      {{$t('studies.privacyPolicy')}}
+    </div>
+    <p class="q-my-md" v-html="studyDescription.consent.privacyPolicy[$i18n.locale].replace(new RegExp('\n', 'g'), '<br>')"></p>
 
-    <q-list>
-      <q-item class="row justify-between">
-        <q-btn label="Deny" color="negative" @click="deny()"></q-btn>
-        <q-btn label="Accept" color="primary" @click="accept()"></q-btn>
-      </q-item>
-    </q-list>
-
-    <div class="q-my-md row justify-between">
-
+    <div class="q-my-md row justify-around">
+      <q-btn :label="$t('common.reject')" color="negative" @click="deny()"></q-btn>
+      <q-btn :label="$t('common.accept')" color="primary" @click="accept()"></q-btn>
     </div>
   </q-page>
 </template>
@@ -43,14 +25,13 @@ export default {
       this.$router.push({ name: 'consentItems', params: { studyDescription: this.studyDescription } })
     },
     async deny () {
-      try {
-        await this.$q.dialog({
-          title: 'Discard study',
-          message: 'Are you sure you want to discard this study',
-          color: 'primary',
-          ok: 'Yes',
-          cancel: 'Cancel'
-        })
+      this.$q.dialog({
+        title: this.$i18n.t('studies.discardStudy'),
+        message: this.$i18n.t('studies.discardStudyConfirm'),
+        color: 'primary',
+        ok: this.$i18n.t('common.yes'),
+        cancel: this.$i18n.t('common.cancel')
+      }).onOk(async () => {
         let studyParticipation = {
           studyKey: this.studyDescription._key,
           currentStatus: 'rejected',
@@ -70,13 +51,11 @@ export default {
           console.error('Cannot connect to server', error)
           this.$q.notify({
             color: 'negative',
-            message: 'Cannot discard this study: ' + error.message,
+            message: this.$i18n.t('errors.connectionError') + ': ' + error.messagee,
             icon: 'report_problem'
           })
         }
-      } catch (e) {
-        // do nothing
-      }
+      })
     }
   }
 }

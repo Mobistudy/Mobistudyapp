@@ -1,4 +1,3 @@
-/* eslint-disable vue/return-in-computed-property */
 <template>
   <q-item :to="toAddress">
     <q-item-section avatar>
@@ -27,13 +26,13 @@ export default {
   },
   created () {
     if (this.task.type === 'dataQuery') {
-      this.title = 'Data Query'
-      this.main = 'We\'d like to request some data from you'
-      this.icon = 'directions_walk'
+      this.title = this.$i18n.t('studies.tasks.dataQuery.title')
+      this.main = this.$i18n.t('studies.tasks.dataQuery.shortDescription')
+      this.icon = 'insert_chart_outlined'
     } else if (this.task.type === 'form') {
-      this.title = this.task.formTitle
-      this.main = 'We\'d like to ask you a few questions'
-      this.icon = 'ballot'
+      this.title = this.task.formTitle[this.$root.$i18n.locale]
+      this.main = this.$i18n.t('studies.tasks.form.shortDescription')
+      this.icon = 'format_list_bulleted'
     }
   },
   computed: {
@@ -55,6 +54,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>

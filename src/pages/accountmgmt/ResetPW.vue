@@ -2,15 +2,15 @@
   <q-layout>
     <q-page-container>
       <q-page padding class="flex flex-center">
+        <div class="text-h4">{{ $t('accountMgmt.resetPassword.resetPassword') }}</div>
         <div style="width: 90vw">
-          <p class="text-h4">Reset password</p>
-            <q-field :error="$v.email.$error" error-message="An email address is required.">
-                <q-input v-model.trim="$v.email.$model" type="email" float-label="Email" placeholder="e.g. email@email.com"
-                 autocomplete="on" @blur="$v.email.$touch"/>
-              </q-field>
-            <br />
-            <q-btn class="float-left" label="Cancel" color="secondary" @click="$router.push('login')" />
-            <q-btn class="float-right" label="Reset Password" color="positive" type="submit" @click="submit" />
+          <q-input v-model.trim="$v.email.$model" type="email" :label="$t('accountMgmt.email')"
+          autocomplete="on" @blur="$v.email.$touch"
+          :error-message="$t('accountMgmt.emailRequiredError')"
+          :error="$v.email.$error"/>
+          <br>
+          <q-btn class="float-left" :label="$t('common.cancel')" color="secondary" @click="$router.push('login')" />
+          <q-btn class="float-right" :label="$t('accountMgmt.resetPassword.resetPassword')" color="positive" type="submit" @click="submit" />
         </div>
       </q-page>
     </q-page-container>
@@ -38,11 +38,11 @@ export default {
       if (!this.$v.$invalid) {
         try {
           await API.resetPW(this.email.toLowerCase())
-          this.$router.push('/changepw')
+          this.$router.push({ name: 'changepw', params: { email: this.email } })
         } catch (error) {
           this.$q.notify({
             color: 'negative',
-            message: 'Login failed: ' + error.message,
+            message: this.$i18n.t('accountMgmt.resetPassword.resetPasswordError') + ': ' + error.message,
             icon: 'report_problem'
           })
         }
@@ -51,6 +51,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>

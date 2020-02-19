@@ -1,65 +1,65 @@
 <template>
   <q-page padding>
-    <!-- content -->
-    <q-list v-for="(study, studyIndex) in newStudies" :key="studyIndex">
-      <q-item-label header>You are invited to join</q-item-label>
-      <q-item >
-        <q-item-section>
-          <q-item-label>{{study.generalities.title}}</q-item-label>
-          <q-item-label caption>{{study.generalities.shortDescription}}</q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-item-label header>Answer the following to know if you are eligible</q-item-label>
-      <q-item v-for="(question, questionIndex) in study.inclusionCriteria.criteriaQuestions" :key="questionIndex">
-        <q-item-section>
-          <p>
-            {{question.title}}
-          </p>
+    <q-card bordered v-for="(study, studyIndex) in newStudies" :key="studyIndex" class="q-mb-md">
+      <q-card-section>
+        <div class="row no-wrap">
+          <div class="col">
+            <div class="text-h6">{{ $t('studies.newStudyInvite') }}</div>
+            <div class="text-subtitle1">{{study.generalities.title[$i18n.locale]}}</div>
+            <div class="text-subtitle2">{{study.generalities.shortDescription[$i18n.locale]}}</div>
+          </div>
+        </div>
+      </q-card-section>
+      <q-card-section>
+        {{ $t('studies.newStudyExtraCriteria') }}:
+        <div v-for="(question, questionIndex) in study.inclusionCriteria.criteriaQuestions" :key="questionIndex">
+          <p class="q-mt-md text-subtitle2">{{question.title[$i18n.locale]}}</p>
           <div class="row">
-            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="yes" label="Yes" />
-            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="no" label="No" />
+            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="yes" :label="$t('common.yes')" />
+            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="no" :label="$t('common.no')" />
           </div>
+        </div>
+      </q-card-section>
+
+      <q-separator />
+      <div class="q-ma-sm text-negative" color="negative">
+        <span v-show="!eligible[studyIndex] && newStudiesCustomAnswers[studyIndex].length === study.inclusionCriteria.criteriaQuestions.length">
+          {{ $t('studies.notEligible') }}
+        </span>
+      </div>
+
+      <q-card-actions align="around">
+        <q-btn flat color="primary" :label="$t('studies.joinStudy')" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
+        <q-btn flat color="negative" :label="$t('studies.discardStudy')" @click="discardStudy(studyIndex)"></q-btn>
+      </q-card-actions>
+    </q-card>
+
+  <q-list separator bordered>
+    <q-item-label header>{{ $t('studies.activeStudies') }}</q-item-label>
+    <q-item clickable v-ripple v-for="(study, index) in activeStudies" :key="'ps' + index" @click.native="showDetails(study)">
+      <q-item-section avatar>
+          <q-icon color="primary" name="settings" />
         </q-item-section>
-      </q-item>
-      <q-item>
-        <q-item-section>
-          <div class="q-ma-sm text-negative" v-show="!eligible[studyIndex] && newStudiesCustomAnswers[studyIndex].length === study.inclusionCriteria.criteriaQuestions.length"
-          color="negative">
-          You are not eligible for this study
-        </div>
-        <div class="row justify-center">
-          <div class="col">
-            <q-btn color="primary" label="Join" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
-          </div>
-          <div class="col">
-            <q-btn color="negative" label="Discard" @click="discardStudy(studyIndex)"></q-btn>
-          </div>
-        </div>
+      <q-item-section>
+        <q-item-label>{{study.generalities.title[$i18n.locale]}}</q-item-label>
+        <q-item-label caption lines="1">End Date: {{nicerDate(study.generalities.endDate)}}</q-item-label>
       </q-item-section>
     </q-item>
-  </q-list>
-
-  <q-list link>
-    <q-item-label header>Active studies</q-item-label>
-    <div>
-      <!-- TODO: Replace QItemMain/-Side WITH QItemSections WHEN THERE IS DATA TO TEST -->
-      <q-item v-for="(study, activeStudyIndex) in activeStudies" :key="activeStudyIndex">
-        <q-item-section :sublabel="'End Date: ' + nicerDate(study.generalities.endDate)" @click.native="showDetails(study)">
-          <q-item-label>{{study.generalities.title}}</q-item-label>
-        </q-item-section>
-        <q-item-section avatar right icon="settings" @click.native="showDetails(study)" />
-      </q-item>
-    </div>
 
     <q-item v-if="activeStudies.length === 0">
-      <q-item-section>No active studies found.</q-item-section>
+      <q-item-section>{{ $t('studies.noActiveStudies') }}</q-item-section>
     </q-item>
 
-    <q-item-separator v-if="previousStudies.length !== 0" />
-    <!-- TODO: Replace QItemMain/-Side WITH QItemSections WHEN THERE IS DATA TO TEST -->
-    <q-item-label header v-if="previousStudies.length !== 0">Previous studies</q-item-label>
-    <q-item v-for="(study, previousStudyIndex) in previousStudies" :key="previousStudyIndex">
-      <q-item-section :label="study.generalities.title" @click.native="showDetails(study)"/>
+    <q-separator v-if="previousStudies.length !== 0"/>
+
+    <q-item-label header v-if="previousStudies.length !== 0">{{ $t('studies.previousStudies') }}</q-item-label>
+    <q-item clickable v-ripple v-for="(study, index) in previousStudies" :key="'ps' + index" @click.native="showDetails(study)">
+      <q-item-section avatar>
+          <q-icon color="primary" name="settings" />
+        </q-item-section>
+      <q-item-section>
+        <q-item-label>{{study.generalities.title[$i18n.locale]}}</q-item-label>
+      </q-item-section>
     </q-item>
   </q-list>
 </q-page>
@@ -109,7 +109,7 @@ export default {
       console.error('Cannot connect to server', error)
       this.$q.notify({
         color: 'negative',
-        message: 'Cannot retrieve study description: ' + error.message,
+        message: this.$i18n.t('errors.connectionError') + ': ' + error.message,
         icon: 'report_problem'
       })
     }
@@ -143,14 +143,13 @@ export default {
       this.$router.push({ name: 'studyConfig', params: { studyDescription: study } })
     },
     async discardStudy (index) {
-      try {
-        await this.$q.dialog({
-          title: 'Discard study',
-          message: 'Are you sure you want to discard this study',
-          color: 'primary',
-          ok: 'Yes',
-          cancel: 'Cancel'
-        })
+      this.$q.dialog({
+        title: this.$i18n.t('studies.discardStudy'),
+        message: this.$i18n.t('studies.discardStudyConfirm'),
+        color: 'primary',
+        ok: this.$i18n.t('common.yes'),
+        cancel: this.$i18n.t('common.cancel')
+      }).onOk(async () => {
         let study = this.newStudies[index]
         let studyParticipation = {
           studyKey: study._key
@@ -179,13 +178,11 @@ export default {
           console.error('Cannot connect to server', error)
           this.$q.notify({
             color: 'negative',
-            message: 'Cannot discard this study: ' + error.message,
+            message: this.$i18n.t('errors.connectionError') + ': ' + error.message,
             icon: 'report_problem'
           })
         }
-      } catch (e) {
-        // do nothing
-      }
+      })
     },
     async joinStudy (index) {
       let study = this.newStudies[index]

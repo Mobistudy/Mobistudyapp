@@ -6,28 +6,31 @@
           <img src="~/assets/mobistudy_logo.svg" style="width:30vw; max-width:150px;" ><br />
         </p>
         <div style="width: 90vw">
-          <p class="text-h5">{{ $t('accountMgmt.loginPage.login') }}</p>
-          <!--<q-input v-model="username" float-label="Username" />-->
+          <p class="text-h5">{{ $t('accountMgmt.login.login') }}</p>
           <q-input
             v-model="username"
-            v-bind:label="$t('accountMgmt.loginPage.email')"
+            :label="$t('accountMgmt.email')"
+            @blur="$v.username.$touch"
+            :error="$v.username.$error" :error-message="$t('accountMgmt.emailRequiredError')"
           />
           <q-input
             v-model="password"
-            v-bind:label="$t('accountMgmt.loginPage.password')"
+            :label="$t('accountMgmt.password')"
             type="password"
+            @blur="$v.password.$touch"
+            :error="$v.password.$error" :error-message="$t('accountMgmt.passwordRequiredError')"
           />
           <div class="row">
             <q-btn
               class="q-ma-sm full-width"
-              v-bind:label="$t('accountMgmt.loginPage.login')"
+              :label="$t('accountMgmt.login.login')"
               color="positive"
               @click="login"
               type="submit"
             />
             <q-btn
               class="q-ma-sm q-mb-lg full-width"
-              v-bind:label="$t('accountMgmt.loginPage.lostpw')"
+              :label="$t('accountMgmt.login.lostpw')"
               color="grey"
               flat outline
               to="resetpw"
@@ -36,12 +39,12 @@
               <q-separator />
               <q-item class="full-width">
                 <q-item-section class="full-width">
-                  <q-item-label class="text-center q-mt-lg q-mb-md">{{ $t('accountMgmt.loginPage.noAcc') }}</q-item-label>
+                  <q-item-label class="text-center q-mt-lg q-mb-md">{{ $t('accountMgmt.login.noAcc') }}</q-item-label>
                 </q-item-section>
               </q-item>
               <q-item class="full-width">
                 <q-item-section class="full-width">
-                  <q-btn class="full-width" v-bind:label="$t('accountMgmt.loginPage.register')" color="grey" to="register_tc"/>
+                  <q-btn class="full-width" :label="$t('accountMgmt.register')" color="primary" to="register_tc"/>
                 </q-item-section>
               </q-item>
             </q-list>
@@ -53,6 +56,7 @@
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
 import DB from '../../modules/db'
 import API from '../../modules/API'
 import userinfo from '../../modules/userinfo'
@@ -67,50 +71,56 @@ export default {
       error: false
     }
   },
+  validations: {
+    username: { required },
+    password: { required }
+  },
   async created () {
     if (userinfo.user.loggedin) {
       notifications.cancelAll()
       userinfo.logout()
       API.unsetToken()
-      DB.emptyDB()
+      DB.emptyUserData()
     }
   },
   methods: {
     async login () {
-      try {
-        let user = await API.login(this.username.toLowerCase(), this.password)
-        console.info('Logged in! ', user)
-        // user is authenticated, return user object
-        await userinfo.login(user)
-        API.setToken(user.token)
+      this.$v.$touch()
+      if (!this.$v.$error) {
+        try {
+          let user = await API.login(this.username.toLowerCase(), this.password)
+          // user is authenticated, return user object
+          await userinfo.login(user)
+          API.setToken(user.token)
 
-        // retrieve the profile information
-        // TODO: if the profile information is not available, it should go to a dedicated page where to fill it in
-        let profile = await API.getProfile(userinfo.user._key)
-        await userinfo.setProfile(profile)
+          // retrieve the profile information
+          let profile = await API.getProfile(userinfo.user._key)
 
-        // TODO: IMPLEMENT PROFILE COMPLETED FLAG TO ACTUALLY BE ABLE TO USE THIS CHECK
-        if (!profile) {
-          this.$router.push('/register_profile')
-        } else {
-          if (profile.studies) await DB.setStudiesParticipation(profile.studies)
-          this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
-        }
-      } catch (error) {
-        console.error(error)
-        this.error = true
-        if (error.response && error.response.status === 401) {
-          this.$q.notify({
-            color: 'negative',
-            message: 'Cannot login, wrong credentials',
-            icon: 'report_problem'
-          })
-        } else {
-          this.$q.notify({
-            color: 'negative',
-            message: 'Login failed: ' + error.message,
-            icon: 'report_problem'
-          })
+          if (!profile) {
+            // profile has not been filled in yet! must fill in now
+            this.$router.push('/register_profile')
+          } else {
+            // profile exists
+            await userinfo.setProfile(profile)
+            if (profile.studies) await DB.setStudiesParticipation(profile.studies)
+            this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
+          }
+        } catch (error) {
+          console.error(error)
+          this.error = true
+          if (error.response && error.response.status === 401) {
+            this.$q.notify({
+              color: 'negative',
+              message: this.$i18n.t('accountMgmt.login.loginErrorCredentials'),
+              icon: 'report_problem'
+            })
+          } else {
+            this.$q.notify({
+              color: 'negative',
+              message: this.$i18n.t('accountMgmt.login.loginError') + ': ' + error.message,
+              icon: 'report_problem'
+            })
+          }
         }
       }
     }

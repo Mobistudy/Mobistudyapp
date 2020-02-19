@@ -1,60 +1,45 @@
 <template>
   <q-page padding>
     <div v-if="introduction">
-      <q-list>
-        <q-item>
-          <q-item-section>
-            <q-item-label class="text-center text-h6">{{introduction.title}}</q-item-label>
-            <q-item-label class="text-center text-subtitle1">{{introduction.description}}</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item>
-          <q-item-section>
-            <q-btn color="primary" @click="start()" label="Start" />
-          </q-item-section>
-        </q-item>
-      </q-list>
+      <div class="text-center text-h6">
+          {{introduction.title[$i18n.locale]}}
+      </div>
+      <div class="text-center text-subtitle1 q-mt-lg">
+          {{introduction.description[$i18n.locale]}}
+      </div>
+      <div class="row justify-center q-mt-lg">
+          <q-btn color="primary" @click="start()" :label="$t('common.start')" />
+      </div>
     </div>
 
     <div v-if="!introduction && !finished">
-      <q-list>
-        <q-item>
-          <q-item-section>
-            <q-item-label class="text-center text-h6">{{currentQuestion.text}}</q-item-label>
-            <q-item-label class="text-center text-subtitle1">{{currentQuestion.helper}}</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-      <q-list>
-        <q-input v-show="currentQuestion.type === 'freetext'" v-model="freetextAnswer" type="textarea" float-label="Type your answer" width="100%" :max-height="100" rows="5"></q-input>
-        <q-item v-show="currentQuestion.type === 'singleChoice'" v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="index">
-          <q-radio v-model="singleChoiceAnswer" :val="answerChoice.id" :label="answerChoice.text"/>
-        </q-item>
-        <q-item v-show="currentQuestion.type === 'multiChoice'" v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="index">
-          <q-checkbox v-model="multiChoiceAnswer" :val="answerChoice.id" :label="answerChoice.text"/>
-        </q-item>
-      </q-list>
-      <div class="row justify-between q-ma-lg">
-        <q-btn v-show="!isFirstQuestion" icon="arrow_back" color="secondary" @click="back()" label="Back" />
-        <q-btn icon-right="arrow_forward" color="primary" @click="next()" label="Next" />
+      <div class="text-center text-h6">
+          {{currentQuestion.text[$i18n.locale]}}
+      </div>
+      <div class="text-center text-subtitle1 q-mb-md">
+          {{currentQuestion.helper[$i18n.locale]}}
+      </div>
+      <q-input v-show="currentQuestion.type === 'freetext'" v-model="freetextAnswer" type="textarea" :label="$t('studies.tasks.form.freeTextExplanation')" rows="5"></q-input>
+
+      <div v-show="currentQuestion.type === 'singleChoice'" v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="'sc' + index">
+        <q-radio v-model="singleChoiceAnswer" :val="answerChoice.id" :label="answerChoice.text[$i18n.locale]"/>
+      </div>
+      <div v-show="currentQuestion.type === 'multiChoice'" v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="'mc' + index">
+        <q-checkbox v-model="multiChoiceAnswer" :val="answerChoice.id" :label="answerChoice.text[$i18n.locale]"/>
+      </div>
+      <div class="row justify-around q-ma-lg">
+        <q-btn v-show="!isFirstQuestion" icon="arrow_back" color="secondary" @click="back()" :label="$t('common.back')" />
+        <q-btn icon-right="arrow_forward" color="primary" @click="next()" :label="$t('common.next')" />
       </div>
     </div>
 
     <div v-if="finished">
-      <q-list>
-        <q-item>
-          <q-item-section>
-            <q-item-label class="text-center text-h6">
-              Form completed. Thank you.
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item>
-          <q-item-section>
-            <q-btn color="primary" @click="send()" :loading="loading" label="Send" />
-          </q-item-section>
-        </q-item>
-      </q-list>
+      <div class="text-center text-h6">
+          {{$t('studies.tasks.form.formCompleted')}}
+      </div>
+      <div class="row justify-around q-ma-lg">
+        <q-btn color="primary" @click="send()" :loading="loading" :label="$t('common.send')" />
+      </div>
     </div>
 
   </q-page>
@@ -191,12 +176,14 @@ export default {
       this.currentQuestion = this.formDescr.questions.find(x => x.id === lastResponse.questionId)
 
       // populate the answer
-      if (this.currentQuestion.type === 'freetext') {
-        this.freetextAnswer = lastResponse.answer
-      } else if (this.currentQuestion.type === 'singleChoice') {
-        this.singleChoiceAnswer = lastResponse.answer.answerId
-      } else if (this.currentQuestion.type === 'multiChoice') {
-        this.multiChoice = lastResponse.map(x => x.answer.answerId)
+      if (lastResponse.answer) {
+        if (this.currentQuestion.type === 'freetext') {
+          this.freetextAnswer = lastResponse.answer
+        } else if (this.currentQuestion.type === 'singleChoice') {
+          this.singleChoiceAnswer = lastResponse.answer.answerId
+        } else if (this.currentQuestion.type === 'multiChoice') {
+          this.multiChoice = lastResponse.map(x => x.answer.answerId)
+        }
       }
 
       this.responses.pop()

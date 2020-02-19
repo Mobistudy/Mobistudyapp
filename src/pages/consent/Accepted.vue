@@ -7,7 +7,7 @@
       <q-item>
         <q-item-section>
           <q-item-label class="text-center text-h6">
-            You've just joined {{studyDescription.generalities.title}}!
+            {{ $t('consent.accepted.joined') }} {{studyDescription.generalities.title}}!
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -17,7 +17,7 @@
       <q-item>
         <q-item-section>
           <q-item-label class="text-center text-subtitle1">
-            Remember, you can always contact the principal investigators at:
+            {{ $t('consent.accepted.reminder') }}
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -27,7 +27,7 @@
       <q-item>
         <q-item-section>
           <q-item-label>
-            Name:
+            {{ $t('consent.accepted.name') }}
           </q-item-label>
           <q-item-label caption>
             {{pi.name}}
@@ -37,7 +37,7 @@
       <q-item>
         <q-item-section>
           <q-item-label>
-            Institution:
+            {{ $t('consent.accepted.institution') }}
           </q-item-label>
           <q-item-label caption>
             {{pi.institution}}
@@ -47,7 +47,7 @@
       <q-item>
         <q-item-section>
           <q-item-label>
-            Contact details:
+            {{ $t('consent.accepted.contact') }}
           </q-item-label>
           <q-item-label caption>
             {{pi.contact}}
@@ -58,7 +58,7 @@
     </q-list>
 
     <div class="q-my-lg flex flex-center">
-      <q-btn class="full-width" label="Next" color="primary" @click="next()"></q-btn>
+      <q-btn class="full-width" :label="$t('consent.accepted.buttonNext')" color="primary" @click="next()"></q-btn>
     </div>
   </q-page>
 </template>
