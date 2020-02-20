@@ -7,6 +7,7 @@ const API_ENDPOINT = 'MOCK' // use 'MOCK' for mock api, '/api' for local server
 const HEALTHSTORE = 'MOCK' // use 'MOCK' for mock healthstore or 'cordova-health' for the cordova health plugin
 const NOTIFICATIONS = 'WEB' // use 'WEB' for browser notifications or 'cordova-notification-local' for the cordova plugin
 const STORAGE = 'local' // use 'local' for browser localStorage or 'native' for cordova native storage
+const PHONE = 'MOCK' // use 'MOCK' for mocked phone functionalities or 'cordova' otherwise
 
 module.exports = function (ctx) {
   return {
@@ -99,7 +100,7 @@ module.exports = function (ctx) {
         })
         // substitutes modules with alternatives depending on compilation flags
         cfg.plugins.push(new webpack.NormalModuleReplacementPlugin(
-          /.*\/API|.*\/notifications|.*\/storage\.local|.*\/healthstore/g,
+          /.*\/API|.*\/notifications|.*\/storage\.local|.*\/healthstore|.*\/phone/g,
           function (resource) {
             if (!!resource.request && (resource.request.indexOf('API') != -1) && API_ENDPOINT === 'MOCK') {
               resource.request = resource.request.replace(/API/g, 'API.mock')
@@ -112,6 +113,9 @@ module.exports = function (ctx) {
             }
             if (!!resource.request && (resource.request.indexOf('healthstore') != -1) && HEALTHSTORE === 'MOCK') {
               resource.request = resource.request.replace(/healthstore/g, 'healthstore.mock')
+            }
+            if (!!resource.request && (resource.request.indexOf('phone') != -1) && PHONE === 'MOCK') {
+              resource.request = resource.request.replace(/phone/g, 'phone.mock')
             }
           })
         )
