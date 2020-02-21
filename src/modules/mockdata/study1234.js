@@ -108,6 +108,24 @@ export default {
       dataType: 'steps',
       aggregated: true,
       bucket: 'hour'
+    },
+    {
+      id: 3,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
+        intervalType: 'd',
+        untilSecs: 2592000, // 1 month
+        interval: 1,
+        months: [],
+        monthDays: [],
+        weekDays: []
+      },
+      formKey: '9999',
+      formName: {
+        en: 'Test form',
+        sv: 'Testformulär'
+      }
     }
   ],
   consent: {
@@ -133,6 +151,13 @@ export default {
           sv: 'Jag accepterar att skicka min information om steg varje dag'
         },
         taskId: 2
+      },
+      {
+        description: {
+          en: 'I agree to perform the 6MWT once a week.',
+          sv: 'Jag accepterar att besvara frågeformuläret varannan dag'
+        },
+        taskId: 3
       }
     ],
     extraItems: []
