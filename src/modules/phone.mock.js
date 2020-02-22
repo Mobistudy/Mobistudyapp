@@ -18,21 +18,17 @@ export default {
     serial: 'f70397b138fd'
   },
   geolocation: {
-    getCurrentPosition (cbk) {
-      cbk({
-        timestamp: new Date().getTime(),
-        coords: {
-          latitude: 51.751985,
-          longitude: -1.257609,
-          accuracy: 9
-        }
+    timerid: null,
+    async requestPermission () {
+      return new Promise((resolve, reject) => {
+        resolve()
       })
     },
-    watchPosition (cbk) {
+    startNotifications (options, cbk, error) {
       let startLat = 51.751985
       let startLong = -1.257609
       let counter = 0
-      return setInterval(function () {
+      this.timerid = setInterval(function () {
         counter++
         cbk({
           timestamp: new Date().getTime(),
@@ -45,17 +41,29 @@ export default {
         })
       }, 1000)
     },
-    clearWatch (id) {
-      clearInterval(id)
+    async stopNotifications () {
+      clearInterval(this.timerid)
+      return true
     }
   },
   pedometer: {
     timer : null,
     steps : 0,
-    isStepCountingAvailable (cbk) {
-      cbk(true)
+    async isAvailable () {
+      return true
+    }
+    async requestPermission () {
+      return new Promise((resolve, reject) => {
+        let id = navigator.geolocation.watchPosition(() => {
+          resolve()
+          navigator.geolocation.clearWatch(id)
+        }, (err) => {
+          reject(err)
+          navigator.geolocation.clearWatch(id)
+        }, { timeout: 5000, enableHighAccuracy: true })
+      })
     },
-    startPedometerUpdates (cbk) {
+    startNotifications (options, cbk, error) {
       this.steps = 0
       this.timer = setInterval(() => {
         this.steps ++
@@ -66,9 +74,9 @@ export default {
         })
       }, 1000)
     },
-    stopPedometerUpdates (cbk) {
+    async stopNotifications () {
       clearInterval(this.timer)
-      cbk()
+      return true
     }
   }
 }
