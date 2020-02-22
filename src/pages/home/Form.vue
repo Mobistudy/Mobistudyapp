@@ -196,7 +196,7 @@ export default {
         userKey: userinfo.user._key,
         studyKey: studyKey,
         taskId: taskId,
-        generatedTS: new Date(),
+        createdTS: new Date(),
         responses: this.responses
       }
       try {
