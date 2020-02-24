@@ -4,16 +4,16 @@ export default {
   generalities: {
     languages: ['en', 'sv'],
     title: {
-      en: '6MWT',
-      sv: '6MWT'
+      en: 'Six Minute Walk Test Study',
+      sv: 'Six Minute Walk Test Studie'
     },
     shortDescription: {
-      en: 'Six Minute Walk Test (6MWT).',
-      sv: 'Six Minute Walk Test (6MWT).'
+      en: 'The purpose of the test is to measure functional exercise capacity especially in chronic respiratory disease and heart failure.',
+      sv: 'Syftet med testet är att mäta funktionell träningskapacitet, särskilt vid kronisk luftvägssjukdom och hjärtsvikt.'
     },
     longDescription: {
-      en: 'The purpose of the test is to measure functional exercise capacity especially in chronic respiratory disease and heart failure.',
-      sv: 'Denna studie försöker identifiera tidiga markörer för hypertoni under graviditet med hjälp av en trådlös manschet.'
+      en: 'The purpose of the test is to measure functional exercise capacity especially in chronic respiratory disease and heart failure.The test has also been used in healthy older adults, people undergoing knee or hip arthroplasty, fibromyalgia, and scleroderma. This app is able to send the results of your tests to a server hosted by the University of Malmö. The data is made available to the personnel of the Skånes Universitetssjukhus so that doctors and nurses are able to review them. In order to be able to send the results of your tests, you need to be given a set credentials by your care givers at the hospital.',
+      sv: 'Syftet med testet är att mäta funktionell träningskapacitet, speciellt vid kronisk luftvägssjukdom och hjärtsvikt. Testet har också använts hos friska äldre vuxna, personer som genomgår knä- eller höftartroplastik, fibromyalgi och sklerodermi. Denna app kan skicka resultaten av dina tester till en server som är värd för universitetet i Malmö. Uppgifterna görs tillgängliga för personalen vid Skånes Universitetssjukhus så att läkare och sjuksköterskor kan granska dem. För att kunna skicka resultaten från dina tester måste du få en fast referens av dina vårdgivare på sjukhuset.'
     },
     startDate: new Date(new Date().getTime() - 1296000000).toISOString(), // 15 days ago
     endDate: new Date(new Date().getTime() + 5184000000).toISOString(), // 60 days from now
@@ -76,7 +76,7 @@ export default {
         monthDays: [],
         weekDays: []
       },
-      formKey: '6MWT',
+      formKey: 'SMWT',
       formName: {
         en: '6MWT form',
         sv: '6MWT formulär'
@@ -84,7 +84,7 @@ export default {
     },
     {
       id: 2,
-      type: 'dataQuery',
+      type: 'smwt',
       scheduling: {
         startEvent: 'consent',
         intervalType: 'd',
@@ -94,9 +94,7 @@ export default {
         monthDays: [],
         weekDays: [1, 3, 5]
       },
-      dataType: 'distance',
-      aggregated: true,
-      bucket: 'hour'
+      dataType: 'distance'
     }
   ],
   consent: {
@@ -105,8 +103,8 @@ export default {
       sv: 'Vi vill inbjuda dig att delta i vår forskningsstudie..'
     },
     privacyPolicy: {
-      en: 'We are going to collect your answers to the form and the number of steps per week.',
-      sv: 'Vi kommer att samla in dina svar på formuläret och antalet steg per vecka.'
+      en: 'We are going to collect your answers to the form and the distance walked during the Six Minute Walk Test.',
+      sv: 'Vi kommer att samla dina svar på formuläret och distansen som uppmätts under Six Minute Walk Test.'
     },
     taskItems: [
       {
@@ -118,8 +116,8 @@ export default {
       },
       {
         description: {
-          en: 'I agree to perform the 6MWT once a week.',
-          sv: 'Jag accepterar att utföra 6MWT en gång i veckan.'
+          en: 'I agree to perform the Six Minute Walk Test once a week.',
+          sv: 'Jag accepterar att utföra Six Minute Walk Test en gång i veckan.'
         },
         taskId: 2
       }

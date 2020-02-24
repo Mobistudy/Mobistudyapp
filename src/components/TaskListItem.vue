@@ -33,6 +33,10 @@ export default {
       this.title = this.task.formTitle[this.$root.$i18n.locale]
       this.main = this.$i18n.t('studies.tasks.form.shortDescription')
       this.icon = 'format_list_bulleted'
+    } else if (this.task.type === 'smwt') {
+      this.title = this.$i18n.t('studies.tasks.smwt.title')
+      this.main = this.$i18n.t('studies.tasks.smwt.shortDescription')
+      this.icon = 'directions_walk'
     }
   },
   computed: {
@@ -42,6 +46,8 @@ export default {
     toAddress: function () {
       if (this.task.formKey) {
         return 'form/' + this.task.studyKey + '/' + this.task.taskID + '/' + this.task.formKey
+      } else if (this.task.type === 'smwt') {
+        return 'smwt'
       } else if (this.task.studyKey && this.task.taskID) {
         return 'dataQuery/' + this.task.studyKey + '/' + this.task.taskID
       // eslint-disable-next-line brace-style
