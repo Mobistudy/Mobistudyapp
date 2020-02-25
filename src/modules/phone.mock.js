@@ -17,12 +17,18 @@ export default {
     isVirtual: false,
     serial: 'f70397b138fd'
   },
+  screen: {
+    async forbidSleep () {
+      return Promise.resolve()
+    },
+    async allowSleep () {
+      return Promise.resolve()
+    }
+  },
   geolocation: {
     timerid: null,
     async requestPermission () {
-      return new Promise((resolve, reject) => {
-        resolve()
-      })
+      return Promise.resolve()
     },
     startNotifications (options, cbk, error) {
       let startLat = 51.751985
