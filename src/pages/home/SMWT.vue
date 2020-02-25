@@ -39,10 +39,9 @@
     <q-btn  @click="toggleTest" v-if="!isStarted && !isPaused" color="secondary" label="Start" :disabled="isCompleted" />
     <q-btn  @click="toggleTest" v-if="isStarted && !isPaused" color="deep-orange" label="Pause" />
     <q-btn  @click="toggleTest" v-if="isStarted && isPaused" color="secondary" label="Resume" />
-    <q-btn  @click="completeTest" v-if="isStarted" color="purple" label="Complete" />
-    </div>
     <q-btn  @click="preMatureCompleteTest" v-if="isStarted" color="purple" label="Complete" />
     <p> {{ minutes }} : {{ seconds }} </p>
+    </div>
     <section v-if="isCompleted">
 
     </section>
