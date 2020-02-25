@@ -49,7 +49,7 @@ export default {
     },
     async stopNotifications () {
       clearInterval(this.timerid)
-      return true
+      return Promise.resolve()
     }
   },
   pedometer: {
@@ -82,7 +82,7 @@ export default {
     },
     async stopNotifications () {
       clearInterval(this.timer)
-      return true
+      return Promise.resolve()
     }
   }
 }
