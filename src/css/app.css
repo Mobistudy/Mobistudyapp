@@ -1,1 +1,6 @@
 /* app global css */
+
+#map {
+  width: 100%;
+  height: 500px;
+}

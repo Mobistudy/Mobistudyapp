@@ -34,8 +34,8 @@ const routes = [
     path: '/home',
     component: () => import('layouts/HomeLayout.vue'),
     children: [
-      { path: '/', name: 'home', component: () => import('pages/home/Tasker.vue'), props: true },
-      { path: '/tasker', name: 'tasker', component: () => import('pages/home/Tasker.vue'), props: true },
+      { path: '/', name: 'home', component: () => import('pages/home/SMWT.vue'), props: true },
+      { path: '/tasker', name: 'tasker', component: () => import('pages/home/SMWT.vue'), props: true },
       { path: '/profile', name: 'profile', component: () => import('pages/home/Profile.vue') },
       { path: '/studies', name: 'studies', component: () => import('pages/home/Studies.vue') },
       { path: '/about', name: 'about', component: () => import('pages/home/About.vue') },
@@ -58,7 +58,8 @@ const routes = [
     component: () => import('layouts/TaskLayout.vue'),
     children: [
       { path: '/form/:studyKey/:taskId/:formKey', name: 'form', component: () => import('pages/home/Form.vue') },
-      { path: '/dataQuery/:studyKey/:taskID', name: 'dataQuery', component: () => import('pages/home/DataQuery') }
+      { path: '/dataQuery/:studyKey/:taskID', name: 'dataQuery', component: () => import('pages/home/DataQuery') },
+      { path: '/smwt', name: 'smwt', component: () => import('pages/home/SMWT.vue') }
     ]
   }
 ]
