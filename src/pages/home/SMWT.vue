@@ -19,11 +19,6 @@ export default {
     return {
       task: {},
       taskDescr: {},
-      chartData: null,
-      chartOptions: null,
-      healthData: null,
-      plotLine: false,
-      plotBar: false,
       loading: false,
       map: null,
       coords: null
