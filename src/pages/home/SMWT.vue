@@ -2,9 +2,7 @@
   <q-page padding>
     <!-- content -->
     <p>6MWT</p>
-    <div id="map">
-      {{ map }}
-    </div>
+    <div id="map" />
     <q-btn  @click="toggleTest" v-if="!isStarted && !isPaused" color="secondary" label="Start" :disabled="isCompleted" />
     <q-btn  @click="toggleTest" v-if="isStarted && !isPaused" color="deep-orange" label="Pause" />
     <q-btn  @click="toggleTest" v-if="isStarted && isPaused" color="secondary" label="Resume" />
@@ -36,7 +34,6 @@ export default {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((pos) => {
           this.coords = pos.coords
-          console.log(this.coords.latitude)
         })
       } else {
         console.log('Geolocation is not supported by this browser.')
@@ -54,6 +51,7 @@ export default {
     },
     toggleTest () {
       if (!this.isStarted) {
+        console.log('isStarted')
         this.isStarted = true
       } else if (this.isStarted && !this.isPaused) {
         this.isPaused = true
