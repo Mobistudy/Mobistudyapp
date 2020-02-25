@@ -66,7 +66,7 @@ export default {
       isStarted: false,
       isPaused: false,
       isCompleted: false,
-      instruction: true
+      instruction: true,
       isPrematureCompletion: false,
       timer: null,
       totalTime: 0
