@@ -92,12 +92,12 @@ export default {
   },
 
   // send answers to server
-  sendAnswers: function (answers) {
+  sendAnswers: async function (answers) {
     return axios.post(BASE_URL + '/answers', answers, axiosConfig)
   },
 
   // send health data from query
-  sendDataQuery: function (data) {
+  sendDataQuery: async function (data) {
     return axios.post(BASE_URL + '/healthStoreData', data, axiosConfig)
   }
 }
