@@ -34,12 +34,18 @@
 
     <div v-if="!instruction">
     <p>6MWT</p>
-    <div id="map" />
+    <div id="map">
+    </div>
     <q-btn  @click="toggleTest" v-if="!isStarted && !isPaused" color="secondary" label="Start" :disabled="isCompleted" />
     <q-btn  @click="toggleTest" v-if="isStarted && !isPaused" color="deep-orange" label="Pause" />
     <q-btn  @click="toggleTest" v-if="isStarted && isPaused" color="secondary" label="Resume" />
     <q-btn  @click="completeTest" v-if="isStarted" color="purple" label="Complete" />
     </div>
+    <q-btn  @click="preMatureCompleteTest" v-if="isStarted" color="purple" label="Complete" />
+    <p> {{ minutes }} : {{ seconds }} </p>
+    <section v-if="isCompleted">
+
+    </section>
   </q-page>
 </template>
 
@@ -61,6 +67,9 @@ export default {
       isPaused: false,
       isCompleted: false,
       instruction: true
+      isPrematureCompletion: false,
+      timer: null,
+      totalTime: 0
     }
   },
   methods: {
@@ -88,7 +97,6 @@ export default {
     },
     toggleTest () {
       if (!this.isStarted) {
-        console.log('isStarted')
         this.isStarted = true
       } else if (this.isStarted && !this.isPaused) {
         this.isPaused = true
@@ -96,10 +104,47 @@ export default {
         this.isPaused = false
       }
     },
+    preMatureCompleteTest () {
+      this.isStarted = false
+      this.isPaused = false
+      this.isCompleted = true
+      this.isPrematureCompletion = true
+    },
     completeTest () {
       this.isStarted = false
       this.isPaused = false
       this.isCompleted = true
+      this.isPrematureCompletion = false
+    },
+    startTimer () {
+      this.timer = setInterval(() => this.countup(), 1000)
+    },
+    pauseTimer () {
+      clearInterval(this.timer)
+      this.timer = null
+    },
+    countup () {
+      if (this.totalTime <= 359) {
+        this.totalTime++
+      } else {
+        this.completeTest()
+      }
+    }
+  },
+  watch: {
+    isStarted () {
+      this.startTimer()
+    },
+    isPaused () {
+      this.isPaused ? this.pauseTimer() : this.startTimer()
+    }
+  },
+  computed: {
+    minutes () {
+      return Math.floor(this.totalTime / 60)
+    },
+    seconds () {
+      return this.totalTime - (this.minutes * 60)
     }
   },
   async mounted () {
