@@ -1,10 +1,6 @@
 'use strict'
 
-// this module mocks the cordova plugins
-
-// device: https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-device/
-// geolocation: https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-geolocation/index.html
-// pedometer: https://github.com/leecrossley/cordova-plugin-pedometer
+// this module mocks the cordova plugins of phone.js
 
 export default {
   device: {
@@ -27,6 +23,9 @@ export default {
   },
   geolocation: {
     timerid: null,
+    async isAvailable () {
+      return Promise.resolve()
+    },
     async requestPermission () {
       return Promise.resolve()
     },
@@ -56,18 +55,10 @@ export default {
     timer : null,
     steps : 0,
     async isAvailable () {
-      return true
-    }
+      return Promise.resolve()
+    },
     async requestPermission () {
-      return new Promise((resolve, reject) => {
-        let id = navigator.geolocation.watchPosition(() => {
-          resolve()
-          navigator.geolocation.clearWatch(id)
-        }, (err) => {
-          reject(err)
-          navigator.geolocation.clearWatch(id)
-        }, { timeout: 5000, enableHighAccuracy: true })
-      })
+      return Promise.resolve()
     },
     startNotifications (options, cbk, error) {
       this.steps = 0

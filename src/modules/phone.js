@@ -24,6 +24,10 @@ export default {
   },
   geolocation: {
     watchid: null,
+    async isAvailable () {
+      if (typeof navigator.geolocation === 'undefined') return Promise.reject()
+      else return Promise.resolve()
+    },
     async requestPermission () {
       return new Promise((resolve, reject) => {
         let id = navigator.geolocation.watchPosition(() => {
@@ -67,16 +71,17 @@ export default {
     }
     async requestPermission () {
       return new Promise((resolve, reject) => {
-        let id = navigator.geolocation.watchPosition(() => {
+        pedometer.startPedometerUpdates((data) => {
           resolve()
-          navigator.geolocation.clearWatch(id)
+          pedometer.stopPedometerUpdates()
         }, (err) => {
           reject(err)
-          navigator.geolocation.clearWatch(id)
-        }, { timeout: 5000, enableHighAccuracy: true })
+          pedometer.stopPedometerUpdates()
+        })
       })
     },
     startNotifications (options, cbk, error) {
+      this.firstSteps == -1
       pedometer.startPedometerUpdates((data) => {
         if (this.firstSteps == -1) {
           this.firstSteps = data.numberOfSteps - 1
