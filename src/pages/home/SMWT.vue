@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <!-- content -->
-    <div v-if="instruction">
+    <div v-if="instruction && !isCompleted">
    <div class="text-center text-h6 q-mt-lg">
       Instructions for the Six Minute Walk Test (6MWT)
     </div>
@@ -32,19 +32,30 @@
     </q-item>
     </div>
 
-    <div v-if="!instruction">
-    <p>6MWT</p>
+    <q-item class="q-mt-md">
+      <q-item-section id="completedText" v-if="isCompleted && !isPrematureCompletion">
+          <p>You completed the test!</p>
+      </q-item-section>
+
+      <q-item-section id="completedText" v-if="isPrematureCompletion">
+          <p>You completed the test in {{ minutes }}:{{ seconds }}!</p>
+      </q-item-section>
+    </q-item >
+
+    <q-item class="q-mt-md">
+    <q-item-section v-if="!instruction && !isCompleted">
+    <div class="text-center text-h6 q-mt-lg">
+      6MWT
+    </div>
     <div id="map">
     </div>
+       <p id="timer"> {{ minutes }}:{{ seconds }} </p>
     <q-btn  @click="toggleTest" v-if="!isStarted && !isPaused" color="secondary" label="Start" :disabled="isCompleted" />
     <q-btn  @click="toggleTest" v-if="isStarted && !isPaused" color="deep-orange" label="Pause" />
     <q-btn  @click="toggleTest" v-if="isStarted && isPaused" color="secondary" label="Resume" />
     <q-btn  @click="preMatureCompleteTest" v-if="isStarted" color="purple" label="Complete" />
-    <p> {{ minutes }} : {{ seconds }} </p>
-    </div>
-    <section v-if="isCompleted">
-
-    </section>
+    </q-item-section>
+    </q-item>
   </q-page>
 </template>
 
@@ -68,7 +79,7 @@ export default {
       instruction: true,
       isPrematureCompletion: false,
       timer: null,
-      totalTime: 0
+      totalTime: 360
     }
   },
   methods: {
@@ -104,10 +115,9 @@ export default {
       }
     },
     preMatureCompleteTest () {
-      this.isStarted = false
-      this.isPaused = false
-      this.isCompleted = true
+      this.completeTest()
       this.isPrematureCompletion = true
+      this.countDown = null
     },
     completeTest () {
       this.isStarted = false
@@ -116,18 +126,20 @@ export default {
       this.isPrematureCompletion = false
     },
     startTimer () {
-      this.timer = setInterval(() => this.countup(), 1000)
+      this.timer = setInterval(() => this.countDown(), 1000)
     },
     pauseTimer () {
-      clearInterval(this.timer)
-      this.timer = null
+      // stop algorithm
     },
-    countup () {
-      if (this.totalTime <= 359) {
-        this.totalTime++
+    countDown () {
+      if (this.totalTime >= 1) {
+        this.totalTime--
       } else {
         this.completeTest()
       }
+    },
+    padTime (time) {
+      return (time < 10 ? '0' : '') + time
     }
   },
   watch: {
@@ -136,24 +148,40 @@ export default {
     },
     isPaused () {
       this.isPaused ? this.pauseTimer() : this.startTimer()
+    },
+    instruction () {
+      // setTimeout(() => {
+      this.createMap(this.coords.latitude, this.coords.longitude)
+      // }, 500)
     }
   },
   computed: {
     minutes () {
-      return Math.floor(this.totalTime / 60)
+      return this.padTime(Math.floor(this.totalTime / 60))
     },
     seconds () {
-      return this.totalTime - (this.minutes * 60)
+      return this.padTime(this.totalTime - (this.minutes * 60))
     }
   },
   async mounted () {
     this.getLocation()
-    setTimeout(() => {
-      this.createMap(this.coords.latitude, this.coords.longitude)
-    }, 500)
   }
 }
 </script>
 
 <style>
+#map {
+  width: 100%;
+  height: 50vh;
+}
+
+#timer {
+  font-size: 36px;
+  text-align: center;
+}
+
+#completedText {
+  text-align: center;
+  font-size: 36px;
+}
 </style>
