@@ -1,10 +1,6 @@
 'use strict'
 
-// this module mocks the cordova plugins
-
-// device: https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-device/
-// geolocation: https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-geolocation/index.html
-// pedometer: https://github.com/leecrossley/cordova-plugin-pedometer
+// this module mocks the cordova plugins of phone.js
 
 export default {
   device: {
@@ -17,22 +13,27 @@ export default {
     isVirtual: false,
     serial: 'f70397b138fd'
   },
-  geolocation: {
-    getCurrentPosition (cbk) {
-      cbk({
-        timestamp: new Date().getTime(),
-        coords: {
-          latitude: 51.751985,
-          longitude: -1.257609,
-          accuracy: 9
-        }
-      })
+  screen: {
+    async forbidSleep () {
+      return Promise.resolve()
     },
-    watchPosition (cbk) {
+    async allowSleep () {
+      return Promise.resolve()
+    }
+  },
+  geolocation: {
+    timerid: null,
+    async isAvailable () {
+      return Promise.resolve()
+    },
+    async requestPermission () {
+      return Promise.resolve()
+    },
+    startNotifications (options, cbk, error) {
       let startLat = 51.751985
       let startLong = -1.257609
       let counter = 0
-      return setInterval(function () {
+      this.timerid = setInterval(function () {
         counter++
         cbk({
           timestamp: new Date().getTime(),
@@ -45,17 +46,21 @@ export default {
         })
       }, 1000)
     },
-    clearWatch (id) {
-      clearInterval(id)
+    async stopNotifications () {
+      clearInterval(this.timerid)
+      return Promise.resolve()
     }
   },
   pedometer: {
     timer : null,
     steps : 0,
-    isStepCountingAvailable (cbk) {
-      cbk(true)
+    async isAvailable () {
+      return Promise.resolve()
     },
-    startPedometerUpdates (cbk) {
+    async requestPermission () {
+      return Promise.resolve()
+    },
+    startNotifications (options, cbk, error) {
       this.steps = 0
       this.timer = setInterval(() => {
         this.steps ++
@@ -66,9 +71,9 @@ export default {
         })
       }, 1000)
     },
-    stopPedometerUpdates (cbk) {
+    async stopNotifications () {
       clearInterval(this.timer)
-      cbk()
+      return Promise.resolve()
     }
   }
 }

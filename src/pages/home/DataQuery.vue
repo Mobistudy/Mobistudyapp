@@ -292,7 +292,7 @@ export default {
           studyKey: studyKey,
           taskId: taskId,
           dataType: this.taskDescr.dataType,
-          generatedTS: new Date(),
+          createdTS: new Date(),
           healthData: this.healthData
         })
         await DB.setTaskCompletion(studyKey, taskId, new Date())

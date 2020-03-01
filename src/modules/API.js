@@ -38,24 +38,10 @@ export default {
     return axios.post(BASE_URL + '/resetPassword', { token: token, password: newpw })
   },
   searchDiseaseConcept: async (disease, lang) => {
-    // TODO: MOCKED! NEEDS TO ACTUALLY CALL SERVER!!!
-    return [
-      {
-        term: 'heart failure',
-        conceptId: '1234567',
-        vocabulary: 'SNOMED'
-      }
-    ]
+    return axios.get(BASE_URL + '/vocabulary/' + lang + '/disorder/search?term=' + disease + '&limit=10')
   },
-  searchMedicationConcept: async (disease, lang) => {
-    // TODO: MOCKED! NEEDS TO ACTUALLY CALL SERVER!!!
-    return [
-      {
-        term: 'aspirin',
-        conceptId: '212123123',
-        vocabulary: 'SNOMED'
-      }
-    ]
+  searchMedicationConcept: async (med, lang) => {
+    return axios.get(BASE_URL + '/vocabulary/' + lang + '/substance/search?term=' + med + '&limit=10')
   },
   /// ////////////////////////////////////
   // from here on, we need to use tokens
@@ -106,12 +92,12 @@ export default {
   },
 
   // send answers to server
-  sendAnswers: function (answers) {
+  sendAnswers: async function (answers) {
     return axios.post(BASE_URL + '/answers', answers, axiosConfig)
   },
 
   // send health data from query
-  sendDataQuery: function (data) {
+  sendDataQuery: async function (data) {
     return axios.post(BASE_URL + '/healthStoreData', data, axiosConfig)
   }
 }

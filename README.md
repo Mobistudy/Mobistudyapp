@@ -18,7 +18,7 @@ Install all other dependencies with:
 npm install
 ```
 
-## Run it
+## Run
 
 To start the app in development mode (hot-code reloading, error reporting, etc.), run:
 
@@ -26,35 +26,26 @@ To start the app in development mode (hot-code reloading, error reporting, etc.)
 quasar dev
 ```
 
-## Test it
+## Test
 
 The repository contains some unit tests, to run them:
-
 ```bash
 npm run test:unit
 ```
 
-## Develop it
+If you want to have quasar and the tests running in parallel and watching for code changes:
+```bash
+npm run concurrently:dev:jest
+```
+
+## Develop
 
 The code is consistent with how projects are structured in Quasar.
 If you use VS Code, follow the [recommended settings from Quasar](https://quasar.dev/start/vs-code-configuration#Introduction).
 
 For development, you may want to mock some modules, see quasar.conf.js to activate mocked modules.
 
-
-## Test it
-
-```bash
-npm run test:unit
-```
-
-If you want to have quasar and the tests running in parallel and watching for code changes:
-
-```bash
-npm run concurrently:dev:jest
-```
-
-## Deploy it
+## Deploy
 
 Run:
 ```bash
@@ -62,3 +53,21 @@ quasar build
 ```
 
 This will generate the material UI interfaces and make it available under `./dist/`
+
+## Credits
+
+Original idea: [Dario Salvi](https://github.com/dariosalvi78) and [Carmelo Velardo](https://github.com/2dvisio).
+
+Coordination: [Dario Salvi](https://github.com/dariosalvi78) and [Carl Magnus Olsson](https://github.com/Trasselkalle).
+
+Development:
+- [Dario Salvi](https://github.com/dariosalvi78)
+- [Arvind Goburdhun](https://github.com/arvgo)
+- [Jameson Lee](https://github.com/jamtholee)
+- [Lennart Czienskowski](https://github.com/lencz)
+- [Elin Forsnor](https://github.com/elinforsnor)
+- [Felix Morau](https://github.com/femosc2)
+
+## License
+
+See [license file](LICENSE)
