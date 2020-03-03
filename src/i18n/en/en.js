@@ -27,7 +27,8 @@ export default {
     consent: 'New study',
     home: 'Mobistudy',
     registration: 'Register',
-    task: 'Task'
+    task: 'Task',
+    close: 'Close'
   },
   passwordCheck: {
     ok: 'All OK',
