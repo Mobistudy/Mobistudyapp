@@ -24,10 +24,10 @@ export default {
   geolocation: {
     timerid: null,
     async isAvailable () {
-      return Promise.resolve()
+      return Promise.resolve(true)
     },
     async requestPermission () {
-      return Promise.resolve()
+      return Promise.resolve(true)
     },
     startNotifications (options, cbk, error) {
       let startLat = 51.751985
@@ -55,10 +55,10 @@ export default {
     timer: null,
     steps: 0,
     async isAvailable () {
-      return Promise.resolve()
+      return Promise.resolve(true)
     },
     async requestPermission () {
-      return Promise.resolve()
+      return Promise.resolve(true)
     },
     startNotifications (options, cbk, error) {
       this.steps = 0

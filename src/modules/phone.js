@@ -25,13 +25,13 @@ export default {
   geolocation: {
     watchid: null,
     async isAvailable () {
-      if (typeof navigator.geolocation === 'undefined') return Promise.reject()
-      else return Promise.resolve()
+      if (typeof navigator.geolocation === 'undefined') return Promise.resolve(false)
+      else return Promise.resolve(true)
     },
     async requestPermission () {
       return new Promise((resolve, reject) => {
         let id = navigator.geolocation.watchPosition(() => {
-          resolve()
+          resolve(true)
           navigator.geolocation.clearWatch(id)
         }, (err) => {
           reject(err)
@@ -68,7 +68,7 @@ export default {
       return new Promise((resolve, reject) => {
         pedometer.isStepCountingAvailable(resolve, reject)
       })
-    }
+    },
     async requestPermission () {
       return new Promise((resolve, reject) => {
         pedometer.startPedometerUpdates((data) => {
