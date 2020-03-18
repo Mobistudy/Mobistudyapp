@@ -79,16 +79,48 @@ export default {
       instruction: true,
       isPrematureCompletion: false,
       timer: null,
-      totalTime: 360
+      totalTime: 360,
+      distance: 0,
+      showDistance: 0,
+      maxspeed: 2,
+      signal_minaccuracy: 15,
+      selection_period: 5,
+      positions: [
+        {
+          timestamp: new Date().getTime(),
+          coords: {
+            latitude: 51.751985,
+            longitude: 1.257609,
+            altitude: 69.82,
+            accuracy: 9
+          },
+          steps: 2
+        },
+        {
+          timestamp: new Date().getTime(),
+          coords: {
+            latitude: 51.751985 + 2.1055e-6,
+            longitude: 1.257609 + 1.83055e-5,
+            altitude: 69.82,
+            accuracy: 9
+          },
+          steps: null
+        }
+      ],
+      selectedPositions: [],
+      started: false
     }
   },
+
   methods: {
     start () {
       this.instruction = false
     },
+
     getLocation () {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((pos) => {
+          // this.positions = pos
           this.coords = pos.coords
         })
       } else {
@@ -108,6 +140,7 @@ export default {
     toggleTest () {
       if (!this.isStarted) {
         this.isStarted = true
+        this.startTest()
       } else if (this.isStarted && !this.isPaused) {
         this.isPaused = true
       } else if (this.isStarted && this.isPaused) {
@@ -124,6 +157,7 @@ export default {
       this.isPaused = false
       this.isCompleted = true
       this.isPrematureCompletion = false
+      this.stopTest()
     },
     startTimer () {
       this.timer = setInterval(() => this.countDown(), 1000)
@@ -140,8 +174,157 @@ export default {
     },
     padTime (time) {
       return (time < 10 ? '0' : '') + time
+    },
+    /**
+    * Tells the algorithm that the test has officially started
+    * @param ts: the timestamp (for testing purposes), not mandatory
+    */
+    startTest (ts) {
+      this.distance = 0
+      this.started = true
+      this.selectedPositions = []
+      // select the starting position
+      var selected = this.selectPosition(this.positions[0].timestamp, this.selection_period / 4)
+      if (!selected) { // if there is no candidate for selection just use the last one
+        selected = this.positions[0]
+      }
+      this.selectedPositions.unshift(selected)
+    },
+    /** Tells the algorithm that the test has officially ended
+    */
+    stopTest () {
+      this.started = false
+      // if there were no steps, then just give zero
+      if (this.positions[0].steps !== undefined && this.positions[0].steps === 0) {
+        this.distance = 0
+        return
+      }
+
+      // last update of the distance
+      var selected = this.selectPosition(this.positions[0].timestamp, 10) // for the last sample, let's try to focus on the last 10 seconds
+      if (!selected) { // if there is no candidate for selection, well, then just use the last one
+        selected = this.positions[0]
+      }
+      if (selected.timestamp !== this.selectedPositions[0].timestamp) { // it may happen that it was already selected
+        this.distance += this.crowDist(this.selectedPositions[0], selected)
+        this.selectedPositions.unshift(selected)
+      }
+    },
+    selectPosition (time, secs) {
+      // if there are no new steps, don't compute distance
+      if ((this.positions.length > 1) && this.positions[0].steps && ((this.positions[0].steps - this.positions[0].steps) === 0)) {
+        return null
+      }
+
+      // use the best sample within secs
+      // "best" is the one with highest accuracy and that does not suppose extreme speeds (>10Km hour)
+      var bestAccuracy = 10000
+      var bestAccuracyI = -1
+
+      for (var i = 0; i < this.positions.length; i++) {
+        var pos = this.positions[i]
+        console.log(pos)
+        if (time - pos.timestamp > (secs * 1000)) {
+          // we don't have to go further
+          if (bestAccuracyI >= 0) {
+            // there's a candidate
+            return this.positions[bestAccuracyI] // returns the one with the best accuracy
+          } else { // there are no suitable options in this time window :(
+            return null
+          }
+        }
+        if (pos.coords.accuracy < 5) {
+          return pos // that's enough accuracy! no need to go further
+        }
+        // compute speed since last selected point
+        var speed = 0
+        if (this.selectedPositions.length > 0) { // (only possible when there is at least one selected)
+          speed = this.crowDist(pos, this.selectedPositions[0]) / ((time - this.selectedPositions[0].timestamp) / 1000) // m/s
+        }
+        if (speed < this.maxspeed) {
+          if (pos.coords.accuracy < bestAccuracy) {
+            bestAccuracy = this.positions[i].coords.accuracy
+            bestAccuracyI = i
+          }
+        } else {
+          // just ignore this point
+          // console.log('what a jump! speed: '+speed, pos);
+        }
+      }
+      return this.positions[bestAccuracyI]
+    },
+    crowDist (point1, point2) {
+      var lat1 = point1.coords.latitude
+      var lat2 = point2.coords.latitude
+      var lon1 = point1.coords.longitude
+      var lon2 = point2.coords.longitude
+      var R = 6371 // km
+      var dLat = this.toRad(lat2 - lat1)
+      var dLon = this.toRad(lon2 - lon1)
+      lat1 = this.toRad(lat1)
+      lat2 = this.toRad(lat2)
+
+      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2)
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+      var d = R * c
+      return d * 1000
+    },
+
+    toRad (Value) {
+      return Value * Math.PI / 180
+    },
+    /**
+    * A position is available and has to be computed
+    * @param position: the position object, like { timestamp: ttt, coords: {longitude: xx, latitude: yy, accuracy: zz,a ltitude: bbb}, steps: ss}, steps can be undefined or null!
+    * @return for debugging purposes, returns true if the sample was selected
+    */
+    addPosition (position) {
+      this.positions.unshift(position)
+
+      if (this.started) {
+        // selection criterium
+        if ((this.position.timestamp - this.selectedPositions[0].timestamp) >= (this.selection_period * 1000)) {
+          // select the best one within a reasonable time window
+          var selected = this.selectPosition(this.position.timestamp, this.selection_period / 4)
+          if (selected) {
+            this.distance += this.crowDist(this.selectedPositions[0], selected)
+            this.selectedPositions.unshift(selected)
+            return true
+          }
+        }
+      }
+      return false
+    },
+    /**
+    * Tells if the signal is of enough quality
+    */
+    isSignalOK () {
+      // we define "enough quality" when there is altitude (means that the GPS is on)
+      // and the accuracy is less than CHECKSIGNAL_MINACCURACY
+      var lastP = this.positions[0]
+      return lastP && (lastP.coords.altitude) && (lastP.coords.accuracy <= this.signal_minaccuracy)
+    },
+    /**
+    * Computes the latest available distance
+    * if the test is not stopped it will give the best effort estimation
+    */
+    getDistance () {
+      if (this.started) {
+        // if there are no new steps, freeze the distance
+        if ((this.positions.length > 1) && (this.positions[0].steps || (this.positions[0].steps === 0)) && ((this.positions[0].steps - this.positions[1].steps) === 0)) {
+          return this.showDistance
+        }
+        var d = this.crowDist(this.selectedPositions[0], this.positions[0])
+        this.showDistance = this.distance + d
+        return this.showDistance
+      } else {
+        // when not running, give the official one
+        return this.distance
+      }
     }
   },
+
   watch: {
     isStarted () {
       this.startTimer()
