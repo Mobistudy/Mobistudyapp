@@ -38,6 +38,10 @@ export default {
         })
       }
     }
+  },
+  async destroyed () {
+    // stop notifications when leaving
+    phone.geolocation.stopNotifications()
   }
 }
 </script>
