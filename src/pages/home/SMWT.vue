@@ -61,6 +61,7 @@
 
 <script>
 import { Loader } from 'google-maps'
+import phone from '../../modules/phone'
 const options = {/* todo */}
 
 export default {
@@ -72,7 +73,6 @@ export default {
       taskDescr: {},
       loading: false,
       map: null,
-      coords: null,
       isStarted: false,
       isPaused: false,
       isCompleted: false,
@@ -85,30 +85,8 @@ export default {
       maxspeed: 2,
       signal_minaccuracy: 15,
       selection_period: 5,
-      positions: [
-        {
-          timestamp: new Date().getTime(),
-          coords: {
-            latitude: 51.751985,
-            longitude: 1.257609,
-            altitude: 69.82,
-            accuracy: 9
-          },
-          steps: 2
-        },
-        {
-          timestamp: new Date().getTime(),
-          coords: {
-            latitude: 51.751985 + 2.1055e-6,
-            longitude: 1.257609 + 1.83055e-5,
-            altitude: 69.82,
-            accuracy: 9
-          },
-          steps: null
-        }
-      ],
-      selectedPositions: [],
-      started: false
+      positions: [],
+      selectedPositions: []
     }
   },
 
@@ -118,14 +96,14 @@ export default {
     },
 
     getLocation () {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((pos) => {
-          // this.positions = pos
-          this.coords = pos.coords
-        })
-      } else {
-        console.log('Geolocation is not supported by this browser.')
-      }
+      // if (navigator.geolocation) {
+      //   navigator.geolocation.getCurrentPosition((pos) => {
+      //     this.positions = pos
+      //     console.log(this.positions)
+      //   })
+      // } else {
+      //   console.log('Geolocation is not supported by this browser.')
+      // }
     },
     async createMap (lat, lng) {
       const loader = new Loader('AIzaSyDOYV2ngQg69SmJQukqtnaZPKeSIX70CKg', options)
@@ -163,7 +141,7 @@ export default {
       this.timer = setInterval(() => this.countDown(), 1000)
     },
     pauseTimer () {
-      // stop algorithm
+      this.stopTest()
     },
     countDown () {
       if (this.totalTime >= 1) {
@@ -175,13 +153,15 @@ export default {
     padTime (time) {
       return (time < 10 ? '0' : '') + time
     },
+
     /**
     * Tells the algorithm that the test has officially started
     * @param ts: the timestamp (for testing purposes), not mandatory
     */
     startTest (ts) {
+      console.log('Test started')
       this.distance = 0
-      this.started = true
+      this.isStarted = true
       this.selectedPositions = []
       // select the starting position
       var selected = this.selectPosition(this.positions[0].timestamp, this.selection_period / 4)
@@ -193,7 +173,9 @@ export default {
     /** Tells the algorithm that the test has officially ended
     */
     stopTest () {
-      this.started = false
+      console.log('Test stopped')
+      phone.geolocation.stopNotifications()
+      this.isStarted = false
       // if there were no steps, then just give zero
       if (this.positions[0].steps !== undefined && this.positions[0].steps === 0) {
         this.distance = 0
@@ -209,10 +191,11 @@ export default {
         this.distance += this.crowDist(this.selectedPositions[0], selected)
         this.selectedPositions.unshift(selected)
       }
+      console.log(this.distance)
     },
     selectPosition (time, secs) {
       // if there are no new steps, don't compute distance
-      if ((this.positions.length > 1) && this.positions[0].steps && ((this.positions[0].steps - this.positions[0].steps) === 0)) {
+      if ((this.positions.length > 1) && this.positions[0].steps && ((this.positions[0].steps - this.positions[1].steps) === 0)) {
         return null
       }
 
@@ -223,7 +206,7 @@ export default {
 
       for (var i = 0; i < this.positions.length; i++) {
         var pos = this.positions[i]
-        console.log(pos)
+        // console.log(pos)
         if (time - pos.timestamp > (secs * 1000)) {
           // we don't have to go further
           if (bestAccuracyI >= 0) {
@@ -282,7 +265,7 @@ export default {
     addPosition (position) {
       this.positions.unshift(position)
 
-      if (this.started) {
+      if (this.isStarted) {
         // selection criterium
         if ((this.position.timestamp - this.selectedPositions[0].timestamp) >= (this.selection_period * 1000)) {
           // select the best one within a reasonable time window
@@ -310,7 +293,7 @@ export default {
     * if the test is not stopped it will give the best effort estimation
     */
     getDistance () {
-      if (this.started) {
+      if (this.isStarted) {
         // if there are no new steps, freeze the distance
         if ((this.positions.length > 1) && (this.positions[0].steps || (this.positions[0].steps === 0)) && ((this.positions[0].steps - this.positions[1].steps) === 0)) {
           return this.showDistance
@@ -328,13 +311,14 @@ export default {
   watch: {
     isStarted () {
       this.startTimer()
+      phone.screen.forbidSleep()
     },
     isPaused () {
       this.isPaused ? this.pauseTimer() : this.startTimer()
     },
     instruction () {
       // setTimeout(() => {
-      this.createMap(this.coords.latitude, this.coords.longitude)
+      this.createMap(this.positions[0].coords.latitude, this.positions[0].coords.longitude)
       // }, 500)
     }
   },
@@ -347,7 +331,14 @@ export default {
     }
   },
   async mounted () {
-    this.getLocation()
+    if (await phone.geolocation.isAvailable()) {
+      if (await phone.geolocation.requestPermission()) {
+        phone.geolocation.startNotifications({}, async (pos) => {
+          this.positions.unshift(pos)
+        })
+        console.log(this.positions)
+      }
+    }
   }
 }
 </script>
