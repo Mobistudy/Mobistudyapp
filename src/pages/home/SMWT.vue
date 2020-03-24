@@ -141,7 +141,7 @@ export default {
       this.timer = setInterval(() => this.countDown(), 1000)
     },
     pauseTimer () {
-      this.stopTest()
+      // this.stopTest()
     },
     countDown () {
       if (this.totalTime >= 1) {
@@ -177,7 +177,7 @@ export default {
       phone.geolocation.stopNotifications()
       this.isStarted = false
       // if there were no steps, then just give zero
-      if (this.positions[0].steps !== undefined && this.positions[0].steps === 0) {
+      if (this.positions[0].steps !== undefined && this.positions[0].steps.numberOfSteps === 0) {
         this.distance = 0
         return
       }
@@ -195,7 +195,7 @@ export default {
     },
     selectPosition (time, secs) {
       // if there are no new steps, don't compute distance
-      if ((this.positions.length > 1) && this.positions[0].steps && ((this.positions[0].steps - this.positions[1].steps) === 0)) {
+      if ((this.positions.length > 1) && this.positions[0].steps.numberOfSteps && ((this.positions[0].steps.numberOfSteps - this.positions[1].steps.numberOfSteps) === 0)) {
         return null
       }
 
@@ -206,7 +206,6 @@ export default {
 
       for (var i = 0; i < this.positions.length; i++) {
         var pos = this.positions[i]
-        // console.log(pos)
         if (time - pos.timestamp > (secs * 1000)) {
           // we don't have to go further
           if (bestAccuracyI >= 0) {
@@ -295,7 +294,7 @@ export default {
     getDistance () {
       if (this.isStarted) {
         // if there are no new steps, freeze the distance
-        if ((this.positions.length > 1) && (this.positions[0].steps || (this.positions[0].steps === 0)) && ((this.positions[0].steps - this.positions[1].steps) === 0)) {
+        if ((this.positions.length > 1) && (this.positions[0].steps || (this.positions[0].steps.numberOfSteps === 0)) && ((this.positions[0].steps.numberOfSteps - this.positions[1].steps.numberOfSteps) === 0)) {
           return this.showDistance
         }
         var d = this.crowDist(this.selectedPositions[0], this.positions[0])
@@ -334,7 +333,10 @@ export default {
     if (await phone.geolocation.isAvailable()) {
       if (await phone.geolocation.requestPermission()) {
         phone.geolocation.startNotifications({}, async (pos) => {
-          this.positions.unshift(pos)
+          phone.pedometer.startNotifications({}, async (steps) => {
+            let positionObject = ({ ...pos, steps })
+            this.positions.unshift(positionObject)
+          })
         })
         console.log(this.positions)
       }
