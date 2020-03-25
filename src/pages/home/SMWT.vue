@@ -86,24 +86,14 @@ export default {
       signal_minaccuracy: 15,
       selection_period: 5,
       positions: [],
-      selectedPositions: []
+      selectedPositions: [],
+      steps: []
     }
   },
 
   methods: {
     start () {
       this.instruction = false
-    },
-
-    getLocation () {
-      // if (navigator.geolocation) {
-      //   navigator.geolocation.getCurrentPosition((pos) => {
-      //     this.positions = pos
-      //     console.log(this.positions)
-      //   })
-      // } else {
-      //   console.log('Geolocation is not supported by this browser.')
-      // }
     },
     async createMap (lat, lng) {
       const loader = new Loader('AIzaSyDOYV2ngQg69SmJQukqtnaZPKeSIX70CKg', options)
@@ -138,10 +128,11 @@ export default {
       this.stopTest()
     },
     startTimer () {
-      this.timer = setInterval(() => this.countDown(), 1000)
+      this.isStarted ? this.timer = setInterval(() => this.countDown(), 1000) : clearInterval(this.timer)
     },
     pauseTimer () {
-      // this.stopTest()
+      phone.pedometer.stopNotifications()
+      phone.geolocation.stopNotifications()
     },
     countDown () {
       if (this.totalTime >= 1) {
@@ -159,7 +150,13 @@ export default {
     * @param ts: the timestamp (for testing purposes), not mandatory
     */
     startTest (ts) {
-      console.log('Test started')
+      if (phone.pedometer.isAvailable()) {
+        if (phone.pedometer.requestPermission()) {
+          phone.pedometer.startNotifications({}, async (step) => {
+            this.steps.unshift(step)
+          })
+        }
+      }
       this.distance = 0
       this.isStarted = true
       this.selectedPositions = []
@@ -173,11 +170,10 @@ export default {
     /** Tells the algorithm that the test has officially ended
     */
     stopTest () {
-      console.log('Test stopped')
       phone.geolocation.stopNotifications()
       this.isStarted = false
       // if there were no steps, then just give zero
-      if (this.positions[0].steps !== undefined && this.positions[0].steps.numberOfSteps === 0) {
+      if (this.positions[0].steps !== undefined && this.positions[0].steps === 0) {
         this.distance = 0
         return
       }
@@ -191,11 +187,10 @@ export default {
         this.distance += this.crowDist(this.selectedPositions[0], selected)
         this.selectedPositions.unshift(selected)
       }
-      console.log(this.distance)
     },
     selectPosition (time, secs) {
       // if there are no new steps, don't compute distance
-      if ((this.positions.length > 1) && this.positions[0].steps.numberOfSteps && ((this.positions[0].steps.numberOfSteps - this.positions[1].steps.numberOfSteps) === 0)) {
+      if ((this.positions.length > 1) && this.positions[0].steps && ((this.positions[0].steps - this.positions[1].steps) === 0)) {
         return null
       }
 
@@ -266,9 +261,9 @@ export default {
 
       if (this.isStarted) {
         // selection criterium
-        if ((this.position.timestamp - this.selectedPositions[0].timestamp) >= (this.selection_period * 1000)) {
+        if ((position.timestamp - this.selectedPositions[0].timestamp) >= (this.selection_period * 1000)) {
           // select the best one within a reasonable time window
-          var selected = this.selectPosition(this.position.timestamp, this.selection_period / 4)
+          var selected = this.selectPosition(position.timestamp, this.selection_period / 4)
           if (selected) {
             this.distance += this.crowDist(this.selectedPositions[0], selected)
             this.selectedPositions.unshift(selected)
@@ -294,7 +289,7 @@ export default {
     getDistance () {
       if (this.isStarted) {
         // if there are no new steps, freeze the distance
-        if ((this.positions.length > 1) && (this.positions[0].steps || (this.positions[0].steps.numberOfSteps === 0)) && ((this.positions[0].steps.numberOfSteps - this.positions[1].steps.numberOfSteps) === 0)) {
+        if ((this.positions.length > 1) && (this.positions[0].steps || (this.positions[0].steps === 0)) && ((this.positions[0].steps - this.positions[1].steps) === 0)) {
           return this.showDistance
         }
         var d = this.crowDist(this.selectedPositions[0], this.positions[0])
@@ -319,6 +314,9 @@ export default {
       // setTimeout(() => {
       this.createMap(this.positions[0].coords.latitude, this.positions[0].coords.longitude)
       // }, 500)
+    },
+    isCompleted () {
+      this.getDistance()
     }
   },
   computed: {
@@ -332,13 +330,12 @@ export default {
   async mounted () {
     if (await phone.geolocation.isAvailable()) {
       if (await phone.geolocation.requestPermission()) {
-        phone.geolocation.startNotifications({}, async (pos) => {
-          phone.pedometer.startNotifications({}, async (steps) => {
-            let positionObject = ({ ...pos, steps })
-            this.positions.unshift(positionObject)
-          })
+        phone.geolocation.startNotifications({}, async (position) => {
+          if (this.steps !== undefined) {
+            position.steps = (this.steps[0])
+          }
+          this.addPosition(position)
         })
-        console.log(this.positions)
       }
     }
   }
