@@ -50,9 +50,7 @@
     <div id="map">
     </div>
        <p id="timer"> {{ minutes }}:{{ seconds }} </p>
-    <q-btn  @click="toggleTest" v-if="!isStarted && !isPaused" color="secondary" label="Start" :disabled="isCompleted" />
-    <q-btn  @click="toggleTest" v-if="isStarted && !isPaused" color="deep-orange" label="Pause" />
-    <q-btn  @click="toggleTest" v-if="isStarted && isPaused" color="secondary" label="Resume" />
+    <q-btn  @click="toggleTest" v-if="!isStarted" color="secondary" label="Start" :disabled="isCompleted" />
     <q-btn  @click="preMatureCompleteTest" v-if="isStarted" color="purple" label="Complete" />
     </q-item-section>
     </q-item>
@@ -74,7 +72,6 @@ export default {
       loading: false,
       map: null,
       isStarted: false,
-      isPaused: false,
       isCompleted: false,
       instruction: true,
       isPrematureCompletion: false,
@@ -87,7 +84,8 @@ export default {
       selection_period: 5,
       positions: [],
       selectedPositions: [],
-      steps: []
+      steps: [],
+      path: []
     }
   },
 
@@ -103,16 +101,22 @@ export default {
         center: { lat, lng },
         zoom: 16
       })
+
+      var walkingPath = new google.maps.Polyline({
+        path: this.path,
+        geodesic: true,
+        strokeColor: '#0000FF',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      })
+
+      walkingPath.setMap(map)
       this.map = map
     },
     toggleTest () {
       if (!this.isStarted) {
         this.isStarted = true
         this.startTest()
-      } else if (this.isStarted && !this.isPaused) {
-        this.isPaused = true
-      } else if (this.isStarted && this.isPaused) {
-        this.isPaused = false
       }
     },
     preMatureCompleteTest () {
@@ -122,17 +126,12 @@ export default {
     },
     completeTest () {
       this.isStarted = false
-      this.isPaused = false
       this.isCompleted = true
       this.isPrematureCompletion = false
       this.stopTest()
     },
     startTimer () {
       this.isStarted ? this.timer = setInterval(() => this.countDown(), 1000) : clearInterval(this.timer)
-    },
-    pauseTimer () {
-      phone.pedometer.stopNotifications()
-      phone.geolocation.stopNotifications()
     },
     countDown () {
       if (this.totalTime >= 1) {
@@ -166,11 +165,11 @@ export default {
         selected = this.positions[0]
       }
       this.selectedPositions.unshift(selected)
+      this.path.push({ lat: this.selectedPositions[0].coords.latitude, lng: this.selectedPositions[0].coords.longitude })
     },
     /** Tells the algorithm that the test has officially ended
     */
     stopTest () {
-      phone.geolocation.stopNotifications()
       this.isStarted = false
       // if there were no steps, then just give zero
       if (this.positions[0].steps !== undefined && this.positions[0].steps === 0) {
@@ -307,9 +306,6 @@ export default {
       this.startTimer()
       phone.screen.forbidSleep()
     },
-    isPaused () {
-      this.isPaused ? this.pauseTimer() : this.startTimer()
-    },
     instruction () {
       // setTimeout(() => {
       this.createMap(this.positions[0].coords.latitude, this.positions[0].coords.longitude)
@@ -317,6 +313,9 @@ export default {
     },
     isCompleted () {
       this.getDistance()
+      phone.pedometer.stopNotifications()
+      phone.geolocation.stopNotifications()
+      phone.screen.allowSleep()
     }
   },
   computed: {
@@ -326,6 +325,13 @@ export default {
     seconds () {
       return this.padTime(this.totalTime - (this.minutes * 60))
     }
+  },
+
+  beforeDestroy: function () {
+    phone.screen.allowSleep()
+    phone.geolocation.stopNotifications()
+    phone.pedometer.stopNotifications()
+    this.stopTest()
   },
   async mounted () {
     if (await phone.geolocation.isAvailable()) {
