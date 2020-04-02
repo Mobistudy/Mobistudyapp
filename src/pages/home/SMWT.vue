@@ -33,16 +33,27 @@
     </div>
 
     <q-item class="q-mt-md">
-      <q-item-section id="completedText" v-if="isCompleted && !isPrematureCompletion">
-          <p>You completed the test!</p>
-          <p id="distance">Distance: {{ this.distance.toFixed(2) }} m</p>
-      </q-item-section>
+      <q-item-section id="completedText" v-if="isCompleted">
+          <h6>You completed the test!</h6>
+          <q-item-section id="stats">
+            <table>
+              <tr>
+                <td>Time:</td>
+                <td> {{ minutes }}:{{ seconds }}</td>
+              </tr>
+              <tr>
+                <td>Distance:</td>
+                <td>{{ this.distance.toFixed(2) }}</td>
+              </tr>
+              <tr>
+                <td>Average speed:</td>
+                <td> m/s</td>
+              </tr>
+            </table>
+          </q-item-section>
 
-      <q-item-section id="completedText" v-if="isPrematureCompletion">
-          <p>You completed the test in {{ minutes }}:{{ seconds }}!</p>
-          <p id="distance">Distance: {{ this.distance.toFixed(2) }} m</p>
-          <p class="sub-heading">Please rate your level of exertion:</p>
           <div class="q-pa-md">
+          <p class="sub-heading">Please rate your level of exertion:</p>
             <q-list>
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
@@ -110,7 +121,7 @@
                   <q-radio v-model="value" val="6" />
                 </q-item-section>
                 <q-item-section>
-                  <q-item>6</q-item>
+                  <q-item><p>6</p></q-item>
                 </q-item-section>
               </q-item>
 
@@ -127,7 +138,7 @@
                   <q-radio v-model="value" val="8" />
                 </q-item-section>
                 <q-item-section>
-                  <q-item>8</q-item>
+                  <q-item><p>8</p></q-item>
                 </q-item-section>
               </q-item>
 
@@ -482,10 +493,20 @@ export default {
   font-size: 36px;
 }
 
-#distance {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 20px 0px 40px;
+table {
+  background: #f8f8f8;
+  padding: 4px;
+  width: 70%;
+  margin: 0px auto;
+  font-size: 0.75rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+table td:nth-child(2) {
+  text-align: right;
+}
+tr {
+  text-align: left
 }
 
 .q-pa-md {
@@ -493,21 +514,27 @@ export default {
 }
 
 .sub-heading {
-  font-size: 20px;
-  float: left;
+  font-size: 14px;
+  text-align: left
+}
+
+div.q-list {
+  border: 1px solid #ccc;
 }
 
 div.q-list label {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 div.q-item {
   display: flex;
   justify-content: space-between;
+  padding: 0px;
 }
 
 div.q-item p {
   margin: 0px;
+  padding: 12px 5px
 }
 
 #submit {
