@@ -34,6 +34,8 @@
 
     <q-item class="q-mt-md">
       <q-item-section id="completedText" v-if="isCompleted">
+        <h5>Congratulations!</h5>
+        <img alt="Finish flag" src="~assets/297188.svg">
           <h6>You completed the test!</h6>
           <q-item-section id="stats">
             <table>
@@ -47,7 +49,7 @@
               </tr>
               <tr>
                 <td>Average speed:</td>
-                <td> m/s</td>
+                <td> {{ this.speed.toFixed(2) }} m/s</td>
               </tr>
             </table>
           </q-item-section>
@@ -209,6 +211,7 @@ export default {
       distance: 0,
       showDistance: 0,
       maxspeed: 2,
+      speed: 0,
       signal_minaccuracy: 15,
       selection_period: 5,
       positions: [],
@@ -427,6 +430,11 @@ export default {
         // when not running, give the official one
         return this.distance
       }
+    },
+    getSpeed () {
+      const secs = parseInt(this.minutes * 60, 10) + parseInt(this.seconds, 10)
+      const time = 360 - secs
+      this.speed = this.distance / time
     }
   },
 
@@ -442,6 +450,7 @@ export default {
     },
     isCompleted () {
       this.getDistance()
+      this.getSpeed()
       phone.pedometer.stopNotifications()
       phone.geolocation.stopNotifications()
       phone.screen.allowSleep()
@@ -491,6 +500,11 @@ export default {
 #completedText {
   text-align: center;
   font-size: 36px;
+}
+
+img {
+  width: 40%;
+  margin: 0px auto;
 }
 
 table {
