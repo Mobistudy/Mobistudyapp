@@ -35,13 +35,130 @@
     <q-item class="q-mt-md">
       <q-item-section id="completedText" v-if="isCompleted && !isPrematureCompletion">
           <p>You completed the test!</p>
+          <p id="distance">Distance: {{ this.distance.toFixed(2) }} m</p>
       </q-item-section>
 
       <q-item-section id="completedText" v-if="isPrematureCompletion">
           <p>You completed the test in {{ minutes }}:{{ seconds }}!</p>
-      </q-item-section>
-    </q-item >
+          <p id="distance">Distance: {{ this.distance.toFixed(2) }} m</p>
+          <p class="sub-heading">Please rate your level of exertion:</p>
+          <div class="q-pa-md">
+            <q-list>
+              <q-item tag="label" v-ripple>
+                <q-item-section avatar>
+                  <q-radio v-model="value" val="No Exertion" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item><p>0</p> <p> No Exertion</p></q-item>
+                </q-item-section>
+              </q-item>
 
+              <q-item tag="label" v-ripple>
+                <q-item-section avatar>
+                  <q-radio v-model="value" val="Very very slight" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item><p>0.5</p> <p>Very very slight</p></q-item>
+                </q-item-section>
+              </q-item>
+
+              <q-item tag="label" v-ripple>
+                <q-item-section avatar top>
+                  <q-radio v-model="value" val="Very slight"/>
+                </q-item-section>
+                <q-item-section>
+                  <q-item><p>1</p> <p>Very slight</p></q-item>
+                </q-item-section>
+              </q-item>
+              <q-item tag="label" v-ripple>
+                <q-item-section avatar>
+                  <q-radio v-model="value" val="Slight"/>
+                </q-item-section>
+                <q-item-section>
+                  <q-item><p>2</p><p>Slight</p></q-item>
+                </q-item-section>
+              </q-item>
+
+              <q-item tag="label" v-ripple>
+                <q-item-section avatar>
+                  <q-radio v-model="value" val="Moderate"/>
+                </q-item-section>
+                <q-item-section>
+                  <q-item><p>3</p><p>Moderate</p></q-item>
+                </q-item-section>
+              </q-item>
+
+              <q-item tag="label" v-ripple>
+                <q-item-section avatar top>
+                  <q-radio v-model="value" val="Somewhat strong"/>
+                </q-item-section>
+                <q-item-section>
+                  <q-item><p>4</p><p>Somewhat strong</p></q-item>
+                </q-item-section>
+              </q-item>
+              <q-item tag="label" v-ripple>
+                <q-item-section avatar>
+                  <q-radio v-model="value" val="Strong"/>
+                </q-item-section>
+                <q-item-section>
+                  <q-item><p>5</p><p>Strong</p></q-item>
+                </q-item-section>
+              </q-item>
+
+              <q-item tag="label" v-ripple>
+                <q-item-section avatar>
+                  <q-radio v-model="value" val="6" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item>6</q-item>
+                </q-item-section>
+              </q-item>
+
+              <q-item tag="label" v-ripple>
+                <q-item-section avatar top>
+                  <q-radio v-model="value" val="Very strong" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item><p>7</p><p>Very strong</p></q-item>
+                </q-item-section>
+              </q-item>
+              <q-item tag="label" v-ripple>
+                <q-item-section avatar>
+                  <q-radio v-model="value" val="8" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item>8</q-item>
+                </q-item-section>
+              </q-item>
+
+              <q-item tag="label" v-ripple>
+                <q-item-section avatar>
+                  <q-radio v-model="value" val="Very very strong" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item><p>9</p><p>Very very strong</p></q-item>
+                </q-item-section>
+              </q-item>
+
+              <q-item tag="label" v-ripple>
+                <q-item-section avatar top>
+                  <q-radio v-model="value" val="Maximal" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item><p>10</p><p>Maximal</p></q-item>
+                </q-item-section>
+              </q-item>
+            </q-list>
+
+            <div class="q-px-sm q-mt-sm">
+              <p class="sub-heading">Your selection is: <strong>{{ value }}</strong></p>
+            </div>
+          </div>
+        </q-item-section>
+      </q-item >
+    <div id="submit">
+    <q-btn color="primary" v-if="isCompleted && isPrematureCompletion" @click="start()" :label="$t('Submit')" />
+</div>
     <q-item class="q-mt-md">
     <q-item-section v-if="!instruction && !isCompleted">
     <div class="text-center text-h6 q-mt-lg">
@@ -67,6 +184,7 @@ export default {
   components: {},
   data: function () {
     return {
+      value: ' ',
       task: {},
       taskDescr: {},
       loading: false,
@@ -362,5 +480,37 @@ export default {
 #completedText {
   text-align: center;
   font-size: 36px;
+}
+
+#distance {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px 0px 40px;
+}
+
+.q-pa-md {
+  padding-top: 20px;
+}
+
+.sub-heading {
+  font-size: 20px;
+  float: left;
+}
+
+div.q-list label {
+  font-size: 18px;
+}
+
+div.q-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+div.q-item p {
+  margin: 0px;
+}
+
+#submit {
+  text-align: center;
 }
 </style>
