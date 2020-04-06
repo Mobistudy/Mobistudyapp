@@ -33,29 +33,42 @@
     </div>
 
     <q-item class="q-mt-md">
-      <q-item-section id="completedText" v-if="isCompleted && !isPrematureCompletion">
-          <p>You completed the test!</p>
-          <p id="distance">Distance: {{ this.distance.toFixed(2) }} m</p>
-      </q-item-section>
+      <q-item-section id="completedText" v-if="isCompleted">
+        <h5>Congratulations!</h5>
+        <img alt="Finish flag" src="~assets/297188.svg">
+          <h6>You completed the test!</h6>
+          <q-item-section id="stats">
+            <table>
+              <tr>
+                <td>Time:</td>
+                <td> {{ minutes }}:{{ seconds }}</td>
+              </tr>
+              <tr>
+                <td>Distance:</td>
+                <td>{{ this.distance.toFixed(2) }}</td>
+              </tr>
+              <tr>
+                <td>Average speed:</td>
+                <td> {{ this.speed.toFixed(2) }} m/s</td>
+              </tr>
+            </table>
+          </q-item-section>
 
-      <q-item-section id="completedText" v-if="isPrematureCompletion">
-          <p>You completed the test in {{ minutes }}:{{ seconds }}!</p>
-          <p id="distance">Distance: {{ this.distance.toFixed(2) }} m</p>
-          <p class="sub-heading">Please rate your level of exertion:</p>
           <div class="q-pa-md">
+          <p class="sub-heading">Please rate your level of exertion:</p>
             <q-list>
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
-                  <q-radio v-model="value" val="No Exertion" />
+                  <q-radio v-model="value" val="0" />
                 </q-item-section>
                 <q-item-section>
-                  <q-item><p>0</p> <p> No Exertion</p></q-item>
+                  <q-item><p>0</p> <p>No Exertion</p></q-item>
                 </q-item-section>
               </q-item>
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
-                  <q-radio v-model="value" val="Very very slight" />
+                  <q-radio v-model="value" val="0.5" />
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>0.5</p> <p>Very very slight</p></q-item>
@@ -64,7 +77,7 @@
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar top>
-                  <q-radio v-model="value" val="Very slight"/>
+                  <q-radio v-model="value" val="1"/>
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>1</p> <p>Very slight</p></q-item>
@@ -72,7 +85,7 @@
               </q-item>
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
-                  <q-radio v-model="value" val="Slight"/>
+                  <q-radio v-model="value" val="2"/>
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>2</p><p>Slight</p></q-item>
@@ -81,7 +94,7 @@
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
-                  <q-radio v-model="value" val="Moderate"/>
+                  <q-radio v-model="value" val="3"/>
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>3</p><p>Moderate</p></q-item>
@@ -90,7 +103,7 @@
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar top>
-                  <q-radio v-model="value" val="Somewhat strong"/>
+                  <q-radio v-model="value" val="4"/>
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>4</p><p>Somewhat strong</p></q-item>
@@ -98,7 +111,7 @@
               </q-item>
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
-                  <q-radio v-model="value" val="Strong"/>
+                  <q-radio v-model="value" val="5"/>
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>5</p><p>Strong</p></q-item>
@@ -110,13 +123,13 @@
                   <q-radio v-model="value" val="6" />
                 </q-item-section>
                 <q-item-section>
-                  <q-item>6</q-item>
+                  <q-item><p>6</p></q-item>
                 </q-item-section>
               </q-item>
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar top>
-                  <q-radio v-model="value" val="Very strong" />
+                  <q-radio v-model="value" val="7" />
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>7</p><p>Very strong</p></q-item>
@@ -127,13 +140,13 @@
                   <q-radio v-model="value" val="8" />
                 </q-item-section>
                 <q-item-section>
-                  <q-item>8</q-item>
+                  <q-item><p>8</p></q-item>
                 </q-item-section>
               </q-item>
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
-                  <q-radio v-model="value" val="Very very strong" />
+                  <q-radio v-model="value" val="9" />
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>9</p><p>Very very strong</p></q-item>
@@ -142,7 +155,7 @@
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar top>
-                  <q-radio v-model="value" val="Maximal" />
+                  <q-radio v-model="value" val="10"/>
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>10</p><p>Maximal</p></q-item>
@@ -157,7 +170,7 @@
         </q-item-section>
       </q-item >
     <div id="submit">
-    <q-btn color="primary" v-if="isCompleted && isPrematureCompletion" @click="start()" :label="$t('Submit')" />
+    <q-btn color="primary" v-if="isCompleted && isPrematureCompletion" @click="send()" :label="$t('common.send')" />
 </div>
     <q-item class="q-mt-md">
     <q-item-section v-if="!instruction && !isCompleted">
@@ -177,6 +190,9 @@
 <script>
 import { Loader } from 'google-maps'
 import phone from '../../modules/phone'
+import API from '../../modules/API.js'
+import DB from '../../modules/db.js'
+import userinfo from '../../modules/userinfo.js'
 const options = {/* todo */}
 
 export default {
@@ -198,6 +214,7 @@ export default {
       distance: 0,
       showDistance: 0,
       maxspeed: 2,
+      speed: 0,
       signal_minaccuracy: 15,
       selection_period: 5,
       positions: [],
@@ -416,6 +433,54 @@ export default {
         // when not running, give the official one
         return this.distance
       }
+    },
+    getSpeed () {
+      const secs = parseInt(this.minutes * 60, 10) + parseInt(this.seconds, 10)
+      const time = 360 - secs
+      this.speed = this.distance / time
+    },
+
+    async send () {
+      this.loading = true
+      const secs = parseInt(this.minutes * 60, 10) + parseInt(this.seconds, 10)
+      const time = 360 - secs
+      const studyKey = '6MWT'// this.$route.params.studyKey
+      const taskId = '1456' // Number(this.$route.params.taskId)
+      let SMWTData = {
+        studyKey: studyKey,
+        userKey: userinfo.userKey,
+        taskId: taskId,
+        positions: this.selectedPositions,
+        distance: this.distance,
+        borgScale: this.value,
+        time: time
+      }
+      console.log(SMWTData)
+      try {
+        await API.sendSMWTData(SMWTData)
+        await DB.setTaskCompletion(studyKey, taskId, new Date())
+        // this.$q.notify({
+        //   color: 'positive',
+        //   message: 'Form sent successfully!',
+        //   icon: 'check'
+        // })
+        // let _this = this
+        this.$router.push('/home', function () {
+          // _this.$router.go()
+          window.location.reload(true)
+        })
+      } catch (error) {
+        console.error(error)
+        this.loading = false
+        this.$q.notify({
+          color: 'negative',
+          message: 'Cannot send data: ' + error.message,
+          icon: 'report_problem',
+          onDismiss () {
+            this.$router.push('/home')
+          }
+        })
+      }
     }
   },
 
@@ -431,9 +496,11 @@ export default {
     },
     isCompleted () {
       this.getDistance()
+      this.getSpeed()
       phone.pedometer.stopNotifications()
       phone.geolocation.stopNotifications()
       phone.screen.allowSleep()
+      console.log(this.value)
     }
   },
   computed: {
@@ -482,10 +549,25 @@ export default {
   font-size: 36px;
 }
 
-#distance {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 20px 0px 40px;
+img {
+  width: 40%;
+  margin: 0px auto;
+}
+
+table {
+  background: #f8f8f8;
+  padding: 4px;
+  width: 70%;
+  margin: 0px auto;
+  font-size: 0.75rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+table td:nth-child(2) {
+  text-align: right;
+}
+tr {
+  text-align: left
 }
 
 .q-pa-md {
@@ -493,21 +575,27 @@ export default {
 }
 
 .sub-heading {
-  font-size: 20px;
-  float: left;
+  font-size: 14px;
+  text-align: left
+}
+
+div.q-list {
+  border: 1px solid #ccc;
 }
 
 div.q-list label {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 div.q-item {
   display: flex;
   justify-content: space-between;
+  padding: 0px;
 }
 
 div.q-item p {
   margin: 0px;
+  padding: 12px 5px
 }
 
 #submit {
