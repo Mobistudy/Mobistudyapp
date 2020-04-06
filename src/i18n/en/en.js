@@ -27,7 +27,8 @@ export default {
     consent: 'New study',
     home: 'Mobistudy',
     registration: 'Register',
-    task: 'Task'
+    task: 'Task',
+    close: 'Close'
   },
   passwordCheck: {
     ok: 'All OK',
@@ -180,6 +181,11 @@ export default {
         shortDescription: 'Answer a few questions',
         formCompleted: 'Form completed. Thank you.',
         freeTextExplanation: 'Type your answer'
+      },
+      smwt: {
+        title: '6MWT Test',
+        shortDescription: 'Perform a Six Minute Walk Test',
+        smwtExplanation: 'Computed distance walked during a Six Minute Walk Test. If you agree to send it, tap on Send.'
       }
     },
     consent: {
