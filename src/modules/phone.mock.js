@@ -75,5 +75,11 @@ export default {
       clearInterval(this.timer)
       return Promise.resolve()
     }
+  },
+  media: {
+    async playSound (soundfile) {
+      var audio = new Audio(soundfile)
+      audio.play()
+    }
   }
 }
