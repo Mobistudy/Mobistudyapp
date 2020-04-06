@@ -59,16 +59,16 @@
             <q-list>
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
-                  <q-radio v-model="value" val="No Exertion" />
+                  <q-radio v-model="value" val="0" />
                 </q-item-section>
                 <q-item-section>
-                  <q-item><p>0</p> <p> No Exertion</p></q-item>
+                  <q-item><p>0</p> <p>No Exertion</p></q-item>
                 </q-item-section>
               </q-item>
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
-                  <q-radio v-model="value" val="Very very slight" />
+                  <q-radio v-model="value" val="0.5" />
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>0.5</p> <p>Very very slight</p></q-item>
@@ -77,7 +77,7 @@
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar top>
-                  <q-radio v-model="value" val="Very slight"/>
+                  <q-radio v-model="value" val="1"/>
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>1</p> <p>Very slight</p></q-item>
@@ -85,7 +85,7 @@
               </q-item>
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
-                  <q-radio v-model="value" val="Slight"/>
+                  <q-radio v-model="value" val="2"/>
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>2</p><p>Slight</p></q-item>
@@ -94,7 +94,7 @@
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
-                  <q-radio v-model="value" val="Moderate"/>
+                  <q-radio v-model="value" val="3"/>
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>3</p><p>Moderate</p></q-item>
@@ -103,7 +103,7 @@
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar top>
-                  <q-radio v-model="value" val="Somewhat strong"/>
+                  <q-radio v-model="value" val="4"/>
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>4</p><p>Somewhat strong</p></q-item>
@@ -111,7 +111,7 @@
               </q-item>
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
-                  <q-radio v-model="value" val="Strong"/>
+                  <q-radio v-model="value" val="5"/>
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>5</p><p>Strong</p></q-item>
@@ -129,7 +129,7 @@
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar top>
-                  <q-radio v-model="value" val="Very strong" />
+                  <q-radio v-model="value" val="7" />
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>7</p><p>Very strong</p></q-item>
@@ -146,7 +146,7 @@
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar>
-                  <q-radio v-model="value" val="Very very strong" />
+                  <q-radio v-model="value" val="9" />
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>9</p><p>Very very strong</p></q-item>
@@ -155,7 +155,7 @@
 
               <q-item tag="label" v-ripple>
                 <q-item-section avatar top>
-                  <q-radio v-model="value" val="Maximal" />
+                  <q-radio v-model="value" val="10"/>
                 </q-item-section>
                 <q-item-section>
                   <q-item><p>10</p><p>Maximal</p></q-item>
@@ -170,7 +170,7 @@
         </q-item-section>
       </q-item >
     <div id="submit">
-    <q-btn color="primary" v-if="isCompleted && isPrematureCompletion" @click="start()" :label="$t('Submit')" />
+    <q-btn color="primary" v-if="isCompleted && isPrematureCompletion" @click="send()" :label="$t('common.send')" />
 </div>
     <q-item class="q-mt-md">
     <q-item-section v-if="!instruction && !isCompleted">
@@ -190,6 +190,9 @@
 <script>
 import { Loader } from 'google-maps'
 import phone from '../../modules/phone'
+import API from '../../modules/API.js'
+import DB from '../../modules/db.js'
+import userinfo from '../../modules/userinfo.js'
 const options = {/* todo */}
 
 export default {
@@ -435,6 +438,49 @@ export default {
       const secs = parseInt(this.minutes * 60, 10) + parseInt(this.seconds, 10)
       const time = 360 - secs
       this.speed = this.distance / time
+    },
+
+    async send () {
+      this.loading = true
+      const secs = parseInt(this.minutes * 60, 10) + parseInt(this.seconds, 10)
+      const time = 360 - secs
+      const studyKey = '6MWT'// this.$route.params.studyKey
+      const taskId = '1456' // Number(this.$route.params.taskId)
+      let SMWTData = {
+        studyKey: studyKey,
+        userKey: userinfo.userKey,
+        taskId: taskId,
+        positions: this.selectedPositions,
+        distance: this.distance,
+        borgScale: this.value,
+        time: time
+      }
+      console.log(SMWTData)
+      try {
+        await API.sendSMWTData(SMWTData)
+        await DB.setTaskCompletion(studyKey, taskId, new Date())
+        // this.$q.notify({
+        //   color: 'positive',
+        //   message: 'Form sent successfully!',
+        //   icon: 'check'
+        // })
+        // let _this = this
+        this.$router.push('/home', function () {
+          // _this.$router.go()
+          window.location.reload(true)
+        })
+      } catch (error) {
+        console.error(error)
+        this.loading = false
+        this.$q.notify({
+          color: 'negative',
+          message: 'Cannot send data: ' + error.message,
+          icon: 'report_problem',
+          onDismiss () {
+            this.$router.push('/home')
+          }
+        })
+      }
     }
   },
 
@@ -454,6 +500,7 @@ export default {
       phone.pedometer.stopNotifications()
       phone.geolocation.stopNotifications()
       phone.screen.allowSleep()
+      console.log(this.value)
     }
   },
   computed: {
