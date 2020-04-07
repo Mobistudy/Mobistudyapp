@@ -235,5 +235,10 @@ export default {
   sendDataQuery: async (data) => {
     console.log('API - sending query data', data)
     return Promise.resolve()
+  },
+
+  sendSMWTData: async (data) => {
+    console.log('API - sending 6MWT data', data)
+    return Promise.resolve()
   }
 }

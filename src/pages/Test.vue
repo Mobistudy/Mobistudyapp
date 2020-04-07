@@ -4,8 +4,10 @@
       <q-page padding class="flex flex-center">
         <div class="row justify-center">
           <div class="text-h5 q-mt-lg">
-            Test
+            Test !
           </div>
+
+          <q-btn color="white" text-color="black" label="Play toc" @click="playSound"/>
 
         </div>
       </q-page>
@@ -19,7 +21,7 @@ import phone from '../modules/phone'
 export default {
   name: 'TestPage',
   async created () {
-    console.log('starting')
+    console.log('starting GPS')
     let positions = 0
     if (await phone.geolocation.isAvailable()) {
       // geolocation is available
@@ -37,6 +39,15 @@ export default {
           console.error(err)
         })
       }
+    }
+  },
+  async destroyed () {
+    // stop notifications when leaving
+    phone.geolocation.stopNotifications()
+  },
+  methods: {
+    playSound () {
+      phone.media.playSound('statics/sounds/toc.ogg')
     }
   }
 }
