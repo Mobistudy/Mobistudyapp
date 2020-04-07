@@ -374,9 +374,6 @@ div.q-item {
   justify-content: space-between;
   padding: 0px;
 }
-div.q-item p {
-}
-
 .text-caption {
   padding-bottom: 10px;
 }
