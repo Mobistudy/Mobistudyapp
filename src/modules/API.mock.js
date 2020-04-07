@@ -6,6 +6,7 @@ import form9999 from './mockdata/form9999.js'
 import participant from './mockdata/participant.js'
 import form6MWT from './mockdata/form6MWT.js'
 import study6MWT from './mockdata/study6MWT.js'
+import studyQCST from './mockdata/studyQCST.js'
 
 export default {
   setToken: function (token) {
@@ -183,6 +184,10 @@ export default {
       } else if (studyKey === 'SMWT') {
         setTimeout(function () {
           resolve(study6MWT)
+        }, 1000)
+      } else if (studyKey === 'QCST') {
+        setTimeout(function () {
+          resolve(studyQCST)
         }, 1000)
       } else {
         setTimeout(function () {

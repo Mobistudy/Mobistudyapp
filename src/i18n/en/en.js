@@ -186,6 +186,11 @@ export default {
         title: '6MWT Test',
         shortDescription: 'Perform a Six Minute Walk Test',
         smwtExplanation: 'Computed distance walked during a Six Minute Walk Test. If you agree to send it, tap on Send.'
+      },
+      qcst: {
+        title: 'Queens College Step Test',
+        shortDescription: 'Perform the Queens College Step Test',
+        qcstExplanation: 'QCST Explanation'
       }
     },
     consent: {

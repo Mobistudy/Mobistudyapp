@@ -63,7 +63,8 @@ const routes = [
     children: [
       { path: '/form/:studyKey/:taskId/:formKey', name: 'form', component: () => import('pages/home/Form.vue') },
       { path: '/dataQuery/:studyKey/:taskID', name: 'dataQuery', component: () => import('pages/home/DataQuery') },
-      { path: '/smwt', name: 'smwt', component: () => import('pages/home/SMWT.vue') }
+      { path: '/smwt', name: 'smwt', component: () => import('pages/home/SMWT.vue') },
+      { path: '/qcst', name: 'qcst', component: () => import('pages/home/QCST.vue') }
     ]
   }
 ]

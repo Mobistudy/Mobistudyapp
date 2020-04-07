@@ -32,6 +32,16 @@ export default {
       ]
     },
     {
+      studyKey: 'QCST',
+      currentStatus: 'accepted',
+      acceptedTS: new Date(new Date().getTime() - 604800000).toISOString(), // 7 days ago
+      reminders: true,
+      criteriaAnswers: [ 'yes' ],
+      taskItemsConsent: [
+        { taskId: 1, consented: true, lastExecuted: new Date(new Date().getTime() - 86400000).toISOString() } // 1 day ago
+      ]
+    },
+    {
       studyKey: '1234',
       currentStatus: 'accepted',
       acceptedTS: new Date(new Date().getTime() - 604800000).toISOString(), // 7 days ago
