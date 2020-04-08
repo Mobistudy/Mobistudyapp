@@ -76,7 +76,7 @@ export default {
         monthDays: [],
         weekDays: [1, 3, 5]
       },
-      dataType: 'distance'
+      dataType: 'steps'
     }
   ],
   consent: {

@@ -240,5 +240,10 @@ export default {
   sendSMWTData: async (data) => {
     console.log('API - sending 6MWT data', data)
     return Promise.resolve()
+  },
+
+  sendQCSTData: async (data) => {
+    console.log('API - sending QCST data', data)
+    return Promise.resolve()
   }
 }

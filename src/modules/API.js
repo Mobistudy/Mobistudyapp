@@ -104,5 +104,10 @@ export default {
   // send data from 6MWT
   sendSMWTData: async function (data) {
     return axios.post(BASE_URL + '/SMWTData', data, axiosConfig)
+  },
+
+  // send data from QCST
+  sendQCSTData: async function (data) {
+    return axios.post(BASE_URL + '/QCSTData', data, axiosConfig)
   }
 }
