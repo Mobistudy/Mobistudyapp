@@ -24,10 +24,10 @@ export default {
   geolocation: {
     timerid: null,
     async isAvailable () {
-      return Promise.resolve()
+      return Promise.resolve(true)
     },
     async requestPermission () {
-      return Promise.resolve()
+      return Promise.resolve(true)
     },
     startNotifications (options, cbk, error) {
       let startLat = 51.751985
@@ -52,18 +52,18 @@ export default {
     }
   },
   pedometer: {
-    timer : null,
-    steps : 0,
+    timer: null,
+    steps: 0,
     async isAvailable () {
-      return Promise.resolve()
+      return Promise.resolve(true)
     },
     async requestPermission () {
-      return Promise.resolve()
+      return Promise.resolve(true)
     },
     startNotifications (options, cbk, error) {
       this.steps = 0
       this.timer = setInterval(() => {
-        this.steps ++
+        this.steps++
         cbk({
           startDate: new Date().getTime(),
           endDate: new Date().getTime(),

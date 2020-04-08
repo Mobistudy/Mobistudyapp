@@ -99,5 +99,10 @@ export default {
   // send health data from query
   sendDataQuery: async function (data) {
     return axios.post(BASE_URL + '/healthStoreData', data, axiosConfig)
+  },
+
+  // send data from 6MWT
+  sendSMWTData: async function (data) {
+    return axios.post(BASE_URL + '/SMWTData', data, axiosConfig)
   }
 }
