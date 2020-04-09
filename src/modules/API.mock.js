@@ -4,8 +4,7 @@ import form1234 from './mockdata/form1234.js'
 import study9999 from './mockdata/study9999.js'
 import form9999 from './mockdata/form9999.js'
 import participant from './mockdata/participant.js'
-import form6MWT from './mockdata/form6MWT.js'
-import study6MWT from './mockdata/study6MWT.js'
+import studySMWT from './mockdata/studySMWT'
 
 export default {
   setToken: function (token) {
@@ -182,7 +181,7 @@ export default {
         }, 1000)
       } else if (studyKey === 'SMWT') {
         setTimeout(function () {
-          resolve(study6MWT)
+          resolve(studySMWT)
         }, 1000)
       } else {
         setTimeout(function () {
@@ -207,10 +206,6 @@ export default {
       } else if (key === '1234') {
         setTimeout(function () {
           resolve(form1234)
-        }, Math.floor(Math.random() * 2000))
-      } else if (key === 'SMWT') {
-        setTimeout(function () {
-          resolve(form6MWT)
         }, Math.floor(Math.random() * 2000))
       } else {
         reject(new Error('Questionnaire not found'))
