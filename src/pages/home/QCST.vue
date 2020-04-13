@@ -3,32 +3,26 @@
     <!-- content -->
     <div v-if="instruction && !isCompleted">
       <div class="text-center text-h6 q-mt-lg">
-      Instructions for the Queen's College Step Test
+      {{ $t('studies.tasks.qcst.title') }}
       </div>
       <q-item class="q-mt-md">
         <q-item-section>
-          <q-item-label class="q-pb-sm">Introduction</q-item-label>
+          <q-item-label class="q-pb-sm">{{ $t('common.introduction') }}</q-item-label>
           <q-item-label caption>
-            <p>This task is to perform the Queen's College Step Test. This app is able to send the results of your tests to a server hosted by the University of Malmö. The data is made available to the personnel of the Skånes Universitetssjukhus so that doctors and nurses are able to review them.<br /><br />
-            To conduct this test, you will require:</p>
+            <p>{{ $t('studies.tasks.qcst.prerequisiteNote') }}<br /><br /></p>
             <ul>
-              <li>A step 16.25 inches/41.3 cm high</li>
-              <li>Heart rate monitor (optional) <br />
-              <i>Note: To measure your heart rate manually, please count the number of heart beats for 15 seconds. Multiply the count by four.</i>
+              <li v-for="(prerequisite, idx) in $t('studies.tasks.qcst.prerequisite')" :key="idx">
+                {{ prerequisite.p }}
               </li>
             </ul>
           </q-item-label>
-          <q-item-label class="q-pb-sm">Instructions</q-item-label>
+          <q-item-label class="q-pb-sm">{{ $t('common.instructions') }}</q-item-label>
           <q-item-label caption>
-            <p>Please read the instructions carefully. The accuracy of the test depends on the instructions being followed as closely as possible.</p>
+            <p>{{ $t('studies.tasks.instructionsNote') }}</p>
             <ul>
-              <li>This is a paced test, meaning that you should aim to step using a four-step cadence, 'up-up-down-down' for 3 minutes.</li>
-              <li>When you are ready to start the test, press the "Start"-button.</li>
-              <li>Step up and down according to the metronome/pacer. Make sure to turn on the sound on your device and turn up the volume.</li>
-              <li>The test will automaticly stop after 3 minutes, and you will be asked to measure your heart rate and send the collected data. If you need to complete the test earlier, press the "Complete"-button.</li>
-              <li>Please measure your heart rate within 5-20 seconds after completing the test</li>
-              <li>Try not to talk during the test, as this may affect your performance.</li>
-              <li>Stop immediately if you have any chest pain or dizziness. Your result will not be registrered.</li>
+              <li v-for="(instruction, idx) in $t('studies.tasks.qcst.qcstInstructions')" :key="idx">
+                {{ instruction.i }}
+              </li>
             </ul>
           </q-item-label>
           <div class="row justify-center q-mt-lg">
@@ -37,26 +31,37 @@
         </q-item-section>
     </q-item>
     </div>
+
+    <q-item-section v-if="!instruction && !isCompleted && !enterHR">
+      <div class="text-center text-h6 q-mt-lg">
+        {{ $t('studies.tasks.qcst.title') }}
+      </div>
+
+      <p id="timer"> {{ minutes }}:{{ seconds }} </p>
+      <q-btn  @click="toggleTest" v-if="!isStarted" color="secondary" label="Start" :disabled="isCompleted" />
+      <q-btn  @click="stopTest" v-if="isStarted" color="purple" label="Complete" />
+    </q-item-section>
+
     <q-item-section id="heartRate" v-if="enterHR">
-    <h6>Enter your heart rate</h6>
-        <p><i>Note: To measure your heart rate manually, please count the number of heart beats for 15 seconds. Multiply the count by four and enter the value below</i></p>
+    <h6>{{ $t('studies.tasks.qcst.enterHR') }} </h6>
+        <p><i>{{ $t('studies.tasks.qcst.enterHRInstructions') }}</i></p>
         <q-input outlined v-model="heartRate" label="Heart rate" />
         <q-btn color="primary" @click="completeTest()" :label="$t('common.next')" :disable="!heartRate" />
     </q-item-section>
 
     <q-item class="q-mt-md">
       <q-item-section id="completedText" v-if="isCompleted && !enterHR">
-        <h5>Congratulations!</h5>
+        <h5>{{ $t('studies.tasks.capTestComplete') }}</h5>
         <img alt="Finish flag" src="~assets/flag.svg">
-        <h6>You completed the test!</h6>
+        <h6>{{ $t('studies.tasks.capTestComplete') }}</h6>
         <q-item-section id="stats">
           <table>
             <tr>
-              <td>Time:</td>
+              <td>{{ $t('studies.tasks.qcst.time') }}:</td>
               <td> {{ minutes }}:{{ seconds }}</td>
             </tr>
             <tr>
-              <td>Steps:</td>
+              <td>{{ $t('studies.tasks.qcst.steps') }}:</td>
               <td>{{ this.steps / 4 }}</td>
             </tr>
           </table>
@@ -179,25 +184,16 @@
             </div>
 
             <div id="submit">
-              <q-btn color="primary" v-if="isCompleted" @click="send()" :label="$t('common.send')" :disable="!value" />
+              <q-btn color="primary" v-if="isCompleted" @click="send()" :loading="loading" :label="$t('common.send')" :disable="!value" />
             </div>
           </div>
       </q-item-section>
     </q-item >
-
-    <q-item-section v-if="!instruction && !isCompleted && !enterHR">
-    <div class="text-center text-h6 q-mt-lg">
-      Queens College Step Test
-    </div>
-
-    <p id="timer"> {{ minutes }}:{{ seconds }} </p>
-    <q-btn  @click="toggleTest" v-if="!isStarted" color="secondary" label="Start" :disabled="isCompleted" />
-    <q-btn  @click="stopTest" v-if="isStarted" color="purple" label="Complete" />
-    </q-item-section>
   </q-page>
 </template>
 
 <script>
+import { exportFile } from 'quasar'
 import phone from '../../modules/phone'
 import DB from '../../modules/db.js'
 import API from '../../modules/API.js'
@@ -283,8 +279,36 @@ export default {
       this.enterHR = true
       this.isStarted = false
     },
+    saveDataToFile () {
+      let studyKey = 'QCST'// this.$route.params.studyKey
+      let taskId = 1 // Number(this.$route.params.taskID)
+      const QCST = ({
+        userKey: 'userKey', // userinfo.user._key,
+        studyKey: studyKey,
+        taskId: taskId,
+        dataType: this.taskDescr.dataType,
+        createdTS: new Date(),
+        steps: this.steps,
+        heartRate: this.heartRate,
+        totalTime: this.totalTime
+      })
+      const filename = 'QCST_' + QCST.createdTS.toISOString() + '.json'
+      const status = exportFile(filename, JSON.stringify(QCST), 'application/json')
+      if (status === true) {
+        console.log('Saved', QCST)
+        // browser allowed it
+      } else {
+        // browser denied it
+        console.log('Error: ' + status)
+      }
+    },
     async send () {
       this.loading = true
+
+      // Method for saving data object on file.
+      // Only for testing purposes! Please remove before deploying app.
+      this.saveDataToFile()
+
       try {
         let studyKey = 'QCST'// this.$route.params.studyKey
         let taskId = 1 // Number(this.$route.params.taskID)

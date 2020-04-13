@@ -5,13 +5,13 @@
       <div class="text-center text-h6 q-mt-lg">{{ $t('studies.tasks.smwt.title') }}</div>
         <q-item class="q-mt-md">
           <q-item-section>
-            <q-item-label class="q-pb-sm">{{ $t('studies.tasks.smwt.introduction') }}</q-item-label>
+            <q-item-label class="q-pb-sm">{{ $t('common.introduction') }}</q-item-label>
             <q-item-label caption>{{ $t('studies.tasks.smwt.description') }}</q-item-label>
-            <q-item-label class="q-pb-sm">{{ $t('studies.tasks.smwt.instructions') }}</q-item-label>
+            <q-item-label class="q-pb-sm">{{ $t('common.instructions') }}</q-item-label>
             <q-item-label caption>
-              {{ $t('studies.tasks.smwt.smwtNote') }}
+              {{ $t('studies.tasks.instructionsNote') }}
               <p><i>{{ $t('studies.tasks.smwt.noteGPS') }}</i></p>
-              <ul id="example-1">
+              <ul>
                 <li v-for="(instruction, idx) in $t('studies.tasks.smwt.smwtInstructions')" :key="idx">
                   {{ instruction.i }}
                 </li>
@@ -26,21 +26,21 @@
 
     <q-item class="q-mt-md">
       <q-item-section id="completedText" v-if="isCompleted">
-        <h5>Congratulations!</h5>
+        <h5>{{ $t('studies.tasks.capTestComplete') }}</h5>
         <img alt="Finish flag" src="~assets/297188.svg">
-          <h6>You completed the test!</h6>
+          <h6>{{ $t('studies.tasks.capTestCompleteSubtext') }}</h6>
           <q-item-section id="stats">
             <table>
               <tr>
-                <td>Time:</td>
+                <td>{{ $t('studies.tasks.smwt.time') }}</td>
                 <td> {{ minutes }}:{{ seconds }}</td>
               </tr>
               <tr>
-                <td>Distance:</td>
+                <td>{{ $t('studies.tasks.smwt.distance') }}</td>
                 <td>{{ this.distance.toFixed(2) }}</td>
               </tr>
               <tr>
-                <td>Average speed:</td>
+                <td>{{ $t('studies.tasks.smwt.avgSpeed') }}</td>
                 <td> {{ this.speed.toFixed(2) }} m/s</td>
               </tr>
             </table>
@@ -167,7 +167,7 @@
     <q-item class="q-mt-md">
     <q-item-section v-if="!instruction && !isCompleted">
     <div class="text-center text-h6 q-mt-lg">
-      6MWT
+      {{ $t('studies.tasks.smwt.title') }}
     </div>
     <div id="map">
     </div>

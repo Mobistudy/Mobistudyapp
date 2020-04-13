@@ -21,7 +21,9 @@ export default {
     retry: 'Retry',
     start: 'Start',
     send: 'Send',
-    back: 'Back'
+    back: 'Back',
+    introduction: 'Introduction',
+    instructions: 'Instructions'
   },
   layouts: {
     consent: 'New study',
@@ -171,6 +173,10 @@ export default {
       pendingTasks: "Today's pending tasks",
       missedTasks: 'Missed tasks',
       noMissedTasks: 'No tasks missed',
+      instructionsNote: 'Please read the instructions carefully. The accuracy of the test depends on the instructions being followed as closely as possible.',
+      capTestComplete: 'Congratulations!',
+      capTestCompleteSubtext: 'You completed the test!',
+      taskCompleted: 'The task has been completed and the result has been sent to the server. Thank you!',
       dataQuery: {
         title: 'Data query',
         shortDescription: 'Extract data from your phone',
@@ -204,12 +210,35 @@ export default {
           { i: 'Hold your phone still in one hand, avoid shaking or twisting it until the test is finished.' },
           { i: 'You can use an arm band if needed, but do not switch off the screen!' }
         ],
-        smwtCompleted: 'Test completed. Thank you!'
+        time: 'Time',
+        distance: 'Distance',
+        avgSpeed: 'Average speed'
       },
       qcst: {
-        title: 'Queens College Step Test',
-        shortDescription: 'Perform the Queens College Step Test',
-        qcstExplanation: 'QCST Explanation'
+        title: 'Queens College Step Test',
+        shortTitle: 'QCST',
+        description: 'This task is to perform the Queens College Step Test. This app is able to send the results of your tests to a server hosted by the University of Malmö. The data is made available to the personnel of the Skånes Universitetssjukhus so that doctors and nurses are able to review them.',
+        shortDescription: 'Perform a Queens College Step Test',
+        qcstExplanation: 'QCST Explanation',
+        prerequisiteNote: 'To conduct this test, you will require:',
+        prerequisite: [
+          { p: 'A sturdy step, 16.25 inches/41.3 cm high' },
+          { p: 'Heart rate monitor (optional)' },
+          { p: 'Note: To measure your heart rate manually, please count the number of heart beats for 15 seconds. Multiply the count by four.' }
+        ],
+        qcstInstructions: [
+          { i: 'This is a paced test, meaning that you should aim to step using a four-step cadence, "up-up-down-down" for 3 minutes.' },
+          { i: 'When you are ready to start the test, press the "Start"-button.' },
+          { i: 'Step up and down according to the metronome/pacer. Make sure to turn on the sound on your device and turn up the volume.' },
+          { i: 'The test will automaticly stop after 3 minutes, and you will be asked to measure your heart rate and send the collected data. If you need to complete the test earlier, press the "Complete"-button.' },
+          { i: 'Please measure your heart rate within 5-20 seconds after completing the test' },
+          { i: 'Try not to talk during the test, as this may affect your performance.' },
+          { i: 'Stop immediately if you have any chest pain or dizziness.' }
+        ],
+        enterHR: 'Enter your heart rate',
+        enterHRInstructions: 'Note: To measure your heart rate manually, please count the number of heart beats for 15 seconds. Multiply the count by four and enter the value below',
+        time: 'Time',
+        steps: 'Steps'
       }
     },
     consent: {
