@@ -26,7 +26,7 @@
             </ul>
           </q-item-label>
              <div class="row justify-center q-mt-lg">
-          <q-btn color="primary" @click="start()" :label="$t('common.start')" />
+          <q-btn color="primary" @click="start()" :label="$t('common.start')" :disable="!this.positions" />
         </div>
         </q-item-section>
     </q-item>
@@ -189,10 +189,10 @@
 
 <script>
 import { Loader } from 'google-maps'
+import { exportFile } from 'quasar'
 import phone from '../../modules/phone'
 import API from '../../modules/API.js'
 import DB from '../../modules/db.js'
-import userinfo from '../../modules/userinfo.js'
 const options = {/* todo */}
 
 export default {
@@ -236,16 +236,10 @@ export default {
         center: { lat, lng },
         zoom: 16
       })
-
-      var walkingPath = new google.maps.Polyline({
-        path: this.path,
-        geodesic: true,
-        strokeColor: '#0000FF',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
+      var marker = new google.maps.Marker({
+        position: { lat, lng }
       })
-
-      walkingPath.setMap(map)
+      marker.setMap(map)
       this.map = map
     },
     toggleTest () {
@@ -300,7 +294,6 @@ export default {
         selected = this.positions[0]
       }
       this.selectedPositions.unshift(selected)
-      this.path.push({ lat: this.selectedPositions[0].coords.latitude, lng: this.selectedPositions[0].coords.longitude })
     },
     /** Tells the algorithm that the test has officially ended
     */
@@ -439,39 +432,70 @@ export default {
       const time = 360 - secs
       this.speed = this.distance / time
     },
-
-    async send () {
-      this.loading = true
+    saveDataToFile () {
       const secs = parseInt(this.minutes * 60, 10) + parseInt(this.seconds, 10)
       const time = 360 - secs
-      const studyKey = '6MWT'// this.$route.params.studyKey
-      const taskId = '1456' // Number(this.$route.params.taskId)
-      let SMWTData = {
+      const studyKey = 'SMWT' // this.$route.params.studyKey
+      const taskId = 1 // Number(this.$route.params.taskID)
+      const SMWT = ({
+        userKey: 'userKey', // userinfo.user._key,
         studyKey: studyKey,
-        userKey: userinfo.userKey,
         taskId: taskId,
+        dataType: this.taskDescr.dataType,
+        createdTS: new Date(),
         positions: this.selectedPositions,
         distance: this.distance,
         borgScale: this.value,
         time: time
+      })
+      const filename = 'SMWT_' + SMWT.createdTS.toISOString() + '.json'
+      const status = exportFile(filename, JSON.stringify(SMWT), 'application/json')
+      if (status === true) {
+        console.log('Saved', SMWT)
+        // browser allowed it
+      } else {
+        // browser denied it
+        console.log('Error: ' + status)
       }
-      console.log(SMWTData)
+    },
+    async send () {
+      this.loading = true
+
+      // Method for saving data object on file.
+      // Only for testing purposes! Please remove before deploying app.
+      this.saveDataToFile()
+
+      // Save the data to server
       try {
-        await API.sendSMWTData(SMWTData)
+        const secs = parseInt(this.minutes * 60, 10) + parseInt(this.seconds, 10)
+        const time = 360 - secs
+        let studyKey = 'SMWT' // this.$route.params.studyKey
+        let taskId = 1 // Number(this.$route.params.taskID)
+        await API.sendSMWTData({
+          userKey: 'userKey', // userinfo.user._key,
+          studyKey: studyKey,
+          taskId: taskId,
+          dataType: this.taskDescr.dataType,
+          createdTS: new Date(),
+          positions: this.selectedPositions,
+          distance: this.distance,
+          borgScale: this.value,
+          time: time
+        })
         await DB.setTaskCompletion(studyKey, taskId, new Date())
         // this.$q.notify({
         //   color: 'positive',
-        //   message: 'Form sent successfully!',
+        //   message: 'Data sent successfully!',
         //   icon: 'check'
         // })
         // let _this = this
         this.$router.push('/home', function () {
-          // _this.$router.go()
+          // _this.$router.go() // I think this refreshes /home so that notifications are rescheduled appropriately
           window.location.reload(true)
         })
       } catch (error) {
-        console.error(error)
         this.loading = false
+        console.error(error)
         this.$q.notify({
           color: 'negative',
           message: 'Cannot send data: ' + error.message,
@@ -500,7 +524,6 @@ export default {
       phone.pedometer.stopNotifications()
       phone.geolocation.stopNotifications()
       phone.screen.allowSleep()
-      console.log(this.value)
     }
   },
   computed: {

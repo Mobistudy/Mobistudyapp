@@ -101,7 +101,7 @@ export default {
     return axios.post(BASE_URL + '/healthStoreData', data, axiosConfig)
   },
 
-  // send data from 6MWT
+  // send data from SMWT
   sendSMWTData: async function (data) {
     return axios.post(BASE_URL + '/SMWTData', data, axiosConfig)
   }
