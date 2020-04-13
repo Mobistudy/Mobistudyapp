@@ -2,35 +2,27 @@
   <q-page padding>
     <!-- content -->
     <div v-if="instruction && !isCompleted">
-   <div class="text-center text-h6 q-mt-lg">
-      Instructions for the Six Minute Walk Test (6MWT)
-    </div>
-    <q-item class="q-mt-md">
-        <q-item-section>
-          <q-item-label class="q-pb-sm">Introduction</q-item-label>
-          <q-item-label caption>This task is to perform a Six Minute Walk Test. This app is able to send the results of your tests to a server hosted by the University of Malmö. The data is made available to the personnel of the Skånes Universitetssjukhus so that doctors and nurses are able to review them.</q-item-label>
-          <q-item-label class="q-pb-sm">Instructions</q-item-label>
-          <q-item-label caption>
-            <p>Please read the instructions carefully. The accuracy of the test depends on the instructions being followed as closely as possible.</p>
-
-            <p><i>Note: This test uses the GPS of your phone and therefore requires internet connection. If you experience errors during the test, pleae make sure that your phone is connected to the internet.</i></p>
-            <ul>
-              <li>The object of this test is to walk as far as possible for 6 minutes.</li>
-              <li>It is important that you try to walk as straight as possible. Try to avoid stairs and/or steep hills</li>
-              <li>If possible, try to avoid areas with many tall buildings and / or trees as these can affect the GPS function of your phone.</li>
-              <li>When you are ready to start the test, press the "Start"-button.</li>
-              <li>You may slow down if necessary. If you stand still during the test, please press the "Pause"-button and then press continue and walk again as soon as possible.</li>
-              <li>The test will automaticly stop after 6 minutes, and you will be asked to send the collected data. If you need to complete the test earlier, press the "Complete"-button.</li>
-              <li>Try not to talk during the test, as this may affect your performance.</li>
-              <li>Stop immediately if you have any chest pain or dizziness. </li>
-            </ul>
-          </q-item-label>
-             <div class="row justify-center q-mt-lg">
-          <q-btn color="primary" @click="start()" :label="$t('common.start')" :disable="!this.positions" />
-        </div>
-        </q-item-section>
-    </q-item>
-    </div>
+      <div class="text-center text-h6 q-mt-lg">{{ $t('studies.tasks.smwt.title') }}</div>
+        <q-item class="q-mt-md">
+          <q-item-section>
+            <q-item-label class="q-pb-sm">{{ $t('studies.tasks.smwt.introduction') }}</q-item-label>
+            <q-item-label caption>{{ $t('studies.tasks.smwt.description') }}</q-item-label>
+            <q-item-label class="q-pb-sm">{{ $t('studies.tasks.smwt.instructions') }}</q-item-label>
+            <q-item-label caption>
+              {{ $t('studies.tasks.smwt.smwtNote') }}
+              <p><i>{{ $t('studies.tasks.smwt.noteGPS') }}</i></p>
+              <ul id="example-1">
+                <li v-for="instruction in $t('studies.tasks.smwt.smwtInstructions')" :key="instruction">
+                  {{ instruction.i }}
+                </li>
+              </ul>
+            </q-item-label>
+              <div class="row justify-center q-mt-lg">
+            <q-btn color="primary" @click="start()" :label="$t('common.start')" :disable="!this.positions" />
+          </div>
+          </q-item-section>
+        </q-item>
+      </div>
 
     <q-item class="q-mt-md">
       <q-item-section id="completedText" v-if="isCompleted">
@@ -55,120 +47,120 @@
           </q-item-section>
 
           <div class="q-pa-md">
-          <p class="sub-heading">Please rate your level of exertion:</p>
-            <q-list>
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="0" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>0</p> <p>No Exertion</p></q-item>
-                </q-item-section>
-              </q-item>
+            <p class="sub-heading">Please rate your level of exertion:</p>
+              <q-list>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="0" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>0</p> <p>No Exertion</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="0.5" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>0.5</p> <p>Very very slight</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="0.5" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>0.5</p> <p>Very very slight</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar top>
-                  <q-radio v-model="value" val="1"/>
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>1</p> <p>Very slight</p></q-item>
-                </q-item-section>
-              </q-item>
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="2"/>
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>2</p><p>Slight</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar top>
+                    <q-radio v-model="value" val="1"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>1</p> <p>Very slight</p></q-item>
+                  </q-item-section>
+                </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="2"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>2</p><p>Slight</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="3"/>
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>3</p><p>Moderate</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="3"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>3</p><p>Moderate</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar top>
-                  <q-radio v-model="value" val="4"/>
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>4</p><p>Somewhat strong</p></q-item>
-                </q-item-section>
-              </q-item>
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="5"/>
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>5</p><p>Strong</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar top>
+                    <q-radio v-model="value" val="4"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>4</p><p>Somewhat strong</p></q-item>
+                  </q-item-section>
+                </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="5"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>5</p><p>Strong</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="6" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>6</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="6" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>6</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar top>
-                  <q-radio v-model="value" val="7" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>7</p><p>Very strong</p></q-item>
-                </q-item-section>
-              </q-item>
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="8" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>8</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar top>
+                    <q-radio v-model="value" val="7" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>7</p><p>Very strong</p></q-item>
+                  </q-item-section>
+                </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="8" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>8</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="9" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>9</p><p>Very very strong</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="9" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>9</p><p>Very very strong</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar top>
-                  <q-radio v-model="value" val="10"/>
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>10</p><p>Maximal</p></q-item>
-                </q-item-section>
-              </q-item>
-            </q-list>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar top>
+                    <q-radio v-model="value" val="10"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>10</p><p>Maximal</p></q-item>
+                  </q-item-section>
+                </q-item>
+              </q-list>
 
-            <div class="q-px-sm q-mt-sm">
-              <p class="sub-heading">Your selection is: <strong>{{ value }}</strong></p>
+              <div class="q-px-sm q-mt-sm">
+                <p class="sub-heading">Your selection is: <strong>{{ value }}</strong></p>
+              </div>
             </div>
-          </div>
-        </q-item-section>
-      </q-item >
+          </q-item-section>
+        </q-item >
     <div id="submit">
     <q-btn color="primary" v-if="isCompleted && isPrematureCompletion" @click="send()" :label="$t('common.send')" />
 </div>
