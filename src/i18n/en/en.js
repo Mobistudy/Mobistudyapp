@@ -205,6 +205,11 @@ export default {
           { i: 'You can use an arm band if needed, but do not switch off the screen!' }
         ],
         smwtCompleted: 'Test completed. Thank you!'
+      },
+      qcst: {
+        title: 'Queens College Step Test',
+        shortDescription: 'Perform the Queens College Step Test',
+        qcstExplanation: 'QCST Explanation'
       }
     },
     consent: {

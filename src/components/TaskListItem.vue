@@ -37,6 +37,10 @@ export default {
       this.title = this.$i18n.t('studies.tasks.smwt.shortTitle')
       this.main = this.$i18n.t('studies.tasks.smwt.shortDescription')
       this.icon = 'directions_walk'
+    } else if (this.task.type === 'qcst') {
+      this.title = this.$i18n.t('studies.tasks.qcst.title')
+      this.main = this.$i18n.t('studies.tasks.qcst.shortDescription')
+      this.icon = 'directions_walk'
     }
   },
   computed: {
@@ -48,6 +52,8 @@ export default {
         return 'form/' + this.task.studyKey + '/' + this.task.taskID + '/' + this.task.formKey
       } else if (this.task.type === 'smwt') {
         return 'smwt'
+      } else if (this.task.type === 'qcst') {
+        return 'qcst'
       } else if (this.task.studyKey && this.task.taskID) {
         return 'dataQuery/' + this.task.studyKey + '/' + this.task.taskID
       // eslint-disable-next-line brace-style

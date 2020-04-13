@@ -95,5 +95,11 @@ export default {
         pedometer.stopPedometerUpdates(resolve, reject)
       })
     }
+  },
+  media: {
+    async playSound (soundfile) {
+      var audio = new Audio(soundfile)
+      audio.play()
+    }
   }
 }

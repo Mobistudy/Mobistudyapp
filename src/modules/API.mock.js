@@ -5,6 +5,7 @@ import study9999 from './mockdata/study9999.js'
 import form9999 from './mockdata/form9999.js'
 import participant from './mockdata/participant.js'
 import studySMWT from './mockdata/studySMWT'
+import studyQCST from './mockdata/studyQCST.js'
 
 export default {
   setToken: function (token) {
@@ -183,6 +184,10 @@ export default {
         setTimeout(function () {
           resolve(studySMWT)
         }, 1000)
+      } else if (studyKey === 'QCST') {
+        setTimeout(function () {
+          resolve(studyQCST)
+        }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study not found'))
@@ -229,6 +234,11 @@ export default {
 
   sendSMWTData: async (data) => {
     console.log('API - sending 6MWT data', data)
+    return Promise.resolve()
+  },
+
+  sendQCSTData: async (data) => {
+    console.log('API - sending QCST data', data)
     return Promise.resolve()
   }
 }
