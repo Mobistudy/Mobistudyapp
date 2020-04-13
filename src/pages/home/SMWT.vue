@@ -12,7 +12,7 @@
               {{ $t('studies.tasks.smwt.smwtNote') }}
               <p><i>{{ $t('studies.tasks.smwt.noteGPS') }}</i></p>
               <ul id="example-1">
-                <li v-for="instruction in $t('studies.tasks.smwt.smwtInstructions')" :key="instruction">
+                <li v-for="(instruction, idx) in $t('studies.tasks.smwt.smwtInstructions')" :key="idx">
                   {{ instruction.i }}
                 </li>
               </ul>
