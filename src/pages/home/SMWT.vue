@@ -189,6 +189,7 @@
 
 <script>
 import { Loader } from 'google-maps'
+import { exportFile } from 'quasar'
 import phone from '../../modules/phone'
 import API from '../../modules/API.js'
 import DB from '../../modules/db.js'
@@ -431,9 +432,40 @@ export default {
       const time = 360 - secs
       this.speed = this.distance / time
     },
-
+    saveDataToFile () {
+      const secs = parseInt(this.minutes * 60, 10) + parseInt(this.seconds, 10)
+      const time = 360 - secs
+      const studyKey = 'SMWT' // this.$route.params.studyKey
+      const taskId = 1 // Number(this.$route.params.taskID)
+      const SMWT = ({
+        userKey: 'userKey', // userinfo.user._key,
+        studyKey: studyKey,
+        taskId: taskId,
+        dataType: this.taskDescr.dataType,
+        createdTS: new Date(),
+        positions: this.selectedPositions,
+        distance: this.distance,
+        borgScale: this.value,
+        time: time
+      })
+      const filename = 'SMWT_' + SMWT.createdTS.toISOString() + '.json'
+      const status = exportFile(filename, JSON.stringify(SMWT), 'application/json')
+      if (status === true) {
+        console.log('Saved', SMWT)
+        // browser allowed it
+      } else {
+        // browser denied it
+        console.log('Error: ' + status)
+      }
+    },
     async send () {
       this.loading = true
+
+      // Method for saving data object on file.
+      // Only for testing purposes! Please remove before deploying app.
+      this.saveDataToFile()
+
+      // Save the data to server
       try {
         const secs = parseInt(this.minutes * 60, 10) + parseInt(this.seconds, 10)
         const time = 360 - secs
@@ -443,12 +475,12 @@ export default {
           userKey: 'userKey', // userinfo.user._key,
           studyKey: studyKey,
           taskId: taskId,
+          dataType: this.taskDescr.dataType,
+          createdTS: new Date(),
           positions: this.selectedPositions,
           distance: this.distance,
           borgScale: this.value,
-          time: time,
-          dataType: this.taskDescr.dataType,
-          createdTS: new Date()
+          time: time
         })
         await DB.setTaskCompletion(studyKey, taskId, new Date())
         // this.$q.notify({
