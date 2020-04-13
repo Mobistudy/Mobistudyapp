@@ -38,7 +38,7 @@ export default {
       this.main = this.$i18n.t('studies.tasks.smwt.shortDescription')
       this.icon = 'directions_walk'
     } else if (this.task.type === 'qcst') {
-      this.title = this.$i18n.t('studies.tasks.qcst.title')
+      this.title = this.$i18n.t('studies.tasks.qcst.shortTitle')
       this.main = this.$i18n.t('studies.tasks.qcst.shortDescription')
       this.icon = 'directions_walk'
     }
