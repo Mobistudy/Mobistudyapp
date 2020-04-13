@@ -34,7 +34,7 @@ export default {
       this.main = this.$i18n.t('studies.tasks.form.shortDescription')
       this.icon = 'format_list_bulleted'
     } else if (this.task.type === 'smwt') {
-      this.title = this.$i18n.t('studies.tasks.smwt.title')
+      this.title = this.$i18n.t('studies.tasks.smwt.shortTitle')
       this.main = this.$i18n.t('studies.tasks.smwt.shortDescription')
       this.icon = 'directions_walk'
     } else if (this.task.type === 'qcst') {

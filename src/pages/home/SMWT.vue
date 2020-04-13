@@ -2,35 +2,27 @@
   <q-page padding>
     <!-- content -->
     <div v-if="instruction && !isCompleted">
-   <div class="text-center text-h6 q-mt-lg">
-      Instructions for the Six Minute Walk Test (6MWT)
-    </div>
-    <q-item class="q-mt-md">
-        <q-item-section>
-          <q-item-label class="q-pb-sm">Introduction</q-item-label>
-          <q-item-label caption>This task is to perform a Six Minute Walk Test. This app is able to send the results of your tests to a server hosted by the University of Malmö. The data is made available to the personnel of the Skånes Universitetssjukhus so that doctors and nurses are able to review them.</q-item-label>
-          <q-item-label class="q-pb-sm">Instructions</q-item-label>
-          <q-item-label caption>
-            <p>Please read the instructions carefully. The accuracy of the test depends on the instructions being followed as closely as possible.</p>
-
-            <p><i>Note: This test uses the GPS of your phone and therefore requires internet connection. If you experience errors during the test, pleae make sure that your phone is connected to the internet.</i></p>
-            <ul>
-              <li>The object of this test is to walk as far as possible for 6 minutes.</li>
-              <li>It is important that you try to walk as straight as possible. Try to avoid stairs and/or steep hills</li>
-              <li>If possible, try to avoid areas with many tall buildings and / or trees as these can affect the GPS function of your phone.</li>
-              <li>When you are ready to start the test, press the "Start"-button.</li>
-              <li>You may slow down if necessary. If you stand still during the test, please press the "Pause"-button and then press continue and walk again as soon as possible.</li>
-              <li>The test will automaticly stop after 6 minutes, and you will be asked to send the collected data. If you need to complete the test earlier, press the "Complete"-button.</li>
-              <li>Try not to talk during the test, as this may affect your performance.</li>
-              <li>Stop immediately if you have any chest pain or dizziness. </li>
-            </ul>
-          </q-item-label>
-             <div class="row justify-center q-mt-lg">
-          <q-btn color="primary" @click="start()" :label="$t('common.start')" />
-        </div>
-        </q-item-section>
-    </q-item>
-    </div>
+      <div class="text-center text-h6 q-mt-lg">{{ $t('studies.tasks.smwt.title') }}</div>
+        <q-item class="q-mt-md">
+          <q-item-section>
+            <q-item-label class="q-pb-sm">{{ $t('studies.tasks.smwt.introduction') }}</q-item-label>
+            <q-item-label caption>{{ $t('studies.tasks.smwt.description') }}</q-item-label>
+            <q-item-label class="q-pb-sm">{{ $t('studies.tasks.smwt.instructions') }}</q-item-label>
+            <q-item-label caption>
+              {{ $t('studies.tasks.smwt.smwtNote') }}
+              <p><i>{{ $t('studies.tasks.smwt.noteGPS') }}</i></p>
+              <ul id="example-1">
+                <li v-for="(instruction, idx) in $t('studies.tasks.smwt.smwtInstructions')" :key="idx">
+                  {{ instruction.i }}
+                </li>
+              </ul>
+            </q-item-label>
+              <div class="row justify-center q-mt-lg">
+            <q-btn color="primary" @click="start()" :label="$t('common.start')" :disable="!this.positions" />
+          </div>
+          </q-item-section>
+        </q-item>
+      </div>
 
     <q-item class="q-mt-md">
       <q-item-section id="completedText" v-if="isCompleted">
@@ -55,120 +47,120 @@
           </q-item-section>
 
           <div class="q-pa-md">
-          <p class="sub-heading">Please rate your level of exertion:</p>
-            <q-list>
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="0" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>0</p> <p>No Exertion</p></q-item>
-                </q-item-section>
-              </q-item>
+            <p class="sub-heading">Please rate your level of exertion:</p>
+              <q-list>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="0" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>0</p> <p>No Exertion</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="0.5" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>0.5</p> <p>Very very slight</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="0.5" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>0.5</p> <p>Very very slight</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar top>
-                  <q-radio v-model="value" val="1"/>
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>1</p> <p>Very slight</p></q-item>
-                </q-item-section>
-              </q-item>
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="2"/>
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>2</p><p>Slight</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar top>
+                    <q-radio v-model="value" val="1"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>1</p> <p>Very slight</p></q-item>
+                  </q-item-section>
+                </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="2"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>2</p><p>Slight</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="3"/>
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>3</p><p>Moderate</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="3"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>3</p><p>Moderate</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar top>
-                  <q-radio v-model="value" val="4"/>
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>4</p><p>Somewhat strong</p></q-item>
-                </q-item-section>
-              </q-item>
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="5"/>
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>5</p><p>Strong</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar top>
+                    <q-radio v-model="value" val="4"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>4</p><p>Somewhat strong</p></q-item>
+                  </q-item-section>
+                </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="5"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>5</p><p>Strong</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="6" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>6</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="6" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>6</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar top>
-                  <q-radio v-model="value" val="7" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>7</p><p>Very strong</p></q-item>
-                </q-item-section>
-              </q-item>
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="8" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>8</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar top>
+                    <q-radio v-model="value" val="7" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>7</p><p>Very strong</p></q-item>
+                  </q-item-section>
+                </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="8" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>8</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar>
-                  <q-radio v-model="value" val="9" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>9</p><p>Very very strong</p></q-item>
-                </q-item-section>
-              </q-item>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio v-model="value" val="9" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>9</p><p>Very very strong</p></q-item>
+                  </q-item-section>
+                </q-item>
 
-              <q-item tag="label" v-ripple>
-                <q-item-section avatar top>
-                  <q-radio v-model="value" val="10"/>
-                </q-item-section>
-                <q-item-section>
-                  <q-item><p>10</p><p>Maximal</p></q-item>
-                </q-item-section>
-              </q-item>
-            </q-list>
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar top>
+                    <q-radio v-model="value" val="10"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item><p>10</p><p>Maximal</p></q-item>
+                  </q-item-section>
+                </q-item>
+              </q-list>
 
-            <div class="q-px-sm q-mt-sm">
-              <p class="sub-heading">Your selection is: <strong>{{ value }}</strong></p>
+              <div class="q-px-sm q-mt-sm">
+                <p class="sub-heading">Your selection is: <strong>{{ value }}</strong></p>
+              </div>
             </div>
-          </div>
-        </q-item-section>
-      </q-item >
+          </q-item-section>
+        </q-item >
     <div id="submit">
     <q-btn color="primary" v-if="isCompleted && isPrematureCompletion" @click="send()" :label="$t('common.send')" />
 </div>
@@ -189,10 +181,10 @@
 
 <script>
 import { Loader } from 'google-maps'
+import { exportFile } from 'quasar'
 import phone from '../../modules/phone'
 import API from '../../modules/API.js'
 import DB from '../../modules/db.js'
-import userinfo from '../../modules/userinfo.js'
 const options = {/* todo */}
 
 export default {
@@ -236,16 +228,10 @@ export default {
         center: { lat, lng },
         zoom: 16
       })
-
-      var walkingPath = new google.maps.Polyline({
-        path: this.path,
-        geodesic: true,
-        strokeColor: '#0000FF',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
+      var marker = new google.maps.Marker({
+        position: { lat, lng }
       })
-
-      walkingPath.setMap(map)
+      marker.setMap(map)
       this.map = map
     },
     toggleTest () {
@@ -300,7 +286,6 @@ export default {
         selected = this.positions[0]
       }
       this.selectedPositions.unshift(selected)
-      this.path.push({ lat: this.selectedPositions[0].coords.latitude, lng: this.selectedPositions[0].coords.longitude })
     },
     /** Tells the algorithm that the test has officially ended
     */
@@ -439,39 +424,70 @@ export default {
       const time = 360 - secs
       this.speed = this.distance / time
     },
-
-    async send () {
-      this.loading = true
+    saveDataToFile () {
       const secs = parseInt(this.minutes * 60, 10) + parseInt(this.seconds, 10)
       const time = 360 - secs
-      const studyKey = '6MWT'// this.$route.params.studyKey
-      const taskId = '1456' // Number(this.$route.params.taskId)
-      let SMWTData = {
+      const studyKey = 'SMWT' // this.$route.params.studyKey
+      const taskId = 1 // Number(this.$route.params.taskID)
+      const SMWT = ({
+        userKey: 'userKey', // userinfo.user._key,
         studyKey: studyKey,
-        userKey: userinfo.userKey,
         taskId: taskId,
+        dataType: this.taskDescr.dataType,
+        createdTS: new Date(),
         positions: this.selectedPositions,
         distance: this.distance,
         borgScale: this.value,
         time: time
+      })
+      const filename = 'SMWT_' + SMWT.createdTS.toISOString() + '.json'
+      const status = exportFile(filename, JSON.stringify(SMWT), 'application/json')
+      if (status === true) {
+        console.log('Saved', SMWT)
+        // browser allowed it
+      } else {
+        // browser denied it
+        console.log('Error: ' + status)
       }
-      console.log(SMWTData)
+    },
+    async send () {
+      this.loading = true
+
+      // Method for saving data object on file.
+      // Only for testing purposes! Please remove before deploying app.
+      this.saveDataToFile()
+
+      // Save the data to server
       try {
-        await API.sendSMWTData(SMWTData)
+        const secs = parseInt(this.minutes * 60, 10) + parseInt(this.seconds, 10)
+        const time = 360 - secs
+        let studyKey = 'SMWT' // this.$route.params.studyKey
+        let taskId = 1 // Number(this.$route.params.taskID)
+        await API.sendSMWTData({
+          userKey: 'userKey', // userinfo.user._key,
+          studyKey: studyKey,
+          taskId: taskId,
+          dataType: this.taskDescr.dataType,
+          createdTS: new Date(),
+          positions: this.selectedPositions,
+          distance: this.distance,
+          borgScale: this.value,
+          time: time
+        })
         await DB.setTaskCompletion(studyKey, taskId, new Date())
         // this.$q.notify({
         //   color: 'positive',
-        //   message: 'Form sent successfully!',
+        //   message: 'Data sent successfully!',
         //   icon: 'check'
         // })
         // let _this = this
         this.$router.push('/home', function () {
-          // _this.$router.go()
+          // _this.$router.go() // I think this refreshes /home so that notifications are rescheduled appropriately
           window.location.reload(true)
         })
       } catch (error) {
-        console.error(error)
         this.loading = false
+        console.error(error)
         this.$q.notify({
           color: 'negative',
           message: 'Cannot send data: ' + error.message,
@@ -500,7 +516,6 @@ export default {
       phone.pedometer.stopNotifications()
       phone.geolocation.stopNotifications()
       phone.screen.allowSleep()
-      console.log(this.value)
     }
   },
   computed: {

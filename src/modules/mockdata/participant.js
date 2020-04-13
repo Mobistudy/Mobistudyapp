@@ -27,8 +27,7 @@ export default {
       reminders: true,
       criteriaAnswers: [ 'yes' ],
       taskItemsConsent: [
-        { taskId: 1, consented: true, lastExecuted: new Date(new Date().getTime() - 86400000).toISOString() }, // 1 day ago
-        { taskId: 2, consented: true, lastExecuted: new Date(new Date().getTime() - 172800000).toISOString() }
+        { taskId: 1, consented: true, lastExecuted: new Date(new Date().getTime() - 172800000).toISOString() }
       ]
     },
     {
