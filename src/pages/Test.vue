@@ -4,11 +4,12 @@
       <q-page padding class="flex flex-center">
         <div class="row justify-center">
           <div class="text-h5 q-mt-lg">
-            Test !
+            Test Page.
           </div>
-
-          <q-btn color="white" text-color="black" label="Play toc" @click="playSound"/>
-
+          <p>{{coords}}</p>
+          <div>
+            <q-btn color="white" text-color="black" label="Play toc" @click="playSound"/>
+          </div>
         </div>
       </q-page>
     </q-page-container>
@@ -20,23 +21,28 @@ import phone from '../modules/phone'
 
 export default {
   name: 'TestPage',
+  data () {
+    return {
+      coords: 'No coordinates'
+    }
+  }
   async created () {
-    console.log('starting GPS')
+    this.coords = 'starting GPS'
     let positions = 0
     if (await phone.geolocation.isAvailable()) {
       // geolocation is available
       if (await phone.geolocation.requestPermission()) {
         // got permission
         phone.geolocation.startNotifications({}, async (pos) => {
-          console.log(pos)
+          this.coords = pos
           positions++
           if (positions === 10) {
             // stop after 10 positions retrieved
             await phone.geolocation.stopNotifications()
-            console.log('stopped')
+            this.coords = 'stopped'
           }
         }, (err) => {
-          console.error(err)
+          this.coords = 'stopped'
         })
       }
     }
