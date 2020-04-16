@@ -4,7 +4,7 @@ The participants' app of Mobistudy.
 The app is developed as an Apache Cordova app using the [quasar framework](https://quasar-framework.org/) as UI frontend.
 
 
-## Pre requisites
+## Prerequisites
 
 You need to install the following on your system:
 
