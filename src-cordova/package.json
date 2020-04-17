@@ -1,0 +1,31 @@
+{
+  "name": "org.mobistudy.app",
+  "displayName": "Mobistudy App",
+  "version": "0.0.1",
+  "description": "The participants' app of Mobistudy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "Apache Cordova Team",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cordova-ios": "^5.1.1",
+    "cordova-plugin-wkwebview-engine": "^1.2.1"
+  },
+  "devDependencies": {
+    "cordova-plugin-whitelist": "^1.3.4"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-wkwebview-engine": {}
+    },
+    "platforms": [
+      "ios"
+    ]
+  }
+}
