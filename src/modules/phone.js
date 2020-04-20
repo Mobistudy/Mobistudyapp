@@ -9,7 +9,7 @@
 // pedometer: https://github.com/leecrossley/cordova-plugin-pedometer
 
 export default {
-  device: device,
+  device: window.device,
   screen: {
     async forbidSleep () {
       return new Promise((resolve, reject) => {
@@ -66,24 +66,24 @@ export default {
     firstSteps: -1,
     async isAvailable () {
       return new Promise((resolve, reject) => {
-        pedometer.isStepCountingAvailable(resolve, reject)
+        window.pedometer.isStepCountingAvailable(resolve, reject)
       })
     },
     async requestPermission () {
       return new Promise((resolve, reject) => {
-        pedometer.startPedometerUpdates((data) => {
+        window.pedometer.startPedometerUpdates((data) => {
           resolve()
-          pedometer.stopPedometerUpdates()
+          window.pedometer.stopPedometerUpdates()
         }, (err) => {
           reject(err)
-          pedometer.stopPedometerUpdates()
+          window.pedometer.stopPedometerUpdates()
         })
       })
     },
     startNotifications (options, cbk, error) {
-      this.firstSteps == -1
-      pedometer.startPedometerUpdates((data) => {
-        if (this.firstSteps == -1) {
+      this.firstSteps = -1
+      window.pedometer.startPedometerUpdates((data) => {
+        if (this.firstSteps === -1) {
           this.firstSteps = data.numberOfSteps - 1
         }
         data.numberOfSteps -= this.firstSteps
@@ -92,7 +92,7 @@ export default {
     },
     async stopNotifications () {
       return new Promise((resolve, reject) => {
-        pedometer.stopPedometerUpdates(resolve, reject)
+        window.pedometer.stopPedometerUpdates(resolve, reject)
       })
     }
   },
