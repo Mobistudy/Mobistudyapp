@@ -16,6 +16,8 @@ Install all other dependencies with:
 
 ```bash
 npm install
+cd src-cordova
+npm install
 ```
 
 ## Run
@@ -25,6 +27,13 @@ To start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
 quasar dev
 ```
+
+This will run in the browser, if you want to run it on a phone (supposing it's an iPhone):
+
+```bash
+quasar dev -m ios
+```
+
 
 ## Test
 
