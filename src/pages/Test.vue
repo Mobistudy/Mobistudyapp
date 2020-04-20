@@ -25,7 +25,7 @@ export default {
     return {
       coords: 'No coordinates'
     }
-  }
+  },
   async created () {
     this.coords = 'starting GPS'
     let positions = 0
@@ -42,7 +42,7 @@ export default {
             this.coords = 'stopped'
           }
         }, (err) => {
-          this.coords = 'stopped'
+          this.coords = err
         })
       }
     }
