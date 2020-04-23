@@ -97,9 +97,19 @@ export default {
     }
   },
   media: {
+    metronome: null,
     async playSound (soundfile) {
       var audio = new Audio(soundfile)
       audio.play()
+    },
+    async playMetro (soundfile, cadence) {
+      var metro = new Audio(soundfile)
+      this.metronome = setInterval(function () {
+        metro.play()
+      }, cadence)
+    },
+    async stopMetro () {
+      clearInterval(this.metronome)
     }
   }
 }

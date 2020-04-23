@@ -162,7 +162,7 @@
           </q-item-section>
         </q-item >
     <div id="submit">
-    <q-btn color="primary" v-if="isCompleted && isPrematureCompletion" @click="send()" :label="$t('common.send')" />
+    <q-btn color="primary" v-if="isCompleted || isPrematureCompletion" @click="send()" :label="$t('common.send')" :disable="!value"/>
 </div>
     <q-item class="q-mt-md">
     <q-item-section v-if="!instruction && !isCompleted">
@@ -186,6 +186,10 @@ import phone from '../../modules/phone'
 import API from '../../modules/API.js'
 import DB from '../../modules/db.js'
 const options = {/* todo */}
+
+document.addEventListener('deviceready', () => {
+  console.log('Device ready!')
+}, false)
 
 export default {
   name: 'SMWTPage',
@@ -533,6 +537,7 @@ export default {
     phone.pedometer.stopNotifications()
     this.stopTest()
   },
+
   async mounted () {
     if (await phone.geolocation.isAvailable()) {
       if (await phone.geolocation.requestPermission()) {

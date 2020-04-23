@@ -241,9 +241,6 @@ export default {
       this.isCompleted = true
     },
     startTimer () {
-      if (this.totalTime === 180) {
-        phone.media.playSound('/statics/sounds/begin.wav')
-      }
       this.isStarted ? this.timer = setInterval(() => this.countDown(), 1000) : clearInterval(this.timer)
     },
     countDown () {
@@ -295,7 +292,6 @@ export default {
       const filename = 'QCST_' + QCST.createdTS.toISOString() + '.json'
       const status = exportFile(filename, JSON.stringify(QCST), 'application/json')
       if (status === true) {
-        console.log('Saved', QCST)
         // browser allowed it
       } else {
         // browser denied it
@@ -347,10 +343,14 @@ export default {
       }
     }
   },
+
   watch: {
     isStarted () {
+      if (this.totalTime === 180) {
+        phone.media.playSound('/statics/sounds/begin.wav')
+      }
       this.startTimer()
-      this.isStarted ? this.metronome = setInterval(() => phone.media.playSound('/statics/sounds/clack.ogg'), this.cadence) : clearInterval(this.metronome)
+      this.isStarted ? phone.media.playMetro('/statics/sounds/switch-20.wav', this.cadence) : phone.media.stopMetro()
     }
   },
   computed: {
@@ -362,11 +362,10 @@ export default {
     }
   },
   beforeDestroy: function () {
-    clearInterval(this.metronome)
+    phone.media.stopMetro()
     clearInterval(this.timer)
     this.stopTest()
   },
-
   async mounted () {
     if (this.gender === 'female') {
       this.cadence = 681
