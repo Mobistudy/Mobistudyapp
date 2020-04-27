@@ -61,10 +61,10 @@ const routes = [
     path: '/tasks',
     component: () => import('layouts/TaskLayout.vue'),
     children: [
-      { path: '/form/:studyKey/:taskId/:formKey', name: 'form', component: () => import('pages/home/Form.vue') },
-      { path: '/dataQuery/:studyKey/:taskID', name: 'dataQuery', component: () => import('pages/home/DataQuery') },
-      { path: '/smwt', name: 'smwt', component: () => import('pages/home/SMWT.vue') },
-      { path: '/qcst', name: 'qcst', component: () => import('pages/home/QCST.vue') }
+      { path: '/form/:studyKey/:taskId/:formKey', name: 'form', component: () => import('pages/tasks/Form.vue') },
+      { path: '/dataQuery/:studyKey/:taskID', name: 'dataQuery', component: () => import('pages/tasks/DataQuery') },
+      { path: '/smwt', name: 'smwt', component: () => import('pages/tasks/SMWT.vue') },
+      { path: '/qcst', name: 'qcst', component: () => import('pages/tasks/QCST.vue') }
     ]
   }
 ]
