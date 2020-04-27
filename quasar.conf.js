@@ -81,7 +81,7 @@ module.exports = function (ctx) {
         // version of the app is passed as environmental variable
         APP_VERSION: JSON.stringify(require('./package.json').version),
         API_ENDPOINT: JSON.stringify(config.API_ENDPOINT),
-        MAPS_API: config.MAPS_API
+        MAPS_API: JSON.stringify(config.MAPS_API)
       },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {

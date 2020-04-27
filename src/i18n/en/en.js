@@ -20,6 +20,7 @@ export default {
     consent: 'Consent',
     retry: 'Retry',
     start: 'Start',
+    complete: 'Complete',
     send: 'Send',
     back: 'Back',
     introduction: 'Introduction',
@@ -205,12 +206,25 @@ export default {
           { i: 'You can place your phone in a pocket or use an arm band if needed, but do not switch off the screen!' },
           { i: 'When you are ready to start the test, press the "Start"-button.' }
         ],
+        signalCheck: 'Waiting for the GPS signal.',
         smwtExplanation: 'Computed distance walked during a Six Minute Walk Test. If you agree to send it, tap on Send.',
         smwtNote: 'Please read the instructions carefully. The accuracy of the test depends on the instructions being followed as closely as possible.',
         noteGPS: 'Note: This test uses the GPS of your phone and therefore requires internet connection. If you experience errors during the test, pleae make sure that your phone is connected to the internet.',
         time: 'Time',
+        steps: 'Steps',
         distance: 'Distance',
-        avgSpeed: 'Average speed'
+        borgScale: {
+          l0: 'No exertion',
+          l05: 'Very very slight',
+          l1: 'Very slight',
+          l2: 'Slight',
+          l3: 'Moderate',
+          l4: 'Somewhat strong',
+          l5: 'Strong',
+          l7: 'Very strong',
+          l9: 'Very very strong',
+          l10: 'Maximal'
+        }
       },
       qcst: {
         title: 'Queens College Step Test',

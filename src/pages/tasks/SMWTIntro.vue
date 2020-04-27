@@ -18,13 +18,21 @@
       </ul>
     </div>
     <div class="row justify-center q-mt-lg">
-      <q-btn color="primary" to="/smwt" replace :label="$t('common.start')" />
+      <q-btn color="primary" @click="start()" replace :label="$t('common.start')" />
     </div>
   </q-page>
 </template>
 
 <script>
 export default {
-  name: 'SMWTIntroPage'
+  name: 'SMWTIntroPage',
+  methods: {
+    start () {
+      console.log(this.studyKey, this.taskID)
+      const studyKey = this.$route.params.studyKey
+      const taskID = this.$route.params.taskID
+      this.$router.push({ name: 'smwt', params: { studyKey, taskID } })
+    }
+  }
 }
 </script>

@@ -51,9 +51,9 @@ export default {
       if (this.task.formKey) {
         return 'form/' + this.task.studyKey + '/' + this.task.taskID + '/' + this.task.formKey
       } else if (this.task.type === 'smwt') {
-        return 'smwtIntro'
+        return 'smwtIntro/' + this.task.studyKey + '/' + this.task.taskID
       } else if (this.task.type === 'qcst') {
-        return 'qcst'
+        return 'qcst/' + this.task.studyKey + '/' + this.task.taskID
       } else if (this.task.studyKey && this.task.taskID) {
         return 'dataQuery/' + this.task.studyKey + '/' + this.task.taskID
       } else {

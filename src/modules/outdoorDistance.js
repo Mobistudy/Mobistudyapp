@@ -84,7 +84,7 @@ export default {
 
     if (this.started) {
       // selection criterium
-      if ((this.position.timestamp - this.selectedPositions[0].timestamp) >= (this.SELECTION_PERIOD * 1000)) {
+      if ((position.timestamp - this.selectedPositions[0].timestamp) >= (this.SELECTION_PERIOD * 1000)) {
         // select the best one within a reasonable time window
         let selected = this.selectPosition(position.timestamp, this.SELECTION_PERIOD / 4)
         if (selected) {
@@ -103,6 +103,7 @@ export default {
   isSignalOK: function () {
     // we define "enough quality" when there is altitude (means that the GPS is on)
     // and the accuracy is less than CHECKSIGNAL_MINACCURACY
+    if (this.positions.length === 0) return false
     let lastP = this.positions[0]
     return lastP && (lastP.coords.altitude) && (lastP.coords.accuracy <= this.CHECKSIGNAL_MINACCURACY)
   },
