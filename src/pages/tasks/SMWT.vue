@@ -1,28 +1,5 @@
 <template>
   <q-page padding>
-    <!-- content -->
-    <div v-if="instruction && !isCompleted">
-      <div class="text-center text-h6 q-mt-lg">{{ $t('studies.tasks.smwt.title') }}</div>
-        <q-item class="q-mt-md">
-          <q-item-section>
-            <q-item-label class="q-pb-sm">{{ $t('common.introduction') }}</q-item-label>
-            <q-item-label caption>{{ $t('studies.tasks.smwt.description') }}</q-item-label>
-            <q-item-label class="q-pb-sm">{{ $t('common.instructions') }}</q-item-label>
-            <q-item-label caption>
-              {{ $t('studies.tasks.instructionsNote') }}
-              <p><i>{{ $t('studies.tasks.smwt.noteGPS') }}</i></p>
-              <ul>
-                <li v-for="(instruction, idx) in $t('studies.tasks.smwt.smwtInstructions')" :key="idx">
-                  {{ instruction.i }}
-                </li>
-              </ul>
-            </q-item-label>
-              <div class="row justify-center q-mt-lg">
-            <q-btn color="primary" @click="start()" :label="$t('common.start')" :disable="!this.positions" />
-          </div>
-          </q-item-section>
-        </q-item>
-      </div>
 
     <q-item class="q-mt-md">
       <q-item-section id="completedText" v-if="isCompleted">
@@ -165,7 +142,7 @@
     <q-btn color="primary" v-if="isCompleted || isPrematureCompletion" @click="send()" :label="$t('common.send')" :disable="!value"/>
 </div>
     <q-item class="q-mt-md">
-    <q-item-section v-if="!instruction && !isCompleted">
+    <q-item-section v-if="!isCompleted">
     <div class="text-center text-h6 q-mt-lg">
       {{ $t('studies.tasks.smwt.title') }}
     </div>
@@ -185,11 +162,7 @@ import { exportFile } from 'quasar'
 import phone from '../../modules/phone'
 import API from '../../modules/API.js'
 import DB from '../../modules/db.js'
-const options = {/* todo */}
 
-document.addEventListener('deviceready', () => {
-  console.log('Device ready!')
-}, false)
 
 export default {
   name: 'SMWTPage',
@@ -203,7 +176,6 @@ export default {
       map: null,
       isStarted: false,
       isCompleted: false,
-      instruction: true,
       isPrematureCompletion: false,
       timer: null,
       totalTime: 360,
@@ -221,9 +193,6 @@ export default {
   },
 
   methods: {
-    start () {
-      this.instruction = false
-    },
     async createMap (lat, lng) {
       const loader = new Loader('AIzaSyDOYV2ngQg69SmJQukqtnaZPKeSIX70CKg', options)
 
