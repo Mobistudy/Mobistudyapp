@@ -10,11 +10,12 @@
   "keywords": [
     "ecosystem:cordova"
   ],
-  "author": "Apache Cordova Team",
-  "license": "Apache-2.0",
+  "author": "Mobistudy team",
+  "license": "MIT",
   "dependencies": {
-    "cordova-android": "^8.1.0",
     "cordova-ios": "^5.1.1",
+    "cordova-plugin-device": "2.0.3",
+    "cordova-plugin-file": "6.0.2",
     "cordova-plugin-insomnia": "git+https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git",
     "cordova-plugin-wkwebview-engine": "^1.2.1",
     "device": "^0.3.11"
@@ -26,14 +27,14 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-wkwebview-engine": {},
-      "cordova-plugin-device": {},
       "cordova-plugin-insomnia": {},
       "cordova-plugin-geolocation": {},
-      "cordova-plugin-pedometer": {}
+      "cordova-plugin-pedometer": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-file": {}
     },
     "platforms": [
-      "ios",
-      "android"
+      "ios"
     ]
   }
 }
