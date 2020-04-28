@@ -1,3 +1,8 @@
+'use strict'
+/**
+* Wrapper of the cordova native storage plugin
+* Needs this plugin: https://github.com/TheCocoaProject/cordova-plugin-nativestorage#README.md
+*/
 const storage = window.NativeStorage
 
 export async function getItem (key) {
