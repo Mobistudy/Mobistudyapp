@@ -14,10 +14,12 @@
   "license": "MIT",
   "dependencies": {
     "cordova-ios": "^5.1.1",
+    "cordova-plugin-badge": "0.8.8",
     "cordova-plugin-device": "2.0.3",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-health": "1.1.4",
     "cordova-plugin-insomnia": "git+https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git",
+    "cordova-plugin-local-notification": "0.9.0-beta.2",
     "cordova-plugin-wkwebview-engine": "^1.2.1",
     "device": "^0.3.11"
   },
@@ -36,7 +38,8 @@
       "cordova-plugin-health": {
         "HEALTH_READ_PERMISSION": "App needs read access to health data",
         "HEALTH_WRITE_PERMISSION": "App needs write access to health data"
-      }
+      },
+      "cordova-plugin-local-notification": {}
     },
     "platforms": [
       "ios"
