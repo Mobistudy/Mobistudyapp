@@ -174,6 +174,7 @@ export default {
           await DB.setStudiesParticipation(studies)
           this.newStudies.splice(index, 1)
           this.newStudiesCustomAnswers.splice(index, 1)
+          this.$router.push({ name: 'tasker', params: { rescheduleTasks: false, checkNewStudies: true } })
         } catch (error) {
           console.error('Cannot connect to server', error)
           this.$q.notify({

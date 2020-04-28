@@ -208,10 +208,7 @@ export default {
         //   icon: 'check'
         // })
         // let _this = this
-        this.$router.push('/home', function () {
-          // _this.$router.go()
-          window.location.reload(true)
-        })
+        this.$router.push('/home')
       } catch (error) {
         console.error(error)
         this.loading = false

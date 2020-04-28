@@ -130,7 +130,7 @@ export default {
 
       // package the 6mwt report
       const studyKey = this.$route.params.studyKey
-      const taskID = this.$route.params.taskID
+      const taskID = parseInt(this.$route.params.taskID)
       const userKey = userinfo.user._key
       let report = {
         userKey: userKey,

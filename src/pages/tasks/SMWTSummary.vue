@@ -154,7 +154,6 @@ export default {
       // this.saveDataToFile()
 
       // Save the data to server
-      console.log(this.report)
       try {
         await API.sendSMWTData(this.report)
         await DB.setTaskCompletion(this.report.studyKey, this.report.taskId, new Date())
