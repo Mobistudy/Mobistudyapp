@@ -51,7 +51,7 @@ export function generateTasker (studiesParts, studiesDescr) {
         if (studyPart.taskItemsConsent) {
           const taskStatus = studyPart.taskItemsConsent.find(x => x.taskId === task.id)
           if (taskStatus && taskStatus.lastExecuted) {
-            console.log('TASK WAS COMPLETED ON ', taskStatus.lastExecuted)
+            // console.log('TASK WAS COMPLETED ON ', taskStatus.lastExecuted)
             // Task has been completed before
             lastCompletionTS = moment(new Date(taskStatus.lastExecuted))
           }
@@ -207,7 +207,6 @@ export async function cancelNotifications () {
 }
 
 export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, studyPart) {
-  console.log(studyPart)
   let notificationStack = []
   let timeStack = []
   for (const task of studyDescr.tasks) {
