@@ -63,8 +63,10 @@ const routes = [
     children: [
       { path: '/form/:studyKey/:taskId/:formKey', name: 'form', component: () => import('pages/tasks/Form.vue') },
       { path: '/dataQuery/:studyKey/:taskID', name: 'dataQuery', component: () => import('pages/tasks/DataQuery') },
-      { path: '/smwt', name: 'smwt', component: () => import('pages/tasks/SMWT.vue') },
-      { path: '/qcst', name: 'qcst', component: () => import('pages/tasks/QCST.vue') }
+      { path: '/smwtIntro/:studyKey/:taskID', name: 'smwtIntro', component: () => import('pages/tasks/SMWTIntro.vue') },
+      { path: '/smwt/:studyKey/:taskID', name: 'smwt', component: () => import('pages/tasks/SMWT.vue') },
+      { path: '/smwtSummary', name: 'smwtSummary', component: () => import('pages/tasks/SMWTSummary.vue'), props: true },
+      { path: '/qcst', name: 'qcst', component: () => import('pages/tasks/QCST.vue'), props: true }
     ]
   }
 ]

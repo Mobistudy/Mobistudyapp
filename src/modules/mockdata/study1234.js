@@ -103,11 +103,37 @@ export default {
         occurrences: 20,
         months: [],
         monthDays: [],
-        weekDays: [1, 3, 5]
+        weekDays: []
       },
       dataType: 'steps',
       aggregated: true,
       bucket: 'hour'
+    },
+    {
+      id: 3,
+      type: 'smwt',
+      scheduling: {
+        startEvent: 'consent',
+        intervalType: 'd',
+        interval: 7,
+        months: [],
+        monthDays: [],
+        weekDays: []
+      },
+      dataType: 'distance'
+    },
+    {
+      id: 4,
+      type: 'qcst',
+      scheduling: {
+        startEvent: 'consent',
+        intervalType: 'd',
+        interval: 7,
+        months: [],
+        monthDays: [],
+        weekDays: []
+      },
+      dataType: 'steps'
     }
   ],
   consent: {
@@ -133,6 +159,20 @@ export default {
           sv: 'Jag accepterar att skicka min information om steg varje dag'
         },
         taskId: 2
+      },
+      {
+        description: {
+          en: 'I agree to perform the Six Minute Walk Test once a week.',
+          sv: 'Jag accepterar att utföra Six Minute Walk Test en gång i veckan.'
+        },
+        taskId: 3
+      },
+      {
+        description: {
+          en: 'I agree to perform the Queen\'s College Step Test once a week.',
+          sv: 'Jag accepterar att utföra Queen\'s College Step Test en gång i veckan.'
+        },
+        taskId: 4
       }
     ],
     extraItems: []

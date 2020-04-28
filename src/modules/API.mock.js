@@ -1,23 +1,23 @@
+'use strict'
 // MOCK API implementation
 import study1234 from './mockdata/study1234.js'
 import form1234 from './mockdata/form1234.js'
 import study9999 from './mockdata/study9999.js'
 import form9999 from './mockdata/form9999.js'
 import participant from './mockdata/participant.js'
-import studySMWT from './mockdata/studySMWT'
-import studyQCST from './mockdata/studyQCST.js'
 
 export default {
-  setToken: function (token) {
+
+  setToken (token) {
     console.log('API - Setting token: ' + token)
   },
 
-  unsetToken: function () {
+  unsetToken () {
     console.log('API - Unsetting token')
   },
 
   // Logging in
-  login: async function (email, password) {
+  async login (email, password) {
     if (email !== 'jameson@test.test' || password !== 'outerZpace') {
       let err = new Error('bad credentials')
       err.response = { status: 401 }
@@ -32,24 +32,24 @@ export default {
   },
 
   // Registration
-  registerUser: async (email, password) => {
+  async registerUser (email, password) {
     console.log('API - Registering user')
     return true
   },
 
   // Password reset
-  resetPW: async (email) => {
+  async resetPW (email) {
     console.log('API - Reset password for email', email)
     return true
   },
 
   // Change password
-  changePW: async (token, newpw) => {
+  async changePW (token, newpw) {
     console.log('API - change PWD')
     return Promise.resolve(true)
   },
 
-  searchDiseaseConcept: async (disease, lang) => {
+  async searchDiseaseConcept (disease, lang) {
     console.log('API - searching for', disease)
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -63,6 +63,15 @@ export default {
             {
               term: 'congenital heart disease',
               conceptId: '172635',
+              vocabulary: 'SNOMED'
+            }
+          ])
+        }
+        if (disease.indexOf('cop') !== -1) {
+          resolve([
+            {
+              term: 'COPD',
+              conceptId: '13645005',
               vocabulary: 'SNOMED'
             }
           ])
@@ -81,7 +90,7 @@ export default {
     })
   },
 
-  searchMedicationConcept: async (medication, lang) => {
+  async searchMedicationConcept (medication, lang) {
     console.log('API - searching for', medication)
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -100,76 +109,44 @@ export default {
   },
 
   // Create the participant profile
-  createProfile: async (profile) => {
+  async createProfile (profile) {
     console.log('API - Profile created', profile)
     return true
   },
 
   // Get the participant profile
-  getProfile: async (userKey) => {
+  async getProfile (userKey) {
     console.log('API - Profile ', participant)
     return participant
   },
 
   // Updating details
-  updateProfile: async (profile) => {
+  async updateProfile (profile) {
     console.log('API - Profile updated', profile)
     return true
   },
 
   // Permanently delete the user
-  deleteUser: async (userKey) => {
+  async deleteUser (userKey) {
     console.log('API - Permanently delete user')
     return true
   },
 
   // update status of a study
-  updateStudyStatus: async (userKey, studyKey, studyParticipation) => {
+  async updateStudyStatus (userKey, studyKey, studyParticipation) {
     console.log('API - Study status updated', studyParticipation)
+    let found = false
+    for (let i = 0; i < participant.studies.length; i++) {
+      if (participant.studies[i].studyKey === studyKey) {
+        participant.studies[i] = studyParticipation
+        found = true
+      }
+    }
+    if (!found) participant.studies.push(studyParticipation)
     return true
   },
 
-  // search for disease on SNOMED
-  searchSNOMEDDisease: async (diseaseDescription) => {
-    console.log('API - search disease', diseaseDescription)
-    return [{
-      label: 'Heart Failure',
-      value: 'Heart Failure',
-      conceptId: 3344
-    }, {
-      label: 'Weak Heart',
-      value: 'Weak Heart',
-      conceptId: 3345
-    }, {
-      label: 'COPD',
-      value: 'COPD',
-      conceptId: 2211
-    }].filter(i => {
-      return i.label.toLowerCase().indexOf(diseaseDescription.toLowerCase()) > -1
-    })
-  },
-
-  // search for medications on SNOMED
-  searchSNOMEDMedication: async (medDescription) => {
-    console.log('API - search med', medDescription)
-    return [{
-      label: 'Aspirin',
-      value: 'Aspirin',
-      conceptId: 3344
-    }, {
-      label: 'Paracetamol',
-      value: 'Paracetamol',
-      conceptId: 3345
-    }, {
-      label: 'Iboprufen',
-      value: 'Iboprufen',
-      conceptId: 2211
-    }].filter(i => {
-      return i.label.toLowerCase().indexOf(medDescription.toLowerCase()) > -1
-    })
-  },
-
-  getStudyDescription: async (studyKey) => {
+  async getStudyDescription (studyKey) {
     console.log('API- getting study ' + studyKey)
     return new Promise(function (resolve, reject) {
       if (studyKey === '1234') {
@@ -180,14 +157,6 @@ export default {
         setTimeout(function () {
           resolve(study9999)
         }, 1000)
-      } else if (studyKey === 'SMWT') {
-        setTimeout(function () {
-          resolve(studySMWT)
-        }, 1000)
-      } else if (studyKey === 'QCST') {
-        setTimeout(function () {
-          resolve(studyQCST)
-        }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study not found'))
@@ -196,12 +165,16 @@ export default {
     })
   },
 
-  getNewStudiesKeys: async () => {
+  async getNewStudiesKeys () {
     console.log('API - getting new study')
-    return ['SMWT']
+    let studyPart = participant.studies.find((s) => {
+      return s.studyKey === '9999'
+    })
+    if (!studyPart) return ['9999']
+    else return []
   },
 
-  getForm: async (key) => {
+  async getForm (key) {
     console.log('API - getting form', key)
     return new Promise(function (resolve, reject) {
       if (key === '9999') {
@@ -218,8 +191,21 @@ export default {
     })
   },
 
-  sendAnswers: async (answers) => {
+  setTaskDone (studyKey, taskId, timestamp) {
+    let study = participant.studies.find((s) => {
+      return s.studyKey === studyKey
+    })
+    if (study) {
+      let taskItem = study.taskItemsConsent.find(ti => ti.taskId === taskId)
+      if (taskItem) {
+        taskItem.lastExecuted = timestamp
+      }
+    }
+  },
+
+  async sendAnswers (answers) {
     console.log('API - sending answers', answers)
+    this.setTaskDone(answers.studyKey, answers.taskId, answers.createdTS)
     return new Promise(function (resolve, reject) {
       setTimeout(function () {
         resolve()
@@ -227,18 +213,21 @@ export default {
     })
   },
 
-  sendDataQuery: async (data) => {
+  async sendDataQuery (data) {
     console.log('API - sending query data', data)
+    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
   },
 
-  sendSMWTData: async (data) => {
-    console.log('API - sending 6MWT data', data)
+  async sendSMWTData (report) {
+    console.log('API - sending 6MWT data', report)
+    this.setTaskDone(report.studyKey, report.taskId, report.createdTS)
     return Promise.resolve()
   },
 
-  sendQCSTData: async (data) => {
-    console.log('API - sending QCST data', data)
+  async sendQCSTData (report) {
+    console.log('API - sending QCST data', report)
+    this.setTaskDone(report.studyKey, report.taskId, report.createdTS)
     return Promise.resolve()
   }
 }

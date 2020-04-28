@@ -71,7 +71,7 @@ export default {
   data () {
     return {
       nostudies: false,
-      newstudies: true,
+      newstudies: false,
       tasks: {
         upcoming: [],
         missed: [],
@@ -95,6 +95,8 @@ export default {
             if (newStudyIds.length > 0) {
               // there's a new study in town! warn the user!
               this.newstudies = true
+            } else {
+              this.newstudies = false
             }
           } catch (error) {
             console.error('Cannot connect to server, but thats OK', error)

@@ -24,10 +24,17 @@
             <q-item-label class="q-my-md">{{taskItem.description[$i18n.locale]}}</q-item-label>
             <q-btn :label="$t('studies.consent.giveOSPermission')" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" :color="getColour(taskIndex)" :outline="getOutline(taskIndex)" @click="requestDQPermission(taskIndex)"></q-btn>
           </q-item-section>
-          <q-item-section avatar v-if="taskType[taskIndex] === 'dataQuery'">
+          <q-item-section avatar>
             <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
           </q-item-section>
-          <br />
+        </q-item>
+        <q-item v-if="taskType[taskIndex] === 'form'">
+          <q-item-section>
+            <q-item-label class="q-my-md">{{taskItem.description[$i18n.locale]}}</q-item-label>
+          </q-item-section>
+          <q-item-section avatar>
+            <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
+          </q-item-section>
         </q-item>
       </q-list>
       <q-separator v-if="remindersPermissionNeeded" />

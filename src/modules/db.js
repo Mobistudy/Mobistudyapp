@@ -52,6 +52,9 @@ export default {
     return storage.setItem('studiesParticipation', studies)
   },
   async setTaskCompletion (studyKey, taskId, timestamp) {
+    if (!studyKey) throw new Error('studyKey must be specified')
+    if (!taskId) throw new Error('taskId must be specified')
+    if (!timestamp) throw new Error('timestamp must be specified')
     let studies = await storage.getItem('studiesParticipation')
     let sudyInd = studies.findIndex(x => x.studyKey === studyKey)
     if (!studies[sudyInd].taskItemsConsent) studies[sudyInd].taskItemsConsent = []

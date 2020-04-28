@@ -41,7 +41,7 @@ export default {
             latitude: startLat + (counter * 2.1055e-6),
             longitude: startLong + (counter * 1.83055e-5),
             altitude: 69.82,
-            accuracy: 9
+            accuracy: counter < 5 ? 60 : 10
           }
         })
       }, 1000)

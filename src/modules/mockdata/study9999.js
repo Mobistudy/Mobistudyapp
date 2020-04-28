@@ -1,42 +1,45 @@
 export default {
   _key: '9999',
-  publishedTS: '2018-12-09T09:30:32.492Z',
+  publishedTS: '2019-12-09T09:30:32.492Z',
   generalities: {
-    languages: ['en', 'sv'],
+    languages: ['en'],
     title: {
-      en: 'Pregnancy in Hypertension Study',
-      sv: 'Graviditet i hypertoniundersökning'
+      en: 'Rehabilitation in COPD'
     },
     shortDescription: {
-      en: 'Self management of hypertension in pregnancy.',
-      sv: 'Självhantering av hypertoni under graviditet'
+      en: 'Home-based rehabilitation programme for COPD patients.'
     },
     longDescription: {
-      en: 'This study tries to identify early markers of hypertension in pregnancy using a wireless blood pressure cuff.',
-      sv: 'Denna studie försöker identifiera tidiga markörer för hypertoni under graviditet med hjälp av en trådlös manschet.'
+      en: `The aim of this study is to foster exercise in COPD patienst.
+      Patients are asked to attend an exercise session at least twice per week at their local facility, like a gym or a park to do physical activity.
+      Patients can choose their preferred form of exercise and can report their sessions using their app of choice.`
     },
-    startDate: '2020-01-01',
+    startDate: '2020-04-01',
     endDate: '2022-10-12',
     principalInvestigators: [
       {
-        name: 'Arvin Goburdhun',
-        contact: 'arvin@something.com',
-        institution: 'University of Oxford'
+        name: 'Carl Magnus Olsson',
+        contact: 'carl@something.com',
+        institution: 'University of Malmö'
+      },
+      {
+        name: 'Ahmed Ahmed',
+        contact: 'ahmed@sus.org',
+        institution: 'Skåne University Hospital'
       }
     ],
     institutions: [
       {
-        name: 'University of Oxford',
-        contact: 'Oxford, UK',
+        name: 'University of Malmö',
+        contact: 'Malmö, Sweden',
         dataAccess: 'full',
         reasonForDataAccess: {
-          en: 'Data Access to allow clinical decisions',
-          sv: 'Dataåtkomst för att tillåta kliniska beslut'
+          en: 'Data access to study physical exercise'
         }
       },
       {
-        name: 'NHS Oxfordshire',
-        contact: 'https://www.oxfordhealth.nhs.uk/',
+        name: 'Skåne University Hospital',
+        contact: 'https://vard.skane.se/',
         dataAccess: 'none'
       }
     ]
@@ -54,10 +57,9 @@ export default {
     criteriaQuestions: [
       {
         title: {
-          en: 'Are you pregnant?',
-          sv: 'Är du gravid?'
+          en: 'Are you already involved in a rehabilitation programme?'
         },
-        answer: 'yes'
+        answer: 'no'
       }
     ]
   },
@@ -68,12 +70,11 @@ export default {
       scheduling: {
         startEvent: 'consent',
         startDelaySecs: 0,
-        untilSecs: 2592000, // 1 month
         intervalType: 'd',
-        interval: 12,
-        weekDays: [ 1, 4, 7 ]
+        interval: 1,
+        weekDays: [ ]
       },
-      dataType: 'steps',
+      dataType: 'activity',
       aggregated: true,
       bucket: 'week'
     },
@@ -92,25 +93,27 @@ export default {
   ],
   consent: {
     invitation: {
-      en: 'We would like to invite you to take part in our research study.',
-      sv: 'Vi vill inbjuda dig att delta i vår forskningsstudie..'
+      en: `We would like to invite you to take part in this research study about rehabilitation for COPD patients.
+      In order to participate, you need to have been diagnosed with COPD and not currently being involved in a rehabilitation programme.
+      You must be capable of doing light physical exercise and must own a smartphone.
+      You will do your preferred exercise twice a week and report it through your favourite app.
+      The participation to this study is voluntary and you can withdraw at any moment.`
     },
     privacyPolicy: {
-      en: 'We are going to collect your answers to the form and the number of steps per week.',
-      sv: 'Vi kommer att samla in dina svar på formuläret och antalet steg per vecka.'
+      en: `We are going to collect data about your physical activity as collected by your phone.
+      The data will be stored on Mobstudy servers and be used by the University of Malmö for analysis.
+      Your may be published on scientific journals after having been aggregated and anonymised.`
     },
     taskItems: [
       {
         description: {
-          en: 'I agree to send my data related to steps every week.',
-          sv: 'Jag accepterar att skicka min information relaterad till steg varje vecka.'
+          en: 'I agree to send my data related to physical activity every week.'
         },
         taskId: 1
       },
       {
         description: {
-          en: 'I agree to answer the questionnaire every other day.',
-          sv: 'Jag accepterar att besvara frågeformuläret varannan dag'
+          en: 'I agree to answer the physical exercise questionnaire every other day.'
         },
         taskId: 2
       }

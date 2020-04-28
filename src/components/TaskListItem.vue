@@ -51,15 +51,12 @@ export default {
       if (this.task.formKey) {
         return 'form/' + this.task.studyKey + '/' + this.task.taskID + '/' + this.task.formKey
       } else if (this.task.type === 'smwt') {
-        return 'smwt'
+        return 'smwtIntro/' + this.task.studyKey + '/' + this.task.taskID
       } else if (this.task.type === 'qcst') {
-        return 'qcst'
+        return 'qcst/' + this.task.studyKey + '/' + this.task.taskID
       } else if (this.task.studyKey && this.task.taskID) {
         return 'dataQuery/' + this.task.studyKey + '/' + this.task.taskID
-      // eslint-disable-next-line brace-style
-      }
-      // NEED TO CHECK IF THE FOLLOWING ELSE BREAKS THE CODE, HAD TO PUT IT IN SO THE FUNCTION ALWAYS RETURNS A VALUE-> FOR DOC SEE: https://eslint.vuejs.org/rules/return-in-computed-property.html
-      else {
+      } else {
         return false
       }
     }

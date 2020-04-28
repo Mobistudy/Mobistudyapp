@@ -302,10 +302,7 @@ export default {
         //   icon: 'check'
         // })
         // let _this = this
-        this.$router.push('/home', function () {
-          // _this.$router.go() // I think this refreshes /home so that notifications are rescheduled appropriately
-          window.location.reload(true)
-        })
+        this.$router.push('/home')
       } catch (error) {
         this.loading = false
         console.error(error)
