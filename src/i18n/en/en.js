@@ -33,11 +33,11 @@ export default {
     task: 'Task',
     close: 'Close',
     homeMenu: {
-      dailyTasks: 'Daily tasks',
+      dailyTasks: 'Today\'s tasks',
       dailyTasksAction: 'See upcoming tasks',
       profile: 'Profile',
       profileAction: 'Edit your profile',
-      studies: 'Profile',
+      studies: 'Studies',
       studiesAction: 'Add or withdraw from studies',
       about: 'About',
       aboutAction: 'About Mobistudy'

@@ -17,7 +17,7 @@
 
         <q-item to="tasker">
           <q-item-section avatar>
-            <q-icon color="primary" name="school" />
+            <q-icon name="check_box" />
           </q-item-section>
           <q-item-section>
             <q-item-label>{{ $t('layouts.homeMenu.dailyTasks') }}</q-item-label>
@@ -27,7 +27,7 @@
 
         <q-item to="profile">
           <q-item-section avatar>
-            <q-icon color="grey" name="account_box" />
+            <q-icon name="account_box" />
           </q-item-section>
           <q-item-section>
             <q-item-label>{{ $t('layouts.homeMenu.profile') }}</q-item-label>
@@ -37,25 +37,27 @@
 
         <q-item to="studies">
           <q-item-section avatar>
-            <q-icon color="grey" name="settings" />
+            <q-icon name="settings" />
           </q-item-section>
           <q-item-section>
             <q-item-label>{{ $t('layouts.homeMenu.studies') }}</q-item-label>
             <q-item-label caption>{{ $t('layouts.homeMenu.studiesAction') }}</q-item-label>
           </q-item-section>
         </q-item>
+
         <q-item to="about">
           <q-item-section avatar>
-            <q-icon color="grey" name="help" />
+            <q-icon name="help" />
           </q-item-section>
           <q-item-section>
             <q-item-label>{{ $t('layouts.homeMenu.about') }}</q-item-label>
             <q-item-label caption>{{ $t('layouts.homeMenu.aboutAction') }}</q-item-label>
           </q-item-section>
         </q-item>
+
         <q-item to="test">
           <q-item-section avatar>
-            <q-icon color="grey" name="bug_report" />
+            <q-icon name="bug_report" />
           </q-item-section>
           <q-item-section>
             <q-item-label>TEST</q-item-label>

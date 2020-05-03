@@ -40,7 +40,7 @@ export default {
     } else if (this.task.type === 'qcst') {
       this.title = this.$i18n.t('studies.tasks.qcst.shortTitle')
       this.main = this.$i18n.t('studies.tasks.qcst.shortDescription')
-      this.icon = 'directions_walk'
+      this.icon = 'layers'
     }
   },
   computed: {
