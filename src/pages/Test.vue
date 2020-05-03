@@ -10,6 +10,9 @@
           <div>
             <q-btn color="white" text-color="black" label="Play toc" @click="playSound"/>
           </div>
+          <div>
+            <q-btn color="white" text-color="black" label="Save File" @click="saveFile"/>
+          </div>
         </div>
       </q-page>
     </q-page-container>
@@ -18,6 +21,7 @@
 
 <script>
 import phone from '../modules/phone'
+import files from '../modules/files'
 
 export default {
   name: 'TestPage',
@@ -54,6 +58,14 @@ export default {
   methods: {
     playSound () {
       phone.media.playSound('statics/sounds/toc.ogg')
+    },
+    async saveFile () {
+      try {
+        files.save('test.text', { test: 'hello' })
+        console.log('saved')
+      } catch (err) {
+        console.error(err)
+      }
     }
   }
 }
