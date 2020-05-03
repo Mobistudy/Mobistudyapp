@@ -25,7 +25,7 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
         <string>Need location access to find things nearby</string>
     </edit-config>
-    <gap:config-file platform="ios" parent="UIFileSharingEnabled" mode="replace">
-        <true/>
+    <gap:config-file mode="replace" parent="UIFileSharingEnabled" platform="ios">
+        <true />
     </gap:config-file>
 </widget>
