@@ -74,7 +74,7 @@ export default {
       file.file(function (file) {
         var reader = new FileReader()
         reader.onloadend = function () {
-          resolve(this.result)
+          resolve(JSON.parse(this.result))
         }
         reader.readAsText(file)
       }, function (e) {
