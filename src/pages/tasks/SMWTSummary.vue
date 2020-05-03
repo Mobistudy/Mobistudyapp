@@ -134,6 +134,7 @@
 <script>
 import API from '../../modules/API.js'
 import DB from '../../modules/db.js'
+import fileSystem from '../../modules/files.js'
 
 export default {
   name: 'SMWTSummaryPage',
@@ -149,9 +150,14 @@ export default {
 
       this.report.borgScale = this.borgValue
 
-      // Method for saving data object on file.
       // Only for testing purposes! Please remove before deploying app.
-      // this.saveDataToFile()
+      try {
+        let filename = 'smwt_' + new Date().getTime() + '.json'
+        await fileSystem.save(filename, this.report)
+      } catch (err) {
+        console.error('Cannot save to file', err)
+      }
+
       // Save the data to server
       try {
         await API.sendSMWTData(this.report)
