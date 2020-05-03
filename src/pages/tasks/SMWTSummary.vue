@@ -152,7 +152,6 @@ export default {
       // Method for saving data object on file.
       // Only for testing purposes! Please remove before deploying app.
       // this.saveDataToFile()
-
       // Save the data to server
       try {
         await API.sendSMWTData(this.report)
@@ -206,6 +205,40 @@ table {
   margin: 0px auto;
   font-size: 0.75rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+table td:nth-child(2) {
+  text-align: right;
+}
+tr {
+  text-align: left
+}
+
+.q-pa-md {
+  padding-top: 20px;
+}
+.sub-heading {
+  font-size: 14px;
+  text-align: left
+}
+
+div.q-list {
+  border: 1px solid #ccc;
+}
+div.q-list label {
+  font-size: 14px;
+}
+div.q-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px;
+}
+div.q-item p {
+  margin: 0px;
+  padding: 12px 5px
+}
+#submit {
+  text-align: center;
 }
 
 </style>

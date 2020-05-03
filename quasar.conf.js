@@ -98,19 +98,19 @@ module.exports = function (ctx) {
         cfg.plugins.push(new webpack.NormalModuleReplacementPlugin(
           /.*\/API|.*\/notifications|.*\/storage\.local|.*\/healthstore|.*\/phone/g,
           function (resource) {
-            if (!!resource.request && (resource.request.indexOf('API') != -1) && config.API_ENDPOINT === 'MOCK') {
+            if (!!resource.request && (resource.request.indexOf('API') !== -1) && config.API_ENDPOINT === 'MOCK') {
               resource.request = resource.request.replace(/API/g, 'API.mock')
             }
-            if (!!resource.request && (resource.request.indexOf('notifications') != -1) && config.NOTIFICATIONS === 'WEB') {
+            if (!!resource.request && (resource.request.indexOf('notifications') !== -1) && config.NOTIFICATIONS === 'WEB') {
               resource.request = resource.request.replace(/notifications/g, 'notifications.web')
             }
-            if (!!resource.request && (resource.request.indexOf('storage.local') != -1) && config.STORAGE === 'native') {
+            if (!!resource.request && (resource.request.indexOf('storage.local') !== -1) && config.STORAGE === 'native') {
               resource.request = resource.request.replace(/storage\.local/g, 'storage.native')
             }
-            if (!!resource.request && (resource.request.indexOf('healthstore') != -1) && config.HEALTHSTORE === 'MOCK') {
+            if (!!resource.request && (resource.request.indexOf('healthstore') !== -1) && config.HEALTHSTORE === 'MOCK') {
               resource.request = resource.request.replace(/healthstore/g, 'healthstore.mock')
             }
-            if (!!resource.request && (resource.request.indexOf('phone') != -1) && config.PHONE === 'MOCK') {
+            if (!!resource.request && (resource.request.indexOf('phone') !== -1) && config.PHONE === 'MOCK') {
               resource.request = resource.request.replace(/phone/g, 'phone.mock')
             }
           })

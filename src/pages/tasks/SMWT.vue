@@ -19,7 +19,7 @@ import phone from '../../modules/phone'
 import distanceAlgo from '../../modules/outdoorDistance.js'
 import userinfo from '../../modules/userinfo.js'
 
-const TEST_DURATION = 30
+const TEST_DURATION = 360
 
 export default {
   name: 'SMWTPage',

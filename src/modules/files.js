@@ -1,7 +1,5 @@
 'use strict'
 import { Platform } from 'quasar'
-
-
 // this module abstracts the file system using cordova-plugin-file
 // files are stored on cordova.file.documentsDirectory on iOS and
 // cordova.file.externalDataDirectory on Android
@@ -14,31 +12,31 @@ import { Platform } from 'quasar'
 let errorCodeToString = (code) => {
   switch (code) {
     case 1:
-    return 'NOT_FOUND_ERR'
+      return 'NOT_FOUND_ERR'
     case 2:
-    return 'SECURITY_ERR'
+      return 'SECURITY_ERR'
     case 3:
-    return 'ABORT_ERR'
+      return 'ABORT_ERR'
     case 4:
-    return 'NOT_READABLE_ERR'
+      return 'NOT_READABLE_ERR'
     case 5:
-    return 'ENCODING_ERR'
+      return 'ENCODING_ERR'
     case 6:
-    return 'NO_MODIFICATION_ALLOWED_ERR'
+      return 'NO_MODIFICATION_ALLOWED_ERR'
     case 7:
-    return 'INVALID_STATE_ERR'
+      return 'INVALID_STATE_ERR'
     case 8:
-    return 'SYNTAX_ERR'
+      return 'SYNTAX_ERR'
     case 9:
-    return 'INVALID_MODIFICATION_ERR'
+      return 'INVALID_MODIFICATION_ERR'
     case 10:
-    return 'QUOTA_EXCEEDED_ERR'
+      return 'QUOTA_EXCEEDED_ERR'
     case 11:
-    return 'TYPE_MISMATCH_ERR'
+      return 'TYPE_MISMATCH_ERR'
     case 12:
-    return 'PATH_EXISTS_ERR'
+      return 'PATH_EXISTS_ERR'
     default:
-    return 'Unknown Error ' + code
+      return 'Unknown Error ' + code
   }
 }
 
@@ -50,17 +48,17 @@ export default {
   * @param {string} folder - folder
   * @param {string} forcecreate - if true the file is created if does not exist
   */
-  async openFile (filename, folder, forcecreate) {
+  async openFile (filename, folder, forcecreate, onOpen, onError) {
     return new Promise((resolve, reject) => {
       window.resolveLocalFileSystemURL(folder, function (dir) {
-        dir.getFile(filename, {create: forcecreate}, function (file) {
+        dir.getFile(filename, { create: forcecreate }, function (file) {
           if (onOpen) resolve(file)
         }, function (e) {
           if (onError) reject('Cannot get file ' + filename + ', ' + errorCodeToString(e.code))
         })
       })
     })
-  }
+  },
 
   /**
   * Saves an object as a JSON file
