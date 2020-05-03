@@ -77,7 +77,7 @@ export default {
 
           if (this.isSignalCheck) {
             // start if the signal is OK or after 2 minutes anyhow
-            if (distanceAlgo.isSignalOK() || ((new Date() - signalCheckStartedTS) >= 120000)) {
+            if (distanceAlgo.isSignalOK() || ((new Date() - signalCheckStartedTS) >= 60000)) {
               // start the next phase
               this.isSignalCheck = false
             }
