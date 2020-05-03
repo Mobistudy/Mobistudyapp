@@ -31,7 +31,17 @@ export default {
     home: 'Mobistudy',
     registration: 'Register',
     task: 'Task',
-    close: 'Close'
+    close: 'Close',
+    homeMenu: {
+      dailyTasks: 'Daily tasks',
+      dailyTasksAction: 'See upcoming tasks',
+      profile: 'Profile',
+      profileAction: 'Edit your profile',
+      studies: 'Profile',
+      studiesAction: 'Add or withdraw from studies',
+      about: 'About',
+      aboutAction: 'About Mobistudy'
+    }
   },
   passwordCheck: {
     ok: 'All OK',

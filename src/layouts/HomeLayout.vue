@@ -20,8 +20,8 @@
             <q-icon color="primary" name="school" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Daily tasks</q-item-label>
-            <q-item-label caption>See upcoming tasks</q-item-label>
+            <q-item-label>{{ $t('layouts.homeMenu.dailyTasks') }}</q-item-label>
+            <q-item-label caption>{{ $t('layouts.homeMenu.dailyTasksAction') }}</q-item-label>
           </q-item-section>
         </q-item>
 
@@ -30,8 +30,8 @@
             <q-icon color="grey" name="account_box" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Profile</q-item-label>
-            <q-item-label caption>Edit profile</q-item-label>
+            <q-item-label>{{ $t('layouts.homeMenu.profile') }}</q-item-label>
+            <q-item-label caption>{{ $t('layouts.homeMenu.profileAction') }}</q-item-label>
           </q-item-section>
         </q-item>
 
@@ -40,8 +40,8 @@
             <q-icon color="grey" name="settings" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Manage Studies</q-item-label>
-            <q-item-label caption>Add or withdraw from studies</q-item-label>
+            <q-item-label>{{ $t('layouts.homeMenu.studies') }}</q-item-label>
+            <q-item-label caption>{{ $t('layouts.homeMenu.studiesAction') }}</q-item-label>
           </q-item-section>
         </q-item>
         <q-item to="about">
@@ -49,8 +49,17 @@
             <q-icon color="grey" name="help" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>About</q-item-label>
-            <q-item-label caption>About Mobistudy</q-item-label>
+            <q-item-label>{{ $t('layouts.homeMenu.about') }}</q-item-label>
+            <q-item-label caption>{{ $t('layouts.homeMenu.aboutAction') }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="test">
+          <q-item-section avatar>
+            <q-icon color="grey" name="bug_report" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>TEST</q-item-label>
+            <q-item-label caption>Test page</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
