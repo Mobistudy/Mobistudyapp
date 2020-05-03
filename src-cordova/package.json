@@ -13,6 +13,7 @@
   "author": "Mobistudy team",
   "license": "MIT",
   "dependencies": {
+    "cordova-android": "^8.1.0",
     "cordova-ios": "^5.1.1",
     "cordova-plugin-badge": "0.8.8",
     "cordova-plugin-device": "2.0.3",
@@ -42,7 +43,8 @@
       "cordova-plugin-local-notification": {}
     },
     "platforms": [
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }
