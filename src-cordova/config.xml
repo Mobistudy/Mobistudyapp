@@ -5,7 +5,7 @@
     <author href="http://mobistudy.org">
         Mobistudy Team
     </author>
-    <content src="index.html" />
+    <content src="http://192.168.0.173:8080" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -25,7 +25,14 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
         <string>Need location access to find things nearby</string>
     </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSHealthShareUsageDescription">
+        <string>The app needs to read health-related data from your phone</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSHealthUpdateUsageDescription">
+        <string>The app needs to store health-related data from your phone</string>
+    </edit-config>
     <gap:config-file mode="replace" parent="UIFileSharingEnabled" platform="ios">
         <true />
     </gap:config-file>
+    <allow-navigation href="http://192.168.0.173:8080" />
 </widget>
