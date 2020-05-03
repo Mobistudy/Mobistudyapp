@@ -20,6 +20,45 @@ cd src-cordova
 npm install
 ```
 
+
+
+### Run the app in iOS
+
+To run the app properly in iOS through Cordova, there are a couple of manual settings
+to be sorted out with Xcode.
+
+Prepare the Xcode project:
+
+```bash
+cd src-cordova
+cordova prepare ios
+```
+
+This will create a folder under src-cordova/platforms/ios
+Open that folder with Xcode. It will contain an iOS project.
+You need to make sure there is a valid signing profile for the app, at least for
+development. Try compiling the project and see if it works.
+
+Also, you need to add the HealthKit capability.
+
+Open the Mobistudy App-info.plist file located under Resources. Open it as source
+file. Then check that NSHealthShareUsageDescription and NSHealthUpdateUsageDescription
+are set. For example:
+
+```xml
+<key>NSHealthShareUsageDescription</key>
+<string>The app needs to read health-related data from your phone</string>
+<key>NSHealthUpdateUsageDescription</key>
+<string>The app needs to store health-related data from your phone</string>
+```
+
+In order to be able to retrieve files that are stored in the app through iTunes,
+make sure the following also is present:
+```xml
+<key>UIFileSharingEnabled</key>
+<true/>
+```
+
 ## Run
 
 To start the app in development mode (hot-code reloading, error reporting, etc.), run:
