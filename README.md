@@ -89,9 +89,12 @@ npm run concurrently:dev:jest
 ## Develop
 
 The code is consistent with how projects are structured in Quasar.
-If you use VS Code, follow the [recommended settings from Quasar](https://quasar.dev/start/vs-code-configuration#Introduction).
+If you use VS Code, follow the
+[recommended settings from Quasar](https://quasar.dev/start/vs-code-configuration#Introduction).
 
-For development, you may want to mock some modules, see quasar.conf.js to activate mocked modules.
+For development, you may want to mock some modules, see project.conf.js to
+activate mocked modules.
+
 
 ## Deploy
 

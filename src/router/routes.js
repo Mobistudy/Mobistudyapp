@@ -5,10 +5,6 @@ const routes = [
     component: () => import('pages/accountmgmt/Login.vue')
   },
   {
-    path: '/test',
-    component: () => import('pages/Test.vue')
-  },
-  {
     path: '/login',
     name: 'login',
     component: () => import('pages/accountmgmt/Login.vue')
@@ -43,7 +39,8 @@ const routes = [
       { path: '/profile', name: 'profile', component: () => import('pages/home/Profile.vue') },
       { path: '/studies', name: 'studies', component: () => import('pages/home/Studies.vue') },
       { path: '/about', name: 'about', component: () => import('pages/home/About.vue') },
-      { path: '/studyConfig', name: 'studyConfig', component: () => import('pages/home/StudyConfig.vue'), props: true }
+      { path: '/studyConfig', name: 'studyConfig', component: () => import('pages/home/StudyConfig.vue'), props: true },
+      { path: '/test', name: 'test', component: () => import('pages/home/Test.vue') }
     ]
   },
   {
