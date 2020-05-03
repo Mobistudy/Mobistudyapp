@@ -45,17 +45,40 @@ export default {
   /**
   * Opens a file.
   * @param {string} filename - filename to be opened
-  * @param {string} folder - folder
   * @param {string} forcecreate - if true the file is created if does not exist
   */
-  async openFile (filename, folder, forcecreate, onOpen, onError) {
+  async openFile (filename, forcecreate, onOpen, onError) {
+    let folder
+    if (Platform.is.ios) folder = cordova.file.documentsDirectory
+    else folder = cordova.file.externalDataDirectory
+
     return new Promise((resolve, reject) => {
       window.resolveLocalFileSystemURL(folder, function (dir) {
-        dir.getFile(filename, { create: forcecreate }, function (file) {
-          if (onOpen) resolve(file)
+        dir.getFile(filename, { create: true }, function (file) {
+          resolve(file)
         }, function (e) {
-          if (onError) reject('Cannot get file ' + filename + ', ' + errorCodeToString(e.code))
+          reject('Cannot get file ' + filename + ', ' + errorCodeToString(e.code))
         })
+      })
+    })
+  },
+
+  /**
+  * Reads a file and delivers the content as an object
+  * @param {string} filename - the file to be opened
+  */
+  async load (filename) {
+    let file = await this.openFile(filename)
+
+    return new Promise((resolve, reject) => {
+      file.file(function (file) {
+        var reader = new FileReader()
+        reader.onloadend = function () {
+          resolve(this.result)
+        }
+        reader.readAsText(file)
+      }, function (e) {
+        reject('Cannot read file ' + filename + ': ' + errorCodeToString(e.code))
       })
     })
   },
@@ -63,15 +86,10 @@ export default {
   /**
   * Saves an object as a JSON file
   * @param {string} filename - filename is the name of the file
-  * @param {string} dest: is the destination folder
-  * @param {object} object is the object to be saved
+  * @param {object} object - is the object to be saved
   */
   async save (filename, object) {
-    let destFolder
-    if (Platform.is.ios) destFolder = cordova.file.documentsDirectory
-    else destFolder = cordova.file.externalDataDirectory
-
-    let file = await this.openFile(filename, destFolder, true)
+    let file = await this.openFile(filename)
     return new Promise((resolve, reject) => {
       file.createWriter(function (fileWriter) {
         var blob = JSON.stringify(object)
