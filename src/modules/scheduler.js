@@ -41,7 +41,7 @@ export function generateTasker (studiesParts, studiesDescr) {
         } else continue
 
         if (task.type === 'dataQuery') {
-          if (Platform.is.iphone && HealthDataEnum.isAndroidOnly(task.dataType)) continue
+          if (Platform.is.ios && HealthDataEnum.isAndroidOnly(task.dataType)) continue
           if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
         }
         let missed
@@ -211,7 +211,7 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
   let timeStack = []
   for (const task of studyDescr.tasks) {
     if (task.type === 'dataQuery') {
-      if (Platform.is.iphone && HealthDataEnum.isAndroidOnly(task.dataType)) continue
+      if (Platform.is.ios && HealthDataEnum.isAndroidOnly(task.dataType)) continue
       if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
     }
     let rrule = generateRRule(acceptedTS, new Date(studyDescr.generalities.endDate), task.scheduling)
