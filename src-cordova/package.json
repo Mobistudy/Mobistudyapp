@@ -21,6 +21,7 @@
     "cordova-plugin-health": "1.1.4",
     "cordova-plugin-insomnia": "git+https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git",
     "cordova-plugin-local-notification": "0.9.0-beta.2",
+    "cordova-plugin-splashscreen": "^5.0.3",
     "cordova-plugin-wkwebview-engine": "^1.2.1",
     "device": "^0.3.11"
   },
@@ -40,7 +41,8 @@
         "HEALTH_READ_PERMISSION": "The app needs to read health-related data from your phone",
         "HEALTH_WRITE_PERMISSION": "The app needs to store health-related data from your phone"
       },
-      "cordova-plugin-local-notification": {}
+      "cordova-plugin-local-notification": {},
+      "cordova-plugin-splashscreen": {}
     },
     "platforms": [
       "ios",
