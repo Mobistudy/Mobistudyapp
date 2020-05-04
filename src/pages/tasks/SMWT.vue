@@ -51,7 +51,12 @@ export default {
     let signalCheckStartedTS = new Date()
     if (await phone.geolocation.isAvailable()) {
       if (await phone.geolocation.requestPermission()) {
-        phone.geolocation.startNotifications({}, async (position) => {
+        phone.geolocation.startNotifications({
+          maximumAge: 5000,
+          timeout: 5000,
+          enableHighAccuracy: true
+        }, async (position) => {
+          console.log('Got position: ', position)
           if (this.positions.length === 0) {
             // we are receiving the first position, we can initialise the map now
             this.map = new google.maps.Map(document.getElementById('map'), {
