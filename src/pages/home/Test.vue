@@ -10,7 +10,7 @@
       </div>
       <p>{{coordsOutput}}</p>
       <div class="q-mt-md">
-        <q-btn color="white" text-color="black" label="Play toc" @click="playSound"/>
+        <q-btn color="white" text-color="black" label="Play sound" @click="playSound"/>
       </div>
       <div class="q-mt-md">
         <q-btn color="white" text-color="black" label="Save File" @click="saveFile"/>
@@ -28,8 +28,8 @@ export default {
   name: 'TestPage',
   data () {
     return {
-      coordsOutput: '',
-      fileOutput: ' '
+      coordsOutput: 'GPS stopped',
+      fileOutput: 'No file read'
     }
   },
   async destroyed () {
@@ -58,7 +58,7 @@ export default {
     },
     async stopGPS () {
       await phone.geolocation.stopNotifications()
-      this.coordsOutput = 'stopped'
+      this.coordsOutput = 'GPS stopped'
     },
     playSound () {
       phone.media.playSound('statics/sounds/toc.ogg')
@@ -68,7 +68,7 @@ export default {
       await files.save('test.text', { test: 'hello' })
       console.log('file saved')
       let obj = await files.load('test.text')
-      this.fileOutput = obj
+      this.fileOutput = 'File content: ' + JSON.stringify(obj)
       console.log(obj)
     }
   }
