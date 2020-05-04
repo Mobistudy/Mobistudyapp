@@ -4,15 +4,15 @@
       <div class="text-h5 q-mt-lg">
         Test Page.
       </div>
-      <div>
-        <q-btn color="white" text-color="black" label="TestGPS" @click="startGPS"/>
+      <div class="q-mt-md">
+        <q-btn color="white" text-color="black" label="Start GPS" @click="startGPS"/>
+        <q-btn color="white" text-color="black" label="Stop GPS" @click="stopGPS"/>
       </div>
       <p>{{coordsOutput}}</p>
-      <div>
+      <div class="q-mt-md">
         <q-btn color="white" text-color="black" label="Play toc" @click="playSound"/>
       </div>
-      <p></p>
-      <div>
+      <div class="q-mt-md">
         <q-btn color="white" text-color="black" label="Save File" @click="saveFile"/>
       </div>
       <p>{{fileOutput}}</p>
@@ -39,25 +39,26 @@ export default {
   methods: {
     async startGPS () {
       this.coordsOutput = 'starting GPS'
-      let positions = 0
       if (await phone.geolocation.isAvailable()) {
         // geolocation is available
         if (await phone.geolocation.requestPermission()) {
           // got permission
-          phone.geolocation.startNotifications({}, async (pos) => {
+          phone.geolocation.startNotifications({
+            maximumAge: 5000,
+            timeout: 5000,
+            enableHighAccuracy: true
+          }, async (pos) => {
             console.log(pos)
             this.coordsOutput = pos
-            positions++
-            if (positions === 10) {
-              // stop after 10 positions retrieved
-              await phone.geolocation.stopNotifications()
-              this.coordsOutput = 'stopped'
-            }
           }, (err) => {
             this.coordsOutput = err
           })
         }
       }
+    },
+    async stopGPS () {
+      await phone.geolocation.stopNotifications()
+      this.coordsOutput = 'stopped'
     },
     playSound () {
       phone.media.playSound('statics/sounds/toc.ogg')
