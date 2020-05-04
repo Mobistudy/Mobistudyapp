@@ -347,7 +347,7 @@ export default {
         phone.media.playSound('/statics/sounds/begin.wav')
       }
       this.startTimer()
-      this.isStarted ? phone.media.playMetro('/statics/sounds/switch-20.wav', this.cadence) : phone.media.stopMetro()
+      this.isStarted ? phone.media.playMetro('/statics/sounds/click.wav', this.cadence) : phone.media.stopMetro()
     }
   },
   computed: {
