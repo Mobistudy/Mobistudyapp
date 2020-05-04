@@ -28,9 +28,9 @@ export default {
   name: 'SMWTIntroPage',
   methods: {
     start () {
-      console.log(this.studyKey, this.taskID)
       const studyKey = this.$route.params.studyKey
       const taskID = this.$route.params.taskID
+      console.log('StudyKey ' + studyKey + ',taskID ' + taskID)
       this.$router.push({ name: 'smwt', params: { studyKey, taskID } })
     }
   }

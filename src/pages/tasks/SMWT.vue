@@ -3,7 +3,9 @@
     <div class="text-center text-h6 q-mt-lg">
       {{ $t('studies.tasks.smwt.title') }}
     </div>
-    <div id="map"/>
+    <div ref="map" style="width: 100%; height: 50vh;">
+      {{ $t('studies.tasks.smwt.loadingMap') }}
+    </div>
     <div v-show="isSignalCheck" class="text-subtitle1 text-center ">{{ $t('studies.tasks.smwt.signalCheck') }}</div>
     <p v-show="isStarted" id="timer"> {{ minutes }}:{{ seconds }} </p>
       <div class="row justify-center q-mt-lg">
@@ -14,7 +16,7 @@
 </template>
 
 <script>
-import { Loader } from 'google-maps'
+import { Loader } from '@googlemaps/js-api-loader'
 import phone from '../../modules/phone'
 import distanceAlgo from '../../modules/outdoorDistance.js'
 import userinfo from '../../modules/userinfo.js'
@@ -43,8 +45,16 @@ export default {
   },
   mounted: async function () {
     distanceAlgo.reset()
-    const loader = new Loader(process.env.MAPS_API, {})
-    const google = await loader.load()
+    const loader = new Loader({
+      apiKey: process.env.MAPS_API
+    })
+    try {
+      await loader.load()
+      console.log('Google maps loaded')
+    } catch (err) {
+      console.error('Cannot load Google maps', err)
+      this.$refs.map.innerHTML = 'Could not load the map'
+    }
 
     // start signal check
     this.isSignalCheck = true
@@ -59,20 +69,25 @@ export default {
           console.log('Got position: ', position)
           if (this.positions.length === 0) {
             // we are receiving the first position, we can initialise the map now
-            this.map = new google.maps.Map(document.getElementById('map'), {
-              center: { lat: position.coords.latitude, lng: position.coords.longitude },
-              zoom: 17,
-              disableDefaultUI: true,
-              gestureHandling: 'none'
-            })
+            if (window.google !== undefined) {
+              console.log('setting up map')
+              this.map = new window.google.maps.Map(this.$refs.map, {
+                center: { lat: position.coords.latitude, lng: position.coords.longitude },
+                zoom: 17,
+                disableDefaultUI: true,
+                gestureHandling: 'none'
+              })
+            }
           }
-          // update the map
-          this.map.setCenter({ lat: position.coords.latitude, lng: position.coords.longitude })
-          if (this.marker) this.marker.setMap(null)
-          this.marker = new google.maps.Marker({
-            position: { lat: position.coords.latitude, lng: position.coords.longitude }
-          })
-          this.marker.setMap(this.map)
+          if (window.google) {
+            // update the map
+            this.map.setCenter({ lat: position.coords.latitude, lng: position.coords.longitude })
+            if (this.marker) this.marker.setMap(null)
+            this.marker = new window.google.maps.Marker({
+              position: { lat: position.coords.latitude, lng: position.coords.longitude }
+            })
+            this.marker.setMap(this.map)
+          }
 
           this.positions.push(position)
           if (this.steps.length !== 0) {
@@ -175,11 +190,6 @@ export default {
 </script>
 
 <style>
-#map {
-  width: 100%;
-  height: 50vh;
-}
-
 #timer {
   font-size: 36px;
   text-align: center;

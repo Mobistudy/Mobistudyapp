@@ -217,6 +217,7 @@ export default {
           { i: 'You can place your phone in a pocket or use an arm band if needed, but do not switch off the screen!' },
           { i: 'When you are ready to start the test, press the "Start"-button.' }
         ],
+        loadingMap: 'Loading map',
         signalCheck: 'Waiting for the GPS signal.',
         smwtExplanation: 'Computed distance walked during a Six Minute Walk Test. If you agree to send it, tap on Send.',
         smwtNote: 'Please read the instructions carefully. The accuracy of the test depends on the instructions being followed as closely as possible.',
