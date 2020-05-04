@@ -10,7 +10,7 @@
       </div>
       <p>{{coordsOutput}}</p>
       <div class="q-mt-md">
-        <q-btn color="white" text-color="black" label="Play sound" @click="playSound"/>
+        <q-btn color="white" text-color="black" label="Play sound" @touchstart="playSound"/>
       </div>
       <div class="q-mt-md">
         <q-btn color="white" text-color="black" label="Save File" @click="saveFile"/>
@@ -61,7 +61,7 @@ export default {
       this.coordsOutput = 'GPS stopped'
     },
     playSound () {
-      phone.media.playSound('statics/sounds/toc.ogg')
+      phone.media.playSound('statics/sounds/click.wav')
     },
     async saveFile () {
       console.log('saving file')
