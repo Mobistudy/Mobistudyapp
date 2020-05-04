@@ -59,6 +59,12 @@ make sure the following also is present:
 <true/>
 ```
 
+For the pedometer to work properly:
+```xml
+<key>NSMotionUsageDescription</key>
+<string>The app needs to detect steps</string>
+```
+
 ## Run
 
 To start the app in development mode (hot-code reloading, error reporting, etc.), run:
