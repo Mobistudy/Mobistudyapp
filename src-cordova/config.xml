@@ -38,6 +38,18 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+            <string>Need location access to find things nearby</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSHealthShareUsageDescription">
+            <string>The app needs to read health-related data from your phone</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSHealthUpdateUsageDescription">
+            <string>The app needs to store health-related data from your phone</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="UIFileSharingEnabled">
+            <true />
+        </edit-config>
         <icon height="57" src="res/ios/icon.png" width="57" />
         <icon height="114" src="res/ios/icon@2x.png" width="114" />
         <icon height="40" src="res/ios/icon-20@2x.png" width="40" />
@@ -73,17 +85,5 @@
         <splash src="res/screen/ios/Default@2x~ipad~comany.png" />
     </platform>
     <allow-navigation href="about:*" />
-    <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-        <string>Need location access to find things nearby</string>
-    </edit-config>
-    <edit-config file="*-Info.plist" mode="merge" target="NSHealthShareUsageDescription">
-        <string>The app needs to read health-related data from your phone</string>
-    </edit-config>
-    <edit-config file="*-Info.plist" mode="merge" target="NSHealthUpdateUsageDescription">
-        <string>The app needs to store health-related data from your phone</string>
-    </edit-config>
-    <gap:config-file mode="replace" parent="UIFileSharingEnabled" platform="ios">
-        <true />
-    </gap:config-file>
     <preference name="SplashMaintainAspectRatio" value="true" />
 </widget>
