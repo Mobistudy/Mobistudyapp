@@ -53,7 +53,7 @@ export default {
       } else if (this.task.type === 'smwt') {
         return 'smwtIntro/' + this.task.studyKey + '/' + this.task.taskID
       } else if (this.task.type === 'qcst') {
-        return 'qcst/' + this.task.studyKey + '/' + this.task.taskID
+        return 'qcstIntro/' + this.task.studyKey + '/' + this.task.taskID
       } else if (this.task.studyKey && this.task.taskID) {
         return 'dataQuery/' + this.task.studyKey + '/' + this.task.taskID
       } else {
