@@ -1,24 +1,21 @@
 <template>
   <q-page padding>
-    <div class="text-center">
-      <div class="text-h5">{{ $t('studies.tasks.capTestComplete') }}</div>
-      <img class="q-mt-md" alt="Finish flag" src="~assets/goalflags.svg">
-      <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
-      <table id="stats">
-        <tr>
-          <td>{{ $t('studies.tasks.smwt.time') }}</td>
-          <td> {{ minutes }}:{{ seconds }}</td>
-        </tr>
-        <tr>
-          <td>{{ $t('studies.tasks.smwt.distance') }}</td>
-          <td>{{ report.distance.toFixed(2) }} m</td>
-        </tr>
-        <tr v-if="report.steps.length">
-          <td>{{ $t('studies.tasks.smwt.steps') }}</td>
-          <td>{{ report.steps[report.steps.length - 1].numberOfSteps }}</td>
-        </tr>
-      </table>
-
+    <q-item-section id="completedText">
+      <h5>{{ $t("studies.tasks.capTestComplete") }}</h5>
+      <img alt="Finish flag" src="~assets/flag.svg" />
+      <h6>{{ $t('studies.tasks.capTestCompleteSubtext') }}</h6>
+      <q-item-section id="stats">
+        <table>
+          <tr>
+            <td>{{ $t("studies.tasks.qcst.time") }}:</td>
+            <td>{{ minutes }}:{{ seconds }}</td>
+          </tr>
+          <tr>
+            <td>{{ $t("studies.tasks.qcst.steps") }}:</td>
+            <td>{{ this.report.steps / 4 }}</td>
+          </tr>
+        </table>
+      </q-item-section>
       <div class="q-pa-md">
         <p class="sub-heading">Please rate your level of exertion:</p>
         <q-list>
@@ -27,7 +24,7 @@
               <q-radio v-model="borgValue" val="0" />
             </q-item-section>
             <q-item-section>
-              <q-item>0 {{ $t('studies.tasks.smwt.borgScale.l0') }}</q-item>
+              <q-item>0 {{ $t("studies.tasks.smwt.borgScale.l0") }}</q-item>
             </q-item-section>
           </q-item>
           <q-item tag="label" v-ripple>
@@ -35,47 +32,47 @@
               <q-radio v-model="borgValue" val="0.5" />
             </q-item-section>
             <q-item-section>
-              <q-item>0.5 {{ $t('studies.tasks.smwt.borgScale.l05') }}</q-item>
+              <q-item>0.5 {{ $t("studies.tasks.smwt.borgScale.l05") }}</q-item>
             </q-item-section>
           </q-item>
           <q-item tag="label" v-ripple>
             <q-item-section avatar top>
-              <q-radio v-model="borgValue" val="1"/>
+              <q-radio v-model="borgValue" val="1" />
             </q-item-section>
             <q-item-section>
-              <q-item>1 {{ $t('studies.tasks.smwt.borgScale.l1') }}</q-item>
+              <q-item>1 {{ $t("studies.tasks.smwt.borgScale.l1") }}</q-item>
             </q-item-section>
           </q-item>
           <q-item tag="label" v-ripple>
             <q-item-section avatar>
-              <q-radio v-model="borgValue" val="2"/>
+              <q-radio v-model="borgValue" val="2" />
             </q-item-section>
             <q-item-section>
-              <q-item>2 {{ $t('studies.tasks.smwt.borgScale.l2') }}</q-item>
+              <q-item>2 {{ $t("studies.tasks.smwt.borgScale.l2") }}</q-item>
             </q-item-section>
           </q-item>
           <q-item tag="label" v-ripple>
             <q-item-section avatar>
-              <q-radio v-model="borgValue" val="3"/>
+              <q-radio v-model="borgValue" val="3" />
             </q-item-section>
             <q-item-section>
-              <q-item>3 {{ $t('studies.tasks.smwt.borgScale.l3') }}</q-item>
+              <q-item>3 {{ $t("studies.tasks.smwt.borgScale.l3") }}</q-item>
             </q-item-section>
           </q-item>
           <q-item tag="label" v-ripple>
             <q-item-section avatar top>
-              <q-radio v-model="borgValue" val="4"/>
+              <q-radio v-model="borgValue" val="4" />
             </q-item-section>
             <q-item-section>
-              <q-item>4 {{ $t('studies.tasks.smwt.borgScale.l4') }}</q-item>
+              <q-item>4 {{ $t("studies.tasks.smwt.borgScale.l4") }}</q-item>
             </q-item-section>
           </q-item>
           <q-item tag="label" v-ripple>
             <q-item-section avatar>
-              <q-radio v-model="borgValue" val="5"/>
+              <q-radio v-model="borgValue" val="5" />
             </q-item-section>
             <q-item-section>
-              <q-item>5 {{ $t('studies.tasks.smwt.borgScale.l5') }}</q-item>
+              <q-item>5 {{ $t("studies.tasks.smwt.borgScale.l5") }}</q-item>
             </q-item-section>
           </q-item>
           <q-item tag="label" v-ripple>
@@ -91,7 +88,7 @@
               <q-radio v-model="borgValue" val="7" />
             </q-item-section>
             <q-item-section>
-              <q-item>7 {{ $t('studies.tasks.smwt.borgScale.l7') }}</q-item>
+              <q-item>7 {{ $t("studies.tasks.smwt.borgScale.l7") }}</q-item>
             </q-item-section>
           </q-item>
           <q-item tag="label" v-ripple>
@@ -107,27 +104,28 @@
               <q-radio v-model="borgValue" val="9" />
             </q-item-section>
             <q-item-section>
-              <q-item>9 {{ $t('studies.tasks.smwt.borgScale.l9') }}</q-item>
+              <q-item>9 {{ $t("studies.tasks.smwt.borgScale.l9") }}</q-item>
             </q-item-section>
           </q-item>
           <q-item tag="label" v-ripple>
             <q-item-section avatar top>
-              <q-radio v-model="borgValue" val="10"/>
+              <q-radio v-model="borgValue" val="10" />
             </q-item-section>
             <q-item-section>
-              <q-item>10 {{ $t('studies.tasks.smwt.borgScale.l10') }}</q-item>
+              <q-item>10 {{ $t("studies.tasks.smwt.borgScale.l10") }}</q-item>
             </q-item-section>
           </q-item>
         </q-list>
 
         <div class="q-px-sm q-mt-sm">
-          <p class="sub-heading">Your selection is: <strong>{{ borgValue }}</strong></p>
+          <p class="sub-heading">
+            Your selection is: <strong>{{ borgValue }}</strong>
+          </p>
         </div>
+        <q-btn color="primary" @click="send()" :label="$t('common.send')" :disabled="!borgValue"/>
+
       </div>
-
-      <q-btn color="primary" @click="send()" :label="$t('common.send')" :disabled="!borgValue"/>
-    </div>
-
+    </q-item-section>
   </q-page>
 </template>
 
@@ -137,7 +135,7 @@ import DB from '../../modules/db.js'
 import fileSystem from '../../modules/files.js'
 
 export default {
-  name: 'SMWTSummaryPage',
+  name: 'QCSTSummaryPage',
   props: [ 'report' ],
   data: function () {
     return {
@@ -147,12 +145,11 @@ export default {
   methods: {
     async send () {
       this.$q.loading.show()
-
       this.report.borgScale = this.borgValue
 
       // Only for testing purposes! Please remove before deploying app.
       try {
-        let filename = 'smwt_' + new Date().getTime() + '.json'
+        let filename = 'qcst_' + new Date().getTime() + '.json'
         await fileSystem.save(filename, this.report)
       } catch (err) {
         console.error('Cannot save to file', err)
@@ -160,8 +157,12 @@ export default {
 
       // Save the data to server
       try {
-        await API.sendSMWTData(this.report)
-        await DB.setTaskCompletion(this.report.studyKey, this.report.taskId, new Date())
+        await API.sendQCSTData(this.report)
+        await DB.setTaskCompletion(
+          this.report.studyKey,
+          this.report.taskId,
+          new Date()
+        )
         this.$q.loading.hide()
         this.$router.push('/home')
       } catch (error) {
@@ -192,60 +193,3 @@ export default {
   }
 }
 </script>
-
-<style>
-#completedText {
-  text-align: center;
-  font-size: 36px;
-}
-
-img {
-  width: 40%;
-  margin: 0px auto;
-}
-
-table {
-  background: #f8f8f8;
-  padding: 4px;
-  width: 70%;
-  margin: 0px auto;
-  font-size: 0.75rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-
-table td:nth-child(2) {
-  text-align: right;
-}
-tr {
-  text-align: left
-}
-
-.q-pa-md {
-  padding-top: 20px;
-}
-.sub-heading {
-  font-size: 14px;
-  text-align: left
-}
-
-div.q-list {
-  border: 1px solid #ccc;
-}
-div.q-list label {
-  font-size: 14px;
-}
-div.q-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 0px;
-  min-height: 0px;
-}
-div.q-item p {
-  margin: 0px;
-  padding: 12px 5px
-}
-#submit {
-  text-align: center;
-}
-
-</style>

@@ -8,7 +8,7 @@
       <span v-if="mapCannotLoad">{{ $t('studies.tasks.smwt.loadingMapCannot') }}</span>
     </div>
     <div v-show="isSignalCheck" class="text-subtitle1 text-center ">{{ $t('studies.tasks.smwt.signalCheck') }}</div>
-    <p v-show="isStarted" id="timer"> {{ minutes }}:{{ seconds }} </p>
+    <p v-show="!isSignalCheck" id="timer"> {{ minutes }}:{{ seconds }} </p>
       <div class="row justify-center q-mt-lg">
         <q-btn  @click="startTest" v-show="!isStarted" color="secondary" :label="$t('common.start')" :disabled="isSignalCheck" />
         <q-btn  @click="completeTest" v-show="isStarted" color="purple" :label="$t('common.complete')" />
@@ -204,7 +204,13 @@ export default {
 
 <style>
 #timer {
-  font-size: 36px;
+  font-size: 3rem;
   text-align: center;
+  padding: 0px;
+  margin: 0px;
+}
+
+.text-subtitle1 {
+  line-height: 4.25;
 }
 </style>

@@ -5,7 +5,7 @@ export default {
   surname: 'Lee',
   country: 'gb',
   language: 'en',
-  sex: 'male',
+  gender: 'male',
   dateOfBirth: '1986-11-10',
   diseases: [
     {
