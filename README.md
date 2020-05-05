@@ -111,6 +111,12 @@ quasar build
 
 This will generate the material UI interfaces and make it available under `./dist/`
 
+For the app, run:
+
+```bash
+quasar build -m ios
+```
+
 ## Credits
 
 Original idea: [Dario Salvi](https://github.com/dariosalvi78) and [Carmelo Velardo](https://github.com/2dvisio).

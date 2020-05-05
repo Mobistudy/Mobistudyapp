@@ -98,7 +98,7 @@ export default {
   },
   media: {
     // TODO: the media library works faster if the sound is pre-loaded
-    // need to change this into a bank of soounds that can be played
+    // need to change this into a bank of sounds that can be played
     metronome: null,
     playSound (soundfile) {
       var audio = new Audio(soundfile)
