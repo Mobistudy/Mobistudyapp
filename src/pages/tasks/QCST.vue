@@ -149,71 +149,9 @@ export default {
 </script>
 
 <style>
-
-h5 {
-  margin-top: 0px;
-}
 #timer {
   font-size: 5rem;
   text-align: center;
   padding: 20px;
-}
-
-#completedText {
-  text-align: center;
-  font-size: 36px;
-}
-
-.q-mt-md {
-    margin-top: 0px;
-}
-
-img {
-  width: 40%;
-  margin: 0px auto;
-}
-table {
-  background: #f8f8f8;
-  padding: 4px;
-  width: 70%;
-  margin: 0px auto;
-  font-size: 0.75rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-table td:nth-child(2) {
-  text-align: right;
-}
-tr {
-  text-align: left
-}
-
-.q-pa-md {
-  padding-top: 20px;
-}
-.sub-heading {
-  font-size: 14px;
-  text-align: left
-}
-div.q-list {
-  border: 1px solid #ccc;
-}
-div.q-list label {
-  font-size: 14px;
-}
-
-div.q-list p {
-    margin: 0px;
-    padding: 12px 5px;
-}
-div.q-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 0px;
-}
-.text-caption {
-  padding-bottom: 10px;
-}
-#submit {
-  text-align: center;
 }
 </style>
