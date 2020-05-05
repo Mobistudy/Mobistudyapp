@@ -1,5 +1,7 @@
 'use strict'
 
+import { Platform } from 'quasar'
+
 // this module groups a bunch of hardware functionalities, basically cordova plugins
 
 // device: https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-device/
@@ -71,13 +73,19 @@ export default {
     },
     async requestPermission () {
       return new Promise((resolve, reject) => {
-        window.pedometer.startPedometerUpdates((data) => {
+        if (Platform.is.ios) {
+          window.pedometer.queryData(function (data) {
+            resolve()
+          }, function (data) {
+            reject()
+          }, {
+            startDate: new Date(new Date().getTime() - 10000),
+            endDate: new Date()
+          })
+        } else {
+          // in Android no permissions are needed
           resolve()
-          window.pedometer.stopPedometerUpdates()
-        }, (err) => {
-          reject(err)
-          window.pedometer.stopPedometerUpdates()
-        })
+        }
       })
     },
     startNotifications (options, cbk, error) {
