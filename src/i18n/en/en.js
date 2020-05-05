@@ -218,6 +218,7 @@ export default {
           { i: 'When you are ready to start the test, press the "Start"-button.' }
         ],
         loadingMap: 'Loading map',
+        loadingMapCannot: 'Could not load the map',
         signalCheck: 'Waiting for the GPS signal.',
         smwtExplanation: 'Computed distance walked during a Six Minute Walk Test. If you agree to send it, tap on Send.',
         smwtNote: 'Please read the instructions carefully. The accuracy of the test depends on the instructions being followed as closely as possible.',

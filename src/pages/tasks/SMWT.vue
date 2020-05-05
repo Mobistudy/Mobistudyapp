@@ -3,8 +3,9 @@
     <div class="text-center text-h6 q-mt-lg">
       {{ $t('studies.tasks.smwt.title') }}
     </div>
-    <div ref="map" style="width: 100%; height: 50vh;">
-      {{ $t('studies.tasks.smwt.loadingMap') }}
+    <div ref="map" style="width: 100%; height: 50vh;" class="row justify-center items-center">
+      <span v-if="!mapCannotLoad">{{ $t('studies.tasks.smwt.loadingMap') }}</span>
+      <span v-if="mapCannotLoad">{{ $t('studies.tasks.smwt.loadingMapCannot') }}</span>
     </div>
     <div v-show="isSignalCheck" class="text-subtitle1 text-center ">{{ $t('studies.tasks.smwt.signalCheck') }}</div>
     <p v-show="isStarted" id="timer"> {{ minutes }}:{{ seconds }} </p>
@@ -22,6 +23,7 @@ import distanceAlgo from '../../modules/outdoorDistance.js'
 import userinfo from '../../modules/userinfo.js'
 
 const TEST_DURATION = 360
+const SIGNAL_CHECK_TIMEOUT = 60000
 
 export default {
   name: 'SMWTPage',
@@ -31,6 +33,7 @@ export default {
       loading: false,
       isSignalCheck: true,
       map: undefined,
+      mapCannotLoad: false,
       marker: undefined,
       isStarted: false,
       isCompleted: false,
@@ -50,10 +53,9 @@ export default {
     })
     try {
       await loader.load()
-      console.log('Google maps loaded')
     } catch (err) {
       console.error('Cannot load Google maps', err)
-      this.$refs.map.innerHTML = 'Could not load the map'
+      this.mapCannotLoad = true
     }
 
     // start signal check
@@ -68,9 +70,15 @@ export default {
         }, async (position) => {
           console.log('Got position: ', position)
           if (this.positions.length === 0) {
-            // we are receiving the first position, we can initialise the map now
+            // we are receiving the first position
+
+            // timeout of the signal check
+            setTimeout(function () {
+              this.isSignalCheck = false
+            }, SIGNAL_CHECK_TIMEOUT)
+
+            // we can initialise the map now
             if (window.google !== undefined) {
-              console.log('setting up map')
               this.map = new window.google.maps.Map(this.$refs.map, {
                 center: { lat: position.coords.latitude, lng: position.coords.longitude },
                 zoom: 17,
@@ -96,8 +104,8 @@ export default {
           distanceAlgo.addPosition(position)
 
           if (this.isSignalCheck) {
-            // start if the signal is OK or after 2 minutes anyhow
-            if (distanceAlgo.isSignalOK() || ((new Date() - signalCheckStartedTS) >= 60000)) {
+            // start if the signal is OK or after timeout
+            if (distanceAlgo.isSignalOK() || ((new Date() - signalCheckStartedTS) >= SIGNAL_CHECK_TIMEOUT)) {
               // start the next phase
               this.isSignalCheck = false
             }
@@ -108,18 +116,23 @@ export default {
   },
   methods: {
     async startTest () {
-      if (await phone.pedometer.isAvailable()) {
-        if (await phone.pedometer.requestPermission()) {
-          phone.pedometer.startNotifications({}, (position) => {
-            this.steps.push(position)
-          })
-        }
-      }
-      phone.screen.forbidSleep()
-      distanceAlgo.startTest()
-      this.startTimer()
       this.isStarted = true
       this.startedTS = new Date()
+      this.startTimer()
+      phone.screen.forbidSleep()
+      distanceAlgo.startTest()
+
+      // start the pedometer
+      try {
+        if (await phone.pedometer.isAvailable()) {
+          phone.pedometer.startNotifications({}, (steps) => {
+            console.log('Got steps', steps)
+            this.steps.push(steps)
+          })
+        }
+      } catch (err) {
+        console.error('Cannot instantiate pedometer', err)
+      }
     },
     startTimer () {
       this.totalTime = TEST_DURATION
