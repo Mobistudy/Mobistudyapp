@@ -64,7 +64,7 @@ const routes = [
       { path: '/smwt/:studyKey/:taskID', name: 'smwt', component: () => import('pages/tasks/SMWT.vue') },
       { path: '/smwtSummary', name: 'smwtSummary', component: () => import('pages/tasks/SMWTSummary.vue'), props: true },
       { path: '/qcstIntro/:studyKey/:taskID', name: 'qcstIntro', component: () => import('pages/tasks/QCSTIntro.vue') },
-      { path: '/qcst/:studyKey/:taskID', name: 'qcst', component: () => import('pages/tasks/QCST.vue'), props: true },
+      { path: '/qcst/:studyKey/:taskID', name: 'qcst', component: () => import('pages/tasks/QCST.vue'), props: true }, // TODO: probably no need for props here
       { path: '/qcsthr', name: 'qcsthr', component: () => import('pages/tasks/QCSTHR.vue'), props: true },
       { path: '/qcstSummary', name: 'qcstSummary', component: () => import('pages/tasks/QCSTSummary.vue'), props: true }
 

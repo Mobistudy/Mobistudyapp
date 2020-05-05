@@ -255,6 +255,7 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
         timeStack.push(moment(executionDate).unix())
         notificationStack.push({
           id: parseInt(id),
+          // TODO: this text should be localised!
           title: 'Mobistudy task due!',
           // TODO: change the text according to the type of task
           text: 'Tap here to open the app',
