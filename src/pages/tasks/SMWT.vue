@@ -29,12 +29,10 @@ export default {
   name: 'SMWTPage',
   data: function () {
     return {
-      borgValue: undefined,
-      loading: false,
-      isSignalCheck: true,
       map: undefined,
       mapCannotLoad: false,
       marker: undefined,
+      isSignalCheck: true,
       isStarted: false,
       isCompleted: false,
       timer: undefined,
