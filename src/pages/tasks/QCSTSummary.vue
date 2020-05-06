@@ -9,7 +9,7 @@
           <td>{{ $t('studies.tasks.qcst.time') }}</td>
           <td> {{ minutes }}:{{ seconds }}</td>
         </tr>
-        <tr>
+        <tr v-if="report.steps.length">
           <td>{{ $t('studies.tasks.qcst.steps') }}</td>
           <td>{{ report.steps[report.steps.length - 1].numberOfSteps }}</td>
         </tr>
