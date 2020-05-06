@@ -30,7 +30,7 @@ export default {
       countDown: TEST_DURATION,
       startedTS: undefined,
       completionTS: undefined,
-      steps: 0,
+      steps: [],
       gender: 'male', // userinfo.user.gender,
       heartRate: '',
       metronome: null,
@@ -44,7 +44,8 @@ export default {
         this.startedTS = new Date()
         if (phone.pedometer.isAvailable()) {
           phone.pedometer.startNotifications({}, async (step) => {
-            this.steps++
+            console.log('Steps', step)
+            this.steps.push(step)
           }, (error) => {
             console.error('Error getting steps', error)
           })
