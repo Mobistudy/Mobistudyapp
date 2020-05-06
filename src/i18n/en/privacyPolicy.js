@@ -1,52 +1,83 @@
 export default {
-  privacyPolicyFull: `<p>
-        If you download Mobistudy to your phone, the app will collect the following information
-        from you, regardless of whether you have joined any research study or not:
-        <ul>
-          <li>
-            Your email address.
-            This is needed to identify you, allow you to login and to recover your password.
-          </li>
-          <li>
-            Your date of birth.
-            This is needed to match your profile with the inclusion criteria of available studies.
-          </li>
-          <li>
-            Your gender.
-            This is also needed to match your profile with the inclusion criteria of available studies.
-          </li>
-          <li>
-            Technical logs indicating the time you have accessed the system and what data you have sent.
-            These are needed for security reasons and will be kept for 1 year in all circumstances, also if you decide to delete your account.
-          </li>
-        </ul>
-      </p>
-      <p>
-        These data will be securely transferred (via HTTPS) and stored on a server
-        hosted and managed by the University of Oxford. Personnel from the University
-        of Oxford may access the server and your data for technical maintenance, but
-        will not download or analyse any of these data.
-      </p>
-      <p>
-        We use Gmail for managing the emails sent by Mobistudy.
-        This means that your email address, together with the content of the email sent
-        by us will be managed by Google according to their Privacy Policy (https://policies.google.com/privacy?hl=en-US).
-      </p>
-      <p>
-        If you decide to join a research study, further study-specific conditions will
-        apply, which will be clearly shown to you when consenting to participate in the study.
-      </p>
-      <p>
-        Under no circumstances other than the ones specified above, will your data be shared with other parties or individuals.
-      </p>
-      <p>
-        You can remove your profile from Mobistudy whenever you want. This will remove all your data, except the technical logs.
-      </p>
-      <p>
-        You can download the data in a machine-readable format. Contact carmelo.velardo@eng.ox.ac.uk if you need to.
-      </p>
-      <p>
-        All your data will be removed after 3 years from your registration or from the
-        end of any study you joined while using the Mobistudy app, whichever is the latest.
-      </p>`
+  privacyPolicyFull: `<p>Version 2020-05-10</p>
+  <p>
+    The Mobistudy app is meant to be used by citizens who want to contribute to
+    research studies using their mobile phones.
+    In order to use the app you will need to create an account on the Mobistudy
+    server. This profile is needed regardless of whether you join a
+    research study or not. The profile requires the following information:
+  </p>
+  <ul>
+    <li>
+      Your email address.
+      This is needed to identify you, allow you to login and to recover your password.
+    </li>
+    <li>
+      Your name and surname.
+      These may be needed to personalise messages sent to you or in those studies
+      where it will be necessary to identify each participant.
+    </li>
+    <li>
+      Your date of birth.
+      This is needed to match your profile with the inclusion criteria of available studies.
+    </li>
+    <li>
+      Your sex.
+      This is also needed to match your profile with the inclusion criteria of available studies.
+    </li>
+    <li>
+      Any long term conditions, like asthma or diabetes.
+      This is needed to match your profile with the inclusion criteria of available studies.
+    </li>
+    <li>
+      Any medication that you regularly take, for example insulin.
+      This is needed to match your profile with the inclusion criteria of available studies.
+    </li>
+  </ul>
+  <p>
+    In addition to the data contained in this profile, the app will share with
+    the server information about your participation to research studies, like
+    the date and time you joined or withdrew from a the study or the date and time
+    of the activities you performed within a study.
+    These are needed to keep track of your participation in existing studies and
+    avoid inviting you to studies you are already taking part in.
+  </p>
+  <p>
+    These data are securely transferred (via HTTPS) and stored on a server
+    hosted and managed by the University of Malmö, Sweden. Personnel from the
+    University may access the server and your data for technical maintenance, but
+    will not download or analyse any of these data, unless they are part of a
+    research study you have decided to take part in.
+  </p>
+  <p>
+    If you decide to join a research study, your may be required to share your data
+    with the institutions involved in the study, but further study-specific
+    conditions will apply, which will be clearly shown to you and you will be allowed
+    to reject them.
+  </p>
+  <p>
+    Under no circumstances other than the ones specified above, will your data be
+    shared with other parties or individuals.
+  </p>
+  <p>
+    Your data are kept on the server for as long as you decide to keep your profile on
+    Mobistudy. The app allows you to delete your account and any data associated
+    with it at any time, just by tapping on a button.
+  </p>
+  <p>
+    The server will also register the date and time you login or send data and
+    the IP address from which the data comes from.
+    These technical logs are needed for security reasons and will be kept for
+    5 years in all circumstances, also if you decide to delete your account.
+  </p>
+  <p>
+    You can download the data in a machine-readable format. Contact mobistudy@mau.se
+    if you need to.
+  </p>
+  <p>
+    The <a href="https://mau.se/en/about-the-website/">general privacy policy</a>
+    of the University of Malmö applies for cases not explicitly
+    mentioned in this privacy policy, for example for what regards communication
+    via email with staff managing Mobistudy.
+  </p>`
 }
