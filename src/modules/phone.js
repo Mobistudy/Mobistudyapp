@@ -105,21 +105,24 @@ export default {
     }
   },
   media: {
-    // TODO: the media library works faster if the sound is pre-loaded
-    // need to change this into a bank of sounds that can be played
-    metronome: null,
+    metronome: false,
     playSound (soundfile) {
       var audio = new Audio(soundfile)
       audio.play()
     },
-    async playMetro (soundfile, cadence) {
+    async playMetro (soundfile, period) {
       var metro = new Audio(soundfile)
-      this.metronome = setInterval(function () {
+      this.metronome = true
+      let playAndRepeat = () => {
         metro.play()
-      }, cadence)
+        if (this.metronome) {
+          setTimeout(playAndRepeat, period)
+        }
+      }
+      playAndRepeat()
     },
     async stopMetro () {
-      clearInterval(this.metronome)
+      this.metronome = false
     }
   }
 }
