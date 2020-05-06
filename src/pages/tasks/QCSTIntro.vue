@@ -1,47 +1,32 @@
 <template>
   <q-page padding>
-    <div class="text-center text-h6 q-mt-lg">
-      {{ $t("studies.tasks.qcst.title") }}
+    <div class="text-h5 text-center">{{ $t('studies.tasks.qcst.title') }}</div>
+    <div class="text-subtitle1 q-mt-md">
+      {{ $t('common.introduction') }}
     </div>
-    <q-item class="q-mt-md">
-      <q-item-section>
-        <q-item-label class="q-pb-sm">{{
-          $t("common.introduction")
-        }}</q-item-label>
-        <q-item-label caption>
-          <p>{{ $t("studies.tasks.qcst.prerequisiteNote") }}<br /><br /></p>
-          <ul>
-            <li
-              v-for="(prerequisite, idx) in $t(
-                'studies.tasks.qcst.prerequisite'
-              )"
-              :key="idx"
-            >
-              {{ prerequisite.p }}
-            </li>
-          </ul>
-        </q-item-label>
-        <q-item-label class="q-pb-sm">{{
-          $t("common.instructions")
-        }}</q-item-label>
-        <q-item-label caption>
-          <p>{{ $t("studies.tasks.instructionsNote") }}</p>
-          <ul>
-            <li
-              v-for="(instruction, idx) in $t(
-                'studies.tasks.qcst.qcstInstructions'
-              )"
-              :key="idx"
-            >
-              {{ instruction.i }}
-            </li>
-          </ul>
-        </q-item-label>
-        <div class="row justify-center q-mt-lg">
-          <q-btn color="primary" @click="start()" :label="$t('common.start')" />
-        </div>
-      </q-item-section>
-    </q-item>
+    <div>
+      {{ $t('studies.tasks.qcst.prerequisiteNote') }}
+    </div>
+    <div>
+      <ul>
+        <li v-for="(prerequisite, idx) in $t('studies.tasks.qcst.prerequisites')" :key="idx">
+          {{ prerequisite.p }}
+        </li>
+      </ul>
+    </div>
+    <div class="text-subtitle1 q-mt-md">
+      {{ $t('common.instructions') }}
+    </div>
+    <div>
+      <ul>
+        <li v-for="(instruction, idx) in $t('studies.tasks.qcst.instructions')" :key="idx">
+          {{ instruction.i }}
+        </li>
+      </ul>
+    </div>
+    <div class="row justify-center q-mt-lg">
+      <q-btn color="primary" @click="start()" replace :label="$t('common.start')" />
+    </div>
   </q-page>
 </template>
 
