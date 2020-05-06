@@ -135,6 +135,7 @@
 import API from '../../modules/API.js'
 import DB from '../../modules/db.js'
 import fileSystem from '../../modules/files.js'
+import { format as Qformat } from 'quasar'
 
 export default {
   name: 'SMWTSummaryPage',
@@ -180,11 +181,10 @@ export default {
   },
   computed: {
     totalTime () {
-      console.log(this.report)
       return Math.floor((this.report.completionTS - this.report.startedTS) / 1000)
     },
     minutes () {
-      return Math.floor(this.totalTime / 60)
+      return Qformat.pad(Math.floor(this.totalTime / 60))
     },
     seconds () {
       return Math.floor(this.totalTime - (this.minutes * 60))

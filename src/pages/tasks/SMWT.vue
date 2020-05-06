@@ -21,6 +21,7 @@ import { Loader } from '@googlemaps/js-api-loader'
 import phone from '../../modules/phone'
 import distanceAlgo from '../../modules/outdoorDistance.js'
 import userinfo from '../../modules/userinfo.js'
+import { format as Qformat } from 'quasar'
 
 const TEST_DURATION = 360
 const SIGNAL_CHECK_TIMEOUT = 60000
@@ -59,8 +60,9 @@ export default {
     // start signal check
     this.isSignalCheck = true
     let signalCheckStartedTS = new Date()
-    if (await phone.geolocation.isAvailable()) {
-      if (await phone.geolocation.requestPermission()) {
+    try {
+      if (await phone.geolocation.isAvailable()) {
+        console.log('GPS is available')
         phone.geolocation.startNotifications({
           maximumAge: 5000,
           timeout: 5000,
@@ -108,8 +110,15 @@ export default {
               this.isSignalCheck = false
             }
           }
+        }, (err) => {
+          console.error('Cannot retrieve GPS position', err)
         })
+      } else {
+        // NO GPS AVAILABLE
+        console.error('No GPS available')
       }
+    } catch (error) {
+      console.error('Issues while starting the GPS', error)
     }
   },
   methods: {
@@ -177,17 +186,14 @@ export default {
       }
 
       this.$router.push({ name: 'smwtSummary', params: { report: report } })
-    },
-    padTime (time) {
-      return (time < 10 ? '0' : '') + time
     }
   },
   computed: {
     minutes () {
-      return this.padTime(Math.floor(this.totalTime / 60))
+      return Qformat.pad(Math.floor(this.totalTime / 60))
     },
     seconds () {
-      return this.padTime(this.totalTime - (this.minutes * 60))
+      return Qformat.pad(this.totalTime - (this.minutes * 60))
     }
   },
 
