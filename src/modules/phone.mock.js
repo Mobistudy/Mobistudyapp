@@ -1,5 +1,7 @@
 'use strict'
 
+import { Dialog } from 'quasar'
+
 // this module mocks the cordova plugins of phone.js
 
 export default {
@@ -27,7 +29,20 @@ export default {
       return Promise.resolve(true)
     },
     async requestPermission () {
-      return Promise.resolve(true)
+      return new Promise((resolve, reject) => {
+        Dialog.create({
+          title: 'Confirm',
+          message: 'Would you like to give access to the GPS?',
+          cancel: true,
+          persistent: true
+        }).onOk(() => {
+          resolve()
+        }).onCancel(() => {
+          reject()
+        }).onDismiss(() => {
+          reject()
+        })
+      })
     },
     startNotifications (options, cbk, error) {
       let startLat = 51.751985
@@ -58,7 +73,20 @@ export default {
       return Promise.resolve(true)
     },
     async requestPermission () {
-      return Promise.resolve(true)
+      return new Promise((resolve, reject) => {
+        Dialog.create({
+          title: 'Confirm',
+          message: 'Would you like to give access to the pedometer?',
+          cancel: true,
+          persistent: true
+        }).onOk(() => {
+          resolve()
+        }).onCancel(() => {
+          reject()
+        }).onDismiss(() => {
+          reject()
+        })
+      })
     },
     startNotifications (options, cbk, error) {
       this.steps = 0

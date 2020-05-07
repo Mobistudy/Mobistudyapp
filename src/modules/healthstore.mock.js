@@ -1,6 +1,7 @@
 'use strict'
 
 import moment from 'moment'
+import { Dialog } from 'quasar'
 
 export default {
   isAvailable: async function () {
@@ -12,7 +13,20 @@ export default {
   },
 
   requestAuthorization: async function (datatypes) {
-    return Promise.resolve()
+    return new Promise((resolve, reject) => {
+      Dialog.create({
+        title: 'Confirm',
+        message: 'Would you like to give access to ' + datatypes + '?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        resolve()
+      }).onCancel(() => {
+        reject()
+      }).onDismiss(() => {
+        reject()
+      })
+    })
   },
 
   isAuthorized: async function (datatypes) {
