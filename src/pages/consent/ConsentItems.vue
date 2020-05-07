@@ -136,7 +136,7 @@ export default {
             studyParticipation.taskItemsConsent.push({
               taskId: this.studyDescription.consent.taskItems[i].taskId, consented: this.consentedTaskItems[i]
             })
-          }  
+          }
         }
         // call the API
         await API.updateStudyStatus(userinfo.user._key, this.studyDescription._key, studyParticipation)
