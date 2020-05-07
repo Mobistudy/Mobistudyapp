@@ -18,7 +18,7 @@ export default {
 
   // Logging in
   async login (email, password) {
-    if (email !== 'jameson@test.test' || password !== 'outerZpace') {
+    if (email !== 'jameson@test.test' || password !== 'moon landing') {
       let err = new Error('bad credentials')
       err.response = { status: 401 }
       throw err
@@ -53,7 +53,7 @@ export default {
     console.log('API - searching for', disease)
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (disease.indexOf('hea') !== -1) {
+        if (disease.toLowerCase().indexOf('hea') !== -1) {
           resolve([
             {
               term: 'heart failure',
@@ -67,7 +67,7 @@ export default {
             }
           ])
         }
-        if (disease.indexOf('cop') !== -1) {
+        if (disease.toLowerCase().indexOf('cop') !== -1) {
           resolve([
             {
               term: 'COPD',
@@ -76,7 +76,7 @@ export default {
             }
           ])
         }
-        if (disease.indexOf('ast') !== -1) {
+        if (disease.toLowerCase().indexOf('ast') !== -1) {
           resolve([
             {
               term: 'asthma',
@@ -94,7 +94,7 @@ export default {
     console.log('API - searching for', medication)
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (medication.indexOf('asp') !== -1) {
+        if (medication.toLowerCase().indexOf('asp') !== -1) {
           resolve([
             {
               term: 'aspirin',
@@ -200,6 +200,8 @@ export default {
       if (taskItem) {
         taskItem.lastExecuted = timestamp
       }
+    } else {
+      throw new Error('Study not found in participant profile')
     }
   },
 

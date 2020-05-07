@@ -11,8 +11,10 @@ export default {
     },
     longDescription: {
       en: `The aim of this study is to foster exercise in COPD patienst.
-      Patients are asked to attend an exercise session at least twice per week at their local facility, like a gym or a park to do physical activity.
-      Patients can choose their preferred form of exercise and can report their sessions using their app of choice.`
+
+      Patients are asked to attend an exercise session at least twice per week at their local facility and report their sessions using their app of choice.
+
+      To monitor progression of their fitness level, patients will answer a questionnaire, share their data about step counting and perform two exercise capacity tests, the six-minute walk test and the Queen's College Step Test guided by their mobile phone.`
     },
     startDate: '2020-04-01',
     endDate: '2022-10-12',
@@ -40,7 +42,7 @@ export default {
       {
         name: 'Skåne University Hospital',
         contact: 'https://vard.skane.se/',
-        dataAccess: 'none'
+        dataAccess: 'no'
       }
     ]
   },
@@ -89,20 +91,48 @@ export default {
         interval: 2
       },
       formKey: '9999'
+    },
+    {
+      id: 3,
+      type: 'smwt',
+      scheduling: {
+        startEvent: 'consent',
+        intervalType: 'd',
+        interval: 7,
+        months: [],
+        monthDays: [],
+        weekDays: []
+      }
+    },
+    {
+      id: 4,
+      type: 'qcst',
+      scheduling: {
+        startEvent: 'consent',
+        intervalType: 'd',
+        interval: 7,
+        months: [],
+        monthDays: [],
+        weekDays: []
+      }
     }
   ],
   consent: {
     invitation: {
       en: `We would like to invite you to take part in this research study about rehabilitation for COPD patients.
-      In order to participate, you need to have been diagnosed with COPD and not currently being involved in a rehabilitation programme.
-      You must be capable of doing light physical exercise and must own a smartphone.
-      You will do your preferred exercise twice a week and report it through your favourite app.
+
+      In order to participate, you need to have been diagnosed with COPD and not currently being involved in a rehabilitation programme. You must be capable of doing light physical exercise and must own a smartphone.
+
+      You will do your preferred exercise twice a week and report it through your favourite app. In order to measure your progress, you will perform two simple exercise capacity tests, the six-minute walk test and the Queen's College Step Test, once a week, guided by your smartphone. You will also answer a questionnaire about physical activity and
+
       The participation to this study is voluntary and you can withdraw at any moment.`
     },
     privacyPolicy: {
-      en: `We are going to collect data about your physical activity as collected by your phone.
-      The data will be stored on Mobstudy servers and be used by the University of Malmö for analysis.
-      Your may be published on scientific journals after having been aggregated and anonymised.`
+      en: `Through this app, we are going to collect data about your physical activity as collected by your phone.
+
+      The data will be stored on Mobstudy servers and be used by the University of Malmö for analysis. The data will be deleted from the server after the end of the study and will be retained by the research team for no more than 5 years after the end of the study.
+
+      Part of the data may be published on scientific journals after having been aggregated and anonymised.`
     },
     taskItems: [
       {
@@ -116,6 +146,18 @@ export default {
           en: 'I agree to answer the physical exercise questionnaire every other day.'
         },
         taskId: 2
+      },
+      {
+        description: {
+          en: 'I agree to perform a six-minute walk test once a week.'
+        },
+        taskId: 3
+      },
+      {
+        description: {
+          en: 'I agree to perform a Queen\'s College Step Test once a week.'
+        },
+        taskId: 4
       }
     ]
   }
