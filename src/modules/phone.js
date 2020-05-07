@@ -32,13 +32,11 @@ export default {
     },
     async requestPermission () {
       return new Promise((resolve, reject) => {
-        let id = navigator.geolocation.watchPosition(() => {
+        navigator.geolocation.getCurrentPosition(() => {
           resolve(true)
-          navigator.geolocation.clearWatch(id)
         }, (err) => {
           reject(err)
-          navigator.geolocation.clearWatch(id)
-        }, { timeout: 5000, enableHighAccuracy: true })
+        })
       })
     },
     startNotifications (options, cbk, error) {
