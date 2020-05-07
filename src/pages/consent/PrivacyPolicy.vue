@@ -3,7 +3,7 @@
     <div class="text-h5 text-center">
       {{$t('studies.privacyPolicy')}}
     </div>
-    <p class="q-my-md" v-html="studyDescription.consent.privacyPolicy[$i18n.locale].replace(new RegExp('\n', 'g'), '<br>')"></p>
+    <div class="q-my-md" style="white-space: pre-line;">{{studyDescription.consent.privacyPolicy[$i18n.locale]}}</div>
 
     <div class="q-my-md row justify-around">
       <q-btn :label="$t('common.reject')" color="negative" @click="deny()"></q-btn>

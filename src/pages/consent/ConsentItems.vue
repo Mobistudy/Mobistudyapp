@@ -124,15 +124,19 @@ export default {
           taskItemsConsent: [],
           extraItemsConsent: []
         }
-        for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
-          studyParticipation.extraItemsConsent.push({
-            consented: this.consentedExtraItems[i]
-          })
+        if (this.studyDescription.consent.extraItems) {
+          for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
+            studyParticipation.extraItemsConsent.push({
+              consented: this.consentedExtraItems[i]
+            })
+          }
         }
-        for (let i = 0; i < this.studyDescription.consent.taskItems.length; i++) {
-          studyParticipation.taskItemsConsent.push({
-            taskId: this.studyDescription.consent.taskItems[i].taskId, consented: this.consentedTaskItems[i]
-          })
+        if (this.studyDescription.consent.taskItems) {
+          for (let i = 0; i < this.studyDescription.consent.taskItems.length; i++) {
+            studyParticipation.taskItemsConsent.push({
+              taskId: this.studyDescription.consent.taskItems[i].taskId, consented: this.consentedTaskItems[i]
+            })
+          }  
         }
         // call the API
         await API.updateStudyStatus(userinfo.user._key, this.studyDescription._key, studyParticipation)

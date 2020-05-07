@@ -1,15 +1,10 @@
 <template>
-  <q-page padding class="flex flex-center">
-    <q-list>
-      <q-item>
-        <q-item-section>
-          <q-item-label class="text-center" v-html="studyDescription.consent.invitation[$i18n.locale].replace(new RegExp('\n', 'g'), '<br>')"></q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-item>
-        <q-btn class="q-mt-lg full-width" :label="$t('common.next')" color="primary" @click="next()"></q-btn>
-      </q-item>
-    </q-list>
+  <q-page padding>
+    <div class="q-my-md" style="white-space: pre-line;">{{ studyDescription.consent.privacyPolicy[$i18n.locale] }}</div>
+
+    <div class="q-my-md row justify-around">
+      <q-btn class="q-mt-lg full-width" :label="$t('common.next')" color="primary" @click="next()"></q-btn>
+    </div>
   </q-page>
 </template>
 
