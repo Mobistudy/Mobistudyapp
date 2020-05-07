@@ -39,7 +39,7 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-            <string>Need location access to find things nearby</string>
+            <string>The app needs to estimate your physical activity</string>
         </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="NSHealthShareUsageDescription">
             <string>The app needs to read health-related data from your phone</string>

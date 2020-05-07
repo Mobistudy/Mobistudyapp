@@ -65,6 +65,12 @@ For the pedometer to work properly:
 <string>The app needs to detect steps</string>
 ```
 
+For the GPS:
+```xml
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>The app needs to estimate your physical activity</string>
+```
+
 ## Run
 
 To start the app in development mode (hot-code reloading, error reporting, etc.), run:
