@@ -106,7 +106,7 @@ export default {
     },
     registration: {
       signUp: 'Sign up',
-      termsAndConditions: 'Terms and Condtions',
+      termsAndConditions: 'Terms and Conditions',
       createAccount: 'Create Account',
       createProfile: 'Create Profile',
       privacyPolicy: 'Privacy Policy',
@@ -175,9 +175,9 @@ export default {
     studyTitle: 'Study title',
     dataAccess: {
       anonymised: 'This institution will access your data in an anonymised way',
-      noAccess: 'This institution will have no access to your data',
+      noAccess: 'This institution will not access your data',
       full: 'This institution will access your data',
-      reason: 'Reason'
+      reason: 'Reason for data access'
     },
     tasks: {
       cancelTask: 'This will terminate the current task and you will be redirected to the start page. No data will be saved. Do you really want to quit?',
