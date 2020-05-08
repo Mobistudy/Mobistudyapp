@@ -4,14 +4,13 @@
       <img src="~/assets/thank-you.svg" style="width:30vw; max-width:150px;" ><br />
     </div>
     <div class="text-h5 text-center">
-      {{ $t('studies.consent.accepted') }} {{studyDescription.generalities.title[$i18n.locale]]}}!
+      {{ $t('studies.consent.accepted') }} {{ studyDescription.generalities.title[$i18n.locale] }}!
     </div>
-    <div class="text-h5 text-center">
+    <div class="q-my-md text-subtitle1 text-center">
       {{ $t('studies.consent.contactReminder') }}
     </div>
 
-
-    <q-list v-for="(pi, index) in studyDescription.generalities.principalInvestigators" :key="index" separator>
+    <q-list v-for="(pi, index) in studyDescription.generalities.principalInvestigators" :key="index">
       <q-item>
         <q-item-section>
           <q-item-label>
@@ -42,6 +41,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
+      <q-separator class="q-mt-sm" v-if="index != studyDescription.generalities.principalInvestigators.length-1" />
     </q-list>
 
     <div class="q-my-md flex flex-center">
