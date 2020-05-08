@@ -90,7 +90,10 @@ export default {
         intervalType: 'd',
         interval: 2
       },
-      formKey: '9999'
+      formKey: '9999',
+      formName: {
+        en: 'Global Physical Activity Questionnaire'
+      }
     },
     {
       id: 3,

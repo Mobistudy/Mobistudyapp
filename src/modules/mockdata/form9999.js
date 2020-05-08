@@ -1,7 +1,7 @@
 export default {
   createdTS: '2019-10-25T10:09:53.222Z',
   name: {
-    en: 'Global Physical Activity Questionnaire '
+    en: 'Global Physical Activity Questionnaire'
   },
   description: {
     en: `The Global Physical Activity Questionnaire was developed by WHO for
