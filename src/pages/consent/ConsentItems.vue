@@ -1,5 +1,6 @@
 <template>
-  <q-page padding><div class="text-h5 text-center">
+  <q-page padding>
+    <div class="text-h5 text-center">
       {{$t('studies.consent.informedConsent')}}
     </div>
     <div class="text-body2">
@@ -19,18 +20,10 @@
         <q-separator inset />
       </div>
       <q-list v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems" :key="taskIndex">
-        <q-item v-if="taskType[taskIndex] === 'dataQuery'">
+        <q-item>
           <q-item-section>
             <q-item-label class="q-my-md">{{taskItem.description[$i18n.locale]}}</q-item-label>
-            <q-btn :label="$t('studies.consent.giveOSPermission')" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" :color="getColour(taskIndex)" :outline="getOutline(taskIndex)" @click="requestDQPermission(taskIndex)"></q-btn>
-          </q-item-section>
-          <q-item-section avatar>
-            <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
-          </q-item-section>
-        </q-item>
-        <q-item v-if="taskType[taskIndex] === 'form'">
-          <q-item-section>
-            <q-item-label class="q-my-md">{{taskItem.description[$i18n.locale]}}</q-item-label>
+            <q-btn v-if="taskType[taskIndex] !== 'form'" :label="$t('studies.consent.giveOSPermission')" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" :color="getColour(taskIndex)" :outline="getOutline(taskIndex)" @click="requestPermission(taskIndex)"></q-btn>
           </q-item-section>
           <q-item-section avatar>
             <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
@@ -52,7 +45,7 @@
         </q-item-section>
       </q-item>
     </q-list>
-    <div class="q-my-md row justify-between">
+    <div class="q-my-md row justify-evenly">
       <q-btn :label="$t('common.reject')" color="negative" @click="deny()"></q-btn>
       <q-btn :label="$t('studies.consent.joinStudy')" color="positive" :disabled="!canAccept" @click="accept()"></q-btn>
     </div>
@@ -65,6 +58,7 @@ import DB from '../../modules/db'
 import API from '../../modules/API'
 import healthStore from '../../modules/healthstore'
 import notifications from '../../modules/notifications'
+import phone from '../../modules/phone'
 
 export default {
   name: 'ConsentItemsPage',
@@ -113,6 +107,58 @@ export default {
     }
   },
   methods: {
+    async requestPermission (taskIndex) {
+      try {
+        if (this.taskType[taskIndex] === 'dataQuery') {
+          let taskId = this.studyDescription.consent.taskItems[taskIndex].taskId
+          let taskdescr = this.studyDescription.tasks.find(t => t.id === taskId)
+          await healthStore.requestAuthorization([taskdescr.dataType])
+        } else if (this.taskType[taskIndex] === 'smwt') {
+          if (await phone.geolocation.isAvailable()) {
+            await phone.geolocation.requestPermission()
+          }
+          if (await phone.pedometer.isAvailable()) {
+            await phone.pedometer.requestPermission()
+          }
+        } else if (this.taskType[taskIndex] === 'qcst') {
+          if (await phone.pedometer.isAvailable()) {
+            await phone.pedometer.requestPermission()
+          }
+        }
+        // if we get to this point we have permission
+        this.$set(this.permissionsGiven, taskIndex, true)
+        this.$q.notify({
+          color: 'positive',
+          message: this.$i18n.t('studies.consent.OSPermissionGiven'),
+          icon: 'check'
+        })
+      } catch (error) {
+        // we didn't get permission
+        console.error('Cannot get OS authorisation for task', error)
+        this.$q.notify({
+          color: 'negative',
+          message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error.message,
+          icon: 'report_problem'
+        })
+      }
+    },
+    async requestNotificationsPermission () {
+      try {
+        this.remindersPermissionGiven = await notifications.requestPermission()
+        this.$q.notify({
+          color: 'positive',
+          message: this.$i18n.t('studies.consent.OSPermissionGiven'),
+          icon: 'check'
+        })
+      } catch (error) {
+        console.error('Cannot get authorisation for sending reminders', error)
+        this.$q.notify({
+          color: 'negative',
+          message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error.message,
+          icon: 'report_problem'
+        })
+      }
+    },
     async accept () {
       try {
         // set the study as accepted
@@ -155,45 +201,6 @@ export default {
         })
       }
       this.$router.push({ name: 'accepted', params: { studyDescription: this.studyDescription } })
-    },
-    async requestDQPermission (taskIndex) {
-      let taskId = this.studyDescription.consent.taskItems[taskIndex].taskId
-      let taskdescr = this.studyDescription.tasks.find(t => t.id === taskId)
-      if (taskdescr && taskdescr.dataType) {
-        try {
-          await healthStore.requestAuthorization([taskdescr.dataType])
-          this.$set(this.permissionsGiven, taskIndex, true)
-          this.$q.notify({
-            color: 'positive',
-            message: this.$i18n.t('studies.consent.OSPermissionGiven'),
-            icon: 'check'
-          })
-        } catch (error) {
-          console.error('Cannot get authorisation for health', error)
-          this.$q.notify({
-            color: 'negative',
-            message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error.message,
-            icon: 'report_problem'
-          })
-        }
-      }
-    },
-    async requestNotificationsPermission () {
-      try {
-        this.remindersPermissionGiven = await notifications.requestPermission()
-        this.$q.notify({
-          color: 'positive',
-          message: this.$i18n.t('studies.consent.OSPermissionGiven'),
-          icon: 'check'
-        })
-      } catch (error) {
-        console.error('Cannot get authorisation for sending reminders', error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error.message,
-          icon: 'report_problem'
-        })
-      }
     },
     async deny () {
       this.$q.dialog({
