@@ -1,33 +1,21 @@
 <template>
   <q-page padding>
-    <p class="q-title q-mt-lg" style="text-align: center">
+    <div class="text-center">
       <img src="~/assets/thank-you.svg" style="width:30vw; max-width:150px;" ><br />
-    </p>
-    <q-list>
-      <q-item>
-        <q-item-section>
-          <q-item-label class="text-center text-h6">
-            {{ $t('consent.accepted.joined') }} {{studyDescription.generalities.title}}!
-          </q-item-label>
-        </q-item-section>
-      </q-item>
-    </q-list>
+    </div>
+    <div class="text-h5 text-center">
+      {{ $t('studies.consent.accepted') }} {{studyDescription.generalities.title[$i18n.locale]]}}!
+    </div>
+    <div class="text-h5 text-center">
+      {{ $t('studies.consent.contactReminder') }}
+    </div>
 
-    <q-list>
-      <q-item>
-        <q-item-section>
-          <q-item-label class="text-center text-subtitle1">
-            {{ $t('consent.accepted.reminder') }}
-          </q-item-label>
-        </q-item-section>
-      </q-item>
-    </q-list>
 
-    <q-list v-for="(pi, index) in studyDescription.generalities.principalInvestigators" :key="index">
+    <q-list v-for="(pi, index) in studyDescription.generalities.principalInvestigators" :key="index" separator>
       <q-item>
         <q-item-section>
           <q-item-label>
-            {{ $t('consent.accepted.name') }}
+            {{ $t('studies.investigatorName') }}
           </q-item-label>
           <q-item-label caption>
             {{pi.name}}
@@ -37,7 +25,7 @@
       <q-item>
         <q-item-section>
           <q-item-label>
-            {{ $t('consent.accepted.institution') }}
+            {{ $t('studies.institution') }}
           </q-item-label>
           <q-item-label caption>
             {{pi.institution}}
@@ -47,18 +35,17 @@
       <q-item>
         <q-item-section>
           <q-item-label>
-            {{ $t('consent.accepted.contact') }}
+            {{ $t('studies.contact') }}
           </q-item-label>
           <q-item-label caption>
             {{pi.contact}}
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-card-separator inset v-if="index != studyDescription.generalities.principalInvestigators.length-1" />
     </q-list>
 
-    <div class="q-my-lg flex flex-center">
-      <q-btn class="full-width" :label="$t('consent.accepted.buttonNext')" color="primary" @click="next()"></q-btn>
+    <div class="q-my-md flex flex-center">
+      <q-btn class="full-width" :label="$t('common.next')" color="primary" @click="next()"></q-btn>
     </div>
   </q-page>
 </template>

@@ -280,7 +280,9 @@ export default {
       updateConsent: 'Update consent',
       consentUpdated: 'Consent updated',
       withdraw: 'Withdraw from the study',
-      joinStudy: 'Join study'
+      joinStudy: 'Join study',
+      accepted: 'You have just joined',
+      contactReminder: 'Remember, if you need to, you can always contact the principal investigators at:'
     }
   },
   info: {
