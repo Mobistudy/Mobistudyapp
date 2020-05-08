@@ -4,7 +4,7 @@
       <div class="text-center text-h6">
           {{introduction.title[$i18n.locale]}}
       </div>
-      <div class="text-center text-subtitle1 q-mt-lg">
+      <div class="text-center text-body1 q-mt-lg">
           {{introduction.description[$i18n.locale]}}
       </div>
       <div class="row justify-center q-mt-lg">

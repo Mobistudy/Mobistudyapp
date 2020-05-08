@@ -21,7 +21,7 @@
 
       <div class="q-pa-md">
         <p class="sub-heading">Please rate your level of exertion:</p>
-        <q-list>
+        <q-list bordered>
           <q-item tag="label" v-ripple>
             <q-item-section avatar>
               <q-radio v-model="borgValue" val="0" />
@@ -194,11 +194,6 @@ export default {
 </script>
 
 <style>
-#completedText {
-  text-align: center;
-  font-size: 36px;
-}
-
 img {
   width: 40%;
   margin: 0px auto;
@@ -220,32 +215,7 @@ tr {
   text-align: left
 }
 
-.q-pa-md {
-  padding-top: 20px;
-}
-.sub-heading {
-  font-size: 14px;
-  text-align: left
-}
-
-div.q-list {
-  border: 1px solid #ccc;
-}
-div.q-list label {
-  font-size: 14px;
-}
-div.q-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 0px;
-  min-height: 0px;
-}
-div.q-item p {
-  margin: 0px;
-  padding: 12px 5px
-}
 #submit {
   text-align: center;
 }
-
 </style>

@@ -17,7 +17,7 @@
 
       <div class="q-pa-md">
         <p class="sub-heading">Please rate your level of exertion:</p>
-        <q-list>
+        <q-list bordered>
           <q-item tag="label" v-ripple>
             <q-item-section avatar>
               <q-radio v-model="borgValue" val="0" />
@@ -190,3 +190,30 @@ export default {
   }
 }
 </script>
+
+<style>
+img {
+  width: 40%;
+  margin: 0px auto;
+}
+
+table {
+  background: #f8f8f8;
+  padding: 4px;
+  width: 70%;
+  margin: 0px auto;
+  font-size: 0.75rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+table td:nth-child(2) {
+  text-align: right;
+}
+tr {
+  text-align: left
+}
+
+#submit {
+  text-align: center;
+}
+</style>
