@@ -8,7 +8,7 @@ const storage = window.NativeStorage
 export async function getItem (key) {
   return new Promise((resolve, reject) => {
     storage.getItem(key, (item) => {
-      resolve(JSON.parse(storage.getItem(key)))
+      resolve(JSON.parse(item))
     }, reject)
   })
 }
