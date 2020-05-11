@@ -9,10 +9,10 @@
     </div>
     <div v-show="isSignalCheck" class="text-subtitle1 text-center ">{{ $t('studies.tasks.smwt.signalCheck') }}</div>
     <p v-show="!isSignalCheck" id="timer"> {{ minutes }}:{{ seconds }} </p>
-      <div class="row justify-center q-mt-lg">
-        <q-btn  @click="startTest" v-show="!isStarted" color="secondary" :label="$t('common.start')" :disabled="isSignalCheck" />
-        <q-btn  @click="completeTest" v-show="isStarted" color="purple" :label="$t('common.complete')" />
-      </div>
+    <div class="row justify-center q-mt-lg">
+      <q-btn  @click="startTest" v-show="!isStarted" color="secondary" :label="$t('common.start')" :disabled="isSignalCheck" />
+      <q-btn  @click="completeTest" v-show="isStarted" color="purple" :label="$t('common.complete')" />
+    </div>
   </q-page>
 </template>
 
@@ -99,7 +99,7 @@ export default {
 
           this.positions.push(position)
           if (this.steps.length !== 0) {
-            position.steps = this.steps[this.steps.length.length - 1]
+            position.steps = this.steps[this.steps.length.length - 1].steps
           }
           distanceAlgo.addPosition(position)
 
@@ -134,7 +134,10 @@ export default {
         if (await phone.pedometer.isAvailable()) {
           phone.pedometer.startNotifications({}, (steps) => {
             console.log('Got steps', steps)
-            this.steps.push(steps)
+            this.steps.steps.push({
+              timestamp: new Date().getTime(),
+              steps: numberOfSteps
+            })
           })
         }
       } catch (err) {
