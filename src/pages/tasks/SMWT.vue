@@ -136,7 +136,7 @@ export default {
             console.log('Got steps', steps)
             this.steps.steps.push({
               timestamp: new Date().getTime(),
-              steps: numberOfSteps
+              steps: steps.numberOfSteps
             })
           })
         }
