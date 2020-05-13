@@ -47,9 +47,6 @@
         <edit-config file="*-Info.plist" mode="merge" target="NSHealthUpdateUsageDescription">
             <string>The app needs to store health-related data from your phone</string>
         </edit-config>
-        <edit-config file="*-Info.plist" mode="merge" target="UIFileSharingEnabled">
-            <true />
-        </edit-config>
         <icon height="57" src="res/ios/icon.png" width="57" />
         <icon height="114" src="res/ios/icon@2x.png" width="114" />
         <icon height="40" src="res/ios/icon-20@2x.png" width="40" />
