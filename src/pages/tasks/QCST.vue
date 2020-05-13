@@ -54,7 +54,7 @@ export default {
     }
   },
   methods: {
-    startTest () {
+    async startTest () {
       if (!this.isStarted) {
         this.isStarted = true
         this.startedTS = new Date()
