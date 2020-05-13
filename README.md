@@ -125,6 +125,28 @@ For the app, run:
 quasar build -m ios
 ```
 
+## iOS
+
+You need to open the project in Xcode, have a provisioning profile for distribtion
+on the App Store and Archive then Distribute the app.
+
+## Android
+
+Create a keystore (only once! not for every release).
+
+```bash
+keytool -genkey -v -keystore mobistudy-release.keystore -alias mobistudy -keyalg RSA -keysize 2048 -validity 10000
+```
+Write down the password you set for the keystore and the certificate. Let's say
+it's "pwdpwd"
+
+Then run:
+```bash
+cordova build android --release -- --keystore=mobistudy-release.keystore --alias=mobistudy --storePassword=pwdpwd --password=pwdpwd
+```
+
+the APK will be available in `src-cordova/platforms/android/app/build/outputs/apk/release/app-release.apk`
+
 ## Credits
 
 Original idea: [Dario Salvi](https://github.com/dariosalvi78) and [Carmelo Velardo](https://github.com/2dvisio).
