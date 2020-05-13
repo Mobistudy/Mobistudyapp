@@ -33,6 +33,8 @@ Prepare the Xcode project:
 cd src-cordova
 cordova prepare ios
 ```
+(if you get an error like "Conflict found, edit-config changes from config.xm
+will overwrite plugin.xml changes", repeat `cordova prepare ios`)
 
 This will create a folder under src-cordova/platforms/ios
 Open that folder with Xcode. It will contain an iOS project.
