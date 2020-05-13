@@ -101,26 +101,5 @@ export default {
         window.pedometer.stopPedometerUpdates(resolve, reject)
       })
     }
-  },
-  media: {
-    metronome: false,
-    playSound (soundfile) {
-      var audio = new Audio(soundfile)
-      audio.play()
-    },
-    async playMetro (soundfile, period) {
-      var metro = new Audio(soundfile)
-      this.metronome = true
-      let playAndRepeat = () => {
-        metro.play()
-        if (this.metronome) {
-          setTimeout(playAndRepeat, period)
-        }
-      }
-      playAndRepeat()
-    },
-    async stopMetro () {
-      this.metronome = false
-    }
   }
 }

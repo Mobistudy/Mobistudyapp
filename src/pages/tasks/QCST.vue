@@ -9,6 +9,22 @@
         <q-btn  @click="startTest" v-if="!isStarted" color="secondary" :label="$t('common.start')" />
         <q-btn  @click="completeTest" v-if="isStarted" color="purple" :label="$t('common.complete')" />
       </div>
+
+      <audio ref="sound_begin">
+        <source src="statics/sounds/begin.wav" type="audio/wav"/>
+      </audio>
+      <audio ref="sound_minute1">
+        <source src="statics/sounds/1-minute.wav" type="audio/wav"/>
+      </audio>
+      <audio ref="sound_minute2">
+        <source src="statics/sounds/2-minutes.wav" type="audio/wav"/>
+      </audio>
+      <audio ref="sound_complete">
+        <source src="statics/sounds/time.wav" type="audio/wav"/>
+      </audio>
+      <audio ref="sound_click">
+        <source src="statics/sounds/click.wav" type="audio/wav"/>
+      </audio>
   </q-page>
 </template>
 
@@ -42,35 +58,40 @@ export default {
       if (!this.isStarted) {
         this.isStarted = true
         this.startedTS = new Date()
-        if (phone.pedometer.isAvailable()) {
+        if (await phone.pedometer.isAvailable()) {
           phone.pedometer.startNotifications({}, async (step) => {
             console.log('Steps', step)
             this.steps.push(step)
           }, (error) => {
             console.error('Error getting steps', error)
           })
-          phone.media.playSound('/statics/sounds/begin.wav')
-
-          this.timer = setInterval(() => {
-            if (this.countDown === 120) {
-              phone.media.playSound('/statics/sounds/1-minute.wav')
-            } else if (this.countDown === 60) {
-              phone.media.playSound('statics/sounds/2-minutes.wav')
-            }
-            if (this.countDown >= 1) {
-              this.countDown--
-            } else {
-              // test is completed
-              phone.media.playSound('statics/sounds/time.wav')
-              this.isStarted = false
-              this.completeTest()
-            }
-          }, 1000)
-          phone.media.playMetro('/statics/sounds/click.wav', this.cadence)
         } else {
-          // TODO: show a message to the user
           console.error('Pedometer not available')
         }
+        this.$refs.sound_begin.play()
+
+        this.timer = setInterval(() => {
+          if (this.countDown === 120) {
+            this.$refs.sound_minute1.play()
+          } else if (this.countDown === 60) {
+            this.$refs.sound_minute2.play()
+          }
+          if (this.countDown >= 1) {
+            this.countDown--
+          } else {
+            // test is completed
+            this.$refs.sound_complete.play()
+            this.isStarted = false
+            this.completeTest()
+          }
+        }, 1000)
+        let playAndRepeat = () => {
+          this.$refs.sound_click.play()
+          if (this.isStarted) {
+            setTimeout(playAndRepeat, this.cadence)
+          }
+        }
+        playAndRepeat()
       }
     },
     completeTest () {
@@ -102,8 +123,8 @@ export default {
     }
   },
   beforeDestroy: function () {
+    this.isStarted = false
     clearInterval(this.timer)
-    phone.media.stopMetro()
     phone.pedometer.stopNotifications()
   }
 }

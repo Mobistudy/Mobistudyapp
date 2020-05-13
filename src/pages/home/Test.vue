@@ -9,6 +9,9 @@
         <q-btn color="white" text-color="black" label="Stop GPS" @click="stopGPS"/>
       </div>
       <p>{{coordsOutput}}</p>
+      <audio ref="sound_click">
+        <source src="statics/sounds/click.wav" type="audio/wav"/>
+      </audio>
       <div class="q-mt-md">
         <q-btn color="white" text-color="black" label="Play sound" @touchstart="playSound"/>
       </div>
@@ -61,7 +64,7 @@ export default {
       this.coordsOutput = 'GPS stopped'
     },
     playSound () {
-      phone.media.playSound('statics/sounds/click.wav')
+      this.$refs.sound_click.play()
     },
     async saveFile () {
       console.log('saving file')
