@@ -41,6 +41,9 @@
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
             <string>The app needs to estimate your physical activity</string>
         </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysUsageDescription">
+            <string>The app needs to estimate your physical activity</string>
+        </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="NSHealthShareUsageDescription">
             <string>The app needs to read health-related data from your phone</string>
         </edit-config>
