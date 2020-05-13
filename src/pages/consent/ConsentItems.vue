@@ -112,7 +112,9 @@ export default {
         if (this.taskType[taskIndex] === 'dataQuery') {
           let taskId = this.studyDescription.consent.taskItems[taskIndex].taskId
           let taskdescr = this.studyDescription.tasks.find(t => t.id === taskId)
-          await healthStore.requestAuthorization([taskdescr.dataType])
+          await healthStore.requestAuthorization([
+            { read: [taskdescr.dataType] }
+          ])
         } else if (this.taskType[taskIndex] === 'smwt') {
           if (await phone.geolocation.isAvailable()) {
             await phone.geolocation.requestPermission()
