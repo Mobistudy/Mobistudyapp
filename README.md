@@ -135,14 +135,14 @@ on the App Store and Archive then Distribute the app.
 Create a keystore (only once! not for every release).
 
 ```bash
-keytool -genkey -v -keystore mobistudy-release.keystore -alias mobistudy -keyalg RSA -keysize 2048 -validity 10000
+keytool -genkey -v -keystore mobistudy-release.keystore -alias upload -keyalg RSA -keysize 2048 -validity 10000
 ```
 Write down the password you set for the keystore and the certificate. Let's say
 it's "pwdpwd"
 
 Then run:
 ```bash
-cordova build android --release -- --keystore=mobistudy-release.keystore --alias=mobistudy --storePassword=pwdpwd --password=pwdpwd
+cordova build android --release -- --keystore=mobistudy-release.keystore --alias=upload --storePassword=pwdpwd --password=pwdpwd
 ```
 
 the APK will be available in `src-cordova/platforms/android/app/build/outputs/apk/release/app-release.apk`
