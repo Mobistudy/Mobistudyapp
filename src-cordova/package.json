@@ -18,6 +18,7 @@
     "cordova-plugin-badge": "0.8.8",
     "cordova-plugin-device": "2.0.3",
     "cordova-plugin-file": "6.0.2",
+    "cordova-plugin-geolocation": "^4.0.2",
     "cordova-plugin-health": "1.1.4",
     "cordova-plugin-insomnia": "git+https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git",
     "cordova-plugin-local-notification": "0.9.0-beta.2",
@@ -39,7 +40,8 @@
       "cordova-plugin-file": {},
       "cordova-plugin-health": {
         "HEALTH_READ_PERMISSION": "The app needs to read health-related data from your phone",
-        "HEALTH_WRITE_PERMISSION": "The app needs to store health-related data from your phone"
+        "HEALTH_WRITE_PERMISSION": "The app needs to store health-related data from your phone",
+        "GMS_VERSION": "16.0.1"
       },
       "cordova-plugin-local-notification": {},
       "cordova-plugin-splashscreen": {},
