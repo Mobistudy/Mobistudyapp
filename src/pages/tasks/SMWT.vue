@@ -99,7 +99,7 @@ export default {
 
           this.positions.push(position)
           if (this.steps.length !== 0) {
-            position.steps = this.steps[this.steps.length.length - 1].steps
+            position.steps = this.steps[this.steps.length - 1].steps
           }
           distanceAlgo.addPosition(position)
 
@@ -134,7 +134,7 @@ export default {
         if (await phone.pedometer.isAvailable()) {
           phone.pedometer.startNotifications({}, (steps) => {
             console.log('Got steps', steps)
-            this.steps.steps.push({
+            this.steps.push({
               timestamp: new Date().getTime(),
               steps: steps.numberOfSteps
             })
