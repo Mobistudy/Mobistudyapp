@@ -14,7 +14,7 @@ export default {
 
       Patients are asked to attend an exercise session at least twice per week at their local facility and report their sessions using their app of choice.
 
-      To monitor progression of their fitness level, patients will answer a questionnaire, share their data about step counting and perform two exercise capacity tests, the six-minute walk test and the Queen's College Step Test guided by their mobile phone.`
+      To monitor progression of their fitness level, patients will answer a questionnaire, share their data about step counting and perform two exercise capacity tests, the six-minute walk test and the Queens College Step Test guided by their mobile phone.`
     },
     startDate: '2020-04-01',
     endDate: '2022-10-12',
@@ -126,7 +126,7 @@ export default {
 
       In order to participate, you need to have been diagnosed with COPD and not currently being involved in a rehabilitation programme. You must be capable of doing light physical exercise and must own a smartphone.
 
-      You will do your preferred exercise twice a week and report it through your favourite app. In order to measure your progress, you will perform two simple exercise capacity tests, the six-minute walk test and the Queen's College Step Test, once a week, guided by your smartphone. You will also answer a questionnaire about physical activity and
+      You will do your preferred exercise twice a week and report it through your favourite app. In order to measure your progress, you will perform two simple exercise capacity tests, the six-minute walk test and the Queens College Step Test, once a week, guided by your smartphone. You will also answer a questionnaire about physical activity and
 
       The participation to this study is voluntary and you can withdraw at any moment.`
     },

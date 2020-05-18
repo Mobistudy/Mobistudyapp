@@ -247,7 +247,7 @@ export default {
         qcstExplanation: 'QCST Explanation',
         prerequisiteNote: 'To conduct this test, you will require:',
         prerequisites: [
-          { p: 'A sturdy step, about 40 cm (16 inches) high.' },
+          { p: 'A sturdy step, about 40 cm (16 inches) high. This is about the height of a short chair.' },
           { p: 'A heart rate monitor: you can use a fitness tracker or smartwatch or you can try with an app (search for "Heart Rate" on the app store).' },
           { p: 'Alternatively, to measure your pulse manually, you can count the number of heart beats for 15 seconds and multiply the count by four.' }
         ],
