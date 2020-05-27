@@ -2,7 +2,7 @@
   <q-layout>
     <q-page padding>
       <div class="text-h5 q-mt-lg">
-        Test Page.
+        Test Page. App version: {{ appVersion }}
       </div>
       <div class="q-mt-md">
         <q-btn color="white" text-color="black" label="Start GPS" @click="startGPS"/>
@@ -31,6 +31,7 @@ export default {
   name: 'TestPage',
   data () {
     return {
+      appVersion: process.env.APP_VERSION,
       coordsOutput: 'GPS stopped',
       fileOutput: 'No file read'
     }
