@@ -29,8 +29,8 @@
       </div>
 
       <q-card-actions align="around">
-        <q-btn flat color="primary" :label="$t('studies.joinStudy')" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
         <q-btn flat color="negative" :label="$t('studies.discardStudy')" @click="discardStudy(studyIndex)"></q-btn>
+        <q-btn color="secondary" :label="$t('studies.joinStudy')" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
       </q-card-actions>
     </q-card>
 

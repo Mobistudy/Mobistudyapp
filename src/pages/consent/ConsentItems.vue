@@ -23,7 +23,7 @@
         <q-item>
           <q-item-section>
             <q-item-label class="q-my-md">{{taskItem.description[$i18n.locale]}}</q-item-label>
-            <q-btn v-if="taskType[taskIndex] !== 'form'" :label="$t('studies.consent.giveOSPermission')" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" :color="getColour(taskIndex)" :outline="getOutline(taskIndex)" @click="requestPermission(taskIndex)"></q-btn>
+            <q-btn v-if="taskType[taskIndex] !== 'form'" :label="$t('studies.consent.giveOSPermission')" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" color="positive" @click="requestPermission(taskIndex)"></q-btn>
           </q-item-section>
           <q-item-section avatar>
             <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
@@ -37,7 +37,7 @@
             <div class="q-my-md">
               {{$t('studies.consent.remindersOSPermission')}}
             </div>
-            <q-btn :label="$t('studies.consent.giveRemindersOSPermission')" :disabled="!reminders || remindersPermissionGiven" :color="getReminderColour()" :outline="getReminderOutline()" @click="requestNotificationsPermission()"></q-btn>
+            <q-btn :label="$t('studies.consent.giveRemindersOSPermission')" :disabled="!reminders || remindersPermissionGiven" color="positive" @click="requestNotificationsPermission()"></q-btn>
           </div>
         </q-item-section>
         <q-item-section avatar>
@@ -46,7 +46,7 @@
       </q-item>
     </q-list>
     <div class="q-my-md row justify-evenly">
-      <q-btn :label="$t('common.reject')" color="negative" @click="deny()"></q-btn>
+      <q-btn :label="$t('common.reject')" color="negative" flat @click="deny()"></q-btn>
       <q-btn :label="$t('studies.consent.joinStudy')" color="positive" :disabled="!canAccept" @click="accept()"></q-btn>
     </div>
   </q-page>
@@ -236,42 +236,6 @@ export default {
           })
         }
       })
-    },
-    getColour (taskIndex) {
-      if (!this.consentedTaskItems[taskIndex]) {
-        return 'amber'
-      } else if (this.permissionsGiven[taskIndex]) {
-        return 'positive'
-      } else {
-        return 'amber'
-      }
-    },
-    getOutline (taskIndex) {
-      if (!this.consentedTaskItems[taskIndex]) {
-        return true
-      } else if (this.permissionsGiven[taskIndex]) {
-        return true
-      } else {
-        return false
-      }
-    },
-    getReminderColour () {
-      if (!this.reminders) {
-        return 'amber'
-      } else if (this.remindersPermissionGiven) {
-        return 'positive'
-      } else {
-        return 'amber'
-      }
-    },
-    getReminderOutline () {
-      if (!this.reminders) {
-        return true
-      } else if (this.remindersPermissionGiven) {
-        return true
-      } else {
-        return false
-      }
     }
   }
 }
