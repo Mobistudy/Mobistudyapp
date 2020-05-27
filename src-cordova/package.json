@@ -46,8 +46,8 @@
       "cordova-plugin-pedometer": {}
     },
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
