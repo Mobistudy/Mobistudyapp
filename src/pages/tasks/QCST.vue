@@ -72,15 +72,15 @@ export default {
 
         this.timer = setInterval(() => {
           if (this.countDown === 120) {
-            this.$refs.sound_minute1.play()
+            if (this.$refs && this.$refs.sound_minute1) this.$refs.sound_minute1.play()
           } else if (this.countDown === 60) {
-            this.$refs.sound_minute2.play()
+            if (this.$refs && this.$refs.sound_minute2) this.$refs.sound_minute2.play()
           }
           if (this.countDown >= 1) {
             this.countDown--
           } else {
             // test is completed
-            this.$refs.sound_complete.play()
+            if (this.$refs && this.$refs.sound_complete) this.$refs.sound_complete.play()
             this.isStarted = false
             this.completeTest()
           }
