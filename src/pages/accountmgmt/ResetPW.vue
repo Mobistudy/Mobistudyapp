@@ -20,7 +20,7 @@
 <script>
 
 import { required, email } from 'vuelidate/lib/validators'
-import API from '../../modules/API'
+import API from 'modules/API'
 
 export default {
   name: 'ResetPasswordPage',

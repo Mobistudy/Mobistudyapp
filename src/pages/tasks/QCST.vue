@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import phone from '../../modules/phone'
-import userinfo from '../../modules/userinfo'
+import phone from 'modules/phone'
+import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'
 
 const TEST_DURATION = 180

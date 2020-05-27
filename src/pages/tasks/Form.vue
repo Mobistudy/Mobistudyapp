@@ -46,9 +46,9 @@
 </template>
 
 <script>
-import API from '../../modules/API'
-import DB from '../../modules/db'
-import userinfo from '../../modules/userinfo'
+import API from 'modules/API'
+import DB from 'modules/db'
+import userinfo from 'modules/userinfo'
 
 export default {
   name: 'FormPage',

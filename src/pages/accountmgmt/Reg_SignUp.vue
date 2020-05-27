@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import { checkPwdStrength, pwdCheckError, owaspConfig } from '../../modules/passwordChecker'
-import API from '../../modules/API'
-import userinfo from '../../modules/userinfo'
+import { checkPwdStrength, pwdCheckError, owaspConfig } from 'modules/passwordChecker'
+import API from 'modules/API'
+import userinfo from 'modules/userinfo'
 import { required, email, sameAs } from 'vuelidate/lib/validators'
 
 export default {

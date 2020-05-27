@@ -18,9 +18,9 @@
 
 <script>
 import { Loader } from '@googlemaps/js-api-loader'
-import phone from '../../modules/phone'
-import distanceAlgo from '../../modules/outdoorDistance.js'
-import userinfo from '../../modules/userinfo.js'
+import phone from 'modules/phone'
+import distanceAlgo from 'modules/outdoorDistance'
+import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'
 
 const TEST_DURATION = 360

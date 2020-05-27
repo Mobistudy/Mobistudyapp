@@ -52,11 +52,11 @@
 </template>
 
 <script>
-import ProfileEditor from '../../components/ProfileEditor'
-import API from '../../modules/API'
-import DB from '../../modules/db'
-import notifications from '../../modules/notifications'
-import userinfo from '../../modules/userinfo'
+import ProfileEditor from 'components/ProfileEditor'
+import API from 'modules/API'
+import DB from 'modules/db'
+import notifications from 'modules/notifications'
+import userinfo from 'modules/userinfo'
 
 export default {
   name: 'ProfilePage',

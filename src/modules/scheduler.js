@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import moment from 'moment'
 import { RRule } from 'rrule'
-import notifications from './notifications'
+import notifications from 'modules/notifications'
 import { Platform } from 'quasar'
 import HealthDataEnum from './healthDataTypesEnum'
 

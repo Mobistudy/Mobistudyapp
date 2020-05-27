@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import ProfileEditor from '../../components/ProfileEditor'
-import API from '../../modules/API'
-import userinfo from '../../modules/userinfo'
+import ProfileEditor from 'components/ProfileEditor'
+import API from 'modules/API'
+import userinfo from 'modules/userinfo'
 
 export default {
   name: 'RegisterPage',

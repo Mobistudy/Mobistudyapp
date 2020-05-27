@@ -4,7 +4,7 @@
 * Simple DAO from local storage
 * Different implementations of local storage can be used, as long as they are promisified
 */
-import * as storage from './storage.local'
+import * as storage from 'modules/storage'
 // TODO: the best solution would be including encryption, eg via https://www.npmjs.com/package/secure-web-storage
 
 export default {

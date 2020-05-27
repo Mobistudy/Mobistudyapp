@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import healthstore from '../../modules/healthstore.js'
-import BarChart from 'components/BarChart.js'
-import LineChart from 'components/LineChart.js'
-import userinfo from '../../modules/userinfo.js'
-import DB from '../../modules/db.js'
-import API from '../../modules/API.js'
-import HealthDataEnum from '../../modules/healthDataTypesEnum.js'
+import healthstore from 'modules/healthstore'
+import BarChart from 'components/BarChart'
+import LineChart from 'components/LineChart'
+import userinfo from 'modules/userinfo'
+import DB from 'modules/db'
+import API from 'modules/API'
+import HealthDataEnum from 'modules/healthDataTypesEnum'
 import moment from 'moment'
 
 // a bunch of colors that nicely fit together on a multi-line or bar chart

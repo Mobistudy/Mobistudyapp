@@ -83,12 +83,12 @@
 </template>
 
 <script>
-import StudyInfo from '../../components/StudyInfo'
-import userinfo from '../../modules/userinfo'
-import DB from '../../modules/db'
-import API from '../../modules/API'
-import healthStore from '../../modules/healthstore'
-import notifications from '../../modules/notifications'
+import StudyInfo from 'components/StudyInfo'
+import userinfo from 'modules/userinfo'
+import DB from 'modules/db'
+import API from 'modules/API'
+import healthStore from 'modules/healthstore'
+import notifications from 'modules/notifications'
 
 export default {
   name: 'StudyConfigPage',

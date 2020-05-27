@@ -38,10 +38,10 @@
 </template>
 
 <script>
-import { checkPwdStrength, pwdCheckError, owaspConfig } from '../../modules/passwordChecker'
+import { checkPwdStrength, pwdCheckError, owaspConfig } from 'modules/passwordChecker'
 import { required, sameAs } from 'vuelidate/lib/validators'
-import userinfo from '../../modules/userinfo'
-import API from '../../modules/API'
+import userinfo from 'modules/userinfo'
+import API from 'modules/API'
 
 export default {
   name: 'ChangePasswordPage',

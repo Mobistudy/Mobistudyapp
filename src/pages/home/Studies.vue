@@ -30,7 +30,7 @@
 
       <q-card-actions align="around">
         <q-btn flat color="negative" :label="$t('studies.discardStudy')" @click="discardStudy(studyIndex)"></q-btn>
-        <q-btn color="secondary" :label="$t('studies.joinStudy')" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
+        <q-btn color="primary" :label="$t('studies.joinStudy')" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
       </q-card-actions>
     </q-card>
 
@@ -66,9 +66,9 @@
 </template>
 
 <script>
-import userinfo from '../../modules/userinfo'
-import DB from '../../modules/db'
-import API from '../../modules/API'
+import userinfo from 'modules/userinfo'
+import DB from 'modules/db'
+import API from 'modules/API'
 import { date } from 'quasar'
 
 export default {

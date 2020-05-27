@@ -78,7 +78,7 @@ module.exports = function (ctx) {
       // preloadChunks: false,
       // extractCSS: false,
       env: {
-        // version of the app is passed as environmental variable
+        // environmental variables passed to the rest of the code
         APP_VERSION: JSON.stringify(require('./package.json').version),
         API_ENDPOINT: JSON.stringify(config.API_ENDPOINT),
         MAPS_API: JSON.stringify(config.MAPS_API)
@@ -94,27 +94,14 @@ module.exports = function (ctx) {
             formatter: require('eslint').CLIEngine.getFormatter('stylish')
           }
         })
-        // substitutes modules with alternatives depending on compilation flags
-        cfg.plugins.push(new webpack.NormalModuleReplacementPlugin(
-          /.*\/API|.*\/notifications|.*\/storage\.local|.*\/healthstore|.*\/phone/g,
-          function (resource) {
-            if (!!resource.request && (resource.request.indexOf('API') !== -1) && config.API_ENDPOINT === 'MOCK') {
-              resource.request = resource.request.replace(/API/g, 'API.mock')
-            }
-            if (!!resource.request && (resource.request.indexOf('notifications') !== -1) && config.NOTIFICATIONS === 'WEB') {
-              resource.request = resource.request.replace(/notifications/g, 'notifications.web')
-            }
-            if (!!resource.request && (resource.request.indexOf('storage.local') !== -1) && config.STORAGE === 'native') {
-              resource.request = resource.request.replace(/storage\.local/g, 'storage.native')
-            }
-            if (!!resource.request && (resource.request.indexOf('healthstore') !== -1) && config.HEALTHSTORE === 'MOCK') {
-              resource.request = resource.request.replace(/healthstore/g, 'healthstore.mock')
-            }
-            if (!!resource.request && (resource.request.indexOf('phone') !== -1) && config.PHONE === 'MOCK') {
-              resource.request = resource.request.replace(/phone/g, 'phone.mock')
-            }
-          })
-        )
+        if (!cfg.resolve.modules) cfg.resolve.modules = []
+        cfg.resolve.modules.push('./src')
+        if (config.API_ENDPOINT.toLowerCase() === 'mock') cfg.resolve.alias['modules/API'] = 'modules/API.mock'
+        if (config.HEALTHSTORE.toLowerCase() === 'mock') cfg.resolve.alias['modules/healthstore'] = 'modules/healthstore.mock'
+        if (config.NOTIFICATIONS.toLowerCase() === 'web') cfg.resolve.alias['modules/notifications'] = 'modules/notifications.web'
+        if (config.PHONE.toLowerCase() === 'mock') cfg.resolve.alias['modules/phone'] = 'modules/phone.mock'
+        if (config.STORAGE.toLowerCase() === 'local') cfg.resolve.alias['modules/storage'] = 'modules/storage.local'
+        if (config.STORAGE.toLowerCase() === 'native') cfg.resolve.alias['modules/storage'] = 'modules/storage.native'
       }
     },
 

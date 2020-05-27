@@ -149,7 +149,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
-import API from '../modules/API'
+import API from 'modules/API'
 
 export default {
   name: 'ProfileEditor',

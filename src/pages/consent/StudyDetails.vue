@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import StudyInfo from '../../components/StudyInfo'
+import StudyInfo from 'components/StudyInfo'
 
 export default {
   name: 'StudyDetailsPage',

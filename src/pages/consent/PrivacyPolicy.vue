@@ -6,7 +6,7 @@
     <div class="q-my-md" style="white-space: pre-line;">{{studyDescription.consent.privacyPolicy[$i18n.locale]}}</div>
 
     <div class="q-my-md row justify-around">
-      <q-btn :label="$t('common.reject')" color="negative" @click="deny()"></q-btn>
+      <q-btn :label="$t('common.reject')" flat color="negative" @click="deny()"></q-btn>
       <q-btn :label="$t('common.accept')" color="primary" @click="accept()"></q-btn>
     </div>
   </q-page>

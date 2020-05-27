@@ -57,10 +57,10 @@
 
 <script>
 import taskListItem from 'components/TaskListItem.vue'
-import userinfo from '../../modules/userinfo'
-import DB from '../../modules/db'
-import API from '../../modules/API'
-import * as scheduler from '../../modules/scheduler'
+import userinfo from 'modules/userinfo'
+import DB from 'modules/db'
+import API from 'modules/API'
+import * as scheduler from 'modules/scheduler'
 
 export default {
   name: 'TaskerPage',

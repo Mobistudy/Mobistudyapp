@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import phone from '../../modules/phone'
-import files from '../../modules/files'
+import phone from 'modules/phone'
+import files from 'modules/files'
 
 export default {
   name: 'TestPage',

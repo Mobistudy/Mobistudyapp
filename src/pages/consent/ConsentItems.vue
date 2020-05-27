@@ -53,12 +53,12 @@
 </template>
 
 <script>
-import userinfo from '../../modules/userinfo'
-import DB from '../../modules/db'
-import API from '../../modules/API'
-import healthStore from '../../modules/healthstore'
-import notifications from '../../modules/notifications'
-import phone from '../../modules/phone'
+import userinfo from 'modules/userinfo'
+import DB from 'modules/db'
+import API from 'modules/API'
+import healthStore from 'modules/healthstore'
+import notifications from 'modules/notifications'
+import phone from 'modules/phone'
 
 export default {
   name: 'ConsentItemsPage',

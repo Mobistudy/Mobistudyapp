@@ -132,9 +132,9 @@
 </template>
 
 <script>
-import API from '../../modules/API.js'
-import DB from '../../modules/db.js'
-import fileSystem from '../../modules/files.js'
+import API from 'modules/API'
+import DB from 'modules/db'
+import fileSystem from 'modules/files'
 import { format as Qformat } from 'quasar'
 
 export default {
