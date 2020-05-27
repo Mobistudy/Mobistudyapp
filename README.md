@@ -112,25 +112,23 @@ activate mocked modules.
 
 ## Deploy
 
-Run:
-```bash
-quasar build
-```
+## iOS
 
-This will generate the material UI interfaces and make it available under `./dist/`
-
-For the app, run:
+Generate the compiled code.
 
 ```bash
 quasar build -m ios
 ```
 
-## iOS
-
-You need to open the project in Xcode, have a provisioning profile for distribtion
+You need to open the project in Xcode, have a provisioning profile for distribution
 on the App Store and Archive then Distribute the app.
 
 ## Android
+Generate the compiled code.
+
+```bash
+quasar build -m android
+```
 
 Create a keystore (only once! not for every release).
 
@@ -140,8 +138,9 @@ keytool -genkey -v -keystore mobistudy-release.keystore -alias upload -keyalg RS
 Write down the password you set for the keystore and the certificate. Let's say
 it's "pwdpwd"
 
-Then run:
+Then, inside src-cordova do:
 ```bash
+cordova prepare android
 cordova build android --release -- --keystore=mobistudy-release.keystore --alias=upload --storePassword=pwdpwd --password=pwdpwd
 ```
 
