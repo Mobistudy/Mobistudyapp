@@ -179,6 +179,10 @@ export default {
       full: 'This institution will access your data',
       reason: 'Reason for data access'
     },
+    scheduling: {
+      due: 'Mobistudy task due!',
+      start: 'Tap here to start the task'
+    },
     tasks: {
       cancelTask: 'This will terminate the current task and you will be redirected to the start page. No data will be saved. Do you really want to quit?',
       noPendingTasks: 'No tasks pending',

@@ -1,5 +1,6 @@
-/* eslint-disable no-unused-vars */
-import moment from 'moment'
+'use strict'
+import { i18n } from '../boot/i18n.js'
+import * as moment from 'moment'
 import { RRule } from 'rrule'
 import notifications from 'modules/notifications'
 import { Platform } from 'quasar'
@@ -255,10 +256,8 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
         timeStack.push(moment(executionDate).unix())
         notificationStack.push({
           id: parseInt(id),
-          // TODO: this text should be localised!
-          title: 'Mobistudy task due!',
-          // TODO: change the text according to the type of task
-          text: 'Tap here to open the app',
+          title: i18n.t('studies.scheduling.due'),
+          text: i18n.t('studies.scheduling.start'),
           foreground: true,
           trigger: { at: executionDate }
         })
