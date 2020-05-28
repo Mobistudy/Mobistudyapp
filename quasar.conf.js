@@ -94,6 +94,7 @@ module.exports = function (ctx) {
             formatter: require('eslint').CLIEngine.getFormatter('stylish')
           }
         })
+        cfg.resolve.alias['moment$'] = 'moment/moment.js'
         if (!cfg.resolve.modules) cfg.resolve.modules = []
         cfg.resolve.modules.push('./src')
         if (config.API_ENDPOINT.toLowerCase() === 'mock') cfg.resolve.alias['modules/API'] = 'modules/API.mock'
