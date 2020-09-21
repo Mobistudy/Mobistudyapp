@@ -134,6 +134,24 @@ export default {
         weekDays: []
       },
       dataType: 'steps'
+    },
+    {
+      id: 5,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
+        intervalType: 'd',
+        untilSecs: 2592000, // 1 month
+        interval: 1,
+        months: [],
+        monthDays: [],
+        weekDays: []
+      },
+      formKey: '3333',
+      formName: {
+        en: 'ACQ form',
+        sv: 'ACQ formulär'
+      }
     }
   ],
   consent: {
@@ -173,6 +191,13 @@ export default {
           sv: 'Jag accepterar att utföra Queen\'s College Step Test en gång i veckan.'
         },
         taskId: 4
+      },
+      {
+        description: {
+          en: 'I agree to perform the Asthma Control Questionnaire once a week.',
+          sv: 'Jag accepterar att utföra Asthma Control Questionnaire en gång i veckan.'
+        },
+        taskId: 5
       }
     ],
     extraItems: []
