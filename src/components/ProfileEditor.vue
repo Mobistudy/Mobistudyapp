@@ -23,7 +23,7 @@
       </template>
     </q-input>
 
-    <!-- lanuage -->
+    <!-- language -->
     <q-select v-model="value.language"
       :options="languageOptions"
       emit-value map-options
@@ -37,6 +37,7 @@
       </template>
     </q-select>
 
+    <!-- country -->
     <q-select
       :label="$t('accountMgmt.profile.country')"
       v-model="value.country"
@@ -51,6 +52,7 @@
       </template>
     </q-select>
 
+    <!-- sex -->
     <q-select
       :label="$t('accountMgmt.profile.sex')"
       v-model="value.sex"
@@ -65,6 +67,7 @@
       </template>
     </q-select>
 
+    <!-- date of birth -->
     <q-input
       :label="$t('accountMgmt.profile.dateOfBirth')"
       v-model="value.dateOfBirth"
@@ -79,7 +82,7 @@
       <template v-slot:append>
         <q-icon name="calendar_today" class="cursor-pointer">
           <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-            <q-date v-model="value.dateOfBirth" @input="() => $refs.qDateProxy.hide()" mask="YYYY/MM/DD" format="YYYY/MM/DD" :title="$t('accountMgmt.profile.dateOfBirth')" />
+            <q-date v-model="value.dateOfBirth" @input="() => $refs.qDateProxy.hide()" default-view="Years" mask="YYYY/MM/DD" format="YYYY/MM/DD" :title="$t('accountMgmt.profile.dateOfBirth')" />
           </q-popup-proxy>
         </q-icon>
       </template>
