@@ -5,7 +5,7 @@
           {{introduction.title[$i18n.locale]}}
       </div>
       <div class="text-center text-body1 q-mt-lg">
-          {{introduction.description[$i18n.locale]}}
+          <div v-html="introduction.description[$i18n.locale]"></div>
       </div>
       <div class="row justify-center q-mt-lg">
           <q-btn color="primary" @click="start()" :label="$t('common.start')" />
@@ -13,11 +13,11 @@
     </div>
 
     <div v-if="!introduction && !finished">
-      <div class="text-center text-h6">
-          {{currentQuestion.text[$i18n.locale]}}
+      <div class="text-center text-subtitle1">
+          <div v-html="currentQuestion.text[$i18n.locale]"></div>
       </div>
-      <div class="text-center text-subtitle1 q-mb-md">
-          {{currentQuestion.helper[$i18n.locale]}}
+      <div v-if="currentQuestion.helper" class="text-center text-subtitle2 q-mb-md">
+          <div v-html="currentQuestion.helper[$i18n.locale]"></div>
       </div>
       <q-input v-show="currentQuestion.type === 'freetext'" v-model="freetextAnswer" type="textarea" :label="$t('studies.tasks.form.freeTextExplanation')" rows="5"></q-input>
 
@@ -27,9 +27,17 @@
       <div v-show="currentQuestion.type === 'multiChoice'" v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="'mc' + index">
         <q-checkbox v-model="multiChoiceAnswer" :val="answerChoice.id" :label="answerChoice.text[$i18n.locale]"/>
       </div>
+      <div v-show="currentQuestion.type === 'textOnly'" class="text-subtitle1 q-mb-md">
+        <div v-if="currentQuestion.type === 'textOnly'">
+          <div v-html="currentQuestion.html[$i18n.locale]"></div>
+        </div>
+      </div>
       <div class="row justify-around q-ma-lg">
         <q-btn v-show="!isFirstQuestion" icon="arrow_back" color="secondary" @click="back()" :label="$t('common.back')" />
         <q-btn icon-right="arrow_forward" color="primary" @click="next()" :label="$t('common.next')" />
+      </div>
+      <div v-if="currentQuestion.footer" class="text-left text-caption absolute-bottom q-pa-sm">
+          {{currentQuestion.footer[$i18n.locale]}}
       </div>
     </div>
 
