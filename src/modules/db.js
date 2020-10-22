@@ -91,5 +91,13 @@ export default {
   },
   async removeFormDescription (formkey) {
     return storage.removeItem('form_' + formkey)
+  },
+
+  /* MIBAND3 */
+  async setMiBand3 (device) {
+    return storage.setItem('miband3', device)
+  },
+  async removeMiBand3 () {
+    return storage.removeItem('miband3')
   }
 }
