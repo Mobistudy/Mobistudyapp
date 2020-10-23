@@ -109,5 +109,11 @@ export default {
   // send data from QCST
   sendQCSTData: async function (data) {
     return axios.post(BASE_URL + '/QCSTData', data, axiosConfig)
+  },
+
+  // send data from miBand3 stored data
+  sendMiBand3Data: async function (data) {
+    // TBD!!!
+    return Promise.resolve()
   }
 }
