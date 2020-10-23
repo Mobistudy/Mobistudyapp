@@ -1,37 +1,47 @@
 <template>
   <div>
-    <q-input :label="$t('accountMgmt.profile.firstName')"
+    <q-input
+      :label="$t('accountMgmt.profile.firstName')"
       :error="$v.value.name.$error"
       :error-message="$t('accountMgmt.profile.firstNameError')"
       v-model="value.name"
       @input="update()"
-      @blur="$v.value.name.$touch">
+      @blur="$v.value.name.$touch"
+    >
       <template v-slot:before>
         <q-icon name="face" />
       </template>
     </q-input>
 
     <!-- surname -->
-    <q-input :label="$t('accountMgmt.profile.surname')"
+    <q-input
+      :label="$t('accountMgmt.profile.surname')"
       :error="$v.value.surname.$error"
       :error-message="$t('accountMgmt.profile.surnameError')"
       v-model="value.surname"
       @input="update()"
-      @blur="$v.value.surname.$touch">
+      @blur="$v.value.surname.$touch"
+    >
       <template v-slot:before>
-        <q-icon name="face" color="white" />
+        <q-icon
+          name="face"
+          color="white"
+        />
       </template>
     </q-input>
 
     <!-- language -->
-    <q-select v-model="value.language"
+    <q-select
+      v-model="value.language"
       :options="languageOptions"
-      emit-value map-options
+      emit-value
+      map-options
       @input="selectLanguage()"
       :error="$v.value.language.$error"
       @blur="$v.value.language.$touch"
       :label="$t('accountMgmt.profile.language')"
-      :error-message="$t('accountMgmt.profile.languageError')">
+      :error-message="$t('accountMgmt.profile.languageError')"
+    >
       <template v-slot:before>
         <q-icon name="language" />
       </template>
@@ -43,10 +53,12 @@
       v-model="value.country"
       @input="update()"
       :options="countryOptions"
-      emit-value map-options
+      emit-value
+      map-options
       :error="$v.value.country.$error"
       :error-message="$t('accountMgmt.profile.countryError')"
-      @blur="$v.value.country.$touch">
+      @blur="$v.value.country.$touch"
+    >
       <template v-slot:before>
         <q-icon name="flag" />
       </template>
@@ -57,11 +69,13 @@
       :label="$t('accountMgmt.profile.sex')"
       v-model="value.sex"
       :options="sexOptions"
-      emit-value map-options
+      emit-value
+      map-options
       :error="$v.value.sex.$error"
       @blur="$v.value.sex.$touch"
       :error-message="$t('accountMgmt.profile.sexError')"
-      @input="update()">
+      @input="update()"
+    >
       <template v-slot:before>
         <q-icon name="wc" />
       </template>
@@ -72,17 +86,33 @@
       :label="$t('accountMgmt.profile.dateOfBirth')"
       v-model="value.dateOfBirth"
       @input="update()"
-      mask="####/##/##" :rules="['YYYY/MM/DD']"
+      mask="####/##/##"
+      :rules="['YYYY/MM/DD']"
       :error-message="$t('accountMgmt.profile.dateOfBirthError')"
       :error="$v.value.dateOfBirth.$error"
-      @blur="$v.value.dateOfBirth.$touch">
+      @blur="$v.value.dateOfBirth.$touch"
+    >
       <template v-slot:before>
         <q-icon name="cake" />
       </template>
       <template v-slot:append>
-        <q-icon name="calendar_today" class="cursor-pointer">
-          <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-            <q-date v-model="value.dateOfBirth" @input="() => $refs.qDateProxy.hide()" default-view="Years" mask="YYYY/MM/DD" format="YYYY/MM/DD" :title="$t('accountMgmt.profile.dateOfBirth')" />
+        <q-icon
+          name="calendar_today"
+          class="cursor-pointer"
+        >
+          <q-popup-proxy
+            ref="qDateProxy"
+            transition-show="scale"
+            transition-hide="scale"
+          >
+            <q-date
+              v-model="value.dateOfBirth"
+              @input="() => $refs.qDateProxy.hide()"
+              default-view="Years"
+              mask="YYYY/MM/DD"
+              format="YYYY/MM/DD"
+              :title="$t('accountMgmt.profile.dateOfBirth')"
+            />
           </q-popup-proxy>
         </q-icon>
       </template>
@@ -92,10 +122,13 @@
       :label="$t('accountMgmt.profile.conditions')"
       v-model="diseasesVue"
       @input="update()"
-      use-input use-chips multiple
+      use-input
+      use-chips
+      multiple
       input-debounce="500"
       :options="diseaseOptions"
-      @filter="searchDisease">
+      @filter="searchDisease"
+    >
       <template v-slot:no-option>
         <q-item>
           <q-item-section class="text-grey">
@@ -111,11 +144,14 @@
     <q-select
       v-model="medsVue"
       @input="update()"
-      use-input use-chips multiple
+      use-input
+      use-chips
+      multiple
       input-debounce="500"
       :label="$t('accountMgmt.profile.medications')"
       :options="medOptions"
-      @filter="searchMeds">
+      @filter="searchMeds"
+    >
       <template v-slot:no-option>
         <q-item>
           <q-item-section class="text-grey">
@@ -128,23 +164,27 @@
       </template>
     </q-select>
 
-    <q-toggle class="q-mt-lg q-ma-sm"
-      :label="$t('accountMgmt.profile.smoke')"
-      v-model="value.lifestyle.smoker"
+    <q-toggle
+      class="q-mt-lg q-ma-sm"
+      :label="$t('accountMgmt.profile.studiesSuggestions')"
+      v-model="value.studiesSuggestions"
       @input="update()"
-      checked-icon="smoking_rooms"
-      unchecked-icon="smoke_free"/>
-    <br />
-    <q-toggle class="q-ma-sm"
-      :label="$t('accountMgmt.profile.lifestyle')"
-      v-model="value.lifestyle.active"
-      @input="update()"
-      checked-icon="directions_run"
-      unchecked-icon="airline_seat_recline_normal" />
+      left-label
+    />
 
     <div class="q-my-md row justify-evenly">
-      <q-btn v-if="buttonCancel" :label="buttonCancel" color="secondary" @click="buttonCancelClick()" />
-      <q-btn  v-if="buttonOk" :label="buttonOk" color="positive" @click="buttonOkClick()" />
+      <q-btn
+        v-if="buttonCancel"
+        :label="buttonCancel"
+        color="secondary"
+        @click="buttonCancelClick()"
+      />
+      <q-btn
+        v-if="buttonOk"
+        :label="buttonOk"
+        color="positive"
+        @click="buttonOkClick()"
+      />
     </div>
 
   </div>

@@ -5,7 +5,7 @@ export default {
   surname: 'Lee',
   country: 'gb',
   language: 'en',
-  gender: 'male',
+  sex: 'male',
   dateOfBirth: '1970-11-10',
   diseases: [
     {
@@ -15,10 +15,7 @@ export default {
     }
   ],
   medications: [],
-  lifestyle: {
-    active: false,
-    smoker: true
-  },
+  studiesSuggestions: true,
   // studies: []
   studies: [
     {
@@ -26,7 +23,7 @@ export default {
       currentStatus: 'accepted',
       acceptedTS: new Date(new Date().getTime() - 604800000).toISOString(), // 7 days ago
       reminders: true,
-      criteriaAnswers: [ 'yes' ],
+      criteriaAnswers: ['yes'],
       taskItemsConsent: [
         { taskId: 1, consented: true, lastExecuted: new Date(new Date().getTime() - 86400000).toISOString() }, // 1 day ago
         { taskId: 2, consented: true, lastExecuted: new Date(new Date().getTime() - 172800000).toISOString() }, // 2 day ago

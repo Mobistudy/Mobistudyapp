@@ -6,7 +6,11 @@
       </div>
     </div>
 
-    <profile-editor v-model="profile" :buttonOk="$t('common.next')" @buttonOk="saveProfile()" />
+    <profile-editor
+      v-model="profile"
+      :buttonOk="$t('common.next')"
+      @buttonOk="saveProfile()"
+    />
 
   </q-page>
 </template>
@@ -30,10 +34,7 @@ export default {
         sex: '',
         diseases: [],
         medications: [],
-        lifestyle: {
-          smoker: false,
-          active: false
-        }
+        studiesSuggestions: true
       }
     }
   },

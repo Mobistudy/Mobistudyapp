@@ -1,10 +1,9 @@
-import { mount, createLocalVue, shallowMount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import PROFILEEDITOR from '../../../src/components/ProfileEditor.vue'
 import * as All from 'quasar'
 const { Quasar } = All
-import {  Notify } from 'quasar'
+import { Notify } from 'quasar'
 import Vuelidate from 'vuelidate'
-
 
 const components = Object.keys(All).reduce((object, key) => {
   const val = All[key]
@@ -18,6 +17,7 @@ describe('Profile Editor', () => {
   const localVue = createLocalVue()
   localVue.use(Quasar, { components, plugins: [Notify] })
   localVue.use(Vuelidate)
+  // localVue.use('../../../src/modules/API.js')
 
   const editor = mount(PROFILEEDITOR, {
     localVue,
@@ -31,21 +31,18 @@ describe('Profile Editor', () => {
         sex: 'male',
         diseases: [],
         medications: [],
-        lifestyle: {
-          smoker: false,
-          active: true
-        }
+        studiesSuggestions: true
       },
       buttonCancel: 'cancel',
       buttonOk: 'next'
     },
     mocks: {
       // let's mock i18n, we don't need it for this test
-      $t: () => {},
+      $t: () => { return 'xxx' },
       $i18n: {
-        t: () => {}
+        t: () => { return 'xxx' }
       }
-    },
+    }
   })
 
   it('passes the sanity check and creates a wrapper', () => {
@@ -98,5 +95,4 @@ describe('Profile Editor', () => {
     expect(editor.emitted().buttonCancel).toBeTruthy()
     expect(editor.emitted().buttonOK).toBeFalsy()
   })
-
 })
