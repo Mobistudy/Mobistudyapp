@@ -236,5 +236,11 @@ export default {
     console.log('API - sending QCST data', report)
     this.setTaskDone(report.studyKey, report.taskId, report.createdTS)
     return Promise.resolve()
-  }
+  },
+
+  async sendMiBand3Data (data) {
+    console.log('API - sending miband3 data', data)
+    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
+    return Promise.resolve()
+  },
 }
