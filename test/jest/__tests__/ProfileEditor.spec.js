@@ -45,10 +45,6 @@ describe('Profile Editor', () => {
     }
   })
 
-  it('passes the sanity check and creates a wrapper', () => {
-    expect(editor.isVueInstance()).toBe(true)
-  })
-
   it('has a created hook', () => {
     expect(typeof editor.vm.selectLanguage).toBe('function')
   })
@@ -56,7 +52,7 @@ describe('Profile Editor', () => {
   it('sets the correct default data', () => {
     expect(editor.props('value').name).toBe('Dario')
     expect(editor.props('value').surname).toBe('Salvi')
-    let qinputs = editor.findAll(components.QInput)
+    let qinputs = editor.findAllComponents(components.QInput)
     // there should be 3 input fields (name, surname, DOB)
     expect(qinputs.length).toBe(3)
     expect(qinputs.at(0).isVisible()).toBe(true)
@@ -65,6 +61,9 @@ describe('Profile Editor', () => {
     expect(qinputs.at(0).vm.value).toBe('Dario')
     expect(qinputs.at(1).vm.value).toBe('Salvi')
     expect(qinputs.at(2).vm.value).toBe('1978/01/01')
+    let qtoggles = editor.findAllComponents(components.QToggle)
+    expect(qtoggles.length).toBe(1) // one toggle only: studiesSuggestions
+    expect(qtoggles.at(0).vm.value).toBe(true)
   })
 
   it('if wrong data is input, no next button can be called', async () => {
