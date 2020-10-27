@@ -85,6 +85,7 @@
     <q-input
       :label="$t('accountMgmt.profile.dateOfBirth')"
       v-model="value.dateOfBirth"
+      default-view="Years"
       @input="update()"
       mask="####/##/##"
       :rules="['YYYY/MM/DD']"
