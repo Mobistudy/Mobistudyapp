@@ -118,7 +118,16 @@ export default {
         monthDays: [],
         weekDays: []
       }
-    }
+    },
+    {
+      id: 5,
+      type: 'miband3',
+      hrInterval: 3,
+      scheduling: {
+        startEvent: 'consent',
+        intervalType: "d",
+        interval: 3
+      }
   ],
   consent: {
     invitation: {
