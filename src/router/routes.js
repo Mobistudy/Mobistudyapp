@@ -66,8 +66,8 @@ const routes = [
       { path: '/qcstIntro/:studyKey/:taskID', name: 'qcstIntro', component: () => import('pages/tasks/QCSTIntro.vue') },
       { path: '/qcst/:studyKey/:taskID', name: 'qcst', component: () => import('pages/tasks/QCST.vue'), props: true }, // TODO: probably no need for props here
       { path: '/qcsthr', name: 'qcsthr', component: () => import('pages/tasks/QCSTHR.vue'), props: true },
-      { path: '/qcstSummary', name: 'qcstSummary', component: () => import('pages/tasks/QCSTSummary.vue'), props: true }
-
+      { path: '/qcstSummary', name: 'qcstSummary', component: () => import('pages/tasks/QCSTSummary.vue'), props: true },
+      { path: '/miband3Intro/:studyKey/:taskID', name: 'miband3Intro', component: () => import('pages/tasks/MiBand3Intro') }
     ]
   }
 ]

@@ -41,6 +41,8 @@ export default {
       this.title = this.$i18n.t('studies.tasks.qcst.shortTitle')
       this.main = this.$i18n.t('studies.tasks.qcst.shortDescription')
       this.icon = 'layers'
+    } else if (this.task.type === 'miband3') {
+      // TODO: add icon and text
     }
   },
   computed: {
@@ -48,6 +50,7 @@ export default {
       return 'Due ' + moment(this.task.due).fromNow()
     },
     toAddress: function () {
+      // these bring the user to the correct route depending on the task
       if (this.task.formKey) {
         return 'form/' + this.task.studyKey + '/' + this.task.taskID + '/' + this.task.formKey
       } else if (this.task.type === 'smwt') {
@@ -56,6 +59,8 @@ export default {
         return 'qcstIntro/' + this.task.studyKey + '/' + this.task.taskID
       } else if (this.task.studyKey && this.task.taskID) {
         return 'dataQuery/' + this.task.studyKey + '/' + this.task.taskID
+      } else if (this.task.studyKey && this.task.taskID) {
+        return 'miband3Intro/' + this.task.studyKey + '/' + this.task.taskID
       } else {
         return false
       }
