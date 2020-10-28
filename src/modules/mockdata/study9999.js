@@ -74,7 +74,7 @@ export default {
         startDelaySecs: 0,
         intervalType: 'd',
         interval: 1,
-        weekDays: [ ]
+        weekDays: []
       },
       dataType: 'activity',
       aggregated: true,
@@ -125,9 +125,10 @@ export default {
       hrInterval: 3,
       scheduling: {
         startEvent: 'consent',
-        intervalType: "d",
+        intervalType: 'd',
         interval: 3
       }
+    }
   ],
   consent: {
     invitation: {
