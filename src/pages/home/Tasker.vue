@@ -3,7 +3,7 @@
     <q-banner rounded inline-actions class="bg-warning text-white q-mb-sm" v-if="newstudies" icon="new_releases" type="warning">
         {{ $t('studies.newStudy') }}!
         <template v-slot:action>
-          <q-btn flat color="white" :label="$t('studies.checkNewStusy')" to="studies"/>
+          <q-btn color="blue" :label="$t('studies.checkNewStusy')" to="studies"/>
         </template>
     </q-banner>
 
