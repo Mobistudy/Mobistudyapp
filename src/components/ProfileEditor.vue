@@ -82,42 +82,42 @@
     </q-select>
 
     <!-- date of birth -->
-    <q-input
-      :label="$t('accountMgmt.profile.dateOfBirth')"
-      v-model="value.dateOfBirth"
-      default-view="Years"
-      @input="update()"
-      mask="####/##/##"
-      :rules="['YYYY/MM/DD']"
-      :error-message="$t('accountMgmt.profile.dateOfBirthError')"
-      :error="$v.value.dateOfBirth.$error"
-      @blur="$v.value.dateOfBirth.$touch"
-    >
-      <template v-slot:before>
-        <q-icon name="cake" />
-      </template>
-      <template v-slot:append>
-        <q-icon
-          name="calendar_today"
-          class="cursor-pointer"
+      <q-input
+        :label="$t('accountMgmt.profile.dateOfBirth')"
+        v-model="value.dateOfBirth"
+        default-view="Years"
+        mask="####/##/##"
+        :rules="['YYYY/MM/DD']"
+        :error-message="$t('accountMgmt.profile.dateOfBirthError')"
+        :error="$v.value.dateOfBirth.$error"
+        @blur="$v.value.dateOfBirth.$touch"
+        @click="() => $refs.qDateProxy.hide()"
+        @input="update()"
+      >
+        <template v-slot:before>
+          <q-icon name="calendar_today"/>
+        </template>
+        <q-popup-proxy
+          ref="qDateProxy"
+          transition-show="scale"
+          transition-hide="scale"
         >
-          <q-popup-proxy
-            ref="qDateProxy"
-            transition-show="scale"
-            transition-hide="scale"
+          <q-date
+            v-model="value.dateOfBirth"
+            class="cursor-pointer"
+            default-view="Years"
+            mask="YYYY/MM/DD"
+            format="YYYY/MM/DD"
+            default-year-month="1970/11"
+            :title="$t('accountMgmt.profile.dateOfBirth')"
+            :navigation-max-year-month="calenderRules()"
           >
-            <q-date
-              v-model="value.dateOfBirth"
-              @input="() => $refs.qDateProxy.hide()"
-              default-view="Years"
-              mask="YYYY/MM/DD"
-              format="YYYY/MM/DD"
-              :title="$t('accountMgmt.profile.dateOfBirth')"
-            />
-          </q-popup-proxy>
-        </q-icon>
-      </template>
-    </q-input>
+          <div class="row items-center justify-end q-gutter-sm">
+            <q-btn :label="$t('common.close')" color="primary" flat v-close-popup />
+          </div>
+          </q-date>
+        </q-popup-proxy>
+      </q-input>
 
     <q-select
       :label="$t('accountMgmt.profile.conditions')"
@@ -194,6 +194,7 @@
 <script>
 import { required } from 'vuelidate/lib/validators'
 import API from 'modules/API'
+import { date } from 'quasar'
 
 export default {
   name: 'ProfileEditor',
@@ -385,6 +386,9 @@ export default {
         })
         abort()
       }
+    },
+    calenderRules () {
+      return date.formatDate(Date.now(), 'YYYY/MM')
     },
     update () {
       this.$emit('input', this.value)
