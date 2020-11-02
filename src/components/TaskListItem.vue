@@ -42,7 +42,9 @@ export default {
       this.main = this.$i18n.t('studies.tasks.qcst.shortDescription')
       this.icon = 'layers'
     } else if (this.task.type === 'miband3') {
-      // TODO: add icon and text
+      this.title = this.$i18n.t('studies.tasks.miband3.shortTitle')
+      this.main = this.$i18n.t('studies.tasks.miband3.shortDescription')
+      this.icon = 'watch'
     }
   },
   computed: {
@@ -57,10 +59,10 @@ export default {
         return 'smwtIntro/' + this.task.studyKey + '/' + this.task.taskID
       } else if (this.task.type === 'qcst') {
         return 'qcstIntro/' + this.task.studyKey + '/' + this.task.taskID
+      } else if (this.task.type === 'miband3') {
+        return 'miband3Intro/' + this.task.studyKey + '/' + this.task.taskID
       } else if (this.task.studyKey && this.task.taskID) {
         return 'dataQuery/' + this.task.studyKey + '/' + this.task.taskID
-      } else if (this.task.studyKey && this.task.taskID) {
-        return 'miband3Intro/' + this.task.studyKey + '/' + this.task.taskID
       } else {
         return false
       }

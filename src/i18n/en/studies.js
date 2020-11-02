@@ -58,6 +58,10 @@ let studies = {
         shortDescription: 'Answer a few questions',
         formCompleted: 'Form completed. Thank you.',
         freeTextExplanation: 'Type your answer'
+      },
+      miband3: {
+        shortTitle: 'Miband3 fitness tracking',
+        shortDescription: 'Cummulative HR, steps and activity data'
       }
     },
     consent: {
