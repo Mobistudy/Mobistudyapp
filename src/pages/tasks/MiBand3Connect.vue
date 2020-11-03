@@ -12,25 +12,30 @@
         <q-item-section >{{device.id}}</q-item-section>
         <q-item-section avatar>
           <q-icon color="primary" name="bluetooth" />
-          <q-inner-loading id="loading" :showing="connecting">
-            <q-spinner-dots size="50px" color="primary" />
-          </q-inner-loading>
         </q-item-section>
         </q-item>
       </q-list>
       <div id="buttonContainer" class="fixed-bottom text-center">
         <q-btn @click="search" round icon="bluetooth"></q-btn>
       </div>
-      <q-dialog v-model="dialog">
+      <q-dialog v-model="tapToAuthDialog">
         <q-card>
-            <div class="fixed-bottom text-center">
-              <q-btn icon="close" flat round dense v-close-popup />
-            </div>
+          <q-card-section>
+            <div class="text-h6">Authentication</div>
+          </q-card-section>
+          <q-card-section class="q-pt-none">
+              Tap a few times on your miband bracelet when/after it vibrates.
+          </q-card-section>
         </q-card>
-        <q-inner-loading :showing="true">
-          <q-spinner-oval size="20px" color="primary" />
-        </q-inner-loading>
       </q-dialog>
+      <q-dialog v-model="successAuthDialog" persistent transition-show="scale" transition-hide="scale">
+      <q-card class="bg-teal text-white" style="width: 300px">
+        <q-card-section>
+          <div class="text-h6 text-center">Authentication successful</div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <q-btn @click="debug" icon="bug">Debug</q-btn>
     </div>
 </template>
 
@@ -48,36 +53,42 @@
 
 <script>
 import miband3 from 'modules/miband3/miband3.mock.js'
+import db from 'modules/db.js'
 export default {
   name: 'Miband3ConnectPage',
   data () {
     return {
       devices: [],
-      connecting: false,
-      dialog: false,
-      nextPageLoad: false,
-      loadingCounter: 10
+      tapToAuthDialog: false,
+      successAuthDialog: false
     }
   },
   methods: {
-    search () {
-      miband3.search(1000).then((devices) => {
-        if (devices) {
-          for (const device of devices) {
-            if (!this.deviceExists(device)) {
-              device.connected = false
-              this.devices = [...this.devices, device]
-            }
+    debug () {
+      db.setKeysMiBand3(null)
+    },
+    async search () {
+      let devices = await miband3.search(1000)
+      this.addDevices(devices)
+    },
+    addDevices (devices) {
+      if (devices) {
+        for (const device of devices) {
+          if (!this.deviceInUI(device)) { // Checks UI list of devices to see if the device is already added
+            this.addDevice(device)
           }
         }
-      }).catch(console.log('Error searching for devices'))
+      }
     },
-    deviceExists (device) {
+    deviceInUI (device) {
       let deviceIds = this.devices.map((device) => device.id)
       return deviceIds.includes(device.id)
     },
+    addDevice (device) {
+      this.devices = [...this.devices, device]
+    },
     async connect (device) {
-      this.disconnectAllDevices()
+      await this.disconnectAllDevices()
       let isConnected = await miband3.isConnected()
       if (!isConnected) {
         await miband3.connect(device, this.disconnectCallback, this.authRequiredCallback)
@@ -85,13 +96,13 @@ export default {
       this.updateUI()
     },
     disconnectCallback () {
-
+      // To be done.
     },
     async authRequiredCallback (device, required) {
-      let authenticated = await miband3.authenticate(required)
-      if (authenticated) {
-        device.connected = true
-      }
+      this.showFirstDialog()
+      this.authenticate(device, required)
+      this.hideFirstDialog()
+      this.animateSecondDialog()
       this.updateUI()
     },
     async disconnectAllDevices () {
@@ -100,45 +111,59 @@ export default {
         device.connected = false
       }
     },
+    async authenticate (device, required) {
+      let authenticated = await miband3.authenticate(required)
+      device.authenticated = authenticated
+      await db.setDeviceMiBand3(device.id, device)
+    },
     updateUI () {
       for (const device of this.devices) {
-        console.log('Device:', device.id, device.connected)
         let element = document.getElementById(device.id)
         if (device.connected) {
           element.classList.remove('disconnected')
           element.classList.add('connected')
         } else { element.classList.remove('connected'); element.classList.add('disconnected') }
       }
-      this.showDialog()
     },
-    showDialog () {
-      if (this.isAnyConnected()) {
-        this.dialog = true
-        this.animateLoading()
-      } else {
-        this.dialog = false
-      }
+    showFirstDialog () {
+      this.tapToAuthDialog = true
     },
-    isAnyConnected () {
+    hideFirstDialog () {
+      this.tapToAuthDialog = false
+    },
+    animateSecondDialog () {
+      this.showSecondDialog()
+      setTimeout(() => {
+        this.hideSecondDialog()
+      }, 1000)
+    },
+    showSecondDialog () {
+      this.successAuthDialog = true
+    },
+    hideSecondDialog () {
+      this.successAuthDialog = false
+    },
+    isAnyConnected () { // May be removed in the future.
       for (const device of this.devices) {
         if (device.connected) {
           return true
         }
       }
       return false
-    },
-    animateLoading () {
-      var loadingTimer = setInterval(() => {
-        if (this.loadingCounter > 0) {
-          this.loadingCounter--
-        } else {
-          clearInterval(loadingTimer)
-        }
-      }, 1000)
     }
   },
-  mounted () {
-
+  async mounted () {
+    // Retrieving already authenticated devices to display in the UI list.
+    let deviceKeys = await db.getKeysMiBand3()
+    if (deviceKeys) {
+      for (const key of deviceKeys) {
+        let device = await db.getDeviceMiBand3(key)
+        if (device.authenticated) {
+          this.addDevice(device)
+        }
+      }
+    }
   }
+
 }
 </script>

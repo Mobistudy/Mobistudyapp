@@ -27,7 +27,9 @@ export default {
   async connect (device, disconnectCallback, authRequiredCallback) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (Math.random() > 0.5) {
+        let authenticated = device.authenticated
+        device.connected = true
+        if (!authenticated) {
           authRequiredCallback(device, true)
         } else { authRequiredCallback(device, false) }
         Promise.resolve(true)
@@ -38,7 +40,6 @@ export default {
      * Disconnects from the tracker
      */
   async disconnect (device) {
-    console.log('Disconnected')
     return Promise.resolve(true)
   },
   /**
@@ -51,10 +52,17 @@ export default {
   },
 
   async authenticate (required) {
-    if (required) {
-      console.log('Full auth')
-      return Promise.resolve(true)
-    } else { console.log('Half auth'); return Promise.resolve(true) }
+    return new Promise((resolve, reject) => {
+      if (required) { // Full auth
+        setTimeout(() => {
+          resolve(true)
+        }, 2000)
+      } else { // Half auth
+        setTimeout(() => {
+          resolve(true)
+        }, 2000)
+      }
+    })
   },
 
   /**

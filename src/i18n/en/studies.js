@@ -3,6 +3,7 @@
 import { mergeDeep } from 'modules/tools'
 import smwtTask from './tasks/smwt'
 import qcstTask from './tasks/qcst'
+import miband3Task from './tasks/miband3/miband3'
 
 let studies = {
   studies: {
@@ -58,10 +59,6 @@ let studies = {
         shortDescription: 'Answer a few questions',
         formCompleted: 'Form completed. Thank you.',
         freeTextExplanation: 'Type your answer'
-      },
-      miband3: {
-        shortTitle: 'Miband3 fitness tracking',
-        shortDescription: 'Cummulative HR, steps and activity data'
       }
     },
     consent: {
@@ -87,5 +84,6 @@ let studies = {
 
 studies = mergeDeep(studies, smwtTask)
 studies = mergeDeep(studies, qcstTask)
+studies = mergeDeep(studies, miband3Task)
 
 export default studies

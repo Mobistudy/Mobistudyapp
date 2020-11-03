@@ -94,10 +94,35 @@ export default {
   },
 
   /* MIBAND3 */
-  async setMiBand3 (device) {
-    return storage.setItem('miband3', device)
+  async setDeviceMiBand3 (key, device) {
+    let currentKeys = await this.getKeysMiBand3()
+    if (currentKeys) {
+      if (!currentKeys.includes(key)) {
+        currentKeys = [...currentKeys, key]
+      }
+    } else {
+      currentKeys = [key]
+    }
+    await this.setKeysMiBand3(currentKeys)
+    return storage.setItem(key, JSON.stringify(device))
   },
-  async removeMiBand3 () {
-    return storage.removeItem('miband3')
+  async getDeviceMiBand3 (key) {
+    let device = await storage.getItem(key)
+    return JSON.parse(device)
+  },
+  async removeDeviceMiBand3 (key) {
+    let currentKeys = await this.getKeysMiBand3()
+    currentKeys = currentKeys.filter((listKey) => {
+      return listKey !== key
+    })
+    await this.setKeysMiBand3(currentKeys)
+    return storage.removeItem(key)
+  },
+  async setKeysMiBand3 (keys) {
+    return storage.setItem('keys', JSON.stringify(keys))
+  },
+  async getKeysMiBand3 () {
+    let keys = await storage.getItem('keys')
+    return JSON.parse(keys)
   }
 }

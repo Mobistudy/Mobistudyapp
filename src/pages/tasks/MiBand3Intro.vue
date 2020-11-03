@@ -17,8 +17,8 @@
           :name="slide.id"
           class="column no-wrap flex-center"
         >
-          <q-icon v-if="showIcon" :name="slide.icon" color="primary" size="100px"/>
-          <q-img v-if="showImage" :src="slide.img" size="200px" draggable="false"/>
+          <q-icon v-if="showIcon" :name="slide.icon" color="primary"/>
+          <q-img v-if="showImage" :src="slide.img" draggable="false"/>
           <div class="q-ma-md">{{ slide.text }}</div>
         </q-carousel-slide>
       </q-carousel>
@@ -76,7 +76,7 @@ export default {
       }
     },
     handleFinish () {
-      this.$router.replace({ name: 'miband3Connect' })
+      this.$router.push({ name: 'miband3Connect' })
     }
   }
 }
