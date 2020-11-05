@@ -2,51 +2,102 @@
   <q-page padding>
     <div v-if="introduction">
       <div class="text-center text-h6">
-          {{introduction.title[$i18n.locale]}}
+        {{introduction.title[$i18n.locale]}}
       </div>
       <div class="text-center text-body1 q-mt-lg">
-          <div v-html="introduction.description[$i18n.locale]"></div>
+        <div v-html="introduction.description[$i18n.locale]"></div>
       </div>
       <div class="row justify-center q-mt-lg">
-          <q-btn color="primary" @click="start()" :label="$t('common.start')" />
+        <q-btn
+          color="primary"
+          @click="start()"
+          :label="$t('common.start')"
+        />
       </div>
     </div>
 
     <div v-if="!introduction && !finished">
       <div class="text-center text-subtitle1">
-          <div v-html="currentQuestion.text[$i18n.locale]"></div>
+        <div v-html="currentQuestion.text[$i18n.locale]"></div>
       </div>
-      <div v-if="currentQuestion.helper" class="text-center text-subtitle2 q-mb-md">
-          <div v-html="currentQuestion.helper[$i18n.locale]"></div>
+      <div
+        v-if="currentQuestion.helper"
+        class="text-center text-subtitle2 q-mb-md"
+      >
+        <div v-html="currentQuestion.helper[$i18n.locale]"></div>
       </div>
-      <q-input v-show="currentQuestion.type === 'freetext'" v-model="freetextAnswer" type="textarea" :label="$t('studies.tasks.form.freeTextExplanation')" rows="5"></q-input>
+      <q-input
+        v-show="currentQuestion.type === 'freetext'"
+        v-model="freetextAnswer"
+        type="textarea"
+        :label="$t('studies.tasks.form.freeTextExplanation')"
+        rows="5"
+      ></q-input>
 
-      <div v-show="currentQuestion.type === 'singleChoice'" v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="'sc' + index">
-        <q-radio v-model="singleChoiceAnswer" :val="answerChoice.id" :label="answerChoice.text[$i18n.locale]"/>
+      <div
+        v-show="currentQuestion.type === 'singleChoice'"
+        v-for="(answerChoice, index) in currentQuestion.answerChoices"
+        :key="'sc' + index"
+      >
+        <q-radio
+          v-model="singleChoiceAnswer"
+          :val="answerChoice.id"
+          :label="answerChoice.text[$i18n.locale]"
+        />
       </div>
-      <div v-show="currentQuestion.type === 'multiChoice'" v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="'mc' + index">
-        <q-checkbox v-model="multiChoiceAnswer" :val="answerChoice.id" :label="answerChoice.text[$i18n.locale]"/>
+      <div
+        v-show="currentQuestion.type === 'multiChoice'"
+        v-for="(answerChoice, index) in currentQuestion.answerChoices"
+        :key="'mc' + index"
+      >
+        <q-checkbox
+          v-model="multiChoiceAnswer"
+          :val="answerChoice.id"
+          :label="answerChoice.text[$i18n.locale]"
+        />
       </div>
-      <div v-show="currentQuestion.type === 'textOnly'" class="text-subtitle1 q-mb-md">
+      <div
+        v-show="currentQuestion.type === 'textOnly'"
+        class="text-subtitle1 q-mb-md"
+      >
         <div v-if="currentQuestion.type === 'textOnly'">
           <div v-html="currentQuestion.html[$i18n.locale]"></div>
         </div>
       </div>
       <div class="row justify-around q-ma-lg">
-        <q-btn v-show="!isFirstQuestion" icon="arrow_back" color="secondary" @click="back()" :label="$t('common.back')" />
-        <q-btn icon-right="arrow_forward" color="primary" @click="next()" :label="$t('common.next')" />
+        <q-btn
+          v-show="!isFirstQuestion"
+          icon="arrow_back"
+          color="secondary"
+          @click="back()"
+          :label="$t('common.back')"
+        />
+        <q-btn
+          icon-right="arrow_forward"
+          color="primary"
+          @click="next()"
+          :label="$t('common.next')"
+        />
       </div>
-      <div v-if="currentQuestion.footer" class="text-left text-caption absolute-bottom q-pa-sm">
-          {{currentQuestion.footer[$i18n.locale]}}
+      <div
+        v-if="currentQuestion.footer"
+        class="text-left text-caption absolute-bottom q-pa-sm"
+      >
+        {{currentQuestion.footer[$i18n.locale]}}
       </div>
     </div>
 
     <div v-if="finished">
       <div class="text-center text-h6">
-          {{$t('studies.tasks.form.formCompleted')}}
+        {{$t('studies.tasks.form.formCompleted')}}
       </div>
       <div class="row justify-around q-ma-lg">
-        <q-btn color="primary" @click="send()" :loading="loading" :label="$t('common.send')" />
+        <q-btn
+          color="primary"
+          @click="send()"
+          :loading="loading"
+          :label="$t('common.send')"
+        />
       </div>
     </div>
 
@@ -60,6 +111,11 @@ import userinfo from 'modules/userinfo'
 
 export default {
   name: 'FormPage',
+  props: {
+    formKey: String,
+    studyKey: String,
+    taskId: String
+  },
   data: function () {
     return {
       formDescr: {},
@@ -77,7 +133,7 @@ export default {
     }
   },
   async created () {
-    const formKey = this.$route.params.formKey
+    const formKey = this.formKey
 
     try {
       let formDescr = await DB.getFormDescription(formKey)
@@ -198,8 +254,8 @@ export default {
     },
     async send () {
       this.loading = true
-      const studyKey = this.$route.params.studyKey
-      const taskId = Number(this.$route.params.taskId)
+      const studyKey = this.studyKey
+      const taskId = Number(this.taskId)
       let answers = {
         userKey: userinfo.user._key,
         studyKey: studyKey,

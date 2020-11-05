@@ -1,30 +1,55 @@
 <template>
   <q-page padding>
-      <div class="text-center text-h6 q-mt-lg">
-        {{ $t('studies.tasks.qcst.title') }}
-      </div>
+    <div class="text-center text-h6 q-mt-lg">
+      {{ $t('studies.tasks.qcst.title') }}
+    </div>
 
-      <p id="timer"> {{ minutes }}:{{ seconds }} </p>
-      <div class="row justify-center q-mt-lg">
-        <q-btn  @click="startTest" v-if="!isStarted" color="secondary" :label="$t('common.start')" />
-        <q-btn  @click="completeTest" v-if="isStarted" color="purple" :label="$t('common.complete')" />
-      </div>
+    <p id="timer"> {{ minutes }}:{{ seconds }} </p>
+    <div class="row justify-center q-mt-lg">
+      <q-btn
+        @click="startTest"
+        v-if="!isStarted"
+        color="secondary"
+        :label="$t('common.start')"
+      />
+      <q-btn
+        @click="completeTest"
+        v-if="isStarted"
+        color="purple"
+        :label="$t('common.complete')"
+      />
+    </div>
 
-      <audio ref="sound_begin">
-        <source src="statics/sounds/begin.wav" type="audio/wav"/>
-      </audio>
-      <audio ref="sound_minute1">
-        <source src="statics/sounds/1-minute.wav" type="audio/wav"/>
-      </audio>
-      <audio ref="sound_minute2">
-        <source src="statics/sounds/2-minutes.wav" type="audio/wav"/>
-      </audio>
-      <audio ref="sound_complete">
-        <source src="statics/sounds/time.wav" type="audio/wav"/>
-      </audio>
-      <audio ref="sound_click">
-        <source src="statics/sounds/click.wav" type="audio/wav"/>
-      </audio>
+    <audio ref="sound_begin">
+      <source
+        src="statics/sounds/begin.wav"
+        type="audio/wav"
+      />
+    </audio>
+    <audio ref="sound_minute1">
+      <source
+        src="statics/sounds/1-minute.wav"
+        type="audio/wav"
+      />
+    </audio>
+    <audio ref="sound_minute2">
+      <source
+        src="statics/sounds/2-minutes.wav"
+        type="audio/wav"
+      />
+    </audio>
+    <audio ref="sound_complete">
+      <source
+        src="statics/sounds/time.wav"
+        type="audio/wav"
+      />
+    </audio>
+    <audio ref="sound_click">
+      <source
+        src="statics/sounds/click.wav"
+        type="audio/wav"
+      />
+    </audio>
   </q-page>
 </template>
 
@@ -37,6 +62,10 @@ const TEST_DURATION = 180
 
 export default {
   name: 'QCSTPage',
+  props: {
+    studyKey: String,
+    taskID: String
+  },
   components: {},
   data: function () {
     return {
@@ -97,8 +126,8 @@ export default {
     completeTest () {
       phone.pedometer.stopNotifications()
       this.completionTS = new Date()
-      const studyKey = this.$route.params.studyKey
-      const taskID = parseInt(this.$route.params.taskID)
+      const studyKey = this.studyKey
+      const taskID = parseInt(this.taskID)
       const userKey = userinfo.user._key
       let report = {
         userKey: userKey,

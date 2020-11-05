@@ -3,10 +3,24 @@
     <!-- content -->
     <div v-if="chartData">
       <p style="margin-top: 0">{{$t('studies.tasks.dataQuery.dataQueryExplanation')}}</p>
-      <bar-chart v-if="plotBar" :chart-data="chartData" :options="chartOptions"></bar-chart>
-      <line-chart v-if="plotLine" :chart-data="chartData" :options="chartOptions"></line-chart>
+      <bar-chart
+        v-if="plotBar"
+        :chart-data="chartData"
+        :options="chartOptions"
+      ></bar-chart>
+      <line-chart
+        v-if="plotLine"
+        :chart-data="chartData"
+        :options="chartOptions"
+      ></line-chart>
       <div class="row">
-        <q-btn color="primary" :loading="loading" class="col" :label="$t('common.send')" @click="submit()" />
+        <q-btn
+          color="primary"
+          :loading="loading"
+          class="col"
+          :label="$t('common.send')"
+          @click="submit()"
+        />
       </div>
     </div>
   </q-page>
@@ -39,6 +53,10 @@ const chartColors = [
 
 export default {
   name: 'DataQueryPage',
+  props: {
+    studyKey: String,
+    taskID: String
+  },
   components: { BarChart, LineChart },
   data: function () {
     return {
@@ -54,8 +72,8 @@ export default {
   },
   async mounted () {
     this.$q.loading.show()
-    const studyKey = this.$route.params.studyKey
-    const taskID = this.$route.params.taskID
+    const studyKey = this.studyKey
+    const taskID = this.taskID
 
     const studyDescr = await DB.getStudyDescription(studyKey)
     this.taskDescr = studyDescr.tasks.find(x => x.id === Number(taskID))
@@ -285,8 +303,8 @@ export default {
     async submit () {
       this.loading = true
       try {
-        let studyKey = this.$route.params.studyKey
-        let taskId = Number(this.$route.params.taskID)
+        let studyKey = this.studyKey
+        let taskId = Number(this.taskID)
         await API.sendDataQuery({
           userKey: userinfo.user._key,
           studyKey: studyKey,

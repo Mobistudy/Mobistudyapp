@@ -12,13 +12,21 @@
     </div>
     <div>
       <ul>
-        <li v-for="(instruction, idx) in $t('studies.tasks.smwt.instructions')" :key="idx">
+        <li
+          v-for="(instruction, idx) in $t('studies.tasks.smwt.instructions')"
+          :key="idx"
+        >
           {{ instruction.i }}
         </li>
       </ul>
     </div>
     <div class="row justify-center q-mt-lg">
-      <q-btn color="primary" @click="start()" replace :label="$t('common.start')" />
+      <q-btn
+        color="primary"
+        @click="start()"
+        replace
+        :label="$t('common.start')"
+      />
     </div>
   </q-page>
 </template>
@@ -26,10 +34,14 @@
 <script>
 export default {
   name: 'SMWTIntroPage',
+  props: {
+    studyKey: String,
+    taskID: String
+  },
   methods: {
     start () {
-      const studyKey = this.$route.params.studyKey
-      const taskID = this.$route.params.taskID
+      const studyKey = this.studyKey
+      const taskID = this.taskID
       console.log('StudyKey ' + studyKey + ',taskID ' + taskID)
       this.$router.push({ name: 'smwt', params: { studyKey, taskID } })
     }
