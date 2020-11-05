@@ -68,6 +68,7 @@
 }
 </style>
 <script>
+/* eslint-disable no-new */
 import miband3 from 'modules/miband3/miband3.mock.js'
 import Chart from 'chart.js'
 
@@ -92,8 +93,6 @@ export default {
       fullscreen: false,
       navigation: false,
       showFinish: false,
-      myChart: undefined,
-      myCtx: undefined,
       ctxs: [],
       charts: [],
       dataset: [],
@@ -121,7 +120,7 @@ export default {
       this.hideDownloading()
       await this.animateSuccessDialog()
       this.showStats()
-      this.createChart()
+      this.createActivityChart()
     },
     callback (error, data) {
       if (!error) {
@@ -159,7 +158,7 @@ export default {
     handleSlide (currentSlideIndex) {
       console.log(currentSlideIndex)
       if (currentSlideIndex === 0) {
-        this.createChart()
+        this.createActivityChart()
       } else if (currentSlideIndex === 1) {
         this.createPieChart()
       }
@@ -176,8 +175,8 @@ export default {
       this.fullscreen = false
     },
     createPieChart () {
-      this.myCtx = this.$refs.chart
-      this.myChart = new Chart(this.myCtx, {
+      let myCtx = this.$refs.chart
+      new Chart(myCtx, {
         type: 'doughnut',
         data: {
           labels: this.pieChartLabels,
@@ -193,9 +192,9 @@ export default {
         }
       })
     },
-    createChart () {
-      this.myCtx = this.$refs.chart
-      this.myChart = new Chart.Scatter(this.myCtx, {
+    createActivityChart () {
+      let myCtx = this.$refs.chart
+      Chart.Scatter(myCtx, {
         type: 'line',
         data: {
           labels: this.labels,
