@@ -97,7 +97,7 @@ module.exports = function (ctx) {
         cfg.resolve.alias['moment$'] = 'moment/moment.js'
         if (!cfg.resolve.modules) cfg.resolve.modules = []
         cfg.resolve.modules.push('./src')
-        if (config.API_ENDPOINT.toLowerCase() === 'mock') cfg.resolve.alias['modules/API'] = 'modules/API.mock'
+        if (config.API_ENDPOINT.toLowerCase() === 'mock') cfg.resolve.alias['modules/API'] = 'modules/API'
         if (config.HEALTHSTORE.toLowerCase() === 'mock') cfg.resolve.alias['modules/healthstore'] = 'modules/healthstore.mock'
         if (config.NOTIFICATIONS.toLowerCase() === 'web') cfg.resolve.alias['modules/notifications'] = 'modules/notifications.web'
         if (config.PHONE.toLowerCase() === 'mock') cfg.resolve.alias['modules/phone'] = 'modules/phone.mock'
@@ -110,7 +110,7 @@ module.exports = function (ctx) {
     devServer: {
       // https: true,
       // port: 8080,
-      open: true, // opens browser window automatically
+      open: 'Google Chrome', // opens browser window automatically
       proxy: {
         '/api': { // <- this must be the same as API_ENDPOINT
           target: 'http://127.0.0.1:3000',

@@ -20,11 +20,15 @@
       </div>
       <q-dialog v-model="tapToAuthDialog">
         <q-card>
+          <div class="q-pa-sm">
+            <q-img src="https://svgshare.com/i/RBV.svg" />
+          </div>
           <q-card-section>
-            <div class="text-h6">Authentication</div>
-          </q-card-section>
-          <q-card-section class="q-pt-none">
-              Tap a few times on your miband bracelet when/after it vibrates.
+            <div class="row no-wrap items-center">
+              <div class="col text-h6 ellipsis">
+                Tap the device on your wrist
+              </div>
+            </div>
           </q-card-section>
         </q-card>
       </q-dialog>
@@ -100,10 +104,11 @@ export default {
     },
     async authRequiredCallback (device, required) {
       this.showFirstDialog()
-      this.authenticate(device, required)
+      await this.authenticate(device, required)
       this.hideFirstDialog()
-      this.animateSecondDialog()
+      await this.animateSecondDialog()
       this.updateUI()
+      this.moveToDownloadPage()
     },
     async disconnectAllDevices () {
       for (const device of this.devices) {
@@ -132,16 +137,22 @@ export default {
       this.tapToAuthDialog = false
     },
     animateSecondDialog () {
-      this.showSecondDialog()
-      setTimeout(() => {
-        this.hideSecondDialog()
-      }, 1000)
+      return new Promise((resolve, reject) => {
+        this.showSecondDialog()
+        setTimeout(() => {
+          this.hideSecondDialog()
+          resolve()
+        }, 1000)
+      })
     },
     showSecondDialog () {
       this.successAuthDialog = true
     },
     hideSecondDialog () {
       this.successAuthDialog = false
+    },
+    moveToDownloadPage () {
+      this.$router.push({ name: 'miband3DataDownload' })
     },
     isAnyConnected () { // May be removed in the future.
       for (const device of this.devices) {

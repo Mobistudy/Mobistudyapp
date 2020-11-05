@@ -68,7 +68,8 @@ const routes = [
       { path: '/qcsthr', name: 'qcsthr', component: () => import('pages/tasks/QCSTHR.vue'), props: true },
       { path: '/qcstSummary', name: 'qcstSummary', component: () => import('pages/tasks/QCSTSummary.vue'), props: true },
       { path: '/miband3Intro/:studyKey/:taskID', name: 'miband3Intro', component: () => import('pages/tasks/MiBand3Intro.vue') },
-      { path: '/miband3Connect/:studyKey/:taskID', name: 'miband3Connect', component: () => import('pages/tasks/MiBand3Connect.vue') }
+      { path: '/miband3Connect/:studyKey/:taskID', name: 'miband3Connect', component: () => import('pages/tasks/MiBand3Connect.vue') },
+      { path: '/miband3DataDownload/:studyKey/:taskID', name: 'miband3DataDownload', component: () => import('pages/tasks/MiBand3DataDownload.vue') }
 
     ]
   }

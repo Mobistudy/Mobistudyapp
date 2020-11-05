@@ -96,19 +96,29 @@ export default {
      * @param {Function} callback called at every sample of data retrieved
      */
   async getStoredData (startDate, callback) {
-    setInterval(() => {
-      for (let i = 0; i < 10; i++) {
-        callback(Error.Error, {
-          date: new Date(startDate.getTime() + i * 60000),
-          activityType: 2,
-          intensity: 10,
-          steps: 10,
-          hr: 72,
-          buffer: new ArrayBuffer(8)
-        })
-      }
-    }, 100)
-    return Promise.resolve(true)
+    return new Promise((resolve, reject) => {
+      let amountPackages = 0
+      let interval = setInterval(() => {
+        for (let i = 0; i < 10; i++) {
+          ++amountPackages
+          callback(Error.Error, {
+            date: new Date(startDate.getTime() + amountPackages * 60000),
+            activityType: this.randomNum(5),
+            intensity: this.randomNum(10),
+            steps: this.randomNum(20),
+            hr: this.randomNum(100),
+            buffer: new ArrayBuffer(8)
+          })
+        }
+        if (amountPackages === 50) {
+          clearInterval(interval)
+          resolve()
+        }
+      }, 500)
+    })
+  },
+  randomNum (max) {
+    return 1 + Math.floor(Math.random() * Math.floor(max))
   },
   /**
      * Starts live streaming of heart rate
