@@ -110,11 +110,11 @@ export default {
             buffer: new ArrayBuffer(8)
           })
         }
-        if (amountPackages === 50) {
+        if (amountPackages === 600) {
           clearInterval(interval)
           resolve()
         }
-      }, 500)
+      }, 10)
     })
   },
   randomNum (max) {
