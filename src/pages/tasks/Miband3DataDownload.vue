@@ -1,48 +1,76 @@
 <template>
-    <div class="q-pa-md">
-        <div id="buttonContainer" class="row justify-center items-center fixed-bottom">
-            <q-btn v-ripple @click="downloadData" icon="get_app">Download</q-btn>
-        </div>
-        <q-dialog v-model="successDownloadDialog" persistent transition-show="scale" transition-hide="scale">
-            <q-card class="bg-teal text-white" style="width: 300px">
-                <q-card-section>
-                    <div class="text-h6 text-center">Download successful</div>
-                </q-card-section>
-            </q-card>
-        </q-dialog>
-        <q-carousel
-          v-model="slide"
-          v-on:transition="handleSlide($event)"
-          swipeable
-          animated
-          :navigation="navigation"
-          :fullscreen="fullscreen"
-          controlColor="primary"
-          ref="carousel"
-          class="row justify-center items-center"
-          >
-          <q-carousel-slide
-            v-for="slide in slides"
-            :key="slide.id"
-            :name="slide.id"
-          >
-            <canvas ref="chart" width="400" height="400"></canvas>
-            <q-btn @click="handleFinish" v-if="showFinish" flat class="fixed-bottom-right">Finish</q-btn>
-          </q-carousel-slide>
-        </q-carousel>
-        <q-inner-loading :showing="downloading">
-            <q-spinner-oval size="50px" color="primary" />
-        </q-inner-loading>
-      </div>
+  <div class="q-pa-md">
+    <div
+      id="buttonContainer"
+      class="row justify-center items-center fixed-bottom"
+    >
+      <q-btn
+        v-ripple
+        @click="downloadData"
+        icon="get_app"
+      >Download</q-btn>
+    </div>
+    <q-dialog
+      v-model="successDownloadDialog"
+      persistent
+      transition-show="scale"
+      transition-hide="scale"
+    >
+      <q-card
+        class="bg-teal text-white"
+        style="width: 300px"
+      >
+        <q-card-section>
+          <div class="text-h6 text-center">Download successful</div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <q-carousel
+      v-model="slide"
+      v-on:transition="handleSlide($event)"
+      swipeable
+      animated
+      :navigation="navigation"
+      :fullscreen="fullscreen"
+      controlColor="primary"
+      ref="carousel"
+      class="row justify-center items-center"
+    >
+      <q-carousel-slide
+        v-for="slide in slides"
+        :key="slide.id"
+        :name="slide.id"
+      >
+        <canvas
+          ref="chart"
+          width="400"
+          height="400"
+        ></canvas>
+        <q-btn
+          @click="handleFinish"
+          v-if="showFinish"
+          flat
+          class="fixed-bottom-right"
+        >Finish</q-btn>
+      </q-carousel-slide>
+    </q-carousel>
+    <q-inner-loading :showing="downloading">
+      <q-spinner-oval
+        size="50px"
+        color="primary"
+      />
+    </q-inner-loading>
+  </div>
 </template>
 <style scoped>
-    #buttonContainer {
-        height: 10vh;
-    }
+#buttonContainer {
+  height: 10vh;
+}
 </style>
 <script>
 import miband3 from 'modules/miband3/miband3.mock.js'
 import Chart from 'chart.js'
+
 export default {
   data () {
     return {
@@ -167,7 +195,7 @@ export default {
     },
     createChart () {
       this.myCtx = this.$refs.chart
-      this.myChart = new Chart(this.myCtx, {
+      this.myChart = new Chart.Scatter(this.myCtx, {
         type: 'line',
         data: {
           labels: this.labels,
@@ -179,7 +207,8 @@ export default {
               borderColor: 'rgba(255,99,132,05)',
               borderWidth: 1,
               pointRadius: 1,
-              fill: false
+              fill: false,
+              lineTension: 0
             }
           ]
         },
