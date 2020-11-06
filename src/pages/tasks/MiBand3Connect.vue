@@ -35,11 +35,10 @@
       <q-dialog v-model="successAuthDialog" persistent transition-show="scale" transition-hide="scale">
       <q-card class="bg-teal text-white" style="width: 300px">
         <q-card-section>
-          <div class="text-h6 text-center">Authentication successful</div>
+          <div class="text-h6 text-center">Connection successful</div>
         </q-card-section>
       </q-card>
     </q-dialog>
-    <q-btn @click="debug" icon="bug">Debug</q-btn>
     </div>
 </template>
 
@@ -68,9 +67,6 @@ export default {
     }
   },
   methods: {
-    debug () {
-      db.setKeysMiBand3(null)
-    },
     async search () {
       let devices = await miband3.search(1000)
       this.addDevices(devices)
@@ -119,7 +115,7 @@ export default {
     async authenticate (device, required) {
       let authenticated = await miband3.authenticate(required)
       device.authenticated = authenticated
-      await db.setDeviceMiBand3(device.id, device)
+      await db.setDeviceMiBand3(device)
     },
     updateUI () {
       for (const device of this.devices) {
@@ -165,14 +161,9 @@ export default {
   },
   async mounted () {
     // Retrieving already authenticated devices to display in the UI list.
-    let deviceKeys = await db.getKeysMiBand3()
-    if (deviceKeys) {
-      for (const key of deviceKeys) {
-        let device = await db.getDeviceMiBand3(key)
-        if (device.authenticated) {
-          this.addDevice(device)
-        }
-      }
+    let device = await db.getDeviceMiBand3()
+    if (device.authenticated) {
+      this.addDevice(device)
     }
   }
 

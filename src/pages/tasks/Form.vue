@@ -19,7 +19,7 @@
       <div v-if="currentQuestion.helper" class="text-center text-subtitle2 q-mb-md">
           <div v-html="currentQuestion.helper[$i18n.locale]"></div>
       </div>
-      <q-input v-show="currentQuestion.type === 'freetext'" v-model="freetextAnswer" type="textarea" :label="$t('studies.tasks.form.freeTextExplanation')" rows="5"></q-input>
+      <q-input v-show="currentQuestion.type === 'freetext'" v-model="freetextAnswer" type="textarea" :label="$t('studies.tasks.form.freeTextExplanation')" rows="3" outlined></q-input>
 
       <div v-show="currentQuestion.type === 'singleChoice'" v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="'sc' + index">
         <q-radio v-model="singleChoiceAnswer" :val="answerChoice.id" :label="answerChoice.text[$i18n.locale]"/>

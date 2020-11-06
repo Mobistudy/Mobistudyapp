@@ -6,9 +6,10 @@
       transition-prev="slide-right"
       transition-next="slide-left"
       class="carousel-resize"
-      :navigation="navigation"
-      :swipeable="swipeable"
-      :control-color="controlColor"
+      animated
+      navigation
+      swipeable
+      control-color="primary"
       v-on:transition="handleSlide($event)"
       >
         <q-carousel-slide
@@ -40,7 +41,7 @@ export default {
       slides: [
         {
           id: 0,
-          text: 'Hello, a very long text to see what happens to line break, are they going to be good or bad?',
+          text: 'Enable the bluetooth on your device and click the checkmark to continue.',
           img: 'https://cdn.quasar.dev/img/mountains.jpg',
           icon: 'watch'
         },
@@ -57,10 +58,6 @@ export default {
           icon: 'style'
         }
       ],
-      controlColor: 'primary',
-      swipeable: true,
-      animated: true,
-      navigation: true,
       showImage: true,
       showIcon: false,
       showFinish: false

@@ -8,7 +8,8 @@
         v-ripple
         @click="downloadData"
         icon="get_app"
-      >Download</q-btn>
+      >Download
+      </q-btn>
     </div>
     <q-dialog
       v-model="successDownloadDialog"
@@ -25,35 +26,10 @@
         </q-card-section>
       </q-card>
     </q-dialog>
-    <q-carousel
-      v-model="slide"
-      v-on:transition="handleSlide($event)"
-      swipeable
-      animated
-      :navigation="navigation"
-      :fullscreen="fullscreen"
-      controlColor="primary"
-      ref="carousel"
-      class="row justify-center items-center"
-    >
-      <q-carousel-slide
-        v-for="slide in slides"
-        :key="slide.id"
-        :name="slide.id"
-      >
-        <canvas
-          ref="chart"
-          width="400"
-          height="400"
-        ></canvas>
-        <q-btn
-          @click="handleFinish"
-          v-if="showFinish"
-          flat
-          class="fixed-bottom-right"
-        >Finish</q-btn>
-      </q-carousel-slide>
-    </q-carousel>
+
+    <canvas ref="lineChart" width="400" height="400"></canvas>
+    <canvas ref="pieChart" width="400" height="400"></canvas>
+
     <q-inner-loading :showing="downloading">
       <q-spinner-oval
         size="50px"
@@ -74,30 +50,13 @@ import Chart from 'chart.js'
 export default {
   data () {
     return {
-      downloading: false,
+      showDownloading: false,
       successDownloadDialog: false,
-      slide: 0,
-      slides: [
-        {
-          id: 0,
-          title: 'HR/Time',
-          lineTitle: 'HR'
-        },
-        {
-          id: 1,
-          title: 'HR/Time',
-          lineTitle: 'HR'
-        }
-      ],
-      fullscreen: false,
-      navigation: false,
       showFinish: false,
       myChart: undefined,
       myCtx: undefined,
-      ctxs: [],
-      charts: [],
-      dataset: [],
-      labels: [],
+      lineChartData: [],
+      lineChartLabels: [],
       pieChartColors: [],
       pieChartBackgroundColors: [
         'Red',
@@ -114,34 +73,25 @@ export default {
   },
   methods: {
     async downloadData () {
-      console.log('Downloading data...')
       let currDate = new Date()
-      this.showDownloading()
+      this.showDownloading = true
       await miband3.getStoredData(currDate, this.callback)
-      this.hideDownloading()
+      this.showDownloading = false
       await this.animateSuccessDialog()
-      this.showStats()
-      this.createChart()
+      this.createActivityPieChart()
     },
     callback (error, data) {
       if (!error) {
-        console.log(data)
         this.addToPieChart(data.activityType)
-        this.addToHRChart(data.hr, data.date)
+        this.addToLineChart(data.hr, data.date)
       }
     },
     addToPieChart (activity) {
       let indexToAdd = this.pieChartDataMap.get(activity)
       this.pieChartData[indexToAdd] = this.pieChartData[indexToAdd] + 1
     },
-    addToHRChart (hr, date) {
-      this.dataset.push({ x: date, y: hr })
-    },
-    showDownloading () {
-      this.downloading = true
-    },
-    hideDownloading () {
-      this.downloading = false
+    addToLineChart (hr, date) {
+      this.lineChartData.push({ x: date, y: hr })
     },
     async animateSuccessDialog () {
       return new Promise((resolve, reject) => {
@@ -152,36 +102,13 @@ export default {
         }, 1000)
       })
     },
-    showStats () {
-      this.fullscreen = true
-      this.navigation = true
-    },
-    handleSlide (currentSlideIndex) {
-      console.log(currentSlideIndex)
-      if (currentSlideIndex === 0) {
-        this.createChart()
-      } else if (currentSlideIndex === 1) {
-        this.createPieChart()
-      }
-
-      if (currentSlideIndex === this.slides.length - 1) { // At last index of slides
-        // Show finish button
-        this.showFinish = true
-      } else {
-        this.showFinish = false
-      }
-    },
-    handleFinish () {
-      console.log('Finish button clicked')
-      this.fullscreen = false
-    },
-    createPieChart () {
-      this.myCtx = this.$refs.chart
+    createActivityPieChart () {
+      this.myCtx = this.$refs.pieChart
       this.myChart = new Chart(this.myCtx, {
         type: 'doughnut',
         data: {
-          labels: this.pieChartLabels,
-          datasets: [{
+          lineChartLabels: this.pieChartlineChartLabels,
+          lineChartDatas: [{
             data: this.pieChartData,
             backgroundColor: this.pieChartBackgroundColors
           }]
@@ -193,16 +120,16 @@ export default {
         }
       })
     },
-    createChart () {
-      this.myCtx = this.$refs.chart
+    createActivityLineChart () {
+      this.myCtx = this.$refs.lineChart
       this.myChart = new Chart.Scatter(this.myCtx, {
         type: 'line',
         data: {
-          labels: this.labels,
-          datasets: [
+          lineChartLabels: this.lineChartLabels,
+          lineChartDatas: [
             {
               label: 'Heart rate',
-              data: this.dataset,
+              data: this.lineChartData,
               backgroundColor: 'rgba(255,99,132,05)',
               borderColor: 'rgba(255,99,132,05)',
               borderWidth: 1,
@@ -228,22 +155,21 @@ export default {
               },
               scaleLabel: {
                 display: true,
-                labelString: 'Date'
+                lineChartLabelstring: 'Date'
               }
             }],
             yAxes: [{
               scaleLabel: {
                 display: true,
-                labelString: 'value'
+                lineChartLabelstring: 'value'
               }
             }]
           }
         }
       })
     },
-    // Sets the index that the activity should add to once it is received.
+    // Defines the indices that the activities should be added to in the pieChartData array.
     setupActivityMap () {
-      console.log('Setting up map')
       for (let i = 0; i < this.pieChartActivities.length; i++) {
         this.pieChartDataMap.set(this.pieChartActivities[i], i)
       }
