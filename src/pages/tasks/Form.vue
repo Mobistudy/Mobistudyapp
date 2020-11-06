@@ -26,13 +26,8 @@
       >
         <div v-html="currentQuestion.helper[$i18n.locale]"></div>
       </div>
-      <q-input
-        v-show="currentQuestion.type === 'freetext'"
-        v-model="freetextAnswer"
-        type="textarea"
-        :label="$t('studies.tasks.form.freeTextExplanation')"
-        rows="5"
-      ></q-input>
+
+      <q-input v-show="currentQuestion.type === 'freetext'" v-model="freetextAnswer" type="textarea" :label="$t('studies.tasks.form.freeTextExplanation')" rows="3" outlined></q-input>
 
       <div
         v-show="currentQuestion.type === 'singleChoice'"

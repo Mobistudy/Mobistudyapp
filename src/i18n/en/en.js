@@ -39,7 +39,7 @@ let en = {
     task: 'Task',
     close: 'Close',
     homeMenu: {
-      dailyTasks: 'Today\'s tasks',
+      dailyTasks: 'Tasks',
       dailyTasksAction: 'See upcoming tasks',
       profile: 'Profile',
       profileAction: 'Edit your profile',
