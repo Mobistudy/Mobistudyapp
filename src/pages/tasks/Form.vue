@@ -135,6 +135,7 @@ export default {
   },
   async created () {
     const formKey = this.formKey
+    console.log('Form Key:', formKey)
 
     try {
       let formDescr = await DB.getFormDescription(formKey)

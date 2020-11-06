@@ -37,7 +37,7 @@ export default {
       let taskId = this.task.taskId
       let formKey = this.task.formKey
 
-      console.log(this.title, '\nStudy Key:', studyKey, '\nTask ID:', taskId, '\nForm Key:', formKey)
+      console.log(this.title, '\nIcon:', icon, '\nStudy Key:', studyKey, '\nTask ID:', taskId)
 
       // these bring the user to the correct route depending on the task
       if (this.task.formKey) {
