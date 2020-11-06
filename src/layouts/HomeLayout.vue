@@ -25,7 +25,7 @@
       >
         <q-route-tab
           class="q-px-sm"
-          to="tasker"
+          :to="{ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } }"
           icon="check_box"
         >{{ $t('layouts.homeMenu.dailyTasks') }}</q-route-tab>
         <q-route-tab
