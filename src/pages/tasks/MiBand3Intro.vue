@@ -5,17 +5,11 @@
       ref="carousel"
       transition-prev="slide-right"
       transition-next="slide-left"
-<<<<<<< HEAD
       class="carousel-resize"
       animated
       navigation
       swipeable
       control-color="primary"
-=======
-      navigation
-      swipeable
-      :control-color="controlColor"
->>>>>>> 692df1f758a003698a810c77ccdc6443847ab6bf
       v-on:transition="handleSlide($event)"
     >
       <q-carousel-slide
@@ -80,10 +74,6 @@ export default {
           icon: 'style'
         }
       ],
-<<<<<<< HEAD
-=======
-      controlColor: 'primary',
->>>>>>> 692df1f758a003698a810c77ccdc6443847ab6bf
       showImage: true,
       showIcon: false,
       showFinish: false
