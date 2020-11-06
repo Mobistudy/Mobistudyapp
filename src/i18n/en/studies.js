@@ -12,7 +12,7 @@ let studies = {
     newStudyExtraCriteria: 'Answer the following to know if you are eligible',
     notEligible: 'You are not eligible for this study',
     foundNoStudies: 'Found no eligible studies',
-    searchingForStudies: 'Searches for new studies',
+    searchingForStudies: 'Searching for new studies',
     noStudies: 'You are currently not participating in any study.',
     joinStudy: 'Join',
     discardStudy: 'Discard',
