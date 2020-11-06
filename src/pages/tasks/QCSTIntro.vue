@@ -46,7 +46,7 @@ export default {
   name: 'QCSTIntroPage',
   props: {
     studyKey: String,
-    taskID: String
+    taskID: Number
   },
   methods: {
     start () {

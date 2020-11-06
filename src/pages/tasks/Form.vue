@@ -114,7 +114,7 @@ export default {
   props: {
     formKey: String,
     studyKey: String,
-    taskId: String
+    taskId: Number
   },
   data: function () {
     return {

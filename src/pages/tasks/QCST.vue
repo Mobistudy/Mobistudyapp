@@ -64,7 +64,7 @@ export default {
   name: 'QCSTPage',
   props: {
     studyKey: String,
-    taskID: String
+    taskID: Number
   },
   components: {},
   data: function () {

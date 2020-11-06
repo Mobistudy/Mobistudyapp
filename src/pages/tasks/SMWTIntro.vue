@@ -36,7 +36,7 @@ export default {
   name: 'SMWTIntroPage',
   props: {
     studyKey: String,
-    taskID: String
+    taskID: Number
   },
   methods: {
     start () {

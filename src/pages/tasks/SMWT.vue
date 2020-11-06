@@ -51,7 +51,7 @@ export default {
   name: 'SMWTPage',
   props: {
     studyKey: String,
-    taskID: String
+    taskID: Number
   },
   data: function () {
     return {

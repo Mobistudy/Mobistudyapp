@@ -54,8 +54,9 @@ const chartColors = [
 export default {
   name: 'DataQueryPage',
   props: {
+    iconName: String,
     studyKey: String,
-    taskID: String
+    taskID: Number
   },
   components: { BarChart, LineChart },
   data: function () {
@@ -74,6 +75,11 @@ export default {
     this.$q.loading.show()
     const studyKey = this.studyKey
     const taskID = this.taskID
+
+    console.log('DATAQUERY studyKey:', this.studyKey)
+    console.log('DATAQUERY taskID:', this.taskID)
+    console.log('DATAQUERY PARAM iconName:', this.$route.params.iconName)
+    console.log('DATAQUERY prop iconName:', this.iconName)
 
     const studyDescr = await DB.getStudyDescription(studyKey)
     this.taskDescr = studyDescr.tasks.find(x => x.id === Number(taskID))

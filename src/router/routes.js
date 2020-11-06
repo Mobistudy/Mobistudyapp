@@ -58,16 +58,16 @@ const routes = [
     path: '/tasks',
     component: () => import('layouts/TaskLayout.vue'),
     children: [
-      { path: '/form/:studyKey/:taskId/:formKey', name: 'form', component: () => import('pages/tasks/Form.vue'), props: true },
-      { path: '/dataQuery/:studyKey/:taskID', name: 'dataQuery', component: () => import('pages/tasks/DataQuery'), props: true },
-      { path: '/smwtIntro/:studyKey/:taskID', name: 'smwtIntro', component: () => import('pages/tasks/SMWTIntro.vue') },
-      { path: '/smwt/:studyKey/:taskID', name: 'smwt', component: () => import('pages/tasks/SMWT.vue'), props: true },
+      { path: '/form', name: 'form', component: () => import('pages/tasks/Form.vue'), props: true },
+      { path: '/dataQuery', name: 'dataQuery', component: () => import('pages/tasks/DataQuery'), props: true },
+      { path: '/smwtIntro', name: 'smwtIntro', component: () => import('pages/tasks/SMWTIntro.vue') },
+      { path: '/smwt', name: 'smwt', component: () => import('pages/tasks/SMWT.vue'), props: true },
       { path: '/smwtSummary', name: 'smwtSummary', component: () => import('pages/tasks/SMWTSummary.vue'), props: true },
-      { path: '/qcstIntro/:studyKey/:taskID', name: 'qcstIntro', component: () => import('pages/tasks/QCSTIntro.vue'), props: true },
-      { path: '/qcst/:studyKey/:taskID', name: 'qcst', component: () => import('pages/tasks/QCST.vue'), props: true }, // TODO: probably no need for props here
+      { path: '/qcstIntro', name: 'qcstIntro', component: () => import('pages/tasks/QCSTIntro.vue'), props: true },
+      { path: '/qcst', name: 'qcst', component: () => import('pages/tasks/QCST.vue'), props: true },
       { path: '/qcsthr', name: 'qcsthr', component: () => import('pages/tasks/QCSTHR.vue'), props: true },
       { path: '/qcstSummary', name: 'qcstSummary', component: () => import('pages/tasks/QCSTSummary.vue'), props: true }
-      // { path: '/miband3Intro/:studyKey/:taskID', name: 'miband3Intro', component: () => import('pages/tasks/MiBand3Intro') }
+      // { path: '/miband3Intro', name: 'miband3Intro', component: () => import('pages/tasks/MiBand3Intro'), props: true }
     ]
   }
 ]

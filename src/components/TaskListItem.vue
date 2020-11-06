@@ -1,13 +1,19 @@
 <template>
-  <q-item :to="toAddress">
+  <q-item @click.native="changeRoute">
     <q-item-section avatar>
-      <q-icon color="grey" :name="icon" />
+      <q-icon
+        color="grey"
+        :name="icon"
+      />
     </q-item-section>
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
       <q-item-label caption>{{ main }}</q-item-label>
     </q-item-section>
-    <q-item-section side top>{{ timeRemaining }}</q-item-section>
+    <q-item-section
+      side
+      top
+    >{{ timeRemaining }}</q-item-section>
   </q-item>
 </template>
 
@@ -22,6 +28,28 @@ export default {
       icon: undefined,
       title: undefined,
       main: undefined
+    }
+  },
+  methods: {
+    changeRoute: function () {
+      // // // // // // // // // // // DEBUGGING //
+      console.log('TEST')
+      console.log('taskID:', this.task.taskID)
+      console.log('studyKey:', this.task.studyKey)
+      console.log('iconName:', this.icon)
+
+      // these bring the user to the correct route depending on the task
+      if (this.task.formKey) {
+        this.$router.push({ name: 'form', params: { iconName: this.icon, studyKey: this.task.studyKey, taskId: this.task.taskID, formKey: this.task.formKey } })
+      } else if (this.task.type === 'smwt') {
+        this.$router.push({ name: 'smwtIntro', params: { iconName: this.icon, studyKey: this.task.studyKey, taskID: this.task.taskID } })
+      } else if (this.task.type === 'qcst') {
+        this.$router.push({ name: 'qcstIntro', params: { iconName: this.icon, studyKey: this.task.studyKey, taskID: this.task.taskID } })
+      } else if (this.task.studyKey && this.task.taskID) {
+        this.$router.push({ name: 'dataQuery', params: { iconName: this.icon, taskID: this.task.taskID, studyKey: this.task.studyKey } })
+      } else {
+        return false
+      }
     }
   },
   created () {
@@ -48,22 +76,6 @@ export default {
   computed: {
     timeRemaining: function () {
       return 'Due ' + moment(this.task.due).fromNow()
-    },
-    toAddress: function () {
-      // these bring the user to the correct route depending on the task
-      if (this.task.formKey) {
-        return 'form/' + this.task.studyKey + '/' + this.task.taskID + '/' + this.task.formKey
-      } else if (this.task.type === 'smwt') {
-        return 'smwtIntro/' + this.task.studyKey + '/' + this.task.taskID
-      } else if (this.task.type === 'qcst') {
-        return 'qcstIntro/' + this.task.studyKey + '/' + this.task.taskID
-      } else if (this.task.studyKey && this.task.taskID) {
-        return 'dataQuery/' + this.task.studyKey + '/' + this.task.taskID
-      } else if (this.task.studyKey && this.task.taskID) {
-        return 'miband3Intro/' + this.task.studyKey + '/' + this.task.taskID
-      } else {
-        return false
-      }
     }
   }
 }
