@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     goBack () {
-      this.$router.push({ name: 'tasker' })
+      this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
     }
   }
 }
