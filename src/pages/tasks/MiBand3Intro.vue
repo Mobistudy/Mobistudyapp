@@ -1,37 +1,59 @@
 <template>
   <div class="q-pa-md">
-      <q-carousel
+    <q-carousel
       v-model="slide"
       ref="carousel"
       transition-prev="slide-right"
       transition-next="slide-left"
+<<<<<<< HEAD
       class="carousel-resize"
       animated
       navigation
       swipeable
       control-color="primary"
+=======
+      navigation
+      swipeable
+      :control-color="controlColor"
+>>>>>>> 692df1f758a003698a810c77ccdc6443847ab6bf
       v-on:transition="handleSlide($event)"
+    >
+      <q-carousel-slide
+        v-for="slide in slides"
+        :key="slide.id"
+        :name="slide.id"
+        class="column no-wrap flex-center"
       >
-        <q-carousel-slide
-          v-for="slide in slides"
-          :key="slide.id"
-          :name="slide.id"
-          class="column no-wrap flex-center"
-        >
-          <q-icon v-if="showIcon" :name="slide.icon" color="primary"/>
-          <q-img v-if="showImage" :src="slide.img" draggable="false"/>
-          <div class="q-ma-md">{{ slide.text }}</div>
-        </q-carousel-slide>
-      </q-carousel>
-      <q-btn @click="handleFinish" v-if="showFinish" flat class="fixed-bottom-right">Finish</q-btn>
+        <q-icon
+          v-if="showIcon"
+          :name="slide.icon"
+          color="primary"
+        />
+        <q-img
+          v-if="showImage"
+          :src="slide.img"
+          draggable="false"
+        />
+        <div class="q-ma-md">{{ slide.text }}</div>
+      </q-carousel-slide>
+    </q-carousel>
+    <q-btn
+      @click="handleFinish"
+      v-if="showFinish"
+      flat
+      class="fixed-bottom-right"
+    >Finish</q-btn>
   </div>
 </template>
 
+<!-- use this class to make the carousel height take the whole screen
 <style lang="scss" scoped>
-  .carousel-resize {
-    height: calc(100vh - 75px);
-  }
+.carousel-resize {
+  height: calc(100vh - 75px);
+}
 </style>
+-->
+
 <script>
 export default {
   name: 'Miband3ConnectPage',
@@ -58,6 +80,10 @@ export default {
           icon: 'style'
         }
       ],
+<<<<<<< HEAD
+=======
+      controlColor: 'primary',
+>>>>>>> 692df1f758a003698a810c77ccdc6443847ab6bf
       showImage: true,
       showIcon: false,
       showFinish: false

@@ -44,6 +44,7 @@
 }
 </style>
 <script>
+/* eslint-disable no-new */
 import miband3 from 'modules/miband3/miband3.mock.js'
 import Chart from 'chart.js'
 
@@ -53,8 +54,6 @@ export default {
       showDownloading: false,
       successDownloadDialog: false,
       showFinish: false,
-      myChart: undefined,
-      myCtx: undefined,
       lineChartData: [],
       lineChartLabels: [],
       pieChartColors: [],
@@ -103,8 +102,8 @@ export default {
       })
     },
     createActivityPieChart () {
-      this.myCtx = this.$refs.pieChart
-      this.myChart = new Chart(this.myCtx, {
+      let myCtx = this.$refs.pieChart
+      new Chart(myCtx, {
         type: 'doughnut',
         data: {
           lineChartLabels: this.pieChartlineChartLabels,
@@ -121,8 +120,8 @@ export default {
       })
     },
     createActivityLineChart () {
-      this.myCtx = this.$refs.lineChart
-      this.myChart = new Chart.Scatter(this.myCtx, {
+      let myCtx = this.$refs.lineChart
+      Chart.Scatter(myCtx, {
         type: 'line',
         data: {
           lineChartLabels: this.lineChartLabels,
