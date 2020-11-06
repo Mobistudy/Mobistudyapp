@@ -27,7 +27,6 @@
         <q-separator inset />
         <q-item-label header>
           {{ $t('studies.tasks.missedTasks') }}
-          <q-btn flat round color="primary" icon="refresh" :loading='loading' @click="refresh(() => {})"/>
         </q-item-label>
         <div>
           <taskListItem v-for="(task, mindex) in tasks.missed" :task="task" :key="mindex"></taskListItem>
@@ -75,7 +74,6 @@ export default {
     return {
       nostudies: false,
       newstudies: false,
-      loading: false,
       tasks: {
         upcoming: [],
         missed: [],
@@ -90,7 +88,6 @@ export default {
   },
   methods: {
     refresh (done) {
-      this.loading = true
       const notify = this.$q.notify({
         group: false,
         spinner: true,
