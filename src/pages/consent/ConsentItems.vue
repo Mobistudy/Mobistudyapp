@@ -19,8 +19,8 @@
         </q-item>
         <q-separator inset />
       </div>
-      <q-list v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems" :key="taskIndex">
-        <q-item>
+      <q-list>
+        <q-item v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems" :key="taskIndex">
           <q-item-section >
             <q-item-label class="q-my-md">{{taskItem.description[$i18n.locale]}}</q-item-label>
               <q-item-label v-if="taskType[taskIndex] !== 'form' && !permissionsGiven[taskIndex] || taskType[taskIndex] !== 'form' && !consentedTaskItems[taskIndex]">
@@ -31,7 +31,8 @@
               </q-item-label>
           </q-item-section>
           <q-item-section avatar>
-              <q-checkbox @click.native="(consentedTaskItems[taskIndex] || !permissionsGiven[taskIndex])? requestPermission(taskIndex) : null" v-model="consentedTaskItems[taskIndex]"/>
+              <q-checkbox :value="consentedTaskItems[taskIndex]"
+              @click.native="!consentedTaskItems[taskIndex] || !permissionsGiven[taskIndex] ? requestPermission(taskIndex) : rejectPermission(taskIndex)"/>
           </q-item-section>
         </q-item>
       </q-list>
@@ -133,7 +134,9 @@ export default {
           }
         }
         // if we get to this point we have permission
+        this.$set(this.consentedTaskItems, taskIndex, true)
         this.$set(this.permissionsGiven, taskIndex, true)
+
         this.$q.notify({
           color: 'positive',
           message: this.$i18n.t('studies.consent.OSPermissionGiven'),
@@ -148,6 +151,10 @@ export default {
           icon: 'report_problem'
         })
       }
+    },
+    async rejectPermission (taskIndex) {
+      this.$set(this.consentedTaskItems, taskIndex, false)
+      this.$set(this.permissionsGiven, taskIndex, false)
     },
     async requestNotificationsPermission () {
       try {
