@@ -54,9 +54,9 @@ const chartColors = [
 export default {
   name: 'DataQueryPage',
   props: {
-    iconName: String,
+    icon: String,
     studyKey: String,
-    taskID: Number
+    taskId: Number
   },
   components: { BarChart, LineChart },
   data: function () {
@@ -74,18 +74,13 @@ export default {
   async mounted () {
     this.$q.loading.show()
     const studyKey = this.studyKey
-    const taskID = this.taskID
-
-    console.log('DATAQUERY studyKey:', this.studyKey)
-    console.log('DATAQUERY taskID:', this.taskID)
-    console.log('DATAQUERY PARAM iconName:', this.$route.params.iconName)
-    console.log('DATAQUERY prop iconName:', this.iconName)
+    const taskId = this.taskId
 
     const studyDescr = await DB.getStudyDescription(studyKey)
-    this.taskDescr = studyDescr.tasks.find(x => x.id === Number(taskID))
+    this.taskDescr = studyDescr.tasks.find(x => x.id === Number(taskId))
 
     let studyParticipation = await DB.getStudyParticipation(studyKey)
-    let lastCompleted = studyParticipation.taskItemsConsent.find(x => x.taskId === Number(taskID)).lastExecuted
+    let lastCompleted = studyParticipation.taskItemsConsent.find(x => x.taskId === Number(taskId)).lastExecuted
 
     let startDate = moment()
 
@@ -310,7 +305,7 @@ export default {
       this.loading = true
       try {
         let studyKey = this.studyKey
-        let taskId = Number(this.taskID)
+        let taskId = Number(this.taskId)
         await API.sendDataQuery({
           userKey: userinfo.user._key,
           studyKey: studyKey,

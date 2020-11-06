@@ -45,15 +45,16 @@
 export default {
   name: 'QCSTIntroPage',
   props: {
+    icon: String,
     studyKey: String,
-    taskID: Number
+    taskId: Number
   },
   methods: {
     start () {
       const studyKey = this.studyKey
-      const taskID = this.taskID
-      console.log('StudyKey ' + studyKey + ',taskID ' + taskID)
-      this.$router.push({ name: 'qcst', params: { studyKey, taskID } })
+      const taskId = this.taskId
+      console.log('StudyKey ' + studyKey + ',taskId ' + taskId)
+      this.$router.push({ name: 'qcst', params: { studyKey, taskId } })
     }
   }
 }

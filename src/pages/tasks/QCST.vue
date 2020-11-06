@@ -64,7 +64,7 @@ export default {
   name: 'QCSTPage',
   props: {
     studyKey: String,
-    taskID: Number
+    taskId: Number
   },
   components: {},
   data: function () {
@@ -127,12 +127,12 @@ export default {
       phone.pedometer.stopNotifications()
       this.completionTS = new Date()
       const studyKey = this.studyKey
-      const taskID = parseInt(this.taskID)
+      const taskId = parseInt(this.taskId)
       const userKey = userinfo.user._key
       let report = {
         userKey: userKey,
         studyKey: studyKey,
-        taskId: taskID,
+        taskId: taskId,
         createdTS: new Date(),
         startedTS: this.startedTS,
         completionTS: this.completionTS,

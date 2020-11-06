@@ -60,7 +60,7 @@ const routes = [
     children: [
       { path: '/form', name: 'form', component: () => import('pages/tasks/Form.vue'), props: true },
       { path: '/dataQuery', name: 'dataQuery', component: () => import('pages/tasks/DataQuery'), props: true },
-      { path: '/smwtIntro', name: 'smwtIntro', component: () => import('pages/tasks/SMWTIntro.vue') },
+      { path: '/smwtIntro', name: 'smwtIntro', component: () => import('pages/tasks/SMWTIntro.vue'), props: true },
       { path: '/smwt', name: 'smwt', component: () => import('pages/tasks/SMWT.vue'), props: true },
       { path: '/smwtSummary', name: 'smwtSummary', component: () => import('pages/tasks/SMWTSummary.vue'), props: true },
       { path: '/qcstIntro', name: 'qcstIntro', component: () => import('pages/tasks/QCSTIntro.vue'), props: true },
