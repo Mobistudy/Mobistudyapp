@@ -5,7 +5,7 @@
         <div class="itemPage">
           <div class="title text-center q-pa-md"><h6>Title</h6></div>
           <div id="lineChartContainer">
-            <canvas ref="lineChart" height="200" width="200"></canvas>
+            <canvas ref="lineChart" height="270" width="270"></canvas>
           </div>
           <div class="textDescription q-pa-md text-center"><p>Some text goes here to describe the chart.</p></div>
         </div>
@@ -14,7 +14,7 @@
         <div class="itemPage">
           <div class="title text-center q-pa-md"><h6>Title</h6></div>
           <div id="pieChartContainer">
-            <canvas ref="pieChart" height="200" width="200"></canvas>
+            <canvas ref="pieChart" height="260" width="260"></canvas>
           </div>
           <div class="textDescription q-pa-md text-center"><p>Some text goes here to describe the chart.</p></div>
         </div>
@@ -65,34 +65,35 @@ html,body,#q-app,.q-pa-md {
   width: 100%;
 }
 #main {
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 #feed {
   height: 75%;
   width: 90%;
   margin: 0 auto;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 #feedItem {
   min-height: 100%;
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
 }
 .itemPage {
-  min-width: 70%;
+  min-width: 90%;
   height: 80%;
 }
 #lineChartContainer {
   width: 90% !important;
+  margin: 0;
 }
 #pieChartContainer {
-  height: 50%;
-  min-width: 70%;
+  width: 80% !important;
+  margin: 0 auto;
 }
 #buttonContainer {
   height: 10%;
   width: 90%;
   margin: 0 auto;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 </style>
 <script>
