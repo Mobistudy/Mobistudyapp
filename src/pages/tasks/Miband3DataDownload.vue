@@ -61,21 +61,7 @@
       >Download
       </q-btn>
     </div>
-    <q-dialog
-      v-model="successDownloadDialog"
-      persistent
-      transition-show="scale"
-      transition-hide="scale"
-    >
-      <q-card
-        class="bg-teal text-white"
-        style="width: 300px"
-      >
-        <q-card-section>
-          <div class="text-h6 text-center">Download successful</div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
+
     <q-inner-loading :showing="showDownloading">
       <q-spinner-oval
         size="50px"
@@ -115,8 +101,8 @@ var pieChart = {
   maxIndex: -1
 }
 var lineChart = {
-  lineChartData: [],
-  lineChartLabels: []
+  data: [],
+  labels: []
 }
 
 export default {
@@ -124,7 +110,6 @@ export default {
   data () {
     return {
       showDownloading: false,
-      successDownloadDialog: false,
       dataNotDownloaded: true,
       graphsCreated: false
     }
@@ -133,9 +118,12 @@ export default {
     async downloadData () {
       let currDate = new Date()
       this.showDownloading = true
-      await miband3.getStoredData(currDate, this.callback)
-      this.showDownloading = false
-      await this.animateSuccessDialog()
+      try {
+        await miband3.getStoredData(currDate, this.callback)
+      } catch (err) {
+        this.dataNotDownloaded = false
+        console.error('could not download data', err)
+      }
       this.dataNotDownloaded = false
       this.createActivityPieChart()
       this.createActivityLineChart()
@@ -162,17 +150,8 @@ export default {
       }
     },
     addToLineChart (hr, date) {
-      lineChart.lineChartData.push({ x: date, y: hr })
-      lineChart.lineChartLabels.push(date)
-    },
-    async animateSuccessDialog () {
-      return new Promise((resolve, reject) => {
-        this.successDownloadDialog = true
-        setTimeout(() => {
-          this.successDownloadDialog = false
-          resolve()
-        }, 1000)
-      })
+      lineChart.data.push({ x: date, y: hr })
+      lineChart.labels.push(date)
     },
     createActivityPieChart () {
       let myCtx = this.$refs.pieChart
@@ -193,16 +172,16 @@ export default {
       })
     },
     createActivityLineChart () {
-      console.log('LC data:', lineChart.lineChartData)
+      console.log('LC data:', lineChart.data)
       let myCtx = this.$refs.lineChart
       let myChart = new Chart.Scatter(myCtx, {
         type: 'scatter',
         data: {
-          labels: lineChart.lineChartLabels,
+          labels: lineChart.labels,
           datasets: [
             {
               label: 'Scatter plot',
-              data: lineChart.lineChartData,
+              data: lineChart.data,
               backgroundColor: 'rgba(255,99,132,05)',
               borderColor: 'rgba(255,99,132,05)',
               borderWidth: 1,
