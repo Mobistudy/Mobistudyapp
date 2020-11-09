@@ -15,6 +15,9 @@ const components = Object.keys(All).reduce((object, key) => {
 
 describe('Profile Editor', () => {
   const localVue = createLocalVue()
+  Notify.mounted = () => {
+    return jest.fn()
+  }
   localVue.use(Quasar, { components, plugins: [Notify] })
   localVue.use(Vuelidate)
   // localVue.use('../../../src/modules/API.js')
