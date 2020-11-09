@@ -1,7 +1,8 @@
 <template>
   <q-page id="main">
     <div v-show="graphsCreated">
-      <div class="text-center q-pa-md text-h6">
+      <p class="q-pa-md">{{ $t('studies.tasks.miband3.chartsIntro') }}</p>
+      <div class="text-center text-h6">
         {{ $t('studies.tasks.miband3.lineChart') }}
       </div>
       <div class="q-pa-md">
@@ -24,7 +25,7 @@
         </div>
       </div>
       <q-separator></q-separator>
-      <div class="text-center q-pa-md text-h6">
+      <div class="text-center text-h6">
         {{ $t('studies.tasks.miband3.pieChart') }}
       </div>
       <div class="q-pa-md">
@@ -97,11 +98,15 @@ var pieChart = {
 
 // holder of the line chart data
 var lineChart = {
-  data: [],
+  hrs: [],
+  steps: [],
+  intensities: [],
   labels: [],
   reset () {
-    this.data = []
-    this.labeels = []
+    this.hrs = []
+    this.steps = []
+    this.intensities = []
+    this.labels = []
   }
 }
 
@@ -166,7 +171,7 @@ export default {
     dataCallback (data) {
       // collects data from the miband and prepares the charts
       this.addToPieChart(data.activityType)
-      this.addToLineChart(data.hr, data.date)
+      this.addToLineChart(data.hr, data.intensity, data.steps, data.date)
     },
     addToPieChart (activityType) {
       let name = getStringIdentifier(activityType)
@@ -182,8 +187,10 @@ export default {
         pieChart.data[index]++
       }
     },
-    addToLineChart (hr, date) {
-      lineChart.data.push({ x: date, y: hr })
+    addToLineChart (hr, intensity, steps, date) {
+      lineChart.hrs.push({ x: date, y: hr })
+      lineChart.intensities.push({ x: date, y: intensity })
+      lineChart.steps.push({ x: date, y: steps })
       lineChart.labels.push(date)
     },
     createActivityPieChart () {
@@ -205,7 +212,6 @@ export default {
       })
     },
     createActivityLineChart () {
-      console.log('LC data:', lineChart.data)
       let myCtx = this.$refs.lineChart
       let myChart = new Chart.Scatter(myCtx, {
         type: 'scatter',
@@ -213,11 +219,31 @@ export default {
           labels: lineChart.labels,
           datasets: [
             {
-              label: 'Scatter plot',
-              data: lineChart.data,
-              backgroundColor: 'rgba(255,99,132,05)',
-              borderColor: 'rgba(255,99,132,05)',
-              borderWidth: 1,
+              label: this.$t('studies.tasks.miband3.hrs'),
+              data: lineChart.hrs,
+              backgroundColor: '#C74038',
+              borderColor: '#C74038',
+              borderWidth: 0,
+              pointRadius: 1,
+              fill: false,
+              lineTension: 0
+            },
+            {
+              label: this.$t('studies.tasks.miband3.intensities'),
+              data: lineChart.intensities,
+              backgroundColor: '#4038C7',
+              borderColor: '#4038C7',
+              borderWidth: 0,
+              pointRadius: 1,
+              fill: false,
+              lineTension: 0
+            },
+            {
+              label: this.$t('studies.tasks.miband3.steps'),
+              data: lineChart.steps,
+              backgroundColor: '#38C740',
+              borderColor: '#38C740',
+              borderWidth: 0,
               pointRadius: 1,
               fill: false,
               lineTension: 0

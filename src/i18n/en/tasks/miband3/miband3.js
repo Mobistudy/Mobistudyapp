@@ -12,7 +12,13 @@ export default {
           walk: 'Walking',
           unknown: 'Unknown'
         },
-        dataDownloadError: 'Could not retrieve data from the band, please retry or cancel.'
+        dataDownloadError: 'Could not retrieve data from the band, please retry or cancel.',
+        chartsIntro: 'The following charts summarize the data that has been retrieved from the band. Tap on "Send" to share these data with the research team or tap on "Skip" to avoid sending these data.',
+        lineChart: 'Activity over time',
+        hrs: 'heart rate',
+        intensities: 'intensity',
+        steps: 'steps',
+        pieChart: 'Time spent in each activity'
       }
     }
   }
