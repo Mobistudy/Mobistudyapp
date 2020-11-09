@@ -1,6 +1,27 @@
 <template>
-  <div class="q-pa-md">
+  <q-page id="main" class="window-height window-width">
+    <div v-show="graphsCreated" id="feed">
+      <div id="feedItem" class="row justify-center items-center">
+        <div class="itemPage">
+          <div class="title text-center q-pa-md"><h6>Title</h6></div>
+          <div id="lineChartContainer">
+            <canvas ref="lineChart" height="200" width="200"></canvas>
+          </div>
+          <div class="textDescription q-pa-md text-center"><p>Some text goes here to describe the chart.</p></div>
+        </div>
+      </div>
+      <div id="feedItem" class="row justify-center items-center">
+        <div class="itemPage">
+          <div class="title text-center q-pa-md"><h6>Title</h6></div>
+          <div id="pieChartContainer">
+            <canvas ref="pieChart" height="200" width="200"></canvas>
+          </div>
+          <div class="textDescription q-pa-md text-center"><p>Some text goes here to describe the chart.</p></div>
+        </div>
+      </div>
+    </div>
     <div
+      v-if="dataNotDownloaded"
       id="buttonContainer"
       class="row justify-center items-center fixed-bottom"
     >
@@ -26,21 +47,52 @@
         </q-card-section>
       </q-card>
     </q-dialog>
-
-    <canvas ref="lineChart" width="400" height="400"></canvas>
-    <canvas ref="pieChart" width="400" height="400"></canvas>
-
-    <q-inner-loading :showing="downloading">
+    <q-inner-loading :showing="showDownloading">
       <q-spinner-oval
         size="50px"
         color="primary"
       />
     </q-inner-loading>
-  </div>
+  </q-page>
 </template>
 <style scoped>
+h6 {
+  margin: 0;
+  padding: 0;
+}
+html,body,#q-app,.q-pa-md {
+  height: 100%;
+  width: 100%;
+}
+#main {
+  border: 1px solid black;
+}
+#feed {
+  height: 75%;
+  width: 90%;
+  margin: 0 auto;
+  border: 1px solid red;
+}
+#feedItem {
+  min-height: 100%;
+  border: 2px solid blue;
+}
+.itemPage {
+  min-width: 70%;
+  height: 80%;
+}
+#lineChartContainer {
+  width: 90% !important;
+}
+#pieChartContainer {
+  height: 50%;
+  min-width: 70%;
+}
 #buttonContainer {
-  height: 10vh;
+  height: 10%;
+  width: 90%;
+  margin: 0 auto;
+  border: 1px solid black;
 }
 </style>
 <script>
@@ -48,26 +100,33 @@
 import miband3 from 'modules/miband3/miband3.mock.js'
 import Chart from 'chart.js'
 
+var pieChart = {
+  pieChartBackgroundColors: [
+    'Red',
+    'Yellow',
+    'Blue',
+    'Green',
+    'Aqua'
+  ],
+  pieChartDataMap: new Map(),
+  pieChartData: [0, 0, 0, 0, 0],
+  pieChartLabels: ['Swimming', 'Walking', 'Jacking off', 'Sex', 'Sleep'],
+  pieChartActivities: [1, 2, 3, 4, 5]
+}
+var lineChart = {
+  lineChartData: [],
+  lineChartLabels: []
+}
 export default {
+
   data () {
     return {
       showDownloading: false,
       successDownloadDialog: false,
-      showFinish: false,
-      lineChartData: [],
-      lineChartLabels: [],
-      pieChartColors: [],
-      pieChartBackgroundColors: [
-        'Red',
-        'Yellow',
-        'Blue',
-        'Green',
-        'Aqua'
-      ],
-      pieChartDataMap: new Map(),
-      pieChartData: [0, 0, 0, 0, 0],
-      pieChartLabels: ['Swimming', 'Walking', 'Jacking off', 'Sex', 'Sleep'],
-      pieChartActivities: [1, 2, 3, 4, 5]
+      dataNotDownloaded: true,
+      showLineChart: false,
+      showPieChart: false,
+      graphsCreated: false
     }
   },
   methods: {
@@ -77,7 +136,10 @@ export default {
       await miband3.getStoredData(currDate, this.callback)
       this.showDownloading = false
       await this.animateSuccessDialog()
+      this.dataNotDownloaded = false
       this.createActivityPieChart()
+      this.createActivityLineChart()
+      this.graphsCreated = true
     },
     callback (error, data) {
       if (!error) {
@@ -86,11 +148,12 @@ export default {
       }
     },
     addToPieChart (activity) {
-      let indexToAdd = this.pieChartDataMap.get(activity)
-      this.pieChartData[indexToAdd] = this.pieChartData[indexToAdd] + 1
+      let indexToAdd = pieChart.pieChartDataMap.get(activity)
+      pieChart.pieChartData[indexToAdd] = pieChart.pieChartData[indexToAdd] + 1
     },
     addToLineChart (hr, date) {
-      this.lineChartData.push({ x: date, y: hr })
+      lineChart.lineChartData.push({ x: date, y: hr })
+      lineChart.lineChartLabels.push(date)
     },
     async animateSuccessDialog () {
       return new Promise((resolve, reject) => {
@@ -106,10 +169,10 @@ export default {
       new Chart(myCtx, {
         type: 'doughnut',
         data: {
-          lineChartLabels: this.pieChartlineChartLabels,
-          lineChartDatas: [{
-            data: this.pieChartData,
-            backgroundColor: this.pieChartBackgroundColors
+          labels: pieChart.pieChartLabels,
+          datasets: [{
+            data: pieChart.pieChartData,
+            backgroundColor: pieChart.pieChartBackgroundColors
           }]
         },
         options: {
@@ -118,17 +181,19 @@ export default {
           }
         }
       })
+      this.showPieChart = true
     },
     createActivityLineChart () {
+      console.log('LC data:', lineChart.lineChartData)
       let myCtx = this.$refs.lineChart
-      Chart.Scatter(myCtx, {
-        type: 'line',
+      let myChart = new Chart.Scatter(myCtx, {
+        type: 'scatter',
         data: {
-          lineChartLabels: this.lineChartLabels,
-          lineChartDatas: [
+          labels: lineChart.lineChartLabels,
+          datasets: [
             {
-              label: 'Heart rate',
-              data: this.lineChartData,
+              label: 'Scatter plot',
+              data: lineChart.lineChartData,
               backgroundColor: 'rgba(255,99,132,05)',
               borderColor: 'rgba(255,99,132,05)',
               borderWidth: 1,
@@ -141,8 +206,7 @@ export default {
         options: {
           responsive: true,
           title: {
-            display: true,
-            text: 'Chart.js Time Scale'
+            display: false
           },
           scales: {
             xAxes: [{
@@ -166,11 +230,13 @@ export default {
           }
         }
       })
+      myChart.update()
+      this.showLineChart = true
     },
     // Defines the indices that the activities should be added to in the pieChartData array.
     setupActivityMap () {
-      for (let i = 0; i < this.pieChartActivities.length; i++) {
-        this.pieChartDataMap.set(this.pieChartActivities[i], i)
+      for (let i = 0; i < pieChart.pieChartActivities.length; i++) {
+        pieChart.pieChartDataMap.set(pieChart.pieChartActivities[i], i)
       }
     },
     delay (ms) {
