@@ -39,27 +39,14 @@
           :label="$t('common.skip')"
           flat
           color="negative"
-          @click="deny()"
+          @click="skipSend()"
         ></q-btn>
         <q-btn
           :label="$t('common.send')"
           color="primary"
-          @click="accept()"
+          @click="sendData()"
         ></q-btn>
       </div>
-    </div>
-
-    <div
-      v-if="dataNotDownloaded"
-      id="buttonContainer"
-      class="row justify-center items-center fixed-bottom"
-    >
-      <q-btn
-        v-ripple
-        @click="downloadData"
-        icon="get_app"
-      >Download
-      </q-btn>
     </div>
 
     <q-inner-loading :showing="showDownloading">
@@ -80,7 +67,6 @@ import { getStringIdentifier } from 'modules/miband3/miband3ActivityTypeEnum.js'
 // a bunch of colors that nicely fit together on a multi-line or bar chart
 // if there are more than 10 colors, we are in trouble
 const chartColors = [
-  '#000000',
   '#800000',
   '#778000',
   '#118000',
@@ -93,6 +79,7 @@ const chartColors = [
   '#800046'
 ]
 
+// holder of the pie chart data
 var pieChart = {
   backgroundColors: [],
   data: [],
@@ -100,6 +87,8 @@ var pieChart = {
   indexes: [],
   maxIndex: -1
 }
+
+// holder of the line chart data
 var lineChart = {
   data: [],
   labels: []
@@ -120,11 +109,17 @@ export default {
       this.showDownloading = true
       try {
         await miband3.getStoredData(currDate, this.callback)
-      } catch (err) {
         this.dataNotDownloaded = false
-        console.error('could not download data', err)
+      } catch (err) {
+        this.dataNotDownloaded = true
+        console.error('cannot download data', err)
       }
-      this.dataNotDownloaded = false
+      try {
+        await miband3.disconnect()
+      } catch (err) {
+        console.error('cannot disconnect miband3', err)
+      }
+      this.showDownloading = false
       this.createActivityPieChart()
       this.createActivityLineChart()
       this.graphsCreated = true
@@ -220,13 +215,16 @@ export default {
       })
       myChart.update()
     },
-    delay (ms) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve()
-        }, ms)
-      })
+    skipSend () {
+      // TODO should save the date up to which the data was retrieved and go back to home
+      // could also add a popup for confirmation
+    },
+    sendData () {
+      // sends the data to the server and goes back to Home
     }
+  },
+  mounted () {
+    this.downloadData()
   }
 }
 </script>
