@@ -10,6 +10,7 @@
           <div class="textDescription q-pa-md text-center"><p>Some text goes here to describe the chart.</p></div>
         </div>
       </div>
+      <q-separator></q-separator>
       <div id="feedItem" class="row justify-center items-center">
         <div class="itemPage">
           <div class="title text-center q-pa-md"><h6>Title</h6></div>
