@@ -11,7 +11,8 @@ export default {
         activityTypes: {
           walk: 'Walking',
           unknown: 'Unknown'
-        }
+        },
+        dataDownloadError: 'Could not retrieve data from the band, please retry or cancel.'
       }
     }
   }

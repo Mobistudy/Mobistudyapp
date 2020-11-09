@@ -10,17 +10,17 @@
           height="270"
         />
         <div class="row justify-around">
-        <q-btn
-          label="-12 hours"
-          color="secondary"
-          disable
-          @click="chartMinus()"
-        />
-        <q-btn
-          label="+12 hpurs"
-          color="secondary"
-          @click="chartPlus()"
-        />
+          <q-btn
+            label="-12 hours"
+            color="secondary"
+            disable
+            @click="chartMinus()"
+          />
+          <q-btn
+            label="+12 hpurs"
+            color="secondary"
+            @click="chartPlus()"
+          />
         </div>
       </div>
       <q-separator></q-separator>
@@ -85,50 +85,88 @@ var pieChart = {
   data: [],
   labels: [],
   indexes: [],
-  maxIndex: -1
+  maxIndex: -1,
+  reset () {
+    this.backgroundColors = []
+    this.data = []
+    this.labels = []
+    this.indexes = []
+    this.maxIndex = -1
+  }
 }
 
 // holder of the line chart data
 var lineChart = {
   data: [],
-  labels: []
+  labels: [],
+  reset () {
+    this.data = []
+    this.labeels = []
+  }
 }
 
 export default {
-
   data () {
     return {
       showDownloading: false,
-      dataNotDownloaded: true,
       graphsCreated: false
     }
   },
   methods: {
     async downloadData () {
+      // reset the charts stuff in case it has been parially filled
+      pieChart.reset()
+      lineChart.reset()
+      // TODO: should get the last date the data was retrieved from DB
+      // if absent, use the same logic as in DataQuery.vue
       let currDate = new Date()
       this.showDownloading = true
       try {
-        await miband3.getStoredData(currDate, this.callback)
-        this.dataNotDownloaded = false
+        await miband3.getStoredData(currDate, this.dataCallback)
+        try {
+          await miband3.disconnect()
+        } catch (err) {
+          // doesn't matter if it fails here, but let's print out a message on console
+          console.error('cannot disconnect miband3', err)
+          this.showErrorDialog()
+        }
+        this.showDownloading = false
+        this.createActivityPieChart()
+        this.createActivityLineChart()
+        this.graphsCreated = true
       } catch (err) {
-        this.dataNotDownloaded = true
         console.error('cannot download data', err)
       }
+    },
+    showErrorDialog () {
+      this.$q.dialog({
+        title: this.$t('errors.error'),
+        message: this.$t('studies.tasks.miband3.dataDownloadError'),
+        cancel: this.$t('common.cancel'),
+        ok: this.$t('common.retry'),
+        persistent: true
+      }).onOk(() => {
+        // retry
+        this.downloadData()
+      }).onCancel(() => {
+        // cancel and go home
+        this.cancel()
+      })
+    },
+    async cancel () {
+      // disconnects and go home
       try {
         await miband3.disconnect()
       } catch (err) {
+        // doesn't matter if it fails here, but let's print out a message on console
         console.error('cannot disconnect miband3', err)
       }
-      this.showDownloading = false
-      this.createActivityPieChart()
-      this.createActivityLineChart()
-      this.graphsCreated = true
+      this.$router.push({ name: 'tasker' })
     },
-    callback (error, data) {
-      if (!error) {
-        this.addToPieChart(data.activityType)
-        this.addToLineChart(data.hr, data.date)
-      }
+    dataCallback (data) {
+      // collects data from the miband and prepares the charts
+      this.addToPieChart(data.activityType)
+      this.addToLineChart(data.hr, data.date)
     },
     addToPieChart (activityType) {
       let name = getStringIdentifier(activityType)

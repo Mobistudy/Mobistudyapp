@@ -93,15 +93,16 @@ export default {
   /**
      * Retrieves the data stored on the tracker
      * @param {Date} startDate a JS Date object from which we want to retrieve the data
-     * @param {Function} callback called at every sample of data retrieved
+     * @param {Function} cbk called at every sample of data retrieved
      */
-  async getStoredData (startDate, callback) {
+  async getStoredData (startDate, cbk) {
+    // return Promise.reject()
     return new Promise((resolve, reject) => {
       let amountPackages = 0
       let interval = setInterval(() => {
         for (let i = 0; i < 10; i++) {
           ++amountPackages
-          callback(Error.Error, {
+          cbk({
             date: new Date(startDate.getTime() + amountPackages * 60000),
             activityType: this.randomNum(5),
             intensity: this.randomNum(10),
