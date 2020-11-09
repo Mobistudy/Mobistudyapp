@@ -1,26 +1,41 @@
 <template>
-  <q-page id="main" class="window-height window-width">
-    <div v-show="graphsCreated" id="feed">
-      <div id="feedItem" class="row justify-center items-center">
-        <div class="itemPage">
-          <div class="title text-center q-pa-md"><h6>Title</h6></div>
-          <div id="lineChartContainer">
-            <canvas ref="lineChart" height="270" width="270"></canvas>
-          </div>
-          <div class="textDescription q-pa-md text-center"><p>Some text goes here to describe the chart.</p></div>
-        </div>
+  <q-page id="main">
+    <div v-show="graphsCreated">
+      <div class="text-center q-pa-md text-h6">
+        {{ $t('studies.tasks.miband3.lineChart') }}
+      </div>
+      <div class="q-pa-md">
+        <canvas
+          ref="lineChart"
+          height="270"
+        ></canvas>
       </div>
       <q-separator></q-separator>
-      <div id="feedItem" class="row justify-center items-center">
-        <div class="itemPage">
-          <div class="title text-center q-pa-md"><h6>Title</h6></div>
-          <div id="pieChartContainer">
-            <canvas ref="pieChart" height="260" width="260"></canvas>
-          </div>
-          <div class="textDescription q-pa-md text-center"><p>Some text goes here to describe the chart.</p></div>
-        </div>
+      <div class="text-center q-pa-md text-h6">
+        {{ $t('studies.tasks.miband3.pieChart') }}
+      </div>
+      <div class="q-pa-md">
+        <canvas
+          ref="pieChart"
+          height="270"
+        ></canvas>
+      </div>
+      <q-separator></q-separator>
+      <div class="q-my-md row justify-around">
+        <q-btn
+          :label="$t('common.skip')"
+          flat
+          color="negative"
+          @click="deny()"
+        ></q-btn>
+        <q-btn
+          :label="$t('common.send')"
+          color="primary"
+          @click="accept()"
+        ></q-btn>
       </div>
     </div>
+
     <div
       v-if="dataNotDownloaded"
       id="buttonContainer"
@@ -56,69 +71,41 @@
     </q-inner-loading>
   </q-page>
 </template>
-<style scoped>
-h6 {
-  margin: 0;
-  padding: 0;
-}
-html,body,#q-app,.q-pa-md {
-  height: 100%;
-  width: 100%;
-}
-#main {
-  /* border: 1px solid black; */
-}
-#feed {
-  height: 75%;
-  width: 90%;
-  margin: 0 auto;
-  /* border: 1px solid red; */
-}
-#feedItem {
-  min-height: 100%;
-  /* border: 2px solid blue; */
-}
-.itemPage {
-  min-width: 90%;
-  height: 80%;
-}
-#lineChartContainer {
-  width: 90% !important;
-  margin: 0;
-}
-#pieChartContainer {
-  width: 80% !important;
-  margin: 0 auto;
-}
-#buttonContainer {
-  height: 10%;
-  width: 90%;
-  margin: 0 auto;
-  /* border: 1px solid black; */
-}
-</style>
+
 <script>
 /* eslint-disable no-new */
 import miband3 from 'modules/miband3/miband3.mock.js'
 import Chart from 'chart.js'
+import { getStringIdentifier } from 'modules/miband3/miband3ActivityTypeEnum.js'
+
+// a bunch of colors that nicely fit together on a multi-line or bar chart
+// if there are more than 10 colors, we are in trouble
+const chartColors = [
+  '#000000',
+  '#800000',
+  '#778000',
+  '#118000',
+  '#008080',
+  '#003780',
+  '#080080',
+  '#440080',
+  '#790080',
+  '#800046',
+  '#800046'
+]
 
 var pieChart = {
-  pieChartBackgroundColors: [
-    'Red',
-    'Yellow',
-    'Blue',
-    'Green',
-    'Aqua'
-  ],
-  pieChartDataMap: new Map(),
-  pieChartData: [0, 0, 0, 0, 0],
-  pieChartLabels: ['Swimming', 'Walking', 'Jacking off', 'Sex', 'Sleep'],
-  pieChartActivities: [1, 2, 3, 4, 5]
+  backgroundColors: [],
+  data: [],
+  labels: [],
+  indexes: [],
+  maxIndex: -1
 }
 var lineChart = {
   lineChartData: [],
   lineChartLabels: []
 }
+
 export default {
 
   data () {
@@ -126,8 +113,6 @@ export default {
       showDownloading: false,
       successDownloadDialog: false,
       dataNotDownloaded: true,
-      showLineChart: false,
-      showPieChart: false,
       graphsCreated: false
     }
   },
@@ -149,9 +134,19 @@ export default {
         this.addToLineChart(data.hr, data.date)
       }
     },
-    addToPieChart (activity) {
-      let indexToAdd = pieChart.pieChartDataMap.get(activity)
-      pieChart.pieChartData[indexToAdd] = pieChart.pieChartData[indexToAdd] + 1
+    addToPieChart (activityType) {
+      let name = getStringIdentifier(activityType)
+      if (pieChart.indexes[name] === undefined) {
+        pieChart.maxIndex++
+        let index = pieChart.maxIndex
+        pieChart.indexes[name] = index
+        pieChart.data[index] = 1
+        pieChart.labels.push(this.$t('studies.tasks.miband3.activityTypes.' + name))
+        pieChart.backgroundColors.push(chartColors[index])
+      } else {
+        let index = pieChart.indexes[name]
+        pieChart.data[index]++
+      }
     },
     addToLineChart (hr, date) {
       lineChart.lineChartData.push({ x: date, y: hr })
@@ -171,10 +166,10 @@ export default {
       new Chart(myCtx, {
         type: 'doughnut',
         data: {
-          labels: pieChart.pieChartLabels,
+          labels: pieChart.labels,
           datasets: [{
-            data: pieChart.pieChartData,
-            backgroundColor: pieChart.pieChartBackgroundColors
+            data: pieChart.data,
+            backgroundColor: pieChart.backgroundColors
           }]
         },
         options: {
@@ -183,7 +178,6 @@ export default {
           }
         }
       })
-      this.showPieChart = true
     },
     createActivityLineChart () {
       console.log('LC data:', lineChart.lineChartData)
@@ -233,13 +227,6 @@ export default {
         }
       })
       myChart.update()
-      this.showLineChart = true
-    },
-    // Defines the indices that the activities should be added to in the pieChartData array.
-    setupActivityMap () {
-      for (let i = 0; i < pieChart.pieChartActivities.length; i++) {
-        pieChart.pieChartDataMap.set(pieChart.pieChartActivities[i], i)
-      }
     },
     delay (ms) {
       return new Promise((resolve, reject) => {
@@ -248,9 +235,6 @@ export default {
         }, ms)
       })
     }
-  },
-  mounted () {
-    this.setupActivityMap()
   }
 }
 </script>

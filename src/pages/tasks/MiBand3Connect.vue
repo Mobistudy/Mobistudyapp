@@ -1,57 +1,78 @@
 <template>
-    <div class="q-pa-md">
-      <q-list v-if="devices.length > 0" bordered>
-        <q-item
+  <div class="q-pa-md">
+    <q-list
+      v-if="devices.length > 0"
+      bordered
+    >
+      <q-item
         v-for="device in devices"
         :key="device.id"
         clickable
         v-ripple
         :id="device.id"
         @click="connect(device)"
-        >
-        <q-item-section >{{device.id}}</q-item-section>
+      >
+        <q-item-section>{{device.id}}</q-item-section>
         <q-item-section avatar>
-          <q-icon color="primary" name="bluetooth" />
+          <q-icon
+            color="primary"
+            name="bluetooth"
+          />
         </q-item-section>
-        </q-item>
-      </q-list>
-      <div id="buttonContainer" class="fixed-bottom text-center">
-        <q-btn @click="search" round icon="bluetooth"></q-btn>
-      </div>
-      <q-dialog v-model="tapToAuthDialog">
-        <q-card>
-          <div class="q-pa-sm">
-            <q-img src="https://svgshare.com/i/RBV.svg" />
-          </div>
-          <q-card-section>
-            <div class="row no-wrap items-center">
-              <div class="col text-h6 ellipsis">
-                Tap the device on your wrist
-              </div>
+      </q-item>
+    </q-list>
+    <div
+      id="buttonContainer"
+      class="fixed-bottom text-center"
+    >
+      <q-btn
+        @click="search"
+        round
+        icon="bluetooth"
+      ></q-btn>
+    </div>
+    <q-dialog v-model="tapToAuthDialog">
+      <q-card>
+        <div class="q-pa-sm">
+          <q-img src="https://svgshare.com/i/RBV.svg" />
+        </div>
+        <q-card-section>
+          <div class="row no-wrap items-center">
+            <div class="col text-h6 ellipsis">
+              Tap the device on your wrist
             </div>
-          </q-card-section>
-        </q-card>
-      </q-dialog>
-      <q-dialog v-model="successAuthDialog" persistent transition-show="scale" transition-hide="scale">
-      <q-card class="bg-teal text-white" style="width: 300px">
+          </div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <q-dialog
+      v-model="successAuthDialog"
+      persistent
+      transition-show="scale"
+      transition-hide="scale"
+    >
+      <q-card
+        class="bg-teal text-white"
+        style="width: 300px"
+      >
         <q-card-section>
           <div class="text-h6 text-center">Connection successful</div>
         </q-card-section>
       </q-card>
     </q-dialog>
-    </div>
+  </div>
 </template>
 
 <style scoped>
-  #buttonContainer {
-    height: 20vh;
-  }
-  .connected {
-    color: green;
-  }
-  .disconnected {
-    color: red;
-  }
+#buttonContainer {
+  height: 20vh;
+}
+.connected {
+  color: green;
+}
+.disconnected {
+  color: red;
+}
 </style>
 
 <script>
@@ -162,7 +183,8 @@ export default {
   async mounted () {
     // Retrieving already authenticated devices to display in the UI list.
     let device = await db.getDeviceMiBand3()
-    if (device.authenticated) {
+
+    if (device && device.authenticated) {
       this.addDevice(device)
     }
   }

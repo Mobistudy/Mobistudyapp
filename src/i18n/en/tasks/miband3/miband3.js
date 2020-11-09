@@ -7,7 +7,11 @@ export default {
         title: 'Miband3',
         shortDescription: 'Download your activity data',
         shortTitle: 'Getting your activity data, son',
-        description: 'Activity monitoring for a specified frequency during a set amount of time'
+        description: 'Activity monitoring for a specified frequency during a set amount of time',
+        activityTypes: {
+          walk: 'Walking',
+          unknown: 'Unknown'
+        }
       }
     }
   }

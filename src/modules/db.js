@@ -99,6 +99,7 @@ export default {
   },
   async getDeviceMiBand3 () {
     let device = await storage.getItem('miband3')
+    if (!device) return null
     return JSON.parse(device)
   },
   async removeDeviceMiBand3 () {
