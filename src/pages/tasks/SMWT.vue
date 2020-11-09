@@ -8,8 +8,7 @@
       style="width: 100%; height: 50vh;"
       class="row justify-center items-center"
     >
-      <span v-if="!mapCannotLoad">{{ $t('studies.tasks.smwt.loadingMap') }}</span>
-      <span v-if="mapCannotLoad">{{ $t('studies.tasks.smwt.loadingMapCannot') }}</span>
+      <WalkingMan></WalkingMan>
     </div>
     <div
       v-show="isSignalCheck"
@@ -38,11 +37,11 @@
 </template>
 
 <script>
-import { Loader } from '@googlemaps/js-api-loader'
 import phone from 'modules/phone'
 import distanceAlgo from 'modules/outdoorDistance'
 import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'
+import WalkingMan from 'components/WalkingMan'
 
 const TEST_DURATION = 360
 const SIGNAL_CHECK_TIMEOUT = 60000
@@ -53,11 +52,11 @@ export default {
     studyKey: String,
     taskId: Number
   },
+  components: {
+    WalkingMan
+  },
   data: function () {
     return {
-      map: undefined,
-      mapCannotLoad: false,
-      marker: undefined,
       isSignalCheck: true,
       isStarted: false,
       isCompleted: false,
@@ -72,15 +71,6 @@ export default {
   },
   mounted: async function () {
     distanceAlgo.reset()
-    const loader = new Loader({
-      apiKey: process.env.MAPS_API
-    })
-    try {
-      await loader.load()
-    } catch (err) {
-      console.error('Cannot load Google maps', err)
-      this.mapCannotLoad = true
-    }
 
     // start signal check
     this.isSignalCheck = true
@@ -101,25 +91,6 @@ export default {
             setTimeout(function () {
               this.isSignalCheck = false
             }, SIGNAL_CHECK_TIMEOUT)
-
-            // we can initialise the map now
-            if (window.google !== undefined) {
-              this.map = new window.google.maps.Map(this.$refs.map, {
-                center: { lat: position.coords.latitude, lng: position.coords.longitude },
-                zoom: 17,
-                disableDefaultUI: true,
-                gestureHandling: 'none'
-              })
-            }
-          }
-          if (window.google) {
-            // update the map
-            this.map.setCenter({ lat: position.coords.latitude, lng: position.coords.longitude })
-            if (this.marker) this.marker.setMap(null)
-            this.marker = new window.google.maps.Marker({
-              position: { lat: position.coords.latitude, lng: position.coords.longitude }
-            })
-            this.marker.setMap(this.map)
           }
 
           this.positions.push(position)
@@ -172,9 +143,11 @@ export default {
     startTimer () {
       this.totalTime = TEST_DURATION
       this.timer = setInterval(() => this.countDown(), 1000)
+      WalkingMan.methods.play()
     },
     stopTimer () {
       clearInterval(this.timer)
+      WalkingMan.methods.stop()
     },
     countDown () {
       if (this.totalTime >= 1) {
