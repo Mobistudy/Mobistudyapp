@@ -6,7 +6,9 @@
       class="bg-primary text-white"
     >
       <q-toolbar>
-
+        <q-avatar rounded>
+          <img src="../statics/icons/favicon-128x128.png">
+        </q-avatar>
         <q-toolbar-title>
           {{ $t('layouts.home') }}
         </q-toolbar-title>
