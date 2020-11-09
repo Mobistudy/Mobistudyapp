@@ -3,15 +3,36 @@
     <div class="text-center text-h6 q-mt-lg">
       {{ $t('studies.tasks.smwt.title') }}
     </div>
-    <div ref="map" style="width: 100%; height: 50vh;" class="row justify-center items-center">
+    <div
+      ref="map"
+      style="width: 100%; height: 50vh;"
+      class="row justify-center items-center"
+    >
       <span v-if="!mapCannotLoad">{{ $t('studies.tasks.smwt.loadingMap') }}</span>
       <span v-if="mapCannotLoad">{{ $t('studies.tasks.smwt.loadingMapCannot') }}</span>
     </div>
-    <div v-show="isSignalCheck" class="text-subtitle1 text-center ">{{ $t('studies.tasks.smwt.signalCheck') }}</div>
-    <p v-show="!isSignalCheck" id="timer"> {{ minutes }}:{{ seconds }} </p>
+    <div
+      v-show="isSignalCheck"
+      class="text-subtitle1 text-center "
+    >{{ $t('studies.tasks.smwt.signalCheck') }}</div>
+    <p
+      v-show="!isSignalCheck"
+      id="timer"
+    > {{ minutes }}:{{ seconds }} </p>
     <div class="row justify-center q-mt-lg">
-      <q-btn  @click="startTest" v-show="!isStarted" color="secondary" :label="$t('common.start')" :disabled="isSignalCheck" />
-      <q-btn  @click="completeTest" v-show="isStarted" color="purple" :label="$t('common.complete')" />
+      <q-btn
+        @click="startTest"
+        v-show="!isStarted"
+        color="secondary"
+        :label="$t('common.start')"
+        :disabled="isSignalCheck"
+      />
+      <q-btn
+        @click="completeTest"
+        v-show="isStarted"
+        color="purple"
+        :label="$t('common.complete')"
+      />
     </div>
   </q-page>
 </template>
@@ -28,6 +49,10 @@ const SIGNAL_CHECK_TIMEOUT = 60000
 
 export default {
   name: 'SMWTPage',
+  props: {
+    studyKey: String,
+    taskId: Number
+  },
   data: function () {
     return {
       map: undefined,
@@ -172,13 +197,13 @@ export default {
       this.distance = distanceAlgo.getDistance()
 
       // package the 6mwt report
-      const studyKey = this.$route.params.studyKey
-      const taskID = parseInt(this.$route.params.taskID)
+      const studyKey = this.studyKey
+      const taskId = parseInt(this.taskId)
       const userKey = userinfo.user._key
       let report = {
         userKey: userKey,
         studyKey: studyKey,
-        taskId: taskID,
+        taskId: taskId,
         createdTS: new Date(),
         startedTS: this.startedTS,
         completionTS: this.completionTS,

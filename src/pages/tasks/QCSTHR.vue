@@ -5,7 +5,12 @@
       <p>
         <i>{{ $t("studies.tasks.qcst.enterHRInstructions") }}</i>
       </p>
-      <q-input outlined v-model="heartRate" label="Heart rate" type="number"/>
+      <q-input
+        outlined
+        v-model="heartRate"
+        label="Heart rate"
+        type="number"
+      />
       <q-btn
         color="primary"
         @click="completeTest()"
@@ -19,7 +24,9 @@
 <script>
 export default {
   name: 'QCSTHRPage',
-  props: [ 'report' ],
+  props: {
+    report: Object
+  },
   data: function () {
     return {
       heartRate: undefined
