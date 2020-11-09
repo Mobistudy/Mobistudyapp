@@ -8,7 +8,20 @@
         <canvas
           ref="lineChart"
           height="270"
-        ></canvas>
+        />
+        <div class="row justify-around">
+        <q-btn
+          label="-12 hours"
+          color="secondary"
+          disable
+          @click="chartMinus()"
+        />
+        <q-btn
+          label="+12 hpurs"
+          color="secondary"
+          @click="chartPlus()"
+        />
+        </div>
       </div>
       <q-separator></q-separator>
       <div class="text-center q-pa-md text-h6">
