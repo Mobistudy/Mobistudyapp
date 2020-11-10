@@ -10,26 +10,26 @@
       navigation
       swipeable
       control-color="primary"
-      v-on:transition="handleSlide($event)"
+      @transition="handleSlide()"
     >
-      <q-carousel-slide
-        v-for="slide in slides"
-        :key="slide.id"
-        :name="slide.id"
+      <q-carousel-slide name = "first"
         class="column no-wrap flex-center"
       >
-        <q-icon
-          v-if="showIcon"
-          :name="slide.icon"
-          color="primary"
-        />
-        <q-img
-          v-if="showImage"
-          :src="slide.img"
-          draggable="false"
-        />
-        <div class="q-ma-md">{{ slide.text }}</div>
+        <div class="q-ma-md">First</div>
       </q-carousel-slide>
+
+      <q-carousel-slide name = "second"
+        class="column no-wrap flex-center"
+      >
+        <div class="q-ma-md">Second</div>
+      </q-carousel-slide>
+
+      <q-carousel-slide name = "third"
+        class="column no-wrap flex-center"
+      >
+        <div class="q-ma-md">Third</div>
+      </q-carousel-slide>
+
     </q-carousel>
     <q-btn
       @click="handleFinish"
@@ -53,36 +53,14 @@ export default {
   name: 'Miband3ConnectPage',
   data () {
     return {
-      slide: 0,
-      slides: [
-        {
-          id: 0,
-          text: 'Enable the bluetooth on your device and click the checkmark to continue.',
-          img: 'https://cdn.quasar.dev/img/mountains.jpg',
-          icon: 'watch'
-        },
-        {
-          id: 1,
-          text: 'Hello1',
-          img: 'https://cdn.quasar.dev/img/mountains.jpg',
-          icon: 'style'
-        },
-        {
-          id: 2,
-          text: 'Hello <3 <3 <3',
-          img: 'https://cdn.quasar.dev/img/mountains.jpg',
-          icon: 'style'
-        }
-      ],
-      showImage: true,
-      showIcon: false,
+      slide: 'first',
       showFinish: false
     }
   },
   methods: {
-    handleSlide (currentSlideIndex) {
-      if (currentSlideIndex === this.slides.length - 1) { // At last index of slides
-        // Show finish button
+    handleSlide () {
+      console.log(this.slide)
+      if (this.slide === 'third') {
         this.showFinish = true
       } else {
         this.showFinish = false
