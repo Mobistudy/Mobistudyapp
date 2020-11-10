@@ -135,7 +135,7 @@ export default {
     async downloadData () {
       let currDate = new Date()
       this.showDownloading = true
-      await miband3.getStoredData(currDate, this.callback)
+      await miband3.getStoredData(currDate, this.dataCallback)
       this.showDownloading = false
       await this.animateSuccessDialog()
       this.dataNotDownloaded = false
@@ -143,11 +143,9 @@ export default {
       this.createActivityLineChart()
       this.graphsCreated = true
     },
-    callback (error, data) {
-      if (!error) {
-        this.addToPieChart(data.activityType)
-        this.addToLineChart(data.hr, data.date)
-      }
+    dataCallback (data) {
+      this.addToPieChart(data.activityType)
+      this.addToLineChart(data.hr, data.date)
     },
     addToPieChart (activity) {
       let indexToAdd = pieChart.pieChartDataMap.get(activity)
