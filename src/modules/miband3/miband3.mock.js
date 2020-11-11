@@ -111,7 +111,7 @@ export default {
             buffer: new ArrayBuffer(8)
           })
         }
-        if (amountPackages === 600) {
+        if (amountPackages === 1440) {
           clearInterval(interval)
           resolve()
         }

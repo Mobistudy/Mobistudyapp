@@ -28,7 +28,8 @@
       <q-btn
         @click="search"
         round
-        icon="bluetooth"
+        push
+        icon="search"
       ></q-btn>
     </div>
     <q-dialog v-model="tapToAuthDialog">
@@ -60,6 +61,22 @@
         </q-card-section>
       </q-card>
     </q-dialog>
+    <q-dialog
+    v-model="tutorialDialog"
+    transition-show="scale"
+    transition-hide="scale"
+    >
+     <q-card>
+        <q-card-section class="row items-center">
+          <q-avatar icon="search" color="primary" text-color="white" />
+          <span>Press the search button to find nearby MiBand 3 devices.</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -84,7 +101,8 @@ export default {
     return {
       devices: [],
       tapToAuthDialog: false,
-      successAuthDialog: false
+      successAuthDialog: false,
+      tutorialDialog: false
     }
   },
   methods: {
@@ -117,7 +135,7 @@ export default {
       this.updateUI()
     },
     disconnectCallback () {
-      // To be done.
+      // TODO
     },
     async authRequiredCallback (device, required) {
       this.showFirstDialog()
@@ -181,12 +199,7 @@ export default {
     }
   },
   async mounted () {
-    // Retrieving already authenticated devices to display in the UI list.
-    let device = await db.getDeviceMiBand3()
-
-    if (device && device.authenticated) {
-      this.addDevice(device)
-    }
+    this.tutorialDialog = true
   }
 
 }

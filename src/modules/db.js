@@ -42,6 +42,11 @@ export default {
     let studies = await storage.getItem('studiesParticipation')
     return studies.find(sp => sp.studyKey === studyKey)
   },
+  async getStudyParticipationTaskItemConsent (studyKey) {
+    let studyParticipation = await this.getStudyParticipation(studyKey)
+    console.log('Study', studyParticipation)
+    return (studyParticipation.taskItemsConsent)
+  },
   async setStudyParticipation (studyPart) {
     let studies = await storage.getItem('studiesParticipation')
     let studyIndex = studies.findIndex(sp => sp.studyKey === studyPart.studyKey)

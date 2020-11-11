@@ -18,7 +18,7 @@
             @click="chartMinus()"
           />
           <q-btn
-            label="+12 hpurs"
+            label="+12 hours"
             color="secondary"
             @click="chartPlus()"
           />
@@ -64,6 +64,8 @@
 import miband3 from 'modules/miband3/miband3.mock.js'
 import Chart from 'chart.js'
 import { getStringIdentifier } from 'modules/miband3/miband3ActivityTypeEnum.js'
+import db from 'modules/db'
+import moment from 'moment'
 
 // a bunch of colors that nicely fit together on a multi-line or bar chart
 // if there are more than 10 colors, we are in trouble
@@ -96,6 +98,8 @@ var pieChart = {
   }
 }
 
+var storedData = []
+
 // holder of the line chart data
 var lineChart = {
   hrs: [],
@@ -114,20 +118,54 @@ export default {
   data () {
     return {
       showDownloading: false,
-      graphsCreated: false
+      graphsCreated: false,
+      taskDescription: {},
+      pieChart: undefined,
+      pieCtx: undefined,
+      lineChart: undefined,
+      lineCtx: undefined,
+      currentMinuteStartIndex: 0,
+      currentMinuteEndIndex: 12
     }
   },
   methods: {
     async downloadData () {
+      // Route parameters
+      const studyKey = this.$route.params.studyKey
+      const taskID = this.$route.params.taskID
+      const studyDescription = await db.getStudyDescription(studyKey)
+      console.log('Study description:', studyDescription)
+      this.taskDescription = this.getTaskDescription(studyDescription, taskID)
+      console.log('Task description 2:', this.taskDescription, 'Scheduling:', this.taskDescription.scheduling)
+
       // reset the charts stuff in case it has been parially filled
       pieChart.reset()
       lineChart.reset()
       // TODO: should get the last date the data was retrieved from DB
       // if absent, use the same logic as in DataQuery.vue
-      let currDate = new Date()
+      let lastCompleted = await this.getLastCompletedTaskMoment(studyKey, taskID)
+      console.log('Last completed:', lastCompleted)
+      let startDate = moment()
+      if (this.isFirstTaskDownload()) {
+        console.log('Task description 3:', this.taskDescription.scheduling)
+        let intervalType = this.taskDescription.scheduling.interval
+        let interval = this.taskDescription.scheduling.interval
+        if (intervalType === 'd') {
+          startDate.subtract(interval, 'days')
+        } else if (intervalType === 'w') {
+          startDate.subtract(interval, 'weeks')
+        } else if (intervalType === 'm') {
+          startDate.subtract(interval, 'months')
+        } else if (intervalType === 'y') {
+          startDate.subtract(interval, 'years')
+        }
+      } else {
+        startDate = lastCompleted
+      }
+      startDate = startDate.toDate()
       this.showDownloading = true
       try {
-        await miband3.getStoredData(currDate, this.dataCallback)
+        await miband3.getStoredData(startDate, this.dataCallback)
         try {
           await miband3.disconnect()
         } catch (err) {
@@ -136,6 +174,7 @@ export default {
           this.showErrorDialog()
         }
         this.showDownloading = false
+        this.renderCharts(this.currentMinuteStartIndex, this.currentMinuteEndIndex)
         this.createActivityPieChart()
         this.createActivityLineChart()
         this.graphsCreated = true
@@ -143,6 +182,40 @@ export default {
         console.error('cannot download data', err)
       }
     },
+    renderCharts (startTime, endTime) {
+      pieChart.reset()
+      lineChart.reset()
+      console.log('start:', startTime, 'end:', endTime)
+      let startIndexInMinutes = startTime * 60
+      let endIndexInMinutes = endTime * 60 - 1
+      console.log(storedData)
+      for (let i = startIndexInMinutes; i <= endIndexInMinutes; i++) {
+        let data = storedData[i]
+        this.addToPieChart(data.activityType)
+        this.addToLineChart(data.hr, data.intensity, data.steps, data.date)
+      }
+      console.log('Rendered charts:', lineChart.labels)
+    },
+    updateCharts () {
+      this.pieChart.update()
+      this.lineChart.update()
+    },
+    async getLastCompletedTaskMoment (studyKey, taskID) {
+      let taskItemConsent = await db.getStudyParticipationTaskItemConsent(studyKey)
+      console.log('Consent', taskItemConsent)
+      let lastCompleted = taskItemConsent.find(x => x.taskId === Number(taskID)).lastExecuted
+      return moment(lastCompleted)
+    },
+    async isFirstTaskDownload (date) {
+      return (typeof date === 'undefined')
+    },
+
+    getTaskDescription (studyDescription, taskID) {
+      let taskDescription = studyDescription.tasks.find(x => x.id === Number(taskID))
+      console.log('Task description 1:', taskDescription)
+      return taskDescription
+    },
+
     showErrorDialog () {
       this.$q.dialog({
         title: this.$t('errors.error'),
@@ -170,8 +243,10 @@ export default {
     },
     dataCallback (data) {
       // collects data from the miband and prepares the charts
-      this.addToPieChart(data.activityType)
-      this.addToLineChart(data.hr, data.intensity, data.steps, data.date)
+      this.addStoredData(data)
+    },
+    addStoredData (data) {
+      storedData.push(data)
     },
     addToPieChart (activityType) {
       let name = getStringIdentifier(activityType)
@@ -194,8 +269,8 @@ export default {
       lineChart.labels.push(date)
     },
     createActivityPieChart () {
-      let myCtx = this.$refs.pieChart
-      new Chart(myCtx, {
+      this.pieCtx = this.$refs.pieChart
+      this.pieChart = new Chart(this.pieCtx, {
         type: 'doughnut',
         data: {
           labels: pieChart.labels,
@@ -212,8 +287,8 @@ export default {
       })
     },
     createActivityLineChart () {
-      let myCtx = this.$refs.lineChart
-      let myChart = new Chart.Scatter(myCtx, {
+      this.lineCtx = this.$refs.lineChart
+      this.lineChart = new Chart.Scatter(this.lineCtx, {
         type: 'scatter',
         data: {
           labels: lineChart.labels,
@@ -277,7 +352,19 @@ export default {
           }
         }
       })
-      myChart.update()
+      this.lineChart.update()
+    },
+    chartMinus () {
+      this.currentMinuteStartIndex -= 12
+      this.currentMinuteEndIndex -= 12
+      this.renderCharts(this.currentMinuteStartIndex, this.currentMinuteEndIndex)
+      this.updateCharts()
+    },
+    chartPlus () {
+      this.currentMinuteStartIndex += 12
+      this.currentMinuteEndIndex += 12
+      this.renderCharts(this.currentMinuteStartIndex, this.currentMinuteEndIndex)
+      this.updateCharts()
     },
     skipSend () {
       // TODO should save the date up to which the data was retrieved and go back to home
