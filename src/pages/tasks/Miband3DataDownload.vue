@@ -163,12 +163,17 @@ export default {
           startDate.subtract(interval, 'years')
         }
       } else {
-        startDate = lastCompleted
+        let device = await db.getDeviceMiBand3()
+        startDate = new Date(device.lastDownload)
       }
-      startDate = startDate.toDate()
+      if (moment.isMoment(startDate)) {
+        startDate = startDate.toDate()
+      }
+      console.log('Start date:', startDate)
       this.showDownloading = true
       try {
         await miband3.getStoredData(startDate, this.dataCallback)
+        this.storeDownloadTimestamp()
         try {
           await miband3.disconnect()
         } catch (err) {
@@ -183,6 +188,13 @@ export default {
       } catch (err) {
         console.error('cannot download data', err)
       }
+    },
+    async storeDownloadTimestamp () {
+      let oldestSampleTimeStamp = storedData[0].date
+      let device = await db.getDeviceMiBand3()
+      device.lastDownload = oldestSampleTimeStamp
+      console.log('Stored device data', device)
+      return db.setDeviceMiBand3(device)
     },
     /**
      * Renders the line chart data between the two specifiec parameters. Start time from 0 up to x amount of hours.
