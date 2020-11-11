@@ -133,8 +133,6 @@ export default {
       showDownloading: false,
       graphsCreated: false,
       taskDescription: {},
-      pieChart: undefined,
-      pieCtx: undefined,
       lineChart: undefined,
       lineCtx: undefined,
       currentStartHour: 0,
@@ -159,12 +157,10 @@ export default {
       this.taskDescription = this.getTaskDescription(studyDescription, taskID)
       console.log('Task description 2:', this.taskDescription, 'Scheduling:', this.taskDescription.scheduling)
 
-      // TODO: should get the last date the data was retrieved from DB
-      // if absent, use the same logic as in DataQuery.vue
       let lastCompleted = await this.getLastCompletedTaskMoment(studyKey, taskID)
       console.log('Last completed:', lastCompleted)
       let startDate = moment()
-      if (this.isFirstTaskDownload()) {
+      if (typeof lastCompleted === 'undefined') {
         console.log('Task description 3:', this.taskDescription.scheduling)
         let intervalType = this.taskDescription.scheduling.interval
         let interval = this.taskDescription.scheduling.interval
@@ -210,7 +206,6 @@ export default {
       console.log('start:', startTime, 'end:', endTime)
       let startIndexInMinutes = startTime * 60
       let endIndexInMinutes = endTime * 60 - 1
-      console.log(storedData)
       for (let i = startIndexInMinutes; i <= endIndexInMinutes; i++) {
         let data = storedData[i]
         this.addToLineChart(data.hr, data.intensity, data.steps, data.date)
@@ -221,14 +216,11 @@ export default {
     updateCharts () {
       this.updateLineChartReferences()
     },
+
     async getLastCompletedTaskMoment (studyKey, taskID) {
       let taskItemConsent = await db.getStudyParticipationTaskItemConsent(studyKey)
-      console.log('Consent', taskItemConsent)
       let lastCompleted = taskItemConsent.find(x => x.taskId === Number(taskID)).lastExecuted
       return moment(lastCompleted)
-    },
-    async isFirstTaskDownload (date) {
-      return (typeof date === 'undefined')
     },
 
     getTaskDescription (studyDescription, taskID) {
