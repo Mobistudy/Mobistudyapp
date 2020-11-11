@@ -45,6 +45,7 @@ export default {
       const taskId = this.taskId
       console.log('StudyKey ' + studyKey + ',taskId ' + taskId)
       this.$router.push({ name: 'smwt', params: { studyKey, taskId } })
+      this.$emit('updateTransition', 'fadeInDown')
     }
   }
 }

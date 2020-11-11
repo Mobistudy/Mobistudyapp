@@ -187,6 +187,7 @@ export default {
       }
 
       this.$router.push({ name: 'smwtSummary', params: { report: report } })
+      this.$emit('updateTransition', 'slideInRight')
     }
   },
   computed: {
@@ -207,7 +208,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #timer {
   font-size: 3rem;
   text-align: center;
