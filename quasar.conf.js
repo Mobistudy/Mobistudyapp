@@ -121,7 +121,13 @@ module.exports = function (ctx) {
 
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
-    animations: [],
+    animations: [
+      'fadeInDown',
+      'fadeOutUp',
+      'fadeOut',
+      'slideInRight',
+      'slideInLeft'
+    ],
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {

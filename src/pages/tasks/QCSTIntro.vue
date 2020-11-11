@@ -55,6 +55,7 @@ export default {
       const taskId = this.taskId
       console.log('StudyKey ' + studyKey + ',taskId ' + taskId)
       this.$router.push({ name: 'qcst', params: { studyKey, taskId } })
+      this.$emit('updateTransition', 'fadeInDown')
     }
   }
 }

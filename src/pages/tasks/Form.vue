@@ -17,48 +17,63 @@
     </div>
 
     <div v-if="!introduction && !finished">
-      <div class="text-center text-subtitle1">
-        <div v-html="currentQuestion.text[$i18n.locale]"></div>
-      </div>
-      <div
-        v-if="currentQuestion.helper"
-        class="text-center text-subtitle2 q-mb-md"
+      <transition
+        :enter-active-class="'animated ' + this.slideName"
+        leave-active-class="fadeOut"
+        mode="out-in"
       >
-        <div v-html="currentQuestion.helper[$i18n.locale]"></div>
-      </div>
+      <div v-show="slideName != ''" key="">
+        <div class="text-center text-subtitle1">
+          <div v-html="currentQuestion.text[$i18n.locale]"></div>
+        </div>
+        <div
+          v-if="currentQuestion.helper"
+          class="text-center text-subtitle2 q-mb-md"
+        >
+          <div v-html="currentQuestion.helper[$i18n.locale]"></div>
+        </div>
 
-      <q-input v-show="currentQuestion.type === 'freetext'" v-model="freetextAnswer" type="textarea" :label="$t('studies.tasks.form.freeTextExplanation')" rows="3" outlined></q-input>
+        <q-input
+          v-show="currentQuestion.type === 'freetext'"
+          v-model="freetextAnswer"
+          type="textarea"
+          :label="$t('studies.tasks.form.freeTextExplanation')"
+          rows="3"
+          outlined
+        />
 
-      <div
-        v-show="currentQuestion.type === 'singleChoice'"
-        v-for="(answerChoice, index) in currentQuestion.answerChoices"
-        :key="'sc' + index"
-      >
-        <q-radio
-          v-model="singleChoiceAnswer"
-          :val="answerChoice.id"
-          :label="answerChoice.text[$i18n.locale]"
-        />
-      </div>
-      <div
-        v-show="currentQuestion.type === 'multiChoice'"
-        v-for="(answerChoice, index) in currentQuestion.answerChoices"
-        :key="'mc' + index"
-      >
-        <q-checkbox
-          v-model="multiChoiceAnswer"
-          :val="answerChoice.id"
-          :label="answerChoice.text[$i18n.locale]"
-        />
-      </div>
-      <div
-        v-show="currentQuestion.type === 'textOnly'"
-        class="text-subtitle1 q-mb-md"
-      >
-        <div v-if="currentQuestion.type === 'textOnly'">
-          <div v-html="currentQuestion.html[$i18n.locale]"></div>
+        <div
+          v-show="currentQuestion.type === 'singleChoice'"
+          v-for="(answerChoice, index) in currentQuestion.answerChoices"
+          :key="'sc' + index"
+        >
+          <q-radio
+            v-model="singleChoiceAnswer"
+            :val="answerChoice.id"
+            :label="answerChoice.text[$i18n.locale]"
+          />
+        </div>
+        <div
+          v-show="currentQuestion.type === 'multiChoice'"
+          v-for="(answerChoice, index) in currentQuestion.answerChoices"
+          :key="'mc' + index"
+        >
+          <q-checkbox
+            v-model="multiChoiceAnswer"
+            :val="answerChoice.id"
+            :label="answerChoice.text[$i18n.locale]"
+          />
+        </div>
+        <div
+          v-show="currentQuestion.type === 'textOnly'"
+          class="text-subtitle1 q-mb-md"
+        >
+          <div v-if="currentQuestion.type === 'textOnly'">
+            <div v-html="currentQuestion.html[$i18n.locale]"></div>
+          </div>
         </div>
       </div>
+      </transition>
       <div class="row justify-around q-ma-lg">
         <q-btn
           v-show="!isFirstQuestion"
@@ -125,7 +140,8 @@ export default {
       },
       finished: false,
       currentQuestion: undefined,
-      loading: false
+      loading: false,
+      slideName: ''
     }
   },
   async created () {
@@ -170,8 +186,10 @@ export default {
     start () {
       this.introduction = false
       this.currentQuestion = this.formDescr.questions[0]
+      setTimeout(() => { this.slideName = 'fadeInDown' }, 10)
     },
     next () {
+      this.slideName = ''
       let nextQuestionId = this.currentQuestion.nextDefaultId
 
       let answer = {
@@ -227,8 +245,10 @@ export default {
       } else {
         this.currentQuestion = this.formDescr.questions.find(x => x.id === nextQuestionId)
       }
+      setTimeout(() => { this.slideName = 'slideInRight' }, 10)
     },
     back () {
+      this.slideName = ''
       this.freetextAnswer = undefined
       this.multiChoice = undefined
       this.singleChoiceAnswer = undefined
@@ -248,6 +268,7 @@ export default {
       }
 
       this.responses.pop()
+      setTimeout(() => { this.slideName = 'slideInLeft' }, 10)
     },
     async send () {
       this.loading = true
@@ -287,5 +308,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.slideInLeft, .slideInRight, .fadeInDown {
+  animation-duration: 600ms;
+}
 </style>
