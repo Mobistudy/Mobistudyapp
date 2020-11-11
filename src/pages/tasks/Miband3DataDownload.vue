@@ -83,23 +83,35 @@ const chartColors = [
   '#800046'
 ]
 
-// holder of the pie chart data
-var pieChart = {
-  backgroundColors: [],
-  data: [],
-  labels: [],
+// holder of all the stored data, this is kept outside of Vue for efficiency
+let storedData = []
+
+// pie chart configuration
+let pieChartConfig = {
+  type: 'doughnut',
+  data: {
+    labels: [],
+    datasets: [{
+      data: [],
+      backgroundColor: []
+    }]
+  },
+  options: {
+    animation: {
+      animateScale: true
+    }
+  },
+  // additional properties used internally
   indexes: [],
   maxIndex: -1,
   reset () {
-    this.backgroundColors = []
-    this.data = []
-    this.labels = []
+    this.data.datasets.data = []
+    this.data.datasets.backgroundColor = []
+    this.data.labels = []
     this.indexes = []
     this.maxIndex = -1
   }
 }
-
-var storedData = []
 
 // holder of the line chart data
 var lineChart = {
@@ -133,6 +145,12 @@ export default {
   },
   methods: {
     async downloadData () {
+      this.showDownloading = true
+
+      // reset the charts stuff in case it has been parially filled
+      pieChartConfig.reset()
+      lineChart.reset()
+
       // Route parameters
       const studyKey = this.$route.params.studyKey
       const taskID = this.$route.params.taskID
@@ -141,9 +159,6 @@ export default {
       this.taskDescription = this.getTaskDescription(studyDescription, taskID)
       console.log('Task description 2:', this.taskDescription, 'Scheduling:', this.taskDescription.scheduling)
 
-      // reset the charts stuff in case it has been parially filled
-      pieChart.reset()
-      lineChart.reset()
       // TODO: should get the last date the data was retrieved from DB
       // if absent, use the same logic as in DataQuery.vue
       let lastCompleted = await this.getLastCompletedTaskMoment(studyKey, taskID)
@@ -166,7 +181,6 @@ export default {
         startDate = lastCompleted
       }
       startDate = startDate.toDate()
-      this.showDownloading = true
       try {
         await miband3.getStoredData(startDate, this.dataCallback)
         try {
@@ -176,12 +190,15 @@ export default {
           console.error('cannot disconnect miband3', err)
           this.showErrorDialog()
         }
+        this.createPieChart()
         this.showDownloading = false
+
         this.renderCharts(this.currentStartHour, this.currentEndHour) // Can be used to render the same intervals for both pie chart and linechart
-        this.renderWholeIntervalPieChart()
+        // this.create()
         this.graphsCreated = true
       } catch (err) {
         console.error('cannot download data', err)
+        this.showErrorDialog()
       }
     },
     /**
@@ -200,16 +217,9 @@ export default {
       }
       this.updateCharts()
     },
-    renderWholeIntervalPieChart () {
-      pieChart.reset()
-      for (const sample of storedData) {
-        this.addToPieChart(sample.activityType)
-      }
-      this.updateCharts()
-    },
+
     updateCharts () {
       this.updateLineChartReferences()
-      this.updatePieChartReferences()
     },
     async getLastCompletedTaskMoment (studyKey, taskID) {
       let taskItemConsent = await db.getStudyParticipationTaskItemConsent(studyKey)
@@ -239,10 +249,11 @@ export default {
         this.downloadData()
       }).onCancel(() => {
         // cancel and go home
-        this.cancel()
+        this.cancelTask()
       })
     },
-    async cancel () {
+
+    async cancelTask () {
       // disconnects and go home
       try {
         await miband3.disconnect()
@@ -254,49 +265,38 @@ export default {
     },
     dataCallback (data) {
       // collects data from the miband and prepares the charts
-      this.addStoredData(data)
-    },
-    addStoredData (data) {
       storedData.push(data)
     },
-    addToPieChart (activityType) {
-      let name = getStringIdentifier(activityType)
-      if (pieChart.indexes[name] === undefined) {
-        pieChart.maxIndex++
-        let index = pieChart.maxIndex
-        pieChart.indexes[name] = index
-        pieChart.data[index] = 1
-        pieChart.labels.push(this.$t('studies.tasks.miband3.activityTypes.' + name))
-        pieChart.backgroundColors.push(chartColors[index])
-      } else {
-        let index = pieChart.indexes[name]
-        pieChart.data[index]++
-      }
-    },
+
     addToLineChart (hr, intensity, steps, date) {
       lineChart.hrs.push({ x: date, y: hr })
       lineChart.intensities.push({ x: date, y: intensity })
       lineChart.steps.push({ x: date, y: steps })
       lineChart.labels.push(date)
     },
-    createActivityPieChart () {
-      this.pieCtx = this.$refs.pieChart
-      this.pieChart = new Chart(this.pieCtx, {
-        type: 'doughnut',
-        data: {
-          labels: pieChart.labels,
-          datasets: [{
-            data: pieChart.data,
-            backgroundColor: pieChart.backgroundColors
-          }]
-        },
-        options: {
-          animation: {
-            animateScale: true
-          }
+
+    createPieChart () {
+      // create the configuration object
+      for (const datapoint of storedData) {
+        let activityType = datapoint.activityType
+        let name = getStringIdentifier(activityType)
+        if (pieChartConfig.indexes[name] === undefined) {
+          pieChartConfig.maxIndex++
+          let index = pieChartConfig.maxIndex
+          pieChartConfig.indexes[name] = index
+          pieChartConfig.data.datasets[0].data[index] = 1
+          pieChartConfig.data.datasets[0].backgroundColor[index] = chartColors[index]
+          pieChartConfig.data.labels.push(this.$t('studies.tasks.miband3.activityTypes.' + name))
+        } else {
+          let index = pieChartConfig.indexes[name]
+          pieChartConfig.data.datasets[0].data[index]++
         }
-      })
+      }
+      // create the chart
+      let pieCtx = this.$refs.pieChart
+      new Chart(pieCtx, pieChartConfig)
     },
+
     updateLineChartReferences () {
       this.lineChart.data.datasets[0].data = lineChart.hrs
       this.lineChart.data.datasets[1].data = lineChart.intensities
@@ -304,12 +304,7 @@ export default {
       this.lineChart.data.labels = lineChart.labels
       this.lineChart.update()
     },
-    updatePieChartReferences () {
-      this.pieChart.data.datasets[0].data = pieChart.data
-      this.pieChart.data.labels = pieChart.labels
-      this.pieChart.data.datasets[0].backgroundColor = pieChart.backgroundColors
-      this.pieChart.update()
-    },
+
     createActivityLineChart () {
       this.lineCtx = this.$refs.lineChart
       this.lineChart = new Chart.Scatter(this.lineCtx, {
@@ -409,7 +404,6 @@ export default {
     }
   },
   mounted () {
-    this.createActivityPieChart()
     this.createActivityLineChart()
     this.downloadData()
   }
