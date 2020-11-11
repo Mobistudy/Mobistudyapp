@@ -121,6 +121,7 @@ export default {
           }
         }
         playAndRepeat()
+        this.$emit('updateTransition', 'slideInRight')
       }
     },
     completeTest () {
