@@ -14,13 +14,14 @@
           <q-btn
             label="-12 hours"
             color="secondary"
-            disable
-            @click="chartMinus()"
+            :disable="disableMinus"
+            @click="chartAdd((-12))"
           />
           <q-btn
             label="+12 hours"
             color="secondary"
-            @click="chartPlus()"
+            :disable="disablePlus"
+            @click="chartAdd((12))"
           />
         </div>
       </div>
@@ -124,8 +125,10 @@ export default {
       pieCtx: undefined,
       lineChart: undefined,
       lineCtx: undefined,
-      currentMinuteStartIndex: 0,
-      currentMinuteEndIndex: 12
+      currentStartHour: 0,
+      currentEndHour: 12,
+      disableMinus: true,
+      disablePlus: false
     }
   },
   methods: {
@@ -174,16 +177,18 @@ export default {
           this.showErrorDialog()
         }
         this.showDownloading = false
-        this.renderCharts(this.currentMinuteStartIndex, this.currentMinuteEndIndex)
-        this.createActivityPieChart()
-        this.createActivityLineChart()
+        this.renderCharts(this.currentStartHour, this.currentEndHour) // Can be used to render the same intervals for both pie chart and linechart
+        this.renderWholeIntervalPieChart()
         this.graphsCreated = true
       } catch (err) {
         console.error('cannot download data', err)
       }
     },
+    /**
+     * Renders the line chart data between the two specifiec parameters. Start time from 0 up to x amount of hours.
+     * Can be extended to also render the pie chart the same interval as the line chart.
+     */
     renderCharts (startTime, endTime) {
-      pieChart.reset()
       lineChart.reset()
       console.log('start:', startTime, 'end:', endTime)
       let startIndexInMinutes = startTime * 60
@@ -191,14 +196,20 @@ export default {
       console.log(storedData)
       for (let i = startIndexInMinutes; i <= endIndexInMinutes; i++) {
         let data = storedData[i]
-        this.addToPieChart(data.activityType)
         this.addToLineChart(data.hr, data.intensity, data.steps, data.date)
       }
-      console.log('Rendered charts:', lineChart.labels)
+      this.updateCharts()
+    },
+    renderWholeIntervalPieChart () {
+      pieChart.reset()
+      for (const sample of storedData) {
+        this.addToPieChart(sample.activityType)
+      }
+      this.updateCharts()
     },
     updateCharts () {
-      this.pieChart.update()
-      this.lineChart.update()
+      this.updateLineChartReferences()
+      this.updatePieChartReferences()
     },
     async getLastCompletedTaskMoment (studyKey, taskID) {
       let taskItemConsent = await db.getStudyParticipationTaskItemConsent(studyKey)
@@ -286,6 +297,19 @@ export default {
         }
       })
     },
+    updateLineChartReferences () {
+      this.lineChart.data.datasets[0].data = lineChart.hrs
+      this.lineChart.data.datasets[1].data = lineChart.intensities
+      this.lineChart.data.datasets[2].data = lineChart.steps
+      this.lineChart.data.labels = lineChart.labels
+      this.lineChart.update()
+    },
+    updatePieChartReferences () {
+      this.pieChart.data.datasets[0].data = pieChart.data
+      this.pieChart.data.labels = pieChart.labels
+      this.pieChart.data.datasets[0].backgroundColor = pieChart.backgroundColors
+      this.pieChart.update()
+    },
     createActivityLineChart () {
       this.lineCtx = this.$refs.lineChart
       this.lineChart = new Chart.Scatter(this.lineCtx, {
@@ -354,17 +378,27 @@ export default {
       })
       this.lineChart.update()
     },
-    chartMinus () {
-      this.currentMinuteStartIndex -= 12
-      this.currentMinuteEndIndex -= 12
-      this.renderCharts(this.currentMinuteStartIndex, this.currentMinuteEndIndex)
+    chartAdd (amount) {
+      this.currentStartHour += amount
+      this.currentEndHour += amount
+      this.renderCharts(this.currentStartHour, this.currentEndHour)
       this.updateCharts()
+      this.updatePlusMinusButtons()
     },
-    chartPlus () {
-      this.currentMinuteStartIndex += 12
-      this.currentMinuteEndIndex += 12
-      this.renderCharts(this.currentMinuteStartIndex, this.currentMinuteEndIndex)
-      this.updateCharts()
+    updatePlusMinusButtons () {
+      console.log('CurrMinusIndex:', this.currentStartHour)
+      console.log('Stored data length:', (storedData.length / 60))
+      if (this.currentStartHour === 0) {
+        this.disableMinus = true
+      } else {
+        this.disableMinus = false
+      }
+      console.log('CurrEndIndex:', this.currentEndHour)
+      if (this.currentEndHour === (storedData.length / 60)) {
+        this.disablePlus = true
+      } else {
+        this.disablePlus = false
+      }
     },
     skipSend () {
       // TODO should save the date up to which the data was retrieved and go back to home
@@ -375,6 +409,8 @@ export default {
     }
   },
   mounted () {
+    this.createActivityPieChart()
+    this.createActivityLineChart()
     this.downloadData()
   }
 }
