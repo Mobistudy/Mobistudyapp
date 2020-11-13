@@ -49,6 +49,8 @@ const SIGNAL_CHECK_TIMEOUT = 60000
 export default {
   name: 'SMWTPage',
   props: {
+    title: String,
+    icon: String,
     studyKey: String,
     taskId: Number
   },

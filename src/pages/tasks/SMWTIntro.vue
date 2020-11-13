@@ -35,6 +35,7 @@
 export default {
   name: 'SMWTIntroPage',
   props: {
+    title: String,
     icon: String,
     studyKey: String,
     taskId: Number

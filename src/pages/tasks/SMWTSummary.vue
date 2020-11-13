@@ -233,6 +233,8 @@ import { format as Qformat } from 'quasar'
 export default {
   name: 'SMWTSummaryPage',
   props: {
+    title: String,
+    icon: String,
     report: Object
   },
   data: function () {

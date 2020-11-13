@@ -45,6 +45,7 @@
 export default {
   name: 'QCSTIntroPage',
   props: {
+    title: String,
     icon: String,
     studyKey: String,
     taskId: Number

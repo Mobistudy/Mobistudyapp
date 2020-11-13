@@ -32,22 +32,24 @@ export default {
   },
   methods: {
     changeRoute: function () {
+      const title = this.title
       const icon = this.icon
+      const type = this.task.type
       const studyKey = this.task.studyKey
       const taskId = this.task.taskId
       const formKey = this.task.formKey
 
-      console.log(this.title, '\nIcon:', icon, '\nStudy Key:', studyKey, '\nTask ID:', taskId)
+      console.log(title, '\nIcon:', icon, '\nStudy Key:', studyKey, '\nTask ID:', taskId)
 
       // these bring the user to the correct route depending on the task
-      if (this.task.formKey) {
-        this.$router.push({ name: 'form', params: { icon: icon, studyKey: studyKey, taskId: taskId, formKey: formKey } })
-      } else if (this.task.type === 'smwt') {
-        this.$router.push({ name: 'smwtIntro', params: { icon: icon, studyKey: studyKey, taskId: taskId } })
-      } else if (this.task.type === 'qcst') {
-        this.$router.push({ name: 'qcstIntro', params: { icon: icon, studyKey: studyKey, taskId: taskId } })
-      } else if (this.task.studyKey && this.task.taskId) {
-        this.$router.push({ name: 'dataQuery', params: { icon: icon, taskId: taskId, studyKey: studyKey } })
+      if (formKey) {
+        this.$router.push({ name: 'form', params: { title: title, icon: icon, studyKey: studyKey, taskId: taskId, formKey: formKey } })
+      } else if (type === 'smwt') {
+        this.$router.push({ name: 'smwtIntro', params: { title: title, icon: icon, studyKey: studyKey, taskId: taskId } })
+      } else if (type === 'qcst') {
+        this.$router.push({ name: 'qcstIntro', params: { title: title, icon: icon, studyKey: studyKey, taskId: taskId } })
+      } else if (studyKey && taskId) {
+        this.$router.push({ name: 'dataQuery', params: { title: title, icon: icon, taskId: taskId, studyKey: studyKey } })
       } else {
         return false
       }
