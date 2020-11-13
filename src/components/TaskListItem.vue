@@ -32,10 +32,10 @@ export default {
   },
   methods: {
     changeRoute: function () {
-      let icon = this.icon
-      let studyKey = this.task.studyKey
-      let taskId = this.task.taskId
-      let formKey = this.task.formKey
+      const icon = this.icon
+      const studyKey = this.task.studyKey
+      const taskId = this.task.taskId
+      const formKey = this.task.formKey
 
       console.log(this.title, '\nIcon:', icon, '\nStudy Key:', studyKey, '\nTask ID:', taskId)
 
