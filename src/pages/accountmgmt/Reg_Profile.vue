@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row fit justify-center">
-      <div class="text-h6 text-center q-pt-md">
+      <div class="text-h5 text-center q-pt-md">
         {{ $t('accountMgmt.registration.createProfile') }}
       </div>
     </div>

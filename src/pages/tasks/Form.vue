@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div v-if="introduction">
-      <div class="text-center text-h6">
+      <div class="text-center text-h5">
         {{introduction.title[$i18n.locale]}}
       </div>
       <div class="text-center text-body1 q-mt-lg">
