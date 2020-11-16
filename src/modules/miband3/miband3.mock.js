@@ -62,7 +62,7 @@ export default {
      * Returns true if connected to a Miband3
      */
   async isConnected (device) {
-    if (Math.random() > 0.6) {
+    if (Math.random() > 0.2) {
       return Promise.resolve(true)
     } else { return Promise.resolve(false) }
   },

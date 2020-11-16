@@ -1,6 +1,13 @@
 <template>
   <div id="q-app">
-    <router-view />
+    <transition
+      appear
+      enter-active-class="animated fadeInDown"
+      leave-active-class="animated fadeOutUp"
+      mode="out-in"
+    >
+      <router-view />
+    </transition>
   </div>
 </template>
 

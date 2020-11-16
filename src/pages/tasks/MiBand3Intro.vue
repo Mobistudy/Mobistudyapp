@@ -53,6 +53,11 @@
 <script>
 export default {
   name: 'Miband3ConnectPage',
+  props: {
+    icon: String,
+    studyKey: String,
+    taskId: Number
+  },
   data () {
     return {
       slide: 'first',
@@ -68,9 +73,8 @@ export default {
         this.showFinish = false
       }
     },
-    // Connection starts immediately upon pushing the connect page.
     handleFinish () {
-      this.$router.push({ name: 'miband3Connect' })
+      this.$router.push({ name: 'miband3Connect', params: { icon: this.icon, studyKey: this.studyKey, taskId: this.taskId } })
     }
   }
 }

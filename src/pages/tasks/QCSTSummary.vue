@@ -2,7 +2,11 @@
   <q-page padding>
     <div class="text-center">
       <div class="text-h5">{{ $t('studies.tasks.capTestComplete') }}</div>
-      <img class="q-mt-md" alt="Finish flag" src="~assets/goalflags.svg">
+      <img
+        class="q-mt-md"
+        alt="Finish flag"
+        src="~assets/goalflags.svg"
+      >
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
       <table id="stats">
         <tr>
@@ -18,97 +22,181 @@
       <div class="q-pa-md">
         <p class="sub-heading">Please rate your level of exertion:</p>
         <q-list bordered>
-          <q-item tag="label" v-ripple>
+          <q-item
+            tag="label"
+            v-ripple
+          >
             <q-item-section avatar>
-              <q-radio v-model="borgValue" val="0" />
+              <q-radio
+                v-model="borgValue"
+                val="0"
+              />
             </q-item-section>
             <q-item-section>
               <q-item>0 {{ $t('studies.tasks.smwt.borgScale.l0') }}</q-item>
             </q-item-section>
           </q-item>
-          <q-item tag="label" v-ripple>
+          <q-item
+            tag="label"
+            v-ripple
+          >
             <q-item-section avatar>
-              <q-radio v-model="borgValue" val="0.5" />
+              <q-radio
+                v-model="borgValue"
+                val="0.5"
+              />
             </q-item-section>
             <q-item-section>
               <q-item>0.5 {{ $t('studies.tasks.smwt.borgScale.l05') }}</q-item>
             </q-item-section>
           </q-item>
-          <q-item tag="label" v-ripple>
-            <q-item-section avatar top>
-              <q-radio v-model="borgValue" val="1"/>
+          <q-item
+            tag="label"
+            v-ripple
+          >
+            <q-item-section
+              avatar
+              top
+            >
+              <q-radio
+                v-model="borgValue"
+                val="1"
+              />
             </q-item-section>
             <q-item-section>
               <q-item>1 {{ $t('studies.tasks.smwt.borgScale.l1') }}</q-item>
             </q-item-section>
           </q-item>
-          <q-item tag="label" v-ripple>
+          <q-item
+            tag="label"
+            v-ripple
+          >
             <q-item-section avatar>
-              <q-radio v-model="borgValue" val="2"/>
+              <q-radio
+                v-model="borgValue"
+                val="2"
+              />
             </q-item-section>
             <q-item-section>
               <q-item>2 {{ $t('studies.tasks.smwt.borgScale.l2') }}</q-item>
             </q-item-section>
           </q-item>
-          <q-item tag="label" v-ripple>
+          <q-item
+            tag="label"
+            v-ripple
+          >
             <q-item-section avatar>
-              <q-radio v-model="borgValue" val="3"/>
+              <q-radio
+                v-model="borgValue"
+                val="3"
+              />
             </q-item-section>
             <q-item-section>
               <q-item>3 {{ $t('studies.tasks.smwt.borgScale.l3') }}</q-item>
             </q-item-section>
           </q-item>
-          <q-item tag="label" v-ripple>
-            <q-item-section avatar top>
-              <q-radio v-model="borgValue" val="4"/>
+          <q-item
+            tag="label"
+            v-ripple
+          >
+            <q-item-section
+              avatar
+              top
+            >
+              <q-radio
+                v-model="borgValue"
+                val="4"
+              />
             </q-item-section>
             <q-item-section>
               <q-item>4 {{ $t('studies.tasks.smwt.borgScale.l4') }}</q-item>
             </q-item-section>
           </q-item>
-          <q-item tag="label" v-ripple>
+          <q-item
+            tag="label"
+            v-ripple
+          >
             <q-item-section avatar>
-              <q-radio v-model="borgValue" val="5"/>
+              <q-radio
+                v-model="borgValue"
+                val="5"
+              />
             </q-item-section>
             <q-item-section>
               <q-item>5 {{ $t('studies.tasks.smwt.borgScale.l5') }}</q-item>
             </q-item-section>
           </q-item>
-          <q-item tag="label" v-ripple>
+          <q-item
+            tag="label"
+            v-ripple
+          >
             <q-item-section avatar>
-              <q-radio v-model="borgValue" val="6" />
+              <q-radio
+                v-model="borgValue"
+                val="6"
+              />
             </q-item-section>
             <q-item-section>
               <q-item>6</q-item>
             </q-item-section>
           </q-item>
-          <q-item tag="label" v-ripple>
-            <q-item-section avatar top>
-              <q-radio v-model="borgValue" val="7" />
+          <q-item
+            tag="label"
+            v-ripple
+          >
+            <q-item-section
+              avatar
+              top
+            >
+              <q-radio
+                v-model="borgValue"
+                val="7"
+              />
             </q-item-section>
             <q-item-section>
               <q-item>7 {{ $t('studies.tasks.smwt.borgScale.l7') }}</q-item>
             </q-item-section>
           </q-item>
-          <q-item tag="label" v-ripple>
+          <q-item
+            tag="label"
+            v-ripple
+          >
             <q-item-section avatar>
-              <q-radio v-model="borgValue" val="8" />
+              <q-radio
+                v-model="borgValue"
+                val="8"
+              />
             </q-item-section>
             <q-item-section>
               <q-item>8</q-item>
             </q-item-section>
           </q-item>
-          <q-item tag="label" v-ripple>
+          <q-item
+            tag="label"
+            v-ripple
+          >
             <q-item-section avatar>
-              <q-radio v-model="borgValue" val="9" />
+              <q-radio
+                v-model="borgValue"
+                val="9"
+              />
             </q-item-section>
             <q-item-section>
               <q-item>9 {{ $t('studies.tasks.smwt.borgScale.l9') }}</q-item>
             </q-item-section>
           </q-item>
-          <q-item tag="label" v-ripple>
-            <q-item-section avatar top>
-              <q-radio v-model="borgValue" val="10"/>
+          <q-item
+            tag="label"
+            v-ripple
+          >
+            <q-item-section
+              avatar
+              top
+            >
+              <q-radio
+                v-model="borgValue"
+                val="10"
+              />
             </q-item-section>
             <q-item-section>
               <q-item>10 {{ $t('studies.tasks.smwt.borgScale.l10') }}</q-item>
@@ -121,7 +209,12 @@
         </div>
       </div>
 
-      <q-btn color="primary" @click="send()" :label="$t('common.send')" :disabled="!borgValue"/>
+      <q-btn
+        color="primary"
+        @click="send()"
+        :label="$t('common.send')"
+        :disabled="!borgValue"
+      />
     </div>
   </q-page>
 </template>
@@ -134,7 +227,9 @@ import { format as Qformat } from 'quasar'
 
 export default {
   name: 'QCSTSummaryPage',
-  props: [ 'report' ],
+  props: {
+    report: Object
+  },
   data: function () {
     return {
       borgValue: undefined
@@ -210,7 +305,7 @@ table td:nth-child(2) {
   text-align: right;
 }
 tr {
-  text-align: left
+  text-align: left;
 }
 
 #submit {

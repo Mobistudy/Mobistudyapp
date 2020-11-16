@@ -3,36 +3,60 @@
     <div class="text-center text-h6 q-mt-lg">
       {{ $t('studies.tasks.smwt.title') }}
     </div>
-    <div ref="map" style="width: 100%; height: 50vh;" class="row justify-center items-center">
-      <span v-if="!mapCannotLoad">{{ $t('studies.tasks.smwt.loadingMap') }}</span>
-      <span v-if="mapCannotLoad">{{ $t('studies.tasks.smwt.loadingMapCannot') }}</span>
+    <div
+      ref="map"
+      style="width: 100%; height: 50vh;"
+      class="row justify-center items-center"
+    >
+      <WalkingMan></WalkingMan>
     </div>
-    <div v-show="isSignalCheck" class="text-subtitle1 text-center ">{{ $t('studies.tasks.smwt.signalCheck') }}</div>
-    <p v-show="!isSignalCheck" id="timer"> {{ minutes }}:{{ seconds }} </p>
+    <div
+      v-show="isSignalCheck"
+      class="text-subtitle1 text-center "
+    >{{ $t('studies.tasks.smwt.signalCheck') }}</div>
+    <p
+      v-show="!isSignalCheck"
+      id="timer"
+    > {{ minutes }}:{{ seconds }} </p>
     <div class="row justify-center q-mt-lg">
-      <q-btn  @click="startTest" v-show="!isStarted" color="secondary" :label="$t('common.start')" :disabled="isSignalCheck" />
-      <q-btn  @click="completeTest" v-show="isStarted" color="purple" :label="$t('common.complete')" />
+      <q-btn
+        @click="startTest"
+        v-show="!isStarted"
+        color="secondary"
+        :label="$t('common.start')"
+        :disabled="isSignalCheck"
+      />
+      <q-btn
+        @click="completeTest"
+        v-show="isStarted"
+        color="purple"
+        :label="$t('common.complete')"
+      />
     </div>
   </q-page>
 </template>
 
 <script>
-import { Loader } from '@googlemaps/js-api-loader'
 import phone from 'modules/phone'
 import distanceAlgo from 'modules/outdoorDistance'
 import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'
+import WalkingMan from 'components/WalkingMan'
 
 const TEST_DURATION = 360
 const SIGNAL_CHECK_TIMEOUT = 60000
 
 export default {
   name: 'SMWTPage',
+  props: {
+    studyKey: String,
+    taskId: Number
+  },
+  components: {
+    WalkingMan
+  },
   data: function () {
     return {
-      map: undefined,
-      mapCannotLoad: false,
-      marker: undefined,
       isSignalCheck: true,
       isStarted: false,
       isCompleted: false,
@@ -47,15 +71,6 @@ export default {
   },
   mounted: async function () {
     distanceAlgo.reset()
-    const loader = new Loader({
-      apiKey: process.env.MAPS_API
-    })
-    try {
-      await loader.load()
-    } catch (err) {
-      console.error('Cannot load Google maps', err)
-      this.mapCannotLoad = true
-    }
 
     // start signal check
     this.isSignalCheck = true
@@ -76,25 +91,6 @@ export default {
             setTimeout(function () {
               this.isSignalCheck = false
             }, SIGNAL_CHECK_TIMEOUT)
-
-            // we can initialise the map now
-            if (window.google !== undefined) {
-              this.map = new window.google.maps.Map(this.$refs.map, {
-                center: { lat: position.coords.latitude, lng: position.coords.longitude },
-                zoom: 17,
-                disableDefaultUI: true,
-                gestureHandling: 'none'
-              })
-            }
-          }
-          if (window.google) {
-            // update the map
-            this.map.setCenter({ lat: position.coords.latitude, lng: position.coords.longitude })
-            if (this.marker) this.marker.setMap(null)
-            this.marker = new window.google.maps.Marker({
-              position: { lat: position.coords.latitude, lng: position.coords.longitude }
-            })
-            this.marker.setMap(this.map)
           }
 
           this.positions.push(position)
@@ -147,9 +143,11 @@ export default {
     startTimer () {
       this.totalTime = TEST_DURATION
       this.timer = setInterval(() => this.countDown(), 1000)
+      WalkingMan.methods.play()
     },
     stopTimer () {
       clearInterval(this.timer)
+      WalkingMan.methods.stop()
     },
     countDown () {
       if (this.totalTime >= 1) {
@@ -172,13 +170,13 @@ export default {
       this.distance = distanceAlgo.getDistance()
 
       // package the 6mwt report
-      const studyKey = this.$route.params.studyKey
-      const taskID = parseInt(this.$route.params.taskID)
+      const studyKey = this.studyKey
+      const taskId = parseInt(this.taskId)
       const userKey = userinfo.user._key
       let report = {
         userKey: userKey,
         studyKey: studyKey,
-        taskId: taskID,
+        taskId: taskId,
         createdTS: new Date(),
         startedTS: this.startedTS,
         completionTS: this.completionTS,
@@ -189,6 +187,7 @@ export default {
       }
 
       this.$router.push({ name: 'smwtSummary', params: { report: report } })
+      this.$emit('updateTransition', 'slideInRight')
     }
   },
   computed: {
@@ -209,7 +208,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #timer {
   font-size: 3rem;
   text-align: center;

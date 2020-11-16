@@ -58,18 +58,18 @@ const routes = [
     path: '/tasks',
     component: () => import('layouts/TaskLayout.vue'),
     children: [
-      { path: '/form/:studyKey/:taskId/:formKey', name: 'form', component: () => import('pages/tasks/Form.vue') },
-      { path: '/dataQuery/:studyKey/:taskID', name: 'dataQuery', component: () => import('pages/tasks/DataQuery') },
-      { path: '/smwtIntro/:studyKey/:taskID', name: 'smwtIntro', component: () => import('pages/tasks/SMWTIntro.vue') },
-      { path: '/smwt/:studyKey/:taskID', name: 'smwt', component: () => import('pages/tasks/SMWT.vue') },
+      { path: '/form', name: 'form', component: () => import('pages/tasks/Form.vue'), props: true },
+      { path: '/dataQuery', name: 'dataQuery', component: () => import('pages/tasks/DataQuery'), props: true },
+      { path: '/smwtIntro', name: 'smwtIntro', component: () => import('pages/tasks/SMWTIntro.vue'), props: true },
+      { path: '/smwt', name: 'smwt', component: () => import('pages/tasks/SMWT.vue'), props: true },
       { path: '/smwtSummary', name: 'smwtSummary', component: () => import('pages/tasks/SMWTSummary.vue'), props: true },
-      { path: '/qcstIntro/:studyKey/:taskID', name: 'qcstIntro', component: () => import('pages/tasks/QCSTIntro.vue') },
-      { path: '/qcst/:studyKey/:taskID', name: 'qcst', component: () => import('pages/tasks/QCST.vue'), props: true }, // TODO: probably no need for props here
+      { path: '/qcstIntro', name: 'qcstIntro', component: () => import('pages/tasks/QCSTIntro.vue'), props: true },
+      { path: '/qcst', name: 'qcst', component: () => import('pages/tasks/QCST.vue'), props: true },
       { path: '/qcsthr', name: 'qcsthr', component: () => import('pages/tasks/QCSTHR.vue'), props: true },
       { path: '/qcstSummary', name: 'qcstSummary', component: () => import('pages/tasks/QCSTSummary.vue'), props: true },
-      { path: '/miband3Intro/:studyKey/:taskID', name: 'miband3Intro', component: () => import('pages/tasks/MiBand3Intro.vue') },
-      { path: '/miband3Connect/:studyKey/:taskID', name: 'miband3Connect', component: () => import('pages/tasks/MiBand3Connect.vue') },
-      { path: '/miband3DataDownload/:studyKey/:taskID', name: 'miband3DataDownload', component: () => import('pages/tasks/MiBand3DataDownload.vue') }
+      { path: '/miband3Intro', name: 'miband3Intro', component: () => import('pages/tasks/MiBand3Intro.vue'), props: true },
+      { path: '/miband3Connect', name: 'miband3Connect', component: () => import('pages/tasks/MiBand3Connect.vue'), props: true },
+      { path: '/miband3DataDownload', name: 'miband3DataDownload', component: () => import('pages/tasks/MiBand3DataDownload.vue'), props: true }
     ]
   }
 ]

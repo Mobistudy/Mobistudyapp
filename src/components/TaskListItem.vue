@@ -1,13 +1,19 @@
 <template>
-  <q-item :to="toAddress">
+  <q-item @click.native="changeRoute">
     <q-item-section avatar>
-      <q-icon color="grey" :name="icon" />
+      <q-icon
+        color="grey"
+        :name="icon"
+      />
     </q-item-section>
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
       <q-item-label caption>{{ main }}</q-item-label>
     </q-item-section>
-    <q-item-section side top>{{ timeRemaining }}</q-item-section>
+    <q-item-section
+      side
+      top
+    >{{ timeRemaining }}</q-item-section>
   </q-item>
 </template>
 
@@ -22,6 +28,29 @@ export default {
       icon: undefined,
       title: undefined,
       main: undefined
+    }
+  },
+  methods: {
+    changeRoute: function () {
+      let icon = this.icon
+      let studyKey = this.task.studyKey
+      let taskId = this.task.taskId
+      let formKey = this.task.formKey
+
+      console.log(this.title, '\nIcon:', icon, '\nStudy Key:', studyKey, '\nTask ID:', taskId) // these bring the user to the correct route depending on the task
+      if (this.task.formKey) {
+        this.$router.push({ name: 'form', params: { icon: icon, studyKey: studyKey, taskId: taskId, formKey: formKey } })
+      } else if (this.task.type === 'smwt') {
+        this.$router.push({ name: 'smwtIntro', params: { icon: icon, studyKey: studyKey, taskId: taskId } })
+      } else if (this.task.type === 'qcst') {
+        this.$router.push({ name: 'qcstIntro', params: { icon: icon, studyKey: studyKey, taskId: taskId } })
+      } else if (this.task.type === 'miband3') {
+        this.$router.push({ name: 'miband3Intro', params: { icon: icon, studyKey: studyKey, taskId: taskId } })
+      } else if (this.task.studyKey && this.task.taskId) {
+        this.$router.push({ name: 'dataQuery', params: { icon: icon, taskId: taskId, studyKey: studyKey } })
+      } else {
+        return false
+      }
     }
   },
   created () {
@@ -50,22 +79,6 @@ export default {
   computed: {
     timeRemaining: function () {
       return 'Due ' + moment(this.task.due).fromNow()
-    },
-    toAddress: function () {
-      // these bring the user to the correct route depending on the task
-      if (this.task.formKey) {
-        return 'form/' + this.task.studyKey + '/' + this.task.taskID + '/' + this.task.formKey
-      } else if (this.task.type === 'smwt') {
-        return 'smwtIntro/' + this.task.studyKey + '/' + this.task.taskID
-      } else if (this.task.type === 'qcst') {
-        return 'qcstIntro/' + this.task.studyKey + '/' + this.task.taskID
-      } else if (this.task.type === 'miband3') {
-        return 'miband3Intro/' + this.task.studyKey + '/' + this.task.taskID
-      } else if (this.task.studyKey && this.task.taskID) {
-        return 'dataQuery/' + this.task.studyKey + '/' + this.task.taskID
-      } else {
-        return false
-      }
     }
   }
 }

@@ -130,6 +130,11 @@ import miband3 from 'modules/miband3/miband3.mock.js'
 import db from 'modules/db.js'
 export default {
   name: 'Miband3ConnectPage',
+  props: {
+    icon: String,
+    studyKey: String,
+    taskId: Number
+  },
   data () {
     return {
       devices: [],
@@ -274,7 +279,7 @@ export default {
       this.successAuthDialog = false
     },
     moveToDownloadPage () {
-      this.$router.push({ name: 'miband3DataDownload' })
+      this.$router.push({ name: 'miband3DataDownload', params: { icon: this.icon, studyKey: this.studyKey, taskId: this.taskId } })
     },
     isAnyConnected () { // May be removed in the future.
       for (const device of this.devices) {

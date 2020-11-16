@@ -129,6 +129,11 @@ var lineChart = {
 }
 
 export default {
+  props: {
+    icon: String,
+    studyKey: String,
+    taskId: Number
+  },
   data () {
     return {
       showDownloading: false,
@@ -151,8 +156,8 @@ export default {
       lineChart.reset()
 
       // Route parameters
-      const studyKey = this.$route.params.studyKey
-      const taskID = this.$route.params.taskID
+      const studyKey = this.studyKey
+      const taskID = this.taskId
       const studyDescription = await db.getStudyDescription(studyKey)
       console.log('Study description:', studyDescription)
       this.taskDescription = this.getTaskDescription(studyDescription, taskID)
