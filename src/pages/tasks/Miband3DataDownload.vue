@@ -52,6 +52,7 @@
     </div>
 
     <q-inner-loading :showing="showDownloading">
+      <div class="text-overline">Downloading data</div>
       <q-spinner-oval
         size="50px"
         color="primary"
@@ -173,9 +174,11 @@ export default {
         } else if (intervalType === 'y') {
           startDate.subtract(interval, 'years')
         }
+        console.log('Date last download does not exist:', startDate)
       } else {
         let device = await db.getDeviceMiBand3()
         startDate = new Date(device.lastDownload)
+        console.log('Date last download:', startDate)
       }
       if (moment.isMoment(startDate)) {
         startDate = startDate.toDate()
@@ -233,6 +236,7 @@ export default {
     async getLastCompletedTaskMoment (studyKey, taskID) {
       let taskItemConsent = await db.getStudyParticipationTaskItemConsent(studyKey)
       let lastCompleted = taskItemConsent.find(x => x.taskId === Number(taskID)).lastExecuted
+      console.log('Last completed 1:', lastCompleted)
       return moment(lastCompleted)
     },
 
@@ -270,6 +274,7 @@ export default {
     },
     dataCallback (data) {
       // collects data from the miband and prepares the charts
+      console.log('Storing data', data)
       storedData.push(data)
     },
 

@@ -9,20 +9,36 @@ export default {
      * If a timeout ocurrs, the promise is rejected
      * @param {Number} timeout max number of milliseconds to search for a Miband3
      */
-  async search (timeout) {
+  async search (searchTime, amount, cbk, cbkFailureSearch) {
+    let num = 0
+    if (Math.random() > 0.8) {
+      cbkFailureSearch()
+      return Promise.reject()
+    }
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve([{
-          id: 'AAAAAAA'
-        }, { id: '10029290s0' }])
-      }, timeout)
+      let interval = setInterval(() => {
+        if (amount === 0) {
+          clearInterval(interval)
+          resolve()
+          return
+        }
+        cbk({
+          id: 'AAAAAAA' + this.randomNum(10), // 1/100 chance that the id will be the same, oh well.
+          rssi: -(this.randomNum(10) * this.randomNum(10))
+        })
+        num++
+        if (num === amount) {
+          clearInterval(interval)
+          resolve()
+        }
+      }, searchTime)
     })
   },
   /**
      * Connects to a MiBand3
      * @param {Object} device a device object as returned by search() + can contain an authentication key
      * @param {Function} disconnectCallback called if the device is disconnected
-     * @param {Function} authRequiredCallback called when connected but auth has nto been completed yet
+     * @param {Function} authRequiredCallback called when connected but auth has not been completed yet
      */
   async connect (device, disconnectCallback, authRequiredCallback) {
     return new Promise((resolve, reject) => {
@@ -46,7 +62,7 @@ export default {
      * Returns true if connected to a Miband3
      */
   async isConnected (device) {
-    if (Math.random() > 0.5) {
+    if (Math.random() > 0.6) {
       return Promise.resolve(true)
     } else { return Promise.resolve(false) }
   },

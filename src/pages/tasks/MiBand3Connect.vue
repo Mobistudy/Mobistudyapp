@@ -13,26 +13,20 @@
         @click="connect(device)"
       >
         <q-item-section>{{device.id}}</q-item-section>
-        <q-item-section avatar>
-          <q-icon
-            color="primary"
-            name="bluetooth"
-          />
-        </q-item-section>
       </q-item>
     </q-list>
     <div
       id="buttonContainer"
       class="fixed-bottom text-center"
     >
-      <q-btn
-        @click="search"
-        round
-        push
-        icon="search"
-      ></q-btn>
     </div>
-    <q-dialog v-model="tapToAuthDialog">
+    <q-dialog
+      v-model="tapToAuthDialog"
+      transition-show="scale"
+      transition-hide="scale"
+      no-esc-dismiss
+      no-backdrop-dismiss
+    >
       <q-card>
         <div class="q-pa-sm">
           <q-img src="https://svgshare.com/i/RBV.svg" />
@@ -47,29 +41,16 @@
       </q-card>
     </q-dialog>
     <q-dialog
-      v-model="successAuthDialog"
-      persistent
+      v-model="severalDevicesDialog"
       transition-show="scale"
       transition-hide="scale"
-    >
-      <q-card
-        class="bg-teal text-white"
-        style="width: 300px"
-      >
-        <q-card-section>
-          <div class="text-h6 text-center">Connection successful</div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-    <q-dialog
-    v-model="tutorialDialog"
-    transition-show="scale"
-    transition-hide="scale"
+      no-esc-dismiss
+      no-backdrop-dismiss
     >
      <q-card>
         <q-card-section class="row items-center">
-          <q-avatar icon="search" color="primary" text-color="white" />
-          <span>Press the search button to find nearby MiBand 3 devices.</span>
+          <q-avatar icon="info" color="yellow" text-color="white" />
+          <span>More than one MiBand 3 device was found. The nearest in proximity is the first device in the list.</span>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -77,6 +58,58 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+    <q-dialog
+      v-model="errorSearchDialog"
+      transition-show="scale"
+      transition-hide="scale"
+      no-esc-dismiss
+      no-backdrop-dismiss
+    >
+     <q-card>
+        <q-card-section class="row items-center">
+          <q-avatar icon="search" color="primary" text-color="white" />
+          <span>Could not search for any device. Please make sure your bluetooth is on. Would you like to search again?</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn @click="search" flat label="Yes" color="primary" v-close-popup />
+          <q-btn flat label="No" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <q-dialog
+      v-model="errorNoDeviceDialog"
+      transition-show="scale"
+      transition-hide="scale"
+      no-esc-dismiss
+      no-backdrop-dismiss
+    >
+     <q-card>
+        <q-card-section class="row items-center">
+          <q-avatar icon="search" color="primary" text-color="white" />
+          <span>No devices were found. Would you like to search again?</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn @click="search" flat label="Yes" color="primary" v-close-popup />
+          <q-btn flat label="No" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+     <q-inner-loading :showing="showSearching">
+      <div class="text-overline" color="dark-grey">Searching</div>
+      <q-spinner-dots
+        size="40px"
+        color="primary"
+      />
+    </q-inner-loading>
+    <q-inner-loading :showing="showConnecting">
+      <div class="text-overline" color="dark-grey">Connecting</div>
+      <q-spinner-dots
+        size="40px"
+        color="primary"
+      />
+    </q-inner-loading>
   </div>
 </template>
 
@@ -101,21 +134,57 @@ export default {
     return {
       devices: [],
       tapToAuthDialog: false,
-      successAuthDialog: false,
-      tutorialDialog: false
+      severalDevicesDialog: false,
+      errorSearchDialog: false,
+      errorNoDeviceDialog: false,
+      showSearching: false,
+      showConnecting: false
     }
   },
   methods: {
     async search () {
-      let devices = await miband3.search(1000)
-      this.addDevices(devices)
+      this.showSearching = true
+      console.log(this.showSearching)
+      try {
+        await miband3.search(1000, 1, this.deviceCallback, this.cbkFailureSearch)
+        if (this.moreThanOneDevice()) {
+          this.severalDevicesDialog = true
+        } else if (this.noDevice()) {
+          this.errorNoDeviceDialog = true
+        } else if (this.oneDevice()) {
+          this.showSearching = false
+          this.connect(this.devices[0])
+        }
+      } catch (err) {
+        console.log('Rejected...', err)
+        console.log('Dialog2:', this.errorSearchDialog)
+      }
+      this.showSearching = false
     },
-    addDevices (devices) {
-      if (devices) {
-        for (const device of devices) {
-          if (!this.deviceInUI(device)) { // Checks UI list of devices to see if the device is already added
-            this.addDevice(device)
-          }
+    cbkFailureSearch () {
+      console.log('cbkFailure called')
+      console.log('Dialog1:', this.errorSearchDialog)
+      this.errorSearchDialog = true
+    },
+    oneDevice () {
+      return this.devices.length === 1
+    },
+    moreThanOneDevice () {
+      if (this.devices.length > 1) {
+        return true
+      } else { return false }
+    },
+    noDevice () {
+      if (this.devices.length === 0) {
+        return true
+      } else {
+        return false
+      }
+    },
+    deviceCallback (device) {
+      if (device) {
+        if (!this.deviceInUI(device)) { // Checks UI list of devices to see if the device is already added
+          this.addDevice(device)
         }
       }
     },
@@ -124,25 +193,43 @@ export default {
       return deviceIds.includes(device.id)
     },
     addDevice (device) {
-      this.devices = [...this.devices, device]
+      if (this.devices.length === 0) {
+        this.devices.push(device)
+        return
+      }
+      let currentHighestRSSI = this.devices[0].rssi
+      if (currentHighestRSSI > device.rssi) {
+        this.devices.push(device)
+      } else {
+        this.devices.unshift(device)
+      }
     },
     async connect (device) {
+      console.log('Attempting connect...')
+      this.showConnecting = true
       await this.disconnectAllDevices()
       let isConnected = await miband3.isConnected()
       if (!isConnected) {
         await miband3.connect(device, this.disconnectCallback, this.authRequiredCallback)
-      } else { await miband3.disconnect(); device.connected = false }
+      } else {
+        await miband3.disconnect()
+        device.connected = false
+        this.showConnecting = false
+      }
       this.updateUI()
     },
     disconnectCallback () {
       // TODO
+      console.log('Something else')
     },
     async authRequiredCallback (device, required) {
+      console.log('Auth')
       this.showFirstDialog()
       await this.authenticate(device, required)
       this.hideFirstDialog()
       await this.animateSecondDialog()
       this.updateUI()
+      this.showConnecting = false
       this.moveToDownloadPage()
     },
     async disconnectAllDevices () {
@@ -199,7 +286,7 @@ export default {
     }
   },
   async mounted () {
-    this.tutorialDialog = true
+    this.search()
   }
 
 }

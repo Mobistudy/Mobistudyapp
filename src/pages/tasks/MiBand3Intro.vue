@@ -15,19 +15,21 @@
       <q-carousel-slide name = "first"
         class="column no-wrap flex-center"
       >
-        <div class="q-ma-md">First</div>
+        <div class="q-ma-md">After viewing these slides this app will try to connect to the nearest Miband3 device. Your bluetooth needs to be turned on.</div>
       </q-carousel-slide>
 
       <q-carousel-slide name = "second"
         class="column no-wrap flex-center"
       >
-        <div class="q-ma-md">Second</div>
+        <div class="q-ma-md">If its your first time connecting to your miband device, please tap on the device when the bracelet vibrates.</div>
       </q-carousel-slide>
 
       <q-carousel-slide name = "third"
         class="column no-wrap flex-center"
       >
-        <div class="q-ma-md">Third</div>
+        <div class="q-ma-md">Once the connection is successful, the relevant data from your miband device will be downloaded automatically.
+           When the download is finished you will be presented with some illustrations of the data downloaded. Click send to send the data to the
+           researchers or reject to stop entire the task.</div>
       </q-carousel-slide>
 
     </q-carousel>
@@ -36,7 +38,7 @@
       v-if="showFinish"
       flat
       class="fixed-bottom-right"
-    >Finish</q-btn>
+    >Connect</q-btn>
   </div>
 </template>
 
@@ -66,6 +68,7 @@ export default {
         this.showFinish = false
       }
     },
+    // Connection starts immediately upon pushing the connect page.
     handleFinish () {
       this.$router.push({ name: 'miband3Connect' })
     }
