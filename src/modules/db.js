@@ -99,15 +99,15 @@ export default {
   },
 
   /* MIBAND3 */
-  async setDeviceMiBand3 (device) {
-    return storage.setItem('miband3', JSON.stringify(device))
+  async setDeviceMiBand3 (id, device) {
+    return storage.setItem(id, JSON.stringify(device))
   },
-  async getDeviceMiBand3 () {
-    let device = await storage.getItem('miband3')
+  async getDeviceMiBand3 (id) {
+    let device = await storage.getItem(id)
     if (!device) return null
     return JSON.parse(device)
   },
-  async removeDeviceMiBand3 () {
-    return storage.removeItem('miband3')
+  async removeDeviceMiBand3 (id) {
+    return storage.removeItem(id)
   }
 }

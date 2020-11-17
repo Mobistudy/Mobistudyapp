@@ -126,7 +126,8 @@
 </style>
 
 <script>
-import miband3 from 'modules/miband3/miband3.mock.js'
+// import miband3 from 'modules/miband3/miband3.mock.js'
+import miband3Module from 'modules/miband3/Miband3Module.js'
 import db from 'modules/db.js'
 export default {
   name: 'Miband3ConnectPage',
@@ -149,26 +150,39 @@ export default {
   methods: {
     async search () {
       this.showSearching = true
-      console.log(this.showSearching)
+      console.log('Searching')
       try {
-        await miband3.search(1000, 1, this.deviceCallback, this.cbkFailureSearch)
+        // await miband3.search(1000, 1, this.deviceCallback, this.cbkFailureSearch)
+        await miband3Module.scan(10000, this.deviceCallback, this.cbkFailureSearch)
+        console.log('All devices found:', this.devices.length)
         if (this.moreThanOneDevice()) {
           this.severalDevicesDialog = true
         } else if (this.noDevice()) {
           this.errorNoDeviceDialog = true
         } else if (this.oneDevice()) {
           this.showSearching = false
-          this.connect(this.devices[0])
+          console.log('Found device:', this.devices[0])
+          let deviceToUse = await this.getDeviceToUse(this.devices[0])
+          console.log('Matching found device with local device', 'Found:', this.devices[0], 'Local:', deviceToUse)
+          this.connect(deviceToUse)
         }
       } catch (err) {
-        console.log('Rejected...', err)
-        console.log('Dialog2:', this.errorSearchDialog)
+        console.log('Catching search error')
       }
       this.showSearching = false
     },
+    async getDeviceToUse (device) {
+      // Get associated local storage device, which may contain a key but also info about authentication.
+      let deviceToUse = await db.getDeviceMiBand3(device.id)
+      console.log('Device exists locally:', deviceToUse)
+      if (!deviceToUse) {
+        // If there is no stored device, use the device object received from the connect callback.
+        deviceToUse = device
+      }
+      console.log('Device chosen to be used:', deviceToUse)
+      return deviceToUse
+    },
     cbkFailureSearch () {
-      console.log('cbkFailure called')
-      console.log('Dialog1:', this.errorSearchDialog)
       this.errorSearchDialog = true
     },
     oneDevice () {
@@ -189,6 +203,7 @@ export default {
     deviceCallback (device) {
       if (device) {
         if (!this.deviceInUI(device)) { // Checks UI list of devices to see if the device is already added
+          console.log('Found device callback:', device)
           this.addDevice(device)
         }
       }
@@ -210,43 +225,78 @@ export default {
       }
     },
     async connect (device) {
-      console.log('Attempting connect...')
       this.showConnecting = true
-      await this.disconnectAllDevices()
-      let isConnected = await miband3.isConnected()
+      // Checks if the device found is the same as what was stored locally
+      let deviceToUse = await this.getDeviceToUse(device)
+      await this.initModuleWithDevice(deviceToUse)
+
+      let isConnected = await miband3Module.isConnected()
+      // let isConnected = await miband3.isConnected()
+      console.log('Is currently connected:', isConnected)
       if (!isConnected) {
-        await miband3.connect(device, this.disconnectCallback, this.authRequiredCallback)
+        try {
+          // await miband3.connect(device, this.disconnectCallback, this.authRequiredCallback)
+          console.log('Connecting')
+          await miband3Module.connect(deviceToUse, this.connectFailedCallback, this.authRequiredCallback)
+        } catch (error) {
+          // Connection fails... What to do?, call disconnect callback?
+          this.showConnecting = false
+        }
       } else {
-        await miband3.disconnect()
-        device.connected = false
+        console.log('Disconnecting')
+        await miband3Module.disconnect()
+        // await miband3.disconnect()
+        deviceToUse.connected = false
         this.showConnecting = false
       }
       this.updateUI()
     },
+    async connectFailedCallback (device) {
+      // await this.connect(device)
+    },
+    async initModuleWithDevice (device) {
+      // Check the device already has an associated key.
+      // Initialize module with the device that is to be connected.
+      let key = device.key
+      if (key) {
+        miband3Module.init(device.id, device.key)
+      } else {
+        key = miband3Module.generateKey()
+        device.key = key
+        await db.setDeviceMiBand3(device)
+        miband3Module.init(device.id, device.key)
+      }
+    },
     disconnectCallback () {
       // TODO
-      console.log('Something else')
     },
-    async authRequiredCallback (device, required) {
-      console.log('Auth')
+    async authRequiredCallback (device) {
       this.showFirstDialog()
-      await this.authenticate(device, required)
+      await this.authenticate(device)
       this.hideFirstDialog()
       await this.animateSecondDialog()
       this.updateUI()
       this.showConnecting = false
-      this.moveToDownloadPage()
+      // this.moveToDownloadPage()
     },
     async disconnectAllDevices () {
       for (const device of this.devices) {
-        await miband3.disconnect(device)
+        // await miband3.disconnect(device)
+        miband3Module.init(device.id, device.key)
+        await miband3Module.disconnect()
         device.connected = false
       }
     },
-    async authenticate (device, required) {
-      let authenticated = await miband3.authenticate(required)
-      device.authenticated = authenticated
-      await db.setDeviceMiBand3(device)
+    async authenticate (device) {
+      try {
+        let authenticated = device.authenticated
+        if (!authenticated) authenticated = false
+        await miband3Module.authenticate(authenticated)
+        device.authenticated = true
+        await db.setDeviceMiBand3(device)
+      } catch (error) {
+      }
+      // let authenticated = await miband3.authenticate(required)
     },
     updateUI () {
       for (const device of this.devices) {
