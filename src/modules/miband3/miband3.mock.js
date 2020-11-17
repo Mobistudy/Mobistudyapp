@@ -21,8 +21,12 @@ export default {
       setInterval(() => {
         resolve([
           {
-            id: 'AAAAAAA' + this.randomNum(10), // 1/100 chance that the id will be the same, oh well.
-            rssi: -(this.randomNum(10) * this.randomNum(10))
+            id: 'AAAAAAA',
+            rssi: 200
+          },
+          {
+            id: 'BBBBBB',
+            rssi: 100
           }
         ])
       }, searchTime)
@@ -34,6 +38,7 @@ export default {
    * @param {Function} disconnectCallback called if the device is disconnected
    */
   async connect (device, disconnectCallback) {
+    if (!device) throw new Error('Valid device must be passed in connect()')
     if (CONNECT_FAIL) return Promise.reject()
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -56,13 +61,13 @@ export default {
   },
   /**
    * Authenticates a Miband3
-   * @param {boolean} required if true requries a full authentication
+   * @param {boolean} full if true requries a full authentication
    */
-  async authenticate (required) {
+  async authenticate (full) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(true)
-      }, 2000)
+      }, 3000)
     })
   },
 

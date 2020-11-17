@@ -1,8 +1,10 @@
 <template>
   <div class="q-pa-md">
+    <div v-if="devices.length > 1">{{ $t('studies.tasks.miband3.moreDevices') }}</div>
     <q-list
-      v-if="devices.length > 0"
+      v-if="devices.length > 1"
       bordered
+      class="q-mt-md"
     >
       <q-item
         v-for="device in devices"
@@ -15,11 +17,7 @@
         <q-item-section>{{device.id}}</q-item-section>
       </q-item>
     </q-list>
-    <div
-      id="buttonContainer"
-      class="fixed-bottom text-center"
-    >
-    </div>
+
     <q-dialog
       v-model="tapToAuthDialog"
       transition-show="scale"
@@ -40,71 +38,16 @@
         </q-card-section>
       </q-card>
     </q-dialog>
-    <q-dialog
-      v-model="severalDevicesDialog"
-      transition-show="scale"
-      transition-hide="scale"
-      no-esc-dismiss
-      no-backdrop-dismiss
-    >
-     <q-card>
-        <q-card-section class="row items-center">
-          <q-avatar icon="info" color="yellow" text-color="white" />
-          <span>More than one MiBand 3 device was found. The nearest in proximity is the first device in the list.</span>
-        </q-card-section>
 
-        <q-card-actions align="right">
-          <q-btn flat label="OK" color="primary" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <q-dialog
-      v-model="errorSearchDialog"
-      transition-show="scale"
-      transition-hide="scale"
-      no-esc-dismiss
-      no-backdrop-dismiss
-    >
-     <q-card>
-        <q-card-section class="row items-center">
-          <q-avatar icon="search" color="primary" text-color="white" />
-          <span>Could not search for any device. Please make sure your bluetooth is on. Would you like to search again?</span>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn @click="search" flat label="Yes" color="primary" v-close-popup />
-          <q-btn flat label="No" color="primary" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <q-dialog
-      v-model="errorNoDeviceDialog"
-      transition-show="scale"
-      transition-hide="scale"
-      no-esc-dismiss
-      no-backdrop-dismiss
-    >
-     <q-card>
-        <q-card-section class="row items-center">
-          <q-avatar icon="search" color="primary" text-color="white" />
-          <span>No devices were found. Would you like to search again?</span>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn @click="search" flat label="Yes" color="primary" v-close-popup />
-          <q-btn flat label="No" color="primary" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
      <q-inner-loading :showing="showSearching">
-      <div class="text-overline" color="dark-grey">Searching</div>
+      <div class="text-overline" color="dark-grey">{{$t('studies.tasks.miband3.searching')}}</div>
       <q-spinner-dots
         size="40px"
         color="primary"
       />
     </q-inner-loading>
     <q-inner-loading :showing="showConnecting">
-      <div class="text-overline" color="dark-grey">Connecting</div>
+      <div class="text-overline" color="dark-grey">{{$t('studies.tasks.miband3.connecting')}}</div>
       <q-spinner-dots
         size="40px"
         color="primary"
@@ -112,18 +55,6 @@
     </q-inner-loading>
   </div>
 </template>
-
-<style scoped>
-#buttonContainer {
-  height: 20vh;
-}
-.connected {
-  color: green;
-}
-.disconnected {
-  color: red;
-}
-</style>
 
 <script>
 import miband3 from 'modules/miband3/miband3'
@@ -140,9 +71,6 @@ export default {
     return {
       devices: [],
       tapToAuthDialog: false,
-      severalDevicesDialog: false,
-      errorSearchDialog: false,
-      errorNoDeviceDialog: false,
       showSearching: false,
       showConnecting: false
     }
@@ -150,171 +78,117 @@ export default {
   methods: {
     async search () {
       this.showSearching = true
-      console.log('Searching')
       try {
-        this.devices = await miband3.search(1000)
-        console.log('All devices found:', this.devices.length)
-        if (this.moreThanOneDevice()) {
-          this.severalDevicesDialog = true
-        } else if (this.noDevice()) {
-          this.errorNoDeviceDialog = true
-        } else if (this.oneDevice()) {
-          this.showSearching = false
+        this.devices = await miband3.search(5000)
+        console.log('All devices found:', this.devices)
+        if (this.devices.length === 0) {
+          this.$q.dialog({
+            title: this.$t('studies.tasks.miband3.noDeviceTitle'),
+            message: this.$t('studies.tasks.miband3.noDevice'),
+            cancel: this.$t('common.cancel'),
+            ok: this.$t('common.retry'),
+            persistent: true
+          }).onOk(data => {
+            this.search()
+          }).onCancel(() => {
+            this.abandon()
+          })
+        } else if (this.devices.length === 1) {
           console.log('Found device:', this.devices[0])
-          let deviceToUse = await this.getDeviceToUse(this.devices[0])
-          console.log('Matching found device with local device', 'Found:', this.devices[0], 'Local:', deviceToUse)
-          this.connect(deviceToUse)
+          this.connect(this.devices[0])
+        } else {
+          // sort devices by RSSI, desc
+          this.devices.sort((d1, d2) => { return d2.rssi - d1.rssi })
         }
       } catch (err) {
         console.error('Search error', err)
-        this.errorSearchDialog = true
       }
       this.showSearching = false
     },
-    async getDeviceToUse (device) {
-      // Get associated local storage device, which may contain a key but also info about authentication.
-      let deviceToUse = await db.getDeviceMiBand3()
-      console.log('Device exists locally:', deviceToUse)
-      if (!deviceToUse) {
-        // If there is no stored device, use the device object received from the connect callback.
-        deviceToUse = device
-      }
-      console.log('Device chosen to be used:', deviceToUse)
-      return deviceToUse
-    },
-    oneDevice () {
-      // I appreciate the effort to keep the code readable, but this goes too far :)
-      return this.devices.length === 1
-    },
-    moreThanOneDevice () {
-      // like above
-      if (this.devices.length > 1) {
-        return true
-      } else { return false }
-    },
-    noDevice () {
-      // see above
-      if (this.devices.length === 0) {
-        return true
-      } else {
-        return false
-      }
-    },
-    deviceInUI (device) {
-      let deviceIds = this.devices.map((device) => device.id)
-      return deviceIds.includes(device.id)
-    },
-    addDevice (device) {
-      if (this.devices.length === 0) {
-        this.devices.push(device)
-        return
-      }
-      let currentHighestRSSI = this.devices[0].rssi
-      if (currentHighestRSSI > device.rssi) {
-        this.devices.push(device)
-      } else {
-        this.devices.unshift(device)
-      }
-    },
+    // connect to the selected device
     async connect (device) {
       this.showConnecting = true
-      // Checks if the device found is the same as what was stored locally
-      let deviceToUse = await this.getDeviceToUse(device)
-
       try {
-        await miband3.connect(deviceToUse, this.disconnectCallback)
-        await this.authenticate(deviceToUse)
+        await miband3.connect(device)
       } catch (error) {
-        // Connection fails... What to do?, call disconnect callback?
         this.showConnecting = false
+        // TODO: there should be a third button in case the user has a new miband
+        // this cannot be done using the dialog plugin, so a complete dialog should be designed
+        this.$q.dialog({
+          title: this.$t('studies.errors.error'),
+          message: this.$t('studies.tasks.miband3.connectionFail'),
+          cancel: this.$t('common.cancel'),
+          ok: this.$t('common.retry'),
+          persistent: true
+        }).onOk(async () => {
+          await miband3.disconnect()
+          if (device.authenticated) {
+            // if already authenticated once, retry connection
+            this.connect(device)
+          } else {
+            // probably the wrong device was chosen, start from search
+            this.search()
+          }
+        }).onCancel(() => {
+          this.abandon()
+        })
       }
-      this.updateUI()
+      await this.authenticate(device)
     },
-    async connectFailedCallback (device) {
-      // await this.connect(device)
-    },
-    // TODO: move this into miband3.js
-    // async initModuleWithDevice (device) {
-    //   // Check the device already has an associated key.
-    //   // Initialize module with the device that is to be connected.
-    //   let key = device.key
-    //   if (key) {
-    //     miband3Module.init(device.id, device.key)
-    //   } else {
-    //     key = miband3Module.generateKey()
-    //     device.key = key
-    //     await db.setDeviceMiBand3(device)
-    //     miband3Module.init(device.id, device.key)
-    //   }
-    // },
-    disconnectCallback () {
-      // TODO
-    },
-    async disconnectAllDevices () {
-      for (const device of this.devices) {
-        await miband3.disconnect(device)
-        device.connected = false
-      }
-    },
+    // authenticates (half or full)
     async authenticate (device) {
-      this.showFirstDialog()
+      if (!device.authenticated) this.tapToAuthDialog = true
       try {
         await miband3.authenticate(device.authenticated)
-        device.authenticated = true
-        await db.setDeviceMiBand3(device)
       } catch (error) {
-        // TODO: manage error
+        this.$q.dialog({
+          title: this.$t('studies.errors.error'),
+          message: this.$t('studies.tasks.miband3.connectionFail'),
+          cancel: this.$t('common.cancel'),
+          ok: this.$t('common.retry'),
+          persistent: true
+        }).onOk(async () => {
+          await miband3.disconnect()
+          if (device.authenticated) {
+            // if already authenticated once, retry connection
+            this.connect(device)
+          } else {
+            // probably the wrong device was chose, start from search
+            this.search()
+          }
+        }).onCancel(() => {
+          this.abandon()
+        })
       }
-      this.hideFirstDialog()
-      await this.animateSecondDialog()
-      this.updateUI()
+      this.tapToAuthDialog = false
       this.showConnecting = false
+
+      // save the device!
+      device.authenticated = true
+      await db.setDeviceMiBand3(device)
+      this.$q.notify({
+        type: 'positive',
+        message: this.$t('studies.tasks.miband3.connected')
+      })
       // this.moveToDownloadPage()
     },
-    updateUI () {
-      for (const device of this.devices) {
-        let element = document.getElementById(device.id)
-        if (device.connected) {
-          element.classList.remove('disconnected')
-          element.classList.add('connected')
-        } else { element.classList.remove('connected'); element.classList.add('disconnected') }
-      }
-    },
-    showFirstDialog () {
-      this.tapToAuthDialog = true
-    },
-    hideFirstDialog () {
-      this.tapToAuthDialog = false
-    },
-    animateSecondDialog () {
-      return new Promise((resolve, reject) => {
-        this.showSecondDialog()
-        setTimeout(() => {
-          this.hideSecondDialog()
-          resolve()
-        }, 1000)
-      })
-    },
-    showSecondDialog () {
-      this.successAuthDialog = true
-    },
-    hideSecondDialog () {
-      this.successAuthDialog = false
+    // abandons the task
+    abandon () {
+      miband3.disconnect()
+      this.$router.push({ name: 'tasker', params: { rescheduleTasks: true } })
     },
     moveToDownloadPage () {
       this.$router.push({ name: 'miband3DataDownload', params: { icon: this.icon, studyKey: this.studyKey, taskId: this.taskId } })
-    },
-    isAnyConnected () { // May be removed in the future.
-      for (const device of this.devices) {
-        if (device.connected) {
-          return true
-        }
-      }
-      return false
     }
   },
   async mounted () {
-    this.search()
+    let device = await db.getDeviceMiBand3()
+    if (device) {
+      // a device has been paired in the past!
+      this.connect(device)
+    } else {
+      this.search()
+    }
   }
 
 }

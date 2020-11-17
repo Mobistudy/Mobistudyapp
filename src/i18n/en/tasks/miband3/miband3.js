@@ -8,6 +8,13 @@ export default {
         shortDescription: 'Download your activity data',
         shortTitle: 'Getting your activity data, son',
         description: 'Activity monitoring for a specified frequency during a set amount of time',
+        searching: 'Searching for nearby Miband',
+        noDeviceTitle: 'No MiBand found',
+        noDevice: 'Could not find any MiBand. Please make sure your bluetooth is on. Would you like to search again?',
+        moreDevices: 'More than one MiBand device was found. The nearest in proximity is the first device in the list. Please tap on one to connect to it.',
+        connectionFail: 'Cannot connect to the device, would you like to retry?',
+        connecting: 'Connecting to the Miband',
+        connected: 'Connection succesful',
         activityTypes: {
           walk: 'Walking',
           unknown: 'Unknown'
