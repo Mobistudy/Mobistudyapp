@@ -30,30 +30,25 @@ export default {
    * Connects to a MiBand3
    * @param {Object} device a device object as returned by search() + can contain an authentication key
    * @param {Function} disconnectCallback called if the device is disconnected
-   * @param {Function} authRequiredCallback called when connected but auth has not been completed yet
    */
-  async connect (device, disconnectCallback, authRequiredCallback) {
+  async connect (device, disconnectCallback) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        let authenticated = device.authenticated
         device.connected = true
-        if (!authenticated) {
-          authRequiredCallback(device, true)
-        } else { authRequiredCallback(device, false) }
-        Promise.resolve(true)
+        resolve(true)
       }, 1000)
     })
   },
   /**
    * Disconnects from the tracker
    */
-  async disconnect (device) {
+  async disconnect () {
     return Promise.resolve(true)
   },
   /**
    * Returns true if connected to a Miband3
    */
-  async isConnected (device) {
+  async isConnected () {
     if (Math.random() > 0.2) {
       return Promise.resolve(true)
     } else { return Promise.resolve(false) }
@@ -64,15 +59,9 @@ export default {
    */
   async authenticate (required) {
     return new Promise((resolve, reject) => {
-      if (required) { // Full auth
-        setTimeout(() => {
-          resolve(true)
-        }, 2000)
-      } else { // Half auth
-        setTimeout(() => {
-          resolve(true)
-        }, 2000)
-      }
+      setTimeout(() => {
+        resolve(true)
+      }, 2000)
     })
   },
 
