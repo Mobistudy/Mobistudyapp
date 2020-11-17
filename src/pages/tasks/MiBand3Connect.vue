@@ -170,7 +170,7 @@ export default {
         type: 'positive',
         message: this.$t('studies.tasks.miband3.connected')
       })
-      // this.moveToDownloadPage()
+      this.moveToDownloadPage()
     },
     // abandons the task
     abandon () {
