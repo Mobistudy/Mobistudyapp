@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="text-center text-h6 q-mt-lg">
+    <div class="text-center text-h5 q-mt-lg">
       {{ $t('studies.tasks.smwt.title') }}
     </div>
     <div
