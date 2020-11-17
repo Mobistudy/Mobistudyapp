@@ -25,11 +25,11 @@ export default {
     })
   },
   /**
-     * Connects to a MiBand3
-     * @param {Object} device a device object as returned by search() + can contain an authentication key
-     * @param {Function} disconnectCallback called if the device is disconnected
-     * @param {Function} authRequiredCallback called when connected but auth has not been completed yet
-     */
+   * Connects to a MiBand3
+   * @param {Object} device a device object as returned by search() + can contain an authentication key
+   * @param {Function} disconnectCallback called if the device is disconnected
+   * @param {Function} authRequiredCallback called when connected but auth has not been completed yet
+   */
   async connect (device, disconnectCallback, authRequiredCallback) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -43,8 +43,8 @@ export default {
     })
   },
   /**
-     * Disconnects from the tracker
-     */
+   * Disconnects from the tracker
+   */
   async disconnect (device) {
     return Promise.resolve(true)
   },
@@ -56,7 +56,10 @@ export default {
       return Promise.resolve(true)
     } else { return Promise.resolve(false) }
   },
-
+  /**
+   * Authenticates a Miband3
+   * @param {boolean} required if true requries a full authentication
+   */
   async authenticate (required) {
     return new Promise((resolve, reject) => {
       if (required) { // Full auth
@@ -72,21 +75,16 @@ export default {
   },
 
   /**
-     * Configures a Miband3
-     * @param {Object} user a user configuration like { height: 180, weight: 80, dobYear: 1978, dobMonth: 12, dob: 3, sex: 'male' }
-     * @param {number} hrFreq how often HR is measured in minutes
-     */
+   * Configures a Miband3
+   * @param {Object} user a user configuration like { height: 180, weight: 80, dobYear: 1978, dobMonth: 12, dob: 3, sex: 'male' }
+   * @param {number} hrFreq how often HR is measured in minutes
+   */
   async configure (user, hrFreq) {
-    // configures:
-    // user, language = EN, dateFormat = 'DD/MM/YYYY, hrFreq, wearLocation=LEFT
-    // displayOnlift = not [22:00 - 8:00], nightMode = [22:00 - 8:00],
-    // screens = [home, HR, status], HRsleep support = YES, timeFormat = 24G
-    // after this notifications are unregistered from the config channels
     return Promise.resolve(true)
   },
   /**
-     * Retrieves information about the device
-     */
+   * Retrieves information about the device
+   */
   async getDeviceInfo () {
     return Promise.resolve({
       id: 'AAAA',
@@ -97,10 +95,10 @@ export default {
     })
   },
   /**
-     * Retrieves the data stored on the tracker
-     * @param {Date} startDate a JS Date object from which we want to retrieve the data
-     * @param {Function} cbk called at every sample of data retrieved
-     */
+   * Retrieves the data stored on the tracker
+   * @param {Date} startDate a JS Date object from which we want to retrieve the data
+   * @param {Function} cbk called at every sample of data retrieved
+   */
   async getStoredData (startDate, cbk) {
     // return Promise.reject()
     return new Promise((resolve, reject) => {
@@ -128,9 +126,9 @@ export default {
     return 1 + Math.floor(Math.random() * Math.floor(max))
   },
   /**
-     * Starts live streaming of heart rate
-     * @param {function} callback retrieves the heart rate, as a single number
-     */
+   * Starts live streaming of heart rate
+   * @param {function} callback retrieves the heart rate, as a single number
+   */
   async startLiveHR (callback) {
     this.liveHRTimer = setInterval(() => {
       for (let i = 0; i < 10; i++) {
@@ -140,8 +138,8 @@ export default {
     return Promise.resolve(true)
   },
   /**
-     * Stops streaming heart rate
-     */
+   * Stops streaming heart rate
+   */
   async stopLiveHR () {
     clearInterval(this.liveHRTimer)
     return Promise.resolve(true)
