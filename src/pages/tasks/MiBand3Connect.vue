@@ -171,7 +171,7 @@ export default {
     },
     async getDeviceToUse (device) {
       // Get associated local storage device, which may contain a key but also info about authentication.
-      let deviceToUse = await db.getDeviceMiBand3(device.id)
+      let deviceToUse = await db.getDeviceMiBand3()
       console.log('Device exists locally:', deviceToUse)
       if (!deviceToUse) {
         // If there is no stored device, use the device object received from the connect callback.
@@ -184,14 +184,17 @@ export default {
       this.errorSearchDialog = true
     },
     oneDevice () {
+      // I appreciate the effort to keep the code readable, but this goes too far :)
       return this.devices.length === 1
     },
     moreThanOneDevice () {
+      // like above
       if (this.devices.length > 1) {
         return true
       } else { return false }
     },
     noDevice () {
+      // see above
       if (this.devices.length === 0) {
         return true
       } else {
