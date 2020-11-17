@@ -126,8 +126,7 @@
 </style>
 
 <script>
-// import miband3 from 'modules/miband3/miband3.mock.js'
-import miband3Module from 'modules/miband3/Miband3Module.js'
+import miband3 from 'modules/miband3/miband3'
 import db from 'modules/db.js'
 export default {
   name: 'Miband3ConnectPage',
@@ -152,8 +151,7 @@ export default {
       this.showSearching = true
       console.log('Searching')
       try {
-        // await miband3.search(1000, 1, this.deviceCallback, this.cbkFailureSearch)
-        await miband3Module.scan(10000, this.deviceCallback, this.cbkFailureSearch)
+        await miband3.search(1000, 1, this.deviceCallback, this.cbkFailureSearch)
         console.log('All devices found:', this.devices.length)
         if (this.moreThanOneDevice()) {
           this.severalDevicesDialog = true
@@ -167,7 +165,7 @@ export default {
           this.connect(deviceToUse)
         }
       } catch (err) {
-        console.log('Catching search error')
+        console.error('Catching search error', err)
       }
       this.showSearching = false
     },
@@ -230,22 +228,18 @@ export default {
       let deviceToUse = await this.getDeviceToUse(device)
       await this.initModuleWithDevice(deviceToUse)
 
-      let isConnected = await miband3Module.isConnected()
-      // let isConnected = await miband3.isConnected()
+      let isConnected = await miband3.isConnected()
       console.log('Is currently connected:', isConnected)
       if (!isConnected) {
         try {
-          // await miband3.connect(device, this.disconnectCallback, this.authRequiredCallback)
-          console.log('Connecting')
-          await miband3Module.connect(deviceToUse, this.connectFailedCallback, this.authRequiredCallback)
+          await miband3.connect(device, this.disconnectCallback, this.authRequiredCallback)
         } catch (error) {
           // Connection fails... What to do?, call disconnect callback?
           this.showConnecting = false
         }
       } else {
         console.log('Disconnecting')
-        await miband3Module.disconnect()
-        // await miband3.disconnect()
+        await miband3.disconnect()
         deviceToUse.connected = false
         this.showConnecting = false
       }
@@ -254,19 +248,20 @@ export default {
     async connectFailedCallback (device) {
       // await this.connect(device)
     },
-    async initModuleWithDevice (device) {
-      // Check the device already has an associated key.
-      // Initialize module with the device that is to be connected.
-      let key = device.key
-      if (key) {
-        miband3Module.init(device.id, device.key)
-      } else {
-        key = miband3Module.generateKey()
-        device.key = key
-        await db.setDeviceMiBand3(device)
-        miband3Module.init(device.id, device.key)
-      }
-    },
+    // TODO: move this into miband3.js
+    // async initModuleWithDevice (device) {
+    //   // Check the device already has an associated key.
+    //   // Initialize module with the device that is to be connected.
+    //   let key = device.key
+    //   if (key) {
+    //     miband3Module.init(device.id, device.key)
+    //   } else {
+    //     key = miband3Module.generateKey()
+    //     device.key = key
+    //     await db.setDeviceMiBand3(device)
+    //     miband3Module.init(device.id, device.key)
+    //   }
+    // },
     disconnectCallback () {
       // TODO
     },
@@ -281,22 +276,18 @@ export default {
     },
     async disconnectAllDevices () {
       for (const device of this.devices) {
-        // await miband3.disconnect(device)
-        miband3Module.init(device.id, device.key)
-        await miband3Module.disconnect()
+        await miband3.disconnect(device)
         device.connected = false
       }
     },
     async authenticate (device) {
       try {
-        let authenticated = device.authenticated
-        if (!authenticated) authenticated = false
-        await miband3Module.authenticate(authenticated)
+        await miband3.authenticate(device.authenticated)
         device.authenticated = true
         await db.setDeviceMiBand3(device)
       } catch (error) {
+        // TODO: manage error
       }
-      // let authenticated = await miband3.authenticate(required)
     },
     updateUI () {
       for (const device of this.devices) {
