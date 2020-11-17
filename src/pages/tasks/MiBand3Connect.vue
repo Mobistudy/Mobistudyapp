@@ -151,7 +151,7 @@ export default {
       this.showSearching = true
       console.log('Searching')
       try {
-        await miband3.search(1000, 1, this.deviceCallback, this.cbkFailureSearch)
+        this.devices = await miband3.search(1000, this.cbkFailureSearch)
         console.log('All devices found:', this.devices.length)
         if (this.moreThanOneDevice()) {
           this.severalDevicesDialog = true
@@ -165,7 +165,8 @@ export default {
           this.connect(deviceToUse)
         }
       } catch (err) {
-        console.error('Catching search error', err)
+        console.error('Search error', err)
+        this.errorSearchDialog = true
       }
       this.showSearching = false
     },
@@ -179,9 +180,6 @@ export default {
       }
       console.log('Device chosen to be used:', deviceToUse)
       return deviceToUse
-    },
-    cbkFailureSearch () {
-      this.errorSearchDialog = true
     },
     oneDevice () {
       // I appreciate the effort to keep the code readable, but this goes too far :)
@@ -199,14 +197,6 @@ export default {
         return true
       } else {
         return false
-      }
-    },
-    deviceCallback (device) {
-      if (device) {
-        if (!this.deviceInUI(device)) { // Checks UI list of devices to see if the device is already added
-          console.log('Found device callback:', device)
-          this.addDevice(device)
-        }
       }
     },
     deviceInUI (device) {
@@ -229,9 +219,9 @@ export default {
       this.showConnecting = true
       // Checks if the device found is the same as what was stored locally
       let deviceToUse = await this.getDeviceToUse(device)
-      await this.initModuleWithDevice(deviceToUse)
+      // await this.initModuleWithDevice(deviceToUse)
 
-      let isConnected = await miband3.isConnected()
+      let isConnected = await miband3.isConnected() // not that it should happen
       console.log('Is currently connected:', isConnected)
       if (!isConnected) {
         try {

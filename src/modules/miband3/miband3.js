@@ -3,10 +3,10 @@
 export default {
   /**
    * Finds the first Miband3 around and returns an object containing the ID (MAC address)
-   * If a timeout ocurrs, the promise is rejected
+   * If a timeout ocurrs or BLE is not activated, the promise is rejected
    * @param {Number} timeout max number of milliseconds to search for a Miband3
    */
-  async search (searchTime, amount, cbk, cbkFailureSearch) {
+  async search (searchTime) {
     // TODO
   },
   /**

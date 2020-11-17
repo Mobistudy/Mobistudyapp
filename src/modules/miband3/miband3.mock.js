@@ -5,32 +5,22 @@
 export default {
   liveHRTimer: undefined,
   /**
-     * Finds the first Miband3 around and returns an object containing the ID (MAC address)
-     * If a timeout ocurrs, the promise is rejected
-     * @param {Number} timeout max number of milliseconds to search for a Miband3
-     */
-  async search (searchTime, amount, cbk, cbkFailureSearch) {
-    let num = 0
+   * Finds the first Miband3 around and returns an object containing the ID (MAC address)
+   * If a timeout ocurrs, the promise is rejected
+   * @param {Number} timeout max number of milliseconds to search for a Miband3
+   */
+  async search (searchTime, cbk, cbkFailureSearch) {
     if (Math.random() > 0.8) {
-      cbkFailureSearch()
       return Promise.reject()
     }
     return new Promise((resolve, reject) => {
-      let interval = setInterval(() => {
-        if (amount === 0) {
-          clearInterval(interval)
-          resolve()
-          return
-        }
-        cbk({
-          id: 'AAAAAAA' + this.randomNum(10), // 1/100 chance that the id will be the same, oh well.
-          rssi: -(this.randomNum(10) * this.randomNum(10))
-        })
-        num++
-        if (num === amount) {
-          clearInterval(interval)
-          resolve()
-        }
+      setInterval(() => {
+        resolve([
+          {
+            id: 'AAAAAAA' + this.randomNum(10), // 1/100 chance that the id will be the same, oh well.
+            rssi: -(this.randomNum(10) * this.randomNum(10))
+          }
+        ])
       }, searchTime)
     })
   },
@@ -59,8 +49,8 @@ export default {
     return Promise.resolve(true)
   },
   /**
-     * Returns true if connected to a Miband3
-     */
+   * Returns true if connected to a Miband3
+   */
   async isConnected (device) {
     if (Math.random() > 0.2) {
       return Promise.resolve(true)
