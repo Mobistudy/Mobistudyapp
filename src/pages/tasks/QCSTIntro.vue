@@ -45,16 +45,19 @@
 export default {
   name: 'QCSTIntroPage',
   props: {
+    title: String,
     icon: String,
     studyKey: String,
     taskId: Number
   },
   methods: {
     start () {
+      const title = this.title
+      const icon = this.icon
       const studyKey = this.studyKey
       const taskId = this.taskId
       console.log('StudyKey ' + studyKey + ',taskId ' + taskId)
-      this.$router.push({ name: 'qcst', params: { studyKey, taskId } })
+      this.$router.push({ name: 'qcst', params: { title, icon, studyKey, taskId } })
       this.$emit('updateTransition', 'fadeInDown')
     }
   }
