@@ -2,15 +2,17 @@
 
 // this module emulates a Mibadn3 fitness tracker
 
+const SEARCH_FAIL = false
+
 export default {
   liveHRTimer: undefined,
   /**
-   * Finds the first Miband3 around and returns an object containing the ID (MAC address)
+   * Finds Miband3s
    * If a timeout ocurrs, the promise is rejected
    * @param {Number} timeout max number of milliseconds to search for a Miband3
    */
-  async search (searchTime, cbk, cbkFailureSearch) {
-    if (Math.random() > 0.8) {
+  async search (searchTime) {
+    if (SEARCH_FAIL) {
       return Promise.reject()
     }
     return new Promise((resolve, reject) => {
@@ -91,7 +93,8 @@ export default {
       battery: 80,
       charging: false,
       swVersion: '11',
-      hw: '3'
+      hwVersion: '3',
+      serialNumebr: 'asdasd'
     })
   },
   /**

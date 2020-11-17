@@ -128,6 +128,7 @@
 <script>
 import miband3 from 'modules/miband3/miband3'
 import db from 'modules/db.js'
+
 export default {
   name: 'Miband3ConnectPage',
   props: {
@@ -151,7 +152,7 @@ export default {
       this.showSearching = true
       console.log('Searching')
       try {
-        this.devices = await miband3.search(1000, this.cbkFailureSearch)
+        this.devices = await miband3.search(1000)
         console.log('All devices found:', this.devices.length)
         if (this.moreThanOneDevice()) {
           this.severalDevicesDialog = true
@@ -219,21 +220,12 @@ export default {
       this.showConnecting = true
       // Checks if the device found is the same as what was stored locally
       let deviceToUse = await this.getDeviceToUse(device)
-      // await this.initModuleWithDevice(deviceToUse)
 
-      let isConnected = await miband3.isConnected() // not that it should happen
-      console.log('Is currently connected:', isConnected)
-      if (!isConnected) {
-        try {
-          await miband3.connect(device, this.disconnectCallback, this.authRequiredCallback)
-        } catch (error) {
-          // Connection fails... What to do?, call disconnect callback?
-          this.showConnecting = false
-        }
-      } else {
-        console.log('Disconnecting')
-        await miband3.disconnect()
-        deviceToUse.connected = false
+      try {
+        await miband3.connect(deviceToUse, this.disconnectCallback)
+        await this.authenticate(deviceToUse)
+      } catch (error) {
+        // Connection fails... What to do?, call disconnect callback?
         this.showConnecting = false
       }
       this.updateUI()
@@ -258,15 +250,6 @@ export default {
     disconnectCallback () {
       // TODO
     },
-    async authRequiredCallback (device) {
-      this.showFirstDialog()
-      await this.authenticate(device)
-      this.hideFirstDialog()
-      await this.animateSecondDialog()
-      this.updateUI()
-      this.showConnecting = false
-      // this.moveToDownloadPage()
-    },
     async disconnectAllDevices () {
       for (const device of this.devices) {
         await miband3.disconnect(device)
@@ -274,6 +257,7 @@ export default {
       }
     },
     async authenticate (device) {
+      this.showFirstDialog()
       try {
         await miband3.authenticate(device.authenticated)
         device.authenticated = true
@@ -281,6 +265,11 @@ export default {
       } catch (error) {
         // TODO: manage error
       }
+      this.hideFirstDialog()
+      await this.animateSecondDialog()
+      this.updateUI()
+      this.showConnecting = false
+      // this.moveToDownloadPage()
     },
     updateUI () {
       for (const device of this.devices) {

@@ -2,7 +2,7 @@
 
 export default {
   /**
-   * Finds the first Miband3 around and returns an object containing the ID (MAC address)
+   * Finds all Miband3 around and returns an array of objects containing the ID (MAC address)
    * If a timeout ocurrs or BLE is not activated, the promise is rejected
    * @param {Number} timeout max number of milliseconds to search for a Miband3
    */
@@ -13,23 +13,25 @@ export default {
    * Connects to a MiBand3
    * @param {Object} device a device object as returned by search() + can contain an authentication key
    * @param {Function} disconnectCallback called if the device is disconnected
-   * @param {Function} authRequiredCallback called when connected but auth has not been completed yet
    */
-  async connect (device, disconnectCallback, authRequiredCallback) {
+  async connect (device, disconnectCallback) {
     // TODO
+    // generate the key if not inside device
+    // init
+    // connect
   },
 
   /**
    * Disconnects from the tracker
    */
-  async disconnect (device) {
+  async disconnect () {
     // TODO
   },
 
   /**
    * Returns true if connected to a Miband3
    */
-  async isConnected (device) {
+  async isConnected () {
     // TODO
   },
 
@@ -60,6 +62,15 @@ export default {
    */
   async getDeviceInfo () {
     // TODO
+    // see example:
+    // {
+    //   id: 'AAAA',
+    //   battery: 80,
+    //   charging: false,
+    //   swVersion: '11',
+    //   hwVersion: '3',
+    //   serialNumebr: 'asdasd'
+    // }
   },
 
   /**
