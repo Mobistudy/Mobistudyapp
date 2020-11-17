@@ -156,13 +156,12 @@ var Miband3 = {
   /**
    * Connects to the device using ble-central, does not authenticate
    */
-  connect: async function (device, connectFailedCallback, authRequiredCallback) {
+  connect: async function (device, connectFailedCallback) {
     return new Promise((resolve, reject) => {
       ble.connect(
         this.deviceId,
         success => {
           console.log('Connection successful')
-          authRequiredCallback(device)
           resolve(success)
         },
         error => {
@@ -202,6 +201,7 @@ var Miband3 = {
    * Tells if the drivers is connected to a device
    */
   isConnected: async function () {
+    if (!this.deviceId) return Promise.resolve(false)
     return new Promise((resolve, reject) => {
       ble.isConnected(
         this.deviceId,
