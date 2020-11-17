@@ -37,9 +37,9 @@ export default {
 
   /**
    * Authenticates the phone with the Miband3
-   * @param {*} required if required the full authentication is performed
+   * @param {boolean} full if true the full authentication is performed
    */
-  async authenticate (required) {
+  async authenticate (full) {
     // TODO
   },
 

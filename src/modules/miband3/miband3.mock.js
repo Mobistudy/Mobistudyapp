@@ -3,6 +3,8 @@
 // this module emulates a Mibadn3 fitness tracker
 
 const SEARCH_FAIL = false
+const CONNECT_FAIL = false
+const STOREDDATA_FAIL = false
 
 export default {
   liveHRTimer: undefined,
@@ -32,6 +34,7 @@ export default {
    * @param {Function} disconnectCallback called if the device is disconnected
    */
   async connect (device, disconnectCallback) {
+    if (CONNECT_FAIL) return Promise.reject()
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         device.connected = true
@@ -49,9 +52,7 @@ export default {
    * Returns true if connected to a Miband3
    */
   async isConnected () {
-    if (Math.random() > 0.2) {
-      return Promise.resolve(true)
-    } else { return Promise.resolve(false) }
+    return Promise.resolve(true)
   },
   /**
    * Authenticates a Miband3
@@ -92,7 +93,7 @@ export default {
    * @param {Function} cbk called at every sample of data retrieved
    */
   async getStoredData (startDate, cbk) {
-    // return Promise.reject()
+    if (STOREDDATA_FAIL) return Promise.reject()
     return new Promise((resolve, reject) => {
       let amountPackages = 0
       let interval = setInterval(() => {
