@@ -63,7 +63,7 @@
 
 <script>
 /* eslint-disable no-new */
-import miband3 from 'modules/miband3/miband3.mock.js'
+import miband3 from 'modules/miband3/miband3'
 import Chart from 'chart.js'
 import { getStringIdentifier } from 'modules/miband3/miband3ActivityTypeEnum.js'
 import db from 'modules/db'
@@ -138,7 +138,6 @@ export default {
     return {
       showDownloading: false,
       graphsCreated: false,
-      taskDescription: {},
       lineChart: undefined,
       lineCtx: undefined,
       currentStartHour: 0,
@@ -151,45 +150,11 @@ export default {
     async downloadData () {
       this.showDownloading = true
 
-      // reset the charts stuff in case it has been parially filled
+      // reset the charts stuff in case it has been partially filled
       pieChartConfig.reset()
       lineChart.reset()
 
-      // Route parameters
-      const studyKey = this.studyKey
-      const taskID = this.taskId
-      const studyDescription = await db.getStudyDescription(studyKey)
-      console.log('Study description:', studyDescription)
-      this.taskDescription = this.getTaskDescription(studyDescription, taskID)
-      console.log('Task description 2:', this.taskDescription, 'Scheduling:', this.taskDescription.scheduling)
-
-      let lastCompleted = await this.getLastCompletedTaskMoment(studyKey, taskID)
-      console.log('Last completed:', lastCompleted)
-      let startDate = moment()
-      if (typeof lastCompleted === 'undefined') {
-        console.log('Task description 3:', this.taskDescription.scheduling)
-        let intervalType = this.taskDescription.scheduling.interval
-        let interval = this.taskDescription.scheduling.interval
-        if (intervalType === 'd') {
-          startDate.subtract(interval, 'days')
-        } else if (intervalType === 'w') {
-          startDate.subtract(interval, 'weeks')
-        } else if (intervalType === 'm') {
-          startDate.subtract(interval, 'months')
-        } else if (intervalType === 'y') {
-          startDate.subtract(interval, 'years')
-        }
-        console.log('Date last download does not exist:', startDate)
-      } else {
-        let device = await db.getDeviceMiBand3()
-        startDate = new Date(device.lastDownload)
-        console.log('Date last download:', startDate)
-      }
-      if (moment.isMoment(startDate)) {
-        startDate = startDate.toDate()
-      }
-      console.log('Start date:', startDate)
-      this.showDownloading = true
+      let startDate = await this.getDateUsedToDownload()
       try {
         await miband3.getStoredData(startDate, this.dataCallback)
         this.storeDownloadTimestamp()
@@ -201,11 +166,10 @@ export default {
           this.showErrorDialog()
         }
         this.createPieChart()
-        this.showDownloading = false
+        this.renderLineChart(this.currentStartHour, this.currentEndHour) // Can be used to render the same intervals for both pie chart and linechart
 
-        this.renderCharts(this.currentStartHour, this.currentEndHour) // Can be used to render the same intervals for both pie chart and linechart
-        // this.create()
         this.graphsCreated = true
+        this.showDownloading = false
       } catch (err) {
         console.error('cannot download data', err)
         this.showErrorDialog()
@@ -215,39 +179,71 @@ export default {
       let oldestSampleTimeStamp = storedData[0].date
       let device = await db.getDeviceMiBand3()
       device.lastDownload = oldestSampleTimeStamp
-      console.log('Stored device data', device)
       return db.setDeviceMiBand3(device)
     },
     /**
-     * Renders the line chart data between the two specifiec parameters. Start time from 0 up to x amount of hours.
-     * Can be extended to also render the pie chart the same interval as the line chart.
+     * A function which retreives the latest date the data was downloaded
+     * or if its the first time it
      */
-    renderCharts (startTime, endTime) {
+    async getDateUsedToDownload () {
+      // Route parameters
+      const studyKey = this.studyKey
+      const taskID = this.taskId
+      const studyDescription = await db.getStudyDescription(studyKey)
+      const taskDescription = this.getTaskDescription(studyDescription, taskID)
+
+      let lastCompleted = await this.getLastCompletedTaskMoment(studyKey, taskID)
+      let startDate = moment()
+      if (typeof lastCompleted === 'undefined') {
+        let intervalType = taskDescription.scheduling.intervalType
+        let interval = taskDescription.scheduling.interval
+        if (intervalType === 'd') {
+          startDate.subtract(interval, 'days')
+        } else if (intervalType === 'w') {
+          startDate.subtract(interval, 'weeks')
+        } else if (intervalType === 'm') {
+          startDate.subtract(interval, 'months')
+        } else if (intervalType === 'y') {
+          startDate.subtract(interval, 'years')
+        }
+      } else {
+        let device = await db.getDeviceMiBand3()
+        startDate = new Date(device.lastDownload)
+      }
+      if (moment.isMoment(startDate)) {
+        startDate = startDate.toDate()
+      }
+      console.log('Start date:', startDate)
+      return startDate
+    },
+    /**
+     * Renders the line chart data between the two specific parameters, end and start in hours.
+     * The parameters are converted to minutes. And because there is a stored sample
+     * minute by minute in the storedData, the start and end time are re-calculated in minutes
+     * and this will be the indicis of the corresponding samples.
+     */
+    renderLineChart (startTime, endTime) {
       lineChart.reset()
-      console.log('start:', startTime, 'end:', endTime)
       let startIndexInMinutes = startTime * 60
       let endIndexInMinutes = endTime * 60 - 1
+      if (endIndexInMinutes > storedData.length) {
+        endIndexInMinutes = storedData.length - 1
+      }
       for (let i = startIndexInMinutes; i <= endIndexInMinutes; i++) {
         let data = storedData[i]
         this.addToLineChart(data.hr, data.intensity, data.steps, data.date)
       }
-      this.updateCharts()
-    },
-
-    updateCharts () {
       this.updateLineChartReferences()
     },
 
     async getLastCompletedTaskMoment (studyKey, taskID) {
       let taskItemConsent = await db.getStudyParticipationTaskItemConsent(studyKey)
       let lastCompleted = taskItemConsent.find(x => x.taskId === Number(taskID)).lastExecuted
-      console.log('Last completed 1:', lastCompleted)
       return moment(lastCompleted)
     },
 
     getTaskDescription (studyDescription, taskID) {
       let taskDescription = studyDescription.tasks.find(x => x.id === Number(taskID))
-      console.log('Task description 1:', taskDescription)
       return taskDescription
     },
 
@@ -279,7 +275,6 @@ export default {
     },
     dataCallback (data) {
       // collects data from the miband and prepares the charts
-      console.log('Storing data', data)
       storedData.push(data)
     },
 
@@ -391,19 +386,16 @@ export default {
     chartAdd (amount) {
       this.currentStartHour += amount
       this.currentEndHour += amount
-      this.renderCharts(this.currentStartHour, this.currentEndHour)
-      this.updateCharts()
+      this.renderLineChart(this.currentStartHour, this.currentEndHour)
+      this.updateLineChartReferences()
       this.updatePlusMinusButtons()
     },
     updatePlusMinusButtons () {
-      console.log('CurrMinusIndex:', this.currentStartHour)
-      console.log('Stored data length:', (storedData.length / 60))
       if (this.currentStartHour === 0) {
         this.disableMinus = true
       } else {
         this.disableMinus = false
       }
-      console.log('CurrEndIndex:', this.currentEndHour)
       if (this.currentEndHour === (storedData.length / 60)) {
         this.disablePlus = true
       } else {

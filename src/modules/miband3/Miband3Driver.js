@@ -961,13 +961,17 @@ var Miband3 = {
               dataResponse => {
                 // got data!
                 let buffer = new Uint8Array(dataResponse)
-                dataCallback(
-                  this.createSingleActivitySamplesFromSeveral(
-                    actualStartDate,
-                    sampleCounter,
-                    buffer
-                  )
+                let sampleArray = this.createSingleActivitySamplesFromSeveral(
+                  actualStartDate,
+                  sampleCounter,
+                  buffer
                 )
+                console.log(sampleArray)
+                for (let sample of sampleArray) {
+                  dataCallback(
+                    sample
+                  )
+                }
                 sampleCounter += Math.floor(buffer.length / 4)
               },
               reject
@@ -979,6 +983,10 @@ var Miband3 = {
           if (dataHex === '100201') {
             // Fetch completed
             resolve()
+          }
+          if (dataHex === '100204') {
+            // No data was found, can be triggered if a data was already sent recently
+            reject()
           }
           // TODO: if a date is not accepted and watch returns NACK then reject
         },
@@ -1000,15 +1008,15 @@ var Miband3 = {
   ) {
     // let packageNumber = samples[0] // First item in buffer array is always the package number
     let sampleObjectArray = []
-    for (let i = 1; i <= samples.length; i += 4) {
+    for (let i = 1; i < samples.length; i += 4) {
       let sample = {
-        timestamp: new Date(
+        date: new Date(
           actualStartDate.getTime() + 60000 * amountOfSamples++
         ), // adding minutes to the start date
         activityType: samples[i],
         intensity: samples[i + 1],
         steps: samples[i + 2],
-        heartRate: samples[i + 3]
+        hr: samples[i + 3] // Should add a buffer array of each value in the object?
       }
       sampleObjectArray.push(sample)
     }

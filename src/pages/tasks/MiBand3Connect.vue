@@ -136,7 +136,7 @@ export default {
           type: 'positive',
           message: this.$t('studies.tasks.miband3.connected')
         })
-      // this.moveToDownloadPage()
+        this.moveToDownloadPage()
       } catch (error) {
         this.showConnecting = false
         // TODO: there should be a third button in case the user has a new miband

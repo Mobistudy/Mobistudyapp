@@ -101,6 +101,13 @@ export default {
    */
   async getStoredData (startDate, cbk) {
     // TODO
+    function interfaceCallback (data) { // Filters the noisy heart rate values, eg 0 and 255.
+      if (data.hr === 0 || data.hr === 255) {
+        data.hr = Number.NaN
+      }
+      cbk(data)
+    }
+    return miband3Driver.fetchStoredData(startDate, interfaceCallback)
   },
 
   /**
