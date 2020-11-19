@@ -1,24 +1,42 @@
 'use strict'
+import miband3Driver from './Miband3Driver'
 
 export default {
   /**
-   * Finds all Miband3 around and returns an array of objects containing the ID (MAC address)
-   * If a timeout ocurrs or BLE is not activated, the promise is rejected
+   * Finds all Miband3 around and returns an array of device objects, each containing an ID (MAC address) and RSSI
+   * If a timeout occurs or BLE is not activated, the promise is rejected
    * @param {Number} timeout max number of milliseconds to search for a Miband3
    */
   async search (searchTime) {
     // TODO
+    return new Promise((resolve, reject) => {
+      let devices = []
+      window.ble.startScan([], (device) => {
+        if (device.name === 'Mi Band 3') {
+          devices.push(device)
+        }
+      }, reject)
+      setTimeout(window.ble.stopScan, searchTime, (success) => {
+        resolve(devices)
+      }, reject)
+    })
   },
   /**
    * Connects to a MiBand3
    * @param {Object} device a device object as returned by search() + can contain an authentication key
    * @param {Function} disconnectCallback called if the device is disconnected
    */
-  async connect (device, disconnectCallback) {
+  async connect (device) {
     // TODO
     // generate the key if not inside device
+    if (!device.key) {
+      let key = miband3Driver.generateKey()
+      device.key = key
+    }
     // init
+    miband3Driver.init(device.id, device.key)
     // connect
+    return miband3Driver.connect()
   },
 
   /**
@@ -26,6 +44,7 @@ export default {
    */
   async disconnect () {
     // TODO
+    return miband3Driver.disconnect()
   },
 
   /**
@@ -33,6 +52,7 @@ export default {
    */
   async isConnected () {
     // TODO
+    return miband3Driver.isConnected()
   },
 
   /**
@@ -41,6 +61,7 @@ export default {
    */
   async authenticate (full) {
     // TODO
+    return miband3Driver.authenticate(full)
   },
 
   /**

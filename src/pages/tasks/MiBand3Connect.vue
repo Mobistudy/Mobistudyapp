@@ -77,6 +77,7 @@ export default {
   },
   methods: {
     async search () {
+      this.devices = []
       this.showSearching = true
       try {
         this.devices = await miband3.search(5000)
@@ -110,6 +111,21 @@ export default {
       this.showConnecting = true
       try {
         await miband3.connect(device)
+        // Authenticate after connect.
+        if (!device.authenticated) this.tapToAuthDialog = true // Add flag to indicate if its the first authentication.
+        await miband3.authenticate(device.authenticated)
+
+        this.tapToAuthDialog = false
+        this.showConnecting = false
+
+        // save the device!
+        device.authenticated = true
+        await db.setDeviceMiBand3(device)
+        this.$q.notify({
+          type: 'positive',
+          message: this.$t('studies.tasks.miband3.connected')
+        })
+      // this.moveToDownloadPage()
       } catch (error) {
         this.showConnecting = false
         // TODO: there should be a third button in case the user has a new miband
@@ -133,44 +149,6 @@ export default {
           this.abandon()
         })
       }
-      await this.authenticate(device)
-    },
-    // authenticates (half or full)
-    async authenticate (device) {
-      if (!device.authenticated) this.tapToAuthDialog = true
-      try {
-        await miband3.authenticate(device.authenticated)
-      } catch (error) {
-        this.$q.dialog({
-          title: this.$t('studies.errors.error'),
-          message: this.$t('studies.tasks.miband3.connectionFail'),
-          cancel: this.$t('common.cancel'),
-          ok: this.$t('common.retry'),
-          persistent: true
-        }).onOk(async () => {
-          await miband3.disconnect()
-          if (device.authenticated) {
-            // if already authenticated once, retry connection
-            this.connect(device)
-          } else {
-            // probably the wrong device was chose, start from search
-            this.search()
-          }
-        }).onCancel(() => {
-          this.abandon()
-        })
-      }
-      this.tapToAuthDialog = false
-      this.showConnecting = false
-
-      // save the device!
-      device.authenticated = true
-      await db.setDeviceMiBand3(device)
-      this.$q.notify({
-        type: 'positive',
-        message: this.$t('studies.tasks.miband3.connected')
-      })
-      this.moveToDownloadPage()
     },
     // abandons the task
     abandon () {

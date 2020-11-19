@@ -156,7 +156,7 @@ var Miband3 = {
   /**
    * Connects to the device using ble-central, does not authenticate
    */
-  connect: async function (device, connectFailedCallback) {
+  connect: async function () {
     return new Promise((resolve, reject) => {
       ble.connect(
         this.deviceId,
@@ -165,8 +165,8 @@ var Miband3 = {
           resolve(success)
         },
         error => {
-          console.log('Connection error:', error)
-          connectFailedCallback(device)
+          console.error('Connection error:', error)
+          // connectFailedCallback(device)
           reject(error)
         }
       )
