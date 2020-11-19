@@ -137,7 +137,7 @@ export default {
   },
   methods: {
     nicerDate (d) {
-      return date.formatDate(d, 'DD/MM/YY')
+      return date.formatDate(d, 'YYYY/MM/DD')
     },
     showDetails (study) {
       this.$router.push({ name: 'studyConfig', params: { studyDescription: study } })
