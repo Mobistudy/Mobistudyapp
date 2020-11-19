@@ -1,6 +1,6 @@
 <template>
   <q-page id="main">
-    <div v-show="graphsCreated">
+    <div v-show="!isDownloading">
       <p class="q-pa-md">{{ $t('studies.tasks.miband3.chartsIntro') }}</p>
       <div class="text-center text-h6">
         {{ $t('studies.tasks.miband3.lineChart') }}
@@ -15,13 +15,13 @@
             label="-12 hours"
             color="secondary"
             :disable="disableMinus"
-            @click="chartAdd((-12))"
+            @click="lineChartAdd((-12))"
           />
           <q-btn
             label="+12 hours"
             color="secondary"
             :disable="disablePlus"
-            @click="chartAdd((12))"
+            @click="lineChartAdd((12))"
           />
         </div>
       </div>
@@ -51,8 +51,8 @@
       </div>
     </div>
 
-    <q-inner-loading :showing="showDownloading">
-      <div class="text-overline">Downloading data</div>
+    <q-inner-loading :showing="isDownloading">
+      <div class="text-overline">{{ $t('studies.tasks.miband3.dataDownload') }}</div>
       <q-spinner-oval
         size="50px"
         color="primary"
@@ -136,10 +136,8 @@ export default {
   },
   data () {
     return {
-      showDownloading: false,
-      graphsCreated: false,
+      isDownloading: false,
       lineChart: undefined,
-      lineCtx: undefined,
       currentStartHour: 0,
       currentEndHour: 12,
       disableMinus: true,
@@ -148,9 +146,10 @@ export default {
   },
   methods: {
     async downloadData () {
-      this.showDownloading = true
+      this.isDownloading = true
 
       // reset the charts stuff in case it has been partially filled
+      storedData = []
       pieChartConfig.reset()
       lineChart.reset()
 
@@ -163,22 +162,20 @@ export default {
         } catch (err) {
           // doesn't matter if it fails here, but let's print out a message on console
           console.error('cannot disconnect miband3', err)
-          this.showErrorDialog()
         }
         this.createPieChart()
-        this.renderLineChart(this.currentStartHour, this.currentEndHour) // Can be used to render the same intervals for both pie chart and linechart
+        this.renderLineChart(this.currentStartHour, this.currentEndHour)
 
-        this.graphsCreated = true
-        this.showDownloading = false
+        this.isDownloading = false
       } catch (err) {
         console.error('cannot download data', err)
         this.showErrorDialog()
       }
     },
     async storeDownloadTimestamp () {
-      let oldestSampleTimeStamp = storedData[0].date
+      let newestSampleTimeStamp = storedData[storedData.length - 1].date
       let device = await db.getDeviceMiBand3()
-      device.lastDownload = oldestSampleTimeStamp
+      device.lastStoredDataDate = newestSampleTimeStamp
       return db.setDeviceMiBand3(device)
     },
     /**
@@ -190,8 +187,9 @@ export default {
       const studyKey = this.studyKey
       const taskID = this.taskId
       const studyDescription = await db.getStudyDescription(studyKey)
+      // TODO: make the getTaskDescription part of DB module
       const taskDescription = this.getTaskDescription(studyDescription, taskID)
-
+      // TODO: make it part of DB
       let lastCompleted = await this.getLastCompletedTaskMoment(studyKey, taskID)
       let startDate = moment()
       if (typeof lastCompleted === 'undefined') {
@@ -206,12 +204,10 @@ export default {
         } else if (intervalType === 'y') {
           startDate.subtract(interval, 'years')
         }
+        startDate = startDate.toDate()
       } else {
         let device = await db.getDeviceMiBand3()
-        startDate = new Date(device.lastDownload)
-      }
-      if (moment.isMoment(startDate)) {
-        startDate = startDate.toDate()
+        startDate = new Date(device.lastStoredDataDate)
       }
       console.log('Start date:', startDate)
       return startDate
@@ -316,8 +312,8 @@ export default {
     },
 
     createActivityLineChart () {
-      this.lineCtx = this.$refs.lineChart
-      this.lineChart = new Chart.Scatter(this.lineCtx, {
+      let lineCtx = this.$refs.lineChart
+      this.lineChart = new Chart.Scatter(lineCtx, {
         type: 'scatter',
         data: {
           labels: lineChart.labels,
@@ -383,11 +379,10 @@ export default {
       })
       this.lineChart.update()
     },
-    chartAdd (amount) {
+    lineChartAdd (amount) {
       this.currentStartHour += amount
       this.currentEndHour += amount
       this.renderLineChart(this.currentStartHour, this.currentEndHour)
-      this.updateLineChartReferences()
       this.updatePlusMinusButtons()
     },
     updatePlusMinusButtons () {
@@ -410,9 +405,17 @@ export default {
       // sends the data to the server and goes back to Home
     }
   },
-  mounted () {
+  async mounted () {
     this.createActivityLineChart()
-    this.downloadData()
+    await this.downloadData()
+  },
+  async beforeDestroy () {
+    try {
+      await miband3.disconnect()
+    } catch (err) {
+      // doesn't matter if it fails here, but let's print out a message on console
+      console.error('cannot disconnect miband3', err)
+    }
   }
 }
 </script>
