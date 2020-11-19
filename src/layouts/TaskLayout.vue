@@ -5,13 +5,19 @@
       elevated
       class="bg-primary text-white"
     >
-      <q-toolbar id="tasker">
+      <q-toolbar>
+        <q-avatar>
+          <q-icon
+            color="white"
+            :name="this.$route.params.icon"
+          />
+        </q-avatar>
+        <q-toolbar-title>{{ this.$route.params.title }}</q-toolbar-title>
         <q-btn
           flat
           dense
           @click="confirm = true"
           icon-right="clear"
-          :label="$t('layouts.close')"
         />
       </q-toolbar>
     </q-header>
@@ -52,7 +58,7 @@
         leave-active-class="fadeOut"
         mode="out-in"
       >
-        <router-view @updateTransition="update"/>
+        <router-view @updateTransition="update" />
       </transition>
     </q-page-container>
   </q-layout>
@@ -81,14 +87,9 @@ export default {
 </script>
 
 <style>
-#tasker {
-  justify-content: flex-end;
-}
-.q-toolbar__title {
-  flex: none;
-}
-.q-avatar {
-  margin: 0px 0px 5px 5px;
+.text-h6,
+.text-h5 {
+  margin-top: 20px;
 }
 .block {
   margin-top: 2px;

@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div v-if="introduction">
-      <div class="text-center text-h6">
+      <div class="text-center text-h5">
         {{introduction.title[$i18n.locale]}}
       </div>
       <div class="text-center text-body1 q-mt-lg">
@@ -22,57 +22,60 @@
         leave-active-class="fadeOut"
         mode="out-in"
       >
-      <div v-show="slideName != ''" key="">
-        <div class="text-center text-subtitle1">
-          <div v-html="currentQuestion.text[$i18n.locale]"></div>
-        </div>
         <div
-          v-if="currentQuestion.helper"
-          class="text-center text-subtitle2 q-mb-md"
+          v-show="slideName != ''"
+          key=""
         >
-          <div v-html="currentQuestion.helper[$i18n.locale]"></div>
-        </div>
+          <div class="text-center text-subtitle1">
+            <div v-html="currentQuestion.text[$i18n.locale]"></div>
+          </div>
+          <div
+            v-if="currentQuestion.helper"
+            class="text-center text-subtitle2 q-mb-md"
+          >
+            <div v-html="currentQuestion.helper[$i18n.locale]"></div>
+          </div>
 
-        <q-input
-          v-show="currentQuestion.type === 'freetext'"
-          v-model="freetextAnswer"
-          type="textarea"
-          :label="$t('studies.tasks.form.freeTextExplanation')"
-          rows="3"
-          outlined
-        />
+          <q-input
+            v-show="currentQuestion.type === 'freetext'"
+            v-model="freetextAnswer"
+            type="textarea"
+            :label="$t('studies.tasks.form.freeTextExplanation')"
+            rows="3"
+            outlined
+          />
 
-        <div
-          v-show="currentQuestion.type === 'singleChoice'"
-          v-for="(answerChoice, index) in currentQuestion.answerChoices"
-          :key="'sc' + index"
-        >
-          <q-radio
-            v-model="singleChoiceAnswer"
-            :val="answerChoice.id"
-            :label="answerChoice.text[$i18n.locale]"
-          />
-        </div>
-        <div
-          v-show="currentQuestion.type === 'multiChoice'"
-          v-for="(answerChoice, index) in currentQuestion.answerChoices"
-          :key="'mc' + index"
-        >
-          <q-checkbox
-            v-model="multiChoiceAnswer"
-            :val="answerChoice.id"
-            :label="answerChoice.text[$i18n.locale]"
-          />
-        </div>
-        <div
-          v-show="currentQuestion.type === 'textOnly'"
-          class="text-subtitle1 q-mb-md"
-        >
-          <div v-if="currentQuestion.type === 'textOnly'">
-            <div v-html="currentQuestion.html[$i18n.locale]"></div>
+          <div
+            v-show="currentQuestion.type === 'singleChoice'"
+            v-for="(answerChoice, index) in currentQuestion.answerChoices"
+            :key="'sc' + index"
+          >
+            <q-radio
+              v-model="singleChoiceAnswer"
+              :val="answerChoice.id"
+              :label="answerChoice.text[$i18n.locale]"
+            />
+          </div>
+          <div
+            v-show="currentQuestion.type === 'multiChoice'"
+            v-for="(answerChoice, index) in currentQuestion.answerChoices"
+            :key="'mc' + index"
+          >
+            <q-checkbox
+              v-model="multiChoiceAnswer"
+              :val="answerChoice.id"
+              :label="answerChoice.text[$i18n.locale]"
+            />
+          </div>
+          <div
+            v-show="currentQuestion.type === 'textOnly'"
+            class="text-subtitle1 q-mb-md"
+          >
+            <div v-if="currentQuestion.type === 'textOnly'">
+              <div v-html="currentQuestion.html[$i18n.locale]"></div>
+            </div>
           </div>
         </div>
-      </div>
       </transition>
       <div class="row justify-around q-ma-lg">
         <q-btn
@@ -122,6 +125,7 @@ import userinfo from 'modules/userinfo'
 export default {
   name: 'FormPage',
   props: {
+    title: String,
     icon: String,
     studyKey: String,
     taskId: Number,
@@ -309,7 +313,9 @@ export default {
 </script>
 
 <style scoped>
-.slideInLeft, .slideInRight, .fadeInDown {
+.slideInLeft,
+.slideInRight,
+.fadeInDown {
   animation-duration: 600ms;
 }
 </style>

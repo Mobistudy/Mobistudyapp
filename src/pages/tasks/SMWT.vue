@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="text-center text-h6 q-mt-lg">
+    <div class="text-center text-h5 q-mt-lg">
       {{ $t('studies.tasks.smwt.title') }}
     </div>
     <div
@@ -49,6 +49,8 @@ const SIGNAL_CHECK_TIMEOUT = 60000
 export default {
   name: 'SMWTPage',
   props: {
+    title: String,
+    icon: String,
     studyKey: String,
     taskId: Number
   },
@@ -170,6 +172,8 @@ export default {
       this.distance = distanceAlgo.getDistance()
 
       // package the 6mwt report
+      const title = this.title
+      const icon = this.icon
       const studyKey = this.studyKey
       const taskId = parseInt(this.taskId)
       const userKey = userinfo.user._key
@@ -186,7 +190,7 @@ export default {
         borgScale: undefined
       }
 
-      this.$router.push({ name: 'smwtSummary', params: { report: report } })
+      this.$router.push({ name: 'smwtSummary', params: { title: title, icon: icon, report: report } })
       this.$emit('updateTransition', 'slideInRight')
     }
   },
