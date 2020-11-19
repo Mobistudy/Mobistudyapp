@@ -102,6 +102,17 @@ export default {
         }
       } catch (err) {
         console.error('Search error', err)
+        this.$q.dialog({
+          title: this.$t('errors.error'),
+          message: this.$t('studies.tasks.miband3.searchFailed'),
+          cancel: this.$t('common.cancel'),
+          ok: this.$t('common.retry'),
+          persistent: true
+        }).onOk(data => {
+          this.search()
+        }).onCancel(() => {
+          this.abandon()
+        })
       }
       this.showSearching = false
     },
