@@ -77,6 +77,9 @@
           </div>
         </div>
       </transition>
+    <div class="row justify-center">
+    <q-chip :label="$t('common.clear')" removable @remove="singleChoiceAnswer=null" color="white" text-color="red"  />
+    </div>
       <div class="row justify-around q-ma-lg">
         <q-btn
           v-show="!isFirstQuestion"
@@ -86,10 +89,19 @@
           :label="$t('common.back')"
         />
         <q-btn
+          v-show="isAnswered"
           icon-right="arrow_forward"
           color="primary"
           @click="next()"
           :label="$t('common.next')"
+        />
+      <q-btn
+          v-model="singleChoiceAnswer"
+          v-show="!isAnswered"
+          icon-right="arrow_forward"
+          color="warning"
+          @click="next()"
+          :label="$t('common.skip')"
         />
       </div>
       <div
@@ -184,6 +196,12 @@ export default {
       if (this.introduction) return false
       if (this.currentQuestion.id === this.formDescr.questions[0].id) return true
       return false
+    },
+    isAnswered () {
+      return (this.currentQuestion.type === 'singleChoice' && this.singleChoiceAnswer) ||
+             (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
+             (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
+             (this.currentQuestion.type === 'textOnly')
     }
   },
   methods: {
