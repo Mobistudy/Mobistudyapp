@@ -30,6 +30,7 @@ let en = {
     start: 'Start',
     complete: 'Complete',
     send: 'Send',
+    skip: 'Skip',
     back: 'Back',
     introduction: 'Introduction',
     instructions: 'Instructions'

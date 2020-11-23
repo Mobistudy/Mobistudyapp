@@ -1,4 +1,4 @@
-'usee strict'
+'use strict'
 
 export default {
   studies: {
