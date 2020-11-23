@@ -73,7 +73,9 @@ export default {
       this.main = this.$i18n.t('studies.tasks.qcst.shortDescription')
       this.icon = 'layers'
     } else if (this.task.type === 'miband3') {
-      // TODO: add icon and text
+      this.title = this.$i18n.t('studies.tasks.miband3.shortTitle')
+      this.main = this.$i18n.t('studies.tasks.miband3.shortDescription')
+      this.icon = 'watch'
     }
   },
   computed: {
