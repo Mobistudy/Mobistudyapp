@@ -6,6 +6,5 @@ module.exports = {
   NOTIFICATIONS: 'WEB', // use 'WEB' for browser notifications or 'cordova' for the cordova plugin
   STORAGE: 'local', // use 'local' for browser localStorage or 'native' for cordova native storage
   PHONE: 'MOCK', // use 'MOCK' for mocked phone functionalities or 'cordova' otherwise
-  MIBAND3: 'MOCK', // use 'MOCK' for mocked tracker or 'driver' otherwise
-  MAPS_API: 'XXXXXXXXXX' // Google Maps API key
+  MIBAND3: 'MOCK' // use 'MOCK' for mocked tracker or 'driver' otherwise
 }
