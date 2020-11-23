@@ -69,9 +69,6 @@ export default {
     // user, language = EN, dateFormat = 'DD/MM/YYYY, hrFreq, wearLocation=LEFT
     // displayOnlift = not [22:00 - 8:00], nightMode = [22:00 - 8:00],
     // screens = [home, HR, status], HRsleep support = YES, timeFormat = 24G
-    // after this notifications are unregistered from the config channels, always resolves if registered to a notification (write without response)
-    // because write with response gives an immediate response instead of notifying using another characteristic
-    // TODO
 
     // Default settings
     await miband3Driver.setLanguage('EN_en')
@@ -99,7 +96,7 @@ export default {
     await miband3Driver.setHeartRateMeasurementInterval(hrFreq)
     // make sure thee DOB is a date
     let DOB = new Date(user.dateOfBirth)
-    return miband3Driver.setUser( // TODO: Does currently not resolve, need to return the resolve in all the functions above as well!
+    await miband3Driver.setUser( // TODO: Does currently not resolve, need to return the resolve in all the functions above as well!
       user.height,
       user.weight,
       DOB.getFullYear(),
@@ -107,6 +104,10 @@ export default {
       DOB.getDate(),
       user.sex === 'female' // false for male
     )
+
+    // after this notifications are unregistered from the config channels, always resolves if registered to a notification (write without response)
+    // because write with response gives an immediate response instead of notifying using another characteristic
+    miband3Driver.stopAllNotifications()
   },
 
   /**
@@ -144,13 +145,7 @@ export default {
    * @param {Function} cbk called at every sample of data retrieved
    */
   async getStoredData (startDate, cbk) {
-    function interfaceCallback (data) { // Filters the noisy heart rate values, eg 0 and 255.
-      if (data.hr === 0 || data.hr === 255) {
-        data.hr = Number.NaN
-      }
-      cbk(data)
-    }
-    return miband3Driver.fetchStoredData(startDate, interfaceCallback)
+    return miband3Driver.fetchStoredData(startDate, cbk)
   },
 
   /**
@@ -158,18 +153,13 @@ export default {
    * @param {function} callback retrieves the heart rate, as a single number
    */
   async startLiveHR (callback) {
-    // TODO
-    function continousHRCallback (data) {
-      callback(data)
-    }
-    return miband3Driver.startHRContinuousMonitoring(continousHRCallback)
+    return miband3Driver.startHRContinuousMonitoring(callback)
   },
 
   /**
    * Stops streaming heart rate
    */
   async stopLiveHR () {
-    // TODO
     return miband3Driver.stopHRMonitoring()
   }
 }
