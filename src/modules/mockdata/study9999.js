@@ -171,6 +171,12 @@ export default {
           en: 'I agree to perform a Queen\'s College Step Test once a week.'
         },
         taskId: 4
+      },
+      {
+        description: {
+          en: 'I agree to upload my data to mobistudy once a week.'
+        },
+        taskId: 5
       }
     ]
   }

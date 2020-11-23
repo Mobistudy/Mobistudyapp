@@ -42,6 +42,11 @@ export default {
     let studies = await storage.getItem('studiesParticipation')
     return studies.find(sp => sp.studyKey === studyKey)
   },
+  async getStudyParticipationTaskItemConsent (studyKey) {
+    let studyParticipation = await this.getStudyParticipation(studyKey)
+    console.log('Study', studyParticipation)
+    return (studyParticipation.taskItemsConsent)
+  },
   async setStudyParticipation (studyPart) {
     let studies = await storage.getItem('studiesParticipation')
     let studyIndex = studies.findIndex(sp => sp.studyKey === studyPart.studyKey)
@@ -94,10 +99,15 @@ export default {
   },
 
   /* MIBAND3 */
-  async setMiBand3 (device) {
-    return storage.setItem('miband3', device)
+  async setDeviceMiBand3 (device) {
+    return storage.setItem('miband3', JSON.stringify(device))
   },
-  async removeMiBand3 () {
+  async getDeviceMiBand3 () {
+    let device = await storage.getItem('miband3')
+    if (!device) return null
+    return JSON.parse(device)
+  },
+  async removeDeviceMiBand3 () {
     return storage.removeItem('miband3')
   }
 }

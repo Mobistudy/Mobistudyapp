@@ -3,6 +3,7 @@
 import { mergeDeep } from 'modules/tools'
 import smwtTask from './tasks/smwt'
 import qcstTask from './tasks/qcst'
+import miband3Task from './tasks/miband3/miband3'
 
 let studies = {
   studies: {
@@ -85,5 +86,6 @@ let studies = {
 
 studies = mergeDeep(studies, smwtTask)
 studies = mergeDeep(studies, qcstTask)
+studies = mergeDeep(studies, miband3Task)
 
 export default studies
