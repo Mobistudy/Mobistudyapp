@@ -820,12 +820,13 @@ var Miband3 = {
     this.setHeartRateMeasurementInterval(256) // Once every 24 hrs
   },
 
-  /** Assume all parameter values are strings
-   * @param alias: The alias should most likely correspond to a 32 bit UUID
-   * @param height: Should be divided up in two bytes (in case someone is taller than 255cm xD)
-   * @param weight: Is multiplied by 200 and divided up into two bytes (why 200?)
-   * @param birthYear: Divided up into two bytes
-   * @param sex: 0x00 for Male and 0x01 for Female
+  /** Sets the user profile
+   * @param height: height in cm
+   * @param weight: weight in kg
+   * @param birthYear: DOB year
+   * @param birthMonth: DOB month
+   * @param birthDay: DOB day
+   * @param sex: false for male
    **/
   setUser: async function (
     height, // number
@@ -833,7 +834,7 @@ var Miband3 = {
     birthYear, // number
     birthMonth, // number
     birthDay, // number
-    sex // boolean
+    sex // boolean, false for male
   ) {
     let heightString = this.paddHexToBytes(
       this.createByteStringFromInt(height),

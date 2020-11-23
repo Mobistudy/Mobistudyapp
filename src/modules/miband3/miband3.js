@@ -61,7 +61,7 @@ export default {
 
   /**
    * Configures a Miband3
-   * @param {Object} user a user configuration like { height: 180, weight: 80, dobYear: 1978, dobMonth: 12, dob: 3, sex: 'male' }
+   * @param {Object} user a user configuration like { height: 180, weight: 80, dateOfBirth: '1974-11-21', sex: 'male', language: 'en' }
    * @param {number} hrFreq how often HR is measured in minutes
    */
   async configure (user, hrFreq) {
@@ -76,29 +76,36 @@ export default {
     // Default settings
     await miband3Driver.setLanguage('EN_en')
     await miband3Driver.setDateFormat(true)
-    await miband3Driver.setHeartRateMeasurementInterval(1)
     await miband3Driver.setDistanceType(false)
     await miband3Driver.setTimeFormat('24h')
 
     // Setting night mode between 22:00 and 8:00
     let dateStartHour = new Date()
     dateStartHour.setHours(22)
+    dateStartHour.setMinutes(0)
+    let dateEndHour = new Date()
     dateEndHour.setHours(8)
+    dateEndHour.setMinutes(0)
     await miband3Driver.setNightMode(dateStartHour, dateEndHour)
+    await miband3Driver.setHRSleepSupport(true)
+
+    // setting screen pages
     let screens = ['activity', 'heartRate', 'status']
     await miband3Driver.setupScreens(screens)
-    await miband3Driver.setHRSleepSupport(true)
     // Maybe we need to expose the HR functionality to a third party?, i'm guessing this may be the case.
+    // Dario: NO, do not expose.
 
     // User supplied settings
     await miband3Driver.setHeartRateMeasurementInterval(hrFreq)
+    // make sure thee DOB is a date
+    let DOB = new Date(user.dateOfBirth)
     return miband3Driver.setUser( // TODO: Does currently not resolve, need to return the resolve in all the functions above as well!
       user.height,
       user.weight,
-      user.birthYear,
-      user.birthMonth,
-      user.birthDay,
-      user.sex // currently true or false
+      DOB.getFullYear(),
+      DOB.getMonth() + 1,
+      DOB.getDate(),
+      user.sex === 'female' // false for male
     )
   },
 
