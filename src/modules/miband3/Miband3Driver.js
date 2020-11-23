@@ -348,6 +348,7 @@ var Miband3 = {
     await this.setupScreens(screens) // Hmm?? Should show one page (clock page) but doesn't...
     // await this.activateDisplayOnWristLift(); // UX friendly if activated
     // await this.setupDisplayCaller(); // UX friendly if activated
+    return this.setCurrentTimeStatus() // Sets the miband time to the current time shown on the app (assumed to the time of the user)
   },
 
   // TODO: use this when you actually need it, and resolve the promise according to the message you get
@@ -832,8 +833,7 @@ var Miband3 = {
     birthYear, // number
     birthMonth, // number
     birthDay, // number
-    sex, // boolean
-    alias // 32bit UUID
+    sex // boolean
   ) {
     let heightString = this.paddHexToBytes(
       this.createByteStringFromInt(height),
@@ -846,7 +846,7 @@ var Miband3 = {
       this.createByteStringFromInt(weight * 200),
       4
     )
-    let weight1 = weightString.substring(2, 4)
+    let weight1 = weightString.substring(2, 4) // Same, little or big endian?
     let weight2 = weightString.substring(0, 2)
 
     let birthYearString = this.createByteStringFromInt(birthYear)
@@ -857,10 +857,11 @@ var Miband3 = {
 
     let sex1 = sex ? '01' : '00' // 01 if true/female, 00 if false/male
 
-    let alias1 = alias.substring(6, 8)
-    let alias2 = alias.substring(4, 6)
-    let alias3 = alias.substring(2, 4)
-    let alias4 = alias.substring(0, 2)
+    // Random hex values, easter egg.
+    let alias1 = '44'
+    let alias2 = '41'
+    let alias3 = '44'
+    let alias4 = '53'
 
     let packet = this.hexStringToHexBuffer(
       this.messages.setup.sendUserInfo +
@@ -921,9 +922,9 @@ var Miband3 = {
    */
   fetchStoredData: async function (startDate, dataCallback) {
     console.log('Fetching stored data at start date:', startDate)
-    // let actualStartDate // actual start date as communicated by the watch
+    let actualStartDate // actual start date as communicated by the watch
     let sampleCounter = 0
-
+    let totalSamples = 0
     // register to storage control
     this.registerNotification(
       this.mibandCustomService0,
@@ -944,10 +945,11 @@ var Miband3 = {
           let dataHex = Buffer.from(responseData).toString('hex')
           if (dataHex.substring(0, 6) === '100101') {
             console.log('Starting fetch activity')
-            let actualStartDate = this.createDateFromHexString(
+            actualStartDate = this.createDateFromHexString(
               dataHex.substring(14, 26)
             )
             console.log(actualStartDate)
+            totalSamples = this.getTotalSamplesFromBuffer(Buffer.from(responseData))
             sampleCounter = 0
             // here we know we should receive data, so we register for the characteristic
             this.registerNotification(
@@ -982,11 +984,15 @@ var Miband3 = {
           }
           if (dataHex === '100201') {
             // Fetch completed
-            resolve()
+            let fifteenMinutes = 15 * 60 * 1000
+            let nextStartDate = new Date(actualStartDate.getTime() + totalSamples * 1000 * 60 + fifteenMinutes)
+            console.log('Next start date:', nextStartDate, 'Prev start date:', actualStartDate)
+            actualStartDate = nextStartDate
+            this.sendStartDateAndActivity(nextStartDate, 1)
           }
           if (dataHex === '100204') {
             // No data was found, can be triggered if a data was already sent recently
-            reject()
+            resolve()
           }
           // TODO: if a date is not accepted and watch returns NACK then reject
         },
@@ -995,6 +1001,12 @@ var Miband3 = {
 
       this.sendStartDateAndActivity(startDate, 1).catch(reject)
     })
+  },
+
+  getTotalSamplesFromBuffer (buffer) {
+    let totalSamples = (buffer[6] << 24) | (buffer[5] << 16) | (buffer[4] << 8) | (buffer[3])
+    console.log('TS Binary:', totalSamples.toString(2))
+    return totalSamples
   },
 
   /**
@@ -1426,6 +1438,11 @@ var Miband3 = {
       min = dataBuffer[5],
       sec = dataBuffer[6]
     return new Date(year, mon, day, hrs, min, sec).toLocaleString()
+  },
+
+  setCurrentTimeStatus: async function () {
+    let currentDate = new Date()
+    return this.setTimeStatus(currentDate)
   },
 
   setTimeStatus: async function (date) {

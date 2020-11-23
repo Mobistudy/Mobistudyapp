@@ -74,8 +74,37 @@ export default {
     // user, language = EN, dateFormat = 'DD/MM/YYYY, hrFreq, wearLocation=LEFT
     // displayOnlift = not [22:00 - 8:00], nightMode = [22:00 - 8:00],
     // screens = [home, HR, status], HRsleep support = YES, timeFormat = 24G
-    // after this notifications are unregistered from the config channels
+    // after this notifications are unregistered from the config channels, always resolves if registered to a notification (write without response)
+    // because write with response gives an immediate response instead of notifying using another characteristic
     // TODO
+
+    // Default settings
+    await miband3Driver.setLanguage('EN_en')
+    await miband3Driver.setDateFormat(true)
+    await miband3Driver.setHeartRateMeasurementInterval(1)
+    await miband3Driver.setDistanceType(false)
+    await miband3Driver.setTimeFormat('24h')
+
+    // Setting night mode between 22:00 and 8:00
+    let dateStartHour = new Date()
+    dateStartHour.setHours(22)
+    dateEndHour.setHours(8)
+    await miband3Driver.setNightMode(dateStartHour, dateEndHour)
+    let screens = ['activity', 'heartRate', 'status']
+    await miband3Driver.setupScreens(screens)
+    await miband3Driver.setHRSleepSupport(true)
+    // Maybe we need to expose the HR functionality to a third party?, i'm guessing this may be the case.
+
+    // User supplied settings
+    await miband3Driver.setHeartRateMeasurementInterval(hrFreq)
+    return miband3Driver.setUser( // TODO: Does currently not resolve, need to return the resolve in all the functions above as well!
+      user.height,
+      user.weight,
+      user.birthYear,
+      user.birthMonth,
+      user.birthDay,
+      user.sex // currently true or false
+    )
   },
 
   /**
@@ -87,11 +116,23 @@ export default {
     // {
     //   id: 'AAAA',
     //   battery: 80,
-    //   charging: false,
+    //   charging: false, why do we need this?
     //   swVersion: '11',
     //   hwVersion: '3',
     //   serialNumebr: 'asdasd'
     // }
+    let time = await miband3Driver.getTimeStatus()
+    let battery = await miband3Driver.getBatteryStatus()
+    let hardware = await miband3Driver.getHardwareInfo()
+    let software = await miband3Driver.getSoftwareInfo()
+    // let serialNr = await miband3.getSerialNumber()
+    // let charging = await miband3.getCharging()
+    return {
+      id: miband3Driver.id,
+      battery: battery,
+      hwVersion: hardware,
+      swVersion: software
+    }
   },
 
   /**
@@ -116,6 +157,10 @@ export default {
    */
   async startLiveHR (callback) {
     // TODO
+    function continousHRCallback (data) {
+      callback(data)
+    }
+    return miband3Driver.startHRContinuousMonitoring(continousHRCallback)
   },
 
   /**
@@ -123,5 +168,6 @@ export default {
    */
   async stopLiveHR () {
     // TODO
+    return miband3Driver.stopHRMonitoring()
   }
 }
