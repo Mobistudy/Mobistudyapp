@@ -32,7 +32,7 @@
         <q-card-section>
           <div class="row no-wrap items-center">
             <div class="col text-h6 ellipsis">
-              Tap the device on your wrist
+              {{ $t('studies.tasks.miband3.tap')}}
             </div>
           </div>
         </q-card-section>
