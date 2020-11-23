@@ -1437,7 +1437,7 @@ var Miband3 = {
       hrs = dataBuffer[4],
       min = dataBuffer[5],
       sec = dataBuffer[6]
-    return new Date(year, mon, day, hrs, min, sec).toLocaleString()
+    return new Date(year, mon, day, hrs, min, sec)
   },
 
   setCurrentTimeStatus: async function () {

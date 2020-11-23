@@ -126,7 +126,8 @@ export default {
       id: miband3Driver.id,
       battery: battery,
       hwVersion: hardware,
-      swVersion: software
+      swVersion: software,
+      clock: time
     }
   },
 
