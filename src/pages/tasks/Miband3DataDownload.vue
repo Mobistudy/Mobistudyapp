@@ -275,7 +275,10 @@ export default {
     },
 
     addToLineChart (hr, intensity, steps, date) {
-      lineChart.hrs.push({ x: date, y: hr })
+      if (hr > 30 && hr < 210) {
+        // filter out unreasonable HR
+        lineChart.hrs.push({ x: date, y: hr })
+      }
       lineChart.intensities.push({ x: date, y: intensity })
       lineChart.steps.push({ x: date, y: steps })
       lineChart.labels.push(date)
