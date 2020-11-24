@@ -165,7 +165,6 @@ export default {
         }
         this.createPieChart()
         this.renderLineChart(this.currentStartHour, this.currentEndHour)
-
         this.isDownloading = false
       } catch (err) {
         console.error('cannot download data', err)
@@ -236,6 +235,7 @@ export default {
         this.addToLineChart(data.hr, data.intensity, data.steps, data.date)
       }
       this.updateLineChartReferences()
+      this.updatePlusMinusButtons() // Could be placed somewhere else but is needed at start in case data size < 12 hours worth
     },
 
     async getLastCompletedTaskMoment (studyKey, taskID) {
@@ -400,7 +400,7 @@ export default {
       } else {
         this.disableMinus = false
       }
-      if (this.currentEndHour === (storedData.length / 60)) {
+      if (this.currentEndHour >= (storedData.length / 60)) {
         this.disablePlus = true
       } else {
         this.disablePlus = false

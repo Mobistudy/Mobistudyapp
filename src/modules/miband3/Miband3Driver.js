@@ -994,7 +994,8 @@ var Miband3 = {
               actualStartDate = nextStartDate
               this.sendStartDateAndActivity(nextStartDate, 1)
             } else {
-              resolve() // Data was received that was close enough to the current time. Not sure how else to solve the looping issue.
+              resolve() // Data was received that was close enough to the current time, and hence we will not ask for more packets. Not sure how else to this issue.
+              // If the above if statement is not implemented then the we keep a preamble packet with the same date and will continue to ask for that packet indefinitely.
             }
           }
           if (dataHex === '100204') {
