@@ -8,6 +8,7 @@ export default {
    * @param {Number} timeout max number of milliseconds to search for a Miband3
    */
   async search (searchTime) {
+    // TODO
     return new Promise((resolve, reject) => {
       let devices = []
       window.ble.startScan([], (device) => {
@@ -26,6 +27,7 @@ export default {
    * @param {Function} disconnectCallback called if the device is disconnected
    */
   async connect (device) {
+    // TODO
     // generate the key if not inside device
     if (!device.key) {
       let key = miband3Driver.generateKey()
@@ -41,6 +43,7 @@ export default {
    * Disconnects from the tracker
    */
   async disconnect () {
+    // TODO
     return miband3Driver.disconnect()
   },
 
@@ -48,6 +51,7 @@ export default {
    * Returns true if connected to a Miband3
    */
   async isConnected () {
+    // TODO
     return miband3Driver.isConnected()
   },
 
@@ -56,6 +60,7 @@ export default {
    * @param {boolean} full if true the full authentication is performed
    */
   async authenticate (full) {
+    // TODO
     return miband3Driver.authenticate(full)
   },
 
@@ -69,6 +74,7 @@ export default {
     // user, language = EN, dateFormat = 'DD/MM/YYYY, hrFreq, wearLocation=LEFT
     // displayOnlift = not [22:00 - 8:00], nightMode = [22:00 - 8:00],
     // screens = [home, HR, status], HRsleep support = YES, timeFormat = 24G
+    // TODO
 
     // Default settings
     await miband3Driver.setLanguage('EN_en')
@@ -128,15 +134,14 @@ export default {
     let battery = await miband3Driver.getBatteryStatus()
     let hardware = await miband3Driver.getHardwareInfo()
     let software = await miband3Driver.getSoftwareInfo()
-    // let serialNr = await miband3.getSerialNumber()
-    // let charging = await miband3.getCharging()
-    return {
+    // let serialNr = await miband3.getSerialNumber() needs to be implemented
+    // let charging = await miband3.getCharging() do we need this? for what? if yes the needs to be implemented
+    return Promise.resolve({
       id: miband3Driver.id,
       battery: battery,
       hwVersion: hardware,
-      swVersion: software,
-      clock: time
-    }
+      swVersion: software
+    })
   },
 
   /**
@@ -145,7 +150,14 @@ export default {
    * @param {Function} cbk called at every sample of data retrieved
    */
   async getStoredData (startDate, cbk) {
-    return miband3Driver.fetchStoredData(startDate, cbk)
+    // TODO
+    function interfaceCallback (data) { // Filters the noisy heart rate values, eg 0 and 255.
+      if (data.hr === 0 || data.hr === 255) {
+        data.hr = Number.NaN
+      }
+      cbk(data)
+    }
+    return miband3Driver.fetchStoredData(startDate, interfaceCallback)
   },
 
   /**
