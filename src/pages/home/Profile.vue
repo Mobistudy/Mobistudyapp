@@ -116,6 +116,8 @@ export default {
           country: this.profile.country,
           language: this.profile.language,
           sex: this.profile.sex,
+          weight: this.profile.weight,
+          height: this.profile.height,
           diseases: this.profile.diseases,
           medications: this.profile.medications,
           lifestyle: this.profile.lifestyle
