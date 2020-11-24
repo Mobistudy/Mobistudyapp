@@ -127,6 +127,7 @@
     :error="$v.value.weight.$error"
     :error-message="$t('accountMgmt.profile.weightError')"
     @input="update()"
+    type='number'
     >
     <template v-slot:before>
       <q-icon name="assignment_late"/> <!-- placeholder icon -->
@@ -141,6 +142,7 @@
     :error="$v.value.height.$error"
     :error-message="$t('accountMgmt.profile.heightError')"
     @input="update()"
+    type='number'
     >
       <template v-slot:before>
         <q-icon name="accessibility"/> <!-- placeholder icon -->
@@ -223,7 +225,7 @@
 </template>
 
 <script>
-import { required, minValue } from 'vuelidate/lib/validators'
+import { required, minValue, maxValue, numeric } from 'vuelidate/lib/validators'
 import API from 'modules/API'
 import { date } from 'quasar'
 
@@ -288,11 +290,15 @@ export default {
       },
       weight: {
         required,
-        minValue: minValue(0)
+        numeric,
+        minValue: minValue(30),
+        maxValue: maxValue(160)
       },
       height: {
         required,
-        minValue: minValue(0)
+        numeric,
+        minValue: minValue(50),
+        maxValue: maxValue(250)
       },
       language: {
         required
