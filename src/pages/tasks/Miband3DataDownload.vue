@@ -173,10 +173,12 @@ export default {
       }
     },
     async storeDownloadTimestamp () {
-      let newestSampleTimeStamp = storedData[storedData.length - 1].date
-      let device = await db.getDeviceMiBand3()
-      device.lastStoredDataDate = newestSampleTimeStamp
-      return db.setDeviceMiBand3(device)
+      if (storedData.length > 0) {
+        let newestSampleTimeStamp = storedData[storedData.length - 1].date
+        let device = await db.getDeviceMiBand3()
+        device.lastStoredDataDate = newestSampleTimeStamp
+        return db.setDeviceMiBand3(device)
+      }
     },
     /**
      * A function which retreives the latest date the data was downloaded
@@ -208,6 +210,10 @@ export default {
       } else {
         let device = await db.getDeviceMiBand3()
         startDate = new Date(device.lastStoredDataDate)
+      }
+      // Testing purposes
+      if (startDate !== undefined) {
+        startDate = new Date(1970)
       }
       console.log('Start date:', startDate)
       return startDate

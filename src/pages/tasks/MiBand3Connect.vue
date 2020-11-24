@@ -123,8 +123,20 @@ export default {
       try {
         await miband3.connect(device)
         // Authenticate after connect.
-        if (!device.authenticated) this.tapToAuthDialog = true // Add flag to indicate if its the first authentication.
+        if (!device.authenticated) this.tapToAuthDialog = true // TODO: Add flag to indicate if its the first authentication.
         await miband3.authenticate(device.authenticated)
+        // TODO: Uses a dummy user as well as dummy hrFreq for testing...
+        if (!device.configured) {
+          let user = {
+            dateOfBirth: new Date(1994, 5, 4, 0, 0, 0, 0),
+            height: 183,
+            weight: 73,
+            sex: 'male'
+          }
+          let hrFreq = 1
+          await miband3.configure(user, hrFreq)
+          device.configured = true
+        }
 
         this.tapToAuthDialog = false
         this.showConnecting = false

@@ -81,6 +81,8 @@ export default {
     await miband3Driver.setDateFormat(true)
     await miband3Driver.setDistanceType(false)
     await miband3Driver.setTimeFormat('24h')
+    // Synch phone time with miband watch time
+    await miband3Driver.setCurrentTimeStatus()
 
     // Setting night mode between 22:00 and 8:00
     let dateStartHour = new Date()
@@ -102,7 +104,7 @@ export default {
     await miband3Driver.setHeartRateMeasurementInterval(hrFreq)
     // make sure thee DOB is a date
     let DOB = new Date(user.dateOfBirth)
-    await miband3Driver.setUser( // TODO: Does currently not resolve, need to return the resolve in all the functions above as well!
+    await miband3Driver.setUser(
       user.height,
       user.weight,
       DOB.getFullYear(),
@@ -110,10 +112,7 @@ export default {
       DOB.getDate(),
       user.sex === 'female' // false for male
     )
-
-    // after this notifications are unregistered from the config channels, always resolves if registered to a notification (write without response)
-    // because write with response gives an immediate response instead of notifying using another characteristic
-    miband3Driver.stopAllNotifications()
+    miband3Driver.stopAllNotifications() // In practice only stops the authentication notifications, and maybe if something else is missed.
   },
 
   /**
@@ -140,7 +139,8 @@ export default {
       id: miband3Driver.id,
       battery: battery,
       hwVersion: hardware,
-      swVersion: software
+      swVersion: software,
+      clock: time
     })
   },
 

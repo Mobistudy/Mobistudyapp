@@ -986,10 +986,16 @@ var Miband3 = {
           if (dataHex === '100201') {
             // Fetch completed
             let fifteenMinutes = 15 * 60 * 1000
-            let nextStartDate = new Date(actualStartDate.getTime() + totalSamples * 1000 * 60 + fifteenMinutes)
-            console.log('Next start date:', nextStartDate, 'Prev start date:', actualStartDate)
-            actualStartDate = nextStartDate
-            this.sendStartDateAndActivity(nextStartDate, 1)
+            let lastDateReceived = new Date(actualStartDate.getTime() + totalSamples * 1000 * 60)
+            let currentDate = new Date()
+            if (this.differenceInMinutes(lastDateReceived, currentDate) > 15) {
+              let nextStartDate = new Date(lastDateReceived.getTime() + fifteenMinutes)
+              console.log('Next start date:', nextStartDate, 'Prev start date:', actualStartDate)
+              actualStartDate = nextStartDate
+              this.sendStartDateAndActivity(nextStartDate, 1)
+            } else {
+              resolve() // Data was received that was close enough to the current time. Not sure how else to solve the looping issue.
+            }
           }
           if (dataHex === '100204') {
             // No data was found, can be triggered if a data was already sent recently
@@ -1034,6 +1040,12 @@ var Miband3 = {
       sampleObjectArray.push(sample)
     }
     return sampleObjectArray
+  },
+
+  differenceInMinutes (date1, date2) {
+    let diff = (date2.getTime() - date1.getTime()) / 1000
+    diff /= 60
+    return Math.abs(Math.round(diff))
   },
 
   createDateFromHexString: function (hexString) {
