@@ -7,6 +7,8 @@ export default {
   language: 'en',
   sex: 'male',
   dateOfBirth: '1970-11-10',
+  height: 172,
+  weight: 67,
   diseases: [
     {
       term: 'COPD',
