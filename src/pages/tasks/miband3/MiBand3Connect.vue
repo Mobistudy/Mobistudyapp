@@ -59,6 +59,7 @@
 <script>
 import miband3 from 'modules/miband3/miband3'
 import db from 'modules/db.js'
+import userinfo from 'modules/userinfo'
 
 export default {
   name: 'Miband3ConnectPage',
@@ -127,12 +128,14 @@ export default {
         await miband3.authenticate(device.authenticated)
         // TODO: Uses a dummy user as well as dummy hrFreq for testing...
         if (!device.configured) {
-          let user = {
-            dateOfBirth: new Date(1994, 5, 4, 0, 0, 0, 0),
-            height: 183,
-            weight: 73,
-            sex: 'male'
-          }
+          let user = userinfo.user
+          console.log('User retreived from DB:', user)
+          // let user = {
+          //   dateOfBirth: new Date(1994, 5, 4, 0, 0, 0, 0),
+          //   height: 183,
+          //   weight: 73,
+          //   sex: 'male'
+          // }
           let hrFreq = 1
           await miband3.configure(user, hrFreq)
           device.configured = true
@@ -175,7 +178,11 @@ export default {
     },
     // abandons the task
     abandon () {
-      miband3.disconnect()
+      try {
+        miband3.disconnect()
+      } catch (err) {
+        console.error('cannot disconnect miband3', err)
+      }
       this.$router.push({ name: 'tasker', params: { rescheduleTasks: true } })
     },
     moveToDownloadPage () {

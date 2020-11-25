@@ -8,15 +8,7 @@ export default {
     this.user = await DB.getUserSession()
     if (!this.user) {
       this.user = {
-        loggedin: false,
-        _key: undefined,
-        email: undefined,
-        token: undefined,
-        name: undefined,
-        surname: undefined,
-        gender: undefined,
-        dob: undefined,
-        language: undefined
+        loggedin: false
       }
     } else this.user.loggedin = true
   },
@@ -31,21 +23,15 @@ export default {
     this.user.name = profile.name
     this.user.surname = profile.surname
     this.user.dob = profile.dateOfBirth
-    this.user.gender = profile.gender
+    this.user.weight = profile.weight
+    this.user.height = profile.height
+    this.user.sex = profile.sex
     this.user.language = profile.language
     await DB.setUserSession(this.user)
   },
   logout () {
     this.user = {
-      loggedin: false,
-      _key: undefined,
-      email: undefined,
-      token: undefined,
-      name: undefined,
-      surname: undefined,
-      gender: undefined,
-      dob: undefined,
-      language: undefined
+      loggedin: false
     }
     DB.removeUserSession()
   }

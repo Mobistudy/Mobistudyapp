@@ -103,7 +103,7 @@ export default {
     // User supplied settings
     await miband3Driver.setHeartRateMeasurementInterval(hrFreq)
     // make sure thee DOB is a date
-    let DOB = new Date(user.dateOfBirth)
+    let DOB = new Date(user.dob)
     await miband3Driver.setUser(
       user.height,
       user.weight,
@@ -136,7 +136,7 @@ export default {
     // let serialNr = await miband3.getSerialNumber() needs to be implemented
     // let charging = await miband3.getCharging() do we need this? for what? if yes the needs to be implemented
     return Promise.resolve({
-      id: miband3Driver.id,
+      id: miband3Driver.deviceId,
       battery: battery,
       hwVersion: hardware,
       swVersion: software,
