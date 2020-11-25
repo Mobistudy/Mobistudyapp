@@ -10,15 +10,10 @@
       <q-item-label>{{ title }}</q-item-label>
       <q-item-label caption>{{ main }}</q-item-label>
     </q-item-section>
-    <q-item-section
-      side
-      top
-    >{{ timeRemaining }}</q-item-section>
   </q-item>
 </template>
 
 <script>
-import moment from 'moment'
 
 export default {
   name: 'TaskListItem',
@@ -76,11 +71,6 @@ export default {
       this.title = this.$i18n.t('studies.tasks.miband3.shortTitle')
       this.main = this.$i18n.t('studies.tasks.miband3.shortDescription')
       this.icon = 'watch'
-    }
-  },
-  computed: {
-    timeRemaining: function () {
-      return 'Due ' + moment(this.task.due).fromNow()
     }
   }
 }
