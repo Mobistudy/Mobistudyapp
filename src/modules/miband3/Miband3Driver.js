@@ -129,7 +129,6 @@ var Miband3 = {
    * @param {string} key authentication key used for this device
    */
   init: async function (deviceId, key) {
-    console.log('Enabling with device:', deviceId)
     this.deviceId = deviceId
     this.authenticationKey = key
   },
@@ -137,7 +136,6 @@ var Miband3 = {
   scan: async function (searchTime, cbk, ckbFailureSearch) {
     return new Promise((resolve, reject) => {
       ble.startScan([], (device) => {
-        console.log(device)
         if (device.name === 'Mi Band 3') cbk(device)
       }, (failure) => {
         ckbFailureSearch()
@@ -161,7 +159,6 @@ var Miband3 = {
       ble.connect(
         this.deviceId,
         success => {
-          console.log('Connection successful')
           resolve(success)
         },
         error => {
@@ -185,7 +182,6 @@ var Miband3 = {
         ble.disconnect(
           this.deviceId,
           success => {
-            console.log('Disconnected:', this.deviceId)
             resolve(success)
           },
           failure => {
@@ -206,11 +202,10 @@ var Miband3 = {
       ble.isConnected(
         this.deviceId,
         success => {
-          console.log('Is connected', success)
           resolve(true)
         },
-        error => {
-          console.log('Error is connected', error)
+        failure => {
+          console.log('Failure is connected', failure)
           resolve(false)
         }
       )
@@ -236,13 +231,11 @@ var Miband3 = {
     )
 
     return new Promise((resolve, reject) => {
-      console.log('Current key auth:', this.authenticationKey)
       ble.startNotification(
         this.deviceId,
         this.mibandCustomService1,
         this.authenticationCharacteristic,
         dataResponse => {
-          console.log('Device Id authentication:', this.deviceId)
           let value = Buffer.from(dataResponse)
           const command = value.slice(0, 3).toString('hex')
 
@@ -259,25 +252,21 @@ var Miband3 = {
           } else if (
             command === this.messages.authentication.notAuthenticated
           ) {
-            console.log('Encryption key auth failed')
             reject()
           } else if (command === this.messages.authentication.authenticated) {
-            console.log('Authenticated...')
             resolve()
             // TODO: Can't currently stop notifications and start another one, issue raised: https://github.com/don/cordova-plugin-ble-central/issues/552
           }
         },
         failure => {
-          console.log(failure)
+          console.log('Start auth notification failure:', failure)
           reject()
         }
       )
 
       if (!deviceAuthenticated) {
-        console.log('Full authentication')
         this.fullAuthentication(this.device)
       } else {
-        console.log('Half authentication')
         this.halfAuthentication(this.device)
       }
     })
@@ -373,12 +362,9 @@ var Miband3 = {
         characteristic,
         dataResponse => {
           let response = Buffer.from(dataResponse).toString('hex')
-          console.log('Config reponse:', response)
-          console.log(command)
           let responseMessage = this.messages.setup.response
           let okResponse = this.messages.setup.okResponse
           if (response === responseMessage + command + okResponse) {
-            console.log('OK reponse')
             resolve()
           }
           // TODO: check if i can unsubscribe to all notifications once authenticated and configurations are sent.
@@ -503,7 +489,6 @@ var Miband3 = {
     let format = ''
     let message = ''
     if (dayFirst) {
-      console.log('Setting day first')
       format = 'dd/MM/yyyy'
       message = Buffer.from(format).toString('hex')
     } else {
@@ -684,7 +669,6 @@ var Miband3 = {
     let ORValue = this.paddHex(
       (parseInt(firstValue, 16) | parseInt(secondValue, 16)).toString(16)
     )
-    console.log(ORValue)
     return ORValue
   },
 
@@ -922,7 +906,6 @@ var Miband3 = {
    * @param {function} dataCallback callback function with data in it. Example data: { timestamp: date, activityType: 1, intensity: 30, steps: 10, heartRate: 65, buffer: Uint8Array }
    */
   fetchStoredData: async function (startDate, dataCallback) {
-    console.log('Fetching stored data at start date:', startDate)
     let actualStartDate // actual start date as communicated by the watch
     let sampleCounter = 0
     let totalSamples = 0
@@ -937,19 +920,11 @@ var Miband3 = {
         this.mibandCustomService0,
         this.storageControlCharacteristic,
         responseData => {
-          console.log(
-            // TODO: remove this console.log at some points
-            'Response fetch:',
-            JSON.stringify(Buffer.from(responseData))
-          )
-
           let dataHex = Buffer.from(responseData).toString('hex')
           if (dataHex.substring(0, 6) === '100101') {
-            console.log('Starting fetch activity')
             actualStartDate = this.createDateFromHexString(
               dataHex.substring(14, 26)
             )
-            console.log(actualStartDate)
             totalSamples = this.getTotalSamplesFromBuffer(Buffer.from(responseData))
             sampleCounter = 0
             // here we know we should receive data, so we register for the characteristic
@@ -969,7 +944,6 @@ var Miband3 = {
                   sampleCounter,
                   buffer
                 )
-                console.log(sampleArray)
                 for (let sample of sampleArray) {
                   dataCallback(
                     sample
@@ -990,7 +964,6 @@ var Miband3 = {
             let currentDate = new Date()
             if (this.differenceInMinutes(lastDateReceived, currentDate) > 15) {
               let nextStartDate = new Date(lastDateReceived.getTime() + fifteenMinutes)
-              console.log('Next start date:', nextStartDate, 'Prev start date:', actualStartDate)
               actualStartDate = nextStartDate
               this.sendStartDateAndActivity(nextStartDate, 1)
             } else {
@@ -1013,7 +986,6 @@ var Miband3 = {
 
   getTotalSamplesFromBuffer (buffer) {
     let totalSamples = (buffer[6] << 24) | (buffer[5] << 16) | (buffer[4] << 8) | (buffer[3])
-    console.log('TS Binary:', totalSamples.toString(2))
     return totalSamples
   },
 
@@ -1050,7 +1022,6 @@ var Miband3 = {
   },
 
   createDateFromHexString: function (hexString) {
-    console.log(hexString)
     let year = parseInt(
       hexString.substring(2, 4) + hexString.substring(0, 2),
       16
@@ -1061,13 +1032,11 @@ var Miband3 = {
     let minutes = parseInt(hexString.substring(10, 12), 16)
     let seconds = 0
     let date = new Date(year, month, day, hour, minutes, seconds)
-    console.log(date)
     return date
   },
 
   // activity type not currently supported, only fetches activity 01
   sendStartDateAndActivity: async function (date, activityType) {
-    console.log('Sending first packet')
     let customDate = new CustomDate(date)
     let dateMessage = customDate.getDateStringPacket()
     let packet = this.hexStringToHexBuffer(
@@ -1111,7 +1080,6 @@ var Miband3 = {
         this.stepCountCharacteristic,
         dataResponse => {
           let data = Buffer.from(dataResponse).toString('hex')
-          console.log('Step count:', data)
           dataCallback({
             timestamp: new Date(),
             steps: this.parseStepCount(this.convertToLittleEndian(data))
@@ -1164,7 +1132,6 @@ var Miband3 = {
         dataResponse => {
           const dataArray = [...new Uint8Array(dataResponse)]
           let type = ''
-          console.log(dataArray)
           if (dataArray[0] === 1) {
             type = 'ACC'
             if (dataArray.length >= 16) {
@@ -1394,13 +1361,11 @@ var Miband3 = {
       this.hrMonitorMeasureCharacteristic,
       responseData => {
         let value = Buffer.from(responseData)
-        console.log(value)
         let hrValue = '0x' + value.toString('hex')
-        console.log('HR Value: ' + hrValue)
         callback(parseInt(hrValue))
       },
       failure => {
-        console.log(failure)
+        console.log('Failed to start HR notifications:', failure)
       }
     )
   },
@@ -1460,8 +1425,6 @@ var Miband3 = {
   },
 
   setTimeStatus: async function (date) {
-    console.log('Setting time status with:', date)
-
     let customDate = new CustomDate(date)
     let packetContent = customDate.getDateStringPacket()
 
@@ -1511,7 +1474,6 @@ var Miband3 = {
         service,
         characteristic,
         responseData => {
-          console.log('Reading packet:', JSON.stringify(responseData))
           resolve(responseData)
         },
         failure => {
@@ -1524,7 +1486,6 @@ var Miband3 = {
   },
 
   sendWithoutResponse: async function (service, characteristic, data) {
-    console.log('Service:', service, 'Char:', characteristic)
     var dataInBits = new Uint8Array(data)
     return new Promise((resolve, reject) => {
       ble.writeWithoutResponse(
@@ -1533,7 +1494,6 @@ var Miband3 = {
         characteristic,
         dataInBits.buffer,
         successResponse => {
-          console.log('Packet sent...')
           resolve(successResponse)
         },
         failure => {
@@ -1554,7 +1514,6 @@ var Miband3 = {
         dataInBits.buffer,
         successResponse => {
           let response = Buffer.from(successResponse).toString('hex')
-          console.log(response)
           if (response === '4f4b') {
             // User step goals set properly, probably also an OK response for a bunch of other messages.
             // Sleep support set properly, same confirmation response is used for several characteristics.
@@ -1571,42 +1530,27 @@ var Miband3 = {
 
   registerNotification: function (service, characteristic) {
     if (!this.runningNotifications.has(characteristic)) {
-      console.log('Registering subscription', service)
       this.runningNotificationCharacteristics.push(characteristic)
       this.runningNotifications.set(characteristic, service)
     }
   },
 
   stopAllNotifications: async function () {
-    console.log('Stopping notifications...')
-    console.log('Subscribed currently:', this.runningNotifications)
-    console.log(
-      'Running characteristics currently:',
-      this.runningNotificationCharacteristics
-    )
-
     while (this.runningNotificationCharacteristics.length > 0) {
       let characteristic = this.runningNotificationCharacteristics.pop()
       let service = this.runningNotifications.get(characteristic)
       this.stopNotification(service, characteristic)
       this.runningNotifications.delete(characteristic)
     }
-    console.log(
-      'Running characteristics:',
-      this.runningNotificationCharacteristics
-    )
-    console.log('Subscriptions:', this.runningNotifications)
   },
 
   stopNotification: async function (service, characteristic) {
-    console.log('Stopping:', service, characteristic)
     return new Promise((resolve, reject) => {
       ble.stopNotification(
         this.deviceId,
         service,
         characteristic,
         success => {
-          console.log('Stopped notifications:', success)
           resolve()
         },
         failure => {
@@ -1621,7 +1565,6 @@ var Miband3 = {
     let keyArray = new Uint8Array(16)
     keyArray = crypto.getRandomValues(keyArray)
     this.authenticationKey = Buffer.from(keyArray).toString('hex')
-    console.log('Generating key:', this.authenticationKey)
     return this.authenticationKey
   },
 
@@ -1635,7 +1578,6 @@ var Miband3 = {
   },
 
   hexStringToHexBuffer: function (data) {
-    console.log('Creating packet from string:', data)
     let hexBuffer = Buffer.from(data, 'hex')
     return hexBuffer
   }

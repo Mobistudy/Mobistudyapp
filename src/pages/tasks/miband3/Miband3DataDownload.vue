@@ -87,7 +87,8 @@ const chartColors = [
 // holder of all the stored data, this is kept outside of Vue for efficiency
 let storedData = []
 let minimumDataRequired = 30 // 30 minutes of data is required at a minimum to upload the data
-let deviceInfo
+// eslint-disable-next-line no-unused-vars, not sure why this is complaining?
+let deviceInfo = {}
 
 // pie chart configuration
 let pieChartConfig = {
@@ -161,8 +162,8 @@ export default {
         await miband3.getStoredData(startDate, this.dataCallback)
         if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
           await this.storeDownloadTimestamp(startDate)
-          await this.showNotEnoughDataPage()
-          this.cancelTask()
+          await this.moveToNotEnoughDataPage()
+          return
         }
         deviceInfo = await miband3.getDeviceInfo()
         await this.storeDownloadTimestamp(startDate)
@@ -418,7 +419,7 @@ export default {
         this.disablePlus = false
       }
     },
-    showNotEnoughDataPage () {
+    moveToNotEnoughDataPage () {
       this.$router.push({ name: 'notEnoughDataPage' })
     },
     skipSend () {

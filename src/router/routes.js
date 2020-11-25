@@ -67,9 +67,10 @@ const routes = [
       { path: '/qcst', name: 'qcst', component: () => import('pages/tasks/QCST.vue'), props: true },
       { path: '/qcsthr', name: 'qcsthr', component: () => import('pages/tasks/QCSTHR.vue'), props: true },
       { path: '/qcstSummary', name: 'qcstSummary', component: () => import('pages/tasks/QCSTSummary.vue'), props: true },
-      { path: '/miband3Intro', name: 'miband3Intro', component: () => import('pages/tasks/MiBand3Intro.vue'), props: true },
-      { path: '/miband3Connect', name: 'miband3Connect', component: () => import('pages/tasks/MiBand3Connect.vue'), props: true },
-      { path: '/miband3DataDownload', name: 'miband3DataDownload', component: () => import('pages/tasks/MiBand3DataDownload.vue'), props: true }
+      { path: '/miband3Intro', name: 'miband3Intro', component: () => import('pages/tasks/miband3/MiBand3Intro.vue'), props: true },
+      { path: '/miband3Connect', name: 'miband3Connect', component: () => import('pages/tasks/miband3/MiBand3Connect.vue'), props: true },
+      { path: '/miband3DataDownload', name: 'miband3DataDownload', component: () => import('pages/tasks/miband3/MiBand3DataDownload.vue'), props: true },
+      { path: '/notEnoughDataPage', name: 'notEnoughDataPage', component: () => import('pages/tasks/miband3/notEnoughDataPage.vue'), props: true }
     ]
   }
 ]
