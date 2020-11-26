@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import userinfo from './modules/userinfo'
-import DB from './modules/db'
-import API from './modules/API'
+import userinfo from 'modules/userinfo'
+import DB from 'modules/db'
+import API from 'modules/API'
 
 export default {
   name: 'MobistudyApp',

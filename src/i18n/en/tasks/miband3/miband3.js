@@ -34,7 +34,8 @@ export default {
         hrs: 'heart rate',
         intensities: 'intensity',
         steps: 'steps',
-        pieChart: 'Time spent in each activity'
+        pieChart: 'Time spent in each activity',
+        hours: 'hours'
       }
     }
   }

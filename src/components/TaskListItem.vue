@@ -43,6 +43,8 @@ export default {
         this.$router.push({ name: 'smwtIntro', params: { title: title, icon: icon, studyKey: studyKey, taskId: taskId } })
       } else if (type === 'qcst') {
         this.$router.push({ name: 'qcstIntro', params: { title: title, icon: icon, studyKey: studyKey, taskId: taskId } })
+      } else if (type === 'miband3') {
+        this.$router.push({ name: 'miband3Intro', params: { title: title, icon: icon, studyKey: studyKey, taskId: taskId } })
       } else if (studyKey && taskId) {
         this.$router.push({ name: 'dataQuery', params: { title: title, icon: icon, taskId: taskId, studyKey: studyKey } })
       } else {
