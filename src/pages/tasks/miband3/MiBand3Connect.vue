@@ -73,7 +73,9 @@ export default {
       devices: [],
       tapToAuthDialog: false,
       showSearching: false,
-      showConnecting: false
+      showConnecting: false,
+      connectionAttempts: 0,
+      maxConnectionAttempts: 5
     }
   },
   methods: {
@@ -122,20 +124,13 @@ export default {
     async connect (device) {
       this.showConnecting = true
       try {
+        this.connectionAttempts++
         await miband3.connect(device)
         // Authenticate after connect.
-        if (!device.authenticated) this.tapToAuthDialog = true // TODO: Add flag to indicate if its the first authentication.
+        if (!device.authenticated) this.tapToAuthDialog = true
         await miband3.authenticate(device.authenticated)
-        // TODO: Uses a dummy user as well as dummy hrFreq for testing...
         if (!device.configured) {
           let user = userinfo.user
-          console.log('User retreived from DB:', user)
-          // let user = {
-          //   dateOfBirth: new Date(1994, 5, 4, 0, 0, 0, 0),
-          //   height: 183,
-          //   weight: 73,
-          //   sex: 'male'
-          // }
           let hrFreq = 1
           await miband3.configure(user, hrFreq)
           device.configured = true
@@ -156,24 +151,30 @@ export default {
         this.showConnecting = false
         // TODO: there should be a third button in case the user has a new miband
         // this cannot be done using the dialog plugin, so a complete dialog should be designed
-        this.$q.dialog({
-          title: this.$t('studies.errors.error'),
-          message: this.$t('studies.tasks.miband3.connectionFail'),
-          cancel: this.$t('common.cancel'),
-          ok: this.$t('common.retry'),
-          persistent: true
-        }).onOk(async () => {
-          await miband3.disconnect()
-          if (device.authenticated) {
-            // if already authenticated once, retry connection
-            this.connect(device)
-          } else {
-            // probably the wrong device was chosen, start from search
-            this.search()
-          }
-        }).onCancel(() => {
-          this.abandon()
-        })
+        // Rarely connects on the first attempt, should need at least 3.
+        if (this.connectionAttempts < this.maxConnectionAttempts) {
+          console.log('Attempting connect again...', this.connectionAttempts)
+          this.connect(device)
+        } else {
+          this.$q.dialog({
+            title: this.$t('studies.errors.error'),
+            message: this.$t('studies.tasks.miband3.connectionFail'),
+            cancel: this.$t('common.cancel'),
+            ok: this.$t('common.retry'),
+            persistent: true
+          }).onOk(async () => {
+            await miband3.disconnect()
+            if (device.authenticated) {
+              // if already authenticated once, retry connection
+              this.connect(device)
+            } else {
+              // probably the wrong device was chosen, start from search
+              this.search()
+            }
+          }).onCancel(() => {
+            this.abandon()
+          })
+        }
       }
     },
     // abandons the task

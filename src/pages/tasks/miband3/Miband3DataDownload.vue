@@ -86,7 +86,7 @@ const chartColors = [
 
 // holder of all the stored data, this is kept outside of Vue for efficiency
 let storedData = []
-let minimumDataRequired = 30 // 30 minutes of data is required at a minimum to upload the data
+let minimumDataRequired = 5 // 30 minutes of data is required at a minimum to upload the data
 // eslint-disable-next-line no-unused-vars, not sure why this is complaining?
 let deviceInfo = {}
 
