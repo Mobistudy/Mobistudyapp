@@ -5,6 +5,7 @@
 const SEARCH_FAIL = false
 const CONNECT_FAIL = false
 const STOREDDATA_FAIL = false
+const NO_DATA_FAIL = false
 
 export default {
   liveHRTimer: undefined,
@@ -102,6 +103,11 @@ export default {
     return new Promise((resolve, reject) => {
       let amountPackages = 0
       let interval = setInterval(() => {
+        if (NO_DATA_FAIL) {
+          clearInterval(interval)
+          resolve()
+          return
+        }
         for (let i = 0; i < 10; i++) {
           ++amountPackages
           cbk({

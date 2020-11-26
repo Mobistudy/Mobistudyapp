@@ -6,8 +6,10 @@
 export function getStringIdentifier (index) {
   switch (index) {
     case 1:
-      return 'walk'
+      // return 'walk' // TODO: Add actual activity types
+      return index + ''
     default:
-      return 'unknown'
+      // return 'unknown'
+      return index + ''
   }
 }

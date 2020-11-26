@@ -8,6 +8,7 @@ export default {
    * @param {Number} timeout max number of milliseconds to search for a Miband3
    */
   async search (searchTime) {
+    // TODO
     return new Promise((resolve, reject) => {
       let devices = []
       window.ble.startScan([], (device) => {
@@ -26,6 +27,7 @@ export default {
    * @param {Function} disconnectCallback called if the device is disconnected
    */
   async connect (device) {
+    // TODO
     // generate the key if not inside device
     if (!device.key) {
       let key = miband3Driver.generateKey()
@@ -41,6 +43,7 @@ export default {
    * Disconnects from the tracker
    */
   async disconnect () {
+    // TODO
     return miband3Driver.disconnect()
   },
 
@@ -48,6 +51,7 @@ export default {
    * Returns true if connected to a Miband3
    */
   async isConnected () {
+    // TODO
     return miband3Driver.isConnected()
   },
 
@@ -56,6 +60,7 @@ export default {
    * @param {boolean} full if true the full authentication is performed
    */
   async authenticate (full) {
+    // TODO
     return miband3Driver.authenticate(full)
   },
 
@@ -69,12 +74,15 @@ export default {
     // user, language = EN, dateFormat = 'DD/MM/YYYY, hrFreq, wearLocation=LEFT
     // displayOnlift = not [22:00 - 8:00], nightMode = [22:00 - 8:00],
     // screens = [home, HR, status], HRsleep support = YES, timeFormat = 24G
+    // TODO
 
     // Default settings
     await miband3Driver.setLanguage('EN_en')
     await miband3Driver.setDateFormat(true)
     await miband3Driver.setDistanceType(false)
     await miband3Driver.setTimeFormat('24h')
+    // Synch phone time with miband watch time
+    await miband3Driver.setCurrentTimeStatus()
 
     // Setting night mode between 22:00 and 8:00
     let dateStartHour = new Date()
@@ -95,8 +103,8 @@ export default {
     // User supplied settings
     await miband3Driver.setHeartRateMeasurementInterval(hrFreq)
     // make sure thee DOB is a date
-    let DOB = new Date(user.dateOfBirth)
-    await miband3Driver.setUser( // TODO: Does currently not resolve, need to return the resolve in all the functions above as well!
+    let DOB = new Date(user.dob)
+    await miband3Driver.setUser(
       user.height,
       user.weight,
       DOB.getFullYear(),
@@ -104,10 +112,7 @@ export default {
       DOB.getDate(),
       user.sex === 'female' // false for male
     )
-
-    // after this notifications are unregistered from the config channels, always resolves if registered to a notification (write without response)
-    // because write with response gives an immediate response instead of notifying using another characteristic
-    miband3Driver.stopAllNotifications()
+    miband3Driver.stopAllNotifications() // In practice only stops the authentication notifications, and maybe if something else is missed.
   },
 
   /**
@@ -128,15 +133,15 @@ export default {
     let battery = await miband3Driver.getBatteryStatus()
     let hardware = await miband3Driver.getHardwareInfo()
     let software = await miband3Driver.getSoftwareInfo()
-    // let serialNr = await miband3.getSerialNumber()
-    // let charging = await miband3.getCharging()
-    return {
-      id: miband3Driver.id,
+    // let serialNr = await miband3.getSerialNumber() needs to be implemented
+    // let charging = await miband3.getCharging() do we need this? for what? if yes the needs to be implemented
+    return Promise.resolve({
+      id: miband3Driver.deviceId,
       battery: battery,
       hwVersion: hardware,
       swVersion: software,
       clock: time
-    }
+    })
   },
 
   /**
@@ -145,7 +150,14 @@ export default {
    * @param {Function} cbk called at every sample of data retrieved
    */
   async getStoredData (startDate, cbk) {
-    return miband3Driver.fetchStoredData(startDate, cbk)
+    // TODO
+    function interfaceCallback (data) { // Filters the noisy heart rate values, eg 0 and 255.
+      if (data.hr === 0 || data.hr === 255) {
+        data.hr = Number.NaN
+      }
+      cbk(data)
+    }
+    return miband3Driver.fetchStoredData(startDate, interfaceCallback)
   },
 
   /**
