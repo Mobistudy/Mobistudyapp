@@ -81,7 +81,7 @@ export default {
       this.devices = []
       this.showSearching = true
       try {
-        this.devices = await miband3.search(5000)
+        this.devices = await miband3.search(12000)
         console.log('All devices found:', this.devices)
         if (this.devices.length === 0) {
           this.$q.dialog({

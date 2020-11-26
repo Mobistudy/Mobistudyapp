@@ -44,7 +44,6 @@ export default {
   },
   async getStudyParticipationTaskItemConsent (studyKey) {
     let studyParticipation = await this.getStudyParticipation(studyKey)
-    console.log('Study', studyParticipation)
     return (studyParticipation.taskItemsConsent)
   },
   async setStudyParticipation (studyPart) {
@@ -76,6 +75,7 @@ export default {
     await this.setStudiesParticipation(studies)
     return Promise.resolve()
   },
+  /* Study descriptions */
   async getStudyDescription (studyKey) {
     return storage.getItem('study_' + studyKey)
     // return Promise.reject(new Error('test'))
@@ -85,6 +85,16 @@ export default {
   },
   async removeStudy (studyKey) {
     return storage.removeItem('study_' + studyKey)
+  },
+  /* Tasks */
+  async getTaskDescription (studyKey, taskId) {
+    const studyDescription = await this.getStudyDescription(studyKey)
+    return studyDescription.tasks.find(x => x.id === Number(taskId))
+  },
+  async getLastCompletedTaskDate (studyKey, taskId) {
+    let taskItemConsent = await this.getStudyParticipationTaskItemConsent(studyKey)
+    let lastCompleted = taskItemConsent.find(x => x.taskId === Number(taskId)).lastExecuted
+    return lastCompleted
   },
 
   /* FORMS */

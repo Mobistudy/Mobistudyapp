@@ -148,7 +148,6 @@ export default {
     }
   },
   methods: {
-    // TODO: If less than certain amount of data, don't store it, instead say there is not enough data.
     async downloadData () {
       this.isDownloading = true
 
@@ -157,16 +156,17 @@ export default {
       pieChartConfig.reset()
       lineChart.reset()
 
-      let startDate = await this.getDateUsedToDownload()
+      let startDate = await this.getDateToUseForDownload()
       try {
         await miband3.getStoredData(startDate, this.dataCallback)
         if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
-          await this.storeDownloadTimestamp(startDate)
-          await this.moveToNotEnoughDataPage()
+          await this.storeDownloadDate(startDate)
+          this.$router.push({ name: 'notEnoughDataPage' })
           return
         }
         deviceInfo = await miband3.getDeviceInfo()
-        await this.storeDownloadTimestamp(startDate)
+        console.log(deviceInfo)
+        await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
         try {
           await miband3.disconnect()
         } catch (err) {
@@ -181,30 +181,26 @@ export default {
         this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective.
       }
     },
-    async storeDownloadTimestamp (startDate) {
-      let newestSampleTimeStamp
-      if (storedData.length > minimumDataRequired) {
-        newestSampleTimeStamp = storedData[storedData.length - 1].date
-      } else {
-        newestSampleTimeStamp = startDate
-      }
+    async storeDownloadDate (date) {
       let device = await db.getDeviceMiBand3()
-      device.lastStoredDataDate = newestSampleTimeStamp
+      device.lastStoredDataDate = date
       return db.setDeviceMiBand3(device)
+    },
+    getLatestDownloadedSampleDate () {
+      return storedData[storedData.length - 1].date
     },
     /**
      * A function which retreives the latest date the data was downloaded
      * or if its the first time it
      */
-    async getDateUsedToDownload () {
+    async getDateToUseForDownload () {
       // Route parameters
       const studyKey = this.studyKey
-      const taskID = this.taskId
-      const studyDescription = await db.getStudyDescription(studyKey)
-      // TODO: make the getTaskDescription part of DB module
-      const taskDescription = this.getTaskDescription(studyDescription, taskID)
-      // TODO: make it part of DB
-      let lastCompleted = await this.getLastCompletedTaskMoment(studyKey, taskID)
+      const taskId = this.taskId
+
+      const taskDescription = await db.getTaskDescription(studyKey, taskId)
+
+      const lastCompleted = await db.getLastCompletedTaskDate(studyKey, taskId)
       let startDate = moment()
       if (typeof lastCompleted === 'undefined') {
         let intervalType = taskDescription.scheduling.intervalType
@@ -249,17 +245,6 @@ export default {
       }
       this.updateLineChartReferences()
       this.updatePlusMinusButtons() // Could be placed somewhere else but is needed at start in case data size < 12 hours worth
-    },
-
-    async getLastCompletedTaskMoment (studyKey, taskID) {
-      let taskItemConsent = await db.getStudyParticipationTaskItemConsent(studyKey)
-      let lastCompleted = taskItemConsent.find(x => x.taskId === Number(taskID)).lastExecuted
-      return moment(lastCompleted)
-    },
-
-    getTaskDescription (studyDescription, taskID) {
-      let taskDescription = studyDescription.tasks.find(x => x.id === Number(taskID))
-      return taskDescription
     },
 
     showErrorDialog () {
@@ -419,11 +404,9 @@ export default {
         this.disablePlus = false
       }
     },
-    moveToNotEnoughDataPage () {
-      this.$router.push({ name: 'notEnoughDataPage' })
-    },
     skipSend () {
-      // TODO should save the date up to which the data was retrieved and go back to home
+      this.storeDownloadDate(this.getLatestDownloadedSampleDate())
+      this.cancelTask()
       // could also add a popup for confirmation
     },
     sendData () {
