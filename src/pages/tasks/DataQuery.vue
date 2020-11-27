@@ -54,8 +54,6 @@ const chartColors = [
 export default {
   name: 'DataQueryPage',
   props: {
-    title: String,
-    icon: String,
     studyKey: String,
     taskId: Number
   },

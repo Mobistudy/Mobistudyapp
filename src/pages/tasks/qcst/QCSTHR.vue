@@ -25,8 +25,6 @@
 export default {
   name: 'QCSTHRPage',
   props: {
-    title: String,
-    icon: String,
     report: Object
   },
   data: function () {

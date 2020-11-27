@@ -6,16 +6,21 @@
         class="q-mt-md"
         alt="Finish flag"
         src="~assets/goalflags.svg"
+        sttyle="width: 40%; margin: 0px auto;"
       >
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
-      <table id="stats">
+      <table class="decoratedTable">
         <tr>
-          <td>{{ $t('studies.tasks.qcst.time') }}</td>
-          <td> {{ minutes }}:{{ seconds }}</td>
+          <td>{{ $t('studies.tasks.smwt.time') }}</td>
+          <td style="submit"> {{ minutes }}:{{ seconds }}</td>
+        </tr>
+        <tr>
+          <td>{{ $t('studies.tasks.smwt.distance') }}</td>
+          <td style="submit">{{ report.distance.toFixed(2) }} m</td>
         </tr>
         <tr v-if="report.steps.length">
-          <td>{{ $t('studies.tasks.qcst.steps') }}</td>
-          <td>{{ report.steps[report.steps.length - 1].numberOfSteps }}</td>
+          <td>{{ $t('studies.tasks.smwt.steps') }}</td>
+          <td style="submit">{{ report.steps[report.steps.length - 1].numberOfSteps }}</td>
         </tr>
       </table>
 
@@ -216,8 +221,20 @@
         :disabled="!borgValue"
       />
     </div>
+
   </q-page>
 </template>
+
+<style>
+.decoratedTable {
+  background: #f8f8f8;
+  padding: 4px;
+  width: 70%;
+  margin: 0px auto;
+  font-size: 0.75rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+</style>
 
 <script>
 import API from 'modules/API'
@@ -226,10 +243,8 @@ import fileSystem from 'modules/files'
 import { format as Qformat } from 'quasar'
 
 export default {
-  name: 'QCSTSummaryPage',
+  name: 'SMWTSummaryPage',
   props: {
-    title: String,
-    icon: String,
     report: Object
   },
   data: function () {
@@ -240,11 +255,12 @@ export default {
   methods: {
     async send () {
       this.$q.loading.show()
+
       this.report.borgScale = this.borgValue
 
       // Only for testing purposes! Please remove before deploying app.
       try {
-        let filename = 'qcst_' + new Date().getTime() + '.json'
+        let filename = 'smwt_' + new Date().getTime() + '.json'
         await fileSystem.save(filename, this.report)
       } catch (err) {
         console.error('Cannot save to file', err)
@@ -252,12 +268,8 @@ export default {
 
       // Save the data to server
       try {
-        await API.sendQCSTData(this.report)
-        await DB.setTaskCompletion(
-          this.report.studyKey,
-          this.report.taskId,
-          new Date()
-        )
+        await API.sendSMWTData(this.report)
+        await DB.setTaskCompletion(this.report.studyKey, this.report.taskId, new Date())
         this.$q.loading.hide()
         this.$router.push('/home')
       } catch (error) {
@@ -287,30 +299,3 @@ export default {
   }
 }
 </script>
-
-<style>
-img {
-  width: 40%;
-  margin: 0px auto;
-}
-
-table {
-  background: #f8f8f8;
-  padding: 4px;
-  width: 70%;
-  margin: 0px auto;
-  font-size: 0.75rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-
-table td:nth-child(2) {
-  text-align: right;
-}
-tr {
-  text-align: left;
-}
-
-#submit {
-  text-align: center;
-}
-</style>

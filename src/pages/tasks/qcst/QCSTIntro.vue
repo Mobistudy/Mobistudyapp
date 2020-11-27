@@ -1,11 +1,21 @@
 <template>
   <q-page padding>
-    <div class="text-h5 text-center">{{ $t('studies.tasks.smwt.title') }}</div>
+    <div class="text-h5 text-center">{{ $t('studies.tasks.qcst.title') }}</div>
     <div class="text-subtitle1 q-mt-md">
       {{ $t('common.introduction') }}
     </div>
     <div>
-      {{ $t('studies.tasks.smwt.description') }}
+      {{ $t('studies.tasks.qcst.prerequisiteNote') }}
+    </div>
+    <div>
+      <ul>
+        <li
+          v-for="(prerequisite, idx) in $t('studies.tasks.qcst.prerequisites')"
+          :key="idx"
+        >
+          {{ prerequisite.p }}
+        </li>
+      </ul>
     </div>
     <div class="text-subtitle1 q-mt-md">
       {{ $t('common.instructions') }}
@@ -13,7 +23,7 @@
     <div>
       <ul>
         <li
-          v-for="(instruction, idx) in $t('studies.tasks.smwt.instructions')"
+          v-for="(instruction, idx) in $t('studies.tasks.qcst.instructions')"
           :key="idx"
         >
           {{ instruction.i }}
@@ -33,10 +43,8 @@
 
 <script>
 export default {
-  name: 'SMWTIntroPage',
+  name: 'QCSTIntroPage',
   props: {
-    title: String,
-    icon: String,
     studyKey: String,
     taskId: Number
   },
@@ -47,7 +55,7 @@ export default {
       const studyKey = this.studyKey
       const taskId = this.taskId
       console.log('StudyKey ' + studyKey + ',taskId ' + taskId)
-      this.$router.push({ name: 'smwt', params: { title: title, icon: icon, studyKey, taskId } })
+      this.$router.push({ name: 'qcst', params: { title, icon, studyKey, taskId } })
       this.$emit('updateTransition', 'fadeInDown')
     }
   }

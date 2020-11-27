@@ -63,8 +63,6 @@ const TEST_DURATION = 180
 export default {
   name: 'QCSTPage',
   props: {
-    title: String,
-    icon: String,
     studyKey: String,
     taskId: Number
   },

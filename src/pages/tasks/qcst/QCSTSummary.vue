@@ -10,15 +10,11 @@
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
       <table id="stats">
         <tr>
-          <td>{{ $t('studies.tasks.smwt.time') }}</td>
+          <td>{{ $t('studies.tasks.qcst.time') }}</td>
           <td> {{ minutes }}:{{ seconds }}</td>
         </tr>
-        <tr>
-          <td>{{ $t('studies.tasks.smwt.distance') }}</td>
-          <td>{{ report.distance.toFixed(2) }} m</td>
-        </tr>
         <tr v-if="report.steps.length">
-          <td>{{ $t('studies.tasks.smwt.steps') }}</td>
+          <td>{{ $t('studies.tasks.qcst.steps') }}</td>
           <td>{{ report.steps[report.steps.length - 1].numberOfSteps }}</td>
         </tr>
       </table>
@@ -220,7 +216,6 @@
         :disabled="!borgValue"
       />
     </div>
-
   </q-page>
 </template>
 
@@ -231,10 +226,8 @@ import fileSystem from 'modules/files'
 import { format as Qformat } from 'quasar'
 
 export default {
-  name: 'SMWTSummaryPage',
+  name: 'QCSTSummaryPage',
   props: {
-    title: String,
-    icon: String,
     report: Object
   },
   data: function () {
@@ -245,12 +238,11 @@ export default {
   methods: {
     async send () {
       this.$q.loading.show()
-
       this.report.borgScale = this.borgValue
 
       // Only for testing purposes! Please remove before deploying app.
       try {
-        let filename = 'smwt_' + new Date().getTime() + '.json'
+        let filename = 'qcst_' + new Date().getTime() + '.json'
         await fileSystem.save(filename, this.report)
       } catch (err) {
         console.error('Cannot save to file', err)
@@ -258,8 +250,12 @@ export default {
 
       // Save the data to server
       try {
-        await API.sendSMWTData(this.report)
-        await DB.setTaskCompletion(this.report.studyKey, this.report.taskId, new Date())
+        await API.sendQCSTData(this.report)
+        await DB.setTaskCompletion(
+          this.report.studyKey,
+          this.report.taskId,
+          new Date()
+        )
         this.$q.loading.hide()
         this.$router.push('/home')
       } catch (error) {
