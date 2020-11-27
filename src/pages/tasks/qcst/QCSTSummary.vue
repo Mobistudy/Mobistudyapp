@@ -228,8 +228,6 @@ import { format as Qformat } from 'quasar'
 export default {
   name: 'QCSTSummaryPage',
   props: {
-    title: String,
-    icon: String,
     report: Object
   },
   data: function () {

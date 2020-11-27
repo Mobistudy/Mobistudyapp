@@ -9,10 +9,10 @@
         <q-avatar>
           <q-icon
             color="white"
-            :name="this.$route.params.icon"
+            :name="this.$route.query.icon"
           />
         </q-avatar>
-        <q-toolbar-title>{{ this.$route.params.title }}</q-toolbar-title>
+        <q-toolbar-title>{{ this.$route.query.title }}</q-toolbar-title>
         <q-btn
           flat
           dense

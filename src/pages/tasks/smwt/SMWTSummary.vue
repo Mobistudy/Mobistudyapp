@@ -6,20 +6,21 @@
         class="q-mt-md"
         alt="Finish flag"
         src="~assets/goalflags.svg"
+        style="width: 50%; margin: 0px auto;"
       >
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
-      <table id="stats">
+      <table class="decoratedTable">
         <tr>
           <td>{{ $t('studies.tasks.smwt.time') }}</td>
-          <td> {{ minutes }}:{{ seconds }}</td>
+          <td style="text"> {{ minutes }}:{{ seconds }}</td>
         </tr>
         <tr>
           <td>{{ $t('studies.tasks.smwt.distance') }}</td>
-          <td>{{ report.distance.toFixed(2) }} m</td>
+          <td style="submit">{{ report.distance.toFixed(2) }} m</td>
         </tr>
         <tr v-if="report.steps.length">
           <td>{{ $t('studies.tasks.smwt.steps') }}</td>
-          <td>{{ report.steps[report.steps.length - 1].numberOfSteps }}</td>
+          <td style="submit">{{ report.steps[report.steps.length - 1].numberOfSteps }}</td>
         </tr>
       </table>
 
@@ -208,8 +209,8 @@
           </q-item>
         </q-list>
 
-        <div class="q-px-sm q-mt-sm">
-          <p class="sub-heading">Your selection is: <strong>{{ borgValue }}</strong></p>
+        <div class="q-mt-sm">
+          <p>Your selection is: <strong>{{ borgValue }}</strong></p>
         </div>
       </div>
 
@@ -224,17 +225,26 @@
   </q-page>
 </template>
 
+<style>
+.decoratedTable {
+  background: #f8f8f8;
+  padding: 4px;
+  width: 70%;
+  margin: 0px auto;
+  font-size: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+</style>
+
 <script>
 import API from 'modules/API'
 import DB from 'modules/db'
-import fileSystem from 'modules/files'
+// import fileSystem from 'modules/files'
 import { format as Qformat } from 'quasar'
 
 export default {
   name: 'SMWTSummaryPage',
   props: {
-    title: String,
-    icon: String,
     report: Object
   },
   data: function () {
@@ -249,12 +259,12 @@ export default {
       this.report.borgScale = this.borgValue
 
       // Only for testing purposes! Please remove before deploying app.
-      try {
-        let filename = 'smwt_' + new Date().getTime() + '.json'
-        await fileSystem.save(filename, this.report)
-      } catch (err) {
-        console.error('Cannot save to file', err)
-      }
+      // try {
+      //   let filename = 'smwt_' + new Date().getTime() + '.json'
+      //   await fileSystem.save(filename, this.report)
+      // } catch (err) {
+      //   console.error('Cannot save to file', err)
+      // }
 
       // Save the data to server
       try {
@@ -281,38 +291,11 @@ export default {
       return Math.floor((this.report.completionTS - this.report.startedTS) / 1000)
     },
     minutes () {
-      return Qformat.pad(Math.floor(this.totalTime / 60))
+      return Qformat.pad(Math.floor(this.totalTime / 60), 2)
     },
     seconds () {
-      return Math.floor(this.totalTime - (this.minutes * 60))
+      return Qformat.pad(Math.floor(this.totalTime - (this.minutes * 60)), 2)
     }
   }
 }
 </script>
-
-<style>
-img {
-  width: 40%;
-  margin: 0px auto;
-}
-
-table {
-  background: #f8f8f8;
-  padding: 4px;
-  width: 70%;
-  margin: 0px auto;
-  font-size: 0.75rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-
-table td:nth-child(2) {
-  text-align: right;
-}
-tr {
-  text-align: left;
-}
-
-#submit {
-  text-align: center;
-}
-</style>

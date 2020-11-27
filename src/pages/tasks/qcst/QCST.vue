@@ -63,8 +63,6 @@ const TEST_DURATION = 180
 export default {
   name: 'QCSTPage',
   props: {
-    title: String,
-    icon: String,
     studyKey: String,
     taskId: Number
   },
@@ -129,8 +127,6 @@ export default {
     completeTest () {
       phone.pedometer.stopNotifications()
       this.completionTS = new Date()
-      const title = this.title
-      const icon = this.icon
       const studyKey = this.studyKey
       const taskId = parseInt(this.taskId)
       const userKey = userinfo.user._key
@@ -145,7 +141,8 @@ export default {
         heartRate: undefined,
         borgScale: undefined
       }
-      this.$router.push({ name: 'qcsthr', params: { title: title, icon: icon, report: report } })
+
+      this.$router.push({ name: 'qcsthr', params: { report: report } })
     }
   },
   computed: {

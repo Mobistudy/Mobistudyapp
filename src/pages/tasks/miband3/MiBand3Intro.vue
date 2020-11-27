@@ -12,19 +12,22 @@
       control-color="primary"
       @transition="handleSlide()"
     >
-      <q-carousel-slide name = "first"
+      <q-carousel-slide
+        name="first"
         class="column no-wrap flex-center"
       >
         <div class="q-ma-md">{{ $t('studies.tasks.miband3.intro1') }}</div>
       </q-carousel-slide>
 
-      <q-carousel-slide name = "second"
+      <q-carousel-slide
+        name="second"
         class="column no-wrap flex-center"
       >
         <div class="q-ma-md">{{ $t('studies.tasks.miband3.intro2') }}</div>
       </q-carousel-slide>
 
-      <q-carousel-slide name = "third"
+      <q-carousel-slide
+        name="third"
         class="column no-wrap flex-center"
       >
         <div class="q-ma-md">{{ $t('studies.tasks.miband3.intro2') }}</div>
@@ -52,7 +55,6 @@
 export default {
   name: 'Miband3IntroPage',
   props: {
-    icon: String,
     studyKey: String,
     taskId: Number
   },
@@ -71,7 +73,7 @@ export default {
       }
     },
     handleFinish () {
-      this.$router.push({ name: 'miband3Connect', params: { icon: this.icon, studyKey: this.studyKey, taskId: this.taskId } })
+      this.$router.push({ name: 'miband3Connect', params: { studyKey: this.studyKey, taskId: this.taskId } })
     }
   }
 }
