@@ -133,7 +133,6 @@ var lineChart = {
 
 export default {
   props: {
-    icon: String,
     studyKey: String,
     taskId: Number
   },

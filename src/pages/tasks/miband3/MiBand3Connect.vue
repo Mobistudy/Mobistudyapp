@@ -39,15 +39,21 @@
       </q-card>
     </q-dialog>
 
-     <q-inner-loading :showing="showSearching">
-      <div class="text-overline" color="dark-grey">{{$t('studies.tasks.miband3.searching')}}</div>
+    <q-inner-loading :showing="showSearching">
+      <div
+        class="text-overline"
+        color="dark-grey"
+      >{{$t('studies.tasks.miband3.searching')}}</div>
       <q-spinner-dots
         size="40px"
         color="primary"
       />
     </q-inner-loading>
     <q-inner-loading :showing="showConnecting">
-      <div class="text-overline" color="dark-grey">{{$t('studies.tasks.miband3.connecting')}}</div>
+      <div
+        class="text-overline"
+        color="dark-grey"
+      >{{$t('studies.tasks.miband3.connecting')}}</div>
       <q-spinner-dots
         size="40px"
         color="primary"
@@ -64,7 +70,6 @@ import userinfo from 'modules/userinfo'
 export default {
   name: 'Miband3ConnectPage',
   props: {
-    icon: String,
     studyKey: String,
     taskId: Number
   },
@@ -186,7 +191,7 @@ export default {
       this.$router.push({ name: 'tasker', params: { rescheduleTasks: true } })
     },
     moveToDownloadPage () {
-      this.$router.push({ name: 'miband3DataDownload', params: { icon: this.icon, studyKey: this.studyKey, taskId: this.taskId } })
+      this.$router.push({ name: 'miband3DataDownload', params: { studyKey: this.studyKey, taskId: this.taskId } })
     }
   },
   async mounted () {
