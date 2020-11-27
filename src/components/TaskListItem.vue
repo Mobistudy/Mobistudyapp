@@ -43,7 +43,7 @@ export default {
       } else if (type === 'smwt') {
         this.$router.push({ name: 'smwtIntro', params: { studyKey: studyKey, taskId: taskId }, query: { type } })
       } else if (type === 'qcst') {
-        this.$router.push({ name: 'qcstIntro', params: { studyKey: studyKey, taskId: taskId }, qquery: { type } })
+        this.$router.push({ name: 'qcstIntro', params: { studyKey: studyKey, taskId: taskId }, query: { type } })
       } else if (type === 'miband3') {
         this.$router.push({ name: 'miband3Intro', params: { studyKey: studyKey, taskId: taskId }, query: { type } })
       } else if (studyKey && taskId) {
