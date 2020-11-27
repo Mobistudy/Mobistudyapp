@@ -16,6 +16,7 @@
         @click="completeTest()"
         :label="$t('common.next')"
         :disable="!heartRate"
+        class="q-mt-md"
       />
     </q-item-section>
   </q-page>
