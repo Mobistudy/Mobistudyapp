@@ -66,7 +66,7 @@ export default {
 
   /**
    * Configures a Miband3
-   * @param {Object} user a user configuration like { height: 180, weight: 80, dateOfBirth: '1974-11-21', sex: 'male', language: 'en' }
+   * @param {Object} user a user configuration like { height: 180, weight: 80, dob: '1974-11-21', sex: 'male', language: 'en' }
    * @param {number} hrFreq how often HR is measured in minutes
    */
   async configure (user, hrFreq) {

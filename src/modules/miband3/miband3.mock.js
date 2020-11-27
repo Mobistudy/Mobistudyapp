@@ -43,6 +43,7 @@ export default {
     if (CONNECT_FAIL) return Promise.reject()
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        device.key = 'ababababababa'
         device.connected = true
         resolve(true)
       }, 1000)
@@ -74,7 +75,7 @@ export default {
 
   /**
    * Configures a Miband3
-   * @param {Object} user a user configuration like { height: 180, weight: 80, dobYear: 1978, dobMonth: 12, dob: 3, sex: 'male' }
+   * @param {Object} user a user configuration like { height: 180, weight: 80, dob: '1974-11-21', sex: 'male' }
    * @param {number} hrFreq how often HR is measured in minutes
    */
   async configure (user, hrFreq) {
