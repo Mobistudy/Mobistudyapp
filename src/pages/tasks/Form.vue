@@ -125,8 +125,6 @@ import userinfo from 'modules/userinfo'
 export default {
   name: 'FormPage',
   props: {
-    title: String,
-    icon: String,
     studyKey: String,
     taskId: Number,
     formKey: String

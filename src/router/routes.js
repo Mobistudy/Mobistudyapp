@@ -55,21 +55,22 @@ const routes = [
     ]
   },
   {
-    path: '/tasks',
+    path: '/tasks/:icon/:title',
     component: () => import('layouts/TaskLayout.vue'),
     children: [
       { path: '/form', name: 'form', component: () => import('pages/tasks/Form.vue'), props: true },
       { path: '/dataQuery', name: 'dataQuery', component: () => import('pages/tasks/DataQuery'), props: true },
-      { path: '/smwtIntro', name: 'smwtIntro', component: () => import('pages/tasks/SMWTIntro.vue'), props: true },
-      { path: '/smwt', name: 'smwt', component: () => import('pages/tasks/SMWT.vue'), props: true },
-      { path: '/smwtSummary', name: 'smwtSummary', component: () => import('pages/tasks/SMWTSummary.vue'), props: true },
-      { path: '/qcstIntro', name: 'qcstIntro', component: () => import('pages/tasks/QCSTIntro.vue'), props: true },
-      { path: '/qcst', name: 'qcst', component: () => import('pages/tasks/QCST.vue'), props: true },
-      { path: '/qcsthr', name: 'qcsthr', component: () => import('pages/tasks/QCSTHR.vue'), props: true },
-      { path: '/qcstSummary', name: 'qcstSummary', component: () => import('pages/tasks/QCSTSummary.vue'), props: true },
-      { path: '/miband3Intro', name: 'miband3Intro', component: () => import('pages/tasks/MiBand3Intro.vue'), props: true },
-      { path: '/miband3Connect', name: 'miband3Connect', component: () => import('pages/tasks/MiBand3Connect.vue'), props: true },
-      { path: '/miband3DataDownload', name: 'miband3DataDownload', component: () => import('pages/tasks/MiBand3DataDownload.vue'), props: true }
+      { path: '/smwtIntro', name: 'smwtIntro', component: () => import('pages/tasks/smwt/SMWTIntro.vue'), props: true },
+      { path: '/smwt', name: 'smwt', component: () => import('pages/tasks/smwt/SMWT.vue'), props: true },
+      { path: '/smwtSummary', name: 'smwtSummary', component: () => import('pages/tasks/smwt/SMWTSummary.vue'), props: true },
+      { path: '/qcstIntro', name: 'qcstIntro', component: () => import('pages/tasks/qcst/QCSTIntro.vue'), props: true },
+      { path: '/qcst', name: 'qcst', component: () => import('pages/tasks/qcst/QCST.vue'), props: true },
+      { path: '/qcsthr', name: 'qcsthr', component: () => import('pages/tasks/qcst/QCSTHR.vue'), props: true },
+      { path: '/qcstSummary', name: 'qcstSummary', component: () => import('pages/tasks/qcst/QCSTSummary.vue'), props: true },
+      { path: '/miband3Intro', name: 'miband3Intro', component: () => import('pages/tasks/miband3/MiBand3Intro.vue'), props: true },
+      { path: '/miband3Connect', name: 'miband3Connect', component: () => import('pages/tasks/miband3/MiBand3Connect.vue'), props: true },
+      { path: '/miband3DataDownload', name: 'miband3DataDownload', component: () => import('pages/tasks/miband3/MiBand3DataDownload.vue'), props: true },
+      { path: '/notEnoughDataPage', name: 'notEnoughDataPage', component: () => import('pages/tasks/miband3/notEnoughDataPage.vue'), props: true }
     ]
   }
 ]

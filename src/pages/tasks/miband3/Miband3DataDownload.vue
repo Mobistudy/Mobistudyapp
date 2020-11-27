@@ -12,13 +12,13 @@
         />
         <div class="row justify-around">
           <q-btn
-            label="-12 hours"
+            :label="'-12 ' + $t('studies.tasks.miband3.hours')"
             color="secondary"
             :disable="disableMinus"
             @click="lineChartAdd((-12))"
           />
           <q-btn
-            label="+12 hours"
+            :label="'+12 ' + $t('studies.tasks.miband3.hours')"
             color="secondary"
             :disable="disablePlus"
             @click="lineChartAdd((12))"
@@ -86,6 +86,9 @@ const chartColors = [
 
 // holder of all the stored data, this is kept outside of Vue for efficiency
 let storedData = []
+let minimumDataRequired = 30 // 30 minutes of data is required at a minimum to upload the data
+// eslint-disable-next-line no-unused-vars, not sure why this is complaining?
+let deviceInfo = {}
 
 // pie chart configuration
 let pieChartConfig = {
@@ -145,6 +148,7 @@ export default {
     }
   },
   methods: {
+    // TODO: If less than certain amount of data, don't store it, instead say there is not enough data.
     async downloadData () {
       this.isDownloading = true
 
@@ -156,7 +160,13 @@ export default {
       let startDate = await this.getDateUsedToDownload()
       try {
         await miband3.getStoredData(startDate, this.dataCallback)
-        this.storeDownloadTimestamp()
+        if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
+          await this.storeDownloadTimestamp(startDate)
+          await this.moveToNotEnoughDataPage()
+          return
+        }
+        deviceInfo = await miband3.getDeviceInfo()
+        await this.storeDownloadTimestamp(startDate)
         try {
           await miband3.disconnect()
         } catch (err) {
@@ -165,15 +175,19 @@ export default {
         }
         this.createPieChart()
         this.renderLineChart(this.currentStartHour, this.currentEndHour)
-
         this.isDownloading = false
       } catch (err) {
         console.error('cannot download data', err)
-        this.showErrorDialog()
+        this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective.
       }
     },
-    async storeDownloadTimestamp () {
-      let newestSampleTimeStamp = storedData[storedData.length - 1].date
+    async storeDownloadTimestamp (startDate) {
+      let newestSampleTimeStamp
+      if (storedData.length > minimumDataRequired) {
+        newestSampleTimeStamp = storedData[storedData.length - 1].date
+      } else {
+        newestSampleTimeStamp = startDate
+      }
       let device = await db.getDeviceMiBand3()
       device.lastStoredDataDate = newestSampleTimeStamp
       return db.setDeviceMiBand3(device)
@@ -209,6 +223,10 @@ export default {
         let device = await db.getDeviceMiBand3()
         startDate = new Date(device.lastStoredDataDate)
       }
+      // Testing purposes
+      if (startDate !== undefined) {
+        startDate = new Date(1970)
+      }
       console.log('Start date:', startDate)
       return startDate
     },
@@ -230,6 +248,7 @@ export default {
         this.addToLineChart(data.hr, data.intensity, data.steps, data.date)
       }
       this.updateLineChartReferences()
+      this.updatePlusMinusButtons() // Could be placed somewhere else but is needed at start in case data size < 12 hours worth
     },
 
     async getLastCompletedTaskMoment (studyKey, taskID) {
@@ -394,11 +413,14 @@ export default {
       } else {
         this.disableMinus = false
       }
-      if (this.currentEndHour === (storedData.length / 60)) {
+      if (this.currentEndHour >= (storedData.length / 60)) {
         this.disablePlus = true
       } else {
         this.disablePlus = false
       }
+    },
+    moveToNotEnoughDataPage () {
+      this.$router.push({ name: 'notEnoughDataPage' })
     },
     skipSend () {
       // TODO should save the date up to which the data was retrieved and go back to home
