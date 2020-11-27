@@ -59,7 +59,7 @@ export default {
   },
   created () {
     if (this.task.type === 'dataQuery') {
-      this.title = this.$i18n.t('studies.tasks.dataQuery.title')
+      this.title = this.$i18n.t('studies.tasks.dataQuery.shortTitle')
       this.main = this.$i18n.t('studies.tasks.dataQuery.shortDescription')
       this.icon = 'insert_chart_outlined'
     } else if (this.task.type === 'form') {
