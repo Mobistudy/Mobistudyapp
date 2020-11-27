@@ -110,7 +110,7 @@ module.exports = function (ctx) {
     devServer: {
       // https: true,
       // port: 8080,
-      open: 'Google Chrome', // opens browser window automatically
+      open: true, // opens browser window automatically
       proxy: {
         '/api': { // <- this must be the same as API_ENDPOINT
           target: 'http://127.0.0.1:3000',
