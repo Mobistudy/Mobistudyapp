@@ -86,22 +86,8 @@ export default {
     }
   },
   created () {
-    if (this.$route.query.type === 'dataQuery') {
-      this.title = this.$i18n.t('studies.tasks.dataQuery.shortTitle')
-      this.icon = 'insert_chart_outlined'
-    } else if (this.$route.query.type === 'form') {
-      this.title = this.task.formTitle[this.$root.$i18n.locale]
-      this.icon = 'format_list_bulleted'
-    } else if (this.$route.query.type === 'smwt') {
-      this.title = this.$i18n.t('studies.tasks.smwt.shortTitle')
-      this.icon = 'directions_walk'
-    } else if (this.$route.query.type === 'qcst') {
-      this.title = this.$i18n.t('studies.tasks.qcst.shortTitle')
-      this.icon = 'layers'
-    } else if (this.$route.query.type === 'miband3') {
-      this.title = this.$i18n.t('studies.tasks.miband3.shortTitle')
-      this.icon = 'watch'
-    }
+    this.title = this.$route.query.title
+    this.icon = this.$route.query.icon
   }
 }
 </script>

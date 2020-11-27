@@ -55,7 +55,7 @@ const routes = [
     ]
   },
   {
-    path: '/tasks/:type',
+    path: '/tasks',
     component: () => import('layouts/TaskLayout.vue'),
     children: [
       { path: '/form', name: 'form', component: () => import('pages/tasks/Form.vue'), props: true },
