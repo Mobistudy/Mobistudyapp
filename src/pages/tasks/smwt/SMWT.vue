@@ -201,7 +201,7 @@ export default {
         borgScale: undefined
       }
 
-      this.$router.push({ name: 'smwtSummary', params: { title: title, icon: icon, report: report } })
+      this.$router.push({ name: 'smwtSummary', params: { report: report } })
       this.$emit('updateTransition', 'slideInRight')
     }
   },
