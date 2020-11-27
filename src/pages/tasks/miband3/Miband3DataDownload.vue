@@ -161,7 +161,7 @@ export default {
       try {
         await miband3.getStoredData(this.startDate, this.dataCallback)
         if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
-          await this.storeDownloadTimestamp(this.startDate)
+          await this.storeDownloadTimestamp()
           this.$router.push({ name: 'notEnoughDataPage' })
           return
         }
@@ -180,12 +180,12 @@ export default {
         this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective.
       }
     },
-    async storeDownloadTimestamp (startDate) {
+    async storeDownloadTimestamp () {
       let newestSampleTimeStamp
       if (storedData.length > minimumDataRequired) {
         newestSampleTimeStamp = storedData[storedData.length - 1].date
       } else {
-        newestSampleTimeStamp = startDate
+        newestSampleTimeStamp = this.startDate
       }
       let device = await db.getDeviceMiBand3()
       device.lastStoredDataDate = newestSampleTimeStamp
@@ -196,45 +196,42 @@ export default {
      * or if it's the first time it uses the scheduling information
      */
     async getDateUsedToDownload () {
-      // Route parameters
-      const studyKey = this.studyKey
-      const taskID = this.taskId
-      const studyDescription = await db.getStudyDescription(studyKey)
-      // TODO: make the getTaskDescription part of DB module
-      const taskDescription = this.getTaskDescription(studyDescription, taskID)
-      // TODO: make it part of DB
-      let lastCompleted = await this.getLastCompletedTaskMoment(studyKey, taskID)
-      let startDate = moment()
-      if (typeof lastCompleted === 'undefined') {
-        let intervalType = taskDescription.scheduling.intervalType
-        let interval = taskDescription.scheduling.interval
-        if (intervalType === 'd') {
-          startDate.subtract(interval, 'days')
-        } else if (intervalType === 'w') {
-          startDate.subtract(interval, 'weeks')
-        } else if (intervalType === 'm') {
-          startDate.subtract(interval, 'months')
-        } else if (intervalType === 'y') {
-          startDate.subtract(interval, 'years')
-        }
-        startDate = startDate.toDate()
-      } else {
-        let device = await db.getDeviceMiBand3()
+      let startDate
+      let device = await db.getDeviceMiBand3()
+      if (device.lastStoredDataDate) {
         startDate = new Date(device.lastStoredDataDate)
+      } else {
+        const taskDescription = await db.getTaskDescription(this.studyKey, this.taskId)
+        let lastExecuted = taskDescription.lastExecuted
+        if (lastExecuted) {
+          startDate = new Date(lastExecuted)
+        } else {
+          // use the scheduling information
+          startDate = moment()
+          let intervalType = taskDescription.scheduling.intervalType
+          let interval = taskDescription.scheduling.interval
+          if (intervalType === 'd') {
+            startDate.subtract(interval, 'days')
+          } else if (intervalType === 'w') {
+            startDate.subtract(interval, 'weeks')
+          } else if (intervalType === 'm') {
+            startDate.subtract(interval, 'months')
+          } else if (intervalType === 'y') {
+            startDate.subtract(interval, 'years')
+          }
+          startDate = startDate.toDate()
+        }
       }
-      // Testing purposes
-      if (startDate !== undefined) {
-        startDate = new Date(1970)
-      }
+
       console.log('Start date:', startDate)
       return startDate
     },
     /**
-     * Renders the line chart data between the two specific parameters, end and start in hours.
-     * The parameters are converted to minutes. And because there is a stored sample
-     * minute by minute in the storedData, the start and end time are re-calculated in minutes
-     * and this will be the indexes of the corresponding samples.
-     */
+    * Renders the line chart data between the two specific parameters, end and start in hours.
+    * The parameters are converted to minutes. And because there is a stored sample
+    * minute by minute in the storedData, the start and end time are re-calculated in minutes
+    * and this will be the indexes of the corresponding samples.
+    */
     renderLineChart (startTime, endTime) {
       lineChart.reset()
       let startIndexInMinutes = startTime * 60
@@ -248,17 +245,6 @@ export default {
       }
       this.updateLineChartReferences()
       this.updatePlusMinusButtons() // Could be placed somewhere else but is needed at start in case data size < 12 hours worth
-    },
-
-    async getLastCompletedTaskMoment (studyKey, taskID) {
-      let taskItemConsent = await db.getStudyParticipationTaskItemConsent(studyKey)
-      let lastCompleted = taskItemConsent.find(x => x.taskId === Number(taskID)).lastExecuted
-      return moment(lastCompleted)
-    },
-
-    getTaskDescription (studyDescription, taskID) {
-      let taskDescription = studyDescription.tasks.find(x => x.id === Number(taskID))
-      return taskDescription
     },
 
     showErrorDialog () {
@@ -420,7 +406,10 @@ export default {
     },
     async skipSend () {
       // TODO: show a popup for confirmation
-      await this.storeDownloadTimestamp(this.startDate)
+      await this.storeDownloadTimestamp()
+      let studyKey = this.studyKey
+      let taskId = Number(this.taskId)
+      await db.setTaskCompletion(studyKey, taskId, new Date())
       this.$router.push('/home')
     },
     async sendData () {
