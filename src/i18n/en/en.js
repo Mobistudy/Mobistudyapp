@@ -13,6 +13,7 @@ let en = {
   },
   common: {
     next: 'Next',
+    clear: 'Clear answer',
     cancel: 'Cancel',
     accept: 'Accept',
     reject: 'Reject',
