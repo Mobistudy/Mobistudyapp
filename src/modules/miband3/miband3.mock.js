@@ -22,11 +22,11 @@ export default {
       setInterval(() => {
         resolve([
           {
-            id: 'AAAAAAA',
+            id: '00:11:22:33:FF:EE',
             rssi: 200
           },
           {
-            id: 'BBBBBB',
+            id: '01:22:32:43:1D:09',
             rssi: 100
           }
         ])
@@ -85,7 +85,7 @@ export default {
    */
   async getDeviceInfo () {
     return Promise.resolve({
-      id: 'AAAA',
+      id: '00:11:22:33:FF:EE',
       battery: 80,
       charging: false,
       swVersion: '11',
