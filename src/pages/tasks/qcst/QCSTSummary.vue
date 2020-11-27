@@ -275,7 +275,7 @@ export default {
         console.error(error)
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot send data: ' + error.message,
+          message: this.$t('errors.connectionError') + ' ' + error.message,
           icon: 'report_problem',
           onDismiss () {
             this.$router.push('/home')

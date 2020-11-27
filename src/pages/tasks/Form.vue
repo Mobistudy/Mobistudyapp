@@ -286,19 +286,13 @@ export default {
       try {
         await API.sendAnswers(answers)
         await DB.setTaskCompletion(studyKey, taskId, new Date())
-        // this.$q.notify({
-        //   color: 'positive',
-        //   message: 'Form sent successfully!',
-        //   icon: 'check'
-        // })
-        // let _this = this
         this.$router.push('/home')
       } catch (error) {
         console.error(error)
         this.loading = false
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot send data: ' + error.message,
+          message: this.$t('errors.connectionError') + ' ' + error.message,
           icon: 'report_problem',
           onDismiss () {
             this.$router.push('/home')
