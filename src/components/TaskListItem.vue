@@ -36,22 +36,18 @@ export default {
       const studyKey = this.task.studyKey
       const taskId = this.task.taskId
       const formKey = this.task.formKey
-      const title = this.title
-      const icon = this.icon
-
-      console.log(title, '\nIcon:', icon, '\nStudy Key:', studyKey, '\nTask ID:', taskId)
 
       // these bring the user to the correct route depending on the task
       if (formKey) {
-        this.$router.push({ name: 'form', params: { studyKey: studyKey, taskId: taskId, formKey: formKey }, query: { title: title, icon: icon } })
+        this.$router.push({ name: 'form', params: { studyKey: studyKey, taskId: taskId, formKey: formKey }, query: { type } })
       } else if (type === 'smwt') {
-        this.$router.push({ name: 'smwtIntro', params: { studyKey: studyKey, taskId: taskId }, query: { title: title, icon: icon } })
+        this.$router.push({ name: 'smwtIntro', params: { studyKey: studyKey, taskId: taskId }, query: { type } })
       } else if (type === 'qcst') {
-        this.$router.push({ name: 'qcstIntro', params: { studyKey: studyKey, taskId: taskId }, query: { title: title, icon: icon } })
+        this.$router.push({ name: 'qcstIntro', params: { studyKey: studyKey, taskId: taskId }, qquery: { type } })
       } else if (type === 'miband3') {
-        this.$router.push({ name: 'miband3Intro', params: { studyKey: studyKey, taskId: taskId }, query: { title: title, icon: icon } })
+        this.$router.push({ name: 'miband3Intro', params: { studyKey: studyKey, taskId: taskId }, query: { type } })
       } else if (studyKey && taskId) {
-        this.$router.push({ name: 'dataQuery', params: { taskId: taskId, studyKey: studyKey }, query: { title: title, icon: icon } })
+        this.$router.push({ name: 'dataQuery', params: { taskId: taskId, studyKey: studyKey }, query: { type } })
       } else {
         return false
       }

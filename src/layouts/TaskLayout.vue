@@ -9,10 +9,10 @@
         <q-avatar>
           <q-icon
             color="white"
-            :name="this.$route.query.icon"
+            :name="this.icon"
           />
         </q-avatar>
-        <q-toolbar-title>{{ this.$route.query.title }}</q-toolbar-title>
+        <q-toolbar-title>{{ this.title }}</q-toolbar-title>
         <q-btn
           flat
           dense
@@ -70,7 +70,9 @@ export default {
   data () {
     return {
       confirm: false,
-      slideName: ''
+      slideName: '',
+      title: undefined,
+      icon: undefined
     }
   },
   methods: {
@@ -82,16 +84,24 @@ export default {
         this.slideName = transition
       }, 10)
     }
+  },
+  created () {
+    if (this.$route.query.type === 'dataQuery') {
+      this.title = this.$i18n.t('studies.tasks.dataQuery.shortTitle')
+      this.icon = 'insert_chart_outlined'
+    } else if (this.$route.query.type === 'form') {
+      this.title = this.task.formTitle[this.$root.$i18n.locale]
+      this.icon = 'format_list_bulleted'
+    } else if (this.$route.query.type === 'smwt') {
+      this.title = this.$i18n.t('studies.tasks.smwt.shortTitle')
+      this.icon = 'directions_walk'
+    } else if (this.$route.query.type === 'qcst') {
+      this.title = this.$i18n.t('studies.tasks.qcst.shortTitle')
+      this.icon = 'layers'
+    } else if (this.$route.query.type === 'miband3') {
+      this.title = this.$i18n.t('studies.tasks.miband3.shortTitle')
+      this.icon = 'watch'
+    }
   }
 }
 </script>
-
-<style>
-.text-h6,
-.text-h5 {
-  margin-top: 20px;
-}
-.block {
-  margin-top: 2px;
-}
-</style>
