@@ -18,7 +18,7 @@ export default {
         noDeviceTitle: 'No MiBand found',
         noDevice: 'Could not find any MiBand. Please make sure Bluetooth is activated on your phone. Would you like to search again?',
         moreDevices: 'More than one MiBand device was found. The nearest in proximity is the first device in the list. Please tap on one to connect to it.',
-        tap: 'Tap the device on your wrist when it vibrates',
+        tap: 'Tap the activity tracker!',
         connectionFail: 'Cannot connect to the device, would you like to retry?',
         connecting: 'Connecting to the Miband',
         connected: 'Connection succesful',
