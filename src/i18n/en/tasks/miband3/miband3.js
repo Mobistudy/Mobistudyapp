@@ -21,7 +21,6 @@ export default {
         tap: 'Tap the activity tracker!',
         connectionFail: 'Cannot connect to the device, would you like to retry?',
         connecting: 'Connecting to the Miband',
-        connected: 'Connection succesful',
         activityTypes: {
           walk: 'Walking',
           charging: 'charging',

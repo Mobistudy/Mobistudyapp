@@ -143,10 +143,7 @@ export default {
         // save the device!
         device.authenticated = true
         await db.setDeviceMiBand3(device)
-        this.$q.notify({
-          type: 'positive',
-          message: this.$t('studies.tasks.miband3.connected')
-        })
+
         this.moveToDownloadPage()
       } catch (error) {
         console.error(error)
