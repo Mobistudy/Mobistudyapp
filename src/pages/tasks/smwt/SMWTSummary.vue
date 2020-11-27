@@ -6,13 +6,13 @@
         class="q-mt-md"
         alt="Finish flag"
         src="~assets/goalflags.svg"
-        sttyle="width: 40%; margin: 0px auto;"
+        style="width: 50%; margin: 0px auto;"
       >
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
       <table class="decoratedTable">
         <tr>
           <td>{{ $t('studies.tasks.smwt.time') }}</td>
-          <td style="submit"> {{ minutes }}:{{ seconds }}</td>
+          <td style="text"> {{ minutes }}:{{ seconds }}</td>
         </tr>
         <tr>
           <td>{{ $t('studies.tasks.smwt.distance') }}</td>
@@ -209,8 +209,8 @@
           </q-item>
         </q-list>
 
-        <div class="q-px-sm q-mt-sm">
-          <p class="sub-heading">Your selection is: <strong>{{ borgValue }}</strong></p>
+        <div class="q-mt-sm">
+          <p>Your selection is: <strong>{{ borgValue }}</strong></p>
         </div>
       </div>
 
@@ -231,7 +231,7 @@
   padding: 4px;
   width: 70%;
   margin: 0px auto;
-  font-size: 0.75rem;
+  font-size: 1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 }
 </style>
@@ -291,10 +291,10 @@ export default {
       return Math.floor((this.report.completionTS - this.report.startedTS) / 1000)
     },
     minutes () {
-      return Qformat.pad(Math.floor(this.totalTime / 60))
+      return Qformat.pad(Math.floor(this.totalTime / 60), 2)
     },
     seconds () {
-      return Math.floor(this.totalTime - (this.minutes * 60))
+      return Qformat.pad(Math.floor(this.totalTime - (this.minutes * 60)), 2)
     }
   }
 }
