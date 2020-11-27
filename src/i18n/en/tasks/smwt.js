@@ -30,6 +30,7 @@ export default {
         steps: 'Steps',
         distance: 'Distance',
         borgScale: {
+          intro: 'Please rate your level of exertion:',
           l0: 'No exertion',
           l05: 'Very very slight',
           l1: 'Very slight',
@@ -39,7 +40,8 @@ export default {
           l5: 'Strong',
           l7: 'Very strong',
           l9: 'Very very strong',
-          l10: 'Maximal'
+          l10: 'Maximal',
+          result: 'Your selection is:'
         }
       }
     }

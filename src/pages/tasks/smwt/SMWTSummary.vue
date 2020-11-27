@@ -12,20 +12,20 @@
       <table class="decoratedTable">
         <tr>
           <td>{{ $t('studies.tasks.smwt.time') }}</td>
-          <td style="text"> {{ minutes }}:{{ seconds }}</td>
+          <td> {{ minutes }}:{{ seconds }}</td>
         </tr>
         <tr>
           <td>{{ $t('studies.tasks.smwt.distance') }}</td>
-          <td style="submit">{{ report.distance.toFixed(2) }} m</td>
+          <td>{{ report.distance.toFixed(2) }} m</td>
         </tr>
         <tr v-if="report.steps.length">
           <td>{{ $t('studies.tasks.smwt.steps') }}</td>
-          <td style="submit">{{ report.steps[report.steps.length - 1].numberOfSteps }}</td>
+          <td>{{ report.steps[report.steps.length - 1].numberOfSteps }}</td>
         </tr>
       </table>
 
       <div class="q-pa-md">
-        <p class="sub-heading">Please rate your level of exertion:</p>
+        <p>Please rate your level of exertion:</p>
         <q-list bordered>
           <q-item
             tag="label"
@@ -210,7 +210,7 @@
         </q-list>
 
         <div class="q-mt-sm">
-          <p>Your selection is: <strong>{{ borgValue }}</strong></p>
+          <p>{{ $t('studies.tasks.smwt.borgScale.result') }} <strong>{{ borgValue }}</strong></p>
         </div>
       </div>
 

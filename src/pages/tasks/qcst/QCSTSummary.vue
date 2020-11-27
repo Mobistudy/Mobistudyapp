@@ -6,9 +6,10 @@
         class="q-mt-md"
         alt="Finish flag"
         src="~assets/goalflags.svg"
+        style="width: 50%; margin: 0px auto;"
       >
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
-      <table id="stats">
+      <table class="decoratedTable">
         <tr>
           <td>{{ $t('studies.tasks.qcst.time') }}</td>
           <td> {{ minutes }}:{{ seconds }}</td>
@@ -20,7 +21,7 @@
       </table>
 
       <div class="q-pa-md">
-        <p class="sub-heading">Please rate your level of exertion:</p>
+        <p>{{ $t('studies.tasks.smwt.borgScale.intro')}}</p>
         <q-list bordered>
           <q-item
             tag="label"
@@ -205,7 +206,7 @@
         </q-list>
 
         <div class="q-px-sm q-mt-sm">
-          <p class="sub-heading">Your selection is: <strong>{{ borgValue }}</strong></p>
+          <p>{{ $t('studies.tasks.smwt.borgScale.result') }} <strong>{{ borgValue }}</strong></p>
         </div>
       </div>
 
@@ -218,6 +219,17 @@
     </div>
   </q-page>
 </template>
+
+<style>
+.decoratedTable {
+  background: #f8f8f8;
+  padding: 4px;
+  width: 70%;
+  margin: 0px auto;
+  font-size: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+</style>
 
 <script>
 import API from 'modules/API'
@@ -285,30 +297,3 @@ export default {
   }
 }
 </script>
-
-<style>
-img {
-  width: 40%;
-  margin: 0px auto;
-}
-
-table {
-  background: #f8f8f8;
-  padding: 4px;
-  width: 70%;
-  margin: 0px auto;
-  font-size: 0.75rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-
-table td:nth-child(2) {
-  text-align: right;
-}
-tr {
-  text-align: left;
-}
-
-#submit {
-  text-align: center;
-}
-</style>
