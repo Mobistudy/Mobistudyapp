@@ -42,19 +42,19 @@
             </q-item-section>
           </q-item>
         </q-list>
-        <q-list>
-          <q-item v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems" :key="taskIndex">
-            <q-item-section>
-              <q-item-label>{{taskItem.description[$i18n.locale]}}</q-item-label>
-              <div v-if="taskType[taskIndex] === 'dataQuery' && !permissionsGiven[taskIndex]">
+        <q-list v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems" :key="taskIndex">
+          <q-item>
+          <q-item-section >
+            <q-item-label class="q-my-md">{{taskItem.description[$i18n.locale]}}</q-item-label>
+              <q-item-label v-if="taskType[taskIndex] !== 'form' && !permissionsGiven[taskIndex] || taskType[taskIndex] !== 'form' && !consentedTaskItems[taskIndex]">
                 <div class="q-mt-sm text-secondary">
                   {{ $t('studies.consent.OSpermission') }}
+                  {{ $t('studies.consent.giveOSPermission') }}
                 </div>
-                <q-btn :label="$t('studies.consent.giveOSPermission')" :disabled="!consentedTaskItems[taskIndex]" @click="requestDQPermission(taskIndex)"></q-btn>
-              </div>
-            </q-item-section>
+              </q-item-label>
+          </q-item-section>
             <q-item-section avatar>
-              <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
+              <q-checkbox @click.native="(consentedTaskItems[taskIndex] || !permissionsGiven[taskIndex]) ? requestDQPermission(taskIndex) : null" v-model="consentedTaskItems[taskIndex]"/>
             </q-item-section>
           </q-item>
         </q-list>
