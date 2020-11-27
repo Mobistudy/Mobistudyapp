@@ -183,8 +183,6 @@ export default {
       this.distance = distanceAlgo.getDistance()
 
       // package the 6mwt report
-      const title = this.title
-      const icon = this.icon
       const studyKey = this.studyKey
       const taskId = parseInt(this.taskId)
       const userKey = userinfo.user._key

@@ -32,26 +32,26 @@ export default {
   },
   methods: {
     changeRoute: function () {
-      const title = this.title
-      const icon = this.icon
       const type = this.task.type
       const studyKey = this.task.studyKey
       const taskId = this.task.taskId
       const formKey = this.task.formKey
+      const title = this.title
+      const icon = this.icon
 
       console.log(title, '\nIcon:', icon, '\nStudy Key:', studyKey, '\nTask ID:', taskId)
 
       // these bring the user to the correct route depending on the task
       if (formKey) {
-        this.$router.push({ name: 'form', params: { title: title, icon: icon, studyKey: studyKey, taskId: taskId, formKey: formKey } })
+        this.$router.push({ name: 'form', params: { studyKey: studyKey, taskId: taskId, formKey: formKey }, query: { title: title, icon: icon } })
       } else if (type === 'smwt') {
-        this.$router.push({ name: 'smwtIntro', params: { title: title, icon: icon, studyKey: studyKey, taskId: taskId } })
+        this.$router.push({ name: 'smwtIntro', params: { studyKey: studyKey, taskId: taskId }, query: { title: title, icon: icon } })
       } else if (type === 'qcst') {
-        this.$router.push({ name: 'qcstIntro', params: { title: title, icon: icon, studyKey: studyKey, taskId: taskId } })
+        this.$router.push({ name: 'qcstIntro', params: { studyKey: studyKey, taskId: taskId }, query: { title: title, icon: icon } })
       } else if (type === 'miband3') {
-        this.$router.push({ name: 'miband3Intro', params: { title: title, icon: icon, studyKey: studyKey, taskId: taskId } })
+        this.$router.push({ name: 'miband3Intro', params: { studyKey: studyKey, taskId: taskId }, query: { title: title, icon: icon } })
       } else if (studyKey && taskId) {
-        this.$router.push({ name: 'dataQuery', params: { title: title, icon: icon, taskId: taskId, studyKey: studyKey } })
+        this.$router.push({ name: 'dataQuery', params: { taskId: taskId, studyKey: studyKey }, query: { title: title, icon: icon } })
       } else {
         return false
       }
