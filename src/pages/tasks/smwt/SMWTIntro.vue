@@ -40,12 +40,10 @@ export default {
   },
   methods: {
     start () {
-      const title = this.title
-      const icon = this.icon
       const studyKey = this.studyKey
       const taskId = this.taskId
       console.log('StudyKey ' + studyKey + ',taskId ' + taskId)
-      this.$router.push({ name: 'smwt', params: { title: title, icon: icon, studyKey, taskId } })
+      this.$router.push({ name: 'smwt', params: { studyKey: studyKey, taskId: taskId } })
       this.$emit('updateTransition', 'fadeInDown')
     }
   }

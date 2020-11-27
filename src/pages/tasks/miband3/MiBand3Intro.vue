@@ -57,7 +57,6 @@
 export default {
   name: 'Miband3IntroPage',
   props: {
-    icon: String,
     studyKey: String,
     taskId: Number
   },
@@ -76,7 +75,7 @@ export default {
       }
     },
     handleFinish () {
-      this.$router.push({ name: 'miband3Connect', params: { icon: this.icon, studyKey: this.studyKey, taskId: this.taskId } })
+      this.$router.push({ name: 'miband3Connect', params: { studyKey: this.studyKey, taskId: this.taskId } })
     }
   }
 }
