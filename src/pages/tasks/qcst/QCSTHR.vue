@@ -34,11 +34,10 @@ export default {
   },
   methods: {
     completeTest () {
-      const title = this.title
-      const icon = this.icon
       const report = this.report
       this.report.heartRate = this.heartRate
-      this.$router.push({ name: 'qcstSummary', params: { title: title, icon: icon, report: report } })
+
+      this.$router.push({ name: 'qcstSummary', params: { report: report } })
     }
   }
 }
