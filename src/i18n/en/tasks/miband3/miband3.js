@@ -24,6 +24,9 @@ export default {
         connected: 'Connection succesful',
         activityTypes: {
           walk: 'Walking',
+          charging: 'charging',
+          activity_high: 'intense activity',
+          sleep: 'sleeping',
           unknown: 'Unknown'
         },
         dataDownload: 'Downloading data',
