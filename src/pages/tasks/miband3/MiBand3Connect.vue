@@ -134,20 +134,11 @@ export default {
         // Authenticate after connect.
         if (!device.authenticated) this.tapToAuthDialog = true
         await miband3.authenticate(device.authenticated)
-<<<<<<< HEAD
-        if (!device.configured) {
-          let user = userinfo.user
-          let hrFreq = 1
-          await miband3.configure(user, hrFreq)
-          device.configured = true
-        }
-=======
 
         // configure the watch
         let user = userinfo.user
         const taskDescr = await db.getTaskDescription(this.studyKey, this.taskId)
         await miband3.configure(user, taskDescr.hrInterval)
->>>>>>> ac7d05c9b285b6d27a493bd7199fa83f4e7a148a
 
         this.tapToAuthDialog = false
         this.showConnecting = false
@@ -162,7 +153,6 @@ export default {
         this.showConnecting = false
         // TODO: there should be a third button in case the user has a new miband
         // this cannot be done using the dialog plugin, so a complete dialog should be designed
-<<<<<<< HEAD
         // Rarely connects on the first attempt, should need at least 3.
         if (this.connectionAttempts < this.maxConnectionAttempts) {
           console.log('Attempting connect again...', this.connectionAttempts)
@@ -187,26 +177,6 @@ export default {
             this.abandon()
           })
         }
-=======
-        this.$q.dialog({
-          title: this.$t('errors.error'),
-          message: this.$t('studies.tasks.miband3.connectionFail'),
-          cancel: this.$t('common.cancel'),
-          ok: this.$t('common.retry'),
-          persistent: true
-        }).onOk(async () => {
-          await miband3.disconnect()
-          if (device.authenticated) {
-            // if already authenticated once, retry connection
-            this.connect(device)
-          } else {
-            // probably the wrong device was chosen, start from search
-            this.search()
-          }
-        }).onCancel(() => {
-          this.abandon()
-        })
->>>>>>> ac7d05c9b285b6d27a493bd7199fa83f4e7a148a
       }
     },
     // abandons the task
