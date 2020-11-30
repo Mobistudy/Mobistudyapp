@@ -1508,9 +1508,10 @@ var Miband3 = {
     while (this.runningNotificationCharacteristics.length > 0) {
       let characteristic = this.runningNotificationCharacteristics.pop()
       let service = this.runningNotifications.get(characteristic)
-      this.stopNotification(service, characteristic)
+      await this.stopNotification(service, characteristic)
       this.runningNotifications.delete(characteristic)
     }
+    return Promise.resolve()
   },
 
   stopNotification: async function (service, characteristic) {

@@ -107,7 +107,7 @@ export default {
       DOB.getDate(),
       user.sex === 'female' // false for male
     )
-    return miband3Driver.stopAllNotifications() // In practice only stops the authentication notifications, and maybe if something else is missed.
+    return miband3Driver.stopAllNotifications() // TODO: Seems to work here, but not in authenticate(), why?
   },
 
   /**
