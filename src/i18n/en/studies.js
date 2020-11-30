@@ -53,6 +53,7 @@ let studies = {
       taskCompleted: 'The task has been completed and the result has been sent to the server. Thank you!',
       dataQuery: {
         title: 'Data query',
+        shortTitle: 'Data query',
         shortDescription: 'Extract data from your phone',
         dataQueryExplanation: 'This data has been extracted from your phone. If you agree to send it, tap on Send.'
       },

@@ -1,5 +1,7 @@
 <template>
   <div class="q-pa-md">
+    <div class="text-h5 text-center">{{ $t('studies.tasks.miband3.title') }}</div>
+
     <q-carousel
       v-model="slide"
       ref="carousel"

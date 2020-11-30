@@ -314,19 +314,13 @@ export default {
           healthData: this.healthData
         })
         await DB.setTaskCompletion(studyKey, taskId, new Date())
-        // this.$q.notify({
-        //   color: 'positive',
-        //   message: 'Data sent successfully!',
-        //   icon: 'check'
-        // })
-        // let _this = this
         this.$router.push('/home')
       } catch (error) {
         this.loading = false
         console.error(error)
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot send data: ' + error.message,
+          message: this.$t('errors.connectionError') + ' ' + error.message,
           icon: 'report_problem',
           onDismiss () {
             this.$router.push('/home')

@@ -9,10 +9,10 @@
         <q-avatar>
           <q-icon
             color="white"
-            :name="this.$route.query.icon"
+            :name="this.icon"
           />
         </q-avatar>
-        <q-toolbar-title>{{ this.$route.query.title }}</q-toolbar-title>
+        <q-toolbar-title>{{ this.title }}</q-toolbar-title>
         <q-btn
           flat
           dense
@@ -70,7 +70,9 @@ export default {
   data () {
     return {
       confirm: false,
-      slideName: ''
+      slideName: '',
+      title: undefined,
+      icon: undefined
     }
   },
   methods: {
@@ -82,16 +84,10 @@ export default {
         this.slideName = transition
       }, 10)
     }
+  },
+  created () {
+    this.title = this.$route.query.title
+    this.icon = this.$route.query.icon
   }
 }
 </script>
-
-<style>
-.text-h6,
-.text-h5 {
-  margin-top: 20px;
-}
-.block {
-  margin-top: 2px;
-}
-</style>

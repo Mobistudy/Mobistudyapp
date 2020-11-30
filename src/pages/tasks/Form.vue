@@ -44,7 +44,6 @@
             rows="3"
             outlined
           />
-
           <div
             v-show="currentQuestion.type === 'singleChoice'"
             v-for="(answerChoice, index) in currentQuestion.answerChoices"
@@ -75,9 +74,12 @@
               <div v-html="currentQuestion.html[$i18n.locale]"></div>
             </div>
           </div>
+        <div v-if="currentQuestion.type !== 'textOnly'" class="row justify-around">
+          <q-btn no-caps flat :label="$t('common.clear')" color="negative"  icon-right="cancel" @click="clearAnswer()" />
+        </div>
         </div>
       </transition>
-      <div class="row justify-around q-ma-lg">
+      <div class="row justify-around q-mb-xl">
         <q-btn
           v-show="!isFirstQuestion"
           icon="arrow_back"
@@ -86,10 +88,19 @@
           :label="$t('common.back')"
         />
         <q-btn
+          v-show="isAnswered"
           icon-right="arrow_forward"
           color="primary"
           @click="next()"
           :label="$t('common.next')"
+        />
+      <q-btn
+          v-model="singleChoiceAnswer"
+          v-show="!isAnswered"
+          icon-right="arrow_forward"
+          color="warning"
+          @click="next()"
+          :label="$t('common.skip')"
         />
       </div>
       <div
@@ -182,6 +193,12 @@ export default {
       if (this.introduction) return false
       if (this.currentQuestion.id === this.formDescr.questions[0].id) return true
       return false
+    },
+    isAnswered () {
+      return (this.currentQuestion.type === 'singleChoice' && this.singleChoiceAnswer) ||
+             (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
+             (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
+             (this.currentQuestion.type === 'textOnly')
     }
   },
   methods: {
@@ -286,25 +303,24 @@ export default {
       try {
         await API.sendAnswers(answers)
         await DB.setTaskCompletion(studyKey, taskId, new Date())
-        // this.$q.notify({
-        //   color: 'positive',
-        //   message: 'Form sent successfully!',
-        //   icon: 'check'
-        // })
-        // let _this = this
         this.$router.push('/home')
       } catch (error) {
         console.error(error)
         this.loading = false
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot send data: ' + error.message,
+          message: this.$t('errors.connectionError') + ' ' + error.message,
           icon: 'report_problem',
           onDismiss () {
             this.$router.push('/home')
           }
         })
       }
+    },
+    clearAnswer () {
+      if (this.currentQuestion.type === 'singleChoice') this.singleChoiceAnswer = undefined
+      if (this.currentQuestion.type === 'freetext') this.freetextAnswer = undefined
+      if (this.currentQuestion.type === 'multiChoice') this.multiChoiceAnswer = []
     }
   }
 }
