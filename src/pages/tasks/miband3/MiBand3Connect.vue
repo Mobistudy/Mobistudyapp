@@ -39,15 +39,21 @@
       </q-card>
     </q-dialog>
 
-     <q-inner-loading :showing="showSearching">
-      <div class="text-overline" color="dark-grey">{{$t('studies.tasks.miband3.searching')}}</div>
+    <q-inner-loading :showing="showSearching">
+      <div
+        class="text-overline"
+        color="dark-grey"
+      >{{$t('studies.tasks.miband3.searching')}}</div>
       <q-spinner-dots
         size="40px"
         color="primary"
       />
     </q-inner-loading>
     <q-inner-loading :showing="showConnecting">
-      <div class="text-overline" color="dark-grey">{{$t('studies.tasks.miband3.connecting')}}</div>
+      <div
+        class="text-overline"
+        color="dark-grey"
+      >{{$t('studies.tasks.miband3.connecting')}}</div>
       <q-spinner-dots
         size="40px"
         color="primary"
@@ -64,7 +70,6 @@ import userinfo from 'modules/userinfo'
 export default {
   name: 'Miband3ConnectPage',
   props: {
-    icon: String,
     studyKey: String,
     taskId: Number
   },
@@ -129,12 +134,20 @@ export default {
         // Authenticate after connect.
         if (!device.authenticated) this.tapToAuthDialog = true
         await miband3.authenticate(device.authenticated)
+<<<<<<< HEAD
         if (!device.configured) {
           let user = userinfo.user
           let hrFreq = 1
           await miband3.configure(user, hrFreq)
           device.configured = true
         }
+=======
+
+        // configure the watch
+        let user = userinfo.user
+        const taskDescr = await db.getTaskDescription(this.studyKey, this.taskId)
+        await miband3.configure(user, taskDescr.hrInterval)
+>>>>>>> ac7d05c9b285b6d27a493bd7199fa83f4e7a148a
 
         this.tapToAuthDialog = false
         this.showConnecting = false
@@ -142,15 +155,14 @@ export default {
         // save the device!
         device.authenticated = true
         await db.setDeviceMiBand3(device)
-        this.$q.notify({
-          type: 'positive',
-          message: this.$t('studies.tasks.miband3.connected')
-        })
+
         this.moveToDownloadPage()
       } catch (error) {
+        console.error(error)
         this.showConnecting = false
         // TODO: there should be a third button in case the user has a new miband
         // this cannot be done using the dialog plugin, so a complete dialog should be designed
+<<<<<<< HEAD
         // Rarely connects on the first attempt, should need at least 3.
         if (this.connectionAttempts < this.maxConnectionAttempts) {
           console.log('Attempting connect again...', this.connectionAttempts)
@@ -175,6 +187,26 @@ export default {
             this.abandon()
           })
         }
+=======
+        this.$q.dialog({
+          title: this.$t('errors.error'),
+          message: this.$t('studies.tasks.miband3.connectionFail'),
+          cancel: this.$t('common.cancel'),
+          ok: this.$t('common.retry'),
+          persistent: true
+        }).onOk(async () => {
+          await miband3.disconnect()
+          if (device.authenticated) {
+            // if already authenticated once, retry connection
+            this.connect(device)
+          } else {
+            // probably the wrong device was chosen, start from search
+            this.search()
+          }
+        }).onCancel(() => {
+          this.abandon()
+        })
+>>>>>>> ac7d05c9b285b6d27a493bd7199fa83f4e7a148a
       }
     },
     // abandons the task
@@ -187,7 +219,7 @@ export default {
       this.$router.push({ name: 'tasker', params: { rescheduleTasks: true } })
     },
     moveToDownloadPage () {
-      this.$router.push({ name: 'miband3DataDownload', params: { icon: this.icon, studyKey: this.studyKey, taskId: this.taskId } })
+      this.$router.push({ name: 'miband3DataDownload', params: { studyKey: this.studyKey, taskId: this.taskId } })
     }
   },
   async mounted () {

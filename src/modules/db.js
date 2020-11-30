@@ -80,6 +80,11 @@ export default {
     return storage.getItem('study_' + studyKey)
     // return Promise.reject(new Error('test'))
   },
+  async getTaskDescription (studyKey, taskId) {
+    const studyDes = await this.getStudyDescription(studyKey)
+    if (!studyDes) throw new Error('study with key ' + studyKey + ' does not exist')
+    return studyDes.tasks.find(x => x.id === Number(taskId))
+  },
   async setStudyDescription (studyKey, config) {
     return storage.setItem('study_' + studyKey, config)
   },

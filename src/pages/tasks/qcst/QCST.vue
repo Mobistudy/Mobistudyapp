@@ -11,14 +11,21 @@
         v-if="!isStarted"
         color="secondary"
         :label="$t('common.start')"
+        padding="lg"
       />
       <q-btn
         @click="completeTest"
         v-if="isStarted"
         color="purple"
         :label="$t('common.complete')"
+        padding="lg"
       />
     </div>
+    <q-btn
+      padding="xl" color="black" round
+      flat icon="volume_up" class="q-mt-xl"
+      ref="metronome_indicator" v-if="isStarted"
+    />
 
     <audio ref="sound_begin">
       <source
@@ -63,8 +70,6 @@ const TEST_DURATION = 180
 export default {
   name: 'QCSTPage',
   props: {
-    title: String,
-    icon: String,
     studyKey: String,
     taskId: Number
   },
@@ -80,7 +85,6 @@ export default {
       steps: [],
       gender: 'male', // userinfo.user.gender,
       heartRate: '',
-      metronome: null,
       cadence: 625 // userinfo.user.gender === 'male'? 625 : 681
     }
   },
@@ -99,38 +103,30 @@ export default {
         } else {
           console.error('Pedometer not available')
         }
-        this.$refs.sound_begin.play()
-
+        phone.media.playSound(this.$refs.sound_begin)
         this.timer = setInterval(() => {
           if (this.countDown === 120) {
-            if (this.$refs && this.$refs.sound_minute1) this.$refs.sound_minute1.play()
+            phone.media.playSound(this.$refs.sound_minute2)
           } else if (this.countDown === 60) {
-            if (this.$refs && this.$refs.sound_minute2) this.$refs.sound_minute2.play()
+            phone.media.playSound(this.$refs.sound_minute1)
           }
           if (this.countDown >= 1) {
             this.countDown--
           } else {
-            // test is completed
-            if (this.$refs && this.$refs.sound_complete) this.$refs.sound_complete.play()
+            // Test is completed
             this.isStarted = false
             this.completeTest()
           }
         }, 1000)
-        let playAndRepeat = () => {
-          this.$refs.sound_click.play()
-          if (this.isStarted) {
-            setTimeout(playAndRepeat, this.cadence)
-          }
-        }
-        playAndRepeat()
+
+        phone.metronome.start(this.cadence, this.$refs.metronome_indicator.$el)
         this.$emit('updateTransition', 'slideInRight')
       }
     },
     completeTest () {
+      phone.media.playSound(this.$refs.sound_complete)
       phone.pedometer.stopNotifications()
       this.completionTS = new Date()
-      const title = this.title
-      const icon = this.icon
       const studyKey = this.studyKey
       const taskId = parseInt(this.taskId)
       const userKey = userinfo.user._key
@@ -145,7 +141,8 @@ export default {
         heartRate: undefined,
         borgScale: undefined
       }
-      this.$router.push({ name: 'qcsthr', params: { title: title, icon: icon, report: report } })
+
+      this.$router.push({ name: 'qcsthr', params: { report: report } })
     }
   },
   computed: {
@@ -159,15 +156,21 @@ export default {
   beforeDestroy: function () {
     this.isStarted = false
     clearInterval(this.timer)
+    phone.metronome.stop()
     phone.pedometer.stopNotifications()
   }
 }
 </script>
 
-<style>
+<style scoped>
+.q-page {
+  text-align: center;
+}
 #timer {
   font-size: 5rem;
-  text-align: center;
   padding: 20px;
+}
+.q-mt-xl {
+  margin-top: 150px;
 }
 </style>

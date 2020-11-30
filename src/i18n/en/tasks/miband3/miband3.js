@@ -4,10 +4,9 @@ export default {
   studies: {
     tasks: {
       miband3: {
-        title: 'Miband3',
-        shortDescription: 'Download your activity data',
-        shortTitle: 'Getting your activity data, son',
-        description: 'Activity monitoring for a specified frequency during a set amount of time',
+        title: 'Activity tracker download',
+        shortTitle: 'Activity tracker',
+        shortDescription: 'Extract data from your activity tracker',
         intro1: `In this task you will connect to your MiBand smart bracelet and download your activity data from it including steps, heart rate, activity type and intensity.`,
         intro2: 'In order for the phone to connect to the MiBand, please, make sure that Blueetooth is activated on the phone, that the Miband is charged and at close distance from the phone.',
         intro3: `If it is the first time you connect to the MiBand, the MiBand will ask you to confirm the connection to the phone by tapping on it. 
@@ -19,12 +18,14 @@ export default {
         noDeviceTitle: 'No MiBand found',
         noDevice: 'Could not find any MiBand. Please make sure Bluetooth is activated on your phone. Would you like to search again?',
         moreDevices: 'More than one MiBand device was found. The nearest in proximity is the first device in the list. Please tap on one to connect to it.',
-        tap: 'Tap the device on your wrist when it vibrates',
+        tap: 'Tap the activity tracker!',
         connectionFail: 'Cannot connect to the device, would you like to retry?',
         connecting: 'Connecting to the Miband',
-        connected: 'Connection succesful',
         activityTypes: {
           walk: 'Walking',
+          charging: 'charging',
+          activity_high: 'intense activity',
+          sleep: 'sleeping',
           unknown: 'Unknown'
         },
         dataDownload: 'Downloading data',

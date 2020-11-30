@@ -16,6 +16,7 @@
         @click="completeTest()"
         :label="$t('common.next')"
         :disable="!heartRate"
+        class="q-mt-md"
       />
     </q-item-section>
   </q-page>
@@ -25,8 +26,6 @@
 export default {
   name: 'QCSTHRPage',
   props: {
-    title: String,
-    icon: String,
     report: Object
   },
   data: function () {
@@ -36,11 +35,10 @@ export default {
   },
   methods: {
     completeTest () {
-      const title = this.title
-      const icon = this.icon
       const report = this.report
       this.report.heartRate = this.heartRate
-      this.$router.push({ name: 'qcstSummary', params: { title: title, icon: icon, report: report } })
+
+      this.$router.push({ name: 'qcstSummary', params: { report: report } })
     }
   }
 }

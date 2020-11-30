@@ -67,6 +67,8 @@ import miband3 from 'modules/miband3/miband3'
 import Chart from 'chart.js'
 import { getStringIdentifier } from 'modules/miband3/miband3ActivityTypeEnum.js'
 import db from 'modules/db'
+import userinfo from 'modules/userinfo'
+import API from 'modules/API'
 import moment from 'moment'
 
 // a bunch of colors that nicely fit together on a multi-line or bar chart
@@ -133,12 +135,13 @@ var lineChart = {
 
 export default {
   props: {
-    icon: String,
     studyKey: String,
     taskId: Number
   },
   data () {
     return {
+      startDate: new Date(),
+      deviceInfo: {},
       isDownloading: false,
       lineChart: undefined,
       currentStartHour: 0,
@@ -158,7 +161,7 @@ export default {
 
       let startDate = await this.getDateToUseForDownload()
       try {
-        await miband3.getStoredData(startDate, this.dataCallback)
+        await miband3.getStoredData(this.startDate, this.dataCallback)
         if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
           await this.storeDownloadDate(startDate)
           this.$router.push({ name: 'notEnoughDataPage' })
@@ -190,48 +193,46 @@ export default {
       return storedData[storedData.length - 1].date
     },
     /**
-     * A function which retreives the latest date the data was downloaded
-     * or if its the first time it
+     * Retreives the latest date the data was downloaded
+     * or if it's the first time it uses the scheduling information
      */
-    async getDateToUseForDownload () {
-      // Route parameters
-      const studyKey = this.studyKey
-      const taskId = this.taskId
-
-      const taskDescription = await db.getTaskDescription(studyKey, taskId)
-
-      const lastCompleted = await db.getLastCompletedTaskDate(studyKey, taskId)
-      let startDate = moment()
-      if (typeof lastCompleted === 'undefined') {
-        let intervalType = taskDescription.scheduling.intervalType
-        let interval = taskDescription.scheduling.interval
-        if (intervalType === 'd') {
-          startDate.subtract(interval, 'days')
-        } else if (intervalType === 'w') {
-          startDate.subtract(interval, 'weeks')
-        } else if (intervalType === 'm') {
-          startDate.subtract(interval, 'months')
-        } else if (intervalType === 'y') {
-          startDate.subtract(interval, 'years')
-        }
-        startDate = startDate.toDate()
-      } else {
-        let device = await db.getDeviceMiBand3()
+    async getDateUsedToDownload () {
+      let startDate
+      let device = await db.getDeviceMiBand3()
+      if (device.lastStoredDataDate) {
         startDate = new Date(device.lastStoredDataDate)
+      } else {
+        const taskDescription = await db.getTaskDescription(this.studyKey, this.taskId)
+        let lastExecuted = taskDescription.lastExecuted
+        if (lastExecuted) {
+          startDate = new Date(lastExecuted)
+        } else {
+          // use the scheduling information
+          startDate = moment()
+          let intervalType = taskDescription.scheduling.intervalType
+          let interval = taskDescription.scheduling.interval
+          if (intervalType === 'd') {
+            startDate.subtract(interval, 'days')
+          } else if (intervalType === 'w') {
+            startDate.subtract(interval, 'weeks')
+          } else if (intervalType === 'm') {
+            startDate.subtract(interval, 'months')
+          } else if (intervalType === 'y') {
+            startDate.subtract(interval, 'years')
+          }
+          startDate = startDate.toDate()
+        }
       }
-      // Testing purposes
-      if (startDate !== undefined) {
-        startDate = new Date(1970)
-      }
+
       console.log('Start date:', startDate)
       return startDate
     },
     /**
-     * Renders the line chart data between the two specific parameters, end and start in hours.
-     * The parameters are converted to minutes. And because there is a stored sample
-     * minute by minute in the storedData, the start and end time are re-calculated in minutes
-     * and this will be the indicis of the corresponding samples.
-     */
+    * Renders the line chart data between the two specific parameters, end and start in hours.
+    * The parameters are converted to minutes. And because there is a stored sample
+    * minute by minute in the storedData, the start and end time are re-calculated in minutes
+    * and this will be the indexes of the corresponding samples.
+    */
     renderLineChart (startTime, endTime) {
       lineChart.reset()
       let startIndexInMinutes = startTime * 60
@@ -404,13 +405,42 @@ export default {
         this.disablePlus = false
       }
     },
-    skipSend () {
-      this.storeDownloadDate(this.getLatestDownloadedSampleDate())
-      this.cancelTask()
-      // could also add a popup for confirmation
+    async skipSend () {
+      // TODO: show a popup for confirmation
+      await this.storeDownloadTimestamp()
+      let studyKey = this.studyKey
+      let taskId = Number(this.taskId)
+      await db.setTaskCompletion(studyKey, taskId, new Date())
+      this.$router.push('/home')
     },
-    sendData () {
-      // sends the data to the server and goes back to Home
+    async sendData () {
+      try {
+        let studyKey = this.studyKey
+        let taskId = Number(this.taskId)
+        await API.sendMiBand3Data({
+          userKey: userinfo.user._key,
+          studyKey: studyKey,
+          taskId: taskId,
+          createdTS: new Date(),
+          device: this.deviceInfo,
+          miband3Data: storedData
+        })
+        await this.storeDownloadTimestamp(this.startDate)
+        await db.setTaskCompletion(studyKey, taskId, new Date())
+        // go back to home page
+        this.$router.push('/home')
+      } catch (error) {
+        this.loading = false
+        console.error(error)
+        this.$q.notify({
+          color: 'negative',
+          message: this.$t('errors.connectionError') + ' ' + error.message,
+          icon: 'report_problem',
+          onDismiss () {
+            this.$router.push('/home')
+          }
+        })
+      }
     }
   },
   async mounted () {
