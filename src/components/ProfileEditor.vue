@@ -37,7 +37,7 @@
       v-model="value.dateOfBirth"
       default-view="Years"
       mask="####-##-##"
-      :rules="['YYYY-MM.DD']"
+      :rules="['YYYY-MM-DD']"
       :error-message="$t('accountMgmt.profile.dateOfBirthError')"
       :error="$v.value.dateOfBirth.$error"
       @blur="$v.value.dateOfBirth.$touch"
