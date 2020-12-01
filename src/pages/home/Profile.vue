@@ -6,19 +6,30 @@
       </div>
     </div>
 
-    <profile-editor v-model="profile" :buttonOk="$t('common.update')" @buttonOk="saveProfile()"/>
+    <profile-editor
+      v-model="profile"
+      :buttonOk="$t('common.update')"
+      @buttonOk="saveProfile()"
+    />
 
     <q-separator />
 
     <q-item class="q-mt-md">
       <q-item-section avatar>
-        <q-icon color="grey" name="security" />
+        <q-icon
+          color="grey"
+          name="security"
+        />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{$t('accountMgmt.resetPassword.resetPassword')}}</q-item-label>
         <q-item-label caption>{{$t('accountMgmt.resetPassword.resetPasswordShort')}}</q-item-label>
         <div class="q-my-md">
-          <q-btn color="primary" @click="resetPwd()" :label="$t('accountMgmt.resetPassword.resetPassword')" />
+          <q-btn
+            color="primary"
+            @click="resetPwd()"
+            :label="$t('accountMgmt.resetPassword.resetPassword')"
+          />
         </div>
       </q-item-section>
     </q-item>
@@ -27,12 +38,21 @@
 
     <q-item class="q-mt-md">
       <q-item-section avatar>
-        <q-icon color="grey" name="exit_to_app" />
+        <q-icon
+          color="grey"
+          name="exit_to_app"
+        />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{$t('accountMgmt.login.logout')}}</q-item-label>
         <q-item-label caption>{{$t('accountMgmt.login.logoutShort')}}</q-item-label>
-        <div class="q-my-md"><q-btn color="warning" to="Login" :label="$t('accountMgmt.login.logout')" /></div>
+        <div class="q-my-md">
+          <q-btn
+            color="warning"
+            to="Login"
+            :label="$t('accountMgmt.login.logout')"
+          />
+        </div>
       </q-item-section>
     </q-item>
 
@@ -40,12 +60,21 @@
 
     <q-item class="q-mt-md">
       <q-item-section avatar>
-        <q-icon color="grey" name="delete_forever" />
+        <q-icon
+          color="grey"
+          name="delete_forever"
+        />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{$t('accountMgmt.deleteAccount')}}</q-item-label>
         <q-item-label caption>{{$t('accountMgmt.deleteShort')}}</q-item-label>
-        <div class="q-my-md"><q-btn color="negative" :label="$t('common.delete')" @click="deleteUser()" /></div>
+        <div class="q-my-md">
+          <q-btn
+            color="negative"
+            :label="$t('common.delete')"
+            @click="deleteUser()"
+          />
+        </div>
       </q-item-section>
     </q-item>
   </q-page>
@@ -120,7 +149,8 @@ export default {
           height: this.profile.height,
           diseases: this.profile.diseases,
           medications: this.profile.medications,
-          lifestyle: this.profile.lifestyle
+          lifestyle: this.profile.lifestyle,
+          studiesSuggestions: this.profile.studiesSuggestions
         }
         await API.updateProfile(profile)
         await userinfo.setProfile(profile)
