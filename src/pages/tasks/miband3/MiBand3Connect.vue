@@ -78,7 +78,9 @@ export default {
       devices: [],
       tapToAuthDialog: false,
       showSearching: false,
-      showConnecting: false
+      showConnecting: false,
+      connectionAttempts: 0,
+      maxConnectionAttempts: 5
     }
   },
   methods: {
@@ -86,7 +88,7 @@ export default {
       this.devices = []
       this.showSearching = true
       try {
-        this.devices = await miband3.search(5000)
+        this.devices = await miband3.search(12000)
         console.log('All devices found:', this.devices)
         if (this.devices.length === 0) {
           this.$q.dialog({
@@ -127,9 +129,10 @@ export default {
     async connect (device) {
       this.showConnecting = true
       try {
+        this.connectionAttempts++
         await miband3.connect(device)
         // Authenticate after connect.
-        if (!device.authenticated) this.tapToAuthDialog = true // TODO: Add flag to indicate if its the first authentication.
+        if (!device.authenticated) this.tapToAuthDialog = true
         await miband3.authenticate(device.authenticated)
 
         // configure the watch
@@ -150,24 +153,30 @@ export default {
         this.showConnecting = false
         // TODO: there should be a third button in case the user has a new miband
         // this cannot be done using the dialog plugin, so a complete dialog should be designed
-        this.$q.dialog({
-          title: this.$t('errors.error'),
-          message: this.$t('studies.tasks.miband3.connectionFail'),
-          cancel: this.$t('common.cancel'),
-          ok: this.$t('common.retry'),
-          persistent: true
-        }).onOk(async () => {
-          await miband3.disconnect()
-          if (device.authenticated) {
-            // if already authenticated once, retry connection
-            this.connect(device)
-          } else {
-            // probably the wrong device was chosen, start from search
-            this.search()
-          }
-        }).onCancel(() => {
-          this.abandon()
-        })
+        // Rarely connects on the first attempt, should need at least 3.
+        if (this.connectionAttempts < this.maxConnectionAttempts) {
+          console.log('Attempting connect again...', this.connectionAttempts)
+          this.connect(device)
+        } else {
+          this.$q.dialog({
+            title: this.$t('studies.errors.error'),
+            message: this.$t('studies.tasks.miband3.connectionFail'),
+            cancel: this.$t('common.cancel'),
+            ok: this.$t('common.retry'),
+            persistent: true
+          }).onOk(async () => {
+            await miband3.disconnect()
+            if (device.authenticated) {
+              // if already authenticated once, retry connection
+              this.connect(device)
+            } else {
+              // probably the wrong device was chosen, start from search
+              this.search()
+            }
+          }).onCancel(() => {
+            this.abandon()
+          })
+        }
       }
     },
     // abandons the task
