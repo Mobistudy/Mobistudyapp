@@ -14,7 +14,7 @@
         </q-item-label>
         <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
         <div>
-          <taskListItem v-for="(task, uindex) in tasks.upcoming" :task="task" :key="uindex"></taskListItem>
+          <taskListItem v-for="(task, uindex) in tasks.upcoming" :task="task" :isMissedTask="false" :key="uindex"></taskListItem>
         </div>
         <q-item v-if="tasks.upcoming.length === 0">
           <q-item-section avatar>
@@ -29,7 +29,7 @@
           {{ $t('studies.tasks.missedTasks') }}
         </q-item-label>
         <div>
-          <taskListItem v-for="(task, mindex) in tasks.missed" :task="task" :key="mindex"></taskListItem>
+          <taskListItem v-for="(task, mindex) in tasks.missed" :task="task" :isMissedTask="true" :key="mindex"></taskListItem>
         </div>
         <q-item v-if="tasks.missed.length === 0">
           <q-item-section avatar>
