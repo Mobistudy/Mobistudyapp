@@ -196,7 +196,7 @@ export default {
      * Retreives the latest date the data was downloaded
      * or if it's the first time it uses the scheduling information
      */
-    async getDateUsedToDownload () {
+    async getDateToUseForDownload () {
       let startDate
       let device = await db.getDeviceMiBand3()
       if (device.lastStoredDataDate) {
@@ -425,7 +425,7 @@ export default {
           device: this.deviceInfo,
           miband3Data: storedData
         })
-        await this.storeDownloadTimestamp(this.startDate)
+        await this.storeDownloadDate(this.startDate)
         await db.setTaskCompletion(studyKey, taskId, new Date())
         // go back to home page
         this.$router.push('/home')
