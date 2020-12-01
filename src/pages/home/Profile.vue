@@ -149,7 +149,6 @@ export default {
           height: this.profile.height,
           diseases: this.profile.diseases,
           medications: this.profile.medications,
-          lifestyle: this.profile.lifestyle,
           studiesSuggestions: this.profile.studiesSuggestions
         }
         await API.updateProfile(profile)
