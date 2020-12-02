@@ -168,7 +168,6 @@ export default {
           return
         }
         deviceInfo = await miband3.getDeviceInfo()
-        console.log(deviceInfo)
         await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
         try {
           await miband3.disconnect()
@@ -223,8 +222,6 @@ export default {
           startDate = startDate.toDate()
         }
       }
-
-      console.log('Start date:', startDate)
       return startDate
     },
     /**
