@@ -1,12 +1,10 @@
 <template>
-  <q-page>
+  <q-page padding>
     <div class="row justify-center">
-      <div class="text-h5 q-mt-lg">
-        {{ $t('info.about') }}
-      </div>
     </div>
+    <p class="text-h6 q-mt-lg">{{$t('info.acknowledgements')}}</p>
     <div>
-      <p>{{ $t('info.acknowledgements') }}</p>
+      <p>{{ $t('info.acknowledgementsFull') }}</p>
     </div>
   </q-page>
 </template>

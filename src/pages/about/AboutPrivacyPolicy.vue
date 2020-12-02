@@ -1,9 +1,6 @@
 <template>
-  <q-page>
+  <q-page padding>
       <div class="row justify-center">
-        <div class="text-h5 q-mt-lg">
-          {{ $t('info.about') }}
-        </div>
       </div>
       <div class="justify center">
         <p class="text-h6 q-mt-lg">{{$t('accountMgmt.registration.privacyPolicy')}}</p>

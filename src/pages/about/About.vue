@@ -12,7 +12,7 @@
         <q-btn to='/aboutPrivacyPolicy' :label="$t('info.privacyPolicy')" color='primary' />
         </div>
       <div class="q-pa-md">
-        <q-btn to='/acknowledgements' :label="$t('info.acknowledements')" color='primary' />
+        <q-btn to='/acknowledgements' :label="$t('info.acknowledgements')" color='primary' />
         </div>
   </q-page>
 </template>

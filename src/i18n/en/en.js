@@ -88,7 +88,12 @@ let en = {
     Mobistudy is currently managed by the Internet Of Things and People research\
     center, Malmö University.`,
     privacyPolicy: 'Privacy Policy',
-    acknowledgements: 'Acknowledgements'
+    acknowledgements: 'Acknowledgements',
+    acknowledgementsFull: `A lot of acknowledgement text... \
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor \
+    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud \
+    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute \
+    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu f`
   },
   healthDataTypes: {
     steps: 'steps',
