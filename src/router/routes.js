@@ -38,7 +38,7 @@ const routes = [
       { path: '/tasker', name: 'tasker', component: () => import('pages/home/Tasker.vue'), props: true },
       { path: '/profile', name: 'profile', component: () => import('pages/home/Profile.vue') },
       { path: '/studies', name: 'studies', component: () => import('pages/home/Studies.vue') },
-      { path: '/about', name: 'about', component: () => import('pages/home/About.vue') },
+      // { path: '/about', name: 'about', component: () => import('pages/home/About.vue') },
       { path: '/studyConfig', name: 'studyConfig', component: () => import('pages/home/StudyConfig.vue'), props: true },
       { path: '/test', name: 'test', component: () => import('pages/home/Test.vue') }
     ]
@@ -68,6 +68,16 @@ const routes = [
       { path: '/qcsthr', name: 'qcsthr', component: () => import('pages/tasks/QCSTHR.vue'), props: true },
       { path: '/qcstSummary', name: 'qcstSummary', component: () => import('pages/tasks/QCSTSummary.vue'), props: true }
       // { path: '/miband3Intro', name: 'miband3Intro', component: () => import('pages/tasks/MiBand3Intro'), props: true }
+    ]
+  },
+  {
+    path: '/about',
+    component: () => import('layouts/HomeLayout.vue'),
+    children: [
+      { path: '/about', name: 'about', component: () => import('pages/about/About.vue') },
+      { path: '/acknowledgements', name: 'acknowledgements', component: () => import('pages/about/Acknowledgements') },
+      { path: '/introduction', name: 'introduction', component: () => import('pages/about/Introduction.vue') },
+      { path: '/aboutPrivacyPolicy', name: 'aboutPrivacyPolicy', component: () => import('pages/about/AboutPrivacyPolicy.vue') }
     ]
   }
 ]

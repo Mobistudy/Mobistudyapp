@@ -86,7 +86,9 @@ let en = {
     participants are then proposed "tasks", such as filling forms and questionnaires \
     and provide their health data through Google Fit or Apple HealthKit.<br><br>
     Mobistudy is currently managed by the Internet Of Things and People research\
-    center, Malmö University.`
+    center, Malmö University.`,
+    privacyPolicy: 'Privacy Policy',
+    acknowledgements: 'Acknowledgements'
   },
   healthDataTypes: {
     steps: 'steps',
