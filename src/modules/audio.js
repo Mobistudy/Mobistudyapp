@@ -36,7 +36,7 @@ export default {
         this.currentQuarterNote = 0
       }
     },
-    async start (cadence, indicator) {
+    start (cadence, indicator) {
       // For legacy browsers
       const AudioContext = window.AudioContext || window.webkitAudioContext
       this.audioContext = new AudioContext()
@@ -52,7 +52,7 @@ export default {
         }
       }, 25)
     },
-    async stop () {
+    stop () {
       clearInterval(this.metronomeID)
       console.log('Stopping metronome')
     }
