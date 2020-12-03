@@ -48,6 +48,7 @@ export default {
     )
 
     let hasPINCode = await phone.isPinSet()
+
     if (!hasPINCode && !userinfo.user.skipPinWarning) {
       await new Promise((resolve, reject) => {
         this.$q.dialog({
@@ -64,7 +65,7 @@ export default {
           persistent: true,
           maximized: true
         }).onOk(data => {
-          if (data === 'NOBOTHER') {
+          if (data[0] === 'NOBOTHER') {
             userinfo.user.skipPinWarning = true
             userinfo.storeUserInfo()
           }
