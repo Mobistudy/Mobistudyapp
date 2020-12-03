@@ -74,11 +74,11 @@
               <div v-html="currentQuestion.html[$i18n.locale]"></div>
             </div>
           </div>
-        <div v-if="currentQuestion.type !== 'textOnly'" class="row justify-around">
-          <q-btn no-caps flat :label="$t('common.clear')" color="negative"  icon-right="cancel" @click="clearAnswer()" />
-        </div>
         </div>
       </transition>
+      <div v-if="currentQuestion.type !== 'textOnly'" class="row justify-around">
+        <q-btn no-caps flat :label="$t('common.clear')" color="negative"  icon-right="cancel" @click="clearAnswer()" />
+      </div>
       <div class="row justify-around q-mb-xl">
         <q-btn
           v-show="!isFirstQuestion"
@@ -144,6 +144,7 @@ export default {
     return {
       formDescr: {},
       responses: [],
+      oldResponses: [],
       freetextAnswer: undefined,
       singleChoiceAnswer: undefined,
       multiChoiceAnswer: [],
@@ -257,6 +258,12 @@ export default {
           nextQuestionId = 'Q' + (index + 2)
         }
       }
+      // check for old responses
+      if (this.oldResponses[1] && this.oldResponses[1].questionId === nextQuestionId) {
+        if (this.oldResponses[1].answer) this.singleChoiceAnswer = this.oldResponses[1].answer.answerId
+        else this.singleChoiceAnswer = undefined
+        this.oldResponses.shift()
+      } else this.oldResponses = []
 
       if (nextQuestionId === 'ENDFORM') {
         // completed !
@@ -286,7 +293,8 @@ export default {
         }
       }
 
-      this.responses.pop()
+      this.oldResponses.unshift(this.responses.pop())
+
       setTimeout(() => { this.slideName = 'slideInLeft' }, 10)
     },
     async send () {
