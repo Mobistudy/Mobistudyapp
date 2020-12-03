@@ -2,6 +2,8 @@
 
 import { Dialog } from 'quasar'
 
+const PIN_SET = false
+
 // this module mocks the cordova plugins of phone.js
 
 export default {
@@ -166,15 +168,7 @@ export default {
       }
     }
   },
-  pin: { // Check if the user has a pin code on the phone
-    async hasPINCode () {
-      console.log('API - phone has pin code')
-      return Promise.resolve(false)
-    },
-
-    async doesNotHavePINCode () {
-      console.log('API - phone has pin code')
-      return Promise.resolve(false)
-    }
+  async isPinSet () {
+    return Promise.resolve(PIN_SET)
   }
 }

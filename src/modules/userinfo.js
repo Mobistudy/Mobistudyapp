@@ -9,7 +9,7 @@ export default {
     if (!this.user) {
       this.user = {
         loggedin: false,
-        wantsPINWarning: true
+        skipPinWarning: false
       }
     } else this.user.loggedin = true
   },
@@ -28,6 +28,9 @@ export default {
     this.user.height = profile.height
     this.user.sex = profile.sex
     this.user.language = profile.language
+    this.storeUserInfo()
+  },
+  async storeUserInfo () {
     await DB.setUserSession(this.user)
   },
   logout () {
