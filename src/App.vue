@@ -21,7 +21,7 @@ export default {
   name: 'MobistudyApp',
   async created () {
     console.info('Starting Mobistudy app version', process.env.APP_VERSION)
-    DB.setCurrentAppVersion(process.env.APP_VERSION)
+    await DB.setCurrentAppVersion(process.env.APP_VERSION)
 
     await userinfo.init()
     if (userinfo.user.language) {
@@ -29,29 +29,6 @@ export default {
       this.$root.$i18n.locale = userinfo.user.language
     }
 
-    let hasPINCode = await phone.pin.hasPINCode()
-    if (!hasPINCode && userinfo.user.wantsPINWarning) {
-      this.$router.push({ name: 'noPin', params: { userinfo: userinfo } })
-      return
-    }
-
-    // check if already logged in, otherwise go to login
-    let resettingpwd =
-      this.$route.path === '/resetpw' || this.$route.path === '/changepw'
-    if ((!userinfo.user.loggedin || !userinfo.user.name) && !resettingpwd) {
-      console.log('LOGGED OUT, GOING TO LOGIN')
-      this.$router.push('/login')
-      return
-    } else {
-      if (!resettingpwd) {
-        API.setToken(userinfo.user.token)
-        console.log('LOGGED IN, REDIRECTING TO HOME')
-        this.$router.push({
-          name: 'tasker',
-          params: { rescheduleTasks: true, checkNewStudies: true }
-        })
-      }
-    }
     // Add a 401 response interceptor
     this.$axios.interceptors.response.use(
       function (response) {
@@ -69,6 +46,51 @@ export default {
         throw error
       }
     )
+
+    let hasPINCode = await phone.isPinSet()
+    if (!hasPINCode && !userinfo.user.skipPinWarning) {
+      await new Promise((resolve, reject) => {
+        this.$q.dialog({
+          title: 'Problem',
+          message: 'You need a pin!',
+          options: {
+            type: 'checkbox',
+            model: [],
+            items: [
+              { label: 'Do not bother me again', value: 'NOBOTHER', color: 'secondary' }
+            ]
+          },
+          ok: 'Proceed anyway',
+          persistent: true,
+          maximized: true
+        }).onOk(data => {
+          if (data === 'NOBOTHER') {
+            userinfo.user.skipPinWarning = true
+            userinfo.storeUserInfo()
+          }
+          resolve()
+        }).onCancel(() => {
+          resolve()
+        })
+      })
+    }
+
+    // check if already logged in, otherwise go to login
+    let resettingpwd =
+      this.$route.path === '/resetpw' || this.$route.path === '/changepw'
+    if ((!userinfo.user.loggedin || !userinfo.user.name) && !resettingpwd) {
+      console.log('LOGGED OUT, GOING TO LOGIN')
+      this.$router.push('/login')
+    } else {
+      if (!resettingpwd) {
+        API.setToken(userinfo.user.token)
+        console.log('LOGGED IN, REDIRECTING TO HOME')
+        this.$router.push({
+          name: 'tasker',
+          params: { rescheduleTasks: true, checkNewStudies: true }
+        })
+      }
+    }
   }
 }
 </script>

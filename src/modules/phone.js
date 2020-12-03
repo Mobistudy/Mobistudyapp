@@ -101,5 +101,18 @@ export default {
         window.pedometer.stopPedometerUpdates(resolve, reject)
       })
     }
+  },
+  async isPinSet () {
+    return new Promise((resolve, reject) => {
+      if (window.cordova && window.cordova.plugins.PinCheck) {
+        window.cordova.plugins.PinCheck.isPinSetup((success) => {
+          resolve(true)
+        }, function (fail) {
+          resolve(false)
+        })
+      } else {
+        reject('PinCheck plugin is not installed')
+      }
+    })
   }
 }
