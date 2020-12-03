@@ -34,6 +34,7 @@ export default {
     await DB.setUserSession(this.user)
   },
   logout () {
+    console.log('logout called')
     this.user = {
       loggedin: false
     }
