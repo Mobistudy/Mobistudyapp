@@ -77,7 +77,8 @@ const routes = [
       { path: '/about', name: 'about', component: () => import('pages/about/About.vue') },
       { path: '/acknowledgements', name: 'acknowledgements', component: () => import('pages/about/Acknowledgements') },
       { path: '/introduction', name: 'introduction', component: () => import('pages/about/Introduction.vue') },
-      { path: '/aboutPrivacyPolicy', name: 'aboutPrivacyPolicy', component: () => import('pages/about/AboutPrivacyPolicy.vue') }
+      { path: '/aboutPrivacyPolicy', name: 'aboutPrivacyPolicy', component: () => import('pages/about/AboutPrivacyPolicy.vue') },
+      { path: '/contact', name: 'contact', component: () => import('pages/about/Contact.vue') }
     ]
   }
 ]
