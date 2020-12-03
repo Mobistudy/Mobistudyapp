@@ -88,7 +88,9 @@ const chartColors = [
 
 // holder of all the stored data, this is kept outside of Vue for efficiency
 let storedData = []
-const minimumDataRequired = 30 // 30 minutes of data is required at a minimum to upload the data
+let minimumDataRequired = 5 // 30 minutes of data is required at a minimum to upload the data
+// eslint-disable-next-line no-unused-vars, not sure why this is complaining?
+let deviceInfo = {}
 
 // pie chart configuration
 let pieChartConfig = {
@@ -157,15 +159,17 @@ export default {
       pieChartConfig.reset()
       lineChart.reset()
 
-      this.startDate = await this.getDateUsedToDownload()
+      let startDate = await this.getDateToUseForDownload()
       try {
         await miband3.getStoredData(this.startDate, this.dataCallback)
         if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
-          await this.storeDownloadTimestamp()
+          await this.storeDownloadDate(startDate)
           this.$router.push({ name: 'notEnoughDataPage' })
           return
         }
-        this.deviceInfo = await miband3.getDeviceInfo()
+        deviceInfo = await miband3.getDeviceInfo()
+        console.log(deviceInfo)
+        await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
         try {
           await miband3.disconnect()
         } catch (err) {
@@ -180,22 +184,19 @@ export default {
         this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective.
       }
     },
-    async storeDownloadTimestamp () {
-      let newestSampleTimeStamp
-      if (storedData.length > minimumDataRequired) {
-        newestSampleTimeStamp = storedData[storedData.length - 1].date
-      } else {
-        newestSampleTimeStamp = this.startDate
-      }
+    async storeDownloadDate (date) {
       let device = await db.getDeviceMiBand3()
-      device.lastStoredDataDate = newestSampleTimeStamp
+      device.lastStoredDataDate = date
       return db.setDeviceMiBand3(device)
+    },
+    getLatestDownloadedSampleDate () {
+      return storedData[storedData.length - 1].date
     },
     /**
      * Retreives the latest date the data was downloaded
      * or if it's the first time it uses the scheduling information
      */
-    async getDateUsedToDownload () {
+    async getDateToUseForDownload () {
       let startDate
       let device = await db.getDeviceMiBand3()
       if (device.lastStoredDataDate) {
@@ -424,7 +425,7 @@ export default {
           device: this.deviceInfo,
           miband3Data: storedData
         })
-        await this.storeDownloadTimestamp(this.startDate)
+        await this.storeDownloadDate(this.startDate)
         await db.setTaskCompletion(studyKey, taskId, new Date())
         // go back to home page
         this.$router.push('/home')

@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import consentItem from 'components/consentItem.vue'
+import consentItem from 'components/ConsentItem.vue'
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
 import API from 'modules/API'

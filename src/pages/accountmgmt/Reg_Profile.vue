@@ -51,17 +51,11 @@ export default {
           dobTemp = this.profile.dateOfBirth
           console.error(this.profile.dateOfBirth + ' cannot be cut to date only')
         }
-        let profile = {
-          userKey: userinfo.user._key,
-          updatedTS: new Date(),
-          name: this.profile.name,
-          surname: this.profile.surname,
-          dateOfBirth: dobTemp,
-          sex: this.profile.sex,
-          diseases: this.profile.diseases,
-          medications: this.profile.medications,
-          lifestyle: this.profile.lifestyle
-        }
+        let profile = this.profile
+        profile.dateOfBirth = dobTemp
+        profile.userKey = userinfo.user._key
+        profile.updatedTS = new Date()
+        profile.createdTS = new Date()
         await API.createProfile(profile)
         await userinfo.setProfile(profile)
 

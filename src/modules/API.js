@@ -113,7 +113,6 @@ export default {
 
   // send data from miBand3 stored data
   sendMiBand3Data: async function (data) {
-    // TBD!!!
-    return Promise.resolve()
+    return axios.post(BASE_URL + '/miband3Data', data, axiosConfig)
   }
 }

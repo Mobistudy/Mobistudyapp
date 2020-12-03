@@ -171,8 +171,7 @@ var Miband3 = {
   },
 
   /**
-   * Disconnects the Miband3 device
-   * TODO: Implement error callback, check behaviour of disconnect on errorCallbacks
+   * Disconnects the Miband3 device, TODO: disconnect callback?
    */
   disconnect: async function () {
     if (this.deviceId === null || this.deviceId === undefined) {
@@ -322,25 +321,6 @@ var Miband3 = {
     )
   },
 
-  // TODO: this would need to become part of an external module
-  setupDevice: async function () {
-    // await this.setLanguage(); // Works 100%
-    // await this.setNightMode(); // Should work... UX friendly if activated
-    // await this.setDateFormat(); // Should work?...
-    // await this.setDisplayDateTime();
-    // await this.setTimeFormat(); // Works 100%
-    // await this.setUser(); // Maybe doesn't work...
-    // await this.setDistanceType(); //
-    // await this.setWearLocation();
-    await this.getBatteryStatus()
-    let screens = ['activity', 'heartRate', 'status']
-    await this.setupScreens(screens) // Hmm?? Should show one page (clock page) but doesn't...
-    // await this.activateDisplayOnWristLift(); // UX friendly if activated
-    // await this.setupDisplayCaller(); // UX friendly if activated
-    return this.setCurrentTimeStatus() // Sets the miband time to the current time shown on the app (assumed to the time of the user)
-  },
-
-  // TODO: use this when you actually need it, and resolve the promise according to the message you get
   /**
    * It seems that messages can be sent to the config characteristic if the preamble command is correct, no matter the length of the packet.
    * @param {*} service
@@ -366,6 +346,8 @@ var Miband3 = {
           let okResponse = this.messages.setup.okResponse
           if (response === responseMessage + command + okResponse) {
             resolve()
+          } else {
+            reject() // TODO: Do i reject if if the right command was not received as a response?
           }
           // TODO: check if i can unsubscribe to all notifications once authenticated and configurations are sent.
         },
@@ -380,11 +362,9 @@ var Miband3 = {
 
   /**
    * Sets the device's language
-   * @param {string} lang the language to be set, only english supported currently. The format is: en_US, or fr_FR for example.
+   * @param {string} lang the language to be set. The format is: en_US, or fr_FR for example.
    */
   setLanguage: async function (lang) {
-    // lang is currently ignored, it always sets english
-    // TODO: register to config notifications and make sure you receive an OK
     let command = this.messages.setup.setLanguage
     let packet = this.hexStringToHexBuffer(
       command + this.convertLangAndCountryStringToHex(lang)
@@ -424,8 +404,6 @@ var Miband3 = {
       command = this.messages.setup.nightModeOff
       packet = this.hexStringToHexBuffer(command + off)
     }
-    // TODO: actually set night mode at given times
-    // TODO: register to config notifications and resolve promise according to message
     await this.sendAndVerifyConfiguration(
       this.mibandCustomService0,
       this.configCharacteristic,
@@ -439,12 +417,11 @@ var Miband3 = {
    * Currently only allows date and time, doesn't seem to set only time, and such a setting doesn't exist in Gadgetbridge app.
    */
   setDisplayDateTime: async function () {
-    // TODO: register to config notifications and resolve promise according to message
     let dateAndTime = '03'
     // let timeOnly = '00' // Does not work currently, for some reason.
     let command = this.messages.setup.dateTimeFormat
     let packet = this.hexStringToHexBuffer(
-      command + dateAndTime // TODO: check if this is time only, or time AND date
+      command + dateAndTime
     )
     await this.sendAndVerifyConfiguration(
       this.mibandCustomService0,
@@ -460,7 +437,6 @@ var Miband3 = {
    * @param {string} format "24h" or "12h"
    */
   setTimeFormat: async function (format) {
-    // TODO: register to config notifications and resolve promise according to message
     let packet = ''
     let command = this.messages.setup.hourFormat
     if (format === '12h') {
@@ -484,7 +460,6 @@ var Miband3 = {
    * @param {boolean} dayFirst if true, the format is day/month/year, else it's month/day/year
    */
   setDateFormat: async function (dayFirst) {
-    // TODO: register to config notifications and resolve promise according to message
     let packet = ''
     let format = ''
     let message = ''
@@ -511,7 +486,6 @@ var Miband3 = {
    * @param {boolean} meters if true uses meters, else uses feet
    */
   setDistanceType: async function (meters) {
-    // TODO: register to config charac and check the answer
     let packet = ''
     let message = ''
     let command = this.messages.setup.distance
@@ -533,12 +507,9 @@ var Miband3 = {
 
   /**
    * Sets the wear position
-   * Currently only supports right
    * @param {boolean} right if true watch is worn on the right
    */
-  // TODO: implement also left
   setWearLocation: async function (right) {
-    // TODO: register to user charac and check the answer
     let packet = ''
     let message = ''
     let command = this.messages.setup.wearLocation
@@ -972,10 +943,9 @@ var Miband3 = {
             }
           }
           if (dataHex === '100204') {
-            // No data was found, can be triggered if a data was already sent recently
+            // No data was found, can be triggered if a data was already sent recently, or if there is no data left to fetch.
             resolve()
           }
-          // TODO: if a date is not accepted and watch returns NACK then reject
         },
         reject
       )
@@ -1042,7 +1012,6 @@ var Miband3 = {
     let packet = this.hexStringToHexBuffer(
       this.messages.storedData.startDate +
         this.messages.storedData.activityType +
-        // TODO: convert date to bytes string
         dateMessage.substring(0, 16) // Removes last 3 bytes because they shouldn't be sent in this case (milliseconds in 3 bytes representing fractions are not send for some reason)
     )
     return this.sendWithoutResponse(
@@ -1539,9 +1508,10 @@ var Miband3 = {
     while (this.runningNotificationCharacteristics.length > 0) {
       let characteristic = this.runningNotificationCharacteristics.pop()
       let service = this.runningNotifications.get(characteristic)
-      this.stopNotification(service, characteristic)
+      await this.stopNotification(service, characteristic)
       this.runningNotifications.delete(characteristic)
     }
+    return Promise.resolve()
   },
 
   stopNotification: async function (service, characteristic) {
