@@ -15,6 +15,7 @@
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
 import API from 'modules/API'
+import phone from 'modules/phone'
 
 export default {
   name: 'MobistudyApp',
@@ -27,6 +28,13 @@ export default {
       console.log('Setting locale to', userinfo.user.language)
       this.$root.$i18n.locale = userinfo.user.language
     }
+
+    let hasPINCode = await phone.pin.hasPINCode()
+    if (!hasPINCode && userinfo.user.wantsPINWarning) {
+      this.$router.push({ name: 'noPin', params: { userinfo: userinfo } })
+      return
+    }
+
     // check if already logged in, otherwise go to login
     let resettingpwd =
       this.$route.path === '/resetpw' || this.$route.path === '/changepw'

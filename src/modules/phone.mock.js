@@ -165,5 +165,16 @@ export default {
         audio.play()
       }
     }
+  },
+  pin: { // Check if the user has a pin code on the phone
+    async hasPINCode () {
+      console.log('API - phone has pin code')
+      return Promise.resolve(false)
+    },
+
+    async doesNotHavePINCode () {
+      console.log('API - phone has pin code')
+      return Promise.resolve(false)
+    }
   }
 }

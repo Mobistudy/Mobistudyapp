@@ -21,6 +21,12 @@ const routes = [
     component: () => import('pages/accountmgmt/ChangePW.vue')
   },
   {
+    path: '/noPin/',
+    name: 'noPin',
+    props: true,
+    component: () => import('pages/accountmgmt/NoPin.vue')
+  },
+  {
     path: '/register',
     component: () => import('layouts/RegLayout.vue'),
     children: [

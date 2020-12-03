@@ -8,7 +8,8 @@ export default {
     this.user = await DB.getUserSession()
     if (!this.user) {
       this.user = {
-        loggedin: false
+        loggedin: false,
+        wantsPINWarning: true
       }
     } else this.user.loggedin = true
   },
