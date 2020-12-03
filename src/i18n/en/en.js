@@ -99,6 +99,12 @@ let en = {
     heart_rate_variability: 'heart rate variability',
     calories: 'calories',
     distance: 'distance'
+  },
+  pin: {
+    dialogTitle: 'PIN Code Not Found',
+    dialogMessage: 'Your phone is not protected, please setup a pin code or equivalent protection.',
+    dialogButtonTitle: 'Proceed anyway',
+    dialogCheckboxTitle: 'Don\'t warn me again'
   }
 }
 

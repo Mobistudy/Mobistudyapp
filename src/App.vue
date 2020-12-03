@@ -52,20 +52,20 @@ export default {
     if (!hasPINCode && !userinfo.user.skipPinWarning) {
       await new Promise((resolve, reject) => {
         this.$q.dialog({
-          title: 'Problem',
-          message: 'You need a pin!',
+          title: this.$t('pin.dialogTitle'),
+          message: this.$t('pin.dialogMessage'),
           options: {
             type: 'checkbox',
             model: [],
             items: [
-              { label: 'Do not bother me again', value: 'NOBOTHER', color: 'secondary' }
+              { label: this.$t('pin.dialogCheckboxTitle'), value: 'SKIP_WARNING', color: 'secondary' }
             ]
           },
-          ok: 'Proceed anyway',
+          ok: this.$t('pin.dialogButtonTitle'),
           persistent: true,
           maximized: true
         }).onOk(data => {
-          if (data[0] === 'NOBOTHER') {
+          if (data[0] === 'SKIP_WARNING') {
             userinfo.user.skipPinWarning = true
             userinfo.storeUserInfo()
           }
