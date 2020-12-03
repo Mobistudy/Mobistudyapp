@@ -83,9 +83,9 @@ export default {
       startedTS: undefined,
       completionTS: undefined,
       steps: [],
-      gender: 'male', // userinfo.user.gender,
+      gender: userinfo.user.gender,
       heartRate: '',
-      cadence: 625 // userinfo.user.gender === 'male'? 625 : 681
+      cadence: userinfo.user.gender === 'male' ? 625 : 681,
     }
   },
   methods: {
@@ -93,6 +93,7 @@ export default {
       if (!this.isStarted) {
         this.isStarted = true
         this.startedTS = new Date()
+        phone.textToSpeech.language = userinfo.user.language
         if (await phone.pedometer.isAvailable()) {
           phone.pedometer.startNotifications({}, async (step) => {
             console.log('Steps', step)
@@ -103,12 +104,12 @@ export default {
         } else {
           console.error('Pedometer not available')
         }
-        phone.media.playSound(this.$refs.sound_begin)
+        phone.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.begin'))
         this.timer = setInterval(() => {
           if (this.countDown === 120) {
-            phone.media.playSound(this.$refs.sound_minute2)
+            phone.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.twoMin'))
           } else if (this.countDown === 60) {
-            phone.media.playSound(this.$refs.sound_minute1)
+            phone.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.oneMin'))
           }
           if (this.countDown >= 1) {
             this.countDown--
@@ -118,13 +119,12 @@ export default {
             this.completeTest()
           }
         }, 1000)
-
         phone.metronome.start(this.cadence, this.$refs.metronome_indicator.$el)
         this.$emit('updateTransition', 'slideInRight')
       }
     },
     completeTest () {
-      phone.media.playSound(this.$refs.sound_complete)
+      phone.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.time'))
       phone.pedometer.stopNotifications()
       this.completionTS = new Date()
       const studyKey = this.studyKey

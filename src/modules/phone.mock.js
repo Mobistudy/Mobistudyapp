@@ -165,5 +165,26 @@ export default {
         audio.play()
       }
     }
+  },
+  textToSpeech: {
+    speech: null,
+    language: null, // If language is unset (userinfo.user.language), defaults to device language
+    volume: 0.5,
+    async playVoice (text) {
+      if ('speechSynthesis' in window) {
+        this.speech = new SpeechSynthesisUtterance()
+        this.speech.volume = this.volume
+        this.speech.text = text
+        this.speech.lang = this.language
+        console.log(this.speech)
+        if (this.speech !== null) {
+          window.speechSynthesis.speak(this.speech)
+        }
+      } else {
+        console.log('Text-to-speech is not supported on this device')
+      }
+      // getVoices returns a list of the available voices/languages on the current device
+      console.log(window.speechSynthesis.getVoices())
+    }
   }
 }
