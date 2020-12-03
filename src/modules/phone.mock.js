@@ -183,8 +183,6 @@ export default {
       } else {
         console.log('Text-to-speech is not supported on this device')
       }
-      // getVoices returns a list of the available voices/languages on the current device
-      console.log(window.speechSynthesis.getVoices())
     }
   }
 }

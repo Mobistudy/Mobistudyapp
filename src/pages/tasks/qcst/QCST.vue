@@ -85,7 +85,7 @@ export default {
       steps: [],
       gender: userinfo.user.gender,
       heartRate: '',
-      cadence: userinfo.user.gender === 'male' ? 625 : 681,
+      cadence: userinfo.user.gender === 'male' ? 625 : 681
     }
   },
   methods: {
