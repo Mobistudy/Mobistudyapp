@@ -23,6 +23,9 @@ export default {
           { i: 'Stop immediately if you have any chest pain or dizziness.' },
           { i: 'When you are ready to start the test, press the "Start"-button.' }
         ],
+        begin: 'begin',
+        oneMin: 'one minute',
+        twoMin: 'two minutes',
         enterHR: 'Enter your heart rate',
         enterHRInstructions: 'Note: To measure your heart rate manually, please count the number of heart beats for 15 seconds. Multiply the count by four and enter the value below.',
         time: 'Time',
