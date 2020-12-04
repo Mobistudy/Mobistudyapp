@@ -100,7 +100,7 @@ module.exports = function (ctx) {
         if (config.HEALTHSTORE.toLowerCase() === 'mock') cfg.resolve.alias['modules/healthstore'] = 'modules/healthstore.mock'
         if (config.NOTIFICATIONS.toLowerCase() === 'web') cfg.resolve.alias['modules/notifications'] = 'modules/notifications.web'
         if (config.PHONE.toLowerCase() === 'mock') cfg.resolve.alias['modules/phone'] = 'modules/phone.mock'
-        // if (config.MIBAND3.toLowerCase() === 'mock') cfg.resolve.alias['modules/miband3/miband3'] = 'modules/miband3/miband3.mock'
+        if (config.MIBAND3.toLowerCase() === 'mock') cfg.resolve.alias['modules/miband3/miband3'] = 'modules/miband3/miband3.mock'
         if (config.STORAGE.toLowerCase() === 'local') cfg.resolve.alias['modules/storage'] = 'modules/storage.local'
         if (config.STORAGE.toLowerCase() === 'native') cfg.resolve.alias['modules/storage'] = 'modules/storage.native'
       }
@@ -123,9 +123,7 @@ module.exports = function (ctx) {
     // https://quasar.dev/options/animations
     animations: [
       'fadeInDown',
-      'fadeOutUp',
       'fadeOut',
-      'slideInUp',
       'slideInDown',
       'slideInRight',
       'slideInLeft',
