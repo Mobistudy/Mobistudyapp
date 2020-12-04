@@ -27,41 +27,12 @@
       ref="metronome_indicator" v-if="isStarted"
     />
 
-    <audio ref="sound_begin">
-      <source
-        src="statics/sounds/begin.wav"
-        type="audio/wav"
-      />
-    </audio>
-    <audio ref="sound_minute1">
-      <source
-        src="statics/sounds/1-minute.wav"
-        type="audio/wav"
-      />
-    </audio>
-    <audio ref="sound_minute2">
-      <source
-        src="statics/sounds/2-minutes.wav"
-        type="audio/wav"
-      />
-    </audio>
-    <audio ref="sound_complete">
-      <source
-        src="statics/sounds/time.wav"
-        type="audio/wav"
-      />
-    </audio>
-    <audio ref="sound_click">
-      <source
-        src="statics/sounds/click.wav"
-        type="audio/wav"
-      />
-    </audio>
   </q-page>
 </template>
 
 <script>
 import phone from 'modules/phone'
+import audio from 'modules/audio'
 import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'
 
@@ -83,9 +54,9 @@ export default {
       startedTS: undefined,
       completionTS: undefined,
       steps: [],
-      gender: 'male', // userinfo.user.gender,
+      gender: userinfo.user.gender,
       heartRate: '',
-      cadence: 625 // userinfo.user.gender === 'male'? 625 : 681
+      cadence: userinfo.user.gender === 'male' ? 625 : 681
     }
   },
   methods: {
@@ -93,6 +64,7 @@ export default {
       if (!this.isStarted) {
         this.isStarted = true
         this.startedTS = new Date()
+        audio.textToSpeech.language = userinfo.user.language
         if (await phone.pedometer.isAvailable()) {
           phone.pedometer.startNotifications({}, async (step) => {
             console.log('Steps', step)
@@ -103,12 +75,12 @@ export default {
         } else {
           console.error('Pedometer not available')
         }
-        phone.media.playSound(this.$refs.sound_begin)
+        audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.begin'))
         this.timer = setInterval(() => {
           if (this.countDown === 120) {
-            phone.media.playSound(this.$refs.sound_minute2)
+            audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.twoMin'))
           } else if (this.countDown === 60) {
-            phone.media.playSound(this.$refs.sound_minute1)
+            audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.oneMin'))
           }
           if (this.countDown >= 1) {
             this.countDown--
@@ -118,13 +90,12 @@ export default {
             this.completeTest()
           }
         }, 1000)
-
-        phone.metronome.start(this.cadence, this.$refs.metronome_indicator.$el)
+        audio.metronome.start(this.cadence, this.$refs.metronome_indicator.$el)
         this.$emit('updateTransition', 'slideInRight')
       }
     },
     completeTest () {
-      phone.media.playSound(this.$refs.sound_complete)
+      audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.time'))
       phone.pedometer.stopNotifications()
       this.completionTS = new Date()
       const studyKey = this.studyKey
@@ -156,7 +127,7 @@ export default {
   beforeDestroy: function () {
     this.isStarted = false
     clearInterval(this.timer)
-    phone.metronome.stop()
+    audio.metronome.stop()
     phone.pedometer.stopNotifications()
   }
 }
