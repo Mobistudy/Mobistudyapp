@@ -10,7 +10,7 @@
       <q-item-label>{{ title }}</q-item-label>
       <q-item-label caption>{{ main }}</q-item-label>
     </q-item-section>
-    <q-item-section
+     <q-item-section v-if="this.isMissedTask"
       side
       top
     >{{ timeRemaining }}</q-item-section>
@@ -18,11 +18,12 @@
 </template>
 
 <script>
+
 import moment from 'moment'
 
 export default {
   name: 'TaskListItem',
-  props: ['task'],
+  props: ['task', 'isMissedTask'],
   data () {
     return {
       icon: undefined,
