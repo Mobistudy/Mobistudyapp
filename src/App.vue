@@ -2,8 +2,8 @@
   <div id="q-app">
     <transition
       appear
-      enter-active-class="animated fadeInDown"
-      leave-active-class="animated fadeOutUp"
+      enter-active-class="animated slideInDown"
+      leave-active-class="animated slideOutUp"
       mode="out-in"
     >
       <router-view />
