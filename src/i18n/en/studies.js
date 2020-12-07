@@ -3,6 +3,7 @@
 import { mergeDeep } from 'modules/tools'
 import smwtTask from './tasks/smwt'
 import qcstTask from './tasks/qcst'
+import miband3Task from './tasks/miband3/miband3'
 
 let studies = {
   studies: {
@@ -43,6 +44,8 @@ let studies = {
     tasks: {
       cancelTask: 'This will terminate the current task and you will be redirected to the start page. No data will be saved. Do you really want to quit?',
       noPendingTasks: 'No tasks pending',
+      cancelTaskLabel: 'Cancel',
+      quitTaskLabel: 'Quit task',
       pendingTasks: "Today's pending tasks",
       missedTasks: 'Missed tasks',
       noMissedTasks: 'No tasks missed',
@@ -52,6 +55,7 @@ let studies = {
       taskCompleted: 'The task has been completed and the result has been sent to the server. Thank you!',
       dataQuery: {
         title: 'Data query',
+        shortTitle: 'Data query',
         shortDescription: 'Extract data from your phone',
         dataQueryExplanation: 'This data has been extracted from your phone. If you agree to send it, tap on Send.'
       },
@@ -85,5 +89,6 @@ let studies = {
 
 studies = mergeDeep(studies, smwtTask)
 studies = mergeDeep(studies, qcstTask)
+studies = mergeDeep(studies, miband3Task)
 
 export default studies

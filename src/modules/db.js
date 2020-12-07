@@ -42,6 +42,10 @@ export default {
     let studies = await storage.getItem('studiesParticipation')
     return studies.find(sp => sp.studyKey === studyKey)
   },
+  async getStudyParticipationTaskItemConsent (studyKey) {
+    let studyParticipation = await this.getStudyParticipation(studyKey)
+    return (studyParticipation.taskItemsConsent)
+  },
   async setStudyParticipation (studyPart) {
     let studies = await storage.getItem('studiesParticipation')
     let studyIndex = studies.findIndex(sp => sp.studyKey === studyPart.studyKey)
@@ -71,6 +75,7 @@ export default {
     await this.setStudiesParticipation(studies)
     return Promise.resolve()
   },
+  /* Study descriptions */
   async getStudyDescription (studyKey) {
     return storage.getItem('study_' + studyKey)
     // return Promise.reject(new Error('test'))
@@ -80,6 +85,16 @@ export default {
   },
   async removeStudy (studyKey) {
     return storage.removeItem('study_' + studyKey)
+  },
+  async getTaskDescription (studyKey, taskId) {
+    const studyDes = await this.getStudyDescription(studyKey)
+    if (!studyDes) throw new Error('study with key ' + studyKey + ' does not exist')
+    return studyDes.tasks.find(x => x.id === Number(taskId))
+  },
+  async getLastCompletedTaskDate (studyKey, taskId) {
+    let taskItemConsent = await this.getStudyParticipationTaskItemConsent(studyKey)
+    let lastCompleted = taskItemConsent.find(x => x.taskId === Number(taskId)).lastExecuted
+    return lastCompleted
   },
 
   /* FORMS */
@@ -94,10 +109,15 @@ export default {
   },
 
   /* MIBAND3 */
-  async setMiBand3 (device) {
-    return storage.setItem('miband3', device)
+  async setDeviceMiBand3 (device) {
+    return storage.setItem('miband3', JSON.stringify(device))
   },
-  async removeMiBand3 () {
+  async getDeviceMiBand3 () {
+    let device = await storage.getItem('miband3')
+    if (!device) return null
+    return JSON.parse(device)
+  },
+  async removeDeviceMiBand3 () {
     return storage.removeItem('miband3')
   }
 }

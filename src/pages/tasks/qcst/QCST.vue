@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="text-center text-h6 q-mt-lg">
+    <div class="text-center text-h5 q-mt-lg">
       {{ $t('studies.tasks.qcst.title') }}
     </div>
 
@@ -11,50 +11,28 @@
         v-if="!isStarted"
         color="secondary"
         :label="$t('common.start')"
+        padding="lg"
       />
       <q-btn
         @click="completeTest"
         v-if="isStarted"
         color="purple"
         :label="$t('common.complete')"
+        padding="lg"
       />
     </div>
+    <q-btn
+      padding="xl" color="black" round
+      flat icon="volume_up" class="q-mt-xl"
+      ref="metronome_indicator" v-if="isStarted"
+    />
 
-    <audio ref="sound_begin">
-      <source
-        src="statics/sounds/begin.wav"
-        type="audio/wav"
-      />
-    </audio>
-    <audio ref="sound_minute1">
-      <source
-        src="statics/sounds/1-minute.wav"
-        type="audio/wav"
-      />
-    </audio>
-    <audio ref="sound_minute2">
-      <source
-        src="statics/sounds/2-minutes.wav"
-        type="audio/wav"
-      />
-    </audio>
-    <audio ref="sound_complete">
-      <source
-        src="statics/sounds/time.wav"
-        type="audio/wav"
-      />
-    </audio>
-    <audio ref="sound_click">
-      <source
-        src="statics/sounds/click.wav"
-        type="audio/wav"
-      />
-    </audio>
   </q-page>
 </template>
 
 <script>
 import phone from 'modules/phone'
+import audio from 'modules/audio'
 import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'
 
@@ -76,10 +54,9 @@ export default {
       startedTS: undefined,
       completionTS: undefined,
       steps: [],
-      gender: 'male', // userinfo.user.gender,
+      gender: userinfo.user.gender,
       heartRate: '',
-      metronome: null,
-      cadence: 625 // userinfo.user.gender === 'male'? 625 : 681
+      cadence: userinfo.user.gender === 'male' ? 625 : 681
     }
   },
   methods: {
@@ -87,6 +64,7 @@ export default {
       if (!this.isStarted) {
         this.isStarted = true
         this.startedTS = new Date()
+        audio.textToSpeech.language = userinfo.user.language
         if (await phone.pedometer.isAvailable()) {
           phone.pedometer.startNotifications({}, async (step) => {
             console.log('Steps', step)
@@ -97,33 +75,27 @@ export default {
         } else {
           console.error('Pedometer not available')
         }
-        this.$refs.sound_begin.play()
-
+        audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.begin'))
         this.timer = setInterval(() => {
           if (this.countDown === 120) {
-            if (this.$refs && this.$refs.sound_minute1) this.$refs.sound_minute1.play()
+            audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.twoMin'))
           } else if (this.countDown === 60) {
-            if (this.$refs && this.$refs.sound_minute2) this.$refs.sound_minute2.play()
+            audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.oneMin'))
           }
           if (this.countDown >= 1) {
             this.countDown--
           } else {
-            // test is completed
-            if (this.$refs && this.$refs.sound_complete) this.$refs.sound_complete.play()
+            // Test is completed
             this.isStarted = false
             this.completeTest()
           }
         }, 1000)
-        let playAndRepeat = () => {
-          this.$refs.sound_click.play()
-          if (this.isStarted) {
-            setTimeout(playAndRepeat, this.cadence)
-          }
-        }
-        playAndRepeat()
+        audio.metronome.start(this.cadence, this.$refs.metronome_indicator.$el)
+        this.$emit('updateTransition', 'slideInRight')
       }
     },
     completeTest () {
+      audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.time'))
       phone.pedometer.stopNotifications()
       this.completionTS = new Date()
       const studyKey = this.studyKey
@@ -140,6 +112,7 @@ export default {
         heartRate: undefined,
         borgScale: undefined
       }
+
       this.$router.push({ name: 'qcsthr', params: { report: report } })
     }
   },
@@ -154,15 +127,21 @@ export default {
   beforeDestroy: function () {
     this.isStarted = false
     clearInterval(this.timer)
+    audio.metronome.stop()
     phone.pedometer.stopNotifications()
   }
 }
 </script>
 
-<style>
+<style scoped>
+.q-page {
+  text-align: center;
+}
 #timer {
   font-size: 5rem;
-  text-align: center;
   padding: 20px;
+}
+.q-mt-xl {
+  margin-top: 150px;
 }
 </style>

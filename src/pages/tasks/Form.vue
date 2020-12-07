@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div v-if="introduction">
-      <div class="text-center text-h6">
+      <div class="text-center text-h5">
         {{introduction.title[$i18n.locale]}}
       </div>
       <div class="text-center text-body1 q-mt-lg">
@@ -17,49 +17,69 @@
     </div>
 
     <div v-if="!introduction && !finished">
-      <div class="text-center text-subtitle1">
-        <div v-html="currentQuestion.text[$i18n.locale]"></div>
-      </div>
-      <div
-        v-if="currentQuestion.helper"
-        class="text-center text-subtitle2 q-mb-md"
+      <transition
+        :enter-active-class="'animated ' + this.slideName"
+        leave-active-class="fadeOut"
+        mode="out-in"
       >
-        <div v-html="currentQuestion.helper[$i18n.locale]"></div>
-      </div>
+        <div
+          v-show="slideName != ''"
+          key=""
+        >
+          <div class="text-center text-subtitle1">
+            <div v-html="currentQuestion.text[$i18n.locale]"></div>
+          </div>
+          <div
+            v-if="currentQuestion.helper"
+            class="text-center text-subtitle2 q-mb-md"
+          >
+            <div v-html="currentQuestion.helper[$i18n.locale]"></div>
+          </div>
 
-      <q-input v-show="currentQuestion.type === 'freetext'" v-model="freetextAnswer" type="textarea" :label="$t('studies.tasks.form.freeTextExplanation')" rows="3" outlined></q-input>
-
-      <div
-        v-show="currentQuestion.type === 'singleChoice'"
-        v-for="(answerChoice, index) in currentQuestion.answerChoices"
-        :key="'sc' + index"
-      >
-        <q-radio
-          v-model="singleChoiceAnswer"
-          :val="answerChoice.id"
-          :label="answerChoice.text[$i18n.locale]"
-        />
-      </div>
-      <div
-        v-show="currentQuestion.type === 'multiChoice'"
-        v-for="(answerChoice, index) in currentQuestion.answerChoices"
-        :key="'mc' + index"
-      >
-        <q-checkbox
-          v-model="multiChoiceAnswer"
-          :val="answerChoice.id"
-          :label="answerChoice.text[$i18n.locale]"
-        />
-      </div>
-      <div
-        v-show="currentQuestion.type === 'textOnly'"
-        class="text-subtitle1 q-mb-md"
-      >
-        <div v-if="currentQuestion.type === 'textOnly'">
-          <div v-html="currentQuestion.html[$i18n.locale]"></div>
+          <q-input
+            v-show="currentQuestion.type === 'freetext'"
+            v-model="freetextAnswer"
+            type="textarea"
+            :label="$t('studies.tasks.form.freeTextExplanation')"
+            rows="3"
+            outlined
+          />
+          <div
+            v-show="currentQuestion.type === 'singleChoice'"
+            v-for="(answerChoice, index) in currentQuestion.answerChoices"
+            :key="'sc' + index"
+          >
+            <q-radio
+              v-model="singleChoiceAnswer"
+              :val="answerChoice.id"
+              :label="answerChoice.text[$i18n.locale]"
+            />
+          </div>
+          <div
+            v-show="currentQuestion.type === 'multiChoice'"
+            v-for="(answerChoice, index) in currentQuestion.answerChoices"
+            :key="'mc' + index"
+          >
+            <q-checkbox
+              v-model="multiChoiceAnswer"
+              :val="answerChoice.id"
+              :label="answerChoice.text[$i18n.locale]"
+            />
+          </div>
+          <div
+            v-show="currentQuestion.type === 'textOnly'"
+            class="text-subtitle1 q-mb-md"
+          >
+            <div v-if="currentQuestion.type === 'textOnly'">
+              <div v-html="currentQuestion.html[$i18n.locale]"></div>
+            </div>
+          </div>
         </div>
+      </transition>
+      <div v-if="currentQuestion.type !== 'textOnly'" class="row justify-around">
+        <q-btn no-caps flat :label="$t('common.clear')" color="negative"  icon-right="cancel" @click="clearAnswer()" />
       </div>
-      <div class="row justify-around q-ma-lg">
+      <div class="row justify-around q-mb-xl">
         <q-btn
           v-show="!isFirstQuestion"
           icon="arrow_back"
@@ -68,10 +88,19 @@
           :label="$t('common.back')"
         />
         <q-btn
+          v-show="isAnswered"
           icon-right="arrow_forward"
           color="primary"
           @click="next()"
           :label="$t('common.next')"
+        />
+      <q-btn
+          v-model="singleChoiceAnswer"
+          v-show="!isAnswered"
+          icon-right="arrow_forward"
+          color="warning"
+          @click="next()"
+          :label="$t('common.skip')"
         />
       </div>
       <div
@@ -107,7 +136,6 @@ import userinfo from 'modules/userinfo'
 export default {
   name: 'FormPage',
   props: {
-    icon: String,
     studyKey: String,
     taskId: Number,
     formKey: String
@@ -116,6 +144,7 @@ export default {
     return {
       formDescr: {},
       responses: [],
+      oldResponses: [],
       freetextAnswer: undefined,
       singleChoiceAnswer: undefined,
       multiChoiceAnswer: [],
@@ -125,7 +154,8 @@ export default {
       },
       finished: false,
       currentQuestion: undefined,
-      loading: false
+      loading: false,
+      slideName: ''
     }
   },
   async created () {
@@ -164,14 +194,22 @@ export default {
       if (this.introduction) return false
       if (this.currentQuestion.id === this.formDescr.questions[0].id) return true
       return false
+    },
+    isAnswered () {
+      return (this.currentQuestion.type === 'singleChoice' && this.singleChoiceAnswer) ||
+             (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
+             (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
+             (this.currentQuestion.type === 'textOnly')
     }
   },
   methods: {
     start () {
       this.introduction = false
       this.currentQuestion = this.formDescr.questions[0]
+      setTimeout(() => { this.slideName = 'fadeInDown' }, 10)
     },
     next () {
+      this.slideName = ''
       let nextQuestionId = this.currentQuestion.nextDefaultId
 
       let answer = {
@@ -220,6 +258,12 @@ export default {
           nextQuestionId = 'Q' + (index + 2)
         }
       }
+      // check for old responses
+      if (this.oldResponses[1] && this.oldResponses[1].questionId === nextQuestionId) {
+        if (this.oldResponses[1].answer) this.singleChoiceAnswer = this.oldResponses[1].answer.answerId
+        else this.singleChoiceAnswer = undefined
+        this.oldResponses.shift()
+      } else this.oldResponses = []
 
       if (nextQuestionId === 'ENDFORM') {
         // completed !
@@ -227,8 +271,10 @@ export default {
       } else {
         this.currentQuestion = this.formDescr.questions.find(x => x.id === nextQuestionId)
       }
+      setTimeout(() => { this.slideName = 'slideInRight' }, 10)
     },
     back () {
+      this.slideName = ''
       this.freetextAnswer = undefined
       this.multiChoice = undefined
       this.singleChoiceAnswer = undefined
@@ -247,7 +293,9 @@ export default {
         }
       }
 
-      this.responses.pop()
+      this.oldResponses.unshift(this.responses.pop())
+
+      setTimeout(() => { this.slideName = 'slideInLeft' }, 10)
     },
     async send () {
       this.loading = true
@@ -263,29 +311,33 @@ export default {
       try {
         await API.sendAnswers(answers)
         await DB.setTaskCompletion(studyKey, taskId, new Date())
-        // this.$q.notify({
-        //   color: 'positive',
-        //   message: 'Form sent successfully!',
-        //   icon: 'check'
-        // })
-        // let _this = this
         this.$router.push('/home')
       } catch (error) {
         console.error(error)
         this.loading = false
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot send data: ' + error.message,
+          message: this.$t('errors.connectionError') + ' ' + error.message,
           icon: 'report_problem',
           onDismiss () {
             this.$router.push('/home')
           }
         })
       }
+    },
+    clearAnswer () {
+      if (this.currentQuestion.type === 'singleChoice') this.singleChoiceAnswer = undefined
+      if (this.currentQuestion.type === 'freetext') this.freetextAnswer = undefined
+      if (this.currentQuestion.type === 'multiChoice') this.multiChoiceAnswer = []
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
+.slideInLeft,
+.slideInRight,
+.fadeInDown {
+  animation-duration: 600ms;
+}
 </style>

@@ -13,6 +13,7 @@ let en = {
   },
   common: {
     next: 'Next',
+    clear: 'Clear answer',
     cancel: 'Cancel',
     accept: 'Accept',
     reject: 'Reject',
@@ -28,6 +29,7 @@ let en = {
     start: 'Start',
     complete: 'Complete',
     send: 'Send',
+    skip: 'Skip',
     back: 'Back',
     introduction: 'Introduction',
     instructions: 'Instructions'

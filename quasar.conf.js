@@ -1,6 +1,6 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
-const webpack = require('webpack')
+// const webpack = require('webpack')
 const config = require('./project.config.js')
 
 module.exports = function (ctx) {
@@ -80,8 +80,7 @@ module.exports = function (ctx) {
       env: {
         // environmental variables passed to the rest of the code
         APP_VERSION: JSON.stringify(require('./package.json').version),
-        API_ENDPOINT: JSON.stringify(config.API_ENDPOINT),
-        MAPS_API: JSON.stringify(config.MAPS_API)
+        API_ENDPOINT: JSON.stringify(config.API_ENDPOINT)
       },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
@@ -101,6 +100,7 @@ module.exports = function (ctx) {
         if (config.HEALTHSTORE.toLowerCase() === 'mock') cfg.resolve.alias['modules/healthstore'] = 'modules/healthstore.mock'
         if (config.NOTIFICATIONS.toLowerCase() === 'web') cfg.resolve.alias['modules/notifications'] = 'modules/notifications.web'
         if (config.PHONE.toLowerCase() === 'mock') cfg.resolve.alias['modules/phone'] = 'modules/phone.mock'
+        if (config.MIBAND3.toLowerCase() === 'mock') cfg.resolve.alias['modules/miband3/miband3'] = 'modules/miband3/miband3.mock'
         if (config.STORAGE.toLowerCase() === 'local') cfg.resolve.alias['modules/storage'] = 'modules/storage.local'
         if (config.STORAGE.toLowerCase() === 'native') cfg.resolve.alias['modules/storage'] = 'modules/storage.native'
       }
@@ -121,7 +121,14 @@ module.exports = function (ctx) {
 
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
-    animations: [],
+    animations: [
+      'fadeInDown',
+      'fadeOut',
+      'slideInDown',
+      'slideInRight',
+      'slideInLeft',
+      'slideOutUp'
+    ],
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {

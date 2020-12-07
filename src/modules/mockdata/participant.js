@@ -7,6 +7,8 @@ export default {
   language: 'en',
   sex: 'male',
   dateOfBirth: '1970-11-10',
+  height: 172,
+  weight: 67,
   diseases: [
     {
       term: 'COPD',
@@ -19,7 +21,7 @@ export default {
   // studies: []
   studies: [
     {
-      studyKey: '1234',
+      studyKey: '9999',
       currentStatus: 'accepted',
       acceptedTS: new Date(new Date().getTime() - 604800000).toISOString(), // 7 days ago
       reminders: true,

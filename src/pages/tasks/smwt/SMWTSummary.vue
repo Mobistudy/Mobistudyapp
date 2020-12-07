@@ -6,9 +6,10 @@
         class="q-mt-md"
         alt="Finish flag"
         src="~assets/goalflags.svg"
+        style="width: 50%; margin: 0px auto;"
       >
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
-      <table id="stats">
+      <table class="decoratedTable">
         <tr>
           <td>{{ $t('studies.tasks.smwt.time') }}</td>
           <td> {{ minutes }}:{{ seconds }}</td>
@@ -24,7 +25,7 @@
       </table>
 
       <div class="q-pa-md">
-        <p class="sub-heading">Please rate your level of exertion:</p>
+        <p>Please rate your level of exertion:</p>
         <q-list bordered>
           <q-item
             tag="label"
@@ -208,8 +209,8 @@
           </q-item>
         </q-list>
 
-        <div class="q-px-sm q-mt-sm">
-          <p class="sub-heading">Your selection is: <strong>{{ borgValue }}</strong></p>
+        <div class="q-mt-sm">
+          <p>{{ $t('studies.tasks.smwt.borgScale.result') }} <strong>{{ borgValue }}</strong></p>
         </div>
       </div>
 
@@ -224,10 +225,21 @@
   </q-page>
 </template>
 
+<style>
+.decoratedTable {
+  background: #f8f8f8;
+  padding: 4px;
+  width: 70%;
+  margin: 0px auto;
+  font-size: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+</style>
+
 <script>
 import API from 'modules/API'
 import DB from 'modules/db'
-import fileSystem from 'modules/files'
+// import fileSystem from 'modules/files'
 import { format as Qformat } from 'quasar'
 
 export default {
@@ -247,12 +259,12 @@ export default {
       this.report.borgScale = this.borgValue
 
       // Only for testing purposes! Please remove before deploying app.
-      try {
-        let filename = 'smwt_' + new Date().getTime() + '.json'
-        await fileSystem.save(filename, this.report)
-      } catch (err) {
-        console.error('Cannot save to file', err)
-      }
+      // try {
+      //   let filename = 'smwt_' + new Date().getTime() + '.json'
+      //   await fileSystem.save(filename, this.report)
+      // } catch (err) {
+      //   console.error('Cannot save to file', err)
+      // }
 
       // Save the data to server
       try {
@@ -265,7 +277,7 @@ export default {
         console.error(error)
         this.$q.notify({
           color: 'negative',
-          message: 'Cannot send data: ' + error.message,
+          message: this.$t('errors.connectionError') + ' ' + error.message,
           icon: 'report_problem',
           onDismiss () {
             this.$router.push('/home')
@@ -279,38 +291,11 @@ export default {
       return Math.floor((this.report.completionTS - this.report.startedTS) / 1000)
     },
     minutes () {
-      return Qformat.pad(Math.floor(this.totalTime / 60))
+      return Qformat.pad(Math.floor(this.totalTime / 60), 2)
     },
     seconds () {
-      return Math.floor(this.totalTime - (this.minutes * 60))
+      return Qformat.pad(Math.floor(this.totalTime - (this.minutes * 60)), 2)
     }
   }
 }
 </script>
-
-<style>
-img {
-  width: 40%;
-  margin: 0px auto;
-}
-
-table {
-  background: #f8f8f8;
-  padding: 4px;
-  width: 70%;
-  margin: 0px auto;
-  font-size: 0.75rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-
-table td:nth-child(2) {
-  text-align: right;
-}
-tr {
-  text-align: left;
-}
-
-#submit {
-  text-align: center;
-}
-</style>

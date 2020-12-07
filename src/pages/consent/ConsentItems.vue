@@ -19,16 +19,8 @@
         </q-item>
         <q-separator inset />
       </div>
-      <q-list v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems" :key="taskIndex">
-        <q-item>
-          <q-item-section>
-            <q-item-label class="q-my-md">{{taskItem.description[$i18n.locale]}}</q-item-label>
-            <q-btn v-if="taskType[taskIndex] !== 'form'" :label="$t('studies.consent.giveOSPermission')" :disabled="!consentedTaskItems[taskIndex] || permissionsGiven[taskIndex]" color="positive" @click="requestPermission(taskIndex)"></q-btn>
-          </q-item-section>
-          <q-item-section avatar>
-            <q-checkbox v-model="consentedTaskItems[taskIndex]"/>
-          </q-item-section>
-        </q-item>
+      <q-list >
+      <consentItem v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems"  :key="taskIndex" :taskIndex="taskIndex" :taskItem="taskItem" :taskType="taskType" :consentedTaskItems="consentedTaskItems" :studyDescription="studyDescription"/>
       </q-list>
       <q-separator v-if="remindersPermissionNeeded" />
       <q-item v-if="remindersPermissionNeeded">
@@ -37,11 +29,17 @@
             <div class="q-my-md">
               {{$t('studies.consent.remindersOSPermission')}}
             </div>
-            <q-btn :label="$t('studies.consent.giveRemindersOSPermission')" :disabled="!reminders || remindersPermissionGiven" color="positive" @click="requestNotificationsPermission()"></q-btn>
+            <q-item-label v-if="remindersPermissionNeeded &&!remindersPermissionGiven">
+            <div class="q-mt-sm text-secondary">
+            {{ $t('studies.consent.giveRemindersOSPermission') }}
+            </div>
+            </q-item-label>
           </div>
         </q-item-section>
         <q-item-section avatar>
-          <q-checkbox v-model="reminders"/>
+          <q-checkbox :value="remindersPermissionGiven"
+          @click.native="!remindersPermissionGiven ? requestNotificationsPermission() : remindersPermissionGiven = false"
+          />
         </q-item-section>
       </q-item>
     </q-list>
@@ -53,22 +51,22 @@
 </template>
 
 <script>
+import consentItem from 'components/ConsentItem.vue'
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
 import API from 'modules/API'
-import healthStore from 'modules/healthstore'
 import notifications from 'modules/notifications'
-import phone from 'modules/phone'
 
 export default {
   name: 'ConsentItemsPage',
   props: ['studyDescription'],
+  components: {
+    consentItem
+  },
   data () {
     return {
       consentedExtraItems: [],
       consentedTaskItems: [],
-      permissionsGiven: [],
-      reminders: false,
       remindersPermissionNeeded: true,
       remindersPermissionGiven: false
     }
@@ -87,7 +85,7 @@ export default {
 
     for (let i = 0; i < this.studyDescription.consent.taskItems.length; i++) {
       this.consentedTaskItems.push(false)
-      this.permissionsGiven.push(false)
+    // this.permissionsGiven.push(false)
     }
   },
   computed: {
@@ -97,9 +95,9 @@ export default {
       })
     },
     canAccept () {
-      if (this.reminders && !this.remindersPermissionGiven) return false
+      if (!this.remindersPermissionGiven) return false
       for (let i = 0; i < this.taskType.length; i++) {
-        if (this.taskType[i] === 'dataQuery' && this.consentedTaskItems[i] && !this.permissionsGiven[i]) {
+        if (this.taskType[i] === 'dataQuery' && !this.consentedTaskItems[i]) {
           return false
         }
       }
@@ -107,43 +105,6 @@ export default {
     }
   },
   methods: {
-    async requestPermission (taskIndex) {
-      try {
-        if (this.taskType[taskIndex] === 'dataQuery') {
-          let taskId = this.studyDescription.consent.taskItems[taskIndex].taskId
-          let taskdescr = this.studyDescription.tasks.find(t => t.id === taskId)
-          await healthStore.requestAuthorization([
-            { read: [taskdescr.dataType] }
-          ])
-        } else if (this.taskType[taskIndex] === 'smwt') {
-          if (await phone.geolocation.isAvailable()) {
-            await phone.geolocation.requestPermission()
-          }
-          if (await phone.pedometer.isAvailable()) {
-            await phone.pedometer.requestPermission()
-          }
-        } else if (this.taskType[taskIndex] === 'qcst') {
-          if (await phone.pedometer.isAvailable()) {
-            await phone.pedometer.requestPermission()
-          }
-        }
-        // if we get to this point we have permission
-        this.$set(this.permissionsGiven, taskIndex, true)
-        this.$q.notify({
-          color: 'positive',
-          message: this.$i18n.t('studies.consent.OSPermissionGiven'),
-          icon: 'check'
-        })
-      } catch (error) {
-        // we didn't get permission
-        console.error('Cannot get OS authorisation for task', error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error.message,
-          icon: 'report_problem'
-        })
-      }
-    },
     async requestNotificationsPermission () {
       try {
         this.remindersPermissionGiven = await notifications.requestPermission()
@@ -168,7 +129,7 @@ export default {
           studyKey: this.studyDescription._key,
           currentStatus: 'accepted',
           acceptedTS: new Date(),
-          reminders: this.reminders,
+          reminders: this.remindersPermissionGiven,
           taskItemsConsent: [],
           extraItemsConsent: []
         }

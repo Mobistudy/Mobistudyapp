@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="text-center text-h6 q-mt-lg">
+    <div class="text-center text-h5 q-mt-lg">
       {{ $t('studies.tasks.smwt.title') }}
     </div>
     <div
@@ -35,6 +35,19 @@
     </div>
   </q-page>
 </template>
+
+<style scoped>
+#timer {
+  font-size: 3rem;
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+}
+
+.text-subtitle1 {
+  line-height: 4.25;
+}
+</style>
 
 <script>
 import phone from 'modules/phone'
@@ -187,6 +200,7 @@ export default {
       }
 
       this.$router.push({ name: 'smwtSummary', params: { report: report } })
+      this.$emit('updateTransition', 'slideInRight')
     }
   },
   computed: {
@@ -206,16 +220,3 @@ export default {
   }
 }
 </script>
-
-<style>
-#timer {
-  font-size: 3rem;
-  text-align: center;
-  padding: 0px;
-  margin: 0px;
-}
-
-.text-subtitle1 {
-  line-height: 4.25;
-}
-</style>

@@ -1,13 +1,20 @@
 <template>
   <div id="q-app">
-    <router-view />
+    <transition
+      appear
+      enter-active-class="animated slideInDown"
+      leave-active-class="animated slideOutUp"
+      mode="out-in"
+    >
+      <router-view />
+    </transition>
   </div>
 </template>
 
 <script>
-import userinfo from './modules/userinfo'
-import DB from './modules/db'
-import API from './modules/API'
+import userinfo from 'modules/userinfo'
+import DB from 'modules/db'
+import API from 'modules/API'
 
 export default {
   name: 'MobistudyApp',
