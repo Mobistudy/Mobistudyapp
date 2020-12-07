@@ -57,7 +57,7 @@
         :enter-active-class="'animated ' + this.slideName"
         mode="out-in"
       >
-        <router-view @updateTransition="update"></router-view>
+        <router-view @updateTransition="update" ></router-view>
       </transition>
     </q-page-container>
   </q-layout>
@@ -70,6 +70,13 @@ export default {
     return {
       leftDrawerOpen: false,
       slideName: ''
+    }
+  },
+  methods: {
+    update (transition) {
+      setTimeout(() => {
+        this.slideName = transition
+      }, 10)
     }
   },
   watch: {
