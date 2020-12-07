@@ -23,37 +23,42 @@
         narrow-indicator
         dense
         active-color="secondary"
-        class="bg-white text-grey-7"
+        class="bg-white text-grey-7 row"
       >
         <q-route-tab
-          class="q-px-sm"
-          :to="{ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } }"
+          class="q-px-sm col"
+          :to="{ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true, pathIndex: 1 } }"
           icon="check_box"
         >{{ $t('layouts.homeMenu.dailyTasks') }}</q-route-tab>
         <q-route-tab
-          class="q-px-sm"
-          to="profile"
+          class="q-px-sm col"
+          :to="{ name: 'profile', params: { pathIndex: 2 } }"
           icon="account_box"
         >{{ $t('layouts.homeMenu.profile') }}</q-route-tab>
         <q-route-tab
-          class="q-px-sm"
-          to="studies"
-          icon="settings"
+          class="q-px-sm col"
+          :to="{ name: 'studies', params: { pathIndex: 3 } }"
+          icon="local_library"
         >{{ $t('layouts.homeMenu.studies') }}</q-route-tab>
         <q-route-tab
-          class="q-px-sm"
-          to="about"
+          class="q-px-sm col"
+          :to="{ name: 'about', params: { pathIndex: 4 } }"
           icon="help"
         >{{ $t('layouts.homeMenu.about') }}</q-route-tab>
-        <q-route-tab
+        <!--<q-route-tab
           class="q-px-sm"
-          to="test"
+          :to="{ name: 'test', params: { pathIndex: 5 } }"
           icon="bug_report"
-        >TEST</q-route-tab>
+        >TEST</q-route-tab>-->
       </q-tabs>
     </q-footer>
     <q-page-container>
-      <router-view></router-view>
+      <transition
+        :enter-active-class="'animated ' + this.slideName"
+        mode="out-in"
+      >
+        <router-view @updateTransition="update"></router-view>
+      </transition>
     </q-page-container>
   </q-layout>
 </template>
@@ -63,11 +68,19 @@ export default {
   name: 'AboutLayout',
   data () {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: false,
+      slideName: ''
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      const toDepth = to.params.pathIndex
+      const fromDepth = from.params.pathIndex
+      this.slideName = toDepth < fromDepth ? 'slideInLeft' : 'slideInRight'
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 </style>
