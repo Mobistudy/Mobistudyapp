@@ -1,7 +1,5 @@
 <template>
   <q-page padding>
-      <div class="row justify-center">
-      </div>
       <div class="justify center">
         <p class="text-h6 text-center q-pt-md">{{$t('accountMgmt.registration.privacyPolicy')}}</p>
         <p v-html="$t('privacyPolicyFull')"></p>

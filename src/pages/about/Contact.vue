@@ -1,10 +1,8 @@
 <template>
   <q-page padding>
-    <div class="row justify-center">
-    </div>
-    <p class="text-h6 text-center q-pt-md">{{$t('info.contact')}}</p>
+    <p class="text-h6 text-center q-pt-md">{{$t('about.contact')}}</p>
     <div>
-      <p>{{ $t('info.contactEmail') }}</p>
+      <p>{{ $t('about.contactEmail') }}</p>
     </div>
   </q-page>
 </template>

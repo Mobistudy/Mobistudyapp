@@ -38,6 +38,7 @@ let en = {
     registration: 'Register',
     task: 'Task',
     close: 'Close',
+    about: 'About',
     homeMenu: {
       dailyTasks: 'Tasks',
       dailyTasksAction: 'See upcoming tasks',
@@ -75,7 +76,7 @@ let en = {
     no1Word: 'A word by itself is easy to guess.',
     noNames: 'Names and surnames by themselves are easy to guess.'
   },
-  info: {
+  about: {
     about: 'About',
     introduction: 'Introduction',
     introductionFull: `Mobistudy is an open iniative that allows citizens to help \
