@@ -4,9 +4,12 @@
       <q-layout>
         <q-page-container>
           <q-page class="flex flex-center q-pa-md">
-            <div class="text-body1" style="text-align: center">
-              <p>Please, set a screen lock, more text here that i am not so sure about.</p>
-              <q-btn @click="setScreenLock">Set screen lock</q-btn>
+            <div style="text-align: center">
+              <img class="q-mb-sm" style="width:40vw; max-width:150px" src="/statics/screen_lock_landscape-black-18dp.svg"/>
+              <div class="text-body1 q-mt-xl">
+                <p class="q-mb-lg">Please, set a screen lock, more text here that i am not so sure about. If i write more text here i am not sure what happens.</p>
+                <q-btn @click="setScreenLock">Set screen lock</q-btn>
+              </div>
             </div>
           </q-page>
         </q-page-container>
@@ -41,7 +44,6 @@ export default {
   },
   methods: {
     async setScreenLock () {
-      console.log('Storage:', storage)
       storage.secureDevice(
         () => {
           this.bootstrap()
@@ -53,10 +55,7 @@ export default {
 
     async bootstrap () {
       // Setting up storage
-      console.log('Before init DB.')
-
       let storageResponse = await DB.init()
-      console.log('Storage init DB response:', storageResponse)
       let storageInitialized = storageResponse[0]
       if (!storageInitialized) { // Encrypted storage must be initialized before the rest of the bootstrap code runs.
         storage = storageResponse[1]
