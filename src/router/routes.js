@@ -75,7 +75,7 @@ const routes = [
   },
   {
     path: '/about',
-    component: () => import('layouts/AboutLayout.vue'),
+    component: () => import('layouts/HomeLayout.vue'),
     children: [
       { path: '/about', name: 'about', component: () => import('pages/about/About.vue') },
       { path: '/acknowledgements', name: 'acknowledgements', component: () => import('pages/about/Acknowledgements') },
