@@ -1,24 +1,28 @@
 import DB from './db'
 
 /**
-* Simple object store ofr user information
+* Simple object store of user information
 */
 export default {
   async init () {
-    this.user = await DB.getUserSession()
+    try {
+      this.user = await DB.getUserSession()
+    } catch (error) { // User does not exist in session, promise rejected by the encrypted cordova plugin.
+
+    }
     if (!this.user) {
       this.user = {
-        loggedin: false,
-        skipPinWarning: false
+        loggedin: false
       }
     } else this.user.loggedin = true
+    console.log('User initialized')
   },
   async login (newuser) {
     this.user.loggedin = true
     this.user._key = newuser._key
     this.user.email = newuser.email
     this.user.token = newuser.token
-    await DB.setUserSession(this.user)
+    return DB.setUserSession(this.user)
   },
   async setProfile (profile) {
     this.user.name = profile.name
@@ -28,16 +32,16 @@ export default {
     this.user.height = profile.height
     this.user.sex = profile.sex
     this.user.language = profile.language
-    this.storeUserInfo()
+    return this.storeUserInfo()
   },
   async storeUserInfo () {
-    await DB.setUserSession(this.user)
+    return DB.setUserSession(this.user)
   },
   logout () {
     console.log('logout called')
     this.user = {
       loggedin: false
     }
-    DB.removeUserSession()
+    return DB.removeUserSession()
   }
 }

@@ -76,6 +76,7 @@ export default {
     password: { required }
   },
   async created () {
+    DB.init()
     if (userinfo.user.loggedin) {
       notifications.cancelAll()
       userinfo.logout()

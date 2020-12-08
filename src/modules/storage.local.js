@@ -1,5 +1,9 @@
 const storage = window.localStorage
 
+export async function init () {
+  return Promise.resolve([true, storage])
+}
+
 export async function getItem (key) {
   return Promise.resolve(JSON.parse(storage.getItem(key)))
 }

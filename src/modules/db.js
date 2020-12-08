@@ -8,6 +8,10 @@ import * as storage from 'modules/storage'
 // TODO: the best solution would be including encryption, eg via https://www.npmjs.com/package/secure-web-storage
 
 export default {
+
+  async init () {
+    return storage.init()
+  },
   async emptyDB () {
     return storage.clear()
   },
@@ -18,7 +22,11 @@ export default {
     await storage.setItem('app_version', appversion)
   },
   async getCurrentAppVersion () {
-    return storage.getItem('app_version')
+    try {
+      return storage.getItem('app_version')
+    } catch (error) {
+      console.log('app-version error', error)
+    }
   },
   async setCurrentAppVersion (version) {
     return storage.setItem('app_version', version)
