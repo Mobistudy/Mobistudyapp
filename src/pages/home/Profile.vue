@@ -50,20 +50,8 @@
           <q-btn
             color="warning"
             :label="$t('accountMgmt.login.logout')"
-            @click="confirm = true"
+            @click="logout()"
           />
-          <q-dialog v-model="confirm" persistent>
-            <q-card>
-              <q-card-section class="row items-center">
-                <q-avatar icon="warning" color="negative" text-color="white" size="lg" />
-                <span class="q-ml-sm">Are you sure you want to logout?</span>
-              </q-card-section>
-              <q-card-actions align="right">
-                <q-btn flat label="Cancel" color="primary" v-close-popup  />
-                <q-btn flat label="Logout" color="primary" v-close-popup @click="logout()" />
-              </q-card-actions>
-            </q-card>
-          </q-dialog>
         </div>
       </q-item-section>
     </q-item>
@@ -104,7 +92,6 @@ export default {
   components: { ProfileEditor },
   data () {
     return {
-      confirm: false,
       profile: {
         name: '',
         surname: '',
@@ -137,10 +124,17 @@ export default {
     }
   },
   methods: {
-    logout () {
-      userinfo.logout()
-      API.setToken('')
-      this.$router.push('/login')
+    async logout () {
+      this.$q.dialog({
+        title: this.$i18n.t('accountMgmt.login.logout'),
+        message: this.$i18n.t('accountMgmt.login.logoutConfirmation'),
+        ok: this.$i18n.t('accountMgmt.login.logout'),
+        cancel: this.$i18n.t('common.cancel')
+      }).onOk(() => {
+        userinfo.logout()
+        API.setToken('')
+        this.$router.push('/login')
+      })
     },
     async saveProfile () {
       try {
@@ -221,7 +215,4 @@ export default {
 </script>
 
 <style>
-.q-avatar {
-  margin: 0px 0px 5px 0px;
-}
 </style>
