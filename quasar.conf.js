@@ -1,6 +1,6 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
-const webpack = require('webpack')
+// const webpack = require('webpack')
 const config = require('./project.config.js')
 
 module.exports = function (ctx) {
@@ -124,10 +124,11 @@ module.exports = function (ctx) {
     // https://quasar.dev/options/animations
     animations: [
       'fadeInDown',
-      'fadeOutUp',
       'fadeOut',
+      'slideInDown',
       'slideInRight',
-      'slideInLeft'
+      'slideInLeft',
+      'slideOutUp'
     ],
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr

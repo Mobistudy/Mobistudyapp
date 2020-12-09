@@ -49,8 +49,8 @@
         <div class="q-my-md">
           <q-btn
             color="warning"
-            to="Login"
             :label="$t('accountMgmt.login.logout')"
+            @click="logout()"
           />
         </div>
       </q-item-section>
@@ -124,6 +124,18 @@ export default {
     }
   },
   methods: {
+    async logout () {
+      this.$q.dialog({
+        title: this.$i18n.t('accountMgmt.login.logout'),
+        message: this.$i18n.t('accountMgmt.login.logoutConfirmation'),
+        ok: this.$i18n.t('accountMgmt.login.logout'),
+        cancel: this.$i18n.t('common.cancel')
+      }).onOk(() => {
+        userinfo.logout()
+        API.setToken('')
+        this.$router.push('/login')
+      })
+    },
     async saveProfile () {
       try {
         // iOS SAFARI COMPATIBILITY

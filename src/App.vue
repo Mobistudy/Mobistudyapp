@@ -1,5 +1,6 @@
 <template>
   <div id="q-app">
+<<<<<<< HEAD
     <div v-if="showPINPage">
       <q-layout>
         <q-page-container>
@@ -25,6 +26,16 @@
         <router-view />
       </transition>
     </div>
+=======
+    <transition
+      appear
+      enter-active-class="animated slideInDown"
+      leave-active-class="animated slideOutUp"
+      mode="out-in"
+    >
+      <router-view />
+    </transition>
+>>>>>>> 2527bccfdacd297b8aaae9f98ddb90e142bfa5e1
   </div>
 </template>
 

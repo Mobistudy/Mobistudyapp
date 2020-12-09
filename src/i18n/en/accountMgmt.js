@@ -14,6 +14,7 @@ export default {
     login: {
       login: 'Login',
       logout: 'Logout',
+      logoutConfirmation: 'Are you sure you want to logout?',
       logoutShort: 'If you logout from the Mobistudy App no data will be collected.',
       lostpw: 'Lost Password',
       noAcc: 'No account yet? Register in 3 steps!',
