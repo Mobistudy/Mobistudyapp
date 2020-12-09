@@ -24,11 +24,12 @@
     "device": "^0.3.11"
   },
   "devDependencies": {
-    "cordova-android": "^8.1.0",
+    "cordova-android": "^9.0.0",
     "cordova-plugin-ble-central": "^1.3.1",
     "cordova-plugin-geolocation": "^4.0.2",
     "cordova-plugin-insomnia": "git+https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git",
     "cordova-plugin-pedometer": "git+https://github.com/dariosalvi78/cordova-plugin-pedometer.git",
+    "cordova-plugin-pincheck": "0.0.6",
     "cordova-plugin-whitelist": "^1.3.4"
   },
   "cordova": {
@@ -47,11 +48,12 @@
       "cordova-plugin-local-notification": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-pedometer": {},
-      "cordova-plugin-ble-central": {}
+      "cordova-plugin-ble-central": {},
+      "cordova-plugin-pincheck": {}
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

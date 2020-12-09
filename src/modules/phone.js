@@ -1,6 +1,6 @@
 'use strict'
 
-import { Platform } from 'quasar'
+import { Platform, Dialog } from 'quasar'
 
 // this module groups a bunch of hardware functionalities, basically cordova plugins
 
@@ -9,6 +9,7 @@ import { Platform } from 'quasar'
 // geolocation: https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-geolocation/index.html
 // see also HTML standard: https://www.w3schools.com/html/html5_geolocation.asp
 // pedometer: https://github.com/leecrossley/cordova-plugin-pedometer
+// pincheck: https://www.npmjs.com/package/cordova-plugin-pincheck
 
 export default {
   device: window.device,
@@ -21,6 +22,30 @@ export default {
     async allowSleep () {
       return new Promise((resolve, reject) => {
         window.plugins.insomnia.allowSleepAgain(resolve, reject)
+      })
+    }
+  },
+  pin: {
+    async checkPinCode () {
+      return new Promise((resolve, reject) => {
+        if (window.cordova && window.cordova.plugins.PinCheck) {
+          window.cordova.plugins.PinCheck.isPinSetup((success) => {
+            // PIN is setup
+            resolve(true)
+          }, (fail) => {
+            // PIN is not setup, application closes down
+            Dialog.create({
+              title: this.$i18n.t('common.warning'),
+              message: this.$i18n.t('info.pin_error'),
+              persistent: true,
+              ok: this.$i18n.t('common.close')
+            }).onOk(() => {
+              reject(fail)
+              window.close()
+              navigator.app.exitApp()
+            })
+          })
+        }
       })
     }
   },

@@ -17,6 +17,7 @@ let en = {
     cancel: 'Cancel',
     accept: 'Accept',
     reject: 'Reject',
+    warning: 'Warning',
     close: 'Close',
     update: 'Update',
     delete: 'Delete',
@@ -88,7 +89,8 @@ let en = {
     participants are then proposed "tasks", such as filling forms and questionnaires \
     and provide their health data through Google Fit or Apple HealthKit.<br><br>
     Mobistudy is currently managed by the Internet Of Things and People research\
-    center, Malmö University.`
+    center, Malmö University.`,
+    pin_error: 'PIN code does not exist on this device, setup a PIN code and try again.'
   },
   healthDataTypes: {
     steps: 'steps',

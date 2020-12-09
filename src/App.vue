@@ -15,6 +15,7 @@
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
 import API from 'modules/API'
+import phone from 'modules/phone'
 
 export default {
   name: 'MobistudyApp',
@@ -61,6 +62,9 @@ export default {
         throw error
       }
     )
+
+    // Checks whether pin is currently set on phone
+    await phone.pin.checkPinCode()
   }
 }
 </script>

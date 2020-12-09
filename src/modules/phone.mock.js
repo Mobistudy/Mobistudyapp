@@ -23,6 +23,12 @@ export default {
       return Promise.resolve()
     }
   },
+  pin: {
+    async checkPinCode () {
+      console.log('PIN code is setup')
+      return Promise.resolve(true)
+    }
+  },
   geolocation: {
     timerid: null,
     async isAvailable () {
