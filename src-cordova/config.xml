@@ -95,7 +95,6 @@
     <allow-navigation href="about:*" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
-    <plugin name="cordova-plugin-wkwebview-engine" spec="^1.2.1" />
     <plugin name="cordova-plugin-device" spec="~2.0.3" />
     <plugin name="cordova-plugin-insomnia" spec="~4.3.0" />
     <plugin name="cordova-plugin-geolocation" spec="~4.0.2" />
