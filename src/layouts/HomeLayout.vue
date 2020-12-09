@@ -72,6 +72,13 @@ export default {
       slideName: ''
     }
   },
+  methods: {
+    update (transition) {
+      setTimeout(() => {
+        this.slideName = transition
+      }, 10)
+    }
+  },
   watch: {
     '$route' (to, from) {
       const toDepth = to.params.pathIndex

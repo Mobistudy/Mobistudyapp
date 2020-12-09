@@ -41,6 +41,7 @@ let en = {
     registration: 'Register',
     task: 'Task',
     close: 'Close',
+    about: 'About',
     homeMenu: {
       dailyTasks: 'Tasks',
       dailyTasksAction: 'See upcoming tasks',
@@ -78,7 +79,7 @@ let en = {
     no1Word: 'A word by itself is easy to guess.',
     noNames: 'Names and surnames by themselves are easy to guess.'
   },
-  info: {
+  about: {
     about: 'About',
     introduction: 'Introduction',
     introductionFull: `Mobistudy is an open iniative that allows citizens to help \
@@ -90,6 +91,15 @@ let en = {
     and provide their health data through Google Fit or Apple HealthKit.<br><br>
     Mobistudy is currently managed by the Internet Of Things and People research\
     center, Malmö University.`,
+    privacyPolicy: 'Privacy Policy',
+    acknowledgements: 'Acknowledgements',
+    acknowledgementsFull: `A lot of acknowledgement text... \
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor \
+    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud \
+    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute \
+    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu f`,
+    contact: 'Contact',
+    contactEmail: 'notArealEmail@notreal.com',
     pin_error: 'PIN code does not exist on this device, setup a PIN code and try again.'
   },
   healthDataTypes: {
