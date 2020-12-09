@@ -9,7 +9,8 @@ let en = {
     error: 'Error',
     generalError: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.',
     connectionError: 'Cannot contact server',
-    correctFields: 'Please correct the indicated fields'
+    correctFields: 'Please correct the indicated fields',
+    pinError: 'PIN code does not exist on this device, setup a PIN code and try again.'
   },
   common: {
     next: 'Next',
@@ -99,8 +100,7 @@ let en = {
     exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute \
     irure dolor in reprehenderit in voluptate velit esse cillum dolore eu f`,
     contact: 'Contact',
-    contactEmail: 'notArealEmail@notreal.com',
-    pin_error: 'PIN code does not exist on this device, setup a PIN code and try again.'
+    contactEmail: 'notArealEmail@notreal.com'
   },
   healthDataTypes: {
     steps: 'steps',

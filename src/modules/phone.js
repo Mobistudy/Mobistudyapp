@@ -36,7 +36,7 @@ export default {
             // PIN is not setup, application closes down
             Dialog.create({
               title: this.$i18n.t('common.warning'),
-              message: this.$i18n.t('info.pin_error'),
+              message: this.$i18n.t('errors.pinError'),
               persistent: true,
               ok: this.$i18n.t('common.close')
             }).onOk(() => {
