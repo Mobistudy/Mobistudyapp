@@ -9,19 +9,19 @@
           <p class="col">{{ $t('accountMgmt.resetPassword.newPasswordExplanation') }}</p>
         </div>
         <div class="fit row justify-center q-mt-lg">
-          <q-input class= "col-grow" v-model="token" type="text" @blur="$v.token.$touch" clearable
+          <q-input class= "col-grow" v-model="token" type="text" @blur.native="$v.token.$touch" clearable
           :label="$t('accountMgmt.resetPassword.token')"
           :hint="$t('accountMgmt.resetPassword.tokenHint')"
           :error="$v.token.$error" :error-message="$t('accountMgmt.resetPassword.tokenError')" />
         </div>
         <div class="fit row justify-center q-mt-lg">
           <q-input class= "col-grow" :label="$t('accountMgmt.resetPassword.newPassword')"
-          v-model="newpw" type="password" @blur="$v.newpw.$touch"
+          v-model="newpw" type="password" @blur.native="$v.newpw.$touch"
           :error="$v.newpw.$error" :error-message="pwdCheckErrorMsg()"/>
         </div>
         <div class="fit row justify-center q-mt-lg">
           <q-input class= "col-grow" :label="$t('accountMgmt.resetPassword.confirmPwd')"
-          v-model="confpw" type="password" @blur="$v.confpw.$touch"
+          v-model="confpw" type="password" @blur.native="$v.confpw.$touch"
           :error="$v.confpw.$error" :error-message="$t('accountMgmt.resetPassword.pwdMustMatch')"/>
         </div>
         <div class="fit row justify-center q-mt-lg">
