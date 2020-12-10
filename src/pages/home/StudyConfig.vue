@@ -191,6 +191,7 @@ export default {
             icon: 'report_problem'
           })
         }
+        this.$emit('updateTransition', 'slideInDown')
       })
     }
   }

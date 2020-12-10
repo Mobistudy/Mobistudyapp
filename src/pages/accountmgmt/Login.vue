@@ -10,14 +10,14 @@
           <q-input
             v-model="username"
             :label="$t('accountMgmt.email')"
-            @blur="$v.username.$touch"
+            @blur.native="$v.username.$touch"
             :error="$v.username.$error" :error-message="$t('accountMgmt.emailRequiredError')"
           />
           <q-input
             v-model="password"
             :label="$t('accountMgmt.password')"
             type="password"
-            @blur="$v.password.$touch"
+            @blur.native="$v.password.$touch"
             :error="$v.password.$error" :error-message="$t('accountMgmt.passwordRequiredError')"
           />
           <div class="row">

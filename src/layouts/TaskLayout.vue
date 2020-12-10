@@ -39,17 +39,19 @@
           <q-card-actions align="right">
             <q-btn
               flat
-              label="Quit task"
+              color="primary"
+              v-close-popup
+            >
+            {{ $t('studies.tasks.cancelTaskLabel') }}
+            </q-btn>
+            <q-btn
+              flat
               color="primary"
               v-close-popup
               @click="goBack()"
-            />
-            <q-btn
-              flat
-              label="Cancel"
-              color="primary"
-              v-close-popup
-            />
+            >
+            {{ $t('studies.tasks.quitTaskLabel') }}
+            </q-btn>
           </q-card-actions>
         </q-card>
       </q-dialog>

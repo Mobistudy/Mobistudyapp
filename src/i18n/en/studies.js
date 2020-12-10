@@ -44,6 +44,8 @@ let studies = {
     tasks: {
       cancelTask: 'This will terminate the current task and you will be redirected to the start page. No data will be saved. Do you really want to quit?',
       noPendingTasks: 'No tasks pending',
+      cancelTaskLabel: 'Cancel',
+      quitTaskLabel: 'Quit task',
       pendingTasks: "Today's pending tasks",
       missedTasks: 'Missed tasks',
       noMissedTasks: 'No tasks missed',

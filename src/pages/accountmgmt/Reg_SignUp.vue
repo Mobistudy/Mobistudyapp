@@ -8,7 +8,7 @@
     <q-input
       :label="$t('accountMgmt.email')"
       type="email"
-      @blur="$v.account.email.$touch"
+      @blur.native="$v.account.email.$touch"
       v-model="account.email"
       :error="$v.account.email.$error"
       :error-message="$t('accountMgmt.emailRequiredError')"
@@ -21,7 +21,7 @@
     <q-input
       :label="$t('accountMgmt.password')"
       type="password"
-      @blur="$v.account.pw1.$touch"
+      @blur.native="$v.account.pw1.$touch"
       v-model="account.pw1"
       :error="$v.account.pw1.$error"
       :error-message="pwdCheckErrorMsg()"
@@ -34,7 +34,7 @@
     <q-input
       :label="$t('accountMgmt.confirmPassword')"
       type="password"
-      @blur="$v.account.pw2.$touch"
+      @blur.native="$v.account.pw2.$touch"
       v-model="account.pw2"
       :error="$v.account.pw2.$error"
       :error-message="$t('accountMgmt.confirmPasswordError')"
