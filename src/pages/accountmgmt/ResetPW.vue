@@ -5,7 +5,7 @@
         <div class="text-h4">{{ $t('accountMgmt.resetPassword.resetPassword') }}</div>
         <div style="width: 90vw">
           <q-input v-model.trim="$v.email.$model" type="email" :label="$t('accountMgmt.email')"
-          autocomplete="on" @blur="$v.email.$touch"
+          autocomplete="on" @blur.native="$v.email.$touch"
           :error-message="$t('accountMgmt.emailRequiredError')"
           :error="$v.email.$error"/>
           <br>

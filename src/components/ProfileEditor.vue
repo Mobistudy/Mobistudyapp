@@ -7,7 +7,7 @@
       :error-message="$t('accountMgmt.profile.firstNameError')"
       v-model="value.name"
       @input="update()"
-      @blur="$v.value.name.$touch"
+      @blur.native="$v.value.name.$touch"
     >
       <template v-slot:before>
         <q-icon name="face" />
@@ -21,7 +21,7 @@
       :error-message="$t('accountMgmt.profile.surnameError')"
       v-model="value.surname"
       @input="update()"
-      @blur="$v.value.surname.$touch"
+      @blur.native="$v.value.surname.$touch"
     >
       <template v-slot:before>
         <q-icon
