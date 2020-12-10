@@ -6,10 +6,11 @@
         {{ $t('studies.tasks.miband3.lineChart') }}
       </div>
       <div class="q-pa-md">
-        <canvas
-          ref="lineChart"
-          height="270"
-        />
+          <canvas
+            style="margin: 0 auto; padding-right: 2rem;"
+            height="320"
+            ref="lineChart"
+          />
         <div class="row justify-around">
           <q-btn
             :label="'-12 ' + $t('studies.tasks.miband3.hours')"

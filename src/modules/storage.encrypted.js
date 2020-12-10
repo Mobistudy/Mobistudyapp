@@ -1,18 +1,19 @@
 'use strict'
 
 let storage
-let namespace = 'DB_V1.0'
+let namespace = 'DB_VERSION_1.0'
+
 export async function init () {
   // Hoping that doing a new init on the same namespace several times won't do any harm.
   return new Promise((resolve, reject) => {
     storage = new cordova.plugins.SecureStorage(
       () => {
         console.log('Secure storage init success')
-        resolve([true, storage])
+        resolve()
       },
       () => {
         console.log('Secure storage init failure')
-        resolve([false, storage]) // Sends storage variable back to be used to open screen lock
+        reject(storage) // Sends storage variable back to be used to open screen lock
       },
       namespace
     )
@@ -20,8 +21,6 @@ export async function init () {
 }
 
 export async function setItem (key, value) {
-  console.log('Storage in setItem:', storage)
-  console.log('Setting with key:', key, 'Value:', value)
   return new Promise((resolve, reject) => {
     if (storage === undefined) {
       reject()
@@ -43,8 +42,7 @@ export async function setItem (key, value) {
 }
 
 export async function getItem (key) {
-  console.log('Storage in getItem:', storage)
-  console.log('Getting with key:', key)
+  console.log('Getting item using key:', key)
   return new Promise((resolve, reject) => {
     if (storage === undefined) {
       reject('Storage not initialized')
@@ -59,10 +57,14 @@ export async function getItem (key) {
       (error) => {
         console.error('Secure storage getItem failure', error)
         console.log('Error printed', error.message)
-        if (error.message.includes('not found')) {
+        if (error.message.includes('not found') || error.message.includes('could not be found')) { // The left hand condition relates to Android and rightmost to iOS.
           resolve()
         } else {
-          reject()
+          if (error.message.includes('Failed to obtain information')) { // TODO: Storage bug
+            reject()
+          } else {
+            reject()
+          }
         }
       },
       key
@@ -71,7 +73,6 @@ export async function getItem (key) {
 }
 
 export async function removeItem (key) {
-  console.log('Storage in removeItem:', storage)
   return new Promise((resolve, reject) => {
     if (storage === undefined) {
       reject('Storage not initialized')
@@ -92,7 +93,6 @@ export async function removeItem (key) {
 }
 
 export async function clear () {
-  console.log('Storage in clear:', storage)
   return new Promise((resolve, reject) => {
     if (storage === undefined) {
       reject('Storage not initialized')
@@ -108,5 +108,19 @@ export async function clear () {
         reject()
       }
     )
+  })
+}
+
+export async function openScreenLockSettingsAndroid () {
+  return new Promise((resolve, reject) => {
+    storage.secureDevice(
+      () => {
+        console.log('Resolved')
+        resolve()
+      },
+      () => {
+        console.log('Rejected')
+        reject()
+      })
   })
 }

@@ -21,16 +21,22 @@ export default {
     // do not delete the app version, only delete user data
     await storage.setItem('app_version', appversion)
   },
+
+  /* ANDROID OS UTILITY */
+
+  // Opens the Android screen lock settings and resolves if a screen lock is set and rejects if its not.
+  async openScreenLockSettingsAndroid () {
+    return storage.openScreenLockSettingsAndroid()
+  },
+
+  /* APP VERSION */
   async getCurrentAppVersion () {
-    try {
-      return storage.getItem('app_version')
-    } catch (error) {
-      console.log('app-version error', error)
-    }
+    return storage.getItem('app_version')
   },
   async setCurrentAppVersion (version) {
     return storage.setItem('app_version', version)
   },
+
   /* AUTHENTICATION */
   async getUserSession () {
     return storage.getItem('session')
@@ -122,7 +128,7 @@ export default {
   },
   async getDeviceMiBand3 () {
     let device = await storage.getItem('miband3')
-    if (!device) return null
+    if (!device) return
     return JSON.parse(device)
   },
   async removeDeviceMiBand3 () {

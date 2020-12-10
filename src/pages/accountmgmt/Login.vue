@@ -1,9 +1,18 @@
 <template>
   <q-layout>
     <q-page-container>
-      <q-page padding class="flex flex-center">
-        <p class="q-title q-mt-lg" style="text-align: center">
-          <img src="~/assets/mobistudy_logo.svg" style="width:30vw; max-width:150px;" ><br />
+      <q-page
+        padding
+        class="flex flex-center"
+      >
+        <p
+          class="q-title q-mt-lg"
+          style="text-align: center"
+        >
+          <img
+            src="~/assets/mobistudy_logo.svg"
+            style="width:30vw; max-width:150px;"
+          ><br />
         </p>
         <div style="width: 90vw">
           <p class="text-h5">{{ $t('accountMgmt.login.login') }}</p>
@@ -11,14 +20,16 @@
             v-model="username"
             :label="$t('accountMgmt.email')"
             @blur="$v.username.$touch"
-            :error="$v.username.$error" :error-message="$t('accountMgmt.emailRequiredError')"
+            :error="$v.username.$error"
+            :error-message="$t('accountMgmt.emailRequiredError')"
           />
           <q-input
             v-model="password"
             :label="$t('accountMgmt.password')"
             type="password"
             @blur="$v.password.$touch"
-            :error="$v.password.$error" :error-message="$t('accountMgmt.passwordRequiredError')"
+            :error="$v.password.$error"
+            :error-message="$t('accountMgmt.passwordRequiredError')"
           />
           <div class="row">
             <q-btn
@@ -32,7 +43,8 @@
               class="q-ma-sm q-mb-lg full-width"
               :label="$t('accountMgmt.login.lostpw')"
               color="grey"
-              flat outline
+              flat
+              outline
               to="resetpw"
             />
             <q-list class="full-width">
@@ -44,7 +56,12 @@
               </q-item>
               <q-item class="full-width">
                 <q-item-section class="full-width">
-                  <q-btn class="full-width" :label="$t('accountMgmt.register')" color="primary" to="register_tc"/>
+                  <q-btn
+                    class="full-width"
+                    :label="$t('accountMgmt.register')"
+                    color="primary"
+                    to="register_tc"
+                  />
                 </q-item-section>
               </q-item>
             </q-list>
@@ -76,7 +93,6 @@ export default {
     password: { required }
   },
   async created () {
-    DB.init()
     if (userinfo.user.loggedin) {
       notifications.cancelAll()
       userinfo.logout()

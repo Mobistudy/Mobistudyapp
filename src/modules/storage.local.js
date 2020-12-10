@@ -1,7 +1,7 @@
 const storage = window.localStorage
 
 export async function init () {
-  return Promise.resolve([true, storage])
+  return Promise.resolve()
 }
 
 export async function getItem (key) {
@@ -18,4 +18,8 @@ export async function removeItem (key) {
 
 export async function clear () {
   return Promise.resolve(storage.clear())
+}
+
+export async function openScreenLockSettingsAndroid () {
+  return Promise.resolve()
 }

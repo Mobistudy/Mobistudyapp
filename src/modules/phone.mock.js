@@ -2,8 +2,6 @@
 
 import { Dialog } from 'quasar'
 
-const PIN_SET = false
-
 // this module mocks the cordova plugins of phone.js
 
 export default {

@@ -1,15 +1,26 @@
 <template>
   <div id="q-app">
-<<<<<<< HEAD
     <div v-if="showPINPage">
       <q-layout>
         <q-page-container>
           <q-page class="flex flex-center q-pa-md">
             <div style="text-align: center">
-              <img class="q-mb-sm" style="width:40vw; max-width:150px" src="/statics/screen_lock_landscape-black-18dp.svg"/>
+              <img
+                class="q-mb-sm"
+                style="width:40vw; max-width:150px"
+                src="/statics/screen_lock_landscape-black-18dp.svg"
+              />
               <div class="text-body1 q-mt-xl">
-                <p class="q-mb-lg">Please, set a screen lock, more text here that i am not so sure about. If i write more text here i am not sure what happens.</p>
-                <q-btn @click="setScreenLock">Set screen lock</q-btn>
+                <h6 class="text-overline">{{ $t('pin.title') }}</h6>
+                <p class="q-mb-lg"> {{ $t('pin.message') }}</p>
+                <q-btn
+                  v-if="$q.platform.is.android"
+                  @click="openScreenLockSettingsAndroid"
+                >{{ $t('pin.buttonAndroidTitle') }}</q-btn>
+                <q-btn
+                  v-if="$q.platform.is.ios"
+                  @click="retry"
+                >{{ $t('pin.buttonIOSTitle') }}</q-btn>
               </div>
             </div>
           </q-page>
@@ -26,16 +37,6 @@
         <router-view />
       </transition>
     </div>
-=======
-    <transition
-      appear
-      enter-active-class="animated slideInDown"
-      leave-active-class="animated slideOutUp"
-      mode="out-in"
-    >
-      <router-view />
-    </transition>
->>>>>>> 2527bccfdacd297b8aaae9f98ddb90e142bfa5e1
   </div>
 </template>
 
@@ -44,38 +45,47 @@ import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
 import API from 'modules/API'
 // import phone from 'modules/phone'
-let storage
 export default {
   name: 'MobistudyApp',
   data () {
     return {
       showPINPage: false,
-      showLogin: false
+      showLogin: false,
+      storage: undefined,
+      retryClicked: false
     }
   },
   methods: {
-    async setScreenLock () {
-      storage.secureDevice(
-        () => {
-          this.bootstrap()
-        },
-        () => {
-          this.bootstrap()
-        })
+    async openScreenLockSettingsAndroid () {
+      try {
+        await DB.openScreenLockSettingsAndroid() // User has successfully set a screen lock if await is resolved
+        this.bootstrap() // Attempt to bootstrap the app again now that the user has set a lock
+      } catch (error) {
+        console.log('Screen lock was not set by the user.')
+      }
     },
-
+    retry () {
+      this.retryClicked = true
+      this.bootstrap()
+    },
     async bootstrap () {
       // Setting up storage
-      let storageResponse = await DB.init()
-      let storageInitialized = storageResponse[0]
-      if (!storageInitialized) { // Encrypted storage must be initialized before the rest of the bootstrap code runs.
-        storage = storageResponse[1]
+      try {
+        await DB.init()
+        await DB.setCurrentAppVersion(process.env.APP_VERSION)
+      } catch (storage) {
+        if (this.retryClicked) { // User clicked retry and encrypted storage was NOT successfully initialized.
+          this.retryClicked = false
+          this.$q.notify({
+            type: 'negative',
+            message: this.$t('pin.notifyPINNotFoundMessage')
+          })
+        }
+        this.storage = storage
         this.showPINPage = true
         return
       }
       this.showPINPage = false
-      console.info('Starting Mobistudy app version', process.env.APP_VERSION)
-      await DB.setCurrentAppVersion(process.env.APP_VERSION)
 
       try {
         await userinfo.init()
@@ -89,7 +99,7 @@ export default {
 
       // check if already logged in, otherwise go to login
       let resettingpwd =
-      this.$route.path === '/resetpw' || this.$route.path === '/changepw'
+        this.$route.path === '/resetpw' || this.$route.path === '/changepw'
       if ((!userinfo.user.loggedin || !userinfo.user.name) && !resettingpwd) {
         console.log('LOGGED OUT, GOING TO LOGIN')
         this.showLogin = true
@@ -113,7 +123,7 @@ export default {
         function (error) {
           if (
             error.response.status === 401 &&
-          !error.config.url.includes('login')
+            !error.config.url.includes('login')
           ) {
             console.log('Got disconnected !')
             userinfo.logout()

@@ -6,7 +6,7 @@
 const storage = window.NativeStorage
 
 export async function init () {
-  return Promise.resolve([true, storage])
+  return Promise.resolve()
 }
 
 export async function getItem (key) {
@@ -33,4 +33,8 @@ export async function clear () {
   return new Promise((resolve, reject) => {
     storage.clear(resolve, reject)
   })
+}
+
+export async function openScreenLockSettingsAndroid () {
+  return Promise.resolve()
 }

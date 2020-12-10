@@ -4,7 +4,7 @@
     <description>The participants' app of Mobistudy</description>
     <author href="http://mobistudy.org">
     Mobistudy Team
-  </author>
+    </author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

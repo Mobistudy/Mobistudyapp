@@ -111,10 +111,11 @@ let en = {
     distance: 'distance'
   },
   pin: {
-    dialogTitle: 'PIN Code Not Found',
-    dialogMessage: 'Your phone is not protected, please setup a pin code or equivalent protection.',
-    dialogButtonTitle: 'Proceed anyway',
-    dialogCheckboxTitle: 'Don\'t warn me again'
+    title: 'PIN Code Not Found',
+    message: 'Your phone is not protected, please setup a pin code or equivalent protection.',
+    buttonAndroidTitle: 'Open settings',
+    buttonIOSTitle: 'Retry',
+    notifyPINNotFoundMessage: 'Screen lock was not found on your device.'
   }
 }
 
