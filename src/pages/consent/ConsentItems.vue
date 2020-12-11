@@ -6,43 +6,12 @@
     <div class="text-body2">
       {{$t('studies.consent.consentExplanation')}}
     </div>
-
-    <q-list>
-      <div v-if="studyDescription.consent.extraItems">
-        <q-item v-for="(extraItem, extraIndex) in studyDescription.consent.extraItems" :key="extraIndex" >
-          <q-item-section>
-            <q-item-label>{{extraItem.description[$i18n.locale]}}</q-item-label>
-          </q-item-section>
-          <q-item-section avatar>
-            <q-checkbox v-model="consentedExtraItems[extraIndex]" :disable="!extraItem.optional"/>
-          </q-item-section>
-        </q-item>
-        <q-separator inset />
-      </div>
-      <q-list >
-      <consentItem v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems"  :key="taskIndex" :taskIndex="taskIndex" :taskItem="taskItem" :taskType="taskType" :consentedTaskItems="consentedTaskItems" :studyDescription="studyDescription"/>
-      </q-list>
-      <q-separator v-if="remindersPermissionNeeded" />
-      <q-item v-if="remindersPermissionNeeded">
-        <q-item-section :label="$t('studies.consent.remindersConsent')">
-          <div>
-            <div class="q-my-md">
-              {{$t('studies.consent.remindersOSPermission')}}
-            </div>
-            <q-item-label v-if="remindersPermissionNeeded &&!remindersPermissionGiven">
-            <div class="q-mt-sm text-secondary">
-            {{ $t('studies.consent.giveRemindersOSPermission') }}
-            </div>
-            </q-item-label>
-          </div>
-        </q-item-section>
-        <q-item-section avatar>
-          <q-checkbox :value="remindersPermissionGiven"
-          @click.native="!remindersPermissionGiven ? requestNotificationsPermission() : remindersPermissionGiven = false"
-          />
-        </q-item-section>
-      </q-item>
-    </q-list>
+    <consents
+      :studyDescription="studyDescription" :taskType="taskType"
+      :consentedExtraItems="consentedExtraItems" :consentedTaskItems="consentedTaskItems"
+      :remindersPermissionGiven="remindersPermissionGiven" :remindersPermissionNeeded="remindersPermissionNeeded"
+      @checkboxReminders="requestNotificationsPermission"
+    />
     <div class="q-my-md row justify-evenly">
       <q-btn :label="$t('common.reject')" color="negative" flat @click="deny()"></q-btn>
       <q-btn :label="$t('studies.consent.joinStudy')" color="positive" :disabled="!canAccept" @click="accept()"></q-btn>
@@ -51,7 +20,7 @@
 </template>
 
 <script>
-import consentItem from 'components/ConsentItem.vue'
+import Consents from 'components/Consents.vue'
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
 import API from 'modules/API'
@@ -61,14 +30,14 @@ export default {
   name: 'ConsentItemsPage',
   props: ['studyDescription'],
   components: {
-    consentItem
+    Consents
   },
   data () {
     return {
       consentedExtraItems: [],
       consentedTaskItems: [],
-      remindersPermissionNeeded: true,
-      remindersPermissionGiven: false
+      remindersPermissionNeeded: Boolean,
+      remindersPermissionGiven: Boolean
     }
   },
   async created () {
@@ -82,10 +51,8 @@ export default {
         else this.consentedExtraItems.push(true)
       }
     }
-
     for (let i = 0; i < this.studyDescription.consent.taskItems.length; i++) {
       this.consentedTaskItems.push(false)
-    // this.permissionsGiven.push(false)
     }
   },
   computed: {
@@ -95,7 +62,6 @@ export default {
       })
     },
     canAccept () {
-      if (!this.remindersPermissionGiven) return false
       for (let i = 0; i < this.taskType.length; i++) {
         if (this.taskType[i] === 'dataQuery' && !this.consentedTaskItems[i]) {
           return false
@@ -105,23 +71,6 @@ export default {
     }
   },
   methods: {
-    async requestNotificationsPermission () {
-      try {
-        this.remindersPermissionGiven = await notifications.requestPermission()
-        this.$q.notify({
-          color: 'positive',
-          message: this.$i18n.t('studies.consent.OSPermissionGiven'),
-          icon: 'check'
-        })
-      } catch (error) {
-        console.error('Cannot get authorisation for sending reminders', error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error.message,
-          icon: 'report_problem'
-        })
-      }
-    },
     async accept () {
       try {
         // set the study as accepted
@@ -197,6 +146,27 @@ export default {
           })
         }
       })
+    },
+    async requestNotificationsPermission (hasRemindersPermission) {
+      if (hasRemindersPermission) {
+        this.remindersPermissionGiven = false
+      } else {
+        try {
+          this.remindersPermissionGiven = await notifications.requestPermission()
+          this.$q.notify({
+            color: 'positive',
+            message: this.$i18n.t('studies.consent.OSPermissionGiven'),
+            icon: 'check'
+          })
+        } catch (error) {
+          console.error('Cannot get authorisation for sending reminders', error)
+          this.$q.notify({
+            color: 'negative',
+            message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error.message,
+            icon: 'report_problem'
+          })
+        }
+      }
     }
   }
 }
