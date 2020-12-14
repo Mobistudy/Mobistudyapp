@@ -54,13 +54,13 @@ export default {
         await this.testDBAccess()
         await phone.pin.isPINSet()
       } catch (error) {
-        if (error) {
-          console.log('onResume error', error)
+        if (error.message) {
+          console.log('onResume error', error.message)
           if (error.message === 'Failed to obtain information about private key') { // DB is corrupted. User needs to uninstall.
             this.showPINPage = false
             this.enableRouting = true
             this.$router.replace({ name: 'pinErrorPage' })
-          } else if (error.message === 'NO_PIN_SETUP') {
+          } else if (error.message.includes('NO_PIN_SETUP') || error.message.includes('Passcode not set')) { // Android || iOS
             console.log('Showing PIN page')
             this.enableRouting = false
             this.showPINPage = true
