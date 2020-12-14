@@ -34,7 +34,3 @@ export async function clear () {
     storage.clear(resolve, reject)
   })
 }
-
-export async function openScreenLockSettingsAndroid () {
-  return Promise.resolve()
-}

@@ -22,13 +22,6 @@ export default {
     await storage.setItem('app_version', appversion)
   },
 
-  /* ANDROID OS UTILITY */
-
-  // Opens the Android screen lock settings and resolves if a screen lock is set and rejects if its not.
-  async openScreenLockSettingsAndroid () {
-    return storage.openScreenLockSettingsAndroid()
-  },
-
   /* APP VERSION */
   async getCurrentAppVersion () {
     return storage.getItem('app_version')

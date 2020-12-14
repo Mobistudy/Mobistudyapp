@@ -13,21 +13,15 @@
               <div class="text-body1 q-mt-xl">
                 <h6 class="text-overline">{{ $t('pin.title') }}</h6>
                 <p class="q-mb-lg"> {{ $t('pin.message') }}</p>
-                <q-btn
-                  v-if="$q.platform.is.android"
-                  @click="openScreenLockSettingsAndroid"
-                >{{ $t('pin.buttonAndroidTitle') }}</q-btn>
-                <q-btn
-                  v-if="$q.platform.is.ios"
-                  @click="retry"
-                >{{ $t('pin.buttonIOSTitle') }}</q-btn>
+                <q-btn @click="retry">{{ $t('pin.buttonTitle') }}</q-btn>
               </div>
             </div>
           </q-page>
         </q-page-container>
       </q-layout>
     </div>
-    <div v-if="showLogin">
+
+    <div v-if="enableRouting">
       <transition
         appear
         enter-active-class="animated fadeInDown"
@@ -44,71 +38,87 @@
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
 import API from 'modules/API'
-// import phone from 'modules/phone'
+import phone from 'modules/phone'
 export default {
   name: 'MobistudyApp',
   data () {
     return {
-      showPINPage: false,
-      showLogin: false,
-      storage: undefined,
-      retryClicked: false
+      enableRouting: false,
+      showPINPage: false
     }
   },
   methods: {
-    async openScreenLockSettingsAndroid () {
+    async onResume () {
+      console.log('onResume called...')
       try {
-        await DB.openScreenLockSettingsAndroid() // User has successfully set a screen lock if await is resolved
-        this.bootstrap() // Attempt to bootstrap the app again now that the user has set a lock
+        await this.testDBAccess()
+        await phone.pin.isPINSet()
       } catch (error) {
-        console.log('Screen lock was not set by the user.')
+        if (error) {
+          console.log('onResume error', error)
+          if (error.message === 'Failed to obtain information about private key') { // DB is corrupted. User needs to uninstall.
+            this.showPINPage = false
+            this.enableRouting = true
+            this.$router.replace({ name: 'pinErrorPage' })
+          } else if (error.message === 'NO_PIN_SETUP') {
+            console.log('Showing PIN page')
+            this.enableRouting = false
+            this.showPINPage = true
+          }
+        }
       }
     },
-    retry () {
-      this.retryClicked = true
-      this.bootstrap()
+    async testDBAccess () { // If DB is corrupted this will return a rejected error message.
+      return DB.getCurrentAppVersion() // Attempts to get the current app version
+    },
+    async retry () {
+      try {
+        await phone.pin.isPINSet()
+        console.log('Route on retry:', this.$route.name)
+        if (this.$route.name !== '/' && this.$route.name !== undefined) {
+          this.showPINPage = false
+          this.enableRouting = true
+        } else {
+          await DB.init()
+          this.bootstrap()
+        }
+      } catch (error) {
+        console.log('Error retry:', error)
+        this.$q.notify({
+          type: 'negative',
+          message: this.$t('pin.notifyPINNotFoundMessage')
+        })
+      }
     },
     async bootstrap () {
-      // Setting up storage
+      this.showPINPage = false // Bootstrap is only called if PIN is already set, hide PIN page.
+
       try {
-        await DB.init()
+        console.info('Starting Mobistudy app version', process.env.APP_VERSION)
         await DB.setCurrentAppVersion(process.env.APP_VERSION)
-      } catch (storage) {
-        if (this.retryClicked) { // User clicked retry and encrypted storage was NOT successfully initialized.
-          this.retryClicked = false
-          this.$q.notify({
-            type: 'negative',
-            message: this.$t('pin.notifyPINNotFoundMessage')
-          })
-        }
-        this.storage = storage
-        this.showPINPage = true
-        return
-      }
-      this.showPINPage = false
-
-      try {
         await userinfo.init()
+        if (userinfo.user.language) {
+          console.log('Setting locale to', userinfo.user.language)
+          this.$root.$i18n.locale = userinfo.user.language
+        }
       } catch (error) {
-
+        console.log('Error bootstraping user info:', error)
       }
-      if (userinfo.user.language) {
-        console.log('Setting locale to', userinfo.user.language)
-        this.$root.$i18n.locale = userinfo.user.language
-      }
-
       // check if already logged in, otherwise go to login
       let resettingpwd =
         this.$route.path === '/resetpw' || this.$route.path === '/changepw'
       if ((!userinfo.user.loggedin || !userinfo.user.name) && !resettingpwd) {
         console.log('LOGGED OUT, GOING TO LOGIN')
-        this.showLogin = true
+        this.enableRouting = true
+        this.$router.replace({
+          name: 'login'
+        })
       } else {
+        this.enableRouting = true
         if (!resettingpwd) {
           API.setToken(userinfo.user.token)
           console.log('LOGGED IN, REDIRECTING TO HOME')
-          this.showLogin = true
-          this.$router.push({
+          this.$router.replace({
             name: 'tasker',
             params: { rescheduleTasks: true, checkNewStudies: true }
           })
@@ -135,7 +145,20 @@ export default {
     }
   },
   async created () {
-    this.bootstrap()
+    document.addEventListener('resume', this.onResume, false)
+    try {
+      await phone.pin.isPINSet()
+      await DB.init()
+      await this.testDBAccess()
+      this.bootstrap()
+    } catch (error) {
+      if (error.message === 'Failed to obtain information about private key') { // DB is corrupted. User needs to uninstall.
+        this.enableRouting = true
+        this.$router.replace('pinErrorPage')
+      } else {
+        this.showPINPage = true
+      }
+    }
   }
 }
 </script>

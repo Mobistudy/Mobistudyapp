@@ -103,5 +103,10 @@ export default {
       clearInterval(this.timer)
       return Promise.resolve()
     }
+  },
+  pin: {
+    async isPINSet () {
+      return Promise.resolve()
+    }
   }
 }

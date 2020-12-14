@@ -19,7 +19,3 @@ export async function removeItem (key) {
 export async function clear () {
   return Promise.resolve(storage.clear())
 }
-
-export async function openScreenLockSettingsAndroid () {
-  return Promise.resolve()
-}

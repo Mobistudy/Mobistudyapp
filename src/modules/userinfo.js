@@ -5,11 +5,8 @@ import DB from './db'
 */
 export default {
   async init () {
-    try {
-      this.user = await DB.getUserSession()
-    } catch (error) { // User does not exist in session, promise rejected by the encrypted cordova plugin.
+    this.user = await DB.getUserSession()
 
-    }
     if (!this.user) {
       this.user = {
         loggedin: false

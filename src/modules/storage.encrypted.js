@@ -13,7 +13,7 @@ export async function init () {
       },
       () => {
         console.log('Secure storage init failure')
-        reject(storage) // Sends storage variable back to be used to open screen lock
+        reject() // Sends storage variable back to be used to open screen lock
       },
       namespace
     )
@@ -55,16 +55,13 @@ export async function getItem (key) {
         resolve(JSON.parse(value))
       },
       (error) => {
-        console.error('Secure storage getItem failure', error)
-        console.log('Error printed', error.message)
+        console.log('Secure storage getItem failure', error)
+
         if (error.message.includes('not found') || error.message.includes('could not be found')) { // The left hand condition relates to Android and rightmost to iOS.
           resolve()
         } else {
-          if (error.message.includes('Failed to obtain information')) { // TODO: Storage bug
-            reject()
-          } else {
-            reject()
-          }
+          console.error('Error:', error)
+          reject(error)
         }
       },
       key
@@ -108,19 +105,5 @@ export async function clear () {
         reject()
       }
     )
-  })
-}
-
-export async function openScreenLockSettingsAndroid () {
-  return new Promise((resolve, reject) => {
-    storage.secureDevice(
-      () => {
-        console.log('Resolved')
-        resolve()
-      },
-      () => {
-        console.log('Rejected')
-        reject()
-      })
   })
 }

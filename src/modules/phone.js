@@ -102,17 +102,21 @@ export default {
       })
     }
   },
-  async isPinSet () {
-    return new Promise((resolve, reject) => {
-      if (window.cordova && window.cordova.plugins.PinCheck) {
-        window.cordova.plugins.PinCheck.isPinSetup((success) => {
-          resolve(true)
-        }, function (fail) {
-          resolve(false)
-        })
-      } else {
-        reject('PinCheck plugin is not installed')
-      }
-    })
+  pin: {
+    async isPINSet () {
+      return new Promise((resolve, reject) => {
+        if (window.cordova && window.cordova.plugins.PinCheck) {
+          window.cordova.plugins.PinCheck.isPinSetup(
+            (success) => {
+              resolve()
+            },
+            (failure) => {
+              reject(new Error(failure))
+            })
+        } else {
+          reject(new Error('NO_PIN_PLUGIN'))
+        }
+      })
+    }
   }
 }
