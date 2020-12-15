@@ -112,9 +112,9 @@ let en = {
   },
   pin: {
     pinNotSetTitle: 'Your phone is not protected',
-    pinNotSet: 'In order for this app to work correctly, your phone must be protected with a pin code or equivalent. Please, configure a locking mechanism and restart this app. Please be aware that setting the pincode and then removing it may corrupt the app and force you to reinstall it.',
+    pinNotSet: 'In order for this app to work correctly, your phone must be protected with a pin code or equivalent. Please, configure a locking mechanism and restart this app. Please be aware that setting the pincode and then removing it may corrupt the app and force you to restart it.',
     dbCorruptedTitle: 'Oops!',
-    dbCorrupted: 'Removing the pin protection makes the app unusable. Please, set the pin protection back and re-install the app.'
+    dbCorrupted: 'Removing the pin protection makes the apps secure storage unusable. Please, set the pin protection back and restart the app.'
   }
 }
 

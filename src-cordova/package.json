@@ -29,7 +29,7 @@
     "cordova-plugin-insomnia": "git+https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git",
     "cordova-plugin-pedometer": "git+https://github.com/dariosalvi78/cordova-plugin-pedometer.git",
     "cordova-plugin-pincheck": "0.0.6",
-    "cordova-plugin-secure-storage-echo": "^5.1.1",
+    "cordova-plugin-secure-storage-echo": "git+https://github.com/mibrito707/cordova-plugin-secure-storage-echo.git",
     "cordova-plugin-whitelist": "^1.3.4"
   },
   "cordova": {
@@ -48,8 +48,8 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-pedometer": {},
       "cordova-plugin-ble-central": {},
-      "cordova-plugin-secure-storage-echo": {},
-      "cordova-plugin-pincheck": {}
+      "cordova-plugin-pincheck": {},
+      "cordova-plugin-secure-storage-echo": {}
     },
     "platforms": [
       "android",
