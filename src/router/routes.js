@@ -10,11 +10,6 @@ const routes = [
     component: () => import('pages/accountmgmt/Login.vue')
   },
   {
-    path: '/pinErrorPage',
-    name: 'pinErrorPage',
-    component: () => import('pages/accountmgmt/PINErrorPage.vue')
-  },
-  {
     path: '/resetpw',
     name: 'resetpw',
     component: () => import('pages/accountmgmt/ResetPW.vue')

@@ -4,6 +4,8 @@ import { Dialog } from 'quasar'
 
 // this module mocks the cordova plugins of phone.js
 
+const PIN_SET = true
+
 export default {
   device: {
     cordova: '0',
@@ -106,7 +108,8 @@ export default {
   },
   pin: {
     async isPINSet () {
-      return Promise.resolve()
+      if (PIN_SET) return Promise.resolve()
+      else return Promise.reject()
     }
   }
 }

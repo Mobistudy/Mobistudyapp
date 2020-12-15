@@ -60,6 +60,11 @@ export async function getItem (key) {
         if (error.message.includes('not found') || error.message.includes('could not be found')) { // The left hand condition relates to Android and rightmost to iOS.
           resolve()
         } else {
+          if (error.message === 'Failed to obtain information about private key') {
+            // the database has been corrupted
+            const event = new Event('dbcorrupted')
+            document.dispatchEvent(event)
+          }
           console.error('Error:', error)
           reject(error)
         }

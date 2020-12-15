@@ -111,12 +111,10 @@ let en = {
     distance: 'distance'
   },
   pin: {
-    title: 'PIN Code Not Found',
-    message: 'Your phone is not protected, please setup a pin code or equivalent protection.',
-    buttonTitle: 'Retry',
-    notifyPINNotFoundMessage: 'Screen lock was not found on your device.',
-    bugTitle: 'Oops!',
-    bugMessage: 'Unfortunately your pin code was removed by you at some point. You need to uninstall and install the app again.'
+    pinNotSetTitle: 'Your phone is not protected',
+    pinNotSet: 'In order for this app to work correctly, your phone must be protected with a pin code or equivalent. Please, configure a locking mechanism and restart this app.',
+    dbCorruptedTitle: 'Oops!',
+    dbCorrupted: 'Removing the pin protection makes the app unusable. Please, set the pin protection back and re-install the app.'
   }
 }
 
