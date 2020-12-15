@@ -103,6 +103,7 @@ module.exports = function (ctx) {
         if (config.MIBAND3.toLowerCase() === 'mock') cfg.resolve.alias['modules/miband3/miband3'] = 'modules/miband3/miband3.mock'
         if (config.STORAGE.toLowerCase() === 'local') cfg.resolve.alias['modules/storage'] = 'modules/storage.local'
         if (config.STORAGE.toLowerCase() === 'native') cfg.resolve.alias['modules/storage'] = 'modules/storage.native'
+        if (config.STORAGE.toLowerCase() === 'encrypted') cfg.resolve.alias['modules/storage'] = 'modules/storage.encrypted'
       }
     },
 
@@ -110,10 +111,10 @@ module.exports = function (ctx) {
     devServer: {
       // https: true,
       // port: 8080,
-      open: true, // opens browser window automatically
+      open: 'Google Chrome', // opens browser window automatically
       proxy: {
         '/api': { // <- this must be the same as API_ENDPOINT
-          target: 'http://127.0.0.1:3000',
+          target: 'http://192.168.1.248:3000',
           changeOrigin: true
         }
       }

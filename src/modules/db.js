@@ -8,6 +8,10 @@ import * as storage from 'modules/storage'
 // TODO: the best solution would be including encryption, eg via https://www.npmjs.com/package/secure-web-storage
 
 export default {
+
+  async init () {
+    return storage.init()
+  },
   async emptyDB () {
     return storage.clear()
   },
@@ -17,12 +21,15 @@ export default {
     // do not delete the app version, only delete user data
     await storage.setItem('app_version', appversion)
   },
+
+  /* APP VERSION */
   async getCurrentAppVersion () {
     return storage.getItem('app_version')
   },
   async setCurrentAppVersion (version) {
     return storage.setItem('app_version', version)
   },
+
   /* AUTHENTICATION */
   async getUserSession () {
     return storage.getItem('session')
@@ -114,7 +121,7 @@ export default {
   },
   async getDeviceMiBand3 () {
     let device = await storage.getItem('miband3')
-    if (!device) return null
+    if (!device) return
     return JSON.parse(device)
   },
   async removeDeviceMiBand3 () {

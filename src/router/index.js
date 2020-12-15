@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 import routes from './routes'
 
 Vue.use(VueRouter)
@@ -20,6 +19,14 @@ export default function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE
+  })
+  Router.beforeEach(async (to, from, next) => {
+    console.log('Routing from:', from.path, 'To:', to.path)
+    if (from.path === '/pinErrorPage') {
+      // Do nothing... User has encountered bug and shouldn't be able to reroute anywhere because the app needs to be uninstalled/installed :(
+    } else {
+      next()
+    }
   })
 
   return Router

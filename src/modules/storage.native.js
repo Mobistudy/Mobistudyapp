@@ -5,6 +5,10 @@
 */
 const storage = window.NativeStorage
 
+export async function init () {
+  return Promise.resolve()
+}
+
 export async function getItem (key) {
   return new Promise((resolve, reject) => {
     storage.getItem(key, (item) => {
