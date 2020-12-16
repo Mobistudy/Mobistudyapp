@@ -45,7 +45,7 @@
       @input="update()"
     >
       <template v-slot:before>
-        <q-icon name="calendar_today"/>
+        <q-icon name="calendar_today" />
       </template>
       <q-popup-proxy
         ref="qDateProxy"
@@ -62,9 +62,14 @@
           :title="$t('accountMgmt.profile.dateOfBirth')"
           :navigation-max-year-month="calenderRules()"
         >
-        <div class="row items-center justify-end q-gutter-sm">
-          <q-btn :label="$t('common.close')" color="primary" flat v-close-popup />
-        </div>
+          <div class="row items-center justify-end q-gutter-sm">
+            <q-btn
+              :label="$t('common.close')"
+              color="primary"
+              flat
+              v-close-popup
+            />
+          </div>
         </q-date>
       </q-popup-proxy>
     </q-input>
@@ -122,38 +127,39 @@
 
     <!-- weight -->
     <q-input
-    :label="$t('accountMgmt.profile.weight')"
-    v-model="value.weight"
-    :error="$v.value.weight.$error"
-    :error-message="$t('accountMgmt.profile.weightError')"
-    @input="update()"
-    type='number'
+      :label="$t('accountMgmt.profile.weight')"
+      v-model="value.weight"
+      :error="$v.value.weight.$error"
+      :error-message="$t('accountMgmt.profile.weightError')"
+      @input="update()"
+      type='number'
     >
-    <template v-slot:before>
-      <q-icon name="assignment_late"/> <!-- placeholder icon -->
-    </template>
+      <template v-slot:before>
+        <q-icon name="assignment_late" /> <!-- placeholder icon -->
+      </template>
     </q-input>
 
     <!-- height -->
 
     <q-input
-    :label="$t('accountMgmt.profile.height')"
-    v-model="value.height"
-    :error="$v.value.height.$error"
-    :error-message="$t('accountMgmt.profile.heightError')"
-    @input="update()"
-    type='number'
+      :label="$t('accountMgmt.profile.height')"
+      v-model="value.height"
+      :error="$v.value.height.$error"
+      :error-message="$t('accountMgmt.profile.heightError')"
+      @input="update()"
+      type='number'
     >
       <template v-slot:before>
-        <q-icon name="accessibility"/> <!-- placeholder icon -->
+        <q-icon name="accessibility" /> <!-- placeholder icon -->
       </template>
     </q-input>
 
     <!-- conditions -->
     <q-select
+      ref="diseasesSelect"
       :label="$t('accountMgmt.profile.conditions')"
       v-model="diseasesVue"
-      @input="update()"
+      @input="clearDiseasesFilter"
       use-input
       use-chips
       multiple
@@ -175,8 +181,9 @@
 
     <!-- medications -->
     <q-select
+      ref="medsSelect"
       v-model="medsVue"
-      @input="update()"
+      @input="clearMedsFilter"
       use-input
       use-chips
       multiple
@@ -322,8 +329,8 @@ export default {
           })
         } else return []
       },
-      set: function (diseasesOpts) {
-        this.value.diseases = diseasesOpts.map(x => {
+      set: function (diseaseOpts) {
+        this.value.diseases = diseaseOpts.map(x => {
           return {
             term: x.label,
             conceptId: x.value,
@@ -369,10 +376,16 @@ export default {
         return
       }
       try {
-        const concepts = await API.searchDiseaseConcept(diseaseDescription)
-        if (concepts.length) {
+        const concepts = await API.searchDiseaseConcept(diseaseDescription, 'en')
+        console.log('this.diseases:', this.value.diseases)
+        concepts.data = concepts.data.filter((concept) => {
+          if (!this.conceptIdExistsInArrayOfObjects(this.value.diseases, concept.conceptId)) {
+            return true
+          } else return false
+        })
+        if (concepts.data.length) {
           update(() => {
-            this.diseaseOptions = concepts.map((c) => {
+            this.diseaseOptions = concepts.data.map((c) => {
               return {
                 label: c.term,
                 value: c.conceptId,
@@ -405,10 +418,15 @@ export default {
         return
       }
       try {
-        const concepts = await API.searchMedicationConcept(medDescription)
-        if (concepts.length) {
+        const concepts = await API.searchMedicationConcept(medDescription, 'en')
+        concepts.data = concepts.data.filter((concept) => {
+          if (!this.conceptIdExistsInArrayOfObjects(this.value.medications, concept.conceptId)) {
+            return true
+          } else return false
+        })
+        if (concepts.data.length) {
           update(() => {
-            this.medOptions = concepts.map((c) => {
+            this.medOptions = concepts.data.map((c) => {
               return {
                 label: c.term,
                 value: c.conceptId,
@@ -432,8 +450,32 @@ export default {
         abort()
       }
     },
+    conceptIdExistsInArrayOfObjects (array, conceptId) {
+      let exists = false
+      console.log('Array to check', array)
+      // eslint-disable-next-line no-unused-vars
+      for (let [key, value] of array.entries()) {
+        console.log('Checking value:', value)
+        if (value.conceptId === conceptId) {
+          exists = true
+        }
+      }
+      return exists
+    },
     calenderRules () {
       return date.formatDate(Date.now(), 'YYYY/MM')
+    },
+    clearDiseasesFilter () {
+      if (this.$refs.diseasesSelect !== void 0) {
+        this.$refs.diseasesSelect.updateInputValue('')
+      }
+      this.update()
+    },
+    clearMedsFilter () {
+      if (this.$refs.medsSelect !== void 0) {
+        this.$refs.medsSelect.updateInputValue('')
+      }
+      this.update()
     },
     update () {
       this.$emit('input', this.value)
