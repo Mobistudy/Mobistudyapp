@@ -44,14 +44,6 @@
   </div>
 </template>
 
-<!-- use this class to make the carousel height take the whole screen
-<style lang="scss" scoped>
-.carousel-resize {
-  height: calc(100vh - 75px);
-}
-</style>
--->
-
 <script>
 export default {
   name: 'Miband3IntroPage',
