@@ -1,25 +1,11 @@
 <template>
   <q-page padding>
     <Intro
-      v-bind:title="$t('studies.tasks.qcst.title')"
-      v-bind:prerequisites="introTools.createPrerequisites($t('studies.tasks.qcst.prerequisites'), prerequisiteImages)"
-      v-bind:instructions="introTools.createInstructions($t('studies.tasks.qcst.instructions'), instructionImages)"
+      v-bind:slides="$t('studies.tasks.qcst.slides')"
       v-on:start="start()"
     >
-      <template v-slot:initialIntro>
-        <!-- Enter non-default content here -->
-      </template>
-
-      <template v-slot:prerequisitesIntro>
-        <!-- Enter non-default content here -->
-      </template>
-
-      <template v-slot:instructionsIntro>
-        <!-- Enter non-default content here -->
-      </template>
-
-      <template v-slot:finishButton>
-        <!-- Enter non-default content here -->
+      <template v-slot:slide-0>
+        <!-- Enter non-default content here, one for each slide, if you need full customization. -->
       </template>
     </Intro>
   </q-page>
@@ -27,7 +13,6 @@
 
 <script>
 import Intro from 'components/Intro.vue'
-import introTools from 'modules/introTools'
 export default {
   name: 'QCSTIntroPage',
   components: {
@@ -36,13 +21,6 @@ export default {
   props: {
     studyKey: String,
     taskId: Number
-  },
-  data () {
-    return {
-      prerequisiteImages: ['https://i.picsum.photos/id/43/200/200.jpg?hmac=gMoEYpdjrHoRnKoyIdtTknuqyCQDTC8exwLaKHpMv6E', 'https://i.picsum.photos/id/1031/200/200.jpg?hmac=E9kagTB6aHlVO8qmJYAQYYGJP3IvPT_v0N3ju0Rc4Gw'],
-      instructionImages: [],
-      introTools
-    }
   },
   methods: {
     start () {
@@ -53,9 +31,6 @@ export default {
       this.$router.push({ name: 'qcst', params: { studyKey: studyKey, taskId: taskId } })
       this.$emit('updateTransition', 'fadeInDown')
     }
-  },
-  created () {
-    console.log('Method:', this.createPrerequisites)
   }
 }
 </script>

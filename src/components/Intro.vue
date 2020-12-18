@@ -1,13 +1,7 @@
 <template>
   <q-page>
     <div
-      style="height: 10vh;"
-      class="text-h5 flex flex-center"
-    >
-      {{ title }}
-    </div>
-    <div
-      style="height: 75vh;"
+      style="height: 85vh;"
       class="q-pa-sm"
     >
       <q-carousel
@@ -19,83 +13,43 @@
         arrows
         swipeable
         control-color="primary"
-        @transition="handleSlide()"
         class="full-height"
       >
-        <q-carousel-slide name="initialIntro">
-          <slot name="initialIntro">
-            <div class="text-subtitle1 q-mt-md">
-              {{ $t('common.introduction') }}
-            </div>
-          </slot>
-        </q-carousel-slide>
-
-        <q-carousel-slide name="prerequisitesIntro">
-          <slot name="prerequisitesIntro">
-            <div> {{$t('common.prerequisites')}} </div>
-          </slot>
-        </q-carousel-slide>
-
         <q-carousel-slide
-          v-for="(prerequisite, idx) in prerequisites"
-          :name="'prerequisite-' + idx"
+          v-for="(slide, idx) in slides"
+          :name="'slide-' + idx"
           :key="idx"
         >
-          <div class="text-h5 text-center q-pb-sm">
-            Prerequisite
-          </div>
-          <slot
-            v-if="prerequisite.img"
-            :name="'prerequisite-image-' + idx"
-          >
-            <div class="q-pa-lg">
-              <q-img :src="prerequisite.img"></q-img>
+          <slot :name="'slide-' + idx">
+            <div
+              class="text-h5 text-center q-pb-sm q-pt-sm"
+              v-if="slide.title"
+            >
+              {{slide.title}}
             </div>
-          </slot>
-          <slot
-            :name="'prerequisite-' + idx"
-            :prerequisite="prerequisite"
-          >
-            <div class="q-mt-md">
-              {{prerequisite.p}}
+            <div
+              v-if="slide.img"
+              class="q-pb-lg q-pl-xl q-pr-xl q-pt-lg"
+            >
+              <q-img :src="slide.img"></q-img>
             </div>
-          </slot>
-        </q-carousel-slide>
-
-        <q-carousel-slide name="instructionsIntro">
-          <slot name="instructionsIntro">
-            <div> {{$t('common.instructions')}} </div>
-          </slot>
-        </q-carousel-slide>
-
-        <q-carousel-slide
-          v-for="(instruction, idx) in instructions"
-          :name="'instruction-' + idx"
-          :key="idx"
-        >
-          <div class="text-h5 text-center">
-            Instruction
-          </div>
-          <slot
-            v-if="instruction.img"
-            :name="'instruction-image-' + idx"
-          >
-            <q-img :src="instruction.img"></q-img>
-          </slot>
-          <slot
-            :name="'instruction-' + idx"
-            :instruction="instruction"
-          >
-            {{instruction.i}}
+            <div
+              v-if="slide.i"
+              :slide="slide"
+              class="q-pb-lg q-pl-lg q-pr-lg q-pt-sm"
+            >
+              <div>
+                <p class="text-body1 text-center">
+                  {{slide.i}}
+                </p>
+              </div>
+            </div>
           </slot>
         </q-carousel-slide>
       </q-carousel>
-      <slot
-        v-if="showFinishButton"
-        name="finishButton"
-      >
+      <slot name="finishButton">
         <div
-          style="height: 10vh;"
+          style="height: 15vh;"
           class="fixed-bottom text-center q-pa-md"
         >
           <q-btn
@@ -114,22 +68,15 @@
 export default {
   props: {
     title: String,
-    instructions: Array,
-    prerequisites: Array
+    slides: Array
   },
   data () {
     return {
-      slide: 'initialIntro',
-      showFinishButton: true
-    }
-  },
-  methods: {
-    handleSlide () {
-      console.log(this.slide)
+      slide: 'slide-0'
     }
   },
   created () {
-    console.log('Preq received:', this.prerequisites)
+    console.log('Received intructios', this.slides)
   }
 }
 </script>
