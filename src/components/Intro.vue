@@ -1,66 +1,112 @@
 <template>
-  <q-page class="q-pa-md">
-    <div class="text-h5 text-center">
+  <q-page>
+    <div
+      style="height: 10vh;"
+      class="text-h5 flex flex-center"
+    >
       {{ title }}
     </div>
-
-    <q-carousel
-      v-model="slide"
-      ref="carousel"
-      transition-prev="slide-right"
-      transition-next="slide-left"
-      animated
-      arrows
-      swipeable
-      control-color="primary"
-      @transition="handleSlide()"
+    <div
+      style="height: 75vh;"
+      class="q-pa-sm"
     >
-      <q-carousel-slide name="initialIntro">
-        <slot name="initialIntro">
-        </slot>
-      </q-carousel-slide>
-
-      <q-carousel-slide name="prerequisitesIntro">
-        <slot name="prerequisitesIntro">
-        </slot>
-      </q-carousel-slide>
-
-      <q-carousel-slide
-        v-for="(prerequisite, idx) in prerequisites"
-        :name="'prerequisite-' + idx"
-        :key="idx"
+      <q-carousel
+        v-model="slide"
+        ref="carousel"
+        transition-prev="slide-right"
+        transition-next="slide-left"
+        animated
+        arrows
+        swipeable
+        control-color="primary"
+        @transition="handleSlide()"
+        class="full-height"
       >
-        <slot
+        <q-carousel-slide name="initialIntro">
+          <slot name="initialIntro">
+            <div class="text-subtitle1 q-mt-md">
+              {{ $t('common.introduction') }}
+            </div>
+          </slot>
+        </q-carousel-slide>
+
+        <q-carousel-slide name="prerequisitesIntro">
+          <slot name="prerequisitesIntro">
+            <div> {{$t('common.prerequisites')}} </div>
+          </slot>
+        </q-carousel-slide>
+
+        <q-carousel-slide
+          v-for="(prerequisite, idx) in prerequisites"
           :name="'prerequisite-' + idx"
-          :prerequisite="prerequisite"
+          :key="idx"
         >
-          {{prerequisite.p}}
-        </slot>
-      </q-carousel-slide>
+          <div class="text-h5 text-center q-pb-sm">
+            Prerequisite
+          </div>
+          <slot
+            v-if="prerequisite.img"
+            :name="'prerequisite-image-' + idx"
+          >
+            <div class="q-pa-lg">
+              <q-img :src="prerequisite.img"></q-img>
+            </div>
+          </slot>
+          <slot
+            :name="'prerequisite-' + idx"
+            :prerequisite="prerequisite"
+          >
+            <div class="q-mt-md">
+              {{prerequisite.p}}
+            </div>
+          </slot>
+        </q-carousel-slide>
 
-      <q-carousel-slide name="instructionsIntro">
-        <slot name="instructionsIntro">
+        <q-carousel-slide name="instructionsIntro">
+          <slot name="instructionsIntro">
+            <div> {{$t('common.instructions')}} </div>
+          </slot>
+        </q-carousel-slide>
 
-        </slot>
-      </q-carousel-slide>
-
-      <q-carousel-slide
-        v-for="(instruction, idx) in instructions"
-        :name="'instruction-' + idx"
-        :key="idx"
-      >
-        <slot
+        <q-carousel-slide
+          v-for="(instruction, idx) in instructions"
           :name="'instruction-' + idx"
-          :instruction="instruction"
+          :key="idx"
         >
-          {{instruction.i}}
-        </slot>
-      </q-carousel-slide>
-    </q-carousel>
-    <slot
-      v-if="showFinishButton"
-      name="finishButton"
-    ></slot>
+          <div class="text-h5 text-center">
+            Instruction
+          </div>
+          <slot
+            v-if="instruction.img"
+            :name="'instruction-image-' + idx"
+          >
+            <q-img :src="instruction.img"></q-img>
+          </slot>
+          <slot
+            :name="'instruction-' + idx"
+            :instruction="instruction"
+          >
+            {{instruction.i}}
+          </slot>
+        </q-carousel-slide>
+      </q-carousel>
+      <slot
+        v-if="showFinishButton"
+        name="finishButton"
+      >
+        <div
+          style="height: 10vh;"
+          class="fixed-bottom text-center q-pa-md"
+        >
+          <q-btn
+            color="primary"
+            @click="$emit('start')"
+            replace
+            :label="$t('common.start')"
+          />
+        </div>
+      </slot>
+    </div>
   </q-page>
 </template>
 
@@ -83,7 +129,7 @@ export default {
     }
   },
   created () {
-
+    console.log('Preq received:', this.prerequisites)
   }
 }
 </script>

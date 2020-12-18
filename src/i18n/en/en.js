@@ -32,7 +32,8 @@ let en = {
     skip: 'Skip',
     back: 'Back',
     introduction: 'Introduction',
-    instructions: 'Instructions'
+    instructions: 'Instructions',
+    prerequisites: 'Prerequisites'
   },
   layouts: {
     consent: 'New study',

@@ -10,12 +10,14 @@ export default {
         qcstExplanation: 'QCST Explanation',
         prerequisiteNote: 'To conduct this test, you will require:',
         prerequisites: [
-          { p: 'A sturdy step, about 40 cm (16 inches) high. This is about the height of a short chair.' },
+          { p: 'A sturdy step, about 40 cm (16 inches) high. This is about the height of a short chair.',
+            img: 'https://i.picsum.photos/id/43/200/200.jpg?hmac=gMoEYpdjrHoRnKoyIdtTknuqyCQDTC8exwLaKHpMv6E' },
           { p: 'A heart rate monitor: you can use a fitness tracker or smartwatch or you can try with an app (search for "Heart Rate" on the app store).' },
           { p: 'Alternatively, to measure your pulse manually, you can count the number of heart beats for 15 seconds and multiply the count by four.' }
         ],
         instructions: [
-          { i: 'This is a paced test with a four-step cadence: foot 1 up, foot 2 up, foot 1 down, foot 2 down.' },
+          { i: 'This is a paced test with a four-step cadence: foot 1 up, foot 2 up, foot 1 down, foot 2 down.',
+            img: 'https://i.picsum.photos/id/43/200/200.jpg?hmac=gMoEYpdjrHoRnKoyIdtTknuqyCQDTC8exwLaKHpMv6E' },
           { i: 'Step up and down according to the metronome/pacer. Make sure to turn on the sound on your device and turn up the volume.' },
           { i: 'The test will automaticly stop after 3 minutes. If you need to complete the test earlier, press the "Complete"-button.' },
           { i: 'At the end of the test you will be asked to measure your heart rate and provide it to the app. Please measure your heart rate within 5-20 seconds after completing the test.' },

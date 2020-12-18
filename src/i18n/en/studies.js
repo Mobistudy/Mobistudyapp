@@ -3,7 +3,7 @@
 import { mergeDeep } from 'modules/tools'
 import smwtTask from './tasks/smwt'
 import qcstTask from './tasks/qcst'
-import miband3Task from './tasks/miband3/miband3'
+import miband3Task from './tasks/miband3'
 
 let studies = {
   studies: {

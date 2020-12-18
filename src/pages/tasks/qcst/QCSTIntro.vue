@@ -2,36 +2,24 @@
   <q-page padding>
     <Intro
       v-bind:title="$t('studies.tasks.qcst.title')"
-      v-bind:prerequisites="$t('studies.tasks.qcst.prerequisites')"
-      v-bind:instructions="$t('studies.tasks.qcst.instructions')"
+      v-bind:prerequisites="introTools.createPrerequisites($t('studies.tasks.qcst.prerequisites'), prerequisiteImages)"
+      v-bind:instructions="introTools.createInstructions($t('studies.tasks.qcst.instructions'), instructionImages)"
+      v-on:start="start()"
     >
       <template v-slot:initialIntro>
-        <div class="text-subtitle1 q-mt-md">
-          {{ $t('common.introduction') }}
-        </div>
+        <!-- Enter non-default content here -->
       </template>
 
       <template v-slot:prerequisitesIntro>
-        <div>
-          {{ $t('studies.tasks.qcst.prerequisiteNote') }}
-        </div>
+        <!-- Enter non-default content here -->
       </template>
 
       <template v-slot:instructionsIntro>
-        <div class="text-subtitle1 q-mt-md">
-          {{ $t('common.instructions') }}
-        </div>
+        <!-- Enter non-default content here -->
       </template>
 
       <template v-slot:finishButton>
-        <div class="row justify-center q-mt-lg">
-          <q-btn
-            color="primary"
-            @click="start()"
-            replace
-            :label="$t('common.start')"
-          />
-        </div>
+        <!-- Enter non-default content here -->
       </template>
     </Intro>
   </q-page>
@@ -39,6 +27,7 @@
 
 <script>
 import Intro from 'components/Intro.vue'
+import introTools from 'modules/introTools'
 export default {
   name: 'QCSTIntroPage',
   components: {
@@ -47,6 +36,13 @@ export default {
   props: {
     studyKey: String,
     taskId: Number
+  },
+  data () {
+    return {
+      prerequisiteImages: ['https://i.picsum.photos/id/43/200/200.jpg?hmac=gMoEYpdjrHoRnKoyIdtTknuqyCQDTC8exwLaKHpMv6E', 'https://i.picsum.photos/id/1031/200/200.jpg?hmac=E9kagTB6aHlVO8qmJYAQYYGJP3IvPT_v0N3ju0Rc4Gw'],
+      instructionImages: [],
+      introTools
+    }
   },
   methods: {
     start () {
@@ -57,6 +53,9 @@ export default {
       this.$router.push({ name: 'qcst', params: { studyKey: studyKey, taskId: taskId } })
       this.$emit('updateTransition', 'fadeInDown')
     }
+  },
+  created () {
+    console.log('Method:', this.createPrerequisites)
   }
 }
 </script>
