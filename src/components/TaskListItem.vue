@@ -1,5 +1,7 @@
 <template>
-  <q-item @click.native="changeRoute">
+  <q-item
+    @click.native="changeRoute"
+    v-if="this.task.studyKey">
     <q-item-section avatar>
       <q-icon
         color="grey"
@@ -10,10 +12,9 @@
       <q-item-label>{{ title }}</q-item-label>
       <q-item-label caption>{{ main }}</q-item-label>
     </q-item-section>
-     <q-item-section v-if="this.isMissedTask"
-      side
-      top
-    >{{ timeRemaining }}</q-item-section>
+     <q-item-section v-if="this.isMissedTask" side top>
+       {{ timeRemaining }}
+    </q-item-section>
   </q-item>
 </template>
 
