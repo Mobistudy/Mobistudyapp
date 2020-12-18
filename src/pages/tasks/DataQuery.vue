@@ -13,11 +13,16 @@
         :chart-data="chartData"
         :options="chartOptions"
       ></line-chart>
+      <pie-chart
+        v-if="plotPie"
+        :chart-data="chartData"
+        :options="chartOptions"
+      ></pie-chart>
       <div class="row">
         <q-btn
           color="primary"
           :loading="loading"
-          class="col"
+          class="col q-mt-sm"
           :label="$t('common.send')"
           @click="submit()"
         />
@@ -30,6 +35,7 @@
 import healthstore from 'modules/healthstore'
 import BarChart from 'components/BarChart'
 import LineChart from 'components/LineChart'
+import PieChart from 'components/PieChart'
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
 import API from 'modules/API'
@@ -57,7 +63,7 @@ export default {
     studyKey: String,
     taskId: Number
   },
-  components: { BarChart, LineChart },
+  components: { BarChart, LineChart, PieChart },
   data: function () {
     return {
       task: {},
@@ -67,6 +73,7 @@ export default {
       healthData: null,
       plotLine: false,
       plotBar: false,
+      plotPie: false,
       loading: false
     }
   },
@@ -159,6 +166,14 @@ export default {
 
             this.chartOptions = {
               maintainAspectRatio: false,
+              responsive: true,
+              title: {
+                display: true,
+                text: 'Activities',
+                position: 'top',
+                padding: 0,
+                fontColor: '#000000'
+              },
               scales: {
                 yAxes: [{
                   stacked: true,
@@ -169,8 +184,15 @@ export default {
                 xAxes: [{
                   stacked: true,
                   type: 'time',
-                  bounds: 'data',
-                  time: { unit: unit }
+                  time: {
+                    displayFormats: {
+                      unit: 'DD MMM'
+                    }
+                  },
+                  gridLines: {
+                    offsetGridLines: false
+                  },
+                  bounds: 'ticks'
                 }]
               }
             }
