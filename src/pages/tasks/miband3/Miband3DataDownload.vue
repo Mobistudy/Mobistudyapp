@@ -6,10 +6,11 @@
         {{ $t('studies.tasks.miband3.lineChart') }}
       </div>
       <div class="q-pa-md">
-        <canvas
-          ref="lineChart"
-          height="270"
-        />
+          <canvas
+            style="margin: 0 auto; padding-right: 2rem;"
+            height="320"
+            ref="lineChart"
+          />
         <div class="row justify-around">
           <q-btn
             :label="'-12 ' + $t('studies.tasks.miband3.hours')"
@@ -53,6 +54,13 @@
 
     <q-inner-loading :showing="isDownloading">
       <div class="text-overline">{{ $t('studies.tasks.miband3.dataDownload') }}</div>
+      <q-spinner-oval
+        size="50px"
+        color="primary"
+      />
+    </q-inner-loading>
+    <q-inner-loading :showing="isSending">
+      <div class="text-overline">{{ $t('studies.tasks.miband3.dataSending') }}</div>
       <q-spinner-oval
         size="50px"
         color="primary"
@@ -147,7 +155,8 @@ export default {
       currentStartHour: 0,
       currentEndHour: 12,
       disableMinus: true,
-      disablePlus: false
+      disablePlus: false,
+      isSending: false
     }
   },
   methods: {
@@ -168,7 +177,6 @@ export default {
           return
         }
         deviceInfo = await miband3.getDeviceInfo()
-        console.log(deviceInfo)
         await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
         try {
           await miband3.disconnect()
@@ -223,8 +231,6 @@ export default {
           startDate = startDate.toDate()
         }
       }
-
-      console.log('Start date:', startDate)
       return startDate
     },
     /**
@@ -414,6 +420,8 @@ export default {
       this.$router.push('/home')
     },
     async sendData () {
+      this.isSending = true
+      await this.delay(2) // If the data is small the sending is instant and the user doesn't see that something is in the process of being sent.
       try {
         let studyKey = this.studyKey
         let taskId = Number(this.taskId)
@@ -427,10 +435,11 @@ export default {
         })
         await this.storeDownloadDate(this.startDate)
         await db.setTaskCompletion(studyKey, taskId, new Date())
+        this.isSending = false
         // go back to home page
         this.$router.push('/home')
       } catch (error) {
-        this.loading = false
+        this.isSending = false
         console.error(error)
         this.$q.notify({
           color: 'negative',
@@ -441,6 +450,14 @@ export default {
           }
         })
       }
+    },
+    async delay (seconds) {
+      console.log('delaying')
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve()
+        }, seconds * 1000)
+      })
     }
   },
   async mounted () {

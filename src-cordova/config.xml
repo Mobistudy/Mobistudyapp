@@ -4,7 +4,7 @@
     <description>The participants' app of Mobistudy</description>
     <author href="http://mobistudy.org">
     Mobistudy Team
-  </author>
+    </author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -57,6 +57,7 @@
             <param name="ios-package" value="CDVWKWebViewEngine" />
         </feature>
         <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+        <preference name="KeychainAccessibility" value="WhenPasscodeSetThisDeviceOnly" />
         <icon height="57" src="res/ios/icon.png" width="57" />
         <icon height="114" src="res/ios/icon@2x.png" width="114" />
         <icon height="40" src="res/ios/icon-20@2x.png" width="40" />
@@ -94,7 +95,6 @@
     <allow-navigation href="about:*" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
-    <plugin name="cordova-plugin-wkwebview-engine" spec="^1.2.1" />
     <plugin name="cordova-plugin-device" spec="~2.0.3" />
     <plugin name="cordova-plugin-insomnia" spec="~4.3.0" />
     <plugin name="cordova-plugin-geolocation" spec="~4.0.2" />

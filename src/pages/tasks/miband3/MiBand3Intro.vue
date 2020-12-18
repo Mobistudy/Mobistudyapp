@@ -7,30 +7,29 @@
       ref="carousel"
       transition-prev="slide-right"
       transition-next="slide-left"
-      class="carousel-resize"
       animated
-      navigation
+      arrows
       swipeable
       control-color="primary"
       @transition="handleSlide()"
     >
       <q-carousel-slide
         name="first"
-        class="column no-wrap flex-center"
+        class="flex flex-center"
       >
         <div class="q-ma-md">{{ $t('studies.tasks.miband3.intro1') }}</div>
       </q-carousel-slide>
 
       <q-carousel-slide
         name="second"
-        class="column no-wrap flex-center"
+        class="flex flex-center"
       >
         <div class="q-ma-md">{{ $t('studies.tasks.miband3.intro2') }}</div>
       </q-carousel-slide>
 
       <q-carousel-slide
         name="third"
-        class="column no-wrap flex-center"
+        class="flex flex-center"
       >
         <div class="q-ma-md">{{ $t('studies.tasks.miband3.intro2') }}</div>
       </q-carousel-slide>
