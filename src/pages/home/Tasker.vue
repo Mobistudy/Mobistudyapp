@@ -7,39 +7,53 @@
           <q-btn color="blue" :label="$t('studies.checkNewStusy')" to="studies"/>
         </template>
       </q-banner>
-      <div v-if="nostudies" class="q-title">{{ $t('studies.noStudies') }}</div>
-      <q-list v-else highlight>
+      <q-item-label v-if="nostudies" class="q-title fixed-center">{{ $t('studies.noStudies') }}</q-item-label>
+      <div v-else highlight>
         <q-item-label header>
           {{ $t('studies.tasks.pendingTasks') }}
         </q-item-label>
-        <!--<study-active v-for="study in activeStudies" v-bind:study="study" v-bind:key="study.id"></study-active>-->
-        <div>
-          <taskListItem v-for="(task, uindex) in tasks.upcoming" :task="task" :isMissedTask="false" :key="uindex"></taskListItem>
-        </div>
-        <q-item v-if="tasks.upcoming.length === 0">
-          <q-item-section avatar>
-            <q-icon color="primary" name="check" />
-          </q-item-section>
+        <q-list padding bordered v-for="study in studiesInfo" :key="`upcoming-${study._key}`" class="q-mt-sm">
           <q-item-section>
-            <q-item-label>{{ $t('studies.tasks.noPendingTasks') }}</q-item-label>
+            <q-item-label header overline>{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
+            <taskListItem
+              v-for="(task, index) in tasks.upcoming"
+              :task="filterTask(task, study)"
+              :isMissedTask="false"
+              :key="`item-${index}`">
+            </taskListItem>
           </q-item-section>
-        </q-item>
-        <q-separator inset />
+          <q-item v-if="tasks.upcoming.length === 0">
+            <q-item-section avatar>
+              <q-icon color="primary" name="check" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>{{ $t('studies.tasks.noPendingTasks') }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
         <q-item-label header>
           {{ $t('studies.tasks.missedTasks') }}
         </q-item-label>
-        <div>
-          <taskListItem v-for="(task, mindex) in tasks.missed" :task="task" :isMissedTask="true" :key="mindex"></taskListItem>
-        </div>
-        <q-item v-if="tasks.missed.length === 0">
-          <q-item-section avatar>
-            <q-icon color="primary" name="check" />
-          </q-item-section>
+        <q-list padding bordered v-for="study in studiesInfo" :key="`missed-${study._key}`" class="q-mt-sm">
           <q-item-section>
-            <q-item-label>{{ $t('studies.tasks.noMissedTasks') }}</q-item-label>
+            <q-item-label header overline>{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
+            <taskListItem
+              v-for="(task, index) in tasks.missed"
+              :task="filterTask(task, study)"
+              :isMissedTask="true"
+              :key="`item-${index}`">
+            </taskListItem>
           </q-item-section>
-        </q-item>
-      </q-list>
+          <q-item v-if="tasks.missed.length === 0">
+            <q-item-section avatar>
+              <q-icon color="primary" name="check" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>{{ $t('studies.tasks.noMissedTasks') }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </div>
     </q-pull-to-refresh>
       <q-dialog v-if="this.tasks.completedStudyAlert" v-model="completedStudyModal" maximized>
         <div class="q-pa-lg text-center" style="background-color:white">
@@ -80,7 +94,8 @@ export default {
         completedStudyAlert: undefined,
         completedStudyTitle: undefined
       },
-      completedStudyModal: false
+      completedStudyModal: false,
+      studiesInfo: []
     }
   },
   async created () {
@@ -106,6 +121,13 @@ export default {
         })
         this.loading = false
       }, 1000)
+    },
+    filterTask (task, study) {
+      if (task.studyKey === study._key) {
+        return task
+      } else {
+        return ''
+      }
     },
     async checkForStudy () {
       if (this.checkNewStudies) {
@@ -178,6 +200,7 @@ export default {
           if (studyPart.currentStatus === 'accepted') {
             activestudiesPart.push(studyPart)
             activeStudiesDescr.push(studyDescr)
+            this.studiesInfo.push(studyDescr)
           }
         }
 
@@ -188,11 +211,11 @@ export default {
           return
         }
 
-        let res = scheduler.generateTasker(activestudiesPart, activeStudiesDescr)
-        this.tasks = res
+        let response = scheduler.generateTasker(activestudiesPart, activeStudiesDescr)
+        this.tasks = response
 
-        if (res.completedStudyAlert) {
-          this.completedStudyTitle = res.completedStudyAlert.studyTitle[this.$root.$i18n.locale]
+        if (response.completedStudyAlert) {
+          this.completedStudyTitle = response.completedStudyAlert.studyTitle[this.$root.$i18n.locale]
           this.completedStudyModal = true
         }
         this.$q.loading.hide()
