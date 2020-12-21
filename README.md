@@ -169,6 +169,7 @@ Development:
 - [Lennart Czienskowski](https://github.com/lencz)
 - [Elin Forsnor](https://github.com/elinforsnor)
 - [Felix Morau](https://github.com/femosc2)
+- [Jacky Tu](https://github.com/jackytu99)
 
 ## License
 

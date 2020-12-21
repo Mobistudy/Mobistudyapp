@@ -29,22 +29,26 @@
           class="q-px-sm col"
           :to="{ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true, pathIndex: 1 } }"
           icon="check_box"
-        >{{ $t('layouts.homeMenu.dailyTasks') }}</q-route-tab>
+        >{{ $t('layouts.homeMenu.dailyTasks') }}
+        </q-route-tab>
         <q-route-tab
           class="q-px-sm col"
           :to="{ name: 'profile', params: { pathIndex: 2 } }"
           icon="account_box"
-        >{{ $t('layouts.homeMenu.profile') }}</q-route-tab>
+        >{{ $t('layouts.homeMenu.profile') }}
+        </q-route-tab>
         <q-route-tab
           class="q-px-sm col"
           :to="{ name: 'studies', params: { pathIndex: 3 } }"
           icon="local_library"
-        >{{ $t('layouts.homeMenu.studies') }}</q-route-tab>
+        >{{ $t('layouts.homeMenu.studies') }}
+        </q-route-tab>
         <q-route-tab
           class="q-px-sm col"
           :to="{ name: 'about', params: { pathIndex: 4 } }"
           icon="help"
-        >{{ $t('layouts.homeMenu.about') }}</q-route-tab>
+        >{{ $t('layouts.homeMenu.about') }}
+        </q-route-tab>
         <!--<q-route-tab
           class="q-px-sm"
           :to="{ name: 'test', params: { pathIndex: 5 } }"
