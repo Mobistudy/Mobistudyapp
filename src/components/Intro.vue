@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div
-      style="height: 85vh;"
+      style="height: 90vh;"
       class="q-pa-sm"
     >
       <q-carousel
@@ -49,7 +49,7 @@
       </q-carousel>
       <slot name="finishButton">
         <div
-          style="height: 15vh;"
+          style="height: 10vh;"
           class="fixed-bottom text-center q-pa-md"
         >
           <q-btn
