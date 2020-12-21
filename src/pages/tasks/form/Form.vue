@@ -1,22 +1,6 @@
 <template>
   <q-page padding>
-    <div v-if="introduction">
-      <div class="text-center text-h5">
-        {{introduction.title[$i18n.locale]}}
-      </div>
-      <div class="text-center text-body1 q-mt-lg">
-        <div v-html="introduction.description[$i18n.locale]"></div>
-      </div>
-      <div class="row justify-center q-mt-lg">
-        <q-btn
-          color="primary"
-          @click="start()"
-          :label="$t('common.start')"
-        />
-      </div>
-    </div>
-
-    <div v-if="!introduction && !finished">
+    <div v-if="!finished && currentQuestion">
       <transition
         :enter-active-class="'animated ' + this.slideName"
         leave-active-class="fadeOut"
@@ -29,10 +13,7 @@
           <div class="text-center text-subtitle1">
             <div v-html="currentQuestion.text[$i18n.locale]"></div>
           </div>
-          <div
-            v-if="currentQuestion.helper"
-            class="text-center text-subtitle2 q-mb-md"
-          >
+          <div class="text-center text-subtitle2 q-mb-md">
             <div v-html="currentQuestion.helper[$i18n.locale]"></div>
           </div>
 
@@ -76,8 +57,18 @@
           </div>
         </div>
       </transition>
-      <div v-if="currentQuestion.type !== 'textOnly'" class="row justify-around">
-        <q-btn no-caps flat :label="$t('common.clear')" color="negative"  icon-right="cancel" @click="clearAnswer()" />
+      <div
+        v-if="currentQuestion.type !== 'textOnly'"
+        class="row justify-around"
+      >
+        <q-btn
+          no-caps
+          flat
+          :label="$t('common.clear')"
+          color="negative"
+          icon-right="cancel"
+          @click="clearAnswer()"
+        />
       </div>
       <div class="row justify-around q-mb-xl">
         <q-btn
@@ -94,7 +85,7 @@
           @click="next()"
           :label="$t('common.next')"
         />
-      <q-btn
+        <q-btn
           v-model="singleChoiceAnswer"
           v-show="!isAnswered"
           icon-right="arrow_forward"
@@ -124,6 +115,14 @@
         />
       </div>
     </div>
+
+    <q-inner-loading :showing="isRetrieving">
+      <div class="text-overline">{{ $t('studies.tasks.miband3.dataSending') }}</div>
+      <q-spinner-oval
+        size="50px"
+        color="primary"
+      />
+    </q-inner-loading>
 
   </q-page>
 </template>
@@ -159,6 +158,7 @@ export default {
     }
   },
   async created () {
+    this.isRetrieving = true
     const formKey = this.formKey
     console.log('Form Key:', formKey)
 
@@ -172,11 +172,14 @@ export default {
         this.$q.loading.hide()
       }
       this.formDescr = formDescr
-
+      console.log('Form description:', this.formDescr)
       this.introduction = {
         title: this.formDescr.name,
         description: this.formDescr.description
       }
+      this.currentQuestion = this.formDescr.questions[0]
+      console.log('Current question:', this.currentQuestion)
+      setTimeout(() => { this.slideName = 'fadeInDown' }, 10)
     } catch (error) {
       console.error(error)
       this.$q.notify({
@@ -188,6 +191,7 @@ export default {
         }
       })
     }
+    this.isRetrieving = false
   },
   computed: {
     isFirstQuestion () {
@@ -197,17 +201,12 @@ export default {
     },
     isAnswered () {
       return (this.currentQuestion.type === 'singleChoice' && this.singleChoiceAnswer) ||
-             (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
-             (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
-             (this.currentQuestion.type === 'textOnly')
+        (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
+        (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
+        (this.currentQuestion.type === 'textOnly')
     }
   },
   methods: {
-    start () {
-      this.introduction = false
-      this.currentQuestion = this.formDescr.questions[0]
-      setTimeout(() => { this.slideName = 'fadeInDown' }, 10)
-    },
     next () {
       this.slideName = ''
       let nextQuestionId = this.currentQuestion.nextDefaultId
