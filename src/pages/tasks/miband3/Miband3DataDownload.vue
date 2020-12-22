@@ -6,11 +6,11 @@
         {{ $t('studies.tasks.miband3.lineChart') }}
       </div>
       <div class="q-pa-md">
-          <canvas
-            style="margin: 0 auto; padding-right: 2rem;"
-            height="320"
-            ref="lineChart"
-          />
+        <canvas
+          style="margin: 0 auto; padding-right: 2rem;"
+          height="320"
+          ref="lineChart"
+        />
         <div class="row justify-around">
           <q-btn
             :label="'-12 ' + $t('studies.tasks.miband3.hours')"
@@ -97,7 +97,7 @@ const chartColors = [
 // holder of all the stored data, this is kept outside of Vue for efficiency
 let storedData = []
 let minimumDataRequired = 5 // 30 minutes of data is required at a minimum to upload the data
-// eslint-disable-next-line no-unused-vars, not sure why this is complaining?
+// eslint-disable-next-line no-unused-vars, TODO: not sure why this is complaining?
 let deviceInfo = {}
 
 // pie chart configuration
@@ -176,7 +176,8 @@ export default {
           this.$router.push({ name: 'notEnoughDataPage' })
           return
         }
-        deviceInfo = await miband3.getDeviceInfo()
+        this.deviceInfo = await miband3.getDeviceInfo()
+        console.log('Device info retrieved:', deviceInfo)
         await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
         try {
           await miband3.disconnect()
