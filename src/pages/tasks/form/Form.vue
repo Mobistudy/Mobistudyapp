@@ -70,7 +70,7 @@
           @click="clearAnswer()"
         />
       </div>
-      <div class="row justify-around q-mb-xl">
+      <div class="row justify-around q-mb-xl fixed-bottom">
         <q-btn
           v-show="!isFirstQuestion"
           icon="arrow_back"
