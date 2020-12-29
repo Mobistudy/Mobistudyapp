@@ -89,7 +89,7 @@ export default {
       id: '00:11:22:33:FF:EE',
       serialNumber: '180a-555-333',
       battery: {
-        chargelevel: 80,
+        chargeLevel: 80,
         currentlyCharging: 0,
         lastChargedDate: new Date(),
         numOfCharges: 4,
