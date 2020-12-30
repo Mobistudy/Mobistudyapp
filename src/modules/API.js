@@ -87,7 +87,8 @@ export default {
 
   // retrieves an invitational study based on a code
   getInvitationalStudy: async function (invitationalCode) {
-    let resp = await axios.get(BASE_URL + `/invitationalStudy/${invitationalCode}`)
+    let resp = await axios.get(BASE_URL + `/invitationalStudy/${invitationalCode}`, axiosConfig)
+    console.log('Retrieved resp:', resp)
     return resp.data
   },
 

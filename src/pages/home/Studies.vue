@@ -285,13 +285,13 @@ export default {
         study = await API.getInvitationalStudy(invitationCode)
         if (this.studyExists(this.newStudies, study)) throw new Error('Study already exists in your app.')
         if (this.studyExists(this.activeStudies, study)) throw new Error('Study already exists in your app.')
-        this.newStudiesCustomAnswers.push([])
+        this.newStudiesCustomAnswers.push([]) // TODO: What is this and is it necessary?
         this.newStudies.push(study)
       } catch (error) {
-        console.error('Adding invitational study failed:', error)
+        console.log('Adding invitational study failed:', error)
         this.$q.notify({
           color: 'negative',
-          message: error.message,
+          message: this.$i18n.t('errors.invitationalStudyNotFound') + ' ' + error.message,
           icon: 'report_problem'
         })
       }
