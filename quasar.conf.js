@@ -114,7 +114,7 @@ module.exports = function (ctx) {
       open: 'Google Chrome', // opens browser window automatically
       proxy: {
         '/api': { // <- this must be the same as API_ENDPOINT
-          target: 'http://192.168.1.248:3000',
+          target: 'http://localhost:3000',
           changeOrigin: true
         }
       }
