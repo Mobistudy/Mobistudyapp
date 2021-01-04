@@ -114,7 +114,7 @@ module.exports = function (ctx) {
       open: 'Google Chrome', // opens browser window automatically
       proxy: {
         '/api': { // <- this must be the same as API_ENDPOINT
-          target: 'http://localhost:3000',
+          target: 'http://localhost:3000', // WARNING: this address can be changed if testing the app on the phone, but any change should NOT be committed. If this is != loclahost, please change it back to localhost.
           changeOrigin: true
         }
       }
