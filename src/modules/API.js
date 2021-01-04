@@ -85,6 +85,13 @@ export default {
     return resp.data
   },
 
+  // retrieves an invitational study based on a code
+  getInvitationalStudy: async function (invitationalCode) {
+    let resp = await axios.get(BASE_URL + `/invitationalStudy/${invitationalCode}`, axiosConfig)
+    console.log('Retrieved resp:', resp)
+    return resp.data
+  },
+
   // gets a form given its key
   getForm: async function (formKey) {
     let resp = await axios.get(BASE_URL + '/forms/' + formKey, axiosConfig)

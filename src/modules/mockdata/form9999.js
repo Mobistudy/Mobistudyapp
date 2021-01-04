@@ -95,7 +95,7 @@ export default {
       helper: {
         en: 'Number of days'
       },
-      nextDefaultId: 'Q5'
+      nextDefaultId: 'Q6'
     },
     {
       id: 'Q6',

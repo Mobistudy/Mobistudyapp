@@ -9,7 +9,8 @@ let en = {
     error: 'Error',
     generalError: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.',
     connectionError: 'Cannot contact server',
-    correctFields: 'Please correct the indicated fields'
+    correctFields: 'Please correct the indicated fields',
+    invitationalStudyNotFound: 'Study not found.'
   },
   common: {
     next: 'Next',
@@ -32,7 +33,8 @@ let en = {
     skip: 'Skip',
     back: 'Back',
     introduction: 'Introduction',
-    instructions: 'Instructions'
+    instructions: 'Instructions',
+    prerequisites: 'Prerequisites'
   },
   layouts: {
     consent: 'New study',

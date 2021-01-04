@@ -1412,8 +1412,16 @@ var Miband3 = {
       this.batteryCharacteristic
     )
     let dataBuffer = Buffer.from(data)
-    let chargeLevel = dataBuffer[1]
-    return chargeLevel + '%'
+
+    const batteryStatus = {
+      chargeLevel: dataBuffer[1],
+      currentlyCharging: dataBuffer[2],
+      lastChargedDate: new Date(dataBuffer.readUInt16LE(3), dataBuffer[4] - 1, dataBuffer[5], dataBuffer[6], dataBuffer[7], dataBuffer[8]),
+      numOfCharges: dataBuffer[9],
+      amountCharged: dataBuffer[10]
+    }
+
+    return batteryStatus
   },
 
   getHardwareInfo: async function () {
@@ -1430,6 +1438,12 @@ var Miband3 = {
       this.deviceInformationService,
       this.softwareCharacteristic
     )
+    let dataString = this.dataToASCII(new Uint8Array(data))
+    return dataString
+  },
+
+  getSerialNumber: async function () {
+    let data = await this.read(this.deviceInformationService, this.serialNumberCharacteristic)
     let dataString = this.dataToASCII(new Uint8Array(data))
     return dataString
   },

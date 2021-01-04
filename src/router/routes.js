@@ -58,8 +58,10 @@ const routes = [
     path: '/tasks',
     component: () => import('layouts/TaskLayout.vue'),
     children: [
-      { path: '/form', name: 'form', component: () => import('pages/tasks/Form.vue'), props: true },
-      { path: '/dataQuery', name: 'dataQuery', component: () => import('pages/tasks/DataQuery'), props: true },
+      { path: '/form', name: 'form', component: () => import('pages/tasks/form/Form.vue'), props: true },
+      { path: '/formIntro', name: 'formIntro', component: () => import('pages/tasks/form/FormIntro'), props: true },
+      { path: '/dataQueryIntro', name: 'dataQueryIntro', component: () => import('pages/tasks/dataQuery/DataQueryIntro'), props: true },
+      { path: '/dataQuery', name: 'dataQuery', component: () => import('pages/tasks/dataQuery/DataQuery'), props: true },
       { path: '/smwtIntro', name: 'smwtIntro', component: () => import('pages/tasks/smwt/SMWTIntro.vue'), props: true },
       { path: '/smwt', name: 'smwt', component: () => import('pages/tasks/smwt/SMWT.vue'), props: true },
       { path: '/smwtSummary', name: 'smwtSummary', component: () => import('pages/tasks/smwt/SMWTSummary.vue'), props: true },

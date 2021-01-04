@@ -1,7 +1,8 @@
 <template>
   <q-item
     @click.native="changeRoute"
-    v-if="this.task.studyKey">
+    v-if="this.task.studyKey"
+  >
     <q-item-section avatar>
       <q-icon
         color="grey"
@@ -12,8 +13,12 @@
       <q-item-label>{{ title }}</q-item-label>
       <q-item-label caption>{{ main }}</q-item-label>
     </q-item-section>
-     <q-item-section v-if="this.isMissedTask" side top>
-       {{ timeRemaining }}
+    <q-item-section
+      v-if="this.isMissedTask"
+      side
+      top
+    >
+      {{ timeRemaining }}
     </q-item-section>
   </q-item>
 </template>
@@ -41,7 +46,7 @@ export default {
 
       // these bring the user to the correct route depending on the task
       if (formKey) {
-        this.$router.push({ name: 'form', params: { studyKey: studyKey, taskId: taskId, formKey: formKey }, query: { icon: this.icon, title: this.title } })
+        this.$router.push({ name: 'formIntro', params: { studyKey: studyKey, taskId: taskId, formKey: formKey }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'smwt') {
         this.$router.push({ name: 'smwtIntro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'qcst') {
@@ -49,7 +54,7 @@ export default {
       } else if (type === 'miband3') {
         this.$router.push({ name: 'miband3Intro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
       } else if (studyKey && taskId) {
-        this.$router.push({ name: 'dataQuery', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
+        this.$router.push({ name: 'dataQueryIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else {
         return false
       }

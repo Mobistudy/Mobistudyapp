@@ -7,11 +7,20 @@ export default {
         title: 'Activity tracker download',
         shortTitle: 'Activity tracker',
         shortDescription: 'Extract data from your activity tracker',
-        intro1: `In this task you will connect to your MiBand smart bracelet and download your activity data from it including steps, heart rate, activity type and intensity.`,
-        intro2: 'In order for the phone to connect to the MiBand, please, make sure that Blueetooth is activated on the phone, that the Miband is charged and at close distance from the phone.',
-        intro3: `If it is the first time you connect to the MiBand, the MiBand will ask you to confirm the connection to the phone by tapping on it. 
-        Please tap on the bracelet when you feel the vibration on the wrist.
-        To proceed, tap on "Connect" below.`,
+        slides: [
+          { title: 'Instruction',
+            img: 'https://picsum.photos/200',
+            i: 'In this task you will connect to your MiBand smart bracelet and download your activity data from it including steps, heart rate, activity type and intensity.'
+          },
+          { title: 'Instruction',
+            img: 'https://picsum.photos/200',
+            i: 'In order for the phone to connect to the MiBand, please, make sure that Blueetooth is activated on the phone, that the Miband is charged and nearby the phone.'
+          },
+          { title: 'Instruction',
+            img: 'https://picsum.photos/200',
+            i: 'If it is the first time you connect to the MiBand, the MiBand will ask you to confirm the connection to the phone by tapping on it. Please tap on the bracelet when you feel the vibration on the wrist. To proceed, tap on "Connect" below.'
+          }
+        ],
         connect: 'Connect',
         searching: 'Searching for nearby Miband',
         searchFailed: 'There was a problem while searching for your MiBand, do you want to retry?',

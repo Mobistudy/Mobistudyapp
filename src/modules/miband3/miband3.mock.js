@@ -87,7 +87,14 @@ export default {
   async getDeviceInfo () {
     return Promise.resolve({
       id: '00:11:22:33:FF:EE',
-      battery: 80,
+      serialNumber: '180a-555-333',
+      battery: {
+        chargeLevel: 80,
+        currentlyCharging: 0,
+        lastChargedDate: new Date(),
+        numOfCharges: 4,
+        amountCharged: 50
+      },
       charging: false,
       swVersion: '11',
       hwVersion: '3',

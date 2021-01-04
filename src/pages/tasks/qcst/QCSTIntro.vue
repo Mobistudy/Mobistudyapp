@@ -1,49 +1,23 @@
 <template>
   <q-page padding>
-    <div class="text-h5 text-center">{{ $t('studies.tasks.qcst.title') }}</div>
-    <div class="text-subtitle1 q-mt-md">
-      {{ $t('common.introduction') }}
-    </div>
-    <div>
-      {{ $t('studies.tasks.qcst.prerequisiteNote') }}
-    </div>
-    <div>
-      <ul>
-        <li
-          v-for="(prerequisite, idx) in $t('studies.tasks.qcst.prerequisites')"
-          :key="idx"
-        >
-          {{ prerequisite.p }}
-        </li>
-      </ul>
-    </div>
-    <div class="text-subtitle1 q-mt-md">
-      {{ $t('common.instructions') }}
-    </div>
-    <div>
-      <ul>
-        <li
-          v-for="(instruction, idx) in $t('studies.tasks.qcst.instructions')"
-          :key="idx"
-        >
-          {{ instruction.i }}
-        </li>
-      </ul>
-    </div>
-    <div class="row justify-center q-mt-lg">
-      <q-btn
-        color="primary"
-        @click="start()"
-        replace
-        :label="$t('common.start')"
-      />
-    </div>
+    <Intro
+      v-bind:slides="$t('studies.tasks.qcst.slides')"
+      v-on:start="start()"
+    >
+      <template v-slot:slide-0>
+        <!-- Enter non-default content here, one for each slide, if you need full customization. -->
+      </template>
+    </Intro>
   </q-page>
 </template>
 
 <script>
+import Intro from 'components/Intro.vue'
 export default {
   name: 'QCSTIntroPage',
+  components: {
+    Intro
+  },
   props: {
     studyKey: String,
     taskId: Number

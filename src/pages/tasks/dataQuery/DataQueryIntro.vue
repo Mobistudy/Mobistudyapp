@@ -1,17 +1,15 @@
 <template>
-  <q-page padding>
+  <q-page>
     <Intro
-      v-bind:slides="$t('studies.tasks.smwt.slides')"
+      v-bind:slides="$t('studies.tasks.dataQuery.slides')"
       v-on:start="start()"
     >
     </Intro>
   </q-page>
 </template>
-
 <script>
 import Intro from 'components/Intro.vue'
 export default {
-  name: 'SMWTIntroPage',
   components: {
     Intro
   },
@@ -24,7 +22,8 @@ export default {
       const studyKey = this.studyKey
       const taskId = this.taskId
       console.log('StudyKey ' + studyKey + ',taskId ' + taskId)
-      this.$router.push({ name: 'smwt', params: { studyKey: studyKey, taskId: taskId } })
+
+      this.$router.push({ name: 'dataQuery', params: { studyKey: studyKey, taskId: taskId } })
       this.$emit('updateTransition', 'fadeInDown')
     }
   }

@@ -118,11 +118,12 @@ export default {
     let battery = await miband3Driver.getBatteryStatus()
     let hardware = await miband3Driver.getHardwareInfo()
     let software = await miband3Driver.getSoftwareInfo()
+    let serialNumber = await miband3Driver.getSerialNumber()
     // let serialNr = await miband3.getSerialNumber() needs to be implemented
-    // let charging = await miband3.getCharging(), other charging options available (eg lastChargedDate etc..), low priority
     return Promise.resolve({
       id: miband3Driver.deviceId,
-      battery: battery,
+      serialNumber: serialNumber,
+      battery: battery, // Object with battery status data
       hwVersion: hardware,
       swVersion: software,
       clock: time
