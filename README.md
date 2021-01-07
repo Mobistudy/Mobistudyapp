@@ -171,6 +171,7 @@ Development:
 - [Felix Morau](https://github.com/femosc2)
 - [Jacky Tu](https://github.com/jackytu99)
 - [Elliott Hellstrand](https://github.com/Elliott0121)
+- [Andreas Holm](https://github.com/HeyOooh)
 
 ## License
 
