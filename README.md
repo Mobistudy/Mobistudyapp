@@ -172,6 +172,7 @@ Development:
 - [Jacky Tu](https://github.com/jackytu99)
 - [Elliott Hellstrand](https://github.com/Elliott0121)
 - [Andreas Holm](https://github.com/HeyOooh)
+- [Moustafa Allouhaibi](https://github.com/af9593)
 
 ## License
 
