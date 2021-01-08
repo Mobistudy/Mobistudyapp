@@ -74,7 +74,7 @@
         clickable
         v-ripple
         v-for="(study, index) in activeStudies"
-        :key="'ps' + index"
+        :key="'as' + index"
         @click.native="showDetails(study)"
       >
         <q-item-section avatar>
@@ -282,24 +282,23 @@ export default {
       let study
       try {
         study = await API.getInvitationalStudy(invitationCode)
-        if (this.studyExists(this.newStudies, study)) throw new Error(this.$i18n.t('errors.invitationalStudyAlreadyAdded')) // TODO: Localize strings
       } catch (error) {
-        const NOT_FOUND = error.message.includes('404')
-        const ALREADY_ADDED = error.message === this.$i18n.t('errors.invitationalStudyAlreadyAdded')
-
-        if (NOT_FOUND) {
+        console.error('Error:', error)
+        if (error.response.status === 404) {
           this.$q.notify({
             color: 'negative',
             message: this.$i18n.t('errors.invitationalStudyNotFound'),
             icon: 'report_problem'
           })
-        } else if (ALREADY_ADDED) {
-          this.$q.notify({
-            color: 'negative',
-            message: this.$i18n.t('errors.invitationalStudyAlreadyAdded'),
-            icon: 'report_problem'
-          })
         }
+        return
+      }
+      if (this.studyExists(this.newStudies, study)) {
+        this.$q.notify({
+          color: 'negative',
+          message: this.$i18n.t('errors.invitationalStudyAlreadyAdded'),
+          icon: 'report_problem'
+        })
         return
       }
       if (await this.alreadyParticipateInStudy(study._key)) {

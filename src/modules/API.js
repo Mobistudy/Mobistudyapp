@@ -55,6 +55,7 @@ export default {
   // Get the participant profile
   getProfile: async function (userKey) {
     const resp = await axios.get(BASE_URL + '/participants/byuserkey/' + userKey, axiosConfig)
+    console.log('Response:', resp)
     return resp.data
   },
 
