@@ -10,7 +10,9 @@ let en = {
     generalError: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.',
     connectionError: 'Cannot contact server',
     correctFields: 'Please correct the indicated fields',
-    invitationalStudyNotFound: 'Study not found.'
+    invitationalStudyNotFound: 'Study was not found.',
+    invitationalStudyAlreadyAdded: 'You have already added this invitational study.',
+    invitationalStudyAlreadyParticipated: 'You have already participated in this invitational study.'
   },
   common: {
     next: 'Next',

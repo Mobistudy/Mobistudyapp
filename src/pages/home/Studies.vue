@@ -74,7 +74,7 @@
         clickable
         v-ripple
         v-for="(study, index) in activeStudies"
-        :key="'ps' + index"
+        :key="'as' + index"
         @click.native="showDetails(study)"
       >
         <q-item-section avatar>
@@ -278,23 +278,44 @@ export default {
         // nothing to do
       }
     },
-    // TODO: Should i first retrieve key and then retrieve description of study?
     async addInvitationalStudy (invitationCode) {
       let study
       try {
         study = await API.getInvitationalStudy(invitationCode)
-        if (this.studyExists(this.newStudies, study)) throw new Error('Study already exists in your app.')
-        if (this.studyExists(this.activeStudies, study)) throw new Error('Study already exists in your app.')
-        this.newStudiesCustomAnswers.push([]) // TODO: What is this and is it necessary?
-        this.newStudies.push(study)
       } catch (error) {
-        console.log('Adding invitational study failed:', error)
+        console.error('Error:', error)
+        if (error.response.status === 404) {
+          this.$q.notify({
+            color: 'negative',
+            message: this.$i18n.t('errors.invitationalStudyNotFound'),
+            icon: 'report_problem'
+          })
+        }
+        return
+      }
+      if (this.studyExists(this.newStudies, study)) {
         this.$q.notify({
           color: 'negative',
-          message: this.$i18n.t('errors.invitationalStudyNotFound') + ' ' + error.message,
+          message: this.$i18n.t('errors.invitationalStudyAlreadyAdded'),
           icon: 'report_problem'
         })
+        return
       }
+      if (await this.alreadyParticipateInStudy(study._key)) {
+        this.$q.notify({
+          color: 'negative',
+          message: this.$i18n.t('errors.invitationalStudyAlreadyParticipated'),
+          icon: 'report_problem'
+        })
+      } else {
+        this.newStudiesCustomAnswers.push([])
+        this.newStudies.push(study)
+      }
+    },
+    async alreadyParticipateInStudy (studyKey) {
+      const studyParticipation = await DB.getStudyParticipation(studyKey)
+      if (!studyParticipation) return false
+      else return true
     },
     studyExists (studies, studyToFind) {
       console.log('Attempting to find study in app studies:', studyToFind._key)

@@ -41,7 +41,6 @@
       :error-message="$t('accountMgmt.profile.dateOfBirthError')"
       :error="$v.value.dateOfBirth.$error"
       @blur="$v.value.dateOfBirth.$touch"
-      @click="() => $refs.qDateProxy.hide()"
       @input="update()"
     >
       <template v-slot:before>
@@ -59,8 +58,9 @@
           mask="YYYY/MM/DD"
           format="YYYY/MM/DD"
           default-year-month="1970/11"
-          :title="$t('accountMgmt.profile.dateOfBirth')"
+          :title="value.dateOfBirth"
           :navigation-max-year-month="calenderRules()"
+          @input="() => $refs.qDateProxy.hide()"
         >
           <div class="row items-center justify-end q-gutter-sm">
             <q-btn

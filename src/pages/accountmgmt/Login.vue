@@ -20,14 +20,16 @@
             v-model="username"
             :label="$t('accountMgmt.email')"
             @blur.native="$v.username.$touch"
-            :error="$v.username.$error" :error-message="$t('accountMgmt.emailRequiredError')"
+            :error="$v.username.$error"
+            :error-message="$t('accountMgmt.emailRequiredError')"
           />
           <q-input
             v-model="password"
             :label="$t('accountMgmt.password')"
             type="password"
             @blur.native="$v.password.$touch"
-            :error="$v.password.$error" :error-message="$t('accountMgmt.passwordRequiredError')"
+            :error="$v.password.$error"
+            :error-message="$t('accountMgmt.passwordRequiredError')"
           />
           <div class="row">
             <q-btn
@@ -107,19 +109,6 @@ export default {
           // user is authenticated, return user object
           await userinfo.login(user)
           API.setToken(user.token)
-
-          // retrieve the profile information
-          let profile = await API.getProfile(userinfo.user._key)
-
-          if (!profile) {
-            // profile has not been filled in yet! must fill in now
-            this.$router.push('/register_profile')
-          } else {
-            // profile exists
-            await userinfo.setProfile(profile)
-            if (profile.studies) await DB.setStudiesParticipation(profile.studies)
-            this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
-          }
         } catch (error) {
           console.error(error)
           this.error = true
@@ -135,6 +124,19 @@ export default {
               message: this.$i18n.t('accountMgmt.login.loginError') + ': ' + error.message,
               icon: 'report_problem'
             })
+          }
+        }
+        try {
+          // retrieve the profile information
+          let profile = await API.getProfile(userinfo.user._key)
+          // profile exists
+          await userinfo.setProfile(profile)
+          if (profile.studies) await DB.setStudiesParticipation(profile.studies)
+          this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
+        } catch (error) {
+          console.log(error)
+          if (error.response.status === 404) {
+            this.$router.push('/register_profile')
           }
         }
       }
