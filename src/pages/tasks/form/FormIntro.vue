@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <Intro
-      v-bind:slides="$t('studies.tasks.form.slides')"
+      v-bind:slides="$t('studies.tasks.form.introductionSlides')"
       v-on:start="start()"
     >
       <template v-slot:slide-0>
