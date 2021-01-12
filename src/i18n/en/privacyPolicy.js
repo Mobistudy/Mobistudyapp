@@ -51,7 +51,7 @@ export default {
     they are part of a research study you have decided to take part in.
   </p>
   <p>
-    If you decide to join a research study, your may be required to share your data
+    If you decide to join a research study, you may be required to share your data
     with the institutions involved in the study, but further study-specific
     conditions will apply, which will be clearly shown to you and you will be allowed
     to accept or reject them.

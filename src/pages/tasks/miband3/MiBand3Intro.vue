@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
     <Intro
-      v-bind:slides="$t('studies.tasks.miband3.slides')"
+      v-bind:slides="$t('studies.tasks.miband3.introductionSlides')"
       v-on:start="start()"
     >
     </Intro>

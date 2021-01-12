@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <Intro
-      v-bind:slides="$t('studies.tasks.qcst.slides')"
+      v-bind:slides="$t('studies.tasks.qcst.introductionSlides')"
       v-on:start="start()"
     >
       <template v-slot:slide-0>

@@ -16,7 +16,7 @@
         class="full-height"
       >
         <q-carousel-slide
-          v-for="(slide, idx) in slides"
+          v-for="(slide, idx) in introductionSlides"
           :name="'slide-' + idx"
           :key="idx"
         >
@@ -34,13 +34,13 @@
               <q-img :src="slide.img"></q-img>
             </div>
             <div
-              v-if="slide.i"
+              v-if="slide.description"
               :slide="slide"
               class="q-pb-lg q-pl-lg q-pr-lg q-pt-sm"
             >
               <div>
                 <p class="text-body1 text-center">
-                  {{slide.i}}
+                  {{slide.description}}
                 </p>
               </div>
             </div>
@@ -68,7 +68,7 @@
 export default {
   props: {
     title: String,
-    slides: Array
+    introductionSlides: Array
   },
   data () {
     return {
