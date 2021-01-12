@@ -39,9 +39,9 @@
       <q-separator></q-separator>
       <div class="q-my-md row justify-around">
         <q-btn
-          :label="$t('common.skip')"
+          :label="$t('common.discard')"
           flat
-          color="negative"
+          color="secondary"
           @click="skipSend()"
         ></q-btn>
         <q-btn
@@ -142,6 +142,7 @@ var lineChart = {
 }
 
 export default {
+  name: 'MiBand3DataDownloadPage',
   props: {
     studyKey: String,
     taskId: Number
@@ -414,7 +415,7 @@ export default {
     },
     async skipSend () {
       // TODO: show a popup for confirmation
-      await this.storeDownloadTimestamp()
+      await this.storeDownloadDate(this.startDate)
       let studyKey = this.studyKey
       let taskId = Number(this.taskId)
       await db.setTaskCompletion(studyKey, taskId, new Date())

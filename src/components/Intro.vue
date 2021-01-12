@@ -1,9 +1,6 @@
 <template>
   <q-page>
-    <div
-      style="height: 90vh;"
-      class="q-pa-sm"
-    >
+    <div style="height: 90vh;">
       <q-carousel
         v-model="slide"
         ref="carousel"
