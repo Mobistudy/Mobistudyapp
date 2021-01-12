@@ -93,5 +93,6 @@ studies = mergeDeep(studies, smwtTask)
 studies = mergeDeep(studies, qcstTask)
 studies = mergeDeep(studies, miband3Task)
 studies = mergeDeep(studies, formTask)
-studies = mergeDeep(studies, dataQueryTask)
+studies.studies.tasks.dataQuery = dataQueryTask
+console.log(studies)
 export default studies
