@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <Intro
-      v-bind:slides="instructions"
+      v-bind:introductionSlides="instructions"
       v-on:start="start()"
     >
     </Intro>
@@ -28,7 +28,6 @@ export default {
     start () {
       const studyKey = this.studyKey
       const taskId = this.taskId
-      console.log('StudyKey ' + studyKey + ',taskId ' + taskId)
 
       this.$router.push({ name: 'dataQuery', params: { studyKey: studyKey, taskId: taskId } })
       this.$emit('updateTransition', 'fadeInDown')

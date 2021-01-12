@@ -38,10 +38,10 @@
               :slide="slide"
               class="q-pb-lg q-pl-lg q-pr-lg q-pt-sm"
             >
-              <div>
-                <p class="text-body1 text-center">
-                  {{slide.description}}
-                </p>
+              <div
+                class="text-body1 text-center"
+                v-html="slide.description"
+              >
               </div>
             </div>
           </slot>
@@ -74,9 +74,6 @@ export default {
     return {
       slide: 'slide-0'
     }
-  },
-  created () {
-    console.log('Received intructios', this.slides)
   }
 }
 </script>
