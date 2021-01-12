@@ -89,7 +89,7 @@ let studies = {
 }
 
 studies = mergeDeep(studies, smwtTask)
-studies = mergeDeep(studies, qcstTask)
+studies.studies.tasks.qcst = qcstTask
 studies.studies.tasks.miband3 = miband3Task
 studies.studies.tasks.dataQuery = dataQueryTask
 
