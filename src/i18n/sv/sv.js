@@ -18,6 +18,7 @@ let en = {
     next: 'Nästa',
     clear: 'Rensa svar',
     cancel: 'Avsluta',
+    discard: 'Kassera',
     accept: 'Acceptera',
     reject: 'Kassera',
     close: 'Stäng',
