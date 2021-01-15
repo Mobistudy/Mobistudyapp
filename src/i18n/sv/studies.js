@@ -1,6 +1,5 @@
 'use strict'
 
-import { mergeDeep } from 'modules/tools'
 import smwtTask from './tasks/smwt'
 import qcstTask from './tasks/qcst'
 import miband3Task from './tasks/miband3'
@@ -88,7 +87,7 @@ let studies = {
   }
 }
 
-studies = mergeDeep(studies, smwtTask)
+studies.studies.tasks.smwt = smwtTask
 studies.studies.tasks.qcst = qcstTask
 studies.studies.tasks.miband3 = miband3Task
 studies.studies.tasks.dataQuery = dataQueryTask
