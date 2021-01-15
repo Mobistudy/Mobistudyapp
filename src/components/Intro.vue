@@ -1,9 +1,6 @@
 <template>
   <q-page>
-    <div
-      style="height: 90vh;"
-      class="q-pa-sm"
-    >
+    <div style="height: 90vh;">
       <q-carousel
         v-model="slide"
         ref="carousel"
@@ -16,7 +13,7 @@
         class="full-height"
       >
         <q-carousel-slide
-          v-for="(slide, idx) in slides"
+          v-for="(slide, idx) in introductionSlides"
           :name="'slide-' + idx"
           :key="idx"
         >
@@ -34,14 +31,14 @@
               <q-img :src="slide.img"></q-img>
             </div>
             <div
-              v-if="slide.i"
+              v-if="slide.description"
               :slide="slide"
               class="q-pb-lg q-pl-lg q-pr-lg q-pt-sm"
             >
-              <div>
-                <p class="text-body1 text-center">
-                  {{slide.i}}
-                </p>
+              <div
+                class="text-body1 text-center"
+                v-html="slide.description"
+              >
               </div>
             </div>
           </slot>
@@ -68,15 +65,12 @@
 export default {
   props: {
     title: String,
-    slides: Array
+    introductionSlides: Array
   },
   data () {
     return {
       slide: 'slide-0'
     }
-  },
-  created () {
-    console.log('Received intructios', this.slides)
   }
 }
 </script>

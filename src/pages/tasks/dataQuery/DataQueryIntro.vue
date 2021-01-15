@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <Intro
-      v-bind:slides="$t('studies.tasks.dataQuery.slides')"
+      v-bind:introductionSlides="instructions"
       v-on:start="start()"
     >
     </Intro>
@@ -9,6 +9,7 @@
 </template>
 <script>
 import Intro from 'components/Intro.vue'
+
 export default {
   components: {
     Intro
@@ -17,11 +18,16 @@ export default {
     studyKey: String,
     taskId: Number
   },
+  computed: {
+    instructions () {
+      if (this.$q.platform.is.ios) return this.$t('studies.tasks.dataQuery.instructionSlidesiOS')
+      else return this.$t('studies.tasks.dataQuery.instructionSlidesAndroid')
+    }
+  },
   methods: {
     start () {
       const studyKey = this.studyKey
       const taskId = this.taskId
-      console.log('StudyKey ' + studyKey + ',taskId ' + taskId)
 
       this.$router.push({ name: 'dataQuery', params: { studyKey: studyKey, taskId: taskId } })
       this.$emit('updateTransition', 'fadeInDown')

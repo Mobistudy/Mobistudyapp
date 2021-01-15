@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <Intro
-      v-bind:slides="$t('studies.tasks.smwt.slides')"
+      :introductionSlides="$t('studies.tasks.smwt.introductionSlides')"
       v-on:start="start()"
     >
     </Intro>
@@ -23,7 +23,6 @@ export default {
     start () {
       const studyKey = this.studyKey
       const taskId = this.taskId
-      console.log('StudyKey ' + studyKey + ',taskId ' + taskId)
       this.$router.push({ name: 'smwt', params: { studyKey: studyKey, taskId: taskId } })
       this.$emit('updateTransition', 'fadeInDown')
     }
