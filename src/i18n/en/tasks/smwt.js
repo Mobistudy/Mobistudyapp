@@ -36,12 +36,12 @@ export default {
       description: 'Make sure the positioning is ON on your phone before starting.'
     },
     {
-      title: 'Instruction',
+      title: 'Setup',
       img: '/statics/instructions/6mwt_7.jpg',
       description: 'Hold your phone still in one hand, avoid shaking or twisting it until the test is finished.'
     },
     {
-      title: 'Instruction',
+      title: 'Setup',
       img: '/statics/instructions/6mwt_8.jpg',
       description: 'You can place your phone in a pocket or use an arm band if needed, but do not switch off the screen!'
     }

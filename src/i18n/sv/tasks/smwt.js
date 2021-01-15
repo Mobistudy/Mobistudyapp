@@ -7,57 +7,46 @@ export default {
   description: 'This task is about measuring how far you can walk in 6 minutes (6-minute walk test). Your smartphone will monitor your position while you walk and compute the total walked distance. This distance can provide indications about your exercise capacity and your general health.',
   introductionSlides: [
     {
-      title: 'Instruction',
-      img: 'https://picsum.photos/200',
+      title: 'Instructions',
+      img: '/statics/instructions/6mwt_1.jpg',
       description: 'The aim of this test is to walk as far as possible for 6 minutes.'
     },
     {
-      title: 'Instruction',
-      img: 'https://picsum.photos/200',
+      title: 'Instructions',
+      img: '/statics/instructions/6mwt_2.jpg',
       description: 'It is important that you try to walk as straight as possible. Try to avoid stairs and/or walking up/downhill.'
     },
     {
-      title: 'Instruction',
-      img: 'https://picsum.photos/200',
+      title: 'Instructions',
+      img: '/statics/instructions/6mwt_3.jpg',
       description: 'If possible, try to avoid areas with many tall buildings and / or trees as these can affect how the phone localises you.'
     },
     {
-      title: 'Instruction',
-      img: 'https://picsum.photos/200',
+      title: 'Important!',
+      img: '/statics/instructions/6mwt_4.jpg',
       description: 'You may slow down and stop if necessary. Stop immediately if you have any chest pain or dizziness.'
     },
     {
-      title: 'Instruction',
-      img: 'https://picsum.photos/200',
+      img: '/statics/instructions/6mwt_1.jpg',
       description: 'The test will automaticly stop after 6 minutes, and you will be asked to send the collected data. If you need to complete the test earlier, press the "Complete"-button.'
     },
     {
-      title: 'Instruction',
-      img: 'https://picsum.photos/200',
-      description: 'Try not to talk during the test, as this may affect your performance.'
+      title: 'Setup',
+      img: '/statics/instructions/6mwt_6.jpg',
+      description: 'Make sure the positioning is ON on your phone before starting.'
     },
     {
-      title: 'Instruction',
-      img: 'https://picsum.photos/200',
+      title: 'Setup',
+      img: '/statics/instructions/6mwt_7.jpg',
       description: 'Hold your phone still in one hand, avoid shaking or twisting it until the test is finished.'
     },
     {
-      title: 'Instruction',
-      img: 'https://picsum.photos/200',
+      title: 'Setup',
+      img: '/statics/instructions/6mwt_8.jpg',
       description: 'You can place your phone in a pocket or use an arm band if needed, but do not switch off the screen!'
-    },
-    {
-      title: 'Instruction',
-      img: 'https://picsum.photos/200',
-      i: 'When you are ready to start the test, press the "Start"-button.'
     }
   ],
-  loadingMap: 'Loading map',
-  loadingMapCannot: 'Could not load the map',
   signalCheck: 'Waiting for the GPS signal.',
-  smwtExplanation: 'Computed distance walked during a Six Minute Walk Test. If you agree to send it, tap on Send.',
-  smwtNote: 'Please read the instructions carefully. The accuracy of the test depends on the instructions being followed as closely as possible.',
-  noteGPS: 'Note: This test uses the GPS of your phone and therefore requires internet connection. If you experience errors during the test, pleae make sure that your phone is connected to the internet.',
   time: 'Time',
   steps: 'Steps',
   distance: 'Distance',
