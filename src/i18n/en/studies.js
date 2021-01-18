@@ -6,6 +6,7 @@ import qcstTask from './tasks/qcst'
 import miband3Task from './tasks/miband3'
 import formTask from './tasks/form.js'
 import dataQueryTask from './tasks/dataQuery.js'
+import po60Task from './tasks/po60.js'
 
 let studies = {
   studies: {
@@ -94,4 +95,5 @@ studies = mergeDeep(studies, qcstTask)
 studies = mergeDeep(studies, miband3Task)
 studies = mergeDeep(studies, formTask)
 studies = mergeDeep(studies, dataQueryTask)
+studies = mergeDeep(studies, po60Task)
 export default studies

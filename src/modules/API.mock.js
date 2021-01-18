@@ -259,5 +259,11 @@ export default {
     console.log('API - sending miband3 data', data)
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
+  },
+
+  async sendPO603Data (data) {
+    console.log('API - sending po60 data', data)
+    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
+    return Promise.resolve()
   }
 }

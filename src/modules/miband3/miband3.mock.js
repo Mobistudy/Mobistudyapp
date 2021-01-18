@@ -19,7 +19,7 @@ export default {
       return Promise.reject()
     }
     return new Promise((resolve, reject) => {
-      setInterval(() => {
+      setTimeout(() => {
         resolve([
           {
             id: '00:11:22:33:FF:EE',

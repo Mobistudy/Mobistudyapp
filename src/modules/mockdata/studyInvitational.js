@@ -130,6 +130,15 @@ export default {
         intervalType: 'd',
         interval: 3
       }
+    },
+    {
+      id: 6,
+      type: 'po60',
+      scheduling: {
+        startEvent: 'consent',
+        intervalType: 'd',
+        interval: 3
+      }
     }
   ],
   consent: {
@@ -179,6 +188,12 @@ export default {
           en: 'I agree to upload my data to mobistudy once a week.'
         },
         taskId: 5
+      },
+      {
+        description: {
+          en: 'I agree to upload my data to mobistudy once a week.'
+        },
+        taskId: 6
       }
     ]
   }

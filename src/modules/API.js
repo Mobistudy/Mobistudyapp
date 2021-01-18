@@ -122,5 +122,10 @@ export default {
   // send data from miBand3 stored data
   sendMiBand3Data: async function (data) {
     return axios.post(BASE_URL + '/miband3Data', data, axiosConfig)
+  },
+
+  // send data from po60 stored data
+  sendPO60Data: async function (data) {
+    return axios.post(BASE_URL + '/po60Data', data, axiosConfig)
   }
 }
