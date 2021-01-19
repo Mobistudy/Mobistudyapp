@@ -55,6 +55,7 @@ export default {
   // Get the participant profile
   getProfile: async function (userKey) {
     const resp = await axios.get(BASE_URL + '/participants/byuserkey/' + userKey, axiosConfig)
+    console.log('Response:', resp)
     return resp.data
   },
 
@@ -85,6 +86,13 @@ export default {
     return resp.data
   },
 
+  // retrieves an invitational study based on a code
+  getInvitationalStudy: async function (invitationalCode) {
+    let resp = await axios.get(BASE_URL + `/invitationalStudy/${invitationalCode}`, axiosConfig)
+    console.log('Retrieved resp:', resp)
+    return resp.data
+  },
+
   // gets a form given its key
   getForm: async function (formKey) {
     let resp = await axios.get(BASE_URL + '/forms/' + formKey, axiosConfig)
@@ -109,5 +117,10 @@ export default {
   // send data from QCST
   sendQCSTData: async function (data) {
     return axios.post(BASE_URL + '/QCSTData', data, axiosConfig)
+  },
+
+  // send data from miBand3 stored data
+  sendMiBand3Data: async function (data) {
+    return axios.post(BASE_URL + '/miband3Data', data, axiosConfig)
   }
 }

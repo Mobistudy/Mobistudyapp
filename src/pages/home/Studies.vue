@@ -1,6 +1,11 @@
 <template>
   <q-page padding>
-    <q-card bordered v-for="(study, studyIndex) in newStudies" :key="studyIndex" class="q-mb-md">
+    <q-card
+      bordered
+      v-for="(study, studyIndex) in newStudies"
+      :key="studyIndex"
+      class="q-mb-md"
+    >
       <q-card-section>
         <div class="row no-wrap">
           <div class="col">
@@ -12,57 +17,121 @@
       </q-card-section>
       <q-card-section>
         {{ $t('studies.newStudyExtraCriteria') }}:
-        <div v-for="(question, questionIndex) in study.inclusionCriteria.criteriaQuestions" :key="questionIndex">
+        <div
+          v-for="(question, questionIndex) in study.inclusionCriteria.criteriaQuestions"
+          :key="questionIndex"
+        >
           <p class="q-mt-md text-subtitle2">{{question.title[$i18n.locale]}}</p>
           <div class="row">
-            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="yes" :label="$t('common.yes')" />
-            <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="no" :label="$t('common.no')" />
+            <q-radio
+              class="col"
+              v-model="newStudiesCustomAnswers[studyIndex][questionIndex]"
+              val="yes"
+              :label="$t('common.yes')"
+            />
+            <q-radio
+              class="col"
+              v-model="newStudiesCustomAnswers[studyIndex][questionIndex]"
+              val="no"
+              :label="$t('common.no')"
+            />
           </div>
         </div>
       </q-card-section>
 
       <q-separator />
-      <div class="q-ma-sm text-negative" color="negative">
+      <div
+        class="q-ma-sm text-negative"
+        color="negative"
+      >
         <span v-show="!eligible[studyIndex] && newStudiesCustomAnswers[studyIndex].length === study.inclusionCriteria.criteriaQuestions.length">
           {{ $t('studies.notEligible') }}
         </span>
       </div>
 
       <q-card-actions align="around">
-        <q-btn flat color="negative" :label="$t('studies.discardStudy')" @click="discardStudy(studyIndex)"></q-btn>
-        <q-btn color="primary" :label="$t('studies.joinStudy')" :disable="!eligible[studyIndex]" @click="joinStudy(studyIndex)"></q-btn>
+        <q-btn
+          flat
+          color="negative"
+          :label="$t('studies.discardStudy')"
+          @click="discardStudy(studyIndex)"
+        ></q-btn>
+        <q-btn
+          color="primary"
+          :label="$t('studies.joinStudy')"
+          :disable="!eligible[studyIndex]"
+          @click="joinStudy(studyIndex)"
+        ></q-btn>
       </q-card-actions>
     </q-card>
 
-  <q-list separator bordered>
-    <q-item-label header>{{ $t('studies.activeStudies') }}</q-item-label>
-    <q-item clickable v-ripple v-for="(study, index) in activeStudies" :key="'ps' + index" @click.native="showDetails(study)">
-      <q-item-section avatar>
-          <q-icon color="primary" name="settings" />
+    <q-list
+      separator
+      bordered
+    >
+      <q-item-label header>{{ $t('studies.activeStudies') }}</q-item-label>
+      <q-item
+        clickable
+        v-ripple
+        v-for="(study, index) in activeStudies"
+        :key="'as' + index"
+        @click.native="showDetails(study)"
+      >
+        <q-item-section avatar>
+          <q-icon
+            color="primary"
+            name="settings"
+          />
         </q-item-section>
-      <q-item-section>
-        <q-item-label>{{study.generalities.title[$i18n.locale]}}</q-item-label>
-        <q-item-label caption lines="1">End Date: {{nicerDate(study.generalities.endDate)}}</q-item-label>
-      </q-item-section>
-    </q-item>
-
-    <q-item v-if="activeStudies.length === 0">
-      <q-item-section>{{ $t('studies.noActiveStudies') }}</q-item-section>
-    </q-item>
-
-    <q-separator v-if="previousStudies.length !== 0"/>
-
-    <q-item-label header v-if="previousStudies.length !== 0">{{ $t('studies.previousStudies') }}</q-item-label>
-    <q-item clickable v-ripple v-for="(study, index) in previousStudies" :key="'ps' + index" @click.native="showDetails(study)">
-      <q-item-section avatar>
-          <q-icon color="primary" name="settings" />
+        <q-item-section>
+          <q-item-label>{{study.generalities.title[$i18n.locale]}}</q-item-label>
+          <q-item-label
+            caption
+            lines="1"
+          >End Date: {{nicerDate(study.generalities.endDate)}}</q-item-label>
         </q-item-section>
-      <q-item-section>
-        <q-item-label>{{study.generalities.title[$i18n.locale]}}</q-item-label>
-      </q-item-section>
-    </q-item>
-  </q-list>
-</q-page>
+      </q-item>
+
+      <q-item v-if="activeStudies.length === 0">
+        <q-item-section>{{ $t('studies.noActiveStudies') }}</q-item-section>
+      </q-item>
+
+      <q-separator v-if="previousStudies.length !== 0" />
+
+      <q-item-label
+        header
+        v-if="previousStudies.length !== 0"
+      >{{ $t('studies.previousStudies') }}</q-item-label>
+      <q-item
+        clickable
+        v-ripple
+        v-for="(study, index) in previousStudies"
+        :key="'ps' + index"
+        @click.native="showDetails(study)"
+      >
+        <q-item-section avatar>
+          <q-icon
+            color="primary"
+            name="settings"
+          />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>{{study.generalities.title[$i18n.locale]}}</q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-list>
+    <q-page-sticky
+      position="bottom-right"
+      :offset="[18, 18]"
+    >
+      <q-btn
+        @click="showInvitationDialog"
+        fab
+        icon="add"
+        color="accent"
+      />
+    </q-page-sticky>
+  </q-page>
 </template>
 
 <script>
@@ -137,7 +206,7 @@ export default {
   },
   methods: {
     nicerDate (d) {
-      return date.formatDate(d, 'DD/MM/YY')
+      return date.formatDate(d, 'YYYY/MM/DD')
     },
     showDetails (study) {
       this.$router.push({ name: 'studyConfig', params: { studyDescription: study } })
@@ -187,7 +256,77 @@ export default {
     },
     async joinStudy (index) {
       let study = this.newStudies[index]
+      this.$emit('updateTransition', 'slideInDown')
       this.$router.push({ name: 'invitation', params: { studyDescription: study } })
+    },
+    async showInvitationDialog () {
+      try {
+        this.$q.dialog({
+          title: 'New study',
+          message: 'Paste your invitation code here',
+          color: 'primary',
+          ok: true,
+          cancel: true,
+          prompt: {
+            model: '',
+            type: 'text'
+          }
+        }).onOk((invitationCode) => {
+          this.addInvitationalStudy(invitationCode)
+        })
+      } catch (e) {
+        // nothing to do
+      }
+    },
+    async addInvitationalStudy (invitationCode) {
+      let study
+      try {
+        study = await API.getInvitationalStudy(invitationCode)
+      } catch (error) {
+        console.error('Error:', error)
+        if (error.response.status === 404) {
+          this.$q.notify({
+            color: 'negative',
+            message: this.$i18n.t('errors.invitationalStudyNotFound'),
+            icon: 'report_problem'
+          })
+        }
+        return
+      }
+      if (this.studyExists(this.newStudies, study)) {
+        this.$q.notify({
+          color: 'negative',
+          message: this.$i18n.t('errors.invitationalStudyAlreadyAdded'),
+          icon: 'report_problem'
+        })
+        return
+      }
+      if (await this.alreadyParticipateInStudy(study._key)) {
+        this.$q.notify({
+          color: 'negative',
+          message: this.$i18n.t('errors.invitationalStudyAlreadyParticipated'),
+          icon: 'report_problem'
+        })
+      } else {
+        this.newStudiesCustomAnswers.push([])
+        this.newStudies.push(study)
+      }
+    },
+    async alreadyParticipateInStudy (studyKey) {
+      const studyParticipation = await DB.getStudyParticipation(studyKey)
+      if (!studyParticipation) return false
+      else return true
+    },
+    studyExists (studies, studyToFind) {
+      console.log('Attempting to find study in app studies:', studyToFind._key)
+      let studyFound = false
+      studies.find((study) => {
+        if (study._key === studyToFind._key) {
+          studyFound = true
+        }
+      })
+      console.log('Study found:', studyFound)
+      return studyFound
     }
   }
 }

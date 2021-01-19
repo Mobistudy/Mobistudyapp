@@ -13,8 +13,8 @@ import HealthDataEnum from './healthDataTypesEnum'
 // studiesParts: the participation to studies
 // studiesDescr: description of the studies, at least those that have been consented
 // returns an object with:
-// upcoming: an array of {type: 'form', studyKey: '2121', taskID: 1, missed: false, due: '2019-04-02'}
-// missed: an array of {type: 'form', studyKey: '2121', taskID: 1, missed: true, due: '2019-04-02'}
+// upcoming: an array of {type: 'form', studyKey: '2121', taskId: 1, missed: false, due: '2019-04-02'}
+// missed: an array of {type: 'form', studyKey: '2121', taskId: 1, missed: true, due: '2019-04-02'}
 // if there is a study that has been completed because no tasks are to be done
 // then the returned object also contains:
 // completedStudyAlert: an object like { studyTitle: 'MyStudy', studyPart: participation object for that study }
@@ -85,7 +85,7 @@ export function generateTasker (studiesParts, studiesDescr) {
         let templateObj = {
           type: task.type,
           studyKey: studyDescr._key,
-          taskID: task.id
+          taskId: task.id
         }
         if (task.type === 'form') {
           templateObj.formTitle = task.formName

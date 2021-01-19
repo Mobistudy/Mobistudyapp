@@ -1,22 +1,35 @@
 <template>
-  <q-item :to="toAddress">
+  <q-item
+    @click.native="changeRoute"
+    v-if="this.task.studyKey"
+  >
     <q-item-section avatar>
-      <q-icon color="grey" :name="icon" />
+      <q-icon
+        color="grey"
+        :name="icon"
+      />
     </q-item-section>
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
       <q-item-label caption>{{ main }}</q-item-label>
     </q-item-section>
-    <q-item-section side top>{{ timeRemaining }}</q-item-section>
+    <q-item-section
+      v-if="this.isMissedTask"
+      side
+      top
+    >
+      {{ timeRemaining }}
+    </q-item-section>
   </q-item>
 </template>
 
 <script>
+
 import moment from 'moment'
 
 export default {
   name: 'TaskListItem',
-  props: ['task'],
+  props: ['task', 'isMissedTask'],
   data () {
     return {
       icon: undefined,
@@ -24,9 +37,32 @@ export default {
       main: undefined
     }
   },
+  methods: {
+    changeRoute: function () {
+      const type = this.task.type
+      const studyKey = this.task.studyKey
+      const taskId = this.task.taskId
+      const formKey = this.task.formKey
+
+      // these bring the user to the correct route depending on the task
+      if (formKey) {
+        this.$router.push({ name: 'formIntro', params: { studyKey: studyKey, taskId: taskId, formKey: formKey }, query: { icon: this.icon, title: this.title } })
+      } else if (type === 'smwt') {
+        this.$router.push({ name: 'smwtIntro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
+      } else if (type === 'qcst') {
+        this.$router.push({ name: 'qcstIntro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
+      } else if (type === 'miband3') {
+        this.$router.push({ name: 'miband3Intro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
+      } else if (studyKey && taskId) {
+        this.$router.push({ name: 'dataQueryIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
+      } else {
+        return false
+      }
+    }
+  },
   created () {
     if (this.task.type === 'dataQuery') {
-      this.title = this.$i18n.t('studies.tasks.dataQuery.title')
+      this.title = this.$i18n.t('studies.tasks.dataQuery.shortTitle')
       this.main = this.$i18n.t('studies.tasks.dataQuery.shortDescription')
       this.icon = 'insert_chart_outlined'
     } else if (this.task.type === 'form') {
@@ -41,24 +77,15 @@ export default {
       this.title = this.$i18n.t('studies.tasks.qcst.shortTitle')
       this.main = this.$i18n.t('studies.tasks.qcst.shortDescription')
       this.icon = 'layers'
+    } else if (this.task.type === 'miband3') {
+      this.title = this.$i18n.t('studies.tasks.miband3.shortTitle')
+      this.main = this.$i18n.t('studies.tasks.miband3.shortDescription')
+      this.icon = 'watch'
     }
   },
   computed: {
     timeRemaining: function () {
       return 'Due ' + moment(this.task.due).fromNow()
-    },
-    toAddress: function () {
-      if (this.task.formKey) {
-        return 'form/' + this.task.studyKey + '/' + this.task.taskID + '/' + this.task.formKey
-      } else if (this.task.type === 'smwt') {
-        return 'smwtIntro/' + this.task.studyKey + '/' + this.task.taskID
-      } else if (this.task.type === 'qcst') {
-        return 'qcstIntro/' + this.task.studyKey + '/' + this.task.taskID
-      } else if (this.task.studyKey && this.task.taskID) {
-        return 'dataQuery/' + this.task.studyKey + '/' + this.task.taskID
-      } else {
-        return false
-      }
     }
   }
 }

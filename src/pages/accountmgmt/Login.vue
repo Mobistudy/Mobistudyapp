@@ -1,24 +1,35 @@
 <template>
   <q-layout>
     <q-page-container>
-      <q-page padding class="flex flex-center">
-        <p class="q-title q-mt-lg" style="text-align: center">
-          <img src="~/assets/mobistudy_logo.svg" style="width:30vw; max-width:150px;" ><br />
+      <q-page
+        padding
+        class="flex flex-center"
+      >
+        <p
+          class="q-title q-mt-lg"
+          style="text-align: center"
+        >
+          <img
+            src="~/assets/mobistudy_logo.svg"
+            style="width:30vw; max-width:150px;"
+          ><br />
         </p>
         <div style="width: 90vw">
           <p class="text-h5">{{ $t('accountMgmt.login.login') }}</p>
           <q-input
             v-model="username"
             :label="$t('accountMgmt.email')"
-            @blur="$v.username.$touch"
-            :error="$v.username.$error" :error-message="$t('accountMgmt.emailRequiredError')"
+            @blur.native="$v.username.$touch"
+            :error="$v.username.$error"
+            :error-message="$t('accountMgmt.emailRequiredError')"
           />
           <q-input
             v-model="password"
             :label="$t('accountMgmt.password')"
             type="password"
-            @blur="$v.password.$touch"
-            :error="$v.password.$error" :error-message="$t('accountMgmt.passwordRequiredError')"
+            @blur.native="$v.password.$touch"
+            :error="$v.password.$error"
+            :error-message="$t('accountMgmt.passwordRequiredError')"
           />
           <div class="row">
             <q-btn
@@ -32,7 +43,8 @@
               class="q-ma-sm q-mb-lg full-width"
               :label="$t('accountMgmt.login.lostpw')"
               color="grey"
-              flat outline
+              flat
+              outline
               to="resetpw"
             />
             <q-list class="full-width">
@@ -44,7 +56,12 @@
               </q-item>
               <q-item class="full-width">
                 <q-item-section class="full-width">
-                  <q-btn class="full-width" :label="$t('accountMgmt.register')" color="primary" to="register_tc"/>
+                  <q-btn
+                    class="full-width"
+                    :label="$t('accountMgmt.register')"
+                    color="primary"
+                    to="register_tc"
+                  />
                 </q-item-section>
               </q-item>
             </q-list>
@@ -92,19 +109,6 @@ export default {
           // user is authenticated, return user object
           await userinfo.login(user)
           API.setToken(user.token)
-
-          // retrieve the profile information
-          let profile = await API.getProfile(userinfo.user._key)
-
-          if (!profile) {
-            // profile has not been filled in yet! must fill in now
-            this.$router.push('/register_profile')
-          } else {
-            // profile exists
-            await userinfo.setProfile(profile)
-            if (profile.studies) await DB.setStudiesParticipation(profile.studies)
-            this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
-          }
         } catch (error) {
           console.error(error)
           this.error = true
@@ -120,6 +124,19 @@ export default {
               message: this.$i18n.t('accountMgmt.login.loginError') + ': ' + error.message,
               icon: 'report_problem'
             })
+          }
+        }
+        try {
+          // retrieve the profile information
+          let profile = await API.getProfile(userinfo.user._key)
+          // profile exists
+          await userinfo.setProfile(profile)
+          if (profile.studies) await DB.setStudiesParticipation(profile.studies)
+          this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
+        } catch (error) {
+          console.log(error)
+          if (error.response.status === 404) {
+            this.$router.push('/register_profile')
           }
         }
       }

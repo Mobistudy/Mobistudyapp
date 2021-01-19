@@ -4,6 +4,8 @@ import { Dialog } from 'quasar'
 
 // this module mocks the cordova plugins of phone.js
 
+const PIN_SET = true
+
 export default {
   device: {
     cordova: '0',
@@ -104,20 +106,10 @@ export default {
       return Promise.resolve()
     }
   },
-  media: {
-    metronome: null,
-    async playSound (soundfile) {
-      var audio = new Audio(soundfile)
-      audio.play()
-    },
-    async playMetro (soundfile, cadence) {
-      var metro = new Audio(soundfile)
-      this.metronome = setInterval(function () {
-        metro.play()
-      }, cadence)
-    },
-    async stopMetro () {
-      clearInterval(this.metronome)
+  pin: {
+    async isPINSet () {
+      if (PIN_SET) return Promise.resolve()
+      else return Promise.reject()
     }
   }
 }

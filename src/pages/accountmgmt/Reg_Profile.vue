@@ -1,12 +1,16 @@
 <template>
   <q-page padding>
     <div class="row fit justify-center">
-      <div class="text-h6 text-center q-pt-md">
+      <div class="text-h5 text-center q-pt-md">
         {{ $t('accountMgmt.registration.createProfile') }}
       </div>
     </div>
 
-    <profile-editor v-model="profile" :buttonOk="$t('common.next')" @buttonOk="saveProfile()" />
+    <profile-editor
+      v-model="profile"
+      :buttonOk="$t('common.next')"
+      @buttonOk="saveProfile()"
+    />
 
   </q-page>
 </template>
@@ -30,10 +34,7 @@ export default {
         sex: '',
         diseases: [],
         medications: [],
-        lifestyle: {
-          smoker: false,
-          active: false
-        }
+        studiesSuggestions: true
       }
     }
   },
@@ -50,17 +51,11 @@ export default {
           dobTemp = this.profile.dateOfBirth
           console.error(this.profile.dateOfBirth + ' cannot be cut to date only')
         }
-        let profile = {
-          userKey: userinfo.user._key,
-          updatedTS: new Date(),
-          name: this.profile.name,
-          surname: this.profile.surname,
-          dateOfBirth: dobTemp,
-          sex: this.profile.sex,
-          diseases: this.profile.diseases,
-          medications: this.profile.medications,
-          lifestyle: this.profile.lifestyle
-        }
+        let profile = this.profile
+        profile.dateOfBirth = dobTemp
+        profile.userKey = userinfo.user._key
+        profile.updatedTS = new Date()
+        profile.createdTS = new Date()
         await API.createProfile(profile)
         await userinfo.setProfile(profile)
 

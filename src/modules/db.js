@@ -8,6 +8,10 @@ import * as storage from 'modules/storage'
 // TODO: the best solution would be including encryption, eg via https://www.npmjs.com/package/secure-web-storage
 
 export default {
+
+  async init () {
+    return storage.init()
+  },
   async emptyDB () {
     return storage.clear()
   },
@@ -17,12 +21,15 @@ export default {
     // do not delete the app version, only delete user data
     await storage.setItem('app_version', appversion)
   },
+
+  /* APP VERSION */
   async getCurrentAppVersion () {
     return storage.getItem('app_version')
   },
   async setCurrentAppVersion (version) {
     return storage.setItem('app_version', version)
   },
+
   /* AUTHENTICATION */
   async getUserSession () {
     return storage.getItem('session')
@@ -41,6 +48,10 @@ export default {
   async getStudyParticipation (studyKey) {
     let studies = await storage.getItem('studiesParticipation')
     return studies.find(sp => sp.studyKey === studyKey)
+  },
+  async getStudyParticipationTaskItemConsent (studyKey) {
+    let studyParticipation = await this.getStudyParticipation(studyKey)
+    return (studyParticipation.taskItemsConsent)
   },
   async setStudyParticipation (studyPart) {
     let studies = await storage.getItem('studiesParticipation')
@@ -71,6 +82,7 @@ export default {
     await this.setStudiesParticipation(studies)
     return Promise.resolve()
   },
+  /* Study descriptions */
   async getStudyDescription (studyKey) {
     return storage.getItem('study_' + studyKey)
     // return Promise.reject(new Error('test'))
@@ -80,6 +92,16 @@ export default {
   },
   async removeStudy (studyKey) {
     return storage.removeItem('study_' + studyKey)
+  },
+  async getTaskDescription (studyKey, taskId) {
+    const studyDes = await this.getStudyDescription(studyKey)
+    if (!studyDes) throw new Error('study with key ' + studyKey + ' does not exist')
+    return studyDes.tasks.find(x => x.id === Number(taskId))
+  },
+  async getLastCompletedTaskDate (studyKey, taskId) {
+    let taskItemConsent = await this.getStudyParticipationTaskItemConsent(studyKey)
+    let lastCompleted = taskItemConsent.find(x => x.taskId === Number(taskId)).lastExecuted
+    return lastCompleted
   },
 
   /* FORMS */
@@ -91,5 +113,18 @@ export default {
   },
   async removeFormDescription (formkey) {
     return storage.removeItem('form_' + formkey)
+  },
+
+  /* MIBAND3 */
+  async setDeviceMiBand3 (device) {
+    return storage.setItem('miband3', JSON.stringify(device))
+  },
+  async getDeviceMiBand3 () {
+    let device = await storage.getItem('miband3')
+    if (!device) return
+    return JSON.parse(device)
+  },
+  async removeDeviceMiBand3 () {
+    return storage.removeItem('miband3')
   }
 }

@@ -74,7 +74,7 @@ export default {
         startDelaySecs: 0,
         intervalType: 'd',
         interval: 1,
-        weekDays: [ ]
+        weekDays: []
       },
       dataType: 'activity',
       aggregated: true,
@@ -117,6 +117,16 @@ export default {
         months: [],
         monthDays: [],
         weekDays: []
+      }
+    },
+    {
+      id: 5,
+      type: 'miband3',
+      hrInterval: 3,
+      scheduling: {
+        startEvent: 'consent',
+        intervalType: 'd',
+        interval: 3
       }
     }
   ],
@@ -161,6 +171,12 @@ export default {
           en: 'I agree to perform a Queen\'s College Step Test once a week.'
         },
         taskId: 4
+      },
+      {
+        description: {
+          en: 'I agree to upload my data to mobistudy once a week.'
+        },
+        taskId: 5
       }
     ]
   }

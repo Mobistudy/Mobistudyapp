@@ -4,6 +4,7 @@ import study1234 from './mockdata/study1234'
 import form1234 from './mockdata/form1234'
 import form3333 from './mockdata/form3333'
 import study9999 from './mockdata/study9999'
+import studyInvitational from './mockdata/studyInvitational'
 import form9999 from './mockdata/form9999'
 import participant from './mockdata/participant'
 
@@ -158,6 +159,10 @@ export default {
         setTimeout(function () {
           resolve(study9999)
         }, 1000)
+      } else if (studyKey === '1010') {
+        setTimeout(function () {
+          resolve(studyInvitational)
+        }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study not found'))
@@ -173,6 +178,18 @@ export default {
     })
     if (!studyPart) return ['9999']
     else return []
+  },
+
+  // retrieves an invitational study based on a code
+  async getInvitationalStudy (invitationalCode) {
+    console.log('API - getting invitational study')
+    return new Promise((resolve, reject) => {
+      if (invitationalCode === studyInvitational.invitationalCode) {
+        resolve(studyInvitational)
+      } else {
+        reject(new Error('Cannot retrieve invitational study based on code.'))
+      }
+    })
   },
 
   async getForm (key) {
@@ -235,6 +252,12 @@ export default {
   async sendQCSTData (report) {
     console.log('API - sending QCST data', report)
     this.setTaskDone(report.studyKey, report.taskId, report.createdTS)
+    return Promise.resolve()
+  },
+
+  async sendMiBand3Data (data) {
+    console.log('API - sending miband3 data', data)
+    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
   }
 }
