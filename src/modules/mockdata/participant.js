@@ -31,7 +31,8 @@ export default {
         { taskId: 2, consented: true, lastExecuted: new Date(new Date().getTime() - 172800000).toISOString() }, // 2 day ago
         { taskId: 3, consented: true, lastExecuted: new Date(new Date().getTime() - 691200000).toISOString() }, // 8 days ago
         { taskId: 4, consented: true, lastExecuted: new Date(new Date().getTime() - 691200000).toISOString() }, // 8 days ago
-        { taskId: 5, consented: true, lastExecuted: new Date(new Date().getTime() - 691200000).toISOString() } // 8 days ago
+        { taskId: 5, consented: true, lastExecuted: new Date(new Date().getTime() - 691200000).toISOString() }, // 8 days ago
+        { taskId: 6, consented: true, lastExecuted: new Date(new Date().getTime() - 691200000).toISOString() } // 8 days ago
       ]
     }
   ]

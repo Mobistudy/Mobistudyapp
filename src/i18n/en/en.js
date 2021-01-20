@@ -32,6 +32,7 @@ let en = {
     start: 'Start',
     complete: 'Complete',
     send: 'Send',
+    discard: 'Discard',
     skip: 'Skip',
     back: 'Back',
     introduction: 'Introduction',

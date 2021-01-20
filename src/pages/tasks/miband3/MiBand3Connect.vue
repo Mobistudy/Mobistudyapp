@@ -27,10 +27,13 @@
     >
       <q-card>
         <div class="q-pa-sm">
-          <q-img src="https://svgshare.com/i/RBV.svg" />
+          <q-img src="/statics/instructions/miband3_tap.png" />
         </div>
         <q-card-section>
-          <div class="row no-wrap items-center">
+          <div class="
+            row
+            no-wrap
+            items-center">
             <div class="col text-h6 ellipsis">
               {{ $t('studies.tasks.miband3.tap')}}
             </div>

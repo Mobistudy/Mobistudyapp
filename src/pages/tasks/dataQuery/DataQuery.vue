@@ -13,11 +13,16 @@
         :chart-data="chartData"
         :options="chartOptions"
       ></line-chart>
-      <div class="row">
+      <div class="row justify-around">
+        <q-btn
+          color="secondary"
+          :loading="loading"
+          :label="$t('common.discard')"
+          @click="discard()"
+        />
         <q-btn
           color="primary"
           :loading="loading"
-          class="col"
           :label="$t('common.send')"
           @click="submit()"
         />
@@ -327,6 +332,12 @@ export default {
           }
         })
       }
+    },
+    async discard () {
+      let studyKey = this.studyKey
+      let taskId = Number(this.taskId)
+      await DB.setTaskCompletion(studyKey, taskId, new Date())
+      this.$router.push('/home')
     }
   }
 }

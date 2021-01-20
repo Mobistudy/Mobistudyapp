@@ -1,7 +1,6 @@
 'use strict'
+import BLEDevice from 'modules/bledevice/BLEDevice'
 
-const SEARCH_FAIL = false
-const CONNECT_FAIL = false
 const NO_DATA_FAIL = false
 const AMOUNT_OF_DATA = 10
 
@@ -10,37 +9,23 @@ export default {
   deviceToSearch: 'PO60',
 
   async scan (searchTime) {
-    if (SEARCH_FAIL) {
-      return Promise.reject()
+    try {
+      const devices = await BLEDevice.scan(this.deviceToSearch, searchTime)
+      return devices
+    } catch (error) {
+      console.log('Could not find device:', error)
     }
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const nearestDevice = {
-          id: '01:22:32:43:1D:09',
-          rssi: 100
-        }
-        this.device = nearestDevice
-        resolve(nearestDevice)
-      }, searchTime)
-    })
   },
 
   async connect () {
-    if (!this.device) throw new Error('Interface has no device object initialized.')
-    if (CONNECT_FAIL) return Promise.reject()
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(true)
-      }, 1000)
-    })
+    return this.device.connect()
+  },
+  async disconnect () {
+    return this.device.disconnect()
   },
 
   async isConnected () {
-    return Promise.resolve(true)
-  },
-
-  async disconnect () {
-    return Promise.resolve(true)
+    return this.device.isConnected()
   },
 
   async getAllData () {

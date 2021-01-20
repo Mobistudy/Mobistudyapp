@@ -85,10 +85,9 @@ export default {
   },
   methods: {
     async scan () {
-      this.devices = []
       this.showScanning = true
       try {
-        this.devices = await po60.scan(12000)
+        this.devices = await po60.scan(1000)
         console.log('All devices found:', this.devices)
         if (this.devices.length === 0) {
           this.$q.dialog({

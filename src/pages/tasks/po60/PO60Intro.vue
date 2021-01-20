@@ -1,11 +1,9 @@
 <template>
-  <div class="q-pa-md">
     <Intro
-      v-bind:slides="$t('studies.tasks.po60.introductionSlides')"
+      :introductionSlides="$t('studies.tasks.po60.introductionSlides')"
       v-on:start="start()"
     >
     </Intro>
-  </div>
 </template>
 
 <script>

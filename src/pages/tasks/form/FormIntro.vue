@@ -1,17 +1,9 @@
 <template>
   <q-page>
     <Intro
-      v-bind:slides="$t('studies.tasks.form.introductionSlides')"
+      :introductionSlides="introSlides"
       v-on:start="start()"
     >
-      <template v-slot:slide-0>
-        <div class="text-center text-h5">
-          {{introduction.title[$i18n.locale]}}
-        </div>
-        <div class="text-center text-body1 q-mt-lg">
-          <div v-html="introduction.description[$i18n.locale]"></div>
-        </div>
-      </template>
     </Intro>
   </q-page>
 </template>
@@ -19,15 +11,9 @@
 import Intro from 'components/Intro.vue'
 import API from 'modules/API'
 import DB from 'modules/db'
+
 export default {
-  data () {
-    return {
-      introduction: {
-        title: '',
-        description: ''
-      }
-    }
-  },
+  name: 'FormIntroPage',
   components: {
     Intro
   },
@@ -36,12 +22,21 @@ export default {
     taskId: Number,
     formKey: String
   },
+  data () {
+    return {
+      introSlides: [
+        {
+          title: '',
+          description: ''
+        }
+      ]
+    }
+  },
   methods: {
     start () {
       const studyKey = this.studyKey
       const taskId = this.taskId
       const formKey = this.formKey
-      console.log('StudyKey ' + studyKey + ',taskId ' + taskId, 'formKey:', formKey)
 
       this.$router.push({ name: 'form', params: { studyKey: studyKey, taskId: taskId, formKey: formKey } })
       this.$emit('updateTransition', 'fadeInDown')
@@ -58,10 +53,8 @@ export default {
       this.$q.loading.hide()
     }
 
-    this.introduction = {
-      title: formDescr.name,
-      description: formDescr.description
-    }
+    this.introSlides[0].title = formDescr.name[this.$i18n.locale]
+    this.introSlides[0].description = formDescr.description[this.$i18n.locale]
   }
 }
 </script>

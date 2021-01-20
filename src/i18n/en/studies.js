@@ -1,10 +1,8 @@
 'use strict'
 
-import { mergeDeep } from 'modules/tools'
 import smwtTask from './tasks/smwt'
 import qcstTask from './tasks/qcst'
 import miband3Task from './tasks/miband3'
-import formTask from './tasks/form.js'
 import dataQueryTask from './tasks/dataQuery.js'
 import po60Task from './tasks/po60.js'
 
@@ -90,10 +88,10 @@ let studies = {
   }
 }
 
-studies = mergeDeep(studies, smwtTask)
-studies = mergeDeep(studies, qcstTask)
-studies = mergeDeep(studies, miband3Task)
-studies = mergeDeep(studies, formTask)
-studies = mergeDeep(studies, dataQueryTask)
-studies = mergeDeep(studies, po60Task)
+studies.studies.tasks.smwt = smwtTask
+studies.studies.tasks.qcst = qcstTask
+studies.studies.tasks.miband3 = miband3Task
+studies.studies.tasks.dataQuery = dataQueryTask
+studies.studies.tasks.po60 = po60Task
+
 export default studies

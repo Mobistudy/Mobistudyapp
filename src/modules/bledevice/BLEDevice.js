@@ -10,6 +10,7 @@ export default class BLEDevice {
     }
 
     static async scan (deviceName, searchTime) {
+      console.log('In regular')
       return new Promise((resolve, reject) => {
         const devices = []
         this.ble.startScan([], (deviceFound) => {
