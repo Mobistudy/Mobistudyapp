@@ -33,7 +33,11 @@ export default {
   activityTypes: {
     walk: 'Walking',
     charging: 'charging',
+    not_worn: 'not worn',
+    sedentary: 'sedentary',
+    running: 'running',
     activity_high: 'intense activity',
+    activity_low: 'low activity',
     sleep: 'sleeping',
     unknown: 'Unknown'
   },
