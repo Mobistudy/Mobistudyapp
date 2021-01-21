@@ -1,5 +1,5 @@
 'use strict'
-import BLEDevice from 'modules/bledevice/BLEDevice'
+import PulseOxDevice from 'modules/po60/PulseOxDevice'
 
 const NO_DATA_FAIL = false
 const AMOUNT_OF_DATA = 10
@@ -10,14 +10,16 @@ export default {
 
   async scan (searchTime) {
     try {
-      const devices = await BLEDevice.scan(this.deviceToSearch, searchTime)
+      const devices = await PulseOxDevice.scan(this.deviceToSearch, searchTime)
       return devices
     } catch (error) {
       console.log('Could not find device:', error)
     }
   },
 
-  async connect () {
+  async connect (device) {
+    const po60Device = new PulseOxDevice(device)
+    this.device = po60Device
     return this.device.connect()
   },
   async disconnect () {
@@ -67,7 +69,7 @@ export default {
     return Promise.resolve(latestData)
   },
   randomNum (min, max) {
-    return Math.floor(Math.random() * Math.floor(max)) + min
+    return Math.floor(Math.floor(Math.random() * Math.floor(max - min)) + min)
   }
 
 }

@@ -12,14 +12,11 @@ export default {
   async scan (searchTime) {
     const foundDevices = await PulseOxDevice.scan(this.deviceToSearch, searchTime)
     if (!foundDevices) return Promise.reject()
-
-    const nearestDevice = foundDevices[0]
-    if (!this.device && nearestDevice) this.device = new PulseOxDevice(nearestDevice.id) // Return the first device found
-    return nearestDevice
+    return foundDevices
   },
 
-  async connect () {
-    if (!this.device) return Promise.reject()
+  async connect (device) {
+    if (!this.device) this.device = new PulseOxDevice(device) // Return the first device found
     return this.device.connect()
   },
 

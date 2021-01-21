@@ -22,10 +22,10 @@ export default {
   scanning: 'Scanning for nearby pulse oximeter',
   scanFailed: 'There was a problem while scanning for your pule oximeter, do you want to retry?',
   noDeviceTitle: 'No pulse oximeter found',
-  noDevice: 'Could not find any pulse oximeter. Please make sure Bluetooth is activated on your phone. Would you like to search again?',
+  noDevice: 'Could not find any pulse oximeter. Please make sure Bluetooth is activated on your phone. Would you like to try again?',
   moreDevices: 'More than one pulse oximeter device was found. The nearest in proximity is the first device in the list. Please tap on one to connect to it.',
-  tap: 'Tap the activity tracker!',
-  connectionFail: 'Cannot connect to the device, would you like to retry?',
+  takeMeasurement: 'Please put your finger in the device, press the on button and remove your finger once you see a measurement on the screen!',
+  connectionFail: 'Cannot connect to the device. Please make sure the device is showing "SYNC" when you pull your finger out after taking a measurement. Would you like to retry?',
   connecting: 'Connecting to the pulse oximeter',
   healthData: {
     hr: 'Heart rate',

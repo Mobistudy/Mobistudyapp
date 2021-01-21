@@ -19,7 +19,7 @@
     </q-list>
 
     <q-dialog
-      v-model="tapToAuthDialog"
+      v-model="instructionDialog"
       transition-show="scale"
       transition-hide="scale"
       no-esc-dismiss
@@ -27,12 +27,12 @@
     >
       <q-card>
         <div class="q-pa-sm">
-          <q-img src="https://svgshare.com/i/RBV.svg" />
+          <!-- <q-img src="" /> TODO add image -->
         </div>
         <q-card-section>
           <div class="row no-wrap items-center">
-            <div class="col text-h6 ellipsis">
-              {{ $t('studies.tasks.po60.tap')}}
+            <div class="col text-body1">
+              <p>{{ $t('studies.tasks.po60.takeMeasurement')}}</p>
             </div>
           </div>
         </q-card-section>
@@ -65,7 +65,6 @@
 <script>
 import po60 from 'modules/po60/IPulseOxDevice'
 import db from 'modules/db.js'
-import userinfo from 'modules/userinfo'
 
 export default {
   name: 'PO60ConnectPage',
@@ -76,7 +75,7 @@ export default {
   data () {
     return {
       devices: [],
-      tapToAuthDialog: false,
+      instructionDialog: false,
       showScanning: false,
       showConnecting: false,
       connectionAttempts: 0,
@@ -85,9 +84,11 @@ export default {
   },
   methods: {
     async scan () {
-      this.showScanning = true
+      this.instructionDialog = true
+
       try {
-        this.devices = await po60.scan(1000)
+        this.devices = await po60.scan(25000)
+        this.instructionDialog = false
         console.log('All devices found:', this.devices)
         if (this.devices.length === 0) {
           this.$q.dialog({
@@ -107,6 +108,7 @@ export default {
         } else {
           // sort devices by RSSI, desc
           this.devices.sort((d1, d2) => { return d2.rssi - d1.rssi })
+          this.connect(this.devices[0]) // connect to the device with the greatest signal strength, which probably is the one in nearest proximity.
         }
       } catch (err) {
         console.error('Scan error', err)
@@ -122,34 +124,20 @@ export default {
           this.abandon()
         })
       }
-      this.showScanning = false
     },
     // connect to the selected device
     async connect (device) {
-      this.showConnecting = true
+      this.instructionDialog = true
       try {
         this.connectionAttempts++
         await po60.connect(device)
-        // Authenticate after connect.
-        if (!device.authenticated) this.tapToAuthDialog = true
-        await po60.authenticate(device.authenticated)
-
-        // configure the watch
-        let user = userinfo.user
-        const taskDescr = await db.getTaskDescription(this.studyKey, this.taskId)
-        await po60.configure(user, taskDescr.hrInterval)
-
-        this.tapToAuthDialog = false
-        this.showConnecting = false
-
         // save the device!
         device.authenticated = true
-        await db.setDeviceMiBand3(device)
-
+        await db.setDevicePO60(device)
+        this.instructionDialog = false
         this.moveToDownloadPage()
       } catch (error) {
         console.error(error)
-        this.showConnecting = false
         // TODO: there should be a third button in case the user has a new miband
         // this cannot be done using the dialog plugin, so a complete dialog should be designed
         // Rarely connects on the first attempt, should need at least 3.
@@ -157,9 +145,11 @@ export default {
           console.log('Attempting connect again...', this.connectionAttempts)
           this.connect(device)
         } else {
+          this.connectionAttempts = 0 // reset attempt
+          this.instructionDialog = false
           this.$q.dialog({
-            title: this.$t('studies.errors.error'),
-            message: this.$t('studies.tasks.miband3.connectionFail'),
+            title: this.$t('errors.error'),
+            message: this.$t('studies.tasks.po60.connectionFail'),
             cancel: this.$t('common.cancel'),
             ok: this.$t('common.retry'),
             persistent: true

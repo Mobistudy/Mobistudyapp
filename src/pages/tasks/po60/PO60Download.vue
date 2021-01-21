@@ -1,18 +1,38 @@
 <template>
   <q-page id="main">
+    <div class="flex col text-center justify-center">
+      <div class="q-pa-md">
+        <h6>{{titleHRAvg}}</h6>
         <q-circular-progress
+        show-value
         :indeterminate="isDownloading"
-        size="90px"
+        :value="storedData !== undefined ? 100 : 0"
+        size="80px"
         :thickness="0.2"
-        color="lime"
-        center-color="grey-8"
+        color="blue"
+        center-color="blue-1"
         track-color="transparent"
         >
-        <div v-if="!isDownloading && storedData">{{ storedData.avgHR }}</div>
+        {{avgHR}}
         </q-circular-progress>
-      <div class=" text-center text-g6">
-      <q-separator></q-separator>
-      <div class="q-my-md row justify-around">
+      </div>
+      <div class="q-pa-md">
+        <h6>{{titleSPO2Avg}}</h6>
+        <q-circular-progress
+        show-value
+        :indeterminate="isDownloading"
+        :value="storedData !== undefined ? 100 : 0"
+        size="80px"
+        :thickness="0.2"
+        color="blue"
+        center-color="blue-1"
+        track-color="transparent"
+        >
+        {{avgSPO2}}
+        </q-circular-progress>
+      </div>
+    </div>
+      <div class="q-my-md row justify-around fixed-bottom">
         <q-btn
           :label="$t('common.skip')"
           flat
@@ -25,7 +45,6 @@
           @click="sendData()"
         ></q-btn>
       </div>
-    </div>
     <q-inner-loading :showing="isSending">
       <div class="text-overline">{{ $t('studies.tasks.po60.dataSending') }}</div>
       <q-spinner-oval
@@ -52,18 +71,29 @@ export default {
     return {
       isDownloading: false,
       isSending: false,
-      storedData: undefined
+      storedData: undefined,
+      titleSPO2Avg: 'Blood oxygen saturation',
+      titleHRAvg: 'Heart beats per minute',
+      avgHR: '',
+      avgSPO2: ''
+    }
+  },
+  watch: {
+    storedData: function (val) {
+      console.log('here', val)
+      this.avgHR = val.hrAvg + ''
+      this.avgSPO2 = val.SPO2Avg + '%'
     }
   },
   methods: {
     async downloadData () {
       this.isDownloading = true
-
-      let startDate = new Date()
+      await this.delay(1)
       try {
         this.storedData = await po60.getLatestData()
+        console.log('Stored data:', this.storedData)
         if (this.storedData.length < 0) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
-          await this.storeDownloadDate(startDate)
+          await this.storeDownloadDate(new Date())
           this.$router.push({ name: 'notEnoughDataPage' })
           return
         }
@@ -76,9 +106,10 @@ export default {
         }
       } catch (err) {
         console.error('cannot download data', err)
-        this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective.
+        this.showErrorDialog()
       }
       this.isDownloading = false
+      console.log('Bool:', (!this.isDownloading && this.storedData !== undefined))
     },
     async storeDownloadDate (date) {
       let device = await db.getDevicePO60()
@@ -95,7 +126,7 @@ export default {
         persistent: true
       }).onOk(() => {
         // retry
-        this.downloadData()
+        this.$router.push({ name: 'po60Intro', params: { studyKey: this.studyKey, taskId: this.taskId } })
       }).onCancel(() => {
         // cancel and go home
         this.cancelTask()
@@ -115,7 +146,7 @@ export default {
 
     async skipSend () {
       // TODO: show a popup for confirmation
-      await this.storeDownloadTimestamp()
+      await this.storeDownloadDate(new Date())
       let studyKey = this.studyKey
       let taskId = Number(this.taskId)
       await db.setTaskCompletion(studyKey, taskId, new Date())
@@ -140,7 +171,7 @@ export default {
         this.isSending = false
         // go back to home page
         this.$router.push('/home')
-      } catch (error) {
+      } catch (error) { // TODO: onDismiss doesn't work when there is no server connection!
         this.isSending = false
         console.error(error)
         this.$q.notify({
@@ -163,6 +194,7 @@ export default {
     }
   },
   async mounted () {
+    console.log('Down studyKey:', this.studyKey)
     await this.downloadData()
   },
   async beforeDestroy () {

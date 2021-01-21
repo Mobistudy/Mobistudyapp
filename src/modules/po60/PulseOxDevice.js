@@ -1,4 +1,4 @@
-import BLEDevice from '../bledevice/BLEDevice'
+import BLEDevice from 'modules/bledevice/BLEDevice'
 import CustomDate from './CustomDate'
 export default class PulseOxDevice extends BLEDevice {
     SERVICE_UUID = '0000ff12-0000-1000-8000-00805f9b34fb'
@@ -10,7 +10,7 @@ export default class PulseOxDevice extends BLEDevice {
       let currentDate = new Date()
       let customDate = new CustomDate(currentDate)
       let dateByteArray = customDate.getDateByteArrayPO60()
-      dateByteArray[0] = 0
+
       dateByteArray.splice(5)
 
       let packetByteArray = []
@@ -27,26 +27,28 @@ export default class PulseOxDevice extends BLEDevice {
       packetByteArray.unshift(firstByte)
 
       const finalPacket = new Uint8Array(packetByteArray)
-      return this.sendWithoutResponse(finalPacket)
+      return super.writeWithoutResponse(finalPacket)
     }
     async getFirstData () {
       const byteArray = new Uint8Array([-103, 0, 25])
-      return this.sendWithoutResponse(byteArray)
+      return super.writeWithoutResponse(byteArray)
     }
     async getNextData () {
       const byteArray = new Uint8Array([-103, 1, 26])
-      return this.sendWithoutResponse(byteArray)
+      return super.writeWithoutResponse(byteArray)
     }
     async getAllData () {
       return new Promise((resolve, reject) => {
         this.disconnectCallback = reject
-        this.ble.startNotification(this.deviceId, this.SERVICE_UUID, this.READ_CHAR_UUID, dataResponse => {
+        window.ble.startNotification(this.deviceId, this.SERVICE_UUID, this.READ_CHAR_UUID, dataResponse => {
           let responseArray = Buffer.from(dataResponse)
           if (responseArray.length > 0 && responseArray[0] === 243 && responseArray[1] === 0) {
             this.getFirstData()
           } else {
             this.addToRecord(responseArray)
+            console.log('Buffer:', this.buffer)
             if (this.isAllDataTransferred()) {
+              console.log('All data is retrieved')
               const record = this.assembleFinalRecord()
               this.buffer = []
               resolve(record)
@@ -61,7 +63,9 @@ export default class PulseOxDevice extends BLEDevice {
       })
     }
     async getLatestData () {
+      console.log('Retrieving latest data')
       let record = await this.getAllData()
+      console.log('Latest data retrieved')
       let latestRecord = record[record.length - 1]
       return latestRecord
     }
@@ -75,7 +79,8 @@ export default class PulseOxDevice extends BLEDevice {
 
         const nextValueHex = this.paddHex(this.buffer[i + 1].toString(16))
         const remainingValues = (this.buffer.length - 1) - i
-        if (nextValueHex.charAt(0) === '4' && remainingValues === 24) return true
+        console.log('Next value:', nextValueHex, 'Remaining:', remainingValues)
+        if (nextValueHex.charAt(0) === '4' && remainingValues === 23) return true
       }
       return false
     }
@@ -93,16 +98,20 @@ export default class PulseOxDevice extends BLEDevice {
       if (this.buffer.length === 0) return // Record is empty
       let assembledRecord = []
       let currentRecord = []
+      console.log('Assembling record:', this.buffer.length)
       for (let i = 0; i < this.buffer.length; i++) {
-        currentRecord.push(this.buffer[i])
-        if (((i + 1) % 24) === 0) { // Every 24 data points
+        if ((i !== 0 && this.buffer[i] === 233) || i === this.buffer.length - 1) { // Every 24 data points
+          if (i === this.buffer.length - 1) currentRecord.push(this.buffer[i])
           assembledRecord.push(currentRecord)
           currentRecord = []
         }
+        currentRecord.push(this.buffer[i])
       }
       // Creates an array of objects with the relevant data inside of each array of 24 bytes.
       let record = []
       for (let measurement of assembledRecord) {
+        console.log('Measurement:', measurement)
+        console.log('Year', measurement[2])
         let measurementObject = {}
         Object.assign(measurementObject, this.getTimestampValues(measurement))
         Object.assign(measurementObject, this.getHRValues(measurement))
@@ -138,7 +147,7 @@ export default class PulseOxDevice extends BLEDevice {
     }
     getStartTimestamp (measurement) {
       const year = measurement[2] + 2000
-      const month = measurement[3]
+      const month = measurement[3] - 1
       const day = measurement[4]
       const hour = measurement[5]
       const minute = measurement[6]
@@ -148,7 +157,7 @@ export default class PulseOxDevice extends BLEDevice {
     }
     getEndTimestamp (measurement) {
       const year = measurement[8] + 2000
-      const month = measurement[9]
+      const month = measurement[9] - 1
       const day = measurement[10]
       const hour = measurement[11]
       const minute = measurement[12]

@@ -191,7 +191,7 @@ export default {
         this.isDownloading = false
       } catch (err) {
         console.error('cannot download data', err)
-        this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective.
+        this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective. ?? Retry moves to Connect page, make sure i am disconnected.
       }
     },
     async storeDownloadDate (date) {

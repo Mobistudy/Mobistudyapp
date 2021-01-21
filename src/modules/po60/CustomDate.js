@@ -24,6 +24,7 @@ class CustomDate {
     let count = 0
     for (let dateItem of this) {
       if (count === 0) {
+        console.log('Retrieved date year:', dateItem)
         dateByteArray.push(dateItem - 2000) // If year is 2020, then one byte would contain the number 2020 - 2000 = 20
         count++
       } else {

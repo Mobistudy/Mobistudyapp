@@ -86,7 +86,7 @@ export default {
     } else if (this.task.type === 'po60') {
       this.title = this.$i18n.t('studies.tasks.po60.shortTitle')
       this.main = this.$i18n.t('studies.tasks.po60.shortDescription')
-      this.icon = 'favorite_border'
+      this.icon = 'touch_app'
     }
   },
   computed: {

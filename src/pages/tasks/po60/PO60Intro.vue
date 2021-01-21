@@ -19,6 +19,7 @@ export default {
   },
   methods: {
     start () {
+      console.log('Study key:', this.studyKey)
       this.$router.push({ name: 'po60Connect', params: { studyKey: this.studyKey, taskId: this.taskId } })
     }
   }

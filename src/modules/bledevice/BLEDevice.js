@@ -1,7 +1,6 @@
 export default class BLEDevice {
     device = undefined
     deviceId = undefined
-    ble = window.ble
     disconnectCallback = undefined
 
     constructor (device) {
@@ -13,14 +12,14 @@ export default class BLEDevice {
       console.log('In regular')
       return new Promise((resolve, reject) => {
         const devices = []
-        this.ble.startScan([], (deviceFound) => {
+        window.ble.startScan([], (deviceFound) => {
           if (deviceFound.name === deviceName) devices.push(deviceFound)
         }, (failureResponse) => {
           console.log('Start scan failed.', failureResponse)
           reject()
         })
         setTimeout(() => {
-          this.ble.stopScan((success) => {
+          window.ble.stopScan((success) => {
             resolve(devices)
           }, (failureResponse) => {
             console.log('Stop scan failed.', failureResponse)
@@ -33,7 +32,7 @@ export default class BLEDevice {
     async connect () {
       return new Promise((resolve, reject) => {
         this.disconnectCallback = reject
-        this.ble.connect(
+        window.ble.connect(
           this.deviceId,
           success => {
             resolve(success)
@@ -50,7 +49,7 @@ export default class BLEDevice {
         return Promise.resolve()
       } else {
         return new Promise((resolve, reject) => {
-          this.ble.disconnect(
+          window.ble.disconnect(
             this.deviceId,
             success => {
               console.log('Disconnect succeded.')
@@ -67,7 +66,7 @@ export default class BLEDevice {
     async isConnected () {
       if (!this.deviceId) return Promise.resolve(false)
       return new Promise((resolve, reject) => {
-        this.ble.isConnected(
+        window.ble.isConnected(
           this.deviceId,
           success => {
             console.log('IsConnected succeeded.')
@@ -82,7 +81,7 @@ export default class BLEDevice {
     }
     async writeWithoutResponse (data) {
       return new Promise((resolve, reject) => {
-        this.ble.writeWithoutResponse(
+        window.ble.writeWithoutResponse(
           this.deviceId,
           this.SERVICE_UUID,
           this.WRITE_CHAR_UUID,
