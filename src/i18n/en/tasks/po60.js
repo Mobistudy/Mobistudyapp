@@ -33,5 +33,7 @@ export default {
   healthData: {
     hr: 'Heart rate',
     spo2: 'Oxygen saturation'
-  }
+  },
+  dataHRTitle: 'Heart beats per minute',
+  dataSPO2Title: 'Blood oxygen saturation'
 }

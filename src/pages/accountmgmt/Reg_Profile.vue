@@ -10,6 +10,8 @@
       v-model="profile"
       :buttonOk="$t('common.next')"
       @buttonOk="saveProfile()"
+      v-on:language-changed="forceRerender"
+      :key="componentKey"
     />
 
   </q-page>
@@ -35,7 +37,8 @@ export default {
         diseases: [],
         medications: [],
         studiesSuggestions: true
-      }
+      },
+      componentKey: 0
     }
   },
   methods: {
@@ -67,6 +70,10 @@ export default {
           icon: 'report_problem'
         })
       }
+    },
+    forceRerender () {
+      console.log('Rerendering...')
+      this.componentKey += 1
     }
   }
 }

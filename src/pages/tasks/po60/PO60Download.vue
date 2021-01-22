@@ -72,8 +72,8 @@ export default {
       isDownloading: false,
       isSending: false,
       storedData: undefined,
-      titleSPO2Avg: 'Blood oxygen saturation',
-      titleHRAvg: 'Heart beats per minute',
+      titleSPO2Avg: this.$t('studies.tasks.po60.dataSPO2Title'),
+      titleHRAvg: this.$t('studies.tasks.po60.dataHRTitle'),
       avgHR: '',
       avgSPO2: ''
     }
