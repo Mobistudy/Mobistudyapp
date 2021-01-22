@@ -72,7 +72,6 @@ export default {
       }
     },
     forceRerender () {
-      console.log('Rerendering...')
       this.componentKey += 1
     }
   }
