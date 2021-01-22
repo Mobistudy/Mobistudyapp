@@ -7,17 +7,17 @@ export default {
   description: 'This task is about measuring how far you can walk in 6 minutes (6-minute walk test). Your smartphone will monitor your position while you walk and compute the total walked distance. This distance can provide indications about your exercise capacity and your general health.',
   introductionSlides: [
     {
-      title: 'Instructions',
+      title: 'Instruction',
       img: '/statics/instructions/6mwt_1.jpg',
       description: 'The aim of this test is to walk as far as possible for 6 minutes.'
     },
     {
-      title: 'Instructions',
+      title: 'Instruction',
       img: '/statics/instructions/6mwt_2.jpg',
       description: 'It is important that you try to walk as straight as possible. Try to avoid stairs and/or walking up/downhill.'
     },
     {
-      title: 'Instructions',
+      title: 'Instruction',
       img: '/statics/instructions/6mwt_3.jpg',
       description: 'If possible, try to avoid areas with many tall buildings and / or trees as these can affect how the phone localises you.'
     },

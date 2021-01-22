@@ -1,39 +1,37 @@
 'use strict'
 
 export default {
-  title: 'Pulse oximeter download',
-  shortTitle: 'Pulse oximeter',
-  shortDescription: 'Extract data from your pulse oximeter',
+  title: 'Mätning av syremättnadsnivå',
+  shortTitle: 'Pulsoximeter',
+  shortDescription: 'Mät din syremättnadsnivå',
   introductionSlides: [
-    { title: 'Instruction',
-      img: 'https://picsum.photos/200',
-      description: 'In this task you will connect to your Beurer PO60 Pulse Oximeter device and download your health data from it including heart rate and oxygen saturation levels.'
+    {
+      title: 'Setup',
+      img: '/statics/instructions/po60_1.jpg',
+      description: 'I den här uppgiften kommer du att mäta din syremättnadsnivå med hjälp av beurer PO60 pulsoximetern.'
     },
-    { title: 'Instruction',
-      img: 'https://picsum.photos/200',
-      description: 'In order for the phone to connect to the pulse oximeter, please, make sure that Blueetooth is activated on the phone, that the pulse oximeter is charged and nearby the phone.'
+    {
+      title: 'Instructions',
+      img: '/statics/instructions/po60_2.jpg',
+      description: 'Placera ditt finger i pulsoximetern, vänta tills hjärtfrekvens och syremättnadsnivån visas på skärmen och ta sedan ut ditt finger.'
     },
-    { title: 'Instruction',
-      img: 'https://picsum.photos/200',
-      description: 'If it is the first time you connect to the pulse oximeter, the pulse oximeter will ask you to confirm the connection to the phone by entering the code shown on the pulse oximeter devices screen into a popup dialog on your phone. To proceed, tap on "Connect" below.'
+    {
+      title: 'Viktigt!',
+      img: '/statics/instructions/po60_3.jpg',
+      description: 'Säkerställ att blåtanden är aktiverad på din telefon. Om det är första gången du ansluter till pulsoximeter, kommer mobilen att be dig konfirmera anslutningen genom att skriva in koden du ser på pulsoximetern skärm i mobilen.'
     }
   ],
-  connect: 'Connect',
-  scanning: 'Scanning for nearby pulse oximeter',
-  scanFailed: 'There was a problem while scanning for your pule oximeter, do you want to retry?',
-  noDeviceTitle: 'No pulse oximeter found',
-  noDevice: 'Could not find any pulse oximeter. Please make sure Bluetooth is activated on your phone. Would you like to search again?',
-  moreDevices: 'More than one pulse oximeter device was found. The nearest in proximity is the first device in the list. Please tap on one to connect to it.',
-  tap: 'Tap the activity tracker!',
-  connectionFail: 'Cannot connect to the device, would you like to retry?',
-  connecting: 'Connecting to the pulse oximeter',
+  connect: 'Anslut',
+  scanning: 'Söker efter pulsoximetern.',
+  scanFailed: 'Ett problem uppstod vid sökning efter pulsoximetern, vill du försöka igen?',
+  noDeviceTitle: 'Ingen pulsoximeter hittades.',
+  noDevice: 'Kunde inte hitta en pulsoximeter. Var god och se till att blåtanden är aktiverad på din mobil. Vill du försöka igen?',
+  moreDevices: 'Mer än en pulsoximeter hittades. Den närmsta enheten är längst upp i listan. Var god tryck på den enheten du vill ansluta till.',
+  takeMeasurement: 'Var god och sätt in fingret i pulsoximetern, tryck på dess knapp och ta ut ditt finger när du ser ett mätvärde på skärmen.',
+  connectionFail: 'Kan inte ansluta till pulsoximetern. Vill du försöka igen?',
+  connecting: 'Ansluter till pulsoximetern',
   healthData: {
-    hr: 'Heart rate',
-    spo2: 'Oxygen saturation'
-  },
-  dataDownload: 'Downloading data',
-  dataDownloadError: 'Could not retrieve data from the pulse oximeter, please retry or cancel.',
-  dataSending: 'Sending data',
-  pieChart: 'Time spent in each activity',
-  hours: 'hours'
+    hr: 'Hjärtfrekvens',
+    spo2: 'Syremättnadsnivå'
+  }
 }

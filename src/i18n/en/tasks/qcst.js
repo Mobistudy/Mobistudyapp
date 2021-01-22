@@ -21,7 +21,7 @@ export default {
       description: 'Alternatively, to measure your pulse manually, you can count the number of heart beats for 15 seconds and multiply the count by four.'
     },
     {
-      title: 'Instructions',
+      title: 'Instruction',
       img: '/statics/instructions/qcst_4.jpg',
       description: 'This is a paced test with a four-step cadence: foot 1 up, foot 2 up, foot 1 down, foot 2 down.'
     },

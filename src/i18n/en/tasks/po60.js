@@ -11,9 +11,9 @@ export default {
       description: 'In this task you will measure your blood oxygen saturation using the Beurer PO60 pulse-oximeter.'
     },
     {
-      title: 'Instructions',
+      title: 'Instruction',
       img: '/statics/instructions/po60_2.jpg',
-      description: 'Place your finger in the pulse-oximeter, wait until the heart rate and the oxigen saturation values are visible and remove your finger.'
+      description: 'Place your finger in the pulse-oximeter, wait until the heart rate and the oxygen saturation values are visible and remove your finger.'
     },
     {
       title: 'Important!',

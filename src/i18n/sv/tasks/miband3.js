@@ -1,50 +1,50 @@
 'use strict'
 
 export default {
-  title: 'Activity tracker download',
-  shortTitle: 'Activity tracker',
-  shortDescription: 'Extract data from your activity tracker',
+  title: 'Nedladdning av aktivitetsdata',
+  shortTitle: 'Aktivitetsarmband',
+  shortDescription: 'Hämta data från ditt aktivitetsarmband',
   introductionSlides: [
     {
       title: 'Introduction',
       img: '/statics/instructions/miband3_1.png',
-      description: 'In this task you will connect to your MiBand smart bracelet and download your activity data from it including steps, heart rate, activity and sleep.'
+      description: 'I den här uppgiften kommer du att ansluta till ditt Mibandarmband och ladda ner aktivitetsdata, inklusive stegräkning, hjärtfrekvens, aktivitet och sömninformation.'
     },
     {
-      title: 'Setup',
+      title: 'Inställning',
       img: '/statics/instructions/miband3_2.png',
-      description: 'In order for the phone to connect to the MiBand, please, make sure that Blueetooth is activated on the phone, that the Miband is charged and nearby the phone.'
+      description: 'För att du ska kunna ansluta till Mibandarmbandet med mobilen, var god att försäkra dig om att blåtanden är aktiverad på din mobil, att armbandet är laddat och är i närheten av mobilen.'
     },
     {
-      title: 'Important!',
+      title: 'Viktigt!',
       img: '/statics/instructions/miband3_tap.png',
-      description: 'If it is the first time you connect to the MiBand, the MiBand will ask you to confirm the connection to the phone by tapping on it. Please tap on the bracelet when you feel the vibration on the wrist.'
+      description: 'Om det är första gången du ansluter till mibandarmbandet, då kommer armbandet att be dig att konfirmera anslutningen till mobilen genom att trycka på armbandet. Var god och tryck på armbandet när du känner att den vibrerar på din handled.'
     }
   ],
-  connect: 'Connect',
-  searching: 'Searching for nearby Miband',
-  searchFailed: 'There was a problem while searching for your MiBand, do you want to retry?',
-  noDeviceTitle: 'No MiBand found',
-  noDevice: 'Could not find any MiBand. Please make sure Bluetooth is activated on your phone. Would you like to search again?',
-  moreDevices: 'More than one MiBand device was found. The nearest in proximity is the first device in the list. Please tap on one to connect to it.',
-  tap: 'Tap the activity tracker!',
-  connectionFail: 'Cannot connect to the device, would you like to retry?',
-  connecting: 'Connecting to the Miband',
+  connect: 'Anslut',
+  searching: 'Letar efter närmaste MiBand',
+  searchFailed: 'Ett problem uppstod med sökningen efter MiBand, vill du försöka igen?',
+  noDeviceTitle: 'Inget MiBand hittat',
+  noDevice: 'Kunde inte hitta ett MiBand armband. var god och se till att blåtanden är aktiverad på din mobil. Vill du söka efter armbandet igen?',
+  moreDevices: 'Fler än en MiBand enhet hittades. Det närmaste armbandet hittar du längst upp i listan. Tryck på den enheten du vill ansluta till.',
+  tap: 'Tryck på aktivitetsarmbandet!',
+  connectionFail: 'Kan inte ansluta till armbandet, vill du försöka igen?',
+  connecting: 'Ansluter till MiBand armbandet',
   activityTypes: {
-    walk: 'Walking',
-    charging: 'charging',
-    activity_high: 'intense activity',
-    sleep: 'sleeping',
-    unknown: 'Unknown'
+    walk: 'Går',
+    charging: 'Laddar',
+    activity_high: 'Intensiv aktivitet',
+    sleep: 'Sover',
+    unknown: 'Okänd'
   },
-  dataDownload: 'Downloading data',
-  dataDownloadError: 'Could not retrieve data from the band, please retry or cancel.',
-  dataSending: 'Sending data',
-  chartsIntro: 'The following charts summarize the data that have been retrieved from the band. Tap on "Send" to share these data with the research team or tap on "Discard" to avoid sending these data.',
-  lineChart: 'Activity over time',
-  hrs: 'heart rate',
-  intensities: 'intensity',
-  steps: 'steps',
-  pieChart: 'Time spent in each activity',
-  hours: 'hours'
+  dataDownload: 'Laddar ner data',
+  dataDownloadError: 'Kunde inte ladda ner data från armbandet, var god försök igen eller avbryt.',
+  dataSending: 'Skickar data',
+  chartsIntro: 'Följande diagram sammanfattar den insamlade datan från ditt aktivitetsarmband. Tryck på "Skicka" för att dela datan med forskningslaget eller tryck på "Kassera" för att inte skicka datan.',
+  lineChart: 'Aktivitet över tid',
+  hrs: 'Hjärtfrekvens',
+  intensities: 'Intensitet',
+  steps: 'Steg',
+  pieChart: 'Tid spenderad i varje aktivitet',
+  hours: 'Timmar'
 }

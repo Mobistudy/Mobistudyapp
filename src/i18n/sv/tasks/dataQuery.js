@@ -1,31 +1,31 @@
 'use strict'
 
 export default {
-  title: 'Data Query',
-  shortDescription: 'Queries HealthKit and GoogleFit for activity data',
-  shortTitle: 'Data Query',
-  description: 'This task downloads your activity data from either GoogleFit or HealthKit.',
+  title: 'Data begäran',
+  shortDescription: 'Ber HealthKit och GoogleFit om aktivitetsdata',
+  shortTitle: 'Data begäran',
+  description: 'Den här uppgiften laddar ner din aktivitetsdata från antingen Google Fit eller Apple HealthKit',
   instructionSlidesAndroid: [
     {
-      title: 'Introduction',
+      title: 'Introduktion',
       img: 'statics/instructions/data_query_android_1.png',
-      description: 'In this task, the app will retrieve data gathered by the Google Fit app if you have it installed on your phone.'
+      description: 'I den här uppgiften kommer appen hämta data från Google Fit om du har det intallerat på din mobil.'
     },
     {
       img: 'statics/instructions/data_query_2.png',
-      description: 'The Mobistudy app will only retrieve the data that is requested for this study. A summary of the data will be shown in the form of charts. After reviewing the information, you are free to send it or discard it.'
+      description: 'Mobistudy appen kommer endast att hämta data som är efterfrågad av den här studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan skicka informationen eller välja att radera den.'
     }
   ],
   instructionSlidesiOS: [
     {
-      title: 'Introduction',
+      title: 'Introduktion',
       img: 'statics/instructions/data_query_ios_1.png',
-      description: 'In this task, the app will retrieve data gathered by the Health app.'
+      description: 'I den här uppgiften kommer appen att hämta data som har samlats av Health appen.'
     },
     {
       img: 'statics/instructions/data_query_2.png',
-      description: 'The Mobistudy app will only retrieve the data that is requested for this study. A summary of the data will be shown in the form of charts. After reviewing the information, you are free to send it or discard it.'
+      description: 'Mobistudy appen kommer endast att hämta data som är efterfrågad av den här studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan skicka informationen eller välja att radera den.'
     }
   ],
-  dataQueryExplanation: 'This is a summary of the data that has been retrieved from your phone. Feel free to send it or discard it.'
+  dataQueryExplanation: 'Det här är en sammanfattning av den datan som har hämtats från din mobil. Skicka iväg informationen eller radera den.'
 }
