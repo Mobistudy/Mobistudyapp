@@ -3,6 +3,7 @@
 import study1234 from './mockdata/study1234'
 import form1234 from './mockdata/form1234'
 import form3333 from './mockdata/form3333'
+import study3333 from './mockdata/study3333'
 import study9999 from './mockdata/study9999'
 import studyInvitational from './mockdata/studyInvitational'
 import form9999 from './mockdata/form9999'
@@ -163,7 +164,11 @@ export default {
         setTimeout(function () {
           resolve(studyInvitational)
         }, 1000)
-      } else {
+      } else if (studyKey === '3333') {
+        setTimeout(function () {
+          resolve(study3333)
+        }, 1000)
+      }else {
         setTimeout(function () {
           reject(new Error('Study not found'))
         }, 500)
@@ -174,9 +179,9 @@ export default {
   async getNewStudiesKeys () {
     console.log('API - getting new study')
     let studyPart = participant.studies.find((s) => {
-      return s.studyKey === '9999'
+      return s.studyKey === '3333'//'9999'
     })
-    if (!studyPart) return ['9999']
+    if (!studyPart) return ['3333'] //'9999'
     else return []
   },
 
