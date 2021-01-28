@@ -366,6 +366,7 @@ export default {
     selectLanguage () {
       this.$root.$i18n.locale = this.value.language
       this.update()
+      this.$emit('language-changed')
     },
     async searchDisease (diseaseDescription, update, abort) {
       if (diseaseDescription.length < 3) {

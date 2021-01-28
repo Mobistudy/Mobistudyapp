@@ -6,19 +6,19 @@ export default {
   shortDescription: 'Mät din syremättnadsnivå',
   introductionSlides: [
     {
-      title: 'Setup',
+      title: 'Inställning',
       img: '/statics/instructions/po60_1.jpg',
       description: 'I den här uppgiften kommer du att mäta din syremättnadsnivå med hjälp av beurer PO60 pulsoximetern.'
     },
     {
-      title: 'Instructions',
+      title: 'Instruktion',
       img: '/statics/instructions/po60_2.jpg',
       description: 'Placera ditt finger i pulsoximetern, vänta tills hjärtfrekvens och syremättnadsnivån visas på skärmen och ta sedan ut ditt finger.'
     },
     {
       title: 'Viktigt!',
       img: '/statics/instructions/po60_3.jpg',
-      description: 'Säkerställ att blåtanden är aktiverad på din telefon. Om det är första gången du ansluter till pulsoximeter, kommer mobilen att be dig konfirmera anslutningen genom att skriva in koden du ser på pulsoximetern skärm i mobilen.'
+      description: 'Säkerställ att blåtanden är aktiverad på din telefon. Om det är första gången du ansluter till pulsoximeter, kommer mobilen att be dig konfirmera anslutningen genom att skriva in koden du ser på pulsoximeterns skärm i mobilen.'
     }
   ],
   connect: 'Anslut',
@@ -33,5 +33,7 @@ export default {
   healthData: {
     hr: 'Hjärtfrekvens',
     spo2: 'Syremättnadsnivå'
-  }
+  },
+  dataHRTitle: 'Hjärtslag per minute',
+  dataSPO2Title: 'Syremättnadsnivå'
 }

@@ -62,14 +62,17 @@ export default {
   ],
   methods: {
     async requestPermission (taskIndex) {
+      console.log('Requesting permissions')
       try {
         if (this.taskType[taskIndex] === 'dataQuery') {
           let taskId = this.studyDescription.consent.taskItems[taskIndex].taskId
           let taskdescr = this.studyDescription.tasks.find(t => t.id === taskId)
+          console.log('Data query: Data type:', taskdescr.dataType)
           await healthStore.requestAuthorization([
             { read: [taskdescr.dataType] }
           ])
         } else if (this.taskType[taskIndex] === 'smwt') {
+          console.log('SMWT')
           if (await phone.geolocation.isAvailable()) {
             await phone.geolocation.requestPermission()
           }
@@ -77,6 +80,7 @@ export default {
             await phone.pedometer.requestPermission()
           }
         } else if (this.taskType[taskIndex] === 'qcst') {
+          console.log('QCST')
           if (await phone.pedometer.isAvailable()) {
             await phone.pedometer.requestPermission()
           }
@@ -94,7 +98,7 @@ export default {
         console.error('Cannot get OS authorisation for task', error)
         this.$q.notify({
           color: 'negative',
-          message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error.message,
+          message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error,
           icon: 'report_problem'
         })
       }

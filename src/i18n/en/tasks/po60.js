@@ -30,8 +30,11 @@ export default {
   takeMeasurement: 'Please put your finger in the device, press its button and remove your finger once you see a measurement on the screen',
   connectionFail: 'Cannot connect to the pulse-oximeter. Would you like to retry?',
   connecting: 'Connecting to the pulse-oximeter',
+  dataSending: 'Sending data',
   healthData: {
     hr: 'Heart rate',
     spo2: 'Oxygen saturation'
-  }
+  },
+  dataHRTitle: 'Heart beats per minute',
+  dataSPO2Title: 'Blood oxygen saturation'
 }

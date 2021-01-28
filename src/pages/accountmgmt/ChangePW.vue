@@ -63,9 +63,10 @@ export default {
       }
     }
   },
-  created () {
+  async created () {
     // at this point we must be logged out
-    userinfo.logout()
+    console.log('Logout called CHANGEPW')
+    await userinfo.logout()
   },
   methods: {
     pwdCheckErrorMsg () {

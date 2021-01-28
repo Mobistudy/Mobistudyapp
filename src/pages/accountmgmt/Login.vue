@@ -94,8 +94,9 @@ export default {
   },
   async created () {
     if (userinfo.user.loggedin) {
+      console.log('Logout called LOGIN')
       notifications.cancelAll()
-      userinfo.logout()
+      await userinfo.logout()
       API.unsetToken()
       DB.emptyUserData()
     }
@@ -108,6 +109,7 @@ export default {
           let user = await API.login(this.username.toLowerCase(), this.password)
           // user is authenticated, return user object
           await userinfo.login(user)
+          console.log('User token login:', user.token)
           API.setToken(user.token)
         } catch (error) {
           console.error(error)
@@ -128,7 +130,12 @@ export default {
         }
         try {
           // retrieve the profile information
+          console.log('User profile key:', userinfo.user._key)
           let profile = await API.getProfile(userinfo.user._key)
+          if (profile.language) {
+            console.log('Setting locale to in login', profile.language)
+            this.$root.$i18n.locale = profile.language
+          }
           // profile exists
           await userinfo.setProfile(profile)
           if (profile.studies) await DB.setStudiesParticipation(profile.studies)
