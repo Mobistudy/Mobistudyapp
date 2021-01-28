@@ -4,6 +4,7 @@ import smwtTask from './tasks/smwt'
 import qcstTask from './tasks/qcst'
 import miband3Task from './tasks/miband3'
 import dataQueryTask from './tasks/dataQuery.js'
+import po60Task from './tasks/po60.js'
 
 let studies = {
   studies: {
@@ -91,5 +92,6 @@ studies.studies.tasks.smwt = smwtTask
 studies.studies.tasks.qcst = qcstTask
 studies.studies.tasks.miband3 = miband3Task
 studies.studies.tasks.dataQuery = dataQueryTask
+studies.studies.tasks.po60 = po60Task
 
 export default studies

@@ -2,51 +2,51 @@
 export default {
   title: 'Queens College Step Test',
   shortTitle: 'QCST',
-  description: 'This task is to perform the Queens College Step Test. This app is able to send the results of your tests to a server hosted by the University of Malmö. The data is made available to the personnel of the Skånes Universitetssjukhus so that doctors and nurses are able to review them.',
-  shortDescription: 'Perform a Queens College Step Test',
+  description: 'Uppgiften är att du ska utföra ett Queens College Step Test. Den här appen kan skicka testresultaten till en server vars värd är Malmö Universitet. Datan är tillgänglig för personal på Skånes Universitetssjukhus så att läkare och sjuksköterskor kan granska dem.',
+  shortDescription: 'Urför ett Queens College Step Test',
   introductionSlides: [
     {
-      title: 'Requirements',
+      title: 'Krav',
       img: '/statics/instructions/qcst_1.jpg',
-      description: 'For this test, you need a sturdy step, about 40 cm (16 inches) high. This is about the height of a short chair.'
+      description: 'Inför det här testet behöver du ett hållfast trappsteg, ungefär 40cm högt. Det är ungefär höjden på en liten pall.'
     },
     {
-      title: 'Requirements',
+      title: 'Krav',
       img: '/statics/instructions/qcst_2.jpg',
-      description: 'A heart rate monitor: you can use a fitness tracker or smartwatch or you can try with an app (search for "Heart Rate" on the app store).'
+      description: 'En hjärtfrekvensmätare: du kan använda ett aktivitetsarmband eller en fitnessklocka eller så kan du försöka med en app (sök efter "Heart Rate" på app store).'
     },
     {
-      title: 'Requirements',
+      title: 'Krav',
       img: '/statics/instructions/qcst_3.jpg',
-      description: 'Alternatively, to measure your pulse manually, you can count the number of heart beats for 15 seconds and multiply the count by four.'
+      description: 'Alternativt, för att mäta din hjärtfrekvens manuellt, kan du räkna antalet hjärtslag i 15 sekunder och multiplicera det antalet med 4.'
     },
     {
       title: 'Instructions',
       img: '/statics/instructions/qcst_4.jpg',
-      description: 'This is a paced test with a four-step cadence: foot 1 up, foot 2 up, foot 1 down, foot 2 down.'
+      description: 'Det här är ett test med ett specifikt tempo, fyrtakt: fot 1 upp, fot 2 upp, fot 1 ner, fot 2 ner.'
     },
     {
       img: '/statics/instructions/qcst_5.jpg',
-      description: 'Step up and down according to the metronome sound of the app. Make sure to turn on the sound on your device and turn up the volume.'
+      description: 'Stega upp och ner enligt metronomen du kommer höra från mobilen. Var god och se till att ljudet på din mobil är påslaget samt höj gärna volymen.'
     },
     {
       img: '/statics/instructions/qcst_6.jpg',
-      description: 'The test will automaticly stop after 3 minutes. If you need to complete the test earlier, press the "Complete"-button.'
+      description: 'Testet kommer automatiskt att stoppas efter 3 minuter. Om du behöver avsluta testet tidigare kan du trycka på "Slutför"-knappen.'
     },
     {
       img: '/statics/instructions/qcst_3.jpg',
-      description: 'At the end of the test you will be asked to measure your heart rate and provide it to the app. Please measure your heart rate within 5-20 seconds after completing the test.'
+      description: 'I slutet av testet kommer du att bli ombedd att mäta din hjärtfrekvens och skriva in informationen i appen. Var god och se till att du mäter din hjärtfrekvens inom 5-20 sekunder efter att du avslutat testet.'
     },
     {
-      title: 'Important!',
-      description: 'Try not to talk during the test, as this may affect your performance. Stop immediately if you have any chest pain or dizziness.'
+      title: 'Viktigt!',
+      description: 'Försök att inte prata under testets gång, detta kan påverka din prestation. Sluta omedelbart om du känner smärta i bröstet eller är yr.'
     }
   ],
-  begin: 'begin',
-  oneMin: 'one minute',
-  twoMin: 'two minutes',
-  enterHR: 'Enter your heart rate',
-  enterHRInstructions: 'Note: To measure your heart rate manually, please count the number of heart beats for 15 seconds. Multiply the count by four and enter the value below.',
-  time: 'Time',
-  steps: 'Steps'
+  begin: 'Börja',
+  oneMin: 'En minut',
+  twoMin: 'Två minuter',
+  enterHR: 'Skriv in din hjärtfrekvens',
+  enterHRInstructions: 'PS: För att mäta din hjärtfrekvens manuellt, kan du räkna antalet hjärtslag i 15 sekunder och multiplicera det antalet med 4 och skriv in värdet nedan.',
+  time: 'Tid',
+  steps: 'Steg'
 }

@@ -1,10 +1,10 @@
 import { mergeDeep } from 'modules/tools'
-import acMgmtEn from './accountMgmt'
-import studiesEn from './studies'
-import ppEn from './privacyPolicy'
-import tcEn from './termsAndConditions'
+import acMgmtSv from './accountMgmt'
+import studiesSv from './studies'
+import ppSv from './privacyPolicy'
+import tcSv from './termsAndConditions'
 
-let en = {
+let sv = {
   errors: {
     error: 'Fel',
     generalError: 'Appen har upptäckt ett oförväntat fel, var god och se till att din internet anslutning är påslagen och försök sedan igen.',
@@ -18,6 +18,7 @@ let en = {
     next: 'Nästa',
     clear: 'Rensa svar',
     cancel: 'Avsluta',
+    discard: 'Kassera',
     accept: 'Acceptera',
     reject: 'Kassera',
     close: 'Stäng',
@@ -120,9 +121,9 @@ let en = {
   }
 }
 
-en = mergeDeep(en, acMgmtEn)
-en = mergeDeep(en, studiesEn)
-en = mergeDeep(en, ppEn)
-en = mergeDeep(en, tcEn)
+sv = mergeDeep(sv, acMgmtSv)
+sv = mergeDeep(sv, studiesSv)
+sv = mergeDeep(sv, ppSv)
+sv = mergeDeep(sv, tcSv)
 
-export default en
+export default sv

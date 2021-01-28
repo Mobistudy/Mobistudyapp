@@ -2,7 +2,7 @@ import { Platform } from 'quasar'
 
 export default {
   async hasPermission () {
-    // has permission does not make sense on Android and does not work on iOS
+    // has permission does not make sense on Android (android does not need permissions) and does not work on iOS
     // so we'll return immediately that we do not have permission if on iOS and
     // that we do have permission on Android
     if (Platform.is.android) return Promise.resolve(true)

@@ -130,8 +130,9 @@ export default {
         message: this.$i18n.t('accountMgmt.login.logoutConfirmation'),
         ok: this.$i18n.t('accountMgmt.login.logout'),
         cancel: this.$i18n.t('common.cancel')
-      }).onOk(() => {
-        userinfo.logout()
+      }).onOk(async () => {
+        console.log('Logout called PROFILE')
+        await userinfo.logout()
         API.setToken('')
         this.$router.push('/login')
       })
@@ -171,7 +172,9 @@ export default {
         // keep a copy of the email before it's deleted by logout
         let email = userinfo.user.email
         notifications.cancelAll()
-        userinfo.logout()
+        console.log('Logout called PROFILE 2')
+
+        await userinfo.logout()
         API.unsetToken()
         DB.emptyUserData()
         this.$router.push({ name: 'changepw', params: { email: email } })

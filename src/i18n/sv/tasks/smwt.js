@@ -2,66 +2,66 @@
 
 export default {
   title: 'Six Minute Walk Test (6MWT)',
-  shortDescription: 'Perform a Six Minute Walk Test',
+  shortDescription: 'Utför ett Six Minute Walk Test',
   shortTitle: '6MWT',
-  description: 'This task is about measuring how far you can walk in 6 minutes (6-minute walk test). Your smartphone will monitor your position while you walk and compute the total walked distance. This distance can provide indications about your exercise capacity and your general health.',
+  description: 'Den här uppgiften handlar om att mäta hur långt du kan gå inom 6 minuter (6-minuters-gå-test). Din mobil kommer att observera din position medans du går och räkna ut den totala distansen som du gått. Den här distansen kan visa på indikationer gällande din träningsförmåga och generella hälsa.',
   introductionSlides: [
     {
-      title: 'Instructions',
+      title: 'Instruktion',
       img: '/statics/instructions/6mwt_1.jpg',
-      description: 'The aim of this test is to walk as far as possible for 6 minutes.'
+      description: 'Målet för det här testet är att du ska gå så lång du kan inom 6 minuter.'
     },
     {
-      title: 'Instructions',
+      title: 'Instruktion',
       img: '/statics/instructions/6mwt_2.jpg',
-      description: 'It is important that you try to walk as straight as possible. Try to avoid stairs and/or walking up/downhill.'
+      description: 'Det är viktigt att du försöker gå så rakt så möjligt. Försök att undvika att gå i trapper och/eller i nedförs/uppförsbacke.'
     },
     {
-      title: 'Instructions',
+      title: 'Instruktion',
       img: '/statics/instructions/6mwt_3.jpg',
-      description: 'If possible, try to avoid areas with many tall buildings and / or trees as these can affect how the phone localises you.'
+      description: 'Om det är möjligt, försök att undvika platser med höga byggnare och/eller träd eftersom detta kan påverka din mobils förmåga att lokalisera dig.'
     },
     {
       title: 'Important!',
       img: '/statics/instructions/6mwt_4.jpg',
-      description: 'You may slow down and stop if necessary. Stop immediately if you have any chest pain or dizziness.'
+      description: 'Du kan givetvis sakta ner och avsluta testet om du vill. Avsluta testet omedelbart om du har bröstsmärtor eller är yr.'
     },
     {
       img: '/statics/instructions/6mwt_1.jpg',
-      description: 'The test will automaticly stop after 6 minutes, and you will be asked to send the collected data. If you need to complete the test earlier, press the "Complete"-button.'
+      description: 'Testet kommer automatiskt att avslutas efter 6 mimuter och du kommer bli ombedd att skicka iväg den insamlade datan. Om du behöver avsluta testet tidigare, tryck på "Slutför" knappen.'
     },
     {
-      title: 'Setup',
+      title: 'Inställning',
       img: '/statics/instructions/6mwt_6.jpg',
-      description: 'Make sure the positioning is ON on your phone before starting.'
+      description: 'Var god och se till att positionering/GPS är påslagen på din mobil innan du börjar testet.'
     },
     {
-      title: 'Setup',
+      title: 'Inställning',
       img: '/statics/instructions/6mwt_7.jpg',
-      description: 'Hold your phone still in one hand, avoid shaking or twisting it until the test is finished.'
+      description: 'Håll din telefon i ena handen, försök att undvika att skaka eller vrida mobilen i din hand tills testet är avslutat.'
     },
     {
-      title: 'Setup',
+      title: 'Inställning',
       img: '/statics/instructions/6mwt_8.jpg',
-      description: 'You can place your phone in a pocket or use an arm band if needed, but do not switch off the screen!'
+      description: 'Du kan placera mobilen i fickan och använda ett armbandsfäste om det behövs, men släck inte skärmen!'
     }
   ],
-  signalCheck: 'Waiting for the GPS signal.',
-  time: 'Time',
-  steps: 'Steps',
-  distance: 'Distance',
+  signalCheck: 'Väntar på GPS signalen.',
+  time: 'Tid',
+  steps: 'Steg',
+  distance: 'Distans',
   borgScale: {
-    intro: 'Please rate your level of exertion:',
-    l0: 'No exertion',
-    l05: 'Very very slight',
-    l1: 'Very slight',
-    l2: 'Slight',
-    l3: 'Moderate',
-    l4: 'Somewhat strong',
-    l5: 'Strong',
-    l7: 'Very strong',
-    l9: 'Very very strong',
-    l10: 'Maximal',
-    result: 'Your selection is:'
+    intro: 'Var god och uppskatta nivån av ansträngning:',
+    l0: 'Ingen ansträngning',
+    l05: 'Väldigt väldigt lite',
+    l1: 'Väldigt lite',
+    l2: 'Lite',
+    l3: 'Lagom',
+    l4: 'Någorlunda mycket',
+    l5: 'Mycket',
+    l7: 'Väldigt mycket',
+    l9: 'Väldigt väldigt mycket',
+    l10: 'Maximalt',
+    result: 'Ditt val är:'
   }
 }

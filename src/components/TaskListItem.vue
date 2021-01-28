@@ -53,6 +53,8 @@ export default {
         this.$router.push({ name: 'qcstIntro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'miband3') {
         this.$router.push({ name: 'miband3Intro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
+      } else if (type === 'po60') {
+        this.$router.push({ name: 'po60Intro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
       } else if (studyKey && taskId) {
         this.$router.push({ name: 'dataQueryIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else {
@@ -81,6 +83,10 @@ export default {
       this.title = this.$i18n.t('studies.tasks.miband3.shortTitle')
       this.main = this.$i18n.t('studies.tasks.miband3.shortDescription')
       this.icon = 'watch'
+    } else if (this.task.type === 'po60') {
+      this.title = this.$i18n.t('studies.tasks.po60.shortTitle')
+      this.main = this.$i18n.t('studies.tasks.po60.shortDescription')
+      this.icon = 'touch_app'
     }
   },
   computed: {

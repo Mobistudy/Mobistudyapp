@@ -89,9 +89,10 @@ export default {
           console.log('Setting locale to', userinfo.user.language)
           this.$root.$i18n.locale = userinfo.user.language
         }
+        console.log('User token 1:', userinfo.user.token)
+
         // here we are sure that the database works fine
         this.showPINPage = false
-        this.enableRouting = true
       } catch (error) {
         console.error('Error bootstraping', error)
         this.showPINPage = true
@@ -103,19 +104,21 @@ export default {
         this.$route.path === '/resetpw' || this.$route.path === '/changepw'
       if ((!userinfo.user.loggedin || !userinfo.user.name) && !resettingpwd) {
         console.log('LOGGED OUT, GOING TO LOGIN')
-        this.enableRouting = true
         this.$router.replace({
           name: 'login'
         })
-      } else {
         this.enableRouting = true
+      } else {
         if (!resettingpwd) {
+          console.log('User token 2:', userinfo.user.token)
           API.setToken(userinfo.user.token)
+          await this.delay()
           console.log('LOGGED IN, REDIRECTING TO HOME')
           this.$router.replace({
             name: 'tasker',
             params: { rescheduleTasks: true, checkNewStudies: true }
           })
+          this.enableRouting = true
         }
       }
 
@@ -124,20 +127,27 @@ export default {
         function (response) {
           return response
         },
-        function (error) {
+        async function (error) {
           if (
             error.response.status === 401 &&
             !error.config.url.includes('login')
           ) {
             console.log('Got disconnected !')
-            userinfo.logout()
-            window.location = '/#/login'
+            await userinfo.logout()
+            window.location = '#/login'
           }
           throw error
         }
       )
 
       this.bootstrapped = true
+    },
+    async delay () {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve()
+        }, 5000)
+      })
     }
   },
   async created () {
@@ -146,7 +156,7 @@ export default {
 
     try {
       await phone.pin.isPINSet()
-      this.bootstrap()
+      await this.bootstrap()
     } catch (error) {
       this.showPINPage = true
     }

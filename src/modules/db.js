@@ -5,7 +5,6 @@
 * Different implementations of local storage can be used, as long as they are promisified
 */
 import * as storage from 'modules/storage'
-// TODO: the best solution would be including encryption, eg via https://www.npmjs.com/package/secure-web-storage
 
 export default {
 
@@ -126,5 +125,19 @@ export default {
   },
   async removeDeviceMiBand3 () {
     return storage.removeItem('miband3')
+  },
+
+  /* PO60 */
+
+  async setDevicePO60 (device) {
+    return storage.setItem('po60', JSON.stringify(device))
+  },
+  async getDevicePO60 () {
+    let device = await storage.getItem('po60')
+    if (!device) return
+    return JSON.parse(device)
+  },
+  async removeDevicePO60 () {
+    return storage.removeItem('po60')
   }
 }

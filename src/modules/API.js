@@ -18,6 +18,7 @@ export default {
   },
   // Log in
   login: async (email, password) => {
+    console.log('Login baseURL:', BASE_URL)
     let resp = await axios.post(BASE_URL + '/login', { email: email, password: password })
     return resp.data
   },
@@ -82,6 +83,7 @@ export default {
 
   // retrieves the keys of the new studies already filtered out by inclusion criteria
   getNewStudiesKeys: async function () {
+    console.log('Axios config:', axiosConfig)
     let resp = await axios.get(BASE_URL + '/newStudies/', axiosConfig)
     return resp.data
   },
@@ -122,5 +124,11 @@ export default {
   // send data from miBand3 stored data
   sendMiBand3Data: async function (data) {
     return axios.post(BASE_URL + '/miband3Data', data, axiosConfig)
+  },
+
+  // send data from po60 stored data
+  sendPO60Data: async function (data) {
+    console.log('baseURL:', BASE_URL)
+    return axios.post(BASE_URL + '/po60Data', data, axiosConfig)
   }
 }

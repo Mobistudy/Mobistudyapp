@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "description": "The participants' app of Mobistudy",
   "productName": "Mobistudy App",
-  "cordovaId": "org.mobistudy.app",
+  "cordovaId": "com.danistudy.org",
   "capacitorId": "",
   "author": "Dario Salvi <dariosalvi78@gmail.com>",
   "private": true,

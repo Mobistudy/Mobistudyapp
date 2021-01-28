@@ -96,7 +96,7 @@ const chartColors = [
 
 // holder of all the stored data, this is kept outside of Vue for efficiency
 let storedData = []
-let minimumDataRequired = 5 // 30 minutes of data is required at a minimum to upload the data
+let minimumDataRequired = 30 // 30 minutes of data is required at a minimum to upload the data
 // eslint-disable-next-line no-unused-vars, TODO: not sure why this is complaining?
 let deviceInfo = {}
 
@@ -191,7 +191,7 @@ export default {
         this.isDownloading = false
       } catch (err) {
         console.error('cannot download data', err)
-        this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective.
+        this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective. ?? Retry moves to Connect page, make sure i am disconnected.
       }
     },
     async storeDownloadDate (date) {
