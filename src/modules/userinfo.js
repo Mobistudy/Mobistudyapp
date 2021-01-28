@@ -34,7 +34,7 @@ export default {
   async storeUserInfo () {
     return DB.setUserSession(this.user)
   },
-  logout () {
+  async logout () {
     console.log('logout called')
     this.user = {
       loggedin: false

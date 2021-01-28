@@ -83,6 +83,7 @@ export default {
 
   // retrieves the keys of the new studies already filtered out by inclusion criteria
   getNewStudiesKeys: async function () {
+    console.log('Axios config:', axiosConfig)
     let resp = await axios.get(BASE_URL + '/newStudies/', axiosConfig)
     return resp.data
   },
