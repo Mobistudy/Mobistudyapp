@@ -79,6 +79,33 @@ export default {
       type: 'form',
       scheduling: {
         startEvent: 'consent',
+        intervalType: 'd',
+        untilSecs: 2592000, // 1 month
+        interval: 1,
+        months: [],
+        monthDays: [],
+        weekDays: []
+      },
+      formKey: '3335',
+      formName: {
+        en: 'Daily Questionnaire'
+      }
+    },
+    {
+      id: 2,
+      type: 'miband3',
+      hrInterval: 3,
+      scheduling: {
+        startEvent: 'consent',
+        intervalType: 'd',
+        interval: 3
+      }
+    },
+    {
+      id: 3,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
         intervalType: 'w',
         untilSecs: 2592000, // 1 month
         interval: 1,
@@ -86,53 +113,28 @@ export default {
         monthDays: [],
         weekDays: []
       },
-      formKey: '3333',
+      formKey: '3334',
       formName: {
-        en: 'Asthma Control Questionnaire'
+        en: 'Weekly Questionnaire'
       }
-    },
-    {
-      id: 2,
-      type: 'dataQuery',
-      scheduling: {
-        startEvent: 'consent',
-        intervalType: 'd',
-        interval: 1,
-        occurrences: 20,
-        months: [],
-        monthDays: [],
-        weekDays: []
-      },
-      dataType: 'steps',
-      aggregated: true,
-      bucket: 'hour'
-    },
-    {
-      id: 3,
-      type: 'smwt',
-      scheduling: {
-        startEvent: 'consent',
-        intervalType: 'd',
-        interval: 7,
-        months: [],
-        monthDays: [],
-        weekDays: []
-      },
-      dataType: 'distance'
-    },
-    {
-      id: 4,
-      type: 'qcst',
-      scheduling: {
-        startEvent: 'consent',
-        intervalType: 'd',
-        interval: 7,
-        months: [],
-        monthDays: [],
-        weekDays: []
-      },
-      dataType: 'steps'
     }
+    // {
+    //   id: 4,
+    //   type: 'form',
+    //   scheduling: {
+    //     startEvent: 'consent',
+    //     intervalType: 'w',
+    //     untilSecs: 2592000, // 1 month
+    //     interval: 1,
+    //     months: [],
+    //     monthDays: [],
+    //     weekDays: []
+    //   },
+    //   formKey: '3333',
+    //   formName: {
+    //     en: 'Asthma Control Questionnaire'
+    //   }
+    // }
   ],
   consent: {
     invitation: {
@@ -144,38 +146,28 @@ export default {
     taskItems: [
       {
         description: {
-          en: 'I agree to answer the ACQ every week.'
+          en: 'I agree to answer the daily questionnaire daily.'
         },
         taskId: 1
       },
       {
         description: {
-          en: 'I agree to send my data about steps, every day.',
-          sv: 'Jag accepterar att skicka min information om steg varje dag'
+          en: 'I agree to upload my data to mobistudy once a week.'
         },
         taskId: 2
       },
       {
         description: {
-          en: 'I agree to perform the Six Minute Walk Test once a week.',
-          sv: 'Jag accepterar att utföra Six Minute Walk Test en gång i veckan.'
+          en: 'I agree to answer the weekly questionnaire every week'
         },
         taskId: 3
-      },
-      {
-        description: {
-          en: 'I agree to perform the Queen\'s College Step Test once a week.',
-          sv: 'Jag accepterar att utföra Queen\'s College Step Test en gång i veckan.'
-        },
-        taskId: 4
-      },
-      {
-        description: {
-          en: 'I agree to perform the Asthma Control Questionnaire once a week.',
-          sv: 'Jag accepterar att utföra Asthma Control Questionnaire en gång i veckan.'
-        },
-        taskId: 5
       }
+      // {
+      //   description: {
+      //     en: 'I agree to answer the ACQ every week.'
+      //   },
+      //   taskId: 4
+      // }
     ],
     extraItems: []
   }
