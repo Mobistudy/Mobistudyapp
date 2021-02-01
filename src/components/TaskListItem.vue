@@ -68,7 +68,7 @@ export default {
       this.main = this.$i18n.t('studies.tasks.dataQuery.shortDescription')
       this.icon = 'insert_chart_outlined'
     } else if (this.task.type === 'form') {
-      this.title = this.task.formTitle[this.$root.$i18n.locale]
+      this.title = this.task.formName[this.$root.$i18n.locale]
       this.main = this.$i18n.t('studies.tasks.form.shortDescription')
       this.icon = 'format_list_bulleted'
     } else if (this.task.type === 'smwt') {

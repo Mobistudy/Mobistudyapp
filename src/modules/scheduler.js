@@ -54,14 +54,17 @@ export function generateTasker (studiesParts, studiesDescr) {
         if (taskDescription.scheduling.alwaysOn) {
           if (isTaskIntervalDue(studyPart.acceptedTS, taskDescription.scheduling)) {
             studyCompleted = false
-            taskerItems.alwaysOn.push({
+            let task = {
               type: taskDescription.type,
               studyKey: studyDescr._key,
               taskId: taskDescription.id,
-              formKey: taskDescription.formKey,
-              formTitle: taskDescription.formName,
               alwaysOn: true
-            })
+            }
+            if (taskDescription.type === 'form') {
+              task.formName = taskDescription.formName
+              task.formKey = taskDescription.formKey
+            }
+            taskerItems.alwaysOn.push(task)
           }
         } else {
           // manage non-always on tasks:
@@ -121,7 +124,7 @@ export function generateTasker (studiesParts, studiesDescr) {
             taskId: taskDescription.id
           }
           if (taskDescription.type === 'form') {
-            templateObj.formTitle = taskDescription.formName
+            templateObj.formName = taskDescription.formName
             templateObj.formKey = taskDescription.formKey
           }
           if (upcoming !== null) {
