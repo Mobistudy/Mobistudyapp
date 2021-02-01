@@ -3,8 +3,7 @@
   "version": "0.2.1",
   "description": "The participants' app of Mobistudy",
   "productName": "Mobistudy App",
-  "cordovaId": "com.danistudy.org",
-  "capacitorId": "",
+  "cordovaId": "org.mobistudy.org",
   "author": "Dario Salvi <dariosalvi78@gmail.com>",
   "private": true,
   "scripts": {
@@ -34,7 +33,6 @@
     "@quasar/app": "^1.9.6",
     "@quasar/quasar-app-extension-testing": "^1.0.3",
     "@quasar/quasar-app-extension-testing-unit-jest": "^1.1.0-beta.7",
-    "@vue/devtools": "^5.3.4",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^5.10.0",
