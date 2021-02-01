@@ -30,6 +30,8 @@ export default {
   takeMeasurement: 'Var god och sätt in fingret i pulsoximetern, tryck på dess knapp och ta ut ditt finger när du ser ett mätvärde på skärmen.',
   connectionFail: 'Kan inte ansluta till pulsoximetern. Vill du försöka igen?',
   connecting: 'Ansluter till pulsoximetern',
+  dataSending: 'Skickar data',
+  dataDownloadError: 'Det går inte att hämta data från pulsoximetern.',
   healthData: {
     hr: 'Hjärtfrekvens',
     spo2: 'Syremättnadsnivå'

@@ -138,9 +138,8 @@ export default {
         this.moveToDownloadPage()
       } catch (error) {
         console.error(error)
-        // TODO: there should be a third button in case the user has a new miband
+        // TODO: there should be a third button in case the user has a new pulseoximeters
         // this cannot be done using the dialog plugin, so a complete dialog should be designed
-        // Rarely connects on the first attempt, should need at least 3.
         if (this.connectionAttempts < this.maxConnectionAttempts) {
           console.log('Attempting connect again...', this.connectionAttempts)
           this.connect(device)

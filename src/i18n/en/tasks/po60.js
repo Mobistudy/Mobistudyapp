@@ -31,6 +31,7 @@ export default {
   connectionFail: 'Cannot connect to the pulse-oximeter. Would you like to retry?',
   connecting: 'Connecting to the pulse-oximeter',
   dataSending: 'Sending data',
+  dataDownloadError: 'Cannot retrieve data from the pulseoximeter.',
   healthData: {
     hr: 'Heart rate',
     spo2: 'Oxygen saturation'

@@ -2,49 +2,49 @@
   <q-page id="main">
     <div class="flex col text-center justify-center">
       <div class="q-pa-md">
-        <h6>{{titleHRAvg}}</h6>
+        <h6>{{ $t('studies.tasks.po60.dataHRTitle') }}</h6>
         <q-circular-progress
-        show-value
-        :indeterminate="isDownloading"
-        :value="storedData !== undefined ? 100 : 0"
-        size="80px"
-        :thickness="0.2"
-        color="blue"
-        center-color="blue-1"
-        track-color="transparent"
+          show-value
+          :indeterminate="isDownloading"
+          :value="storedData !== undefined ? 100 : 0"
+          size="80px"
+          :thickness="0.2"
+          color="blue"
+          center-color="blue-1"
+          track-color="transparent"
         >
-        {{avgHR}}
+          {{avgHR}}
         </q-circular-progress>
       </div>
       <div class="q-pa-md">
-        <h6>{{titleSPO2Avg}}</h6>
+        <h6>{{ $t('studies.tasks.po60.dataSPO2Title') }}</h6>
         <q-circular-progress
-        show-value
-        :indeterminate="isDownloading"
-        :value="storedData !== undefined ? 100 : 0"
-        size="80px"
-        :thickness="0.2"
-        color="blue"
-        center-color="blue-1"
-        track-color="transparent"
+          show-value
+          :indeterminate="isDownloading"
+          :value="storedData !== undefined ? 100 : 0"
+          size="80px"
+          :thickness="0.2"
+          color="blue"
+          center-color="blue-1"
+          track-color="transparent"
         >
-        {{avgSPO2}}
+          {{avgSPO2}}
         </q-circular-progress>
       </div>
     </div>
-      <div class="q-my-md row justify-around fixed-bottom">
-        <q-btn
-          :label="$t('common.skip')"
-          flat
-          color="negative"
-          @click="skipSend()"
-        ></q-btn>
-        <q-btn
-          :label="$t('common.send')"
-          color="primary"
-          @click="sendData()"
-        ></q-btn>
-      </div>
+    <div class="q-my-md row justify-around fixed-bottom">
+      <q-btn
+        :label="$t('common.skip')"
+        flat
+        color="negative"
+        @click="skipSend()"
+      ></q-btn>
+      <q-btn
+        :label="$t('common.send')"
+        color="primary"
+        @click="sendData()"
+      ></q-btn>
+    </div>
     <q-inner-loading :showing="isSending">
       <div class="text-overline">{{ $t('studies.tasks.po60.dataSending') }}</div>
       <q-spinner-oval
@@ -72,15 +72,12 @@ export default {
       isDownloading: false,
       isSending: false,
       storedData: undefined,
-      titleSPO2Avg: this.$t('studies.tasks.po60.dataSPO2Title'),
-      titleHRAvg: this.$t('studies.tasks.po60.dataHRTitle'),
       avgHR: '',
       avgSPO2: ''
     }
   },
   watch: {
     storedData: function (val) {
-      console.log('here', val)
       this.avgHR = val.hrAvg + ''
       this.avgSPO2 = val.SPO2Avg + '%'
     }
@@ -92,17 +89,11 @@ export default {
       try {
         this.storedData = await po60.getLatestData()
         console.log('Stored data:', this.storedData)
-        if (this.storedData.length < 0) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
-          await this.storeDownloadDate(new Date())
-          this.$router.push({ name: 'notEnoughDataPage' })
-          return
-        }
-        await this.storeDownloadDate(this.storedData.timestampEnd)
         try {
           await po60.disconnect()
         } catch (err) {
           // doesn't matter if it fails here, but let's print out a message on console
-          console.error('cannot disconnect miband3', err)
+          console.error('cannot disconnect PO60', err)
         }
       } catch (err) {
         console.error('cannot download data', err)
@@ -111,16 +102,11 @@ export default {
       this.isDownloading = false
       console.log('Bool:', (!this.isDownloading && this.storedData !== undefined))
     },
-    async storeDownloadDate (date) {
-      let device = await db.getDevicePO60()
-      device.lastStoredDataDate = date
-      return db.setDevicePO60(device)
-    },
 
     showErrorDialog () {
       this.$q.dialog({
         title: this.$t('errors.error'),
-        message: this.$t('studies.tasks.miband3.dataDownloadError'),
+        message: this.$t('studies.tasks.po60.dataDownloadError'),
         cancel: this.$t('common.cancel'),
         ok: this.$t('common.retry'),
         persistent: true
@@ -139,19 +125,19 @@ export default {
         await po60.disconnect()
       } catch (err) {
         // doesn't matter if it fails here, but let's print out a message on console
-        console.error('cannot disconnect miband3', err)
+        console.error('cannot disconnect po60', err)
       }
       this.$router.push({ name: 'tasker' })
     },
 
     async skipSend () {
       // TODO: show a popup for confirmation
-      await this.storeDownloadDate(new Date())
       let studyKey = this.studyKey
       let taskId = Number(this.taskId)
       await db.setTaskCompletion(studyKey, taskId, new Date())
       this.$router.push('/home')
     },
+
     async sendData () {
       this.isSending = true
       await this.delay(2) // If the data is small the sending is instant and the user doesn't see that something is in the process of being sent.
@@ -166,7 +152,6 @@ export default {
           device: this.deviceInfo,
           po60Data: this.storedData
         })
-        await this.storeDownloadDate(this.startDate)
         await db.setTaskCompletion(studyKey, taskId, new Date())
         this.isSending = false
         // go back to home page
