@@ -186,6 +186,7 @@ export default {
 
         if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
           await this.storeDownloadDate(this.startDate) // by storing this, we make sure to retrieve the data from the time the data was not enough instead of from today - period (which depends on when the user performs the task)
+          // TODO: should we also store that the task is completed?
           this.$router.push({ name: 'notEnoughDataPage' })
           return
         }
