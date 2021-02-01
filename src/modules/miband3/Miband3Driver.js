@@ -869,7 +869,6 @@ var Miband3 = {
   },
 
   // STORED DATA
-  // TODO: Convert to UTC
   /**
    * Fetches stored data from a given date
    * @returns a promise which is solved if the fecthing starts
@@ -977,7 +976,7 @@ var Miband3 = {
     for (let i = 1; i < samples.length; i += 4) {
       let sample = {
         date: new Date(
-          actualStartDate.getTime() + 60000 * amountOfSamples++ // TODO: Consider a researcher defined frequency and convert to UTC
+          actualStartDate.getTime() + 60000 * amountOfSamples++
         ), // adding minutes to the start date
         activityType: samples[i],
         intensity: samples[i + 1],
@@ -1375,7 +1374,7 @@ var Miband3 = {
     this.stopHRContinuousMonitoring()
   },
 
-  // Setting and getting device time, battery, hw info and sw info. TODO: Convert to UTC
+  // Setting and getting device time, battery, hw info and sw info.
 
   getTimeStatus: async function () {
     let data = await this.read(
