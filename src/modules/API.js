@@ -75,6 +75,11 @@ export default {
     return axios.patch(BASE_URL + `/participants/byuserkey/${userKey}/studies/${studyKey}`, studyParticipation, axiosConfig)
   },
 
+  // update status of a task item consent
+  updateTaskItemConsent: async function (studyKey, taskId, taskItemConsent) {
+    return axios.patch(BASE_URL + `/participants/studies/${studyKey}/taskItemsConsent/${taskId}`, taskItemConsent, axiosConfig)
+  },
+
   // retrieves study descritpion
   getStudyDescription: async function (studyKey) {
     let resp = await axios.get(BASE_URL + '/studies/' + studyKey, axiosConfig)
