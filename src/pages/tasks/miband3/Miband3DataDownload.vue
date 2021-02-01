@@ -96,7 +96,7 @@ const chartColors = [
 
 // holder of all the stored data, this is kept outside of Vue for efficiency
 let storedData = []
-let minimumDataRequired = 5 // 30 minutes of data is required at a minimum to upload the data
+let minimumDataRequired = 30 // 30 minutes of data is required at a minimum to upload the data
 // eslint-disable-next-line no-unused-vars, TODO: not sure why this is complaining?
 let deviceInfo = {}
 
@@ -150,8 +150,6 @@ export default {
   data () {
     return {
       startDate: new Date(),
-      latestSampleDateNew: undefined,
-      latestSampleDatePrevious: undefined,
       deviceInfo: {},
       isDownloading: false,
       lineChart: undefined,
@@ -172,28 +170,26 @@ export default {
       pieChartConfig.reset()
       lineChart.reset()
 
-      let study = await db.getStudyParticipation(this.studyKey)
-      console.log('study', study)
-      this.latestSampleDatePrevious = study.latestSampleDate
-      console.log('prevSampleDate:', this.latestSampleDatePrevious)
-
       this.startDate = await this.getDateToUseForDownload()
       try {
-        await miband3.getStoredData(this.startDate, this.dataCallback)
-        console.log('Stored data:', storedData)
-        if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
-          await this.storeDownloadDate(this.startDate)
-          this.$router.push({ name: 'notEnoughDataPage' })
-          return
-        }
         this.deviceInfo = await miband3.getDeviceInfo()
         console.log('Device info retrieved:', deviceInfo)
+        await miband3.getStoredData(this.startDate, this.dataCallback)
+        console.log('Stored data:', storedData)
+
         try {
           await miband3.disconnect()
         } catch (err) {
           // doesn't matter if it fails here, but let's print out a message on console
           console.error('cannot disconnect miband3', err)
         }
+
+        if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
+          await this.storeDownloadDate(this.startDate) // by storing this, we make sure to retrieve the data from the time the data was not enough instead of from today - period (which depends on when the user performs the task)
+          this.$router.push({ name: 'notEnoughDataPage' })
+          return
+        }
+
         this.createPieChart()
         this.renderLineChart(this.currentStartHour, this.currentEndHour)
         this.isDownloading = false
@@ -203,17 +199,11 @@ export default {
       }
     },
     async storeDownloadDate (date) {
-      // Update study locally
-      let study = await db.getStudyParticipation(this.studyKey)
-      console.log('Prev last date:', study.latestSampleDate, 'New last date:', date)
-      study.latestSampleDate = date
-      await db.setStudyParticipation(study)
-
-      // Update study in profile in database, this information is downloaded at login, in case user kills the app.
-      let profile = await API.getProfile(userinfo.user._key)
-      let studyIndex = profile.studies.findIndex((p) => p.studyKey === this.studyKey)
-      profile.studies[studyIndex] = study
-      return API.updateProfile(profile)
+      // Update task
+      let consentedTask = await db.getStudyParticipationTaskItemConsent(this.studyKey, this.taskId)
+      consentedTask.lastMiband3SampleTS = date
+      await db.setStudyParticipationTaskItemConsent(this.studyKey, this.taskId, consentedTask)
+      return consentedTask
     },
     getLatestDownloadedSampleDate () {
       return storedData[storedData.length - 1].date
@@ -224,8 +214,10 @@ export default {
      */
     async getDateToUseForDownload () {
       let startDate
-      if (this.latestSampleDatePrevious) {
-        startDate = new Date(this.latestSampleDatePrevious)
+      let consentedTask = await db.getStudyParticipationTaskItemConsent(this.studyKey, this.taskId)
+      let latestSampleTS = consentedTask.lastMiband3SampleTS
+      if (latestSampleTS) {
+        startDate = new Date(latestSampleTS)
       } else {
         const taskDescription = await db.getTaskDescription(this.studyKey, this.taskId)
         let lastExecuted = taskDescription.lastExecuted
@@ -246,7 +238,6 @@ export default {
             startDate.subtract(interval, 'years')
           }
           startDate = startDate.toDate()
-          this.latestSampleDatePrevious = startDate // latestSample has not been retrieved but its assumed to be at the same time as the default start date if this task has not been completed before.
         }
       }
       return startDate
@@ -451,8 +442,10 @@ export default {
           device: this.deviceInfo,
           miband3Data: storedData
         })
-        await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
         await db.setTaskCompletion(studyKey, taskId, new Date())
+        let newTaskItemConsent = await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
+        await API.updateTaskItemConsent(studyKey, taskId, newTaskItemConsent)
+
         this.isSending = false
         // go back to home page
         this.$router.push('/home')
