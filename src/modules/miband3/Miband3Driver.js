@@ -869,7 +869,7 @@ var Miband3 = {
   },
 
   // STORED DATA
-
+  // TODO: Convert to UTC
   /**
    * Fetches stored data from a given date
    * @returns a promise which is solved if the fecthing starts
@@ -896,7 +896,9 @@ var Miband3 = {
             actualStartDate = this.createDateFromHexString(
               dataHex.substring(14, 26)
             )
+            console.log('Actual start date:', actualStartDate)
             totalSamples = this.getTotalSamplesFromBuffer(Buffer.from(responseData))
+            console.log('Total samples:', totalSamples)
             sampleCounter = 0
             // here we know we should receive data, so we register for the characteristic
             this.registerNotification(
@@ -915,6 +917,8 @@ var Miband3 = {
                   sampleCounter,
                   buffer
                 )
+                console.log('Buffer:', buffer)
+                console.log('Samples:', sampleArray)
                 for (let sample of sampleArray) {
                   dataCallback(
                     sample
@@ -973,7 +977,7 @@ var Miband3 = {
     for (let i = 1; i < samples.length; i += 4) {
       let sample = {
         date: new Date(
-          actualStartDate.getTime() + 60000 * amountOfSamples++
+          actualStartDate.getTime() + 60000 * amountOfSamples++ // TODO: Consider a researcher defined frequency and convert to UTC
         ), // adding minutes to the start date
         activityType: samples[i],
         intensity: samples[i + 1],
@@ -1008,6 +1012,7 @@ var Miband3 = {
   // activity type not currently supported, only fetches activity 01
   sendStartDateAndActivity: async function (date, activityType) {
     let customDate = new CustomDate(date)
+    console.log('Custom date:', customDate.date)
     let dateMessage = customDate.getDateStringPacket()
     let packet = this.hexStringToHexBuffer(
       this.messages.storedData.startDate +
@@ -1370,7 +1375,7 @@ var Miband3 = {
     this.stopHRContinuousMonitoring()
   },
 
-  // Setting and getting device time, battery, hw info and sw info.
+  // Setting and getting device time, battery, hw info and sw info. TODO: Convert to UTC
 
   getTimeStatus: async function () {
     let data = await this.read(
@@ -1388,7 +1393,7 @@ var Miband3 = {
     return new Date(year, mon, day, hrs, min, sec)
   },
 
-  setCurrentTimeStatus: async function () {
+  setCurrentTimeStatus: async function () { // TODO: Convert to UTC
     let currentDate = new Date()
     return this.setTimeStatus(currentDate)
   },

@@ -94,11 +94,10 @@ export default {
   },
   async created () {
     if (userinfo.user.loggedin) {
-      console.log('Logout called LOGIN')
       notifications.cancelAll()
       await userinfo.logout()
       API.unsetToken()
-      DB.emptyUserData()
+      await DB.emptyUserData()
     }
   },
   methods: {

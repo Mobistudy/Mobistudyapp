@@ -55,6 +55,7 @@ export default {
   async setStudyParticipation (studyPart) {
     let studies = await storage.getItem('studiesParticipation')
     let studyIndex = studies.findIndex(sp => sp.studyKey === studyPart.studyKey)
+    console.log('Setting study:', studyIndex)
     studies[studyIndex] = studyPart
     return storage.setItem('studiesParticipation', studies)
   },

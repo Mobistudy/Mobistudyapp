@@ -96,7 +96,7 @@ const chartColors = [
 
 // holder of all the stored data, this is kept outside of Vue for efficiency
 let storedData = []
-let minimumDataRequired = 30 // 30 minutes of data is required at a minimum to upload the data
+let minimumDataRequired = 5 // 30 minutes of data is required at a minimum to upload the data
 // eslint-disable-next-line no-unused-vars, TODO: not sure why this is complaining?
 let deviceInfo = {}
 
@@ -150,6 +150,8 @@ export default {
   data () {
     return {
       startDate: new Date(),
+      latestSampleDateNew: undefined,
+      latestSampleDatePrevious: undefined,
       deviceInfo: {},
       isDownloading: false,
       lineChart: undefined,
@@ -160,6 +162,7 @@ export default {
       isSending: false
     }
   },
+
   methods: {
     async downloadData () {
       this.isDownloading = true
@@ -169,17 +172,22 @@ export default {
       pieChartConfig.reset()
       lineChart.reset()
 
-      let startDate = await this.getDateToUseForDownload()
+      let study = await db.getStudyParticipation(this.studyKey)
+      console.log('study', study)
+      this.latestSampleDatePrevious = study.latestSampleDate
+      console.log('prevSampleDate:', this.latestSampleDatePrevious)
+
+      this.startDate = await this.getDateToUseForDownload()
       try {
         await miband3.getStoredData(this.startDate, this.dataCallback)
+        console.log('Stored data:', storedData)
         if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
-          await this.storeDownloadDate(startDate)
+          await this.storeDownloadDate(this.startDate)
           this.$router.push({ name: 'notEnoughDataPage' })
           return
         }
         this.deviceInfo = await miband3.getDeviceInfo()
         console.log('Device info retrieved:', deviceInfo)
-        await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
         try {
           await miband3.disconnect()
         } catch (err) {
@@ -195,9 +203,17 @@ export default {
       }
     },
     async storeDownloadDate (date) {
-      let device = await db.getDeviceMiBand3()
-      device.lastStoredDataDate = date
-      return db.setDeviceMiBand3(device)
+      // Update study locally
+      let study = await db.getStudyParticipation(this.studyKey)
+      console.log('Prev last date:', study.latestSampleDate, 'New last date:', date)
+      study.latestSampleDate = date
+      await db.setStudyParticipation(study)
+
+      // Update study in profile in database, this information is downloaded at login, in case user kills the app.
+      let profile = await API.getProfile(userinfo.user._key)
+      let studyIndex = profile.studies.findIndex((p) => p.studyKey === this.studyKey)
+      profile.studies[studyIndex] = study
+      return API.updateProfile(profile)
     },
     getLatestDownloadedSampleDate () {
       return storedData[storedData.length - 1].date
@@ -208,9 +224,8 @@ export default {
      */
     async getDateToUseForDownload () {
       let startDate
-      let device = await db.getDeviceMiBand3()
-      if (device.lastStoredDataDate) {
-        startDate = new Date(device.lastStoredDataDate)
+      if (this.latestSampleDatePrevious) {
+        startDate = new Date(this.latestSampleDatePrevious)
       } else {
         const taskDescription = await db.getTaskDescription(this.studyKey, this.taskId)
         let lastExecuted = taskDescription.lastExecuted
@@ -231,6 +246,7 @@ export default {
             startDate.subtract(interval, 'years')
           }
           startDate = startDate.toDate()
+          this.latestSampleDatePrevious = startDate // latestSample has not been retrieved but its assumed to be at the same time as the default start date if this task has not been completed before.
         }
       }
       return startDate
@@ -245,7 +261,7 @@ export default {
       lineChart.reset()
       let startIndexInMinutes = startTime * 60
       let endIndexInMinutes = endTime * 60 - 1
-      if (endIndexInMinutes > storedData.length) {
+      if (endIndexInMinutes >= storedData.length) {
         endIndexInMinutes = storedData.length - 1
       }
       for (let i = startIndexInMinutes; i <= endIndexInMinutes; i++) {
@@ -415,7 +431,7 @@ export default {
     },
     async skipSend () {
       // TODO: show a popup for confirmation
-      await this.storeDownloadDate(this.startDate)
+      await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
       let studyKey = this.studyKey
       let taskId = Number(this.taskId)
       await db.setTaskCompletion(studyKey, taskId, new Date())
@@ -435,7 +451,7 @@ export default {
           device: this.deviceInfo,
           miband3Data: storedData
         })
-        await this.storeDownloadDate(this.startDate)
+        await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
         await db.setTaskCompletion(studyKey, taskId, new Date())
         this.isSending = false
         // go back to home page

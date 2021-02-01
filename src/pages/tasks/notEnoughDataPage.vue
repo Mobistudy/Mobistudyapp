@@ -6,15 +6,14 @@
 </template>
 
 <script>
+import miband3 from 'modules/miband3/miband3'
 export default {
-  props: {
-    device: Object
-  },
+
   methods: {
     async cancelTask () {
       // disconnects and go home
       try {
-        await this.device.disconnect()
+        await miband3.disconnect()
       } catch (err) {
         // doesn't matter if it fails here, but let's print out a message on console
         console.error('cannot disconnect', err)

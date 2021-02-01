@@ -49,6 +49,7 @@ let studies = {
       quitTaskLabel: 'Quit task',
       pendingTasks: "Today's pending tasks",
       missedTasks: 'Missed tasks',
+      alwaysOnTasks: 'Tasks that are always available',
       noMissedTasks: 'No tasks missed',
       instructionsNote: 'Please read the instructions carefully. The accuracy of the test depends on the instructions being followed as closely as possible.',
       capTestComplete: 'Congratulations!',

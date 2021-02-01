@@ -32,6 +32,20 @@
           </q-item>
         </q-list>
         <q-item-label header>
+          {{ $t('studies.tasks.alwaysOnTasks') }}
+        </q-item-label>
+        <q-list padding bordered v-for="study in studiesInfo" :key="`alwayson-${study._key}`" class="q-mt-sm">
+          <q-item-section>
+            <q-item-label header overline>{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
+            <taskListItem
+              v-for="(task, index) in tasks.alwaysOn"
+              :task="filterTask(task, study)"
+              :isMissedTask="false"
+              :key="`item-${index}`">
+            </taskListItem>
+          </q-item-section>
+        </q-list>
+        <q-item-label header>
           {{ $t('studies.tasks.missedTasks') }}
         </q-item-label>
         <q-list padding bordered v-for="study in studiesInfo" :key="`missed-${study._key}`" class="q-mt-sm">
@@ -91,6 +105,7 @@ export default {
       tasks: {
         upcoming: [],
         missed: [],
+        alwaysOn: [],
         completedStudyAlert: undefined,
         completedStudyTitle: undefined
       },

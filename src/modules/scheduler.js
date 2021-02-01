@@ -54,11 +54,12 @@ export function generateTasker (studiesParts, studiesDescr) {
         if (taskDescription.scheduling.alwaysOn) {
           if (isTaskIntervalDue(studyPart.acceptedTS, taskDescription.scheduling)) {
             studyCompleted = false
-
             taskerItems.alwaysOn.push({
               type: taskDescription.type,
               studyKey: studyDescr._key,
               taskId: taskDescription.id,
+              formKey: taskDescription.formKey,
+              formTitle: taskDescription.formName,
               alwaysOn: true
             })
           }
@@ -277,7 +278,7 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
       if (Platform.is.ios && HealthDataEnum.isAndroidOnly(task.dataType)) continue
       if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
     }
-    if (task.schedling.alwaysOn) continue
+    if (task.scheduling.alwaysOn) continue
     let rrule = generateRRule(acceptedTS, new Date(studyDescr.generalities.endDate), task.scheduling)
     let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
     for (let scheduleI = 0; scheduleI < taskTimes.length && scheduleI < 1000; scheduleI++) {

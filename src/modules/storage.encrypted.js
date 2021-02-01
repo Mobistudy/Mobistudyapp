@@ -1,7 +1,7 @@
 'use strict'
 
 let storage
-let namespace = 'DB_VERSION_1.0'
+let namespace = 'DB_VERSION_1.1'
 
 export async function init () {
   // Hoping that doing a new init on the same namespace several times won't do any harm.

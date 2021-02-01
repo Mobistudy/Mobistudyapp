@@ -160,7 +160,6 @@ export default {
   async created () {
     this.isRetrieving = true
     const formKey = this.formKey
-    console.log('Form Key:', formKey)
 
     try {
       let formDescr = await DB.getFormDescription(formKey)
