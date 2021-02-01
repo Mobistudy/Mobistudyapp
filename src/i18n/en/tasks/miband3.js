@@ -26,6 +26,7 @@ export default {
   searchFailed: 'There was a problem while searching for your MiBand, do you want to retry?',
   noDeviceTitle: 'No MiBand found',
   noDevice: 'Could not find any MiBand. Please make sure Bluetooth is activated on your phone. Would you like to search again?',
+  notEnoughData: 'There was no recent data to be retrieved from the device, you will have to retry the next time this task is due.',
   moreDevices: 'More than one MiBand device was found. The nearest in proximity is the first device in the list. Please tap on one to connect to it.',
   tap: 'Tap the activity tracker!',
   connectionFail: 'Cannot connect to the device, would you like to retry?',
