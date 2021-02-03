@@ -34,9 +34,13 @@ export default {
   activityTypes: {
     walk: 'Går',
     charging: 'Laddar',
-    activity_high: 'Intensiv aktivitet',
+    activity_high: 'Hög-intensiv aktivitet',
+    activity_low: 'Låg-intenstiv aktivitet',
     sleep: 'Sover',
-    unknown: 'Okänd'
+    unknown: 'Okänd',
+    not_worn: 'Inte buren',
+    sedentary: 'Stillasittande',
+    running: 'Sprang'
   },
   dataDownload: 'Laddar ner data',
   dataDownloadError: 'Kunde inte ladda ner data från armbandet, var god försök igen eller avbryt.',
