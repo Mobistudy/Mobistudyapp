@@ -427,7 +427,7 @@ export default {
       let studyKey = this.studyKey
       let taskId = Number(this.taskId)
       await db.setTaskCompletion(studyKey, taskId, new Date())
-      this.$router.push('/home')
+      this.$router.push({ name: 'tasker' })
     },
     async sendData () {
       this.isSending = true
@@ -449,7 +449,7 @@ export default {
 
         this.isSending = false
         // go back to home page
-        this.$router.push('/home')
+        this.$router.push({ name: 'tasker' })
       } catch (error) {
         this.isSending = false
         console.error(error)
@@ -458,7 +458,7 @@ export default {
           message: this.$t('errors.connectionError') + ' ' + error.message,
           icon: 'report_problem',
           onDismiss () {
-            this.$router.push('/home')
+            this.$router.push({ name: 'tasker' })
           }
         })
       }
