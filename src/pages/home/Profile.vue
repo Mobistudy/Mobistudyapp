@@ -172,7 +172,6 @@ export default {
         // keep a copy of the email before it's deleted by logout
         let email = userinfo.user.email
         notifications.cancelAll()
-        console.log('Logout called PROFILE 2')
 
         await userinfo.logout()
         API.unsetToken()
@@ -188,10 +187,10 @@ export default {
     },
     async deleteUser () {
       this.$q.dialog({
-        title: 'Warning',
-        message: 'Deleting your user will delete all the data permanently for all studies. Are you sure you want to continue?',
+        title: this.$i18n.t('common.warning'),
+        message: this.$i18n.t('accountMgmt.deleteWarning'),
         ok: {
-          label: 'DELETE',
+          label: this.$i18n.t('common.delete'),
           push: true,
           color: 'negative'
         },

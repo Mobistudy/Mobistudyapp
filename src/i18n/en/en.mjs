@@ -37,7 +37,8 @@ let en = {
     back: 'Back',
     introduction: 'Introduction',
     instructions: 'Instructions',
-    prerequisites: 'Prerequisites'
+    prerequisites: 'Prerequisites',
+    warning: 'Warning'
   },
   layouts: {
     consent: 'New study',
