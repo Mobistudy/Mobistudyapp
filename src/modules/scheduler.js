@@ -69,9 +69,9 @@ export function generateTasker (studiesParts, studiesDescr) {
         } else {
           // manage non-always on tasks:
 
-          let studyEndDate = new Date(studyDescr.generalities.endDate)
+          let studyEndDate = moment(new Date(studyDescr.generalities.endDate)).add(1, 'days').toDate() // RRrule will not show any instances.between if todays date is the same as end date. By adding one day this problem is solved.
           let rrule = generateRRule(studyPart.acceptedTS, studyEndDate, taskDescription.scheduling)
-          let instancesToEnd = rrule.between(moment().startOf('day').toDate(), studyEndDate)
+          let instancesToEnd = rrule.between(moment().startOf('day').toDate(), moment(studyEndDate).endOf('day').toDate())
           if (instancesToEnd.length > 0) {
             studyCompleted = false
           } else continue
