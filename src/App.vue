@@ -63,7 +63,6 @@ export default {
   },
   methods: {
     async onResume () {
-      console.log('onResume called...')
       try {
         await phone.pin.isPINSet()
         this.showPINPage = false
@@ -89,7 +88,6 @@ export default {
           console.log('Setting locale to', userinfo.user.language)
           this.$root.$i18n.locale = userinfo.user.language
         }
-        console.log('User token 1:', userinfo.user.token)
 
         // here we are sure that the database works fine
         this.showPINPage = false
@@ -110,7 +108,6 @@ export default {
         this.enableRouting = true
       } else {
         if (!resettingpwd) {
-          console.log('User token 2:', userinfo.user.token)
           API.setToken(userinfo.user.token)
           await this.delay()
           console.log('LOGGED IN, REDIRECTING TO HOME')

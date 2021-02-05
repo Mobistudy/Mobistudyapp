@@ -89,7 +89,6 @@ export default {
       try {
         this.devices = await po60.scan(25000)
         this.instructionDialog = false
-        console.log('All devices found:', this.devices)
         if (this.devices.length === 0) {
           this.$q.dialog({
             title: this.$t('studies.tasks.po60.noDeviceTitle'),
@@ -103,7 +102,6 @@ export default {
             this.abandon()
           })
         } else if (this.devices.length === 1) {
-          console.log('Found device:', this.devices[0])
           this.connect(this.devices[0])
         } else {
           // sort devices by RSSI, desc

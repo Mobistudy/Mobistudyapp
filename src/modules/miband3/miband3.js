@@ -136,12 +136,10 @@ export default {
    * @param {Function} cbk called at every sample of data retrieved
    */
   async getStoredData (startDate, cbk) {
-    console.log('StartDate:', startDate)
     function interfaceCallback (data) { // Filters the noisy heart rate values, eg 0 and 255.
       if (data.hr === 0 || data.hr === 255) {
         data.hr = Number.NaN
       }
-      console.log('data:', data.date, 'start:', startDate)
       if (data.date.getTime() > startDate.getTime()) cbk(data) // Filter our the dates that are previous to our startDate
     }
     return miband3Driver.fetchStoredData(startDate, interfaceCallback)

@@ -131,7 +131,6 @@ export default {
         ok: this.$i18n.t('accountMgmt.login.logout'),
         cancel: this.$i18n.t('common.cancel')
       }).onOk(async () => {
-        console.log('Logout called PROFILE')
         await userinfo.logout()
         API.setToken('')
         this.$router.push('/login')

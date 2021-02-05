@@ -6,8 +6,6 @@ const languageContents = Object.values(languages)
 const keys = new Map()
 
 function traverse (lang, obj, path) {
-  //   if (hasChild(obj) && !isString(obj)) console.log('Curr obj:', obj)
-
   Object.keys(obj).forEach(key => {
     if (isObject(obj) || isArray(obj)) {
       let newPath = path + '.' + key

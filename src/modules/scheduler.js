@@ -88,7 +88,6 @@ export function generateTasker (studiesParts, studiesDescr) {
           if (studyPart.taskItemsConsent) {
             const taskStatus = studyPart.taskItemsConsent.find(x => x.taskId === taskDescription.id)
             if (taskStatus && taskStatus.lastExecuted) {
-              // console.log('TASK WAS COMPLETED ON ', taskStatus.lastExecuted)
               // Task has been completed before
               lastCompletionTS = moment(new Date(taskStatus.lastExecuted))
             }
@@ -307,7 +306,6 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
       if (studyPart.taskItemsConsent) {
         const taskStatus = studyPart.taskItemsConsent.find(x => x.taskId === task.id)
         if (taskStatus && taskStatus.lastExecuted) {
-          // console.log('TASK WAS COMPLETED ON ', taskStatus.lastExecuted)
           // Task has been completed before
           lastCompletionTS = moment(new Date(taskStatus.lastExecuted))
         }
@@ -331,6 +329,5 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
       }
     }
   }
-  // console.log(notificationStack)
   await notifications.schedule(notificationStack)
 }
