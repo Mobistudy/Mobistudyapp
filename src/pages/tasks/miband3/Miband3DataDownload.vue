@@ -97,8 +97,6 @@ const chartColors = [
 // holder of all the stored data, this is kept outside of Vue for efficiency
 let storedData = []
 let minimumDataRequired = 30 // 30 minutes of data is required at a minimum to upload the data
-// eslint-disable-next-line no-unused-vars, TODO: not sure why this is complaining?
-let deviceInfo = {}
 
 // pie chart configuration
 let pieChartConfig = {
@@ -173,9 +171,7 @@ export default {
       this.startDate = await this.getDateToUseForDownload()
       try {
         this.deviceInfo = await miband3.getDeviceInfo()
-        console.log('Device info retrieved:', deviceInfo)
         await miband3.getStoredData(this.startDate, this.dataCallback)
-        console.log('Stored data:', storedData)
 
         try {
           await miband3.disconnect()
