@@ -18,7 +18,6 @@ export default {
   },
   // Log in
   login: async (email, password) => {
-    console.log('Login baseURL:', BASE_URL)
     let resp = await axios.post(BASE_URL + '/login', { email: email, password: password })
     return resp.data
   },
@@ -56,7 +55,6 @@ export default {
   // Get the participant profile
   getProfile: async function (userKey) {
     const resp = await axios.get(BASE_URL + '/participants/byuserkey/' + userKey, axiosConfig)
-    console.log('Response:', resp)
     return resp.data
   },
 
@@ -75,6 +73,11 @@ export default {
     return axios.patch(BASE_URL + `/participants/byuserkey/${userKey}/studies/${studyKey}`, studyParticipation, axiosConfig)
   },
 
+  // update status of a task item consent
+  updateTaskItemConsent: async function (studyKey, taskId, taskItemConsent) {
+    return axios.patch(BASE_URL + `/participants/studies/${studyKey}/taskItemsConsent/${taskId}`, taskItemConsent, axiosConfig)
+  },
+
   // retrieves study descritpion
   getStudyDescription: async function (studyKey) {
     let resp = await axios.get(BASE_URL + '/studies/' + studyKey, axiosConfig)
@@ -83,7 +86,6 @@ export default {
 
   // retrieves the keys of the new studies already filtered out by inclusion criteria
   getNewStudiesKeys: async function () {
-    console.log('Axios config:', axiosConfig)
     let resp = await axios.get(BASE_URL + '/newStudies/', axiosConfig)
     return resp.data
   },
@@ -91,7 +93,6 @@ export default {
   // retrieves an invitational study based on a code
   getInvitationalStudy: async function (invitationalCode) {
     let resp = await axios.get(BASE_URL + `/invitationalStudy/${invitationalCode}`, axiosConfig)
-    console.log('Retrieved resp:', resp)
     return resp.data
   },
 
@@ -128,7 +129,6 @@ export default {
 
   // send data from po60 stored data
   sendPO60Data: async function (data) {
-    console.log('baseURL:', BASE_URL)
     return axios.post(BASE_URL + '/po60Data', data, axiosConfig)
   }
 }

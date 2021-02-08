@@ -869,7 +869,6 @@ var Miband3 = {
   },
 
   // STORED DATA
-
   /**
    * Fetches stored data from a given date
    * @returns a promise which is solved if the fecthing starts
@@ -896,7 +895,9 @@ var Miband3 = {
             actualStartDate = this.createDateFromHexString(
               dataHex.substring(14, 26)
             )
+            console.log('Actual start date:', actualStartDate)
             totalSamples = this.getTotalSamplesFromBuffer(Buffer.from(responseData))
+            console.log('Total samples:', totalSamples)
             sampleCounter = 0
             // here we know we should receive data, so we register for the characteristic
             this.registerNotification(
@@ -915,6 +916,8 @@ var Miband3 = {
                   sampleCounter,
                   buffer
                 )
+                console.log('Buffer:', buffer)
+                console.log('Samples:', sampleArray)
                 for (let sample of sampleArray) {
                   dataCallback(
                     sample
@@ -1008,6 +1011,7 @@ var Miband3 = {
   // activity type not currently supported, only fetches activity 01
   sendStartDateAndActivity: async function (date, activityType) {
     let customDate = new CustomDate(date)
+    console.log('Custom date:', customDate.date)
     let dateMessage = customDate.getDateStringPacket()
     let packet = this.hexStringToHexBuffer(
       this.messages.storedData.startDate +
@@ -1388,7 +1392,7 @@ var Miband3 = {
     return new Date(year, mon, day, hrs, min, sec)
   },
 
-  setCurrentTimeStatus: async function () {
+  setCurrentTimeStatus: async function () { // TODO: Convert to UTC
     let currentDate = new Date()
     return this.setTimeStatus(currentDate)
   },

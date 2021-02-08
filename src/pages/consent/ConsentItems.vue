@@ -152,7 +152,6 @@ export default {
         this.remindersPermissionGiven = false
       } else {
         try {
-          console.log('Requesting permission')
           this.remindersPermissionGiven = await notifications.requestPermission()
           this.$q.notify({
             color: 'positive',

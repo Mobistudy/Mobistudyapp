@@ -26,6 +26,7 @@ export default {
   searchFailed: 'Ett problem uppstod med sökningen efter MiBand, vill du försöka igen?',
   noDeviceTitle: 'Inget MiBand hittat',
   noDevice: 'Kunde inte hitta ett MiBand armband. var god och se till att blåtanden är aktiverad på din mobil. Vill du söka efter armbandet igen?',
+  notEnoughData: 'Det fanns inga nya data att hämta från enheten, du måste försöka igen nästa gång den här uppgiften ska utföras.',
   moreDevices: 'Fler än en MiBand enhet hittades. Det närmaste armbandet hittar du längst upp i listan. Tryck på den enheten du vill ansluta till.',
   tap: 'Tryck på aktivitetsarmbandet!',
   connectionFail: 'Kan inte ansluta till armbandet, vill du försöka igen?',
@@ -33,9 +34,13 @@ export default {
   activityTypes: {
     walk: 'Går',
     charging: 'Laddar',
-    activity_high: 'Intensiv aktivitet',
+    activity_high: 'Hög-intensiv aktivitet',
+    activity_low: 'Låg-intenstiv aktivitet',
     sleep: 'Sover',
-    unknown: 'Okänd'
+    unknown: 'Okänd',
+    not_worn: 'Inte buren',
+    sedentary: 'Stillasittande',
+    running: 'Sprang'
   },
   dataDownload: 'Laddar ner data',
   dataDownloadError: 'Kunde inte ladda ner data från armbandet, var god försök igen eller avbryt.',

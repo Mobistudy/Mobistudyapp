@@ -1,10 +1,10 @@
 'use strict'
 
-import smwtTask from './tasks/smwt'
-import qcstTask from './tasks/qcst'
-import miband3Task from './tasks/miband3'
-import dataQueryTask from './tasks/dataQuery.js'
-import po60Task from './tasks/po60.js'
+import smwtTask from './tasks/smwt.mjs'
+import qcstTask from './tasks/qcst.mjs'
+import miband3Task from './tasks/miband3.mjs'
+import dataQueryTask from './tasks/dataQuery.mjs'
+import po60Task from './tasks/po60.mjs'
 
 let studies = {
   studies: {
@@ -14,7 +14,7 @@ let studies = {
     newStudyExtraCriteria: 'Svara på följande för att ta reda på om du är behörig',
     notEligible: 'Du har inte behörighet till den här studien',
     foundNoStudies: 'Fann inga behöriga studier',
-    searchingForStudies: 'Letar efter nya studie',
+    searchingForStudies: 'Letar efter nya studier',
     noStudies: 'Du deltar för nuvarande inte i en studie',
     joinStudy: 'Delta',
     discardStudy: 'Kassera',
@@ -46,9 +46,10 @@ let studies = {
       cancelTask: 'Det här kommer att avsluta nuvarande uppgift och du kommer bli omdirigerad till startsidan. Ingen data kommer bli sparad. Är du säker på att du vill avsluta?',
       noPendingTasks: 'Ingen uppgift pågående',
       cancelTaskLabel: 'Avbryt',
-      quitTaskLabel: 'Slutför uppgift',
+      quitTaskLabel: 'Avsluta uppgift',
       pendingTasks: 'Dagens pågående uppgifter',
       missedTasks: 'Missade uppgifter',
+      alwaysOnTasks: 'Uppgifter som alltid är tillgängliga',
       noMissedTasks: 'Inga uppgifter missade',
       instructionsNote: 'Var god läs instruktionerna noga. Noggranheten av testet beror på hur väl instruktionerna följs.',
       capTestComplete: 'Grattis!',

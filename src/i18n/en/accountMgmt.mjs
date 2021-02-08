@@ -11,6 +11,7 @@ export default {
     register: 'Register',
     deleteAccount: 'Delete Account',
     deleteShort: "You can permanently delete your account, Mobistudy won't ever collect anymore data unless you create a new account.",
+    deleteWarning: 'Deleting your account will delete all the data permanently for all studies. Are you sure you want to continue?',
     login: {
       login: 'Login',
       logout: 'Logout',

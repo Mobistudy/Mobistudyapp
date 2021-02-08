@@ -1,10 +1,10 @@
 'use strict'
 
-import smwtTask from './tasks/smwt'
-import qcstTask from './tasks/qcst'
-import miband3Task from './tasks/miband3'
-import dataQueryTask from './tasks/dataQuery.js'
-import po60Task from './tasks/po60.js'
+import smwtTask from './tasks/smwt.mjs'
+import qcstTask from './tasks/qcst.mjs'
+import miband3Task from './tasks/miband3.mjs'
+import dataQueryTask from './tasks/dataQuery.mjs'
+import po60Task from './tasks/po60.mjs'
 
 let studies = {
   studies: {
@@ -49,6 +49,7 @@ let studies = {
       quitTaskLabel: 'Quit task',
       pendingTasks: "Today's pending tasks",
       missedTasks: 'Missed tasks',
+      alwaysOnTasks: 'Tasks that are always available',
       noMissedTasks: 'No tasks missed',
       instructionsNote: 'Please read the instructions carefully. The accuracy of the test depends on the instructions being followed as closely as possible.',
       capTestComplete: 'Congratulations!',

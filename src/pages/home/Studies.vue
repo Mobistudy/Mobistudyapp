@@ -158,7 +158,6 @@ export default {
       for (let i = 0; i < newStudiesKeys.length; i++) {
         let studyKey = newStudiesKeys[i]
         let studyDescr = await API.getStudyDescription(studyKey)
-        console.log('Study Descr:', studyDescr)
         this.newStudiesCustomAnswers.push([])
         this.newStudies.push(studyDescr)
       }
@@ -319,14 +318,12 @@ export default {
       else return true
     },
     studyExists (studies, studyToFind) {
-      console.log('Attempting to find study in app studies:', studyToFind._key)
       let studyFound = false
       studies.find((study) => {
         if (study._key === studyToFind._key) {
           studyFound = true
         }
       })
-      console.log('Study found:', studyFound)
       return studyFound
     }
   }

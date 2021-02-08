@@ -1,8 +1,8 @@
-import { mergeDeep } from 'modules/tools'
-import acMgmtEn from './accountMgmt'
-import studiesEn from './studies'
-import ppEn from './privacyPolicy'
-import tcEn from './termsAndConditions'
+import { mergeDeep } from '../../modules/tools.mjs'
+import acMgmtEn from './accountMgmt.mjs'
+import studiesEn from './studies.mjs'
+import ppEn from './privacyPolicy.mjs'
+import tcEn from './termsAndConditions.mjs'
 
 let en = {
   errors: {
@@ -37,7 +37,8 @@ let en = {
     back: 'Back',
     introduction: 'Introduction',
     instructions: 'Instructions',
-    prerequisites: 'Prerequisites'
+    prerequisites: 'Prerequisites',
+    warning: 'Warning'
   },
   layouts: {
     consent: 'New study',

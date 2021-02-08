@@ -48,9 +48,11 @@ export default {
     let studies = await storage.getItem('studiesParticipation')
     return studies.find(sp => sp.studyKey === studyKey)
   },
-  async getStudyParticipationTaskItemConsent (studyKey) {
+  async getStudyParticipationTaskItemConsent (studyKey, taskId) {
+    if (!studyKey) throw new Error('studyKey must be specified')
+    if (!taskId) throw new Error('taskId must be specified')
     let studyParticipation = await this.getStudyParticipation(studyKey)
-    return (studyParticipation.taskItemsConsent)
+    return studyParticipation.taskItemsConsent.find(x => x.taskId === Number(taskId))
   },
   async setStudyParticipation (studyPart) {
     let studies = await storage.getItem('studiesParticipation')
@@ -61,25 +63,27 @@ export default {
   async setStudiesParticipation (studies) {
     return storage.setItem('studiesParticipation', studies)
   },
-  async setTaskCompletion (studyKey, taskId, timestamp) {
+  async setStudyParticipationTaskItemConsent (studyKey, taskId, task) {
     if (!studyKey) throw new Error('studyKey must be specified')
     if (!taskId) throw new Error('taskId must be specified')
-    if (!timestamp) throw new Error('timestamp must be specified')
+    if (!task) throw new Error('task must be specified')
     let studies = await storage.getItem('studiesParticipation')
     let sudyInd = studies.findIndex(x => x.studyKey === studyKey)
     if (!studies[sudyInd].taskItemsConsent) studies[sudyInd].taskItemsConsent = []
     let taksstatusInd = studies[sudyInd].taskItemsConsent.findIndex(x => x.taskId === taskId)
     if (taksstatusInd < 0) {
       // this case shouldn't happen really
-      studies[sudyInd].taskItemsConsent.push({
-        taskId: taskId, consented: true, lastExecuted: timestamp
-      })
+      studies[sudyInd].taskItemsConsent.push(task)
       taksstatusInd = 0
     } else {
-      studies[sudyInd].taskItemsConsent[taksstatusInd].lastExecuted = timestamp
+      studies[sudyInd].taskItemsConsent[taksstatusInd] = task
     }
-    await this.setStudiesParticipation(studies)
-    return Promise.resolve()
+    return this.setStudiesParticipation(studies)
+  },
+  async setTaskCompletion (studyKey, taskId, timestamp) {
+    let task = await this.getStudyParticipationTaskItemConsent(studyKey, taskId)
+    task.lastExecuted = timestamp
+    return this.setStudyParticipationTaskItemConsent(studyKey, taskId, task)
   },
   /* Study descriptions */
   async getStudyDescription (studyKey) {
@@ -96,11 +100,6 @@ export default {
     const studyDes = await this.getStudyDescription(studyKey)
     if (!studyDes) throw new Error('study with key ' + studyKey + ' does not exist')
     return studyDes.tasks.find(x => x.id === Number(taskId))
-  },
-  async getLastCompletedTaskDate (studyKey, taskId) {
-    let taskItemConsent = await this.getStudyParticipationTaskItemConsent(studyKey)
-    let lastCompleted = taskItemConsent.find(x => x.taskId === Number(taskId)).lastExecuted
-    return lastCompleted
   },
 
   /* FORMS */

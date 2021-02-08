@@ -54,20 +54,24 @@ export function generateTasker (studiesParts, studiesDescr) {
         if (taskDescription.scheduling.alwaysOn) {
           if (isTaskIntervalDue(studyPart.acceptedTS, taskDescription.scheduling)) {
             studyCompleted = false
-
-            taskerItems.alwaysOn.push({
+            let task = {
               type: taskDescription.type,
               studyKey: studyDescr._key,
               taskId: taskDescription.id,
               alwaysOn: true
-            })
+            }
+            if (taskDescription.type === 'form') {
+              task.formName = taskDescription.formName
+              task.formKey = taskDescription.formKey
+            }
+            taskerItems.alwaysOn.push(task)
           }
         } else {
           // manage non-always on tasks:
 
-          let studyEndDate = new Date(studyDescr.generalities.endDate)
+          let studyEndDate = moment(new Date(studyDescr.generalities.endDate)).add(1, 'days').toDate() // RRrule will not show any instances.between if todays date is the same as end date. By adding one day this problem is solved.
           let rrule = generateRRule(studyPart.acceptedTS, studyEndDate, taskDescription.scheduling)
-          let instancesToEnd = rrule.between(moment().startOf('day').toDate(), studyEndDate)
+          let instancesToEnd = rrule.between(moment().startOf('day').toDate(), moment(studyEndDate).endOf('day').toDate())
           if (instancesToEnd.length > 0) {
             studyCompleted = false
           } else continue
@@ -84,7 +88,6 @@ export function generateTasker (studiesParts, studiesDescr) {
           if (studyPart.taskItemsConsent) {
             const taskStatus = studyPart.taskItemsConsent.find(x => x.taskId === taskDescription.id)
             if (taskStatus && taskStatus.lastExecuted) {
-              // console.log('TASK WAS COMPLETED ON ', taskStatus.lastExecuted)
               // Task has been completed before
               lastCompletionTS = moment(new Date(taskStatus.lastExecuted))
             }
@@ -120,7 +123,7 @@ export function generateTasker (studiesParts, studiesDescr) {
             taskId: taskDescription.id
           }
           if (taskDescription.type === 'form') {
-            templateObj.formTitle = taskDescription.formName
+            templateObj.formName = taskDescription.formName
             templateObj.formKey = taskDescription.formKey
           }
           if (upcoming !== null) {
@@ -277,7 +280,7 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
       if (Platform.is.ios && HealthDataEnum.isAndroidOnly(task.dataType)) continue
       if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
     }
-    if (task.schedling.alwaysOn) continue
+    if (task.scheduling.alwaysOn) continue
     let rrule = generateRRule(acceptedTS, new Date(studyDescr.generalities.endDate), task.scheduling)
     let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
     for (let scheduleI = 0; scheduleI < taskTimes.length && scheduleI < 1000; scheduleI++) {
@@ -303,7 +306,6 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
       if (studyPart.taskItemsConsent) {
         const taskStatus = studyPart.taskItemsConsent.find(x => x.taskId === task.id)
         if (taskStatus && taskStatus.lastExecuted) {
-          // console.log('TASK WAS COMPLETED ON ', taskStatus.lastExecuted)
           // Task has been completed before
           lastCompletionTS = moment(new Date(taskStatus.lastExecuted))
         }
@@ -327,6 +329,5 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
       }
     }
   }
-  // console.log(notificationStack)
   await notifications.schedule(notificationStack)
 }

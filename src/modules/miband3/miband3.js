@@ -140,7 +140,7 @@ export default {
       if (data.hr === 0 || data.hr === 255) {
         data.hr = Number.NaN
       }
-      cbk(data)
+      if (data.date.getTime() > startDate.getTime()) cbk(data) // Filter our the dates that are previous to our startDate
     }
     return miband3Driver.fetchStoredData(startDate, interfaceCallback)
   },

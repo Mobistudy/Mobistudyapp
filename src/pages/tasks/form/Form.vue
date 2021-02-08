@@ -160,7 +160,6 @@ export default {
   async created () {
     this.isRetrieving = true
     const formKey = this.formKey
-    console.log('Form Key:', formKey)
 
     try {
       let formDescr = await DB.getFormDescription(formKey)
@@ -172,13 +171,11 @@ export default {
         this.$q.loading.hide()
       }
       this.formDescr = formDescr
-      console.log('Form description:', this.formDescr)
       this.introduction = {
         title: this.formDescr.name,
         description: this.formDescr.description
       }
       this.currentQuestion = this.formDescr.questions[0]
-      console.log('Current question:', this.currentQuestion)
       setTimeout(() => { this.slideName = 'fadeInDown' }, 10)
     } catch (error) {
       console.error(error)

@@ -89,7 +89,6 @@ export default {
       try {
         this.devices = await po60.scan(25000)
         this.instructionDialog = false
-        console.log('All devices found:', this.devices)
         if (this.devices.length === 0) {
           this.$q.dialog({
             title: this.$t('studies.tasks.po60.noDeviceTitle'),
@@ -103,7 +102,6 @@ export default {
             this.abandon()
           })
         } else if (this.devices.length === 1) {
-          console.log('Found device:', this.devices[0])
           this.connect(this.devices[0])
         } else {
           // sort devices by RSSI, desc
@@ -138,9 +136,8 @@ export default {
         this.moveToDownloadPage()
       } catch (error) {
         console.error(error)
-        // TODO: there should be a third button in case the user has a new miband
+        // TODO: there should be a third button in case the user has a new pulseoximeters
         // this cannot be done using the dialog plugin, so a complete dialog should be designed
-        // Rarely connects on the first attempt, should need at least 3.
         if (this.connectionAttempts < this.maxConnectionAttempts) {
           console.log('Attempting connect again...', this.connectionAttempts)
           this.connect(device)

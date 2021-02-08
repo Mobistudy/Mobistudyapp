@@ -1,8 +1,8 @@
-import { mergeDeep } from 'modules/tools'
-import acMgmtSv from './accountMgmt'
-import studiesSv from './studies'
-import ppSv from './privacyPolicy'
-import tcSv from './termsAndConditions'
+import { mergeDeep } from '../../modules/tools.mjs'
+import acMgmtSv from './accountMgmt.mjs'
+import studiesSv from './studies.mjs'
+import ppSv from './privacyPolicy.mjs'
+import tcSv from './termsAndConditions.mjs'
 
 let sv = {
   errors: {

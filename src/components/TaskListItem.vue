@@ -45,7 +45,7 @@ export default {
       const formKey = this.task.formKey
 
       // these bring the user to the correct route depending on the task
-      if (formKey) {
+      if (type === 'form') {
         this.$router.push({ name: 'formIntro', params: { studyKey: studyKey, taskId: taskId, formKey: formKey }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'smwt') {
         this.$router.push({ name: 'smwtIntro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
@@ -55,10 +55,10 @@ export default {
         this.$router.push({ name: 'miband3Intro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'po60') {
         this.$router.push({ name: 'po60Intro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
-      } else if (studyKey && taskId) {
+      } else if (type === 'dataQuery') {
         this.$router.push({ name: 'dataQueryIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else {
-        return false
+        throw new Error('Could not changeRoute with task type.')
       }
     }
   },
@@ -68,7 +68,7 @@ export default {
       this.main = this.$i18n.t('studies.tasks.dataQuery.shortDescription')
       this.icon = 'insert_chart_outlined'
     } else if (this.task.type === 'form') {
-      this.title = this.task.formTitle[this.$root.$i18n.locale]
+      this.title = this.task.formName[this.$root.$i18n.locale]
       this.main = this.$i18n.t('studies.tasks.form.shortDescription')
       this.icon = 'format_list_bulleted'
     } else if (this.task.type === 'smwt') {
