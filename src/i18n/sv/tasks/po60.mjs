@@ -36,6 +36,6 @@ export default {
     hr: 'Hjärtfrekvens',
     spo2: 'Syremättnadsnivå'
   },
-  dataHRTitle: 'Hjärtslag per minute',
+  dataHRTitle: 'Hjärtslag per minut',
   dataSPO2Title: 'Syremättnadsnivå'
 }

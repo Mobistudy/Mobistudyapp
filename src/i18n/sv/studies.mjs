@@ -14,7 +14,7 @@ let studies = {
     newStudyExtraCriteria: 'Svara på följande för att ta reda på om du är behörig',
     notEligible: 'Du har inte behörighet till den här studien',
     foundNoStudies: 'Fann inga behöriga studier',
-    searchingForStudies: 'Letar efter nya studie',
+    searchingForStudies: 'Letar efter nya studier',
     noStudies: 'Du deltar för nuvarande inte i en studie',
     joinStudy: 'Delta',
     discardStudy: 'Kassera',

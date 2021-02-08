@@ -65,7 +65,6 @@ export default {
   },
   async created () {
     // at this point we must be logged out
-    console.log('Logout called CHANGEPW')
     await userinfo.logout()
   },
   methods: {

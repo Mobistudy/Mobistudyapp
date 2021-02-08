@@ -3,7 +3,6 @@
 class CustomDate {
   constructor (date) {
     this.date = date
-    console.log('Date init:', date)
     this.dateFunctions = [
       this.date.getFullYear(),
       this.date.getMonth() + 1,

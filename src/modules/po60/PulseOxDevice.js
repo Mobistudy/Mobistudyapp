@@ -46,9 +46,7 @@ export default class PulseOxDevice extends BLEDevice {
             this.getFirstData()
           } else {
             this.addToRecord(responseArray)
-            console.log('Buffer:', this.buffer)
             if (this.isAllDataTransferred()) {
-              console.log('All data is retrieved')
               const record = this.assembleFinalRecord()
               this.buffer = []
               resolve(record)
@@ -63,9 +61,7 @@ export default class PulseOxDevice extends BLEDevice {
       })
     }
     async getLatestData () {
-      console.log('Retrieving latest data')
       let record = await this.getAllData()
-      console.log('Latest data retrieved')
       let latestRecord = record[record.length - 1]
       return latestRecord
     }
@@ -79,7 +75,6 @@ export default class PulseOxDevice extends BLEDevice {
 
         const nextValueHex = this.paddHex(this.buffer[i + 1].toString(16))
         const remainingValues = (this.buffer.length - 1) - i
-        console.log('Next value:', nextValueHex, 'Remaining:', remainingValues)
         if (nextValueHex.charAt(0) === '4' && remainingValues === 23) return true
       }
       return false
@@ -98,7 +93,6 @@ export default class PulseOxDevice extends BLEDevice {
       if (this.buffer.length === 0) return // Record is empty
       let assembledRecord = []
       let currentRecord = []
-      console.log('Assembling record:', this.buffer.length)
       for (let i = 0; i < this.buffer.length; i++) {
         if ((i !== 0 && this.buffer[i] === 233) || i === this.buffer.length - 1) { // Every 24 data points
           if (i === this.buffer.length - 1) currentRecord.push(this.buffer[i])
@@ -110,8 +104,6 @@ export default class PulseOxDevice extends BLEDevice {
       // Creates an array of objects with the relevant data inside of each array of 24 bytes.
       let record = []
       for (let measurement of assembledRecord) {
-        console.log('Measurement:', measurement)
-        console.log('Year', measurement[2])
         let measurementObject = {}
         Object.assign(measurementObject, this.getTimestampValues(measurement))
         Object.assign(measurementObject, this.getHRValues(measurement))

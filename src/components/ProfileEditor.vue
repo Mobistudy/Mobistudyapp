@@ -378,7 +378,6 @@ export default {
       }
       try {
         const concepts = await API.searchDiseaseConcept(diseaseDescription, 'en')
-        console.log('this.diseases:', this.value.diseases)
         concepts.data = concepts.data.filter((concept) => {
           if (!this.conceptIdExistsInArrayOfObjects(this.value.diseases, concept.conceptId)) {
             return true
@@ -453,10 +452,8 @@ export default {
     },
     conceptIdExistsInArrayOfObjects (array, conceptId) {
       let exists = false
-      console.log('Array to check', array)
       // eslint-disable-next-line no-unused-vars
       for (let [key, value] of array.entries()) {
-        console.log('Checking value:', value)
         if (value.conceptId === conceptId) {
           exists = true
         }

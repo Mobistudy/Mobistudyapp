@@ -88,7 +88,6 @@ export default {
       await this.delay(1)
       try {
         this.storedData = await po60.getLatestData()
-        console.log('Stored data:', this.storedData)
         try {
           await po60.disconnect()
         } catch (err) {
@@ -100,7 +99,6 @@ export default {
         this.showErrorDialog()
       }
       this.isDownloading = false
-      console.log('Bool:', (!this.isDownloading && this.storedData !== undefined))
     },
 
     showErrorDialog () {
@@ -170,7 +168,6 @@ export default {
       }
     },
     async delay (seconds) {
-      console.log('delaying')
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve()
@@ -179,7 +176,6 @@ export default {
     }
   },
   async mounted () {
-    console.log('Down studyKey:', this.studyKey)
     await this.downloadData()
   },
   async beforeDestroy () {

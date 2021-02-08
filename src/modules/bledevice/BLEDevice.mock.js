@@ -13,7 +13,6 @@ export default class BLEDevice {
     }
 
     static async scan (deviceName, searchTime) {
-      console.log('In mock')
       if (SEARCH_FAIL) {
         return Promise.reject()
       }
