@@ -2,9 +2,7 @@
 // MOCK API implementation
 import study1234 from './mockdata/study1234'
 import form1234 from './mockdata/form1234'
-import form3333 from './mockdata/form3333'
 import study9999 from './mockdata/study9999'
-import studyInvitational from './mockdata/studyInvitational'
 import form9999 from './mockdata/form9999'
 import participant from './mockdata/participant'
 
@@ -159,10 +157,6 @@ export default {
         setTimeout(function () {
           resolve(study9999)
         }, 1000)
-      } else if (studyKey === '1010') {
-        setTimeout(function () {
-          resolve(studyInvitational)
-        }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study not found'))
@@ -174,9 +168,9 @@ export default {
   async getNewStudiesKeys () {
     console.log('API - getting new study')
     let studyPart = participant.studies.find((s) => {
-      return s.studyKey === '9999'
+      return s.studyKey === '1234'
     })
-    if (!studyPart) return ['9999']
+    if (!studyPart) return ['1234']
     else return []
   },
 
@@ -184,8 +178,8 @@ export default {
   async getInvitationalStudy (invitationalCode) {
     console.log('API - getting invitational study')
     return new Promise((resolve, reject) => {
-      if (invitationalCode === studyInvitational.invitationalCode) {
-        resolve(studyInvitational)
+      if (invitationalCode === study9999.invitationalCode) {
+        resolve(study9999)
       } else {
         reject(new Error('Cannot retrieve invitational study based on code.'))
       }
@@ -195,18 +189,14 @@ export default {
   async getForm (key) {
     console.log('API - getting form', key)
     return new Promise(function (resolve, reject) {
-      if (key === '9999') {
-        setTimeout(function () {
-          resolve(form9999)
-        }, Math.floor(Math.random() * 5000))
-      } else if (key === '1234') {
+      if (key === '1234') {
         setTimeout(function () {
           resolve(form1234)
         }, Math.floor(Math.random() * 2000))
-      } else if (key === '3333') {
+      } else if (key === '9999') {
         setTimeout(function () {
-          resolve(form3333)
-        }, Math.floor(Math.random() * 3000))
+          resolve(form9999)
+        }, Math.floor(Math.random() * 2000))
       } else {
         reject(new Error('Questionnaire not found'))
       }

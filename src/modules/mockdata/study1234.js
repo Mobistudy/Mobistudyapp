@@ -71,7 +71,7 @@ export default {
         answer: 'yes'
       }
     ],
-    diseases: [ { name: 'COPD', conceptId: '123123123' } ],
+    diseases: [{ name: 'COPD', conceptId: '123123123' }],
     medications: []
   },
   tasks: [
@@ -137,7 +137,8 @@ export default {
     },
     {
       id: 5,
-      type: 'form',
+      type: 'miband3',
+      hrInterval: 5,
       scheduling: {
         startEvent: 'consent',
         intervalType: 'd',
@@ -146,11 +147,19 @@ export default {
         months: [],
         monthDays: [],
         weekDays: []
-      },
-      formKey: '3333',
-      formName: {
-        en: 'ACQ form',
-        sv: 'ACQ formulär'
+      }
+    },
+    {
+      id: 6,
+      type: 'po60',
+      scheduling: {
+        startEvent: 'consent',
+        intervalType: 'd',
+        untilSecs: 2592000, // 1 month
+        interval: 1,
+        months: [],
+        monthDays: [],
+        weekDays: []
       }
     }
   ],

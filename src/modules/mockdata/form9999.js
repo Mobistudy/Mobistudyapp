@@ -41,7 +41,7 @@ export default {
       id: 'Q2',
       type: 'freetext',
       text: {
-        en: 'In a typical week, on how many days do you do vigorousintensity activities as part of your work? '
+        en: 'In a typical week, on how many days do you do vigorous-intensity activities as part of your work? '
       },
       helper: {
         en: 'Number of days'
@@ -90,7 +90,7 @@ export default {
       id: 'Q5',
       type: 'freetext',
       text: {
-        en: 'In a typical week, on how many days do you do moderateintensity activities as part of your work?'
+        en: 'In a typical week, on how many days do you do moderate-intensity activities as part of your work?'
       },
       helper: {
         en: 'Number of days'
@@ -185,7 +185,7 @@ export default {
       id: 'Q11',
       type: 'freetext',
       text: {
-        en: 'In a typical week, on how many days do you do vigorousintensity sports, fitness or recreational (leisure) activities?'
+        en: 'In a typical week, on how many days do you do vigorous-intensity sports, fitness or recreational (leisure) activities?'
       },
       helper: {
         en: 'Number of days'
@@ -232,7 +232,7 @@ export default {
       id: 'Q14',
       type: 'freetext',
       text: {
-        en: 'In a typical week, on how many days do you do moderateintensity sports, fitness or recreational (leisure) activities?'
+        en: 'In a typical week, on how many days do you do moderate-intensity sports, fitness or recreational (leisure) activities?'
       },
       helper: {
         en: 'Hours : minutes'

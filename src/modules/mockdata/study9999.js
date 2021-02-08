@@ -1,6 +1,7 @@
 export default {
   _key: '9999',
   publishedTS: '2019-12-09T09:30:32.492Z',
+  invitationalCode: '123456',
   generalities: {
     languages: ['en'],
     title: {
@@ -52,10 +53,6 @@ export default {
     sex: [
       'female'
     ],
-    lifestyle: {
-      active: 'notrequired',
-      smoker: 'notrequired'
-    },
     criteriaQuestions: [
       {
         title: {
@@ -94,49 +91,6 @@ export default {
       formName: {
         en: 'Global Physical Activity Questionnaire'
       }
-    },
-    {
-      id: 3,
-      type: 'smwt',
-      scheduling: {
-        startEvent: 'consent',
-        intervalType: 'd',
-        interval: 7,
-        months: [],
-        monthDays: [],
-        weekDays: []
-      }
-    },
-    {
-      id: 4,
-      type: 'qcst',
-      scheduling: {
-        startEvent: 'consent',
-        intervalType: 'd',
-        interval: 7,
-        months: [],
-        monthDays: [],
-        weekDays: []
-      }
-    },
-    {
-      id: 5,
-      type: 'miband3',
-      hrInterval: 3,
-      scheduling: {
-        startEvent: 'consent',
-        intervalType: 'd',
-        interval: 3
-      }
-    },
-    {
-      id: 6,
-      type: 'po60',
-      scheduling: {
-        startEvent: 'consent',
-        intervalType: 'd',
-        interval: 3
-      }
     }
   ],
   consent: {
@@ -145,14 +99,14 @@ export default {
 
       In order to participate, you need to have been diagnosed with COPD and not currently being involved in a rehabilitation programme. You must be capable of doing light physical exercise and must own a smartphone.
 
-      You will do your preferred exercise twice a week and report it through your favourite app. In order to measure your progress, you will perform two simple exercise capacity tests, the six-minute walk test and the Queens College Step Test, once a week, guided by your smartphone. You will also answer a questionnaire about physical activity and
+      You will do your preferred exercise twice a week and report it through your favourite app. In order to measure your progress, you will answer a questionnaire and send the data collected by your phone about your physical activity.
 
       The participation to this study is voluntary and you can withdraw at any moment.`
     },
     privacyPolicy: {
       en: `Through this app, we are going to collect data about your physical activity as collected by your phone.
 
-      The data will be stored on Mobstudy servers and be used by the University of Malmö for analysis. The data will be deleted from the server after the end of the study and will be retained by the research team for no more than 5 years after the end of the study.
+      The data will be stored on Mobistudy servers and be used by the University of Malmö for analysis. The data will be deleted from the server after the end of the study and will be retained by the research team for no more than 5 years after the end of the study.
 
       Part of the data may be published on scientific journals after having been aggregated and anonymised.`
     },
@@ -168,30 +122,6 @@ export default {
           en: 'I agree to answer the physical exercise questionnaire every other day.'
         },
         taskId: 2
-      },
-      {
-        description: {
-          en: 'I agree to perform a six-minute walk test once a week.'
-        },
-        taskId: 3
-      },
-      {
-        description: {
-          en: 'I agree to perform a Queen\'s College Step Test once a week.'
-        },
-        taskId: 4
-      },
-      {
-        description: {
-          en: 'I agree to upload my data to mobistudy once a week.'
-        },
-        taskId: 5
-      },
-      {
-        description: {
-          en: 'I agree to upload my data to mobistudy once a week.'
-        },
-        taskId: 6
       }
     ]
   }

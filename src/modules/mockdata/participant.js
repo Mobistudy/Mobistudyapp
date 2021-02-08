@@ -21,9 +21,9 @@ export default {
   // studies: []
   studies: [
     {
-      studyKey: '9999',
+      studyKey: '1234',
       currentStatus: 'accepted',
-      acceptedTS: new Date(new Date().getTime() - 604800000).toISOString(), // 7 days ago
+      acceptedTS: new Date(new Date().getTime() - 691200000).toISOString(), // 8 days ago
       reminders: true,
       criteriaAnswers: ['yes'],
       taskItemsConsent: [
