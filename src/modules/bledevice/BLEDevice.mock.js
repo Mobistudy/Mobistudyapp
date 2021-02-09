@@ -4,7 +4,6 @@ const CONNECT_FAIL = false
 export default class BLEDevice {
     device = undefined
     deviceId = undefined
-    ble = window.ble
     disconnectCallback = undefined
 
     constructor (device) {
@@ -46,23 +45,5 @@ export default class BLEDevice {
     }
     async isConnected () {
       return Promise.resolve(true)
-    }
-    async writeWithoutResponse (data) {
-      return new Promise((resolve, reject) => {
-        this.ble.writeWithoutResponse(
-          this.deviceId,
-          this.SERVICE_UUID,
-          this.WRITE_CHAR_UUID,
-          data.buffer,
-          successResponse => {
-            console.log('Write without response succeeded.')
-            resolve(successResponse)
-          },
-          failureResponse => {
-            console.log('Write without response failed.')
-            reject(failureResponse)
-          }
-        )
-      })
     }
 }

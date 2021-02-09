@@ -228,7 +228,7 @@ export default {
         taskItem.lastExecuted = timestamp
       }
     } else {
-      throw new Error('Study not found in participant profile')
+      throw new Error(`Study ${studyKey} not found in participant profile`)
     }
   },
 
