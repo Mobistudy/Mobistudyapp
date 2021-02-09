@@ -6,7 +6,6 @@ module.exports = {
   NOTIFICATIONS: 'WEB', // use 'WEB' for browser notifications or 'cordova' for the cordova plugin
   STORAGE: 'local', // use 'local' for browser localStorage or 'native' for cordova native storage
   PHONE: 'MOCK', // use 'MOCK' for mocked phone functionalities or 'cordova' otherwise
-  BLEDEVICE: 'driver', // use 'MOCK' for mocked BLEDevice or 'driver' otherwise
   MIBAND3: 'MOCK', // use 'MOCK' for mocked tracker or 'driver' otherwise
   PO60: 'driver' // use 'MOCK' for mocked pulse oximeter or 'driver' otherwise
 }

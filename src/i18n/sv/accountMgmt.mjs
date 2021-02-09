@@ -39,7 +39,6 @@ export default {
     },
     registration: {
       signUp: 'Registrera',
-      termsAndConditions: 'Villkor',
       createAccount: 'Skapa konto',
       createProfile: 'Skapa profil',
       privacyPolicy: 'Integritetspolicy',

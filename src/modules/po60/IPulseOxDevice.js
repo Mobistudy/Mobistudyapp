@@ -1,5 +1,5 @@
 'use strict'
-import PulseOxDevice from './PulseOxDevice'
+import PulseOxDevice from 'modules/po60/PulseOxDevice'
 
 export default {
   device: undefined,

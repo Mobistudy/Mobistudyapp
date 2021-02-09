@@ -24,7 +24,6 @@ const routes = [
     path: '/register',
     component: () => import('layouts/RegLayout.vue'),
     children: [
-      { path: '/register_tc', name: 'register_tc', component: () => import('pages/accountmgmt/Reg_TermsAndConditions.vue') },
       { path: '/register_pp', name: 'register_pp', component: () => import('pages/accountmgmt/Reg_PrivacyPolicy.vue') },
       { path: '/register_profile', name: 'register_profile', component: () => import('pages/accountmgmt/Reg_Profile.vue') },
       { path: '/signup', name: 'signup', component: () => import('pages/accountmgmt/Reg_SignUp.vue') }

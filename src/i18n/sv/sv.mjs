@@ -2,7 +2,6 @@ import { mergeDeep } from '../../modules/tools.mjs'
 import acMgmtSv from './accountMgmt.mjs'
 import studiesSv from './studies.mjs'
 import ppSv from './privacyPolicy.mjs'
-import tcSv from './termsAndConditions.mjs'
 
 let sv = {
   errors: {
@@ -124,6 +123,5 @@ let sv = {
 sv = mergeDeep(sv, acMgmtSv)
 sv = mergeDeep(sv, studiesSv)
 sv = mergeDeep(sv, ppSv)
-sv = mergeDeep(sv, tcSv)
 
 export default sv
