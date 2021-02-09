@@ -234,7 +234,7 @@
 <script>
 import API from 'modules/API'
 import DB from 'modules/db'
-import fileSystem from 'modules/files'
+// import fileSystem from 'modules/files'
 import { format as Qformat } from 'quasar'
 
 export default {
@@ -253,12 +253,12 @@ export default {
       this.report.borgScale = this.borgValue
 
       // Only for testing purposes! Please remove before deploying app.
-      try {
-        let filename = 'qcst_' + new Date().getTime() + '.json'
-        await fileSystem.save(filename, this.report)
-      } catch (err) {
-        console.error('Cannot save to file', err)
-      }
+      // try {
+      //   let filename = 'qcst_' + new Date().getTime() + '.json'
+      //   await fileSystem.save(filename, this.report)
+      // } catch (err) {
+      //   console.error('Cannot save to file', err)
+      // }
 
       // Save the data to server
       try {
