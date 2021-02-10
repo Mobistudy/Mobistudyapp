@@ -1,5 +1,4 @@
-export default {
-  privacyPolicyFull: `<p>Version 2020-06-18</p>
+export default `<p>Version 2020-06-18</p>
   <p>
     The Mobistudy app is meant to be used by citizens who want to contribute to
     research studies using their mobile phones.
@@ -85,4 +84,3 @@ export default {
     For enquiries, you can contact the Mobistudy team at mobistudy@mau.se
     or the University's Data Protection Officer at dataskyddsombud@mau.se
   </p>`
-}

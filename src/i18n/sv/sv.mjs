@@ -1,7 +1,12 @@
 import { mergeDeep } from '../../modules/tools.mjs'
 import acMgmtSv from './accountMgmt.mjs'
 import studiesSv from './studies.mjs'
+<<<<<<< HEAD
 import ppSv from './privacyPolicy.mjs'
+=======
+import privacyPolicyFull from './privacyPolicy'
+import about from './about/about'
+>>>>>>> f2fbe2881635f15bf6abe1da6e176ec3f99ff74f
 
 let sv = {
   errors: {
@@ -82,26 +87,6 @@ let sv = {
     no1Word: 'Ett ord för sig själv är enkelt att gissa.',
     noNames: 'Namn och efternamn är enkla att gissa.'
   },
-  about: {
-    about: 'Om',
-    introduction: 'Introduktion',
-    introductionFull: `Mobistudy är ett öppet iniativ som tillåter medborgare att hjälpa forskning med deras data. \
-    Deltagare laddar ner en app (iOS eller Android) och efter registrering, \
-    och ifyllandet av kort profilinformation, kommer de få förslag för studier de kan delta i. \
-    Om de finner en studie de är intresserad av, blir de guidade genom en enkel-att-förstå informerad samtyckes process. \
-    Vid accepterande kommer deltagare att få förslag om uppgifter, som till exempel att svara på ett frågeformular, eller \
-    att bidra med deras hälsodata som samlats genom Google Fit eller Apple HealthKit.<br><br>
-    Mobistudy sköts för nuvarande av personal på avdelningen Internet Of Things and People centret, Malmö Universitet.`,
-    privacyPolicy: 'Integritetspolicy',
-    acknowledgements: 'Tacksägelser',
-    acknowledgementsFull: `Mycket tacksägelser... \
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor \
-    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud \
-    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute \
-    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu f`,
-    contact: 'Contact',
-    contactEmail: 'notArealEmail@notreal.com'
-  },
   healthDataTypes: {
     steps: 'steg',
     weight: 'vikt',
@@ -117,11 +102,16 @@ let sv = {
     pinNotSet: 'För att appen ska fungera, måste din telefon vara skyddad med en pinkod eller ekvivalent skärmlås. Var god och konfigurera ett skärmlås och start om appen. Var medveten om att, sätta en pinkod eller annat skärmlås och sedan ta bort det kan få appen att sluta fungera. Om så händer måste du sätta ett skärmlås igen och starta om appen.',
     dbCorruptedTitle: 'Oops!',
     dbCorrupted: 'Om du tar bort pinkoden när appen är installerad fungerar inte Mobistudys säkra lagring i telefonen. Om så händer, var god och sätt tillbaka ett skärmlås och starta om appen.'
-  }
+  },
+  privacyPolicyFull
 }
 
 sv = mergeDeep(sv, acMgmtSv)
 sv = mergeDeep(sv, studiesSv)
+<<<<<<< HEAD
 sv = mergeDeep(sv, ppSv)
+=======
+sv.about = about
+>>>>>>> f2fbe2881635f15bf6abe1da6e176ec3f99ff74f
 
 export default sv
