@@ -11,7 +11,7 @@ export default {
     return new Promise((resolve, reject) => {
       let devices = []
       window.ble.startScan([], (device) => {
-        if (device.name === 'Mi Band 3') {
+        if (device.name === 'Mi Band 3' && !deviceExists(devices, device)) {
           devices.push(device)
         }
       }, reject)
@@ -19,7 +19,32 @@ export default {
         resolve(devices)
       }, reject)
     })
+    function deviceExists (devices, device) {
+      return devices.find((d) => d.id === device.id)
+    }
   },
+
+  searchForId (deviceId, searchTime) {
+    return new Promise((resolve, reject) => {
+      const timeoutId = setTimeout(() => {
+        window.ble.stopScan()
+        reject()
+      }, searchTime)
+
+      window.ble.startScan([], (deviceFound) => {
+        if (deviceFound.id === deviceId) {
+          window.ble.stopScan()
+          clearTimeout(timeoutId)
+          resolve(deviceFound)
+        }
+      }, (failureResponse) => {
+        console.log('Start scan failed.', failureResponse)
+        clearTimeout(timeoutId)
+        reject()
+      })
+    })
+  },
+
   /**
    * Connects to a MiBand3
    * @param {Object} device a device object as returned by search() + can contain an authentication key
@@ -41,7 +66,6 @@ export default {
    * Disconnects from the tracker
    */
   async disconnect () {
-    return miband3Driver.disconnect()
   },
 
   /**
@@ -72,12 +96,22 @@ export default {
     // screens = [home, HR, status], HRsleep support = YES, timeFormat = 24G
 
     // Default settings
+    console.log('0')
     await miband3Driver.setLanguage('EN_en')
+    console.log('1')
+
     await miband3Driver.setDateFormat(true)
+    console.log('2')
+
     await miband3Driver.setDistanceType(false)
+    console.log('3')
+
     await miband3Driver.setTimeFormat('24h')
+    console.log('4')
+
     // Synch phone time with miband watch time
     await miband3Driver.setCurrentTimeStatus()
+    console.log('5')
 
     // Setting night mode between 22:00 and 8:00
     let dateStartHour = new Date()
@@ -87,16 +121,22 @@ export default {
     dateEndHour.setHours(8)
     dateEndHour.setMinutes(0)
     await miband3Driver.setNightMode(dateStartHour, dateEndHour)
+    console.log('6')
+
     await miband3Driver.setHRSleepSupport(true)
+    console.log('7')
 
     // setting screen pages
     let screens = ['activity', 'heartRate', 'status']
     await miband3Driver.setupScreens(screens)
     // Maybe we need to expose the HR functionality to a third party?, i'm guessing this may be the case.
     // Dario: NO, do not expose.
+    console.log('9')
 
     // User supplied settings
     await miband3Driver.setHeartRateMeasurementInterval(hrFreq)
+    console.log('10')
+
     // make sure thee DOB is a date
     let DOB = new Date(user.dob)
     await miband3Driver.setUser(
@@ -107,6 +147,7 @@ export default {
       DOB.getDate(),
       user.sex === 'female' // false for male
     )
+    console.log('11')
     return miband3Driver.stopAllNotifications() // TODO: Seems to work here, but not in authenticate(), why?
   },
 

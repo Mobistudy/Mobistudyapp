@@ -70,7 +70,7 @@ let studies = {
     },
     consent: {
       itemsExplanation: 'Du kan samtycka till dessa villkor när du än vill',
-      OSpermission: 'Den här tillåtelsen kräver add appen har tillgång till några av din telefons funktionaliteter.',
+      OSpermission: 'Den här tillåtelsen kräver att appen har tillgång till några av din telefons funktionaliteter.',
       giveOSPermission: 'Ge tillåtelse till den gär appen',
       OSPermissionGiven: 'Tillåtelse given',
       OSPermissionNotGiven: 'Kan inte få tillåtelse',

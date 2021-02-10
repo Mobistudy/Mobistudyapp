@@ -40,7 +40,6 @@ export default {
     },
     registration: {
       signUp: 'Sign up',
-      termsAndConditions: 'Terms and Conditions',
       createAccount: 'Create Account',
       createProfile: 'Create Profile',
       privacyPolicy: 'Privacy Policy',

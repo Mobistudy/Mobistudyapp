@@ -60,7 +60,7 @@
                     class="full-width"
                     :label="$t('accountMgmt.register')"
                     color="primary"
-                    to="register_tc"
+                    to="register_pp"
                   />
                 </q-item-section>
               </q-item>

@@ -130,17 +130,19 @@ export default {
     async connect (device) {
       this.showConnecting = true
       try {
+        if (this.$q.platform.is.ios) {
+          await miband3.searchForId(device.id, 12000)
+        }
+
         this.connectionAttempts++
         await miband3.connect(device)
         // Authenticate after connect.
         if (!device.authenticated) this.tapToAuthDialog = true
         await miband3.authenticate(device.authenticated)
-
         // configure the watch
         let user = userinfo.user
         const taskDescr = await db.getTaskDescription(this.studyKey, this.taskId)
-        await miband3.configure(user, taskDescr.hrInterval)
-
+        await miband3.configure(user, taskDescr.hrInterval) // TODO: Maybe do not always configure upon connect?
         this.tapToAuthDialog = false
         this.showConnecting = false
 
@@ -160,13 +162,18 @@ export default {
           this.connect(device)
         } else {
           this.$q.dialog({
-            title: this.$t('studies.errors.error'),
+            title: this.$t('errors.error'),
             message: this.$t('studies.tasks.miband3.connectionFail'),
             cancel: this.$t('common.cancel'),
             ok: this.$t('common.retry'),
             persistent: true
           }).onOk(async () => {
-            await miband3.disconnect()
+            try {
+              await miband3.disconnect()
+            } catch (error) {
+              console.log(error)
+            }
+            console.log('Error:', error)
             if (device.authenticated) {
               // if already authenticated once, retry connection
               this.connect(device)
@@ -198,7 +205,7 @@ export default {
     if (device) {
       // a device has been paired in the past!
       this.connect(device)
-    } else {
+    } else { // IOS always needs to search for devices before connecting
       this.search()
     }
   }
