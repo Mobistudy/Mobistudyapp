@@ -1,12 +1,8 @@
 import { mergeDeep } from '../../modules/tools.mjs'
 import acMgmtEn from './accountMgmt.mjs'
 import studiesEn from './studies.mjs'
-<<<<<<< HEAD
-import ppEn from './privacyPolicy.mjs'
-=======
 import aboutEn from './about/about.mjs'
 import privacyPolicyFull from './privacyPolicy'
->>>>>>> f2fbe2881635f15bf6abe1da6e176ec3f99ff74f
 
 let en = {
   errors: {
@@ -109,10 +105,6 @@ let en = {
 
 en = mergeDeep(en, acMgmtEn)
 en = mergeDeep(en, studiesEn)
-<<<<<<< HEAD
-en = mergeDeep(en, ppEn)
-=======
 en.about = aboutEn
->>>>>>> f2fbe2881635f15bf6abe1da6e176ec3f99ff74f
 
 export default en
