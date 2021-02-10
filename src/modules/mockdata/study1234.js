@@ -113,12 +113,11 @@ export default {
       id: 3,
       type: 'smwt',
       scheduling: {
+        alwaysOn: true,
         startEvent: 'consent',
         intervalType: 'd',
         interval: 7,
-        months: [],
-        monthDays: [],
-        weekDays: []
+        untilSecs: 2592000 // 1 month
       },
       dataType: 'distance'
     },
@@ -126,12 +125,11 @@ export default {
       id: 4,
       type: 'qcst',
       scheduling: {
+        alwaysOn: true,
         startEvent: 'consent',
         intervalType: 'd',
         interval: 7,
-        months: [],
-        monthDays: [],
-        weekDays: []
+        untilSecs: 2592000 // 1 month
       },
       dataType: 'steps'
     },
@@ -143,23 +141,18 @@ export default {
         startEvent: 'consent',
         intervalType: 'd',
         untilSecs: 2592000, // 1 month
-        interval: 1,
-        months: [],
-        monthDays: [],
-        weekDays: []
+        interval: 1
       }
     },
     {
       id: 6,
       type: 'po60',
       scheduling: {
+        alwaysOn: true,
         startEvent: 'consent',
         intervalType: 'd',
         untilSecs: 2592000, // 1 month
-        interval: 1,
-        months: [],
-        monthDays: [],
-        weekDays: []
+        interval: 1
       }
     }
   ],

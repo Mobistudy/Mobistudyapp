@@ -146,6 +146,21 @@ export default {
     return true
   },
 
+  // update status of a task item consent
+  updateTaskItemConsent: async function (studyKey, taskId, taskItemConsent) {
+    console.log('API - Study task item consent', taskItemConsent)
+    let study = participant.studies.find((s) => {
+      return s._key === studyKey
+    })
+    if (study) {
+      let taskI = study.taskItemsConsent.findIndex(t => {
+        return t.taskId === taskId
+      })
+      if (taskI) study.taskItemsConsent[taskI] = taskItemConsent
+    }
+    return true
+  },
+
   async getStudyDescription (studyKey) {
     console.log('API- getting study ' + studyKey)
     return new Promise(function (resolve, reject) {
@@ -213,7 +228,7 @@ export default {
         taskItem.lastExecuted = timestamp
       }
     } else {
-      throw new Error('Study not found in participant profile')
+      throw new Error(`Study ${studyKey} not found in participant profile`)
     }
   },
 

@@ -460,7 +460,6 @@ export default {
       }
     },
     async delay (seconds) {
-      console.log('delaying')
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve()

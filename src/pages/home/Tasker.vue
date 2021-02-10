@@ -1,84 +1,177 @@
 <template>
   <q-page padding>
-    <q-pull-to-refresh @refresh="refresh" label="Default spinner">
-      <q-banner rounded inline-actions class="bg-warning text-white q-mb-sm" v-if="newstudies" icon="new_releases" type="warning">
+    <q-pull-to-refresh
+      @refresh="refresh"
+      label="Default spinner"
+    >
+      <!-- Banner for when there is a new study available -->
+      <q-banner
+        rounded
+        inline-actions
+        class="bg-warning text-white q-mb-sm"
+        v-if="newstudies"
+        icon="new_releases"
+        type="warning"
+      >
         {{ $t('studies.newStudy') }}!
         <template v-slot:action>
-          <q-btn color="blue" :label="$t('studies.checkNewStusy')" to="studies"/>
+          <q-btn
+            color="blue"
+            :label="$t('studies.checkNewStusy')"
+            to="studies"
+          />
         </template>
       </q-banner>
-      <q-item-label v-if="nostudies" class="q-title fixed-center">{{ $t('studies.noStudies') }}</q-item-label>
-      <div v-else highlight>
+      <!-- end of banner -->
+
+      <!-- Message for when there are not studies -->
+      <q-item-label
+        v-if="nostudies"
+        class="q-title fixed-center"
+      >
+        {{ $t('studies.noStudies') }}
+      </q-item-label>
+      <!-- end of message -->
+
+      <div
+        v-else
+        highlight
+      >
+        <!-- Pending tasks list -->
         <q-item-label header>
           {{ $t('studies.tasks.pendingTasks') }}
         </q-item-label>
-        <q-list padding bordered v-for="study in studiesInfo" :key="`upcoming-${study._key}`" class="q-mt-sm">
+        <q-list
+          padding
+          bordered
+          v-for="study in studiesInfo"
+          :key="`upcoming-${study._key}`"
+          class="q-mt-sm"
+        >
           <q-item-section>
-            <q-item-label header overline>{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
+            <q-item-label
+              header
+              overline
+            >{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
             <taskListItem
               v-for="(task, index) in tasks.upcoming"
               :task="filterTask(task, study)"
               :isMissedTask="false"
-              :key="`item-${index}`">
+              :key="`item-${index}`"
+            >
             </taskListItem>
           </q-item-section>
           <q-item v-if="tasks.upcoming.length === 0">
             <q-item-section avatar>
-              <q-icon color="primary" name="check" />
+              <q-icon
+                color="primary"
+                name="check"
+              />
             </q-item-section>
             <q-item-section>
               <q-item-label>{{ $t('studies.tasks.noPendingTasks') }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
-        <q-item-label header>
-          {{ $t('studies.tasks.alwaysOnTasks') }}
-        </q-item-label>
-        <q-list padding bordered v-for="study in studiesInfo" :key="`alwayson-${study._key}`" class="q-mt-sm">
-          <q-item-section>
-            <q-item-label header overline>{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
-            <taskListItem
-              v-for="(task, index) in tasks.alwaysOn"
-              :task="filterTask(task, study)"
-              :isMissedTask="false"
-              :key="`item-${index}`">
-            </taskListItem>
-          </q-item-section>
-        </q-list>
+        <!-- end of pending tasks list -->
+
+        <!-- Missed tasks list -->
         <q-item-label header>
           {{ $t('studies.tasks.missedTasks') }}
         </q-item-label>
-        <q-list padding bordered v-for="study in studiesInfo" :key="`missed-${study._key}`" class="q-mt-sm">
-          <q-item-section>
-            <q-item-label header overline>{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
+        <q-list
+          padding
+          bordered
+          v-for="study in studiesInfo"
+          :key="`missed-${study._key}`"
+          class="q-mt-sm"
+        >
+          <q-item-section v-if="tasks.missed.length > 0">
+            <q-item-label
+              header
+              overline
+            >{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
             <taskListItem
               v-for="(task, index) in tasks.missed"
               :task="filterTask(task, study)"
               :isMissedTask="true"
-              :key="`item-${index}`">
+              :key="`item-${study._key}-${index}`"
+            >
             </taskListItem>
           </q-item-section>
-          <q-item v-if="tasks.missed.length === 0">
+          <q-item v-else>
             <q-item-section avatar>
-              <q-icon color="primary" name="check" />
+              <q-icon
+                color="primary"
+                name="check"
+              />
             </q-item-section>
             <q-item-section>
               <q-item-label>{{ $t('studies.tasks.noMissedTasks') }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
+        <!-- end of missed tasks list -->
+
+        <!-- AlwaysOn tasks list -->
+        <div v-if="tasks.alwaysOn.length > 0">
+          <q-item-label header>
+            {{ $t('studies.tasks.alwaysOnTasks') }}
+          </q-item-label>
+          <q-list
+            padding
+            bordered
+            v-for="study in studiesInfo"
+            :key="`alwayson-${study._key}`"
+            class="q-mt-sm"
+          >
+            <q-item-section>
+              <q-item-label
+                header
+                overline
+              >{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
+              <taskListItem
+                v-for="(task, index) in tasks.alwaysOn"
+                :task="filterTask(task, study)"
+                :isMissedTask="false"
+                :key="`item-${index}`"
+              >
+              </taskListItem>
+            </q-item-section>
+          </q-list>
+        </div>
+        <!-- end of alwaysOn tasks list -->
+
       </div>
     </q-pull-to-refresh>
-      <q-dialog v-if="this.tasks.completedStudyAlert" v-model="completedStudyModal" maximized>
-        <div class="q-pa-lg text-center" style="background-color:white">
-          <div class="text-h4 q-mb-md">{{ $t('studies.studyCompletedHeadline') }}!</div>
-          <div>
-            <img src="statics/icons/confetti.svg" style="width:30vw; max-width:150px;">
-          </div>
-          <p v-html="$t('studies.studyCompletedText', { studyname: completedStudyTitle })"></p>
-          <q-btn color="primary" @click="studyCompleted()" :label="$t('common.close')" />
+
+    <!-- Completed study dialog -->
+    <q-dialog
+      v-if="this.tasks.completedStudyAlert"
+      v-model="completedStudyModal"
+      maximized
+    >
+      <div
+        class="q-pa-lg text-center"
+        style="background-color:white"
+      >
+        <div class="text-h4 q-mb-md">{{ $t('studies.studyCompletedHeadline') }}!</div>
+        <div>
+          <img
+            src="statics/icons/confetti.svg"
+            style="width:30vw; max-width:150px;"
+          >
         </div>
-      </q-dialog>
+        <p v-html="$t('studies.studyCompletedText', { studyname: completedStudyTitle })"></p>
+        <q-btn
+          color="primary"
+          @click="studyCompleted()"
+          :label="$t('common.close')"
+        />
+      </div>
+    </q-dialog>
+    <!-- end of completed study dialog -->
+
   </q-page>
 </template>
 
