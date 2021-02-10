@@ -1,5 +1,4 @@
-export default {
-  privacyPolicyFull: `<p>Version 2020-06-18</p>
+export default `<p>Version 2020-06-18</p>
   <p>
   Mobistudy appen är menad att användas av medborgare som vill bidraga till forskningsstudier med hjälp av deras mobiltelefon.
   För att kunna använda sig av appen krävs det att ett konto skapas på Mobistudys server. 
@@ -78,4 +77,3 @@ export default {
     För frågor kan du kontakta Mobistudy teamet genom mobistudy@mau.se eller Universitetets Dataskyddsombudsman genom 
     dataskyddsombud@mau.se
   </p>`
-}
