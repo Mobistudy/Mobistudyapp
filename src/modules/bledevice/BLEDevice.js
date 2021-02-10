@@ -28,6 +28,27 @@ export default class BLEDevice {
       })
     }
 
+    static async scanForId (deviceId, searchTime) {
+      return new Promise((resolve, reject) => {
+        const timeoutId = setTimeout(() => {
+          window.ble.stopScan()
+          reject()
+        }, searchTime)
+
+        window.ble.startScan([], (deviceFound) => {
+          if (deviceFound.id === deviceId) {
+            window.ble.stopScan()
+            clearTimeout(timeoutId)
+            resolve(deviceFound)
+          }
+        }, (failureResponse) => {
+          console.log('Start scan failed.', failureResponse)
+          clearTimeout(timeoutId)
+          reject()
+        })
+      })
+    }
+
     async connect () {
       return new Promise((resolve, reject) => {
         this.disconnectCallback = reject

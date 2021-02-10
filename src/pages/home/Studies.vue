@@ -121,6 +121,7 @@
       </q-item>
     </q-list>
     <q-page-sticky
+      v-if="pageLoaded"
       position="bottom-right"
       :offset="[18, 18]"
     >
@@ -147,7 +148,8 @@ export default {
       newStudies: [],
       newStudiesCustomAnswers: [],
       activeStudies: [],
-      previousStudies: []
+      previousStudies: [],
+      pageLoaded: false
     }
   },
   async created () {
@@ -183,6 +185,7 @@ export default {
       })
     }
     this.$q.loading.hide()
+    this.pageLoaded = true
   },
   computed: {
     eligible () {
