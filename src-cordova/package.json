@@ -23,7 +23,6 @@
   },
   "devDependencies": {
     "cordova-android": "^8.1.0",
-    "cordova-custom-config": "^5.1.0",
     "cordova-ios": "^6.1.1",
     "cordova-plugin-ble-central": "^1.3.1",
     "cordova-plugin-geolocation": "^4.0.2",
@@ -50,8 +49,7 @@
       "cordova-plugin-pedometer": {},
       "cordova-plugin-ble-central": {},
       "cordova-plugin-pincheck": {},
-      "cordova-plugin-secure-storage-echo": {},
-      "cordova-custom-config": {}
+      "cordova-plugin-secure-storage-echo": {}
     },
     "platforms": [
       "android",

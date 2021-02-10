@@ -55,11 +55,11 @@
         <edit-config file="*-Info.plist" mode="merge" target="UIFileSharingEnabled">
             <true />
         </edit-config>
-        <config-file parent="UIBackgroundModes" target="*-Info.plist">
+        <edit-config file="*-Info.plist" mode="merge" target="UIBackgroundModes">
             <array>
                 <string>bluetooth-central</string>
             </array>
-        </config-file>
+        </edit-config>
         <preference name="WKWebViewOnly" value="true" />
         <feature name="CDVWKWebViewEngine">
             <param name="ios-package" value="CDVWKWebViewEngine" />
