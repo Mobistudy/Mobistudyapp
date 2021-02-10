@@ -1,8 +1,8 @@
 import { mergeDeep } from '../../modules/tools.mjs'
 import acMgmtEn from './accountMgmt.mjs'
 import studiesEn from './studies.mjs'
-import ppEn from './privacyPolicy.mjs'
-import tcEn from './termsAndConditions.mjs'
+import aboutEn from './about/about.mjs'
+import privacyPolicyFull from './privacyPolicy'
 
 let en = {
   errors: {
@@ -84,28 +84,6 @@ let en = {
     no1Word: 'A word by itself is easy to guess.',
     noNames: 'Names and surnames by themselves are easy to guess.'
   },
-  about: {
-    about: 'About',
-    introduction: 'Introduction',
-    introductionFull: `Mobistudy is an open iniative that allows citizens to help \
-    health research with their data. Participants download an app (iOS or Android) \
-    and, after registering and filling-in a short profile, they are proposed with \
-    research studies. If they find a study they may be interested in, they are \
-    guided through an easy-to-understand informed consent process. Upon acceptance, \
-    participants are then proposed "tasks", such as filling forms and questionnaires \
-    and provide their health data through Google Fit or Apple HealthKit.<br><br>
-    Mobistudy is currently managed by the Internet Of Things and People research\
-    center, Malmö University.`,
-    privacyPolicy: 'Privacy Policy',
-    acknowledgements: 'Acknowledgements',
-    acknowledgementsFull: `A lot of acknowledgement text... \
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor \
-    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud \
-    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute \
-    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu f`,
-    contact: 'Contact',
-    contactEmail: 'notArealEmail@notreal.com'
-  },
   healthDataTypes: {
     steps: 'steps',
     weight: 'weight',
@@ -121,12 +99,12 @@ let en = {
     pinNotSet: 'In order for this app to work correctly, your phone must be protected with a pin code or equivalent. Please, configure a locking mechanism and restart this app. Please be aware that setting the pincode and then removing it may corrupt the app and force you to restart it.',
     dbCorruptedTitle: 'Oops!',
     dbCorrupted: 'Removing the pin protection makes the apps secure storage unusable. Please, set the pin protection back and restart the app.'
-  }
+  },
+  privacyPolicyFull
 }
 
 en = mergeDeep(en, acMgmtEn)
 en = mergeDeep(en, studiesEn)
-en = mergeDeep(en, ppEn)
-en = mergeDeep(en, tcEn)
+en.about = aboutEn
 
 export default en
