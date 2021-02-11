@@ -38,6 +38,11 @@
         </edit-config>
     </platform>
     <platform name="ios">
+        <preference name="SplashMaintainAspectRatio" value="true" />
+        <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+        <preference name="KeychainAccessibility" value="WhenPasscodeSetThisDeviceOnly" />
+        <preference name="MediaPlaybackRequiresUserAction" value="false"/>
+        <preference name="AllowInlineMediaPlayback" value="true"/>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
@@ -64,8 +69,6 @@
         <feature name="CDVWKWebViewEngine">
             <param name="ios-package" value="CDVWKWebViewEngine" />
         </feature>
-        <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
-        <preference name="KeychainAccessibility" value="WhenPasscodeSetThisDeviceOnly" />
         <icon height="57" src="res/ios/icon.png" width="57" />
         <icon height="114" src="res/ios/icon@2x.png" width="114" />
         <icon height="40" src="res/ios/icon-20@2x.png" width="40" />
@@ -101,9 +104,4 @@
         <splash src="res/screen/ios/Default@2x~ipad~comany.png" />
     </platform>
     <allow-navigation href="about:*" />
-    <preference name="SplashMaintainAspectRatio" value="true" />
-    <plugin name="cordova-plugin-whitelist" spec="1" />
-    <plugin name="cordova-plugin-insomnia" spec="~4.3.0" />
-    <plugin name="cordova-plugin-geolocation" spec="~4.0.2" />
-    <plugin name="cordova-plugin-pedometer" spec="~0.4.1" />
 </widget>
