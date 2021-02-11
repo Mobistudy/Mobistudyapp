@@ -15,6 +15,12 @@ export default {
     return foundDevices
   },
 
+  async scanForId (deviceId, searchTime) {
+    const device = await PulseOxDevice.scanForId(deviceId, searchTime)
+    if (!device) return Promise.reject()
+    return device
+  },
+
   async connect (device) {
     if (!this.device) this.device = new PulseOxDevice(device) // Return the first device found
     return this.device.connect()

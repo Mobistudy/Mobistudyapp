@@ -2,7 +2,7 @@
 // API implementation
 import axios from 'axios'
 
-const BASE_URL = process.env.API_ENDPOINT
+const BASE_URL = process.env.API_ENDPOINT.replace(/['"]+/g, '')
 let axiosConfig = {}
 
 export default {
@@ -18,6 +18,7 @@ export default {
   },
   // Log in
   login: async (email, password) => {
+    console.log('Login BASE:', BASE_URL)
     let resp = await axios.post(BASE_URL + '/login', { email: email, password: password })
     return resp.data
   },

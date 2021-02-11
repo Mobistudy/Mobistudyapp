@@ -17,6 +17,12 @@ export default {
     }
   },
 
+  async scanForId (deviceId, searchTime) {
+    const device = await BLEDevice.scanForId(deviceId, searchTime)
+    if (!device) return Promise.reject()
+    return device
+  },
+
   async connect (device) {
     this.device = new BLEDevice(device)
     return this.device.connect()

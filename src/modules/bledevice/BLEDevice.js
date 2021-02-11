@@ -12,7 +12,7 @@ export default class BLEDevice {
       return new Promise((resolve, reject) => {
         const devices = []
         window.ble.startScan([], (deviceFound) => {
-          if (deviceFound.name === deviceName) devices.push(deviceFound)
+          if (deviceFound.name === deviceName && !deviceExists(devices, deviceFound)) devices.push(deviceFound)
         }, (failureResponse) => {
           console.log('Start scan failed.', failureResponse)
           reject()
@@ -26,6 +26,9 @@ export default class BLEDevice {
           })
         }, searchTime)
       })
+      function deviceExists (devices, device) {
+        return devices.find((d) => d.id === device.id)
+      }
     }
 
     static async scanForId (deviceId, searchTime) {
