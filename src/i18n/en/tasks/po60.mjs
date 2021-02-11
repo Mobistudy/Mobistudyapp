@@ -7,17 +7,17 @@ export default {
   introductionSlides: [
     {
       title: 'Setup',
-      img: '/statics/instructions/po60_1.jpg',
+      img: 'instructions/po60_1.jpg',
       description: 'In this task you will measure your blood oxygen saturation using the Beurer PO60 pulse-oximeter.'
     },
     {
       title: 'Instruction',
-      img: '/statics/instructions/po60_2.jpg',
+      img: 'instructions/po60_2.jpg',
       description: 'Place your finger in the pulse-oximeter, wait until the heart rate and the oxygen saturation values are visible and remove your finger.'
     },
     {
       title: 'Important!',
-      img: '/statics/instructions/po60_3.jpg',
+      img: 'instructions/po60_3.jpg',
       description: 'Make sure the Bluetooth is switched on on your phone. If it is the first time you connect the pulse-oximeter, the phone will ask you to confirm the connection by entering the code shown on the pulse-oximeter.'
     }
   ],

@@ -280,7 +280,7 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
       if (Platform.is.ios && HealthDataEnum.isAndroidOnly(task.dataType)) continue
       if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
     }
-    if (task.scheduling.alwaysOn) continue
+    if (task.scheduling.alwaysOn) continue // skip always ON tasks
     let rrule = generateRRule(acceptedTS, new Date(studyDescr.generalities.endDate), task.scheduling)
     let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
     for (let scheduleI = 0; scheduleI < taskTimes.length && scheduleI < 1000; scheduleI++) {

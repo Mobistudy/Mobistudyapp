@@ -8,41 +8,41 @@ export default {
   introductionSlides: [
     {
       title: 'Instruction',
-      img: '/statics/instructions/6mwt_1.jpg',
+      img: 'instructions/6mwt_1.jpg',
       description: 'The aim of this test is to walk as far as possible for 6 minutes.'
     },
     {
       title: 'Instruction',
-      img: '/statics/instructions/6mwt_2.jpg',
+      img: 'instructions/6mwt_2.jpg',
       description: 'It is important that you try to walk as straight as possible. Try to avoid stairs and/or walking up/downhill.'
     },
     {
       title: 'Instruction',
-      img: '/statics/instructions/6mwt_3.jpg',
+      img: 'instructions/6mwt_3.jpg',
       description: 'If possible, try to avoid areas with many tall buildings and / or trees as these can affect how the phone localises you.'
     },
     {
       title: 'Important!',
-      img: '/statics/instructions/6mwt_4.jpg',
+      img: 'instructions/6mwt_4.jpg',
       description: 'You may slow down and stop if necessary. Stop immediately if you have any chest pain or dizziness.'
     },
     {
-      img: '/statics/instructions/6mwt_1.jpg',
+      img: 'instructions/6mwt_1.jpg',
       description: 'The test will automaticly stop after 6 minutes, and you will be asked to send the collected data. If you need to complete the test earlier, press the "Complete"-button.'
     },
     {
       title: 'Setup',
-      img: '/statics/instructions/6mwt_6.jpg',
+      img: 'instructions/6mwt_6.jpg',
       description: 'Make sure the positioning is ON on your phone before starting.'
     },
     {
       title: 'Setup',
-      img: '/statics/instructions/6mwt_7.jpg',
+      img: 'instructions/6mwt_7.jpg',
       description: 'Hold your phone still in one hand, avoid shaking or twisting it until the test is finished.'
     },
     {
       title: 'Setup',
-      img: '/statics/instructions/6mwt_8.jpg',
+      img: 'instructions/6mwt_8.jpg',
       description: 'You can place your phone in a pocket or use an arm band if needed, but do not switch off the screen!'
     }
   ],
