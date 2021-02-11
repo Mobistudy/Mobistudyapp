@@ -127,6 +127,9 @@ export default {
     async connect (device) {
       this.instructionDialog = true
       try {
+        if (this.$q.platform.is.ios) {
+          await po60.searchForId(device.id, 12000)
+        }
         this.connectionAttempts++
         await po60.connect(device)
         // save the device!
