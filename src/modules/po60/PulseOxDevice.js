@@ -2,9 +2,9 @@ import BLEDevice from 'modules/bledevice/BLEDevice'
 import CustomDate from './CustomDate'
 
 export default class PulseOxDevice extends BLEDevice {
-  SERVICE_UUID = '0000ff12-0000-1000-8000-00805f9b34fb'
-  READ_CHAR_UUID = '0000ff02-0000-1000-8000-00805f9b34fb'
-  WRITE_CHAR_UUID = '0000ff01-0000-1000-8000-00805f9b34fb'
+  SERVICE_UUID = 'ff12'
+  READ_CHAR_UUID = 'ff02'
+  WRITE_CHAR_UUID = 'ff01'
   buffer = []
 
   async setDateTime () {

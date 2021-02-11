@@ -128,7 +128,7 @@ export default {
       this.instructionDialog = true
       try {
         if (this.$q.platform.is.ios) {
-          await po60.searchForId(device.id, 12000)
+          await po60.scanForId(device.id, 12000)
         }
         this.connectionAttempts++
         await po60.connect(device)
