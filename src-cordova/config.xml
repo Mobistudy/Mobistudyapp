@@ -39,9 +39,9 @@
     </platform>
     <platform name="ios">
         <preference name="SplashMaintainAspectRatio" value="true" />
-        <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+        <!-- <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" /> -->
         <preference name="KeychainAccessibility" value="WhenPasscodeSetThisDeviceOnly" />
-        <preference name="MediaPlaybackRequiresUserAction" value="false"/>
+        <preference name="MediaTypesRequiringUserActionForPlayback" value="none"/>
         <preference name="AllowInlineMediaPlayback" value="true"/>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
