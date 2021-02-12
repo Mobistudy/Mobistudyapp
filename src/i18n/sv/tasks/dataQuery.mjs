@@ -8,22 +8,22 @@ export default {
   instructionSlidesAndroid: [
     {
       title: 'Introduktion',
-      img: 'statics/instructions/data_query_android_1.png',
+      img: 'instructions/data_query_android_1.png',
       description: 'I den här uppgiften kommer appen hämta data från Google Fit om du har det intallerat på din mobil.'
     },
     {
-      img: 'statics/instructions/data_query_2.png',
+      img: 'instructions/data_query_2.png',
       description: 'Mobistudy appen kommer endast att hämta data som är efterfrågad av den här studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan skicka informationen eller välja att radera den.'
     }
   ],
   instructionSlidesiOS: [
     {
       title: 'Introduktion',
-      img: 'statics/instructions/data_query_ios_1.png',
+      img: 'instructions/data_query_ios_1.png',
       description: 'I den här uppgiften kommer appen att hämta data som har samlats av Health appen.'
     },
     {
-      img: 'statics/instructions/data_query_2.png',
+      img: 'instructions/data_query_2.png',
       description: 'Mobistudy appen kommer endast att hämta data som är efterfrågad av den här studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan skicka informationen eller välja att radera den.'
     }
   ],

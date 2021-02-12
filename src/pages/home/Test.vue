@@ -5,18 +5,41 @@
         Test Page. App version: {{ appVersion }}
       </div>
       <div class="q-mt-md">
-        <q-btn color="white" text-color="black" label="Start GPS" @click="startGPS"/>
-        <q-btn color="white" text-color="black" label="Stop GPS" @click="stopGPS"/>
+        <q-btn
+          color="white"
+          text-color="black"
+          label="Start GPS"
+          @click="startGPS"
+        />
+        <q-btn
+          color="white"
+          text-color="black"
+          label="Stop GPS"
+          @click="stopGPS"
+        />
       </div>
       <p>{{coordsOutput}}</p>
       <audio ref="sound_click">
-        <source src="statics/sounds/click.wav" type="audio/wav"/>
+        <source
+          src="sounds/click.wav"
+          type="audio/wav"
+        />
       </audio>
       <div class="q-mt-md">
-        <q-btn color="white" text-color="black" label="Play sound" @touchstart="playSound"/>
+        <q-btn
+          color="white"
+          text-color="black"
+          label="Play sound"
+          @touchstart="playSound"
+        />
       </div>
       <div class="q-mt-md">
-        <q-btn color="white" text-color="black" label="Save File" @click="saveFile"/>
+        <q-btn
+          color="white"
+          text-color="black"
+          label="Save File"
+          @click="saveFile"
+        />
       </div>
       <p>{{fileOutput}}</p>
     </q-page>

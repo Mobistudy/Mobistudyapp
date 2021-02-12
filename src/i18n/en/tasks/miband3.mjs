@@ -7,17 +7,17 @@ export default {
   introductionSlides: [
     {
       title: 'Introduction',
-      img: '/statics/instructions/miband3_1.png',
+      img: 'instructions/miband3_1.png',
       description: 'In this task you will connect to your MiBand smart bracelet and download your activity data from it including steps, heart rate, activity and sleep.'
     },
     {
       title: 'Setup',
-      img: '/statics/instructions/miband3_2.png',
+      img: 'instructions/miband3_2.png',
       description: 'In order for the phone to connect to the MiBand, please, make sure that Blueetooth is activated on the phone, that the Miband is charged and nearby the phone.'
     },
     {
       title: 'Important!',
-      img: '/statics/instructions/miband3_tap.png',
+      img: 'instructions/miband3_tap.png',
       description: 'If it is the first time you connect to the MiBand, the MiBand will ask you to confirm the connection to the phone by tapping on it. Please tap on the bracelet when you feel the vibration on the wrist.'
     }
   ],

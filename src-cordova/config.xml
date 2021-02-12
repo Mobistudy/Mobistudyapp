@@ -14,6 +14,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="android">
+        <preference name="AndroidXEnabled" value="true" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="res/android/ldpi.png" />
         <icon density="mdpi" src="res/android/mdpi.png" />
@@ -65,10 +66,6 @@
                 <string>bluetooth-central</string>
             </array>
         </edit-config>
-        <preference name="WKWebViewOnly" value="true" />
-        <feature name="CDVWKWebViewEngine">
-            <param name="ios-package" value="CDVWKWebViewEngine" />
-        </feature>
         <icon height="57" src="res/ios/icon.png" width="57" />
         <icon height="114" src="res/ios/icon@2x.png" width="114" />
         <icon height="40" src="res/ios/icon-20@2x.png" width="40" />

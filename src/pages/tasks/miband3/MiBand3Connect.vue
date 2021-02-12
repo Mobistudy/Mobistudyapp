@@ -27,7 +27,7 @@
     >
       <q-card>
         <div class="q-pa-sm">
-          <q-img src="/statics/instructions/miband3_tap.png" />
+          <q-img src="instructions/miband3_tap.png" />
         </div>
         <q-card-section>
           <div class="
