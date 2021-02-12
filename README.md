@@ -169,6 +169,7 @@ Development:
 - [Lennart Czienskowski](https://github.com/lencz)
 - [Elin Forsnor](https://github.com/elinforsnor)
 - [Felix Morau](https://github.com/femosc2)
+- [Milo Bengtsson](https://github.com/palladog)
 - [Jacky Tu](https://github.com/jackytu99)
 - [Elliott Hellstrand](https://github.com/Elliott0121)
 - [Andreas Holm](https://github.com/HeyOooh)
