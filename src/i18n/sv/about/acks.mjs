@@ -1,19 +1,16 @@
-export default `Mobistudy startade hos Oxford Universitet med följande finansiering:
+export default `Mobistudy startade av Dario Salvi, Carmelo Velardo och Rishi Arvin Goburdhun \
+hos Oxford Universitet med följande finansiering:
 <ul>
 <li><a href="https://oxfordbrc.nihr.ac.uk/">NIHR Oxford Biomedical Research Centre (BRC)</a></li>
 <li><a href="https://www.clahrc-oxford.nihr.ac.uk/">NIHR Oxford Collaboration for Leadership in Applied Health Research (CLAHRC)</a></li>
 </ul>
-Det utvecklas för nuvarande hos Malmö Universitet och är finansierat av: \
+Projektet koordineras just nu av Dario Salvi och Carl Magnus Olsson på Malmö Universitet \
+och är finansierat av: \
 <ul>
 <li>The Knowledge Foundation genom \
 <a href="https://mau.se/en/research/research-centres/internet-of-things-and-people/">Internet of Things and People</a> forskningsprofil</li>
 <li>och <a href="https://www.matspaulssonstiftelserna.com/">Mats Paulsson Foundation</a></li>
 </ul>
-<br>
-<br>
-Projektet startades av Dario Salvi, Carmelo Velardo och Rishi Arvin Goburdhun hos Oxford Universitet \
-och koordineras just nu av Dario Salvi och Carl Magnus Olsson på Malmö Universitet.
-<br>
 <br>
 Dessa människor har bidragit till projektet med kod, design och idéer:
 <ul>
@@ -32,11 +29,11 @@ Dessa människor har bidragit till projektet med kod, design och idéer:
 </ul>
 <br>
 <br>
-Följande bibliotek och ramverk har använts för att uteckla den här appen:
+Följande bibliotek har använts för att uteckla den här appen:
 <ul>
 <li><a href="https://cordova.apache.org/">Apache Cordova</a></li>
 <li><a href="https://vuejs.org/">Vue JS</a></li>
-<li><a href="https://quasar.dev/">Quasar dev</a></li>
+<li><a href="https://quasar.dev/">Quasar</a></li>
 <li><a href="https://www.npmjs.com/package/cordova-plugin-badge">cordova-plugin-badge</a></li>
 <li><a href="https://www.npmjs.com/package/cordova-plugin-device">cordova-plugin-device</a></li>
 <li><a href="https://www.npmjs.com/package/cordova-plugin-ble-central">cordova-plugin-ble-central</a></li>
@@ -53,5 +50,5 @@ Följande bibliotek och ramverk har använts för att uteckla den här appen:
 </ul>
 <br>
 <br>
-Ikonerna skapade av itim2101 från www.flaticon.com.
+Mobistudys ikonerna skapade av itim2101 från www.flaticon.com.
 `

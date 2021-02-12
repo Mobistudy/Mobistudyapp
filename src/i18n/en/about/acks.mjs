@@ -1,18 +1,17 @@
-export default `Mobistudy was started at the University of Oxford through the following funding:
+export default `Mobistudy was started by Dario Salvi, Carmelo Velardo \
+and Rishi Arvin Goburdhun at the University of Oxford through the following funding sources: \
 <ul>
-<li><a href="https://oxfordbrc.nihr.ac.uk/">NIHR Oxford Biomedical Research Centre (BRC)</a></li>
-<li><a href="https://www.clahrc-oxford.nihr.ac.uk/">NIHR Oxford Collaboration for Leadership in Applied Health Research (CLAHRC)</a></li>
+<li><a href="https://oxfordbrc.nihr.ac.uk/">The NIHR Oxford Biomedical Research Centre (BRC)</a></li>
+<li><a href="https://www.clahrc-oxford.nihr.ac.uk/">The NIHR Oxford Collaboration for Leadership in Applied Health Research (CLAHRC)</a></li>
 </ul>
-It is currently beign developed at Malmö University and funded by: \
+<br>
+The project is currently coordinated by Dario Salvi and Carl Magnus Olsson at \
+Malmö University and funded by: \
 <ul>
 <li>The Knowledge Foundation through the \
 <a href="https://mau.se/en/research/research-centres/internet-of-things-and-people/">Internet of Things and People</a> research profile</li>
 <li>The <a href="https://www.matspaulssonstiftelserna.com/">Mats Paulsson Foundation</a></li>
 </ul>
-<br>
-<br>
-The project was started by Dario Salvi, Carmelo Velardo and Rishi Arvin Goburdhun at Oxford \
-and is currently coordinated by Dario Salvi and Carl Magnus Olsson at Malmö.
 <br>
 <br>
 The following people have contributed to the project with code, design or ideas:
@@ -32,11 +31,11 @@ The following people have contributed to the project with code, design or ideas:
 </ul>
 <br>
 <br>
-The following libraries and frameworks have been used to develop this app:
+This app was developed with thanks to the following open source projects:
 <ul>
 <li><a href="https://cordova.apache.org/">Apache Cordova</a></li>
 <li><a href="https://vuejs.org/">Vue JS</a></li>
-<li><a href="https://quasar.dev/">Quasar dev</a></li>
+<li><a href="https://quasar.dev/">Quasar</a></li>
 <li><a href="https://www.npmjs.com/package/cordova-plugin-badge">cordova-plugin-badge</a></li>
 <li><a href="https://www.npmjs.com/package/cordova-plugin-device">cordova-plugin-device</a></li>
 <li><a href="https://www.npmjs.com/package/cordova-plugin-ble-central">cordova-plugin-ble-central</a></li>
@@ -53,5 +52,5 @@ The following libraries and frameworks have been used to develop this app:
 </ul>
 <br>
 <br>
-Icons made by itim2101 from www.flaticon.com.
+The Mobistudy icons were made by itim2101 and obtained from www.flaticon.com.
 `
