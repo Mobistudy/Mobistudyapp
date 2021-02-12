@@ -15,7 +15,7 @@
           </div>
         </div>
       </q-card-section>
-      <q-card-section>
+      <q-card-section v-if="study.inclusionCriteria.criteriaQuestions && study.inclusionCriteria.criteriaQuestions.length >0">
         {{ $t('studies.newStudyExtraCriteria') }}:
         <div
           v-for="(question, questionIndex) in study.inclusionCriteria.criteriaQuestions"
