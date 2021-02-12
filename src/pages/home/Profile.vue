@@ -131,7 +131,11 @@ export default {
         ok: this.$i18n.t('accountMgmt.login.logout'),
         cancel: this.$i18n.t('common.cancel')
       }).onOk(async () => {
-        await userinfo.logout()
+        try {
+          await userinfo.logout()
+        } catch (error) {
+          console.log(error)
+        }
         API.setToken('')
         this.$router.push('/login')
       })
@@ -174,7 +178,7 @@ export default {
 
         await userinfo.logout()
         API.unsetToken()
-        DB.emptyUserData()
+        await DB.emptyUserData()
         this.$router.push({ name: 'changepw', params: { email: email } })
       } catch (error) {
         this.$q.notify({

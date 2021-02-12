@@ -1,13 +1,14 @@
-export default `Mobistudy is currently managed by the Internet Of Things and People research\
-center of Malmö University, Sweden.
+// eslint-disable-next-line no-useless-escape
+export default `Mobistudy sköts just nu av Internet Of Things And People forskningscentrum\ 
+hos Malmö Universitet, Sverige.
 <br><br>
-You can contact the Mobistudy team using the official email address: mobistudy@mau.se
-or you can write us at our address: IoTaP,  Bassänggatan 2, 211 19 Malmö.
+Du kan kontakta Mobistudyteamet genom våran officiella email address: mobistudy@mau.se
+eller så kan du skriva till får officiella address: IoTaP,  Bassänggatan 2, 211 19 Malmö.
 <br><br>
-For more information, you can consult:
+För mer information, kan du besöka:
 <ul>
-<li><a href="https://mobistudy.org">The Mobistudy website</a></li>
-<li><a href="https://mau.se/en/research/research-centres/internet-of-things-and-people/">The IoTaP website</a></li>
-<li><a href="https://mau.se/">The Malmö University website</a></li>
+<li><a href="https://mobistudy.org">Mobistudys hemsida</a></li>
+<li><a href="https://mau.se/en/research/research-centres/internet-of-things-and-people/">IoTaPs hemsida</a></li>
+<li><a href="https://mau.se/">Malmö universitets hemsida</a></li>
 </ul>
 `

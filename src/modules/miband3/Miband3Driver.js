@@ -212,12 +212,10 @@ var Miband3 = {
   },
 
   fullAuthentication: async function () {
-    console.log('Full auth')
     return this.sendAuthenticationKey()
   },
 
   halfAuthentication: async function () {
-    console.log('Half auth')
     return this.requestEncryptionValue()
   },
 
@@ -241,24 +239,20 @@ var Miband3 = {
           const command = value.slice(0, 3).toString('hex')
 
           if (command === this.messages.authentication.keySentOK) {
-            console.log('Initial key sent: OK')
             // let currentDate = new Date()
             // this.setTimeStatus(currentDate)
             this.requestEncryptionValue()
           } else if (
             command === this.messages.authentication.encryptionValueReceived
           ) {
-            console.log('Creating and sending encrypted key: OK')
             let encryptionValue = value.slice(3)
             let encryptedKey = this.createEncryptedKey(encryptionValue)
             this.sendEncryptedKey(encryptedKey)
           } else if (
             command === this.messages.authentication.notAuthenticated
           ) {
-            console.log('Not authenticated')
             reject()
           } else if (command === this.messages.authentication.authenticated) {
-            console.log('Authenticated')
             resolve()
             // TODO: Can't currently stop notifications and start another one, issue raised: https://github.com/don/cordova-plugin-ble-central/issues/552
           }
@@ -901,9 +895,7 @@ var Miband3 = {
             actualStartDate = this.createDateFromHexString(
               dataHex.substring(14, 26)
             )
-            console.log('Actual start date:', actualStartDate)
             totalSamples = this.getTotalSamplesFromBuffer(Buffer.from(responseData))
-            console.log('Total samples:', totalSamples)
             sampleCounter = 0
             // here we know we should receive data, so we register for the characteristic
             this.registerNotification(
@@ -922,8 +914,6 @@ var Miband3 = {
                   sampleCounter,
                   buffer
                 )
-                console.log('Buffer:', buffer)
-                console.log('Samples:', sampleArray)
                 for (let sample of sampleArray) {
                   dataCallback(
                     sample
@@ -1017,7 +1007,6 @@ var Miband3 = {
   // activity type not currently supported, only fetches activity 01
   sendStartDateAndActivity: async function (date, activityType) {
     let customDate = new CustomDate(date)
-    console.log('Custom date:', customDate.date)
     let dateMessage = customDate.getDateStringPacket()
     let packet = this.hexStringToHexBuffer(
       this.messages.storedData.startDate +
@@ -1406,7 +1395,6 @@ var Miband3 = {
   setTimeStatus: async function (date) {
     let customDate = new CustomDate(date)
     let packetContent = customDate.getDateStringPacket()
-    console.log('Setting time status:', packetContent)
     let packet = this.hexStringToHexBuffer(packetContent)
 
     return this.sendWithResponse(
@@ -1499,7 +1487,6 @@ var Miband3 = {
 
   sendWithResponse: async function (service, characteristic, data) {
     const dataInBits = new Uint8Array(data)
-    console.log('Sending packet:', data, dataInBits, this.deviceId, service, characteristic)
     return new Promise((resolve, reject) => {
       ble.write(
         this.deviceId,
@@ -1507,12 +1494,15 @@ var Miband3 = {
         characteristic,
         dataInBits.buffer,
         successResponse => {
-          console.log('Response:', successResponse)
-          if (!successResponse) resolve() // IOS doesnt send a response for some strange reason.
+          if (!successResponse) {
+            resolve() // IOS doesnt send a response for some strange reason.
+            return
+          }
           let response = Buffer.from(successResponse).toString('hex')
           if (response === '4f4b') {
             // User step goals set properly, probably also an OK response for a bunch of other messages.
             // Sleep support set properly, same confirmation response is used for several characteristics.
+            // Only Android sends a response.
             resolve(successResponse)
           } else {
             reject()

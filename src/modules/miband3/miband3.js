@@ -96,46 +96,36 @@ export default {
     // screens = [home, HR, status], HRsleep support = YES, timeFormat = 24G
 
     // Default settings
-    console.log('0')
     await miband3Driver.setLanguage('EN_en')
-    console.log('1')
 
     await miband3Driver.setDateFormat(true)
-    console.log('2')
 
     await miband3Driver.setDistanceType(false)
-    console.log('3')
 
     await miband3Driver.setTimeFormat('24h')
-    console.log('4')
 
     // Synch phone time with miband watch time
     await miband3Driver.setCurrentTimeStatus()
-    console.log('5')
 
     // Setting night mode between 22:00 and 8:00
     let dateStartHour = new Date()
-    dateStartHour.setHours(22)
+    dateStartHour.setHours(20)
     dateStartHour.setMinutes(0)
     let dateEndHour = new Date()
     dateEndHour.setHours(8)
     dateEndHour.setMinutes(0)
     await miband3Driver.setNightMode(dateStartHour, dateEndHour)
-    console.log('6')
 
     await miband3Driver.setHRSleepSupport(true)
-    console.log('7')
 
     // setting screen pages
-    let screens = ['activity', 'heartRate', 'status']
+    let screens = ['heartRate', 'status']
     await miband3Driver.setupScreens(screens)
     // Maybe we need to expose the HR functionality to a third party?, i'm guessing this may be the case.
     // Dario: NO, do not expose.
-    console.log('9')
 
     // User supplied settings
     await miband3Driver.setHeartRateMeasurementInterval(hrFreq)
-    console.log('10')
 
     // make sure thee DOB is a date
     let DOB = new Date(user.dob)
@@ -147,7 +137,6 @@ export default {
       DOB.getDate(),
       user.sex === 'female' // false for male
     )
-    console.log('11')
     return miband3Driver.stopAllNotifications() // TODO: Seems to work here, but not in authenticate(), why?
   },
 

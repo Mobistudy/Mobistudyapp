@@ -93,12 +93,14 @@ export default {
     password: { required }
   },
   async created () {
-    if (userinfo.user.loggedin) {
-      notifications.cancelAll()
-      await userinfo.logout()
-      API.unsetToken()
-      await DB.emptyUserData()
+    notifications.cancelAll()
+    try {
+      await userinfo.logout() // called twice, also once in Profile -> logout. The DB finds no session and fails because it already executed once before and removed the item from the db.
+    } catch (error) {
+      console.error(error)
     }
+    API.unsetToken()
+    await DB.emptyUserData()
   },
   methods: {
     async login () {

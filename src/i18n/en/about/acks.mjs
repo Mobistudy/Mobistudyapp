@@ -18,6 +18,7 @@ The following people have contributed to the project with code, design or ideas:
 <li><a href="https://github.com/assimilate">Daniel Abella</a></li>
 <li><a href="https://github.com/lencz">Lennart Czienskowski</a></li>
 <li><a href="https://github.com/elinforsnor">Elin Forsnor</a></li>
+<li><a href="https://github.com/palladog">Milo Bengtsson</a></li>
 <li><a href="https://github.com/femosc2">Felix Morau</a></li>
 <li><a href="https://github.com/jackytu99">Jacky Tu</a></li>
 <li><a href="https://github.com/Elliott0121">Elliott Hellstrand</a></li>

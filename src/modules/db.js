@@ -15,6 +15,7 @@ export default {
     return storage.clear()
   },
   async emptyUserData () {
+    console.log('Emptying user DB.')
     let appversion = await storage.getItem('app_version')
     await storage.clear()
     // do not delete the app version, only delete user data
