@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'Acknowledgements'
+  name: 'AcknowledgementsPage'
 }
 </script>
 

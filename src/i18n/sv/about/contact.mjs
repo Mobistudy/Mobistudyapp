@@ -3,7 +3,7 @@ export default `Mobistudy sköts just nu av Internet Of Things And People forskn
 hos Malmö Universitet, Sverige.
 <br><br>
 Du kan kontakta Mobistudyteamet genom våran officiella email address: mobistudy@mau.se
-eller så kan du skriva till får officiella address: IoTaP,  Bassänggatan 2, 211 19 Malmö.
+eller så kan du skriva till får officiella address: IoTaP,  Bassänggatan 2, 211 19 Malmö, Sverige.
 <br><br>
 För mer information, kan du besöka:
 <ul>

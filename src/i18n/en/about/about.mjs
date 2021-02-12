@@ -1,7 +1,6 @@
 import introductionFull from './introduction'
 import acknowledgementsFull from './acks'
 import contactFull from './contact'
-import licenseFull from './license'
 
 export default {
   about: 'About',
@@ -12,6 +11,5 @@ export default {
   acknowledgementsFull: acknowledgementsFull,
   contact: 'Contact',
   contactFull: contactFull,
-  license: 'License',
-  licenseFull
+  license: 'License'
 }

@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'PrivacyPolicy'
+  name: 'PrivacyPolicyPage'
 }
 </script>
 

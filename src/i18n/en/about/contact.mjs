@@ -1,8 +1,8 @@
-export default `Mobistudy is currently managed by the Internet Of Things and People research\
+export default `Mobistudy is currently managed by the Internet Of Things and People research \
 center of Malmö University, Sweden.
 <br><br>
 You can contact the Mobistudy team using the official email address: mobistudy@mau.se
-or you can write us at our address: IoTaP,  Bassänggatan 2, 211 19 Malmö.
+or you can write us at our address: IoTaP,  Bassänggatan 2, 211 19 Malmö, Sweden.
 <br><br>
 For more information, you can consult:
 <ul>
