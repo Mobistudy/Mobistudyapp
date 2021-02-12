@@ -32,7 +32,7 @@ Dessa människor har bidragit till projektet med kod, design och idéer:
 </ul>
 <br>
 <br>
-The following libraries and frameworks have been used to develop this app:
+Följande bibliotek och ramverk har använts för att uteckla den här appen:
 <ul>
 <li><a href="https://cordova.apache.org/">Apache Cordova</a></li>
 <li><a href="https://vuejs.org/">Vue JS</a></li>
@@ -53,5 +53,5 @@ The following libraries and frameworks have been used to develop this app:
 </ul>
 <br>
 <br>
-Icons made by itim2101 from www.flaticon.com.
+Ikonerna skapade av itim2101 från www.flaticon.com.
 `
