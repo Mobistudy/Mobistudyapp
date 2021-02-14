@@ -7,7 +7,17 @@
     >
       <q-toolbar>
         <q-avatar rounded>
-          <img src="icons/favicon-128x128.png">
+          <q-btn
+            v-if="subAbout"
+            flat
+            dense
+            icon-right="arrow_back"
+            :to="{ name: 'about', params: { pathIndex: 5 } }"
+          />
+          <img
+            v-else
+            src="icons/favicon-128x128.png"
+          >
         </q-avatar>
         <q-toolbar-title>
           {{ $t('layouts.home') }}
@@ -72,7 +82,8 @@ export default {
   name: 'HomeLayout',
   data () {
     return {
-      leftDrawerOpen: false,
+      // tells if we are inside one of the about sections
+      subAbout: false,
       slideName: ''
     }
   },
@@ -85,6 +96,19 @@ export default {
   },
   watch: {
     '$route' (to, from) {
+      if (to.path.startsWith('/about/')) {
+        this.subAbout = true
+        to.params.pathIndex = 6
+      } else {
+        this.subAbout = false
+      }
+
+      if (from.path.startsWith('/about/')) {
+        console.log('from: ' + from.params.pathIndex + ' to ' + to.params.pathIndex)
+
+        from.params.pathIndex = 6
+      }
+
       const toDepth = to.params.pathIndex
       const fromDepth = from.params.pathIndex
       this.slideName = toDepth < fromDepth ? 'slideInLeft' : 'slideInRight'

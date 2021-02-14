@@ -82,11 +82,11 @@ const routes = [
     component: () => import('layouts/HomeLayout.vue'),
     children: [
       { path: '/about', name: 'about', component: () => import('pages/about/About.vue') },
-      { path: '/acknowledgements', name: 'acknowledgements', component: () => import('pages/about/Acknowledgements') },
-      { path: '/introduction', name: 'introduction', component: () => import('pages/about/Introduction.vue') },
-      { path: '/aboutPrivacyPolicy', name: 'aboutPrivacyPolicy', component: () => import('pages/about/AboutPrivacyPolicy.vue') },
-      { path: '/contact', name: 'contact', component: () => import('pages/about/Contact.vue') },
-      { path: '/license', name: 'license', component: () => import('pages/about/License.vue') }
+      { path: '/about/introduction', name: 'introduction', component: () => import('pages/about/Introduction.vue') },
+      { path: '/about/privacyPolicy', name: 'aboutPrivacyPolicy', component: () => import('pages/about/AboutPrivacyPolicy.vue') },
+      { path: '/about/acknowledgements', name: 'acknowledgements', component: () => import('pages/about/Acknowledgements'), props: { pathIndex: 6 } },
+      { path: '/about/contact', name: 'contact', component: () => import('pages/about/Contact.vue') },
+      { path: '/about/license', name: 'license', component: () => import('pages/about/License.vue') }
     ]
   }
 ]

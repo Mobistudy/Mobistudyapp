@@ -4,7 +4,7 @@
       <div class="q-pa-md">
         <q-btn
           flat
-          to='/introduction'
+          :to="{ path: '/about/introduction', params: { pathIndex: 6 } }"
           style='width: 200px'
           :label="$t('about.introduction')"
           color='primary'
@@ -13,7 +13,7 @@
       <div class="q-pa-md">
         <q-btn
           flat
-          to='/aboutPrivacyPolicy'
+          :to="{ path: '/about/privacyPolicy', params: { pathIndex: 6 } }"
           style='width: 200px'
           :label="$t('about.privacyPolicy')"
           color='primary'
@@ -22,7 +22,7 @@
       <div class="q-pa-md">
         <q-btn
           flat
-          to='/acknowledgements'
+          :to="{ path: '/about/acknowledgements', params: { pathIndex: 6 } }"
           style='width: 200px'
           :label="$t('about.acknowledgements')"
           color='primary'
@@ -31,7 +31,7 @@
       <div class="q-pa-md">
         <q-btn
           flat
-          to='/contact'
+          :to="{ path: '/about/contact', params: { pathIndex: 6 } }"
           style='width: 200px'
           :label="$t('about.contact')"
           color='primary'
@@ -40,7 +40,7 @@
       <div class="q-pa-md">
         <q-btn
           flat
-          to='/license'
+          :to="{ path: '/about/license', params: { pathIndex: 6 } }"
           style='width: 200px'
           :label="$t('about.license')"
           color='primary'
