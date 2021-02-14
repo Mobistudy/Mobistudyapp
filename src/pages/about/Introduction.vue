@@ -6,12 +6,14 @@
 </template>
 
 <script>
+import { mergeDeep } from 'modules/tools'
+import i18nAbout from 'i18n/about/about'
 import Intro from 'i18n/about/introduction'
 
 export default {
   name: 'IntroductionPage',
   i18n: {
-    messages: Intro
+    messages: mergeDeep(i18nAbout, Intro)
   }
 }
 </script>

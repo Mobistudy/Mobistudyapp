@@ -51,8 +51,13 @@
 </template>
 
 <script>
+import i18nStrings from 'i18n/about/about'
+
 export default {
-  name: 'AboutPagePage'
+  name: 'AboutPagePage',
+  i18n: {
+    messages: i18nStrings
+  }
 }
 </script>
 

@@ -12,12 +12,14 @@
 </template>
 
 <script>
+import { mergeDeep } from 'modules/tools'
+import i18nAbout from 'i18n/about/about'
 import Contact from 'i18n/about/contact'
 
 export default {
   name: 'ContactPage',
   i18n: {
-    messages: Contact
+    messages: mergeDeep(i18nAbout, Contact)
   }
 }
 </script>

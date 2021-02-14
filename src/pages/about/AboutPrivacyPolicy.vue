@@ -8,12 +8,14 @@
 </template>
 
 <script>
+import i18nAbout from 'i18n/about/about'
 import PP from 'i18n/about/privacyPolicy'
+import { mergeDeep } from 'modules/tools'
 
 export default {
   name: 'PrivacyPolicyPage',
   i18n: {
-    messages: PP
+    messages: mergeDeep(i18nAbout, PP)
   }
 }
 </script>

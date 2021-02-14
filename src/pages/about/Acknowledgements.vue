@@ -6,12 +6,14 @@
 </template>
 
 <script>
+import { mergeDeep } from 'modules/tools'
+import i18nAbout from 'i18n/about/about'
 import ACKS from 'i18n/about/acks'
 
 export default {
   name: 'AcknowledgementsPage',
   i18n: {
-    messages: ACKS
+    messages: mergeDeep(i18nAbout, ACKS)
   }
 }
 </script>
