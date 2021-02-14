@@ -93,6 +93,7 @@ module.exports = function (ctx) {
             formatter: require('eslint').CLIEngine.getFormatter('stylish')
           }
         })
+        cfg.resolve.alias['i18n/(.*)$'] = 'src/i18n/$1'
         cfg.resolve.alias['moment$'] = 'moment/moment.js'
         if (!cfg.resolve.modules) cfg.resolve.modules = []
         cfg.resolve.modules.push('./src')
