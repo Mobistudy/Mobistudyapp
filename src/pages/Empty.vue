@@ -1,9 +1,9 @@
 <template>
-    <div></div>
+    <div>Loading</div>
 </template>
 
 <script>
 export default {
-
+  name: 'EmptyPage'
 }
 </script>
