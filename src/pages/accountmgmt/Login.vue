@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import i18nString from 'i18n/accountMgmt/accountMgmt'
 import { required } from 'vuelidate/lib/validators'
 import DB from 'modules/db'
 import API from 'modules/API'
@@ -81,6 +82,9 @@ import notifications from 'modules/notifications'
 
 export default {
   name: 'LoginPage',
+  i18n: {
+    messages: i18nString
+  },
   data () {
     return {
       username: '',

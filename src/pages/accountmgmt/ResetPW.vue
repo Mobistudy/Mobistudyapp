@@ -18,12 +18,16 @@
 </template>
 
 <script>
+import i18nString from 'i18n/accountMgmt/accountMgmt'
 
 import { required, email } from 'vuelidate/lib/validators'
 import API from 'modules/API'
 
 export default {
   name: 'ResetPasswordPage',
+  i18n: {
+    messages: i18nString
+  },
   data () {
     return {
       email: null

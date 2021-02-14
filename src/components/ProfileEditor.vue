@@ -232,6 +232,8 @@
 </template>
 
 <script>
+import i18nString from 'i18n/accountMgmt/accountMgmt'
+
 import { required, minValue, maxValue, numeric } from 'vuelidate/lib/validators'
 import API from 'modules/API'
 import { date } from 'quasar'
@@ -239,6 +241,9 @@ import { date } from 'quasar'
 export default {
   name: 'ProfileEditor',
   props: ['value', 'buttonCancel', 'buttonOk'],
+  i18n: {
+    messages: i18nString
+  },
   data () {
     return {
       sexOptions: [
@@ -377,15 +382,15 @@ export default {
         return
       }
       try {
-        const concepts = await API.searchDiseaseConcept(diseaseDescription, 'en')
-        concepts.data = concepts.data.filter((concept) => {
+        let concepts = await API.searchDiseaseConcept(diseaseDescription, 'en')
+        concepts = concepts.filter((concept) => {
           if (!this.conceptIdExistsInArrayOfObjects(this.value.diseases, concept.conceptId)) {
             return true
           } else return false
         })
-        if (concepts.data.length) {
+        if (concepts.length) {
           update(() => {
-            this.diseaseOptions = concepts.data.map((c) => {
+            this.diseaseOptions = concepts.map((c) => {
               return {
                 label: c.term,
                 value: c.conceptId,
@@ -418,15 +423,15 @@ export default {
         return
       }
       try {
-        const concepts = await API.searchMedicationConcept(medDescription, 'en')
-        concepts.data = concepts.data.filter((concept) => {
+        let concepts = await API.searchMedicationConcept(medDescription, 'en')
+        concepts = concepts.filter((concept) => {
           if (!this.conceptIdExistsInArrayOfObjects(this.value.medications, concept.conceptId)) {
             return true
           } else return false
         })
-        if (concepts.data.length) {
+        if (concepts.length) {
           update(() => {
-            this.medOptions = concepts.data.map((c) => {
+            this.medOptions = concepts.map((c) => {
               return {
                 label: c.term,
                 value: c.conceptId,

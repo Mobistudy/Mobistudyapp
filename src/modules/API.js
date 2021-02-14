@@ -39,10 +39,12 @@ export default {
     return axios.post(BASE_URL + '/resetPassword', { token: token, password: newpw })
   },
   searchDiseaseConcept: async (disease, lang) => {
-    return axios.get(BASE_URL + '/vocabulary/' + lang + '/disorder/search?term=' + disease + '&limit=10')
+    const resp = await axios.get(BASE_URL + '/vocabulary/' + lang + '/disorder/search?term=' + disease + '&limit=10')
+    return resp.data
   },
   searchMedicationConcept: async (med, lang) => {
-    return axios.get(BASE_URL + '/vocabulary/' + lang + '/substance/search?term=' + med + '&limit=10')
+    const resp = await axios.get(BASE_URL + '/vocabulary/' + lang + '/substance/search?term=' + med + '&limit=10')
+    return resp.data
   },
   /// ////////////////////////////////////
   // from here on, we need to use tokens

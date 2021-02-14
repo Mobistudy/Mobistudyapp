@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import i18nString from 'i18n/accountMgmt/accountMgmt'
+
 import ProfileEditor from 'components/ProfileEditor'
 import API from 'modules/API'
 import userinfo from 'modules/userinfo'
@@ -25,6 +27,9 @@ import userinfo from 'modules/userinfo'
 export default {
   name: 'RegisterPage',
   components: { ProfileEditor },
+  i18n: {
+    messages: i18nString
+  },
   data () {
     return {
       profile: {

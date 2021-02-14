@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import i18nString from 'i18n/accountMgmt/accountMgmt'
 import { checkPwdStrength, pwdCheckError, owaspConfig } from 'modules/passwordChecker'
 import { required, sameAs } from 'vuelidate/lib/validators'
 import userinfo from 'modules/userinfo'
@@ -46,6 +47,9 @@ import API from 'modules/API'
 export default {
   name: 'ChangePasswordPage',
   props: [ 'email' ],
+  i18n: {
+    messages: i18nString
+  },
   data () {
     return {
       userEmail: this.email,

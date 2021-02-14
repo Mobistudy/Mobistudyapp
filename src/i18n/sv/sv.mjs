@@ -1,7 +1,5 @@
 import { mergeDeep } from '../../modules/tools.mjs'
-import acMgmtSv from './accountMgmt.mjs'
 import studiesSv from './studies.mjs'
-import privacyPolicyFull from './privacyPolicy'
 
 let sv = {
   errors: {
@@ -97,11 +95,9 @@ let sv = {
     pinNotSet: 'För att appen ska fungera, måste din telefon vara skyddad med en pinkod eller ekvivalent skärmlås. Var god och konfigurera ett skärmlås och start om appen. Var medveten om att, sätta en pinkod eller annat skärmlås och sedan ta bort det kan få appen att sluta fungera. Om så händer måste du sätta ett skärmlås igen och starta om appen.',
     dbCorruptedTitle: 'Oops!',
     dbCorrupted: 'Om du tar bort pinkoden när appen är installerad fungerar inte Mobistudys säkra lagring i telefonen. Om så händer, var god och sätt tillbaka ett skärmlås och starta om appen.'
-  },
-  privacyPolicyFull
+  }
 }
 
-sv = mergeDeep(sv, acMgmtSv)
 sv = mergeDeep(sv, studiesSv)
 
 export default sv
