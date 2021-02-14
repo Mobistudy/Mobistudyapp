@@ -1,7 +1,6 @@
 import { mergeDeep } from '../../modules/tools.mjs'
 import acMgmtEn from './accountMgmt.mjs'
 import studiesEn from './studies.mjs'
-import aboutEn from './about/about.mjs'
 import privacyPolicyFull from './privacyPolicy'
 
 let en = {
@@ -105,6 +104,5 @@ let en = {
 
 en = mergeDeep(en, acMgmtEn)
 en = mergeDeep(en, studiesEn)
-en.about = aboutEn
 
 export default en
