@@ -109,7 +109,6 @@ export default {
       } else {
         if (!resettingpwd) {
           API.setToken(userinfo.user.token)
-          await this.delay()
           console.log('LOGGED IN, REDIRECTING TO HOME')
           this.$router.replace({
             name: 'tasker',
@@ -138,13 +137,6 @@ export default {
       )
 
       this.bootstrapped = true
-    },
-    async delay () {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve()
-        }, 5000)
-      })
     }
   },
   async created () {
