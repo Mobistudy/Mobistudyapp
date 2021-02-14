@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import i18nStrings from 'i18n/accountMgmt/accountMgmt'
+
 import ProfileEditor from 'components/ProfileEditor'
 import API from 'modules/API'
 import DB from 'modules/db'
@@ -90,6 +92,9 @@ import userinfo from 'modules/userinfo'
 export default {
   name: 'ProfilePage',
   components: { ProfileEditor },
+  i18n: {
+    messages: i18nStrings
+  },
   data () {
     return {
       profile: {

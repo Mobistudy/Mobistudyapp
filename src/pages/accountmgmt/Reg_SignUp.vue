@@ -61,7 +61,9 @@
 </template>
 
 <script>
-import i18nString from 'i18n/accountMgmt/accountMgmt'
+import i18nStrings from 'i18n/accountMgmt/accountMgmt'
+import i18nPwdCheck from 'i18n/passwordCheck/passwordCheck'
+import { mergeDeep } from 'modules/tools.mjs'
 
 import { checkPwdStrength, pwdCheckError, owaspConfig } from 'modules/passwordChecker'
 import API from 'modules/API'
@@ -71,7 +73,7 @@ import { required, email, sameAs } from 'vuelidate/lib/validators'
 export default {
   name: 'SignUp',
   i18n: {
-    messages: i18nString
+    messages: mergeDeep(i18nStrings, i18nPwdCheck)
   },
   data () {
     return {
