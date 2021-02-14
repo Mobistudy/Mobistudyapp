@@ -98,14 +98,11 @@ export default {
     '$route' (to, from) {
       if (to.path.startsWith('/about/')) {
         this.subAbout = true
-        to.params.pathIndex = 6
       } else {
         this.subAbout = false
       }
 
       if (from.path.startsWith('/about/')) {
-        console.log('from: ' + from.params.pathIndex + ' to ' + to.params.pathIndex)
-
         from.params.pathIndex = 6
       }
 
