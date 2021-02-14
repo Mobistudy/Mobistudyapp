@@ -4,14 +4,13 @@ let storage
 let namespace = 'DB_VERSION_1.0'
 
 export async function init () {
-  // Hoping that doing a new init on the same namespace several times won't do any harm.
   return new Promise((resolve, reject) => {
     storage = new cordova.plugins.SecureStorage(
       () => {
         resolve()
       },
       () => {
-        reject() // Sends storage variable back to be used to open screen lock
+        reject()
       },
       namespace
     )
@@ -49,10 +48,13 @@ export async function getItem (key) {
       },
       (error) => {
         if (error.message.includes('not found') || error.message.includes('could not be found')) { // The left hand condition relates to Android and rightmost to iOS.
+          // data was not found, that's OK, resolve with undefined
           resolve()
         } else {
+          // there was an issue accessing the DB
           if (error.message === 'Failed to obtain information about private key') {
-            // the database has been corrupted
+            // the database has been corrupted!
+            // dispatch an event so that it can be treated somehow
             const event = new Event('dbcorrupted')
             document.dispatchEvent(event)
           }

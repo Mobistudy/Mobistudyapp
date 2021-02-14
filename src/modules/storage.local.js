@@ -1,5 +1,6 @@
 const storage = window.localStorage
 
+// use these flags for testing:
 const FAIL_INIT = false
 const DB_CORRUPTED = false
 
