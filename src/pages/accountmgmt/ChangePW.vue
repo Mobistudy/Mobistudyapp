@@ -82,7 +82,7 @@ export default {
     },
     async resetUserPassword () {
       this.$v.$touch()
-      if (!this.$v.error) {
+      if (!this.$v.$invalid) {
         try {
           await API.changePW(this.token, this.newpw)
           this.$q.dialog({
