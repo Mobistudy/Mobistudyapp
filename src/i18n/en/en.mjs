@@ -55,16 +55,6 @@ let en = {
       aboutAction: 'About Mobistudy'
     }
   },
-  healthDataTypes: {
-    steps: 'steps',
-    weight: 'weight',
-    height: 'height',
-    activity: 'activity',
-    heart_rate: 'heart rate',
-    heart_rate_variability: 'heart rate variability',
-    calories: 'calories',
-    distance: 'distance'
-  },
   pin: {
     pinNotSetTitle: 'Your phone is not protected',
     pinNotSet: 'In order for this app to work correctly, your phone must be protected with a pin code or equivalent. Please, configure a locking mechanism and restart this app. Please be aware that setting the pincode and then removing it may corrupt the app and force you to restart it.',

@@ -54,16 +54,6 @@ let sv = {
       aboutAction: 'Om Mobistudy'
     }
   },
-  healthDataTypes: {
-    steps: 'steg',
-    weight: 'vikt',
-    height: 'längd',
-    activity: 'aktivitet',
-    heart_rate: 'hjärtfrekvens',
-    heart_rate_variability: 'hjärtfrekvensvariabilitet',
-    calories: 'kalorier',
-    distance: 'distans'
-  },
   pin: {
     pinNotSetTitle: 'Din telefon är inte skyddad med ett skärmlås',
     pinNotSet: 'För att appen ska fungera, måste din telefon vara skyddad med en pinkod eller ekvivalent skärmlås. Var god och konfigurera ett skärmlås och start om appen. Var medveten om att, sätta en pinkod eller annat skärmlås och sedan ta bort det kan få appen att sluta fungera. Om så händer måste du sätta ett skärmlås igen och starta om appen.',

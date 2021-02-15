@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import i18nHealthDataTypes from 'i18n/healthDataTypes/healthDataTypes'
+
 import healthstore from 'modules/healthstore'
 import BarChart from 'components/BarChart'
 import LineChart from 'components/LineChart'
@@ -63,6 +65,9 @@ export default {
     taskId: Number
   },
   components: { BarChart, LineChart },
+  i18n: {
+    messages: i18nHealthDataTypes
+  },
   data: function () {
     return {
       task: {},
