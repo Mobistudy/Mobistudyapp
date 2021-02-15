@@ -2,9 +2,8 @@
 
 export default {
   title: 'Data begäran',
-  shortDescription: 'Ber HealthKit och GoogleFit om aktivitetsdata',
+  shortDescription: 'Ber din telefon om aktivitetsdata',
   shortTitle: 'Data begäran',
-  description: 'Den här uppgiften laddar ner din aktivitetsdata från antingen Google Fit eller Apple HealthKit',
   instructionSlidesAndroid: [
     {
       title: 'Introduktion',

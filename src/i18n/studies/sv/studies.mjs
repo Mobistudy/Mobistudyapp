@@ -55,12 +55,6 @@ let studies = {
       capTestComplete: 'Grattis!',
       capTestCompleteSubtext: 'Du avslutade uppgiften!',
       taskCompleted: 'Uppgiften har nu blivit avslutat och resultatet har blivit skickad till servern. Tack!',
-      dataQuery: {
-        title: 'Data query',
-        shortTitle: 'Data query',
-        shortDescription: 'Extrahera data från din telefon',
-        dataQueryExplanation: 'Den här datan kommer bli extraherad från din telefon. Om du samtycker att skicka den, tryck på skicka.'
-      },
       form: {
         title: '{formname} formulär',
         shortDescription: 'Besvara några frågor',

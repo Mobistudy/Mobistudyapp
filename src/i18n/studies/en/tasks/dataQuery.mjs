@@ -2,9 +2,8 @@
 
 export default {
   title: 'Data Query',
-  shortDescription: 'Queries HealthKit and GoogleFit for activity data',
+  shortDescription: 'Download health and activity data from your phone',
   shortTitle: 'Data Query',
-  description: 'This task downloads your activity data from either GoogleFit or HealthKit.',
   instructionSlidesAndroid: [
     {
       title: 'Introduction',

@@ -1,7 +1,4 @@
-import { mergeDeep } from '../../modules/tools.mjs'
-import studiesEn from './studies.mjs'
-
-let en = {
+export default {
   errors: {
     error: 'Error',
     generalError: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.',
@@ -62,7 +59,3 @@ let en = {
     dbCorrupted: 'Removing the pin protection makes the apps secure storage unusable. Please, set the pin protection back and restart the app.'
   }
 }
-
-en = mergeDeep(en, studiesEn)
-
-export default en

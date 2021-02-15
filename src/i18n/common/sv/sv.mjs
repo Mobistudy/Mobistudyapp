@@ -1,7 +1,4 @@
-import { mergeDeep } from '../../modules/tools.mjs'
-import studiesSv from './studies.mjs'
-
-let sv = {
+export default {
   errors: {
     error: 'Fel',
     generalError: 'Appen har upptäckt ett oförväntat fel, var god och se till att din internet anslutning är påslagen och försök sedan igen.',
@@ -61,7 +58,3 @@ let sv = {
     dbCorrupted: 'Om du tar bort pinkoden när appen är installerad fungerar inte Mobistudys säkra lagring i telefonen. Om så händer, var god och sätt tillbaka ett skärmlås och starta om appen.'
   }
 }
-
-sv = mergeDeep(sv, studiesSv)
-
-export default sv
