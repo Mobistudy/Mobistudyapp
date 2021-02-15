@@ -163,15 +163,15 @@ export default {
     },
     async withdraw () {
       this.$q.dialog({
-        title: 'Withdraw',
-        message: 'Are you sure you want to withdraw from this study? If yes, please state why',
+        title: this.$i18n.t('studies.consent.withdraw'),
+        message: this.$i18n.t('studies.consent.withdrawalConfirm'),
         color: 'negative',
         prompt: {
           model: '',
           type: 'text'
         },
-        ok: 'Withdraw',
-        cancel: 'Cancel'
+        ok: this.$i18n.t('studies.consent.withdraw'),
+        cancel: this.$i18n.t('common.cancel')
       }).onOk(async (withdrawalReason) => {
         // set the study as withdrawn
         this.studyParticipation.currentStatus = 'withdrawn'

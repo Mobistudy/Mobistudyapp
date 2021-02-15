@@ -33,7 +33,7 @@ let studies = {
     studyDetails: 'Study details',
     studyTitle: 'Study title',
     dataAccess: {
-      anonymised: 'This institution will access your data in an anonymised way',
+      anonymised: 'This institution will access your data in an anonymized way',
       noAccess: 'This institution will not access your data',
       full: 'This institution will access your data',
       reason: 'Reason for data access'
@@ -75,10 +75,11 @@ let studies = {
       consentExplanation: 'Consent to the following items to join the study. You do not have to consent to all of them, however some items may be required to join the study. When an item requires access to the phone\'s functions, you can tap the button to grant access to this app.',
       updateConsent: 'Update consent',
       consentUpdated: 'Consent updated',
-      withdraw: 'Withdraw from the study',
       joinStudy: 'Join study',
       accepted: 'You have just joined',
-      contactReminder: 'Remember, if you need to, you can always contact the principal investigators at:'
+      contactReminder: 'Remember, if you need to, you can always contact the principal investigators at:',
+      withdraw: 'Withdraw',
+      withdrawalConfirm: 'Are you sure you want to withdraw from this study? If yes, please state why'
     }
   }
 }

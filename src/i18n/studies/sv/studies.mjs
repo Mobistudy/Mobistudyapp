@@ -75,10 +75,11 @@ let studies = {
       consentExplanation: 'Samtyck till det följande för att gå med i studien. Du behöver inte samtycka till allt, däremot kan det vara så att vissa villkor krävs för att gå med i studien. När ett villkot kräver tillgång till telefonens funktionalitet kan du trycka på knappen för att ge tillgång till appen.',
       updateConsent: 'Uppdatera samtycket',
       consentUpdated: 'Samtyckesuppdatering',
-      withdraw: 'Upphäv deltagandet i studien',
       joinStudy: 'Gå med i studien',
       accepted: 'Du har precis gått med!',
-      contactReminder: 'Kom ihåg, om du behöver, kan du alltid kontakta huvudutredarna genom:'
+      contactReminder: 'Kom ihåg, om du behöver, kan du alltid kontakta huvudutredarna genom:',
+      withdraw: 'Upphäv',
+      withdrawalConfirm: 'Är du säker på att du vill dra dig ur den här studien? Om ja, ange varför'
     }
   }
 }
