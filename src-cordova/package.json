@@ -22,7 +22,7 @@
     "cordova-plugin-geolocation": "^4.1.0",
     "cordova-plugin-health": "^2.0.0",
     "cordova-plugin-insomnia": "^4.3.0",
-    "cordova-plugin-local-notification": "^0.9.0-beta.2",
+    "cordova-plugin-local-notification": "github:timkellypa/cordova-plugin-local-notifications#3c8e9288780b57d3e6ff3a217f87fa8c2673658e",
     "cordova-plugin-pedometer": "github:dariosalvi78/cordova-plugin-pedometer",
     "cordova-plugin-pincheck": "0.0.6",
     "cordova-plugin-secure-storage-echo": "github:mibrito707/cordova-plugin-secure-storage-echo",
@@ -39,13 +39,15 @@
       "cordova-plugin-pincheck": {},
       "cordova-plugin-secure-storage-echo": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-local-notification": {},
       "cordova-plugin-file": {},
       "cordova-plugin-health": {
         "HEALTH_READ_PERMISSION": "Mobistudy needs to read health-related data from your phone",
         "HEALTH_WRITE_PERMISSION": "Mobistudy needs to store health-related data in your phone"
       },
-      "cordova-plugin-splashscreen": {}
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-local-notification": {
+        "ANDROID_SUPPORT_V4_VERSION": "26.+"
+      }
     },
     "platforms": [
       "ios",
