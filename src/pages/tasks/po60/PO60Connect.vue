@@ -12,7 +12,7 @@
         clickable
         v-ripple
         :id="device.id"
-        @click="connect(device)"
+        @click="connect(device, true)"
       >
         <q-item-section>{{device.id}}</q-item-section>
       </q-item>
@@ -106,9 +106,10 @@ export default {
         } else {
           // sort devices by RSSI, desc
           this.devices.sort((d1, d2) => { return d2.rssi - d1.rssi })
-          this.connect(this.devices[0]) // connect to the device with the greatest signal strength, which probably is the one in nearest proximity.
+          // this.connect(this.devices[0]) // connect to the device with the greatest signal strength, which probably is the one in nearest proximity.
         }
       } catch (err) {
+        this.instructionDialog = false
         console.error('Scan error', err)
         this.$q.dialog({
           title: this.$t('errors.error'),
@@ -124,18 +125,26 @@ export default {
       }
     },
     // connect to the selected device
-    async connect (device) {
-      this.instructionDialog = true
+    async connect (device, skipSearch) {
       try {
-        if (this.$q.platform.is.ios) {
-          await po60.scanForId(device.id, 12000)
+        if (!skipSearch) {
+          this.instructionDialog = true
+          if (this.$q.platform.is.ios) {
+            await po60.scanForId(device.id, 5000)
+          }
+        } else {
+          this.showConnecting = true
         }
         this.connectionAttempts++
         await po60.connect(device)
+        // connected!
+        this.instructionDialog = false
+        this.showConnecting = false
+
         // save the device!
         device.authenticated = true
         await db.setDevicePO60(device)
-        this.instructionDialog = false
+
         this.moveToDownloadPage()
       } catch (error) {
         console.error(error)
