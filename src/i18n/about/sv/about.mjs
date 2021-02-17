@@ -2,7 +2,7 @@ export default {
   about: 'Om',
   introduction: 'Introduktion',
   privacyPolicy: 'Integritetspolicy',
-  acknowledgements: 'Tacksägelser',
+  acknowledgements: 'Tack',
   contact: 'Contact',
   license: 'License'
 }
