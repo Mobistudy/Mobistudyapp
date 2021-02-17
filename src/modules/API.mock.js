@@ -193,7 +193,7 @@ export default {
   async getInvitationalStudy (invitationalCode) {
     console.log('API - getting invitational study')
     return new Promise((resolve, reject) => {
-      if (invitationalCode === study9999.invitationalCode) {
+      if (invitationalCode === study9999.invitationCode) {
         resolve(study9999)
       } else {
         reject(new Error('Cannot retrieve invitational study based on code.'))
