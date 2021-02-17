@@ -1,4 +1,4 @@
-export default `Mobistudy startade av Dario Salvi, Carmelo Velardo och Rishi Arvin Goburdhun \
+export default `Mobistudy startades av Dario Salvi, Carmelo Velardo och Rishi Arvin Goburdhun \
 hos Oxford Universitet med följande finansiering:
 <ul>
 <li><a href="https://oxfordbrc.nihr.ac.uk/">NIHR Oxford Biomedical Research Centre (BRC)</a></li>
@@ -12,7 +12,7 @@ och är finansierat av: \
 <li>och <a href="https://www.matspaulssonstiftelserna.com/">Mats Paulsson Foundation</a></li>
 </ul>
 <br>
-Dessa människor har bidragit till projektet med kod, design och idéer:
+Dessa personer har bidragit till projektet med kod, design och idéer:
 <ul>
 <li><a href="https://github.com/assimilate">Daniel Abella</a></li>
 <li><a href="https://github.com/jamtholee">Jameson Lee</a></li>
@@ -29,7 +29,7 @@ Dessa människor har bidragit till projektet med kod, design och idéer:
 </ul>
 <br>
 <br>
-Följande bibliotek har använts för att uteckla den här appen:
+Denna app har utvecklats med tack till följande projekt med öppen källkod:
 <ul>
 <li><a href="https://cordova.apache.org/">Apache Cordova</a></li>
 <li><a href="https://vuejs.org/">Vue JS</a></li>
@@ -50,5 +50,5 @@ Följande bibliotek har använts för att uteckla den här appen:
 </ul>
 <br>
 <br>
-Mobistudys ikonerna skapade av itim2101 från www.flaticon.com.
+Mobistudy:s ikoner skapades av itim2101 samt hämtades från www.flaticon.com.
 `
