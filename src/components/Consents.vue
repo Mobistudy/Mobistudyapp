@@ -50,6 +50,7 @@
 <script>
 import healthStore from 'modules/healthstore'
 import phone from 'modules/phone'
+import PO60 from 'modules/po60/IPulseOxDevice'
 
 export default {
   props: [
@@ -80,6 +81,10 @@ export default {
           if (await phone.pedometer.isAvailable()) {
             await phone.pedometer.requestPermission()
           }
+        } else if (this.taskType[taskIndex] === 'miband3') {
+          await PO60.requestPermission()
+        } else if (this.taskType[taskIndex] === 'po60') {
+          await PO60.requestPermission()
         }
         // if we get to this point we have permission
         this.$set(this.consentedTaskItems, taskIndex, true)
