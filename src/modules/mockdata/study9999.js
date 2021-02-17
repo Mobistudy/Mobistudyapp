@@ -1,7 +1,7 @@
 export default {
   _key: '9999',
   publishedTS: '2019-12-09T09:30:32.492Z',
-  invitationalCode: '123456',
+  invitationCode: '123456',
   generalities: {
     languages: ['en'],
     title: {
