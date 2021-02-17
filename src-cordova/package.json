@@ -35,7 +35,6 @@
       "cordova-plugin-insomnia": {},
       "cordova-plugin-geolocation": {},
       "cordova-plugin-pedometer": {},
-      "cordova-plugin-ble-central": {},
       "cordova-plugin-pincheck": {},
       "cordova-plugin-secure-storage-echo": {},
       "cordova-plugin-device": {},
@@ -47,6 +46,10 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-local-notification": {
         "ANDROID_SUPPORT_V4_VERSION": "26.+"
+      },
+      "cordova-plugin-ble-central": {
+        "BLUETOOTH_USAGE_DESCRIPTION": "This app needs to connect to Bluetooth devices",
+        "IOS_INIT_ON_LOAD": "false"
       }
     },
     "platforms": [
