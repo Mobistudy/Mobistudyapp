@@ -16,7 +16,7 @@ export default {
     return new Promise((resolve, reject) => {
       Dialog.create({
         title: 'Confirm',
-        message: 'Would you like to give access to ' + datatypes + '?',
+        message: 'Would you like to give access to ' + datatypes[0].read[0] + '?',
         cancel: true,
         persistent: true
       }).onOk(() => {
