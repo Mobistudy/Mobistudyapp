@@ -8,6 +8,10 @@ export default {
   device: undefined,
   deviceToSearch: 'PO60',
 
+  async requestPermission () {
+    return BLEDevice.requestPermission()
+  },
+
   async scan (searchTime) {
     try {
       const devices = await BLEDevice.scan(this.deviceToSearch, searchTime)
@@ -18,9 +22,7 @@ export default {
   },
 
   async scanForId (deviceId, searchTime) {
-    const device = await BLEDevice.scanForId(deviceId, searchTime)
-    if (!device) return Promise.reject()
-    return device
+    return BLEDevice.scanForId(deviceId, searchTime)
   },
 
   async connect (device) {

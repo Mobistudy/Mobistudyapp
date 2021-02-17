@@ -8,6 +8,13 @@ export default class BLEDevice {
       this.deviceId = this.device.id
     }
 
+    static async requestPermission () {
+      return new Promise((resolve, reject) => {
+        // TODO: needs to be completed with real code!
+        setTimeout(resolve, 1000)
+      })
+    }
+
     static async scan (deviceName, searchTime) {
       return new Promise((resolve, reject) => {
         const devices = []
