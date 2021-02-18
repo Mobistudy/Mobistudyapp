@@ -1,7 +1,7 @@
 export default {
   name: {
-    en: 'COPD form',
-    sv: 'KOL formulär'
+    en: 'Clinical COPD Questionnaire',
+    sv: 'Kliniska COPD-frågeformuläret'
   },
   description: {
     en: 'The Clinical COPD Questionnaire (CCQ) is a simple 10-item, health-related quality of life questionnaire (HRQoL) with good psychometric properties.',
