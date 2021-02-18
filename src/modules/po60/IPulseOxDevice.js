@@ -4,11 +4,11 @@ import PulseOxDevice from 'modules/po60/PulseOxDevice'
 export default {
   device: undefined,
   deviceToSearch: 'PO60',
-  /**
-   * Finds all Miband3 around and returns an array of device objects, each containing an ID (MAC address) and RSSI
-   * If a timeout occurs or BLE is not activated, the promise is rejected
-   * @param {Number} searchTime max number of milliseconds to search for a Miband3
-   */
+
+  async requestPermission () {
+    return PulseOxDevice.requestPermission()
+  },
+
   async scan (searchTime) {
     const foundDevices = await PulseOxDevice.scan(this.deviceToSearch, searchTime)
     if (!foundDevices) return Promise.reject()
