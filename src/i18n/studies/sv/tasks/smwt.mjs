@@ -5,6 +5,8 @@ export default {
   shortDescription: 'Utför ett Six Minute Walk Test',
   shortTitle: '6MWT',
   description: 'Den här uppgiften handlar om att mäta hur långt du kan gå inom 6 minuter (6-minuters-gå-test). Din mobil kommer att observera din position medans du går och räkna ut den totala distansen som du gått. Den här distansen kan visa på indikationer gällande din träningsförmåga och generella hälsa.',
+  OSpermissioniOS: 'This task requires the app to access the positioning system of your phone (like the GPS) and the step counter if available. These are needed to compute the distance walked during the test. Both your location and the walked steps will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
+  OSpermissionAndroid: 'This task requires the app to access the positioning system of your phone (like the GPS) and the step counter if available. These are needed to compute the distance walked during the test. Both your location and the walked steps will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   introductionSlides: [
     {
       title: 'Instruktion',

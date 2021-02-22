@@ -4,6 +4,8 @@ export default {
   shortTitle: 'QCST',
   description: 'Uppgiften är att du ska utföra ett Queens College Step Test. Den här appen kan skicka testresultaten till en server vars värd är Malmö Universitet. Datan är tillgänglig för personal på Skånes Universitetssjukhus så att läkare och sjuksköterskor kan granska dem.',
   shortDescription: 'Urför ett Queens College Step Test',
+  OSpermissioniOS: 'This task requires the app to access the step counter in your phone if available. This is needed to compute how many steps you have done during the test. Detected steps will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
+  OSpermissionAndroid: 'This task requires the app to access the step counter in your phone if available. This is needed to compute how many steps you have done during the test. Detected steps will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   introductionSlides: [
     {
       title: 'Krav',

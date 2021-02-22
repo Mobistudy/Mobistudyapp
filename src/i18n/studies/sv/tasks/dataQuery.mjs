@@ -4,6 +4,8 @@ export default {
   title: 'Data begäran',
   shortDescription: 'Ber din telefon om aktivitetsdata',
   shortTitle: 'Data begäran',
+  OSpermissioniOS: 'This task requires the app to access part of the data collected by HealthKit on your phone.\n These data are needed by the research team for analysis. Tap on Next if you want to proceed with the authorization process.',
+  OSpermissionAndroid: 'This task requires the app to access part of the data collected by Google Fit on your phone.\n These data are needed by the research team for analysis. Tap on Next if you want to proceed with the authorization process.',
   instructionSlidesAndroid: [
     {
       title: 'Introduktion',
