@@ -8,10 +8,33 @@ export default class BLEDevice {
       this.deviceId = this.device.id
     }
 
+    /**
+     * Requests permission to access bluetooth
+     * the promise is returned either immediately if permissions are given
+     * and there are BLE devices around (visible in a scan)
+     * or because of a timeout or no devices around
+     * in other words, it's impossible to say if permission was really given or not
+     */
     static async requestPermission () {
       return new Promise((resolve, reject) => {
-        // TODO: needs to be completed with real code!
-        setTimeout(resolve, 1000)
+        // we need to get permissions from iOS or Android
+        // there is no explicit call for that, so we start a scan and wait for the user to confirm
+        // the scan does not produce any callback until it finds a device
+        // given that it is possible that no device is found or that permission is denied,
+        // we use a timeout to stop searching after a short time
+        let timer = setTimeout(() => {
+          // after the timeout we resolve because it's impossible to say if the scan failed because
+          // of no device found or because  of denied permission
+          window.ble.stopScan(resolve, reject)
+        }, 5000)
+
+        window.ble.startScan([], function () {
+          // we got a result, scanning can stop
+          window.ble.stopScan()
+          // no need of the timeout anuy longer
+          clearTimeout(timer)
+          resolve()
+        }, reject)
       })
     }
 
