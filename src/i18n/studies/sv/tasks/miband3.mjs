@@ -4,6 +4,8 @@ export default {
   title: 'Nedladdning av aktivitetsdata',
   shortTitle: 'Aktivitetsarmband',
   shortDescription: 'Hämta data från ditt aktivitetsarmband',
+  OSpermissioniOS: 'This task requires the app to access Bluetooth on your phone. This is needed to connect the app with the MiBand3 fitness tracker and collect the data from it. The collected data will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
+  OSpermissionAndroid: 'This task requires the app to access Bluetooth on your phone. This is needed to connect the app with the MiBand3 fitness tracker and collect the data from it. The collected data will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   introductionSlides: [
     {
       title: 'Introduktion',

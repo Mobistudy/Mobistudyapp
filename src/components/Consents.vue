@@ -44,6 +44,19 @@
         </q-item-section>
       </q-item>
     </q-list>
+
+     <q-dialog v-model="permissionDialog" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <span class="q-ml-sm">{{permissionMessage}}</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat :label="$t('common.cancel')" color="negative" v-close-popup />
+          <q-btn flat :label="$t('common.next')" color="positive" v-close-popup @click.native="acceptOSWarning"/>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -61,29 +74,69 @@ export default {
     'remindersPermissionNeeded',
     'remindersPermissionGiven'
   ],
+  data () {
+    return {
+      permissionMessage: '',
+      permissionDialog: false
+    }
+  },
   methods: {
+    async showOSPermissionWarning (taskType) {
+      if (taskType === 'dataQuery') {
+        if (this.$q.platform.is.ios) {
+          this.permissionMessage = this.$t('studies.tasks.dataQuery.OSpermissioniOS')
+        } else this.permissionMessage = this.$t('studies.tasks.dataQuery.OSpermissionAndroid')
+      } else if (taskType === 'smwt') {
+        if (this.$q.platform.is.ios) {
+          this.permissionMessage = this.$t('studies.tasks.smwt.OSpermissioniOS')
+        } else this.permissionMessage = this.$t('studies.tasks.smwt.OSpermissionAndroid')
+      } else if (taskType === 'qcst') {
+        if (this.$q.platform.is.ios) {
+          this.permissionMessage = this.$t('studies.tasks.qcst.OSpermissioniOS')
+        } else this.permissionMessage = this.$t('studies.tasks.qcst.OSpermissionAndroid')
+      } else if (taskType === 'miband3') {
+        if (this.$q.platform.is.ios) {
+          this.permissionMessage = this.$t('studies.tasks.miband3.OSpermissioniOS')
+        } else this.permissionMessage = this.$t('studies.tasks.miband3.OSpermissionAndroid')
+      } else if (taskType === 'po60') {
+        if (this.$q.platform.is.ios) {
+          this.permissionMessage = this.$t('studies.tasks.po60.OSpermissioniOS')
+        } else this.permissionMessage = this.$t('studies.tasks.po60.OSpermissionAndroid')
+      } else return true
+      this.permissionDialog = true
+      return new Promise((resolve, reject) => {
+        this.acceptOSWarning = resolve
+      })
+    },
+    acceptOSWarning () {
+      // just a placehoder
+    },
     async requestPermission (taskIndex) {
       try {
-        if (this.taskType[taskIndex] === 'dataQuery') {
+        let taskType = this.taskType[taskIndex]
+        await this.showOSPermissionWarning(taskType)
+        this.permissionDialog = false
+
+        if (taskType === 'dataQuery') {
           let taskId = this.studyDescription.consent.taskItems[taskIndex].taskId
           let taskdescr = this.studyDescription.tasks.find(t => t.id === taskId)
           await healthStore.requestAuthorization([
             { read: [taskdescr.dataType] }
           ])
-        } else if (this.taskType[taskIndex] === 'smwt') {
+        } else if (taskType === 'smwt') {
           if (await phone.geolocation.isAvailable()) {
             await phone.geolocation.requestPermission()
           }
           if (await phone.pedometer.isAvailable()) {
             await phone.pedometer.requestPermission()
           }
-        } else if (this.taskType[taskIndex] === 'qcst') {
+        } else if (taskType === 'qcst') {
           if (await phone.pedometer.isAvailable()) {
             await phone.pedometer.requestPermission()
           }
-        } else if (this.taskType[taskIndex] === 'miband3') {
+        } else if (taskType === 'miband3') {
           await PO60.requestPermission()
-        } else if (this.taskType[taskIndex] === 'po60') {
+        } else if (taskType === 'po60') {
           await PO60.requestPermission()
         }
         // if we get to this point we have permission
@@ -104,6 +157,7 @@ export default {
         })
       }
     },
+
     async rejectPermission (taskIndex) {
       this.$set(this.consentedTaskItems, taskIndex, false)
     },

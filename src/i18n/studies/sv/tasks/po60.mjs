@@ -4,6 +4,8 @@ export default {
   title: 'Mätning av syremättnadsnivå',
   shortTitle: 'Pulsoximeter',
   shortDescription: 'Mät din syremättnadsnivå',
+  OSpermissioniOS: 'This task requires the app to access Bluetooth on your phone. This is needed to connect the app with the PO60 pulseoximeter and collect the measured blood oxygen saturation. The collected data will be shared with the research team of this study for analysis.\n Tap on Next if you want to proceed with the authorization process.',
+  OSpermissionAndroid: 'This task requires the app to access Bluetooth on your phone. This is needed to connect the app with the PO60 pulseoximeter and collect the measured blood oxygen saturation. The collected data will be shared with the research team of this study for analysis.\n Tap on Next if you want to proceed with the authorization process.',
   introductionSlides: [
     {
       img: 'instructions/po60_1.jpg',

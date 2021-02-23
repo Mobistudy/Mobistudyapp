@@ -81,8 +81,12 @@ export default {
             endDate: new Date()
           })
         } else {
-          // in Android no permissions are needed
-          resolve()
+          window.pedometer.startPedometerUpdates(function (data) {
+            resolve()
+            window.pedometer.stopPedometerUpdates()
+          }, function (err) {
+            reject(err)
+          })
         }
       })
     },

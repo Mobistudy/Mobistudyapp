@@ -4,6 +4,8 @@ export default {
   title: 'Data Query',
   shortDescription: 'Download health and activity data from your phone',
   shortTitle: 'Data Query',
+  OSpermissioniOS: 'This task requires the app to access part of the data collected by HealthKit on your phone. These data are needed by the research team for analysis.\n Tap on Next if you want to proceed with the authorization process.',
+  OSpermissionAndroid: 'This task requires the app to access part of the data collected by Google Fit on your phone. These data are needed by the research team for analysis.\n Tap on Next if you want to proceed with the authorization process.',
   instructionSlidesAndroid: [
     {
       title: 'Introduction',
