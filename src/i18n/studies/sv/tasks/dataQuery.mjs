@@ -4,6 +4,8 @@ export default {
   title: 'Databegäran',
   shortDescription: 'Laddar ned hälso- och aktivitetsdata från din telefon',
   shortTitle: 'Databegäran',
+  OSpermissioniOS: 'Den här uppgiften kräver tillgång till delar av data insamlad av HealthKit på din telefon. Datan behövs av forskningsgruppen för analys.\n Klicka på Nästa om du vill fortsätta auktoriseringsprocessen för detta.',
+  OSpermissionAndroid: 'Den här uppgiften kräver tillgång till delar av data insamlad av Google Fit på din telefon. Datan behövs av forskningsgruppen för analys.\n Klicka på Nästa om du vill fortsätta auktoriseringsprocessen för detta.',
   instructionSlidesAndroid: [
     {
       title: 'Introduktion',

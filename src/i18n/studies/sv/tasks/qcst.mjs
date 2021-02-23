@@ -3,6 +3,8 @@ export default {
   title: 'Queens College Step Test',
   shortTitle: 'QCST',
   description: 'Uppgiften är att du ska utföra ett Queens College Step Test. Appen kan skicka testresultaten till en server som Malmö Universitet ansvarar för. Datan är tillgänglig för personal på Skånes Universitetssjukhus så att läkare och sjuksköterskor kan granska dem.',
+  OSpermissioniOS: 'Denna uppgift kräver att appen har tillgång till stegräknaren i din telefon, om den har sådan. Detta behövs för att räkna ut hur många steg du gjort under uppgiften. Rapporterade steg delas med forskningsgruppen för analysis. Klicka på Nästa om du vill fortsätt autentiseringsprocessen.',
+  OSpermissionAndroid: 'Denna uppgift kräver att appen har tillgång till stegräknaren i din telefon, om den har sådan. Detta behövs för att räkna ut hur många steg du gjort under uppgiften. Rapporterade steg delas med forskningsgruppen för analysis. Klicka på Nästa om du vill fortsätt autentiseringsprocessen.',
   shortDescription: 'Utför ett Queens College Step Test',
   introductionSlides: [
     {

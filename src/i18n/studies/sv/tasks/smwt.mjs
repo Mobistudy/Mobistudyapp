@@ -5,6 +5,8 @@ export default {
   shortDescription: 'Utför ett 6-minuters gångtest',
   shortTitle: '6MWT',
   description: 'Den här uppgiften handlar om att mäta hur långt du kan gå inom 6 minuter (6-minuters gångtest). Din mobil kommer att observera din position medans du går och räkna ut den totala distansen som du gått. Avståndet kan ge en indikation på din träningsförmåga och allmänna hälsa.',
+  OSpermissioniOS: 'Den här uppgiften behöver tillgång till din telefons positionering (GPS) och stegräknare ifall detta finns. Dessa behövs för att räkna ut avstånd som gåtts under uppgiften. Både platsdata och antal steg delas med forskningsgruppen för analys. Klicka på Nästa om du vill fortsätt autentiseringsprocessen.',
+  OSpermissionAndroid: 'Den här uppgiften behöver tillgång till din telefons positionering (GPS) och stegräknare ifall detta finns. Dessa behövs för att räkna ut avstånd som gåtts under uppgiften. Både platsdata och antal steg delas med forskningsgruppen för analys. Klicka på Nästa om du vill fortsätt autentiseringsprocessen.',
   introductionSlides: [
     {
       title: 'Instruktion',
