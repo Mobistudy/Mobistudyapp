@@ -4,7 +4,7 @@ export default {
   height: 'längd',
   activity: 'aktivitet',
   heart_rate: 'hjärtfrekvens',
-  heart_rate_variability: 'hjärtfrekvensvariabilitet',
+  heart_rate_variability: 'variation i hjärtfrekvens',
   calories: 'kalorier',
   distance: 'distans'
 }

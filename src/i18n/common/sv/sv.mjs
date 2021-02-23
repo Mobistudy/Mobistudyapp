@@ -11,10 +11,10 @@ export default {
   common: {
     next: 'Nästa',
     clear: 'Rensa svar',
-    cancel: 'Avsluta',
-    discard: 'Kassera',
+    cancel: 'Avbryt',
+    discard: 'Kasta bort',
     accept: 'Acceptera',
-    reject: 'Kassera',
+    reject: 'Neka',
     close: 'Stäng',
     update: 'Uppdatera',
     delete: 'Ta bort',

@@ -8,12 +8,12 @@ export default {
     {
       title: 'Requirements',
       img: 'instructions/qcst_1.jpg',
-      description: 'For this test, you need a sturdy step, about 40 cm (16 inches) high. This is about the height of a short chair.'
+      description: 'For this test, you need a sturdy step, about 40 cm (16 inches) high. This is about the height of a foot stool.'
     },
     {
       title: 'Requirements',
       img: 'instructions/qcst_2.jpg',
-      description: 'A heart rate monitor: you can use a fitness tracker or smartwatch or you can try with an app (search for "Heart Rate" on the app store).'
+      description: 'A heart rate monitor: you can use a fitness tracker, smartwatch, or you can try using an app (search for "Heart Rate" on the app store).'
     },
     {
       title: 'Requirements',
@@ -27,11 +27,11 @@ export default {
     },
     {
       img: 'instructions/qcst_5.jpg',
-      description: 'Step up and down according to the metronome sound of the app. Make sure to turn on the sound on your device and turn up the volume.'
+      description: 'Step up and down following the metronome sound you will hear from the app. Make sure to turn on the sound on your device and turn up the volume.'
     },
     {
       img: 'instructions/qcst_6.jpg',
-      description: 'The test will automaticly stop after 3 minutes. If you need to complete the test earlier, press the "Complete"-button.'
+      description: 'The test will automaticly stop after 3 minutes. If you need to complete the test earlier, press the "Complete" button.'
     },
     {
       img: 'instructions/qcst_3.jpg',

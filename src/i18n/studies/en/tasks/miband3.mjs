@@ -8,12 +8,12 @@ export default {
     {
       title: 'Introduction',
       img: 'instructions/miband3_1.png',
-      description: 'In this task you will connect to your MiBand smart bracelet and download your activity data from it including steps, heart rate, activity and sleep.'
+      description: 'In this task you will connect to your MiBand smart bracelet and download your activity data, including steps, heart rate, activity and sleep.'
     },
     {
       title: 'Setup',
       img: 'instructions/miband3_2.png',
-      description: 'In order for the phone to connect to the MiBand, please, make sure that Blueetooth is activated on the phone, that the Miband is charged and nearby the phone.'
+      description: 'In order for the phone to connect to the MiBand, please, make sure that Blueetooth is activated on the phone, that the Miband is charged, and is near the phone.'
     },
     {
       title: 'Important!',
@@ -26,20 +26,20 @@ export default {
   searchFailed: 'There was a problem while searching for your MiBand, do you want to retry?',
   noDeviceTitle: 'No MiBand found',
   noDevice: 'Could not find any MiBand. Please make sure Bluetooth is activated on your phone. Would you like to search again?',
-  notEnoughData: 'There was no recent data to be retrieved from the device, you will have to retry the next time this task is due.',
-  moreDevices: 'More than one MiBand device was found. The nearest in proximity is the first device in the list. Please tap on one to connect to it.',
-  tap: 'Tap the activity tracker!',
-  connectionFail: 'Cannot connect to the device, would you like to retry?',
+  notEnoughData: 'There was no recent data to be retrieved from MiBand. You can retry next time this task is due.',
+  moreDevices: 'More than one MiBand device was found. The nearest in proximity is the first device in the list. Tap on the device in the list you wish to connect to.',
+  tap: 'Tap the activity tracker.',
+  connectionFail: 'Cannot connect to the device. Would you like to retry?',
   connecting: 'Connecting to the Miband',
   activityTypes: {
     walk: 'Walking',
-    charging: 'charging',
-    not_worn: 'not worn',
-    sedentary: 'sedentary',
-    running: 'running',
-    activity_high: 'intense activity',
-    activity_low: 'low activity',
-    sleep: 'sleeping',
+    charging: 'Charging',
+    not_worn: 'Not worn',
+    sedentary: 'Sedentary',
+    running: 'Running',
+    activity_high: 'Intense activity',
+    activity_low: 'Low activity',
+    sleep: 'Sleeping',
     unknown: 'Unknown'
   },
   dataDownload: 'Downloading data',

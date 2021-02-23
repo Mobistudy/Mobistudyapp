@@ -1,9 +1,9 @@
 'use strict'
 
 export default {
-  title: 'Data begäran',
-  shortDescription: 'Ber din telefon om aktivitetsdata',
-  shortTitle: 'Data begäran',
+  title: 'Databegäran',
+  shortDescription: 'Laddar ned hälso- och aktivitetsdata från din telefon',
+  shortTitle: 'Databegäran',
   instructionSlidesAndroid: [
     {
       title: 'Introduktion',
@@ -12,19 +12,19 @@ export default {
     },
     {
       img: 'instructions/data_query_2.png',
-      description: 'Mobistudy appen kommer endast att hämta data som är efterfrågad av den här studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan skicka informationen eller välja att radera den.'
+      description: 'Mobistudy-appen kommer endast hämta data som är efterfrågad av denna studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan du skicka informationen eller kasta bort den.'
     }
   ],
   instructionSlidesiOS: [
     {
       title: 'Introduktion',
       img: 'instructions/data_query_ios_1.png',
-      description: 'I den här uppgiften kommer appen att hämta data som har samlats av Health appen.'
+      description: 'I den här uppgiften kommer appen hämta data som har samlats av Health appen.'
     },
     {
       img: 'instructions/data_query_2.png',
-      description: 'Mobistudy appen kommer endast att hämta data som är efterfrågad av den här studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan skicka informationen eller välja att radera den.'
+      description: 'Mobistudy-appen kommer endast hämta data som är efterfrågad av denna studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan du skicka informationen eller kasta bort den.'
     }
   ],
-  dataQueryExplanation: 'Det här är en sammanfattning av den datan som har hämtats från din mobil. Skicka iväg informationen eller radera den.'
+  dataQueryExplanation: 'Detta är en sammanfattning av den data som hämtats från din mobil. Skicka iväg informationen eller kasta bort den.'
 }

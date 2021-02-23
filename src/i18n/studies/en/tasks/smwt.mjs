@@ -9,17 +9,17 @@ export default {
     {
       title: 'Instruction',
       img: 'instructions/6mwt_1.jpg',
-      description: 'The aim of this test is to walk as far as possible for 6 minutes.'
+      description: 'The aim of this test is to walk as far as possible in 6 minutes.'
     },
     {
       title: 'Instruction',
       img: 'instructions/6mwt_2.jpg',
-      description: 'It is important that you try to walk as straight as possible. Try to avoid stairs and/or walking up/downhill.'
+      description: 'It is important that you try to walk as straight as possible. Try to avoid stairs and walking up or downhill.'
     },
     {
       title: 'Instruction',
       img: 'instructions/6mwt_3.jpg',
-      description: 'If possible, try to avoid areas with many tall buildings and / or trees as these can affect how the phone localises you.'
+      description: 'If possible, try to avoid areas with many tall buildings or trees close to you as these can affect how the phone localises you.'
     },
     {
       title: 'Important!',
@@ -28,17 +28,17 @@ export default {
     },
     {
       img: 'instructions/6mwt_1.jpg',
-      description: 'The test will automaticly stop after 6 minutes, and you will be asked to send the collected data. If you need to complete the test earlier, press the "Complete"-button.'
+      description: 'The test will automaticly stop after 6 minutes, and you will be asked to send the collected data. If you need to complete the test earlier, press the "Complete" button.'
     },
     {
       title: 'Setup',
       img: 'instructions/6mwt_6.jpg',
-      description: 'Make sure the positioning is ON on your phone before starting.'
+      description: 'Make sure the positioning (GPS) on your phone is turned ON before starting the test.'
     },
     {
       title: 'Setup',
       img: 'instructions/6mwt_7.jpg',
-      description: 'Hold your phone still in one hand, avoid shaking or twisting it until the test is finished.'
+      description: 'Hold your phone still in one hand, and try to avoid shaking or twisting it until the test is finished.'
     },
     {
       title: 'Setup',
