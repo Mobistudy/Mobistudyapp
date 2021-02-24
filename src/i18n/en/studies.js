@@ -3,6 +3,7 @@
 import smwtTask from './tasks/smwt'
 import qcstTask from './tasks/qcst'
 import miband3Task from './tasks/miband3'
+import peakflowTask from './tasks/peakflow'
 import dataQueryTask from './tasks/dataQuery.js'
 
 let studies = {
@@ -90,6 +91,7 @@ let studies = {
 studies.studies.tasks.smwt = smwtTask
 studies.studies.tasks.qcst = qcstTask
 studies.studies.tasks.miband3 = miband3Task
+studies.studies.tasks.peakflow = peakflowTask
 studies.studies.tasks.dataQuery = dataQueryTask
 
 export default studies

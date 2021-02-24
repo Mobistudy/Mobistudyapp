@@ -43,8 +43,8 @@ export default {
       taskItemsConsent: [
         { taskId: 1, consented: true, lastExecuted: new Date(new Date().getTime() - 86400000).toISOString() }, // 1 day ago
         { taskId: 2, consented: true, lastExecuted: new Date(new Date().getTime() - 691200000).toISOString() }, // 8 day ago
-        { taskId: 3, consented: true, lastExecuted: new Date(new Date().getTime() - 691200000).toISOString() } // 8 days ago
-        // { taskId: 4, consented: true, lastExecuted: new Date(new Date().getTime() - 86400000).toISOString() } // 1 days ago
+        { taskId: 3, consented: true, lastExecuted: new Date(new Date().getTime() - 691200000).toISOString() }, // 8 days ago
+        { taskId: 4, consented: true, lastExecuted: new Date(new Date().getTime() - 86400000).toISOString() } // 1 days ago
       ]
     }
   ]

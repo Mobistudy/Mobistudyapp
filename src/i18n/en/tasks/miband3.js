@@ -2,7 +2,7 @@
 
 export default {
   title: 'Activity tracker download',
-  shortTitle: 'Activity tracker',
+  shortTitle: 'Activity Tracker',
   shortDescription: 'Extract data from your activity tracker',
   introductionSlides: [
     {

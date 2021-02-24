@@ -117,6 +117,18 @@ export default {
       formName: {
         en: 'Weekly Questionnaire'
       }
+    },
+    {
+      id: 4,
+      type: 'peakflow',
+      scheduling: {
+        startEvent: 'consent',
+        intervalType: 'd',
+        interval: 1,
+        months: [],
+        monthDays: [],
+        weekDays: []
+      }
     }
     // {
     //   id: 4,
@@ -161,6 +173,12 @@ export default {
           en: 'I agree to answer the weekly questionnaire every week'
         },
         taskId: 3
+      },
+      {
+        description: {
+          en: 'I agree to take a peak flow measurement every day'
+        },
+        taskId: 4
       }
       // {
       //   description: {

@@ -72,7 +72,10 @@ const routes = [
       { path: '/miband3Intro', name: 'miband3Intro', component: () => import('pages/tasks/miband3/MiBand3Intro.vue'), props: true },
       { path: '/miband3Connect', name: 'miband3Connect', component: () => import('pages/tasks/miband3/MiBand3Connect.vue'), props: true },
       { path: '/miband3DataDownload', name: 'miband3DataDownload', component: () => import('pages/tasks/miband3/MiBand3DataDownload.vue'), props: true },
-      { path: '/notEnoughDataPage', name: 'notEnoughDataPage', component: () => import('pages/tasks/miband3/notEnoughDataPage.vue'), props: true }
+      { path: '/notEnoughDataPage', name: 'notEnoughDataPage', component: () => import('pages/tasks/miband3/notEnoughDataPage.vue'), props: true },
+      { path: '/peakflowIntro', name: 'peakflowIntro', component: () => import('pages/tasks/peakflow/PeakFlowIntro.vue'), props: true },
+      { path: '/peakflow', name: 'peakflow', component: () => import('pages/tasks/peakflow/PeakFlow.vue'), props: true },
+      { path: '/peakflowSummary', name: 'peakflowSummary', component: () => import('pages/tasks/peakflow/PeakFlowSummary.vue'), props: true }
     ]
   },
   {
