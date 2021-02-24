@@ -175,6 +175,7 @@ Development:
 - [Andreas Holm](https://github.com/HeyOooh)
 - [Moustafa Allouhaibi](https://github.com/af9593)
 - [John Håkansson](https://github.com/JohnHakansson)
+- [Daniel Abella](https://github.com/assimilate)
 
 ## License
 
