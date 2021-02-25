@@ -56,7 +56,7 @@ export default `<h1>Privacy policy of the Mobistudy participants app</h1>
     </li>
     <li>
       Data collected from Google Fit (Android phones), or HealthKit (iPhones). Only the data of relevance to each study
-      will be collected from Google Fit or Health Kit. This may include your weight, height, steps count, heart rate,
+      will be collected. These may include your weight, height, steps count, heart rate,
       distance, activity, sleep, or nutrition.
     </li>
     <li>
