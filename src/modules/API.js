@@ -2,7 +2,7 @@
 // API implementation
 import axios from 'axios'
 
-const BASE_URL = process.env.API_ENDPOINT.replace(/['"]+/g, '')
+const BASE_URL = process.env.API_ENDPOINT
 let axiosConfig = {}
 
 export default {

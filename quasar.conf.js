@@ -79,8 +79,8 @@ module.exports = function (ctx) {
       // extractCSS: false,
       env: {
         // environmental variables passed to the rest of the code
-        APP_VERSION: JSON.stringify(require('./package.json').version),
-        API_ENDPOINT: JSON.stringify(config.API_ENDPOINT)
+        APP_VERSION: require('./package.json').version,
+        API_ENDPOINT: config.API_ENDPOINT
       },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
