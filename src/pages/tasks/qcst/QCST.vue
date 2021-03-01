@@ -22,9 +22,14 @@
       />
     </div>
     <q-btn
-      padding="xl" color="black" round
-      flat icon="volume_up" class="q-mt-xl"
-      ref="metronome_indicator" v-if="isStarted"
+      padding="xl"
+      color="black"
+      round
+      flat
+      icon="volume_up"
+      class="q-mt-xl"
+      ref="metronome_indicator"
+      v-if="isStarted"
     />
 
   </q-page>
@@ -66,9 +71,9 @@ export default {
         this.startedTS = new Date()
         audio.textToSpeech.language = userinfo.user.language
         if (await phone.pedometer.isAvailable()) {
-          phone.pedometer.startNotifications({}, async (step) => {
-            console.log('Steps', step)
-            this.steps.push(step)
+          phone.pedometer.startNotifications({}, (steps) => {
+            console.log('Got steps', steps)
+            this.steps.push(steps)
           }, (error) => {
             console.error('Error getting steps', error)
           })

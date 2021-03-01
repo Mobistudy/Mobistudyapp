@@ -143,10 +143,9 @@ export default {
         if (await phone.pedometer.isAvailable()) {
           phone.pedometer.startNotifications({}, (steps) => {
             console.log('Got steps', steps)
-            this.steps.push({
-              timestamp: new Date().getTime(),
-              steps: steps.numberOfSteps
-            })
+            this.steps.push(steps)
+          }, (error) => {
+            console.error('Error getting steps', error)
           })
         }
       } catch (err) {
