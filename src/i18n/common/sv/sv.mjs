@@ -10,7 +10,6 @@ export default {
   },
   common: {
     next: 'Nästa',
-    clear: 'Rensa svar',
     cancel: 'Avbryt',
     discard: 'Kasta bort',
     accept: 'Acceptera',
@@ -35,7 +34,7 @@ export default {
   },
   layouts: {
     consent: 'Ny studie',
-    home: 'Mobistudy',
+    home: 'Hem',
     registration: 'Registrera',
     task: 'Uppgift',
     close: 'Stäng',

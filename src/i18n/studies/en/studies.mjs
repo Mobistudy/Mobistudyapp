@@ -59,7 +59,8 @@ let studies = {
         title: '{formname} form',
         shortDescription: 'Answer a few questions',
         formCompleted: 'Form completed. Thank you.',
-        freeTextExplanation: 'Type your answer'
+        freeTextExplanation: 'Type your answer',
+        removeAnswer: 'Remove answer'
       }
     },
     consent: {

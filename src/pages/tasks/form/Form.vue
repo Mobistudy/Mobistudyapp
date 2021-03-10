@@ -64,7 +64,7 @@
         <q-btn
           no-caps
           flat
-          :label="$t('common.clear')"
+          :label="$t('studies.tasks.form.removeAnswer')"
           color="negative"
           icon-right="cancel"
           @click="clearAnswer()"

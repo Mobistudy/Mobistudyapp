@@ -10,7 +10,6 @@ export default {
   },
   common: {
     next: 'Next',
-    clear: 'Clear answer',
     cancel: 'Cancel',
     accept: 'Accept',
     reject: 'Reject',
@@ -36,7 +35,7 @@ export default {
   },
   layouts: {
     consent: 'New study',
-    home: 'Mobistudy',
+    home: 'Home',
     registration: 'Register',
     task: 'Task',
     close: 'Close',
