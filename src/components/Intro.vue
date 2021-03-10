@@ -51,6 +51,7 @@
         >
           <q-btn
             color="primary"
+            class="full-width"
             @click="$emit('start')"
             replace
             :label="$t('common.start')"
