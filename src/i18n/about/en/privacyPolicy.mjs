@@ -1,5 +1,5 @@
-export default `<h1>Privacy policy of the Mobistudy participants app</h1>
-  <h2>Version 2021-02-25</h2>
+export default `
+  <p>Version 2021-02-25</p>
 
   <p>
     The Mobistudy app is meant to be used by citizens who want to contribute to research studies using their mobile
