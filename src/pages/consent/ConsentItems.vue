@@ -7,14 +7,22 @@
       {{$t('studies.consent.consentExplanation')}}
     </div>
     <consents
-      :studyDescription="studyDescription" :taskType="taskType"
-      :consentedExtraItems="consentedExtraItems" :consentedTaskItems="consentedTaskItems"
-      :remindersPermissionGiven="remindersPermissionGiven" :remindersPermissionNeeded="remindersPermissionNeeded"
-      @checkboxReminders="requestNotificationsPermission"
+      :studyDescription="studyDescription"
+      v-model="studyParticipation"
     />
     <div class="q-my-md row justify-evenly">
-      <q-btn :label="$t('common.reject')" color="negative" flat @click="deny()"></q-btn>
-      <q-btn :label="$t('studies.consent.joinStudy')" color="positive" :disabled="!canAccept" @click="accept()"></q-btn>
+      <q-btn
+        :label="$t('common.reject')"
+        color="negative"
+        flat
+        @click="deny()"
+      ></q-btn>
+      <q-btn
+        :label="$t('studies.consent.joinStudy')"
+        color="primary"
+        :disabled="!canAccept"
+        @click="accept()"
+      ></q-btn>
     </div>
   </q-page>
 </template>
@@ -24,7 +32,6 @@ import Consents from 'components/Consents.vue'
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
 import API from 'modules/API'
-import notifications from 'modules/notifications'
 
 export default {
   name: 'ConsentItemsPage',
@@ -34,37 +41,38 @@ export default {
   },
   data () {
     return {
-      consentedExtraItems: [],
-      consentedTaskItems: [],
-      remindersPermissionNeeded: Boolean,
-      remindersPermissionGiven: Boolean
+      studyParticipation: {
+        studyKey: this.studyDescription._key,
+        currentStatus: undefined,
+        acceptedTS: undefined,
+        reminders: false,
+        taskItemsConsent: [],
+        extraItemsConsent: []
+      }
     }
   },
   async created () {
-    let hasPermissionsAlready = await notifications.hasPermission()
-    this.remindersPermissionNeeded = !hasPermissionsAlready
-    this.remindersPermissionGiven = hasPermissionsAlready
-
     if (this.studyDescription.consent.extraItems && this.studyDescription.consent.extraItems.length) {
       for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
-        if (this.studyDescription.consent.extraItems[i].optional) this.consentedExtraItems.push(false)
-        else this.consentedExtraItems.push(true)
+        this.studyParticipation.extraItemsConsent.push({
+          consented: false
+        })
       }
     }
     for (let i = 0; i < this.studyDescription.consent.taskItems.length; i++) {
-      this.consentedTaskItems.push(false)
+      this.studyParticipation.taskItemsConsent.push({
+        taskId: this.studyDescription.consent.taskItems[i].taskId,
+        consented: false
+      })
     }
   },
   computed: {
-    taskType () {
-      return this.studyDescription.consent.taskItems.map(ti => {
-        return this.studyDescription.tasks.find(t => t.id === ti.taskId).type
-      })
-    },
     canAccept () {
-      for (let i = 0; i < this.taskType.length; i++) {
-        if (this.taskType[i] === 'dataQuery' && !this.consentedTaskItems[i]) {
-          return false
+      if (this.studyDescription.consent.extraItems && this.studyDescription.consent.extraItems.length) {
+        for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
+          if (!this.studyDescription.consent.extraItems[i].optional) {
+            if (!this.studyParticipation.extraItemsConsent.consented) return false
+          }
         }
       }
       return true
@@ -74,34 +82,16 @@ export default {
     async accept () {
       try {
         // set the study as accepted
-        let studyParticipation = {
-          studyKey: this.studyDescription._key,
-          currentStatus: 'accepted',
-          acceptedTS: new Date(),
-          reminders: this.remindersPermissionGiven,
-          taskItemsConsent: [],
-          extraItemsConsent: []
-        }
-        if (this.studyDescription.consent.extraItems) {
-          for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
-            studyParticipation.extraItemsConsent.push({
-              consented: this.consentedExtraItems[i]
-            })
-          }
-        }
-        if (this.studyDescription.consent.taskItems) {
-          for (let i = 0; i < this.studyDescription.consent.taskItems.length; i++) {
-            studyParticipation.taskItemsConsent.push({
-              taskId: this.studyDescription.consent.taskItems[i].taskId, consented: this.consentedTaskItems[i]
-            })
-          }
-        }
+        this.studyParticipation.currentStatus = 'accepted'
+        this.studyParticipation.acceptedTS = new Date()
+        console.log('/////', this.studyParticipation)
+
         // call the API
-        await API.updateStudyStatus(userinfo.user._key, this.studyDescription._key, studyParticipation)
+        await API.updateStudyStatus(userinfo.user._key, this.studyDescription._key, this.studyParticipation)
         // call the DB
         let studies = await DB.getStudiesParticipation()
         if (!studies) studies = []
-        studies.push(studyParticipation)
+        studies.push(this.studyParticipation)
         await DB.setStudiesParticipation(studies)
         this.$router.push({ name: 'studies' })
       } catch (error) {
@@ -122,18 +112,16 @@ export default {
         ok: this.$i18n.t('common.yes'),
         cancel: this.$i18n.t('common.cancel')
       }).onOk(async () => {
-        let studyParticipation = {
-          studyKey: this.studyDescription._key,
-          currentStatus: 'rejected',
-          rejectedTS: new Date()
-        }
+        this.studyParticipation.currentStatus = 'rejected'
+        this.studyParticipation.rejectedTS = new Date()
+
         try {
           // call the API
-          await API.updateStudyStatus(userinfo.user._key, this.studyDescription._key, studyParticipation)
+          await API.updateStudyStatus(userinfo.user._key, this.studyDescription._key, this.studyParticipation)
           // call the DB
           let studies = await DB.getStudiesParticipation()
           if (!studies) studies = []
-          studies.push(studyParticipation)
+          studies.push(this.studyParticipation)
           await DB.setStudiesParticipation(studies)
 
           this.$router.push({ name: 'studies' })
@@ -146,27 +134,6 @@ export default {
           })
         }
       })
-    },
-    async requestNotificationsPermission (hasRemindersPermission) {
-      if (hasRemindersPermission) {
-        this.remindersPermissionGiven = false
-      } else {
-        try {
-          this.remindersPermissionGiven = await notifications.requestPermission()
-          this.$q.notify({
-            color: 'positive',
-            message: this.$i18n.t('studies.consent.OSPermissionGiven'),
-            icon: 'check'
-          })
-        } catch (error) {
-          console.error('Cannot get authorisation for sending reminders', error)
-          this.$q.notify({
-            color: 'negative',
-            message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error.message,
-            icon: 'report_problem'
-          })
-        }
-      }
     }
   }
 }

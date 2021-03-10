@@ -70,7 +70,6 @@ let studies = {
       OSPermissionGiven: 'Permission given',
       OSPermissionNotGiven: 'Could not get permission',
       remindersConsent: 'I want to receive reminders about the tasks of this study',
-      remindersOSPermission: 'You need to allow the app to send reminders.',
       giveRemindersOSPermission: 'Allow reminders',
       informedConsent: 'Informed consent',
       consentExplanation: 'Consent to the following items to join the study. You do not have to consent to all of them, however some items may be required to join the study. When an item requires access to the phone\'s functions, you can tap the button to grant access to this app.',

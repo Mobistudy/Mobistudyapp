@@ -70,7 +70,6 @@ let studies = {
       OSPermissionGiven: 'Tillåtelse given',
       OSPermissionNotGiven: 'Kan inte få tillåtelse',
       remindersConsent: 'Jag vill gå påminnelser om den här studiens uppgifter.',
-      remindersOSPermission: 'Du måste tillåta den här appen för att skicka påminnelser.',
       giveRemindersOSPermission: 'Tillåt påminnelser',
       informedConsent: 'Informerat samtyckte',
       consentExplanation: 'Samtyck till det följande för att gå med i studien. Du behöver inte samtycka till allt, däremot kan det vara så att vissa villkor krävs för att gå med i studien. När ett villkot kräver tillgång till telefonens funktionalitet kan du trycka på knappen för att ge tillgång till appen.',
