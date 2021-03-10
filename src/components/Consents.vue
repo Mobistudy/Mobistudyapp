@@ -158,11 +158,11 @@ export default {
           // if we get to this point we have permission
           this.value.taskItemsConsent[taskIndex].consented = true
 
-          this.$q.notify({
-            color: 'primary',
-            message: this.$i18n.t('studies.consent.OSPermissionGiven'),
-            icon: 'check'
-          })
+          // this.$q.notify({
+          //   color: 'primary',
+          //   message: this.$i18n.t('studies.consent.OSPermissionGiven'),
+          //   icon: 'check'
+          // })
         } catch (error) {
           // we didn't get permission
           console.error('Cannot get OS authorisation for task', error)
