@@ -52,5 +52,5 @@ This app was developed with thanks to the following open source projects:
 </ul>
 <br>
 <br>
-The Mobistudy icons were made by itim2101 and obtained from www.flaticon.com.
+The Mobistudy icons were made by Matilda Svensson.
 `

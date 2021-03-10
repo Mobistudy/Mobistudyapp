@@ -121,4 +121,5 @@
         <splash src="res/screen/ios/Default@2x~ipad~comany.png" />
     </platform>
     <allow-navigation href="about:*" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
 </widget>

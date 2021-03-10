@@ -42,7 +42,7 @@
               color="primary"
               v-close-popup
             >
-            {{ $t('studies.tasks.cancelTaskLabel') }}
+              {{ $t('studies.tasks.cancelTaskLabel') }}
             </q-btn>
             <q-btn
               flat
@@ -50,7 +50,7 @@
               v-close-popup
               @click="goBack()"
             >
-            {{ $t('studies.tasks.quitTaskLabel') }}
+              {{ $t('studies.tasks.quitTaskLabel') }}
             </q-btn>
           </q-card-actions>
         </q-card>

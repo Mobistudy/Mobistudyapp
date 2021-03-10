@@ -6,24 +6,30 @@
       class="bg-primary text-white"
     >
       <q-toolbar>
-        <q-avatar rounded>
+        <img
+          v-if="!subAbout"
+          square
+          src="icons/mobistudy-white.svg"
+          style="max-width: 130px"
+        >
+        <q-avatar
+          v-if="subAbout"
+          rounded
+        >
           <q-btn
-            v-if="subAbout"
             flat
             dense
             icon-right="arrow_back"
             :to="{ name: 'about', params: { pathIndex: 5 } }"
           />
-          <img
-            v-else
-            src="icons/favicon-128x128.png"
-          >
         </q-avatar>
-        <q-toolbar-title>
-          {{ $t('layouts.home') }}
+
+        <q-toolbar-title v-if="subAbout">
+          {{ $t('layouts.about') }}
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
+
     <q-footer
       bordered
       class="elevated"
@@ -32,7 +38,7 @@
         mobile-arrows
         narrow-indicator
         dense
-        active-color="secondary"
+        active-color="primary"
         class="bg-white text-grey-7 row"
       >
         <q-route-tab
