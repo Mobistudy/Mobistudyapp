@@ -50,5 +50,5 @@ Denna app har utvecklats med tack till följande projekt med öppen källkod:
 </ul>
 <br>
 <br>
-Mobistudy:s ikoner skapades av itim2101 samt hämtades från www.flaticon.com.
+Mobistudy:s ikoner skapades av Matilda Svensson.
 `
