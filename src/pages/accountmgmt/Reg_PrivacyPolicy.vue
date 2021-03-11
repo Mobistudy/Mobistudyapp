@@ -3,11 +3,24 @@
     <div class="text-h5 text-center">
       {{ $t('accountMgmt.registration.privacyPolicy') }}
     </div>
-    <div class="q-my-md" v-html="$t('privacyPolicy')" ></div>
+    <div
+      class="q-my-md"
+      v-html="$t('privacyPolicy')"
+    ></div>
 
     <div class="q-my-md row justify-around">
-      <q-btn class="q-ma-sm" :label="$t('common.cancel')" color="secondary" to="login" />
-      <q-btn class="q-ma-sm" :label="$t('common.accept')" color="primary" to="signup" />
+      <q-btn
+        class="q-ma-sm"
+        :label="$t('common.cancel')"
+        color="negative"
+        to="login"
+      />
+      <q-btn
+        class="q-ma-sm"
+        :label="$t('common.accept')"
+        color="primary"
+        to="signup"
+      />
     </div>
   </q-page>
 </template>

@@ -223,7 +223,7 @@
       <q-btn
         v-if="buttonOk"
         :label="buttonOk"
-        color="positive"
+        color="primary"
         @click="buttonOkClick()"
       />
     </div>

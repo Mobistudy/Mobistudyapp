@@ -46,7 +46,7 @@
 
     <div class="row fit justify-around q-mt-lg">
       <q-btn
-        color="secondary"
+        color="negative"
         to="/login"
         :label="$t('common.cancel')"
       />

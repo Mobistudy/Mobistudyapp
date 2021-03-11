@@ -26,7 +26,7 @@
         <q-item-label caption>{{$t('accountMgmt.resetPassword.resetPasswordShort')}}</q-item-label>
         <div class="q-my-md">
           <q-btn
-            color="primary"
+            color="secondary"
             @click="resetPwd()"
             :label="$t('accountMgmt.resetPassword.resetPassword')"
           />
