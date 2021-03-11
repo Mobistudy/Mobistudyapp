@@ -4,7 +4,7 @@
     <div v-html="$t('contactFull')"></div>
     <div class="row justify-center">
       <img
-        src="~/assets/malmo_logo.png"
+        src="logos/malmo_logo.png"
         style="max-width:50%"
       />
     </div>
