@@ -4,7 +4,7 @@ export default {
   name: 'Jameson',
   surname: 'Lee',
   country: 'gb',
-  language: 'sv',
+  language: 'en',
   sex: 'male',
   dateOfBirth: '1970-11-10',
   height: 172,
