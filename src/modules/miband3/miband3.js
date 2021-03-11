@@ -24,7 +24,7 @@ export default {
     }
   },
 
-  searchForId (deviceId, searchTime) {
+  async searchForId (deviceId, searchTime) {
     return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
         window.ble.stopScan()
@@ -66,6 +66,7 @@ export default {
    * Disconnects from the tracker
    */
   async disconnect () {
+    return miband3Driver.disconnect()
   },
 
   /**

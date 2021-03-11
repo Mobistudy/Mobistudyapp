@@ -33,6 +33,19 @@ export default {
       }, searchTime)
     })
   },
+  async searchForId (deviceId, searchTime) {
+    if (SEARCH_FAIL) {
+      return Promise.reject()
+    }
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({
+          id: deviceId,
+          rssi: 200
+        })
+      }, 2000)
+    })
+  },
   /**
    * Connects to a MiBand3
    * @param {Object} device a device object as returned by search() + can contain an authentication key
