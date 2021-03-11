@@ -158,7 +158,7 @@
         <div class="text-h4 q-mb-md">{{ $t('studies.studyCompletedHeadline') }}!</div>
         <div>
           <img
-            src="icons/confetti.svg"
+            src="imgs/confetti.svg"
             style="width:30vw; max-width:150px;"
           >
         </div>

@@ -9,7 +9,7 @@
         <img
           v-if="!subAbout"
           square
-          src="icons/mobistudy-white.svg"
+          src="logos/mobistudy-white.svg"
           style="max-width: 130px"
         >
         <q-avatar

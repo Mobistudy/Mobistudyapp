@@ -10,7 +10,7 @@
           style="text-align: center"
         >
           <img
-            src="~/assets/mobistudy_logo.svg"
+            src="logos/logo.svg"
             style="width:30vw; max-width:150px;"
           ><br />
         </p>
