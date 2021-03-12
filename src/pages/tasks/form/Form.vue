@@ -147,10 +147,6 @@ export default {
       freetextAnswer: undefined,
       singleChoiceAnswer: undefined,
       multiChoiceAnswer: [],
-      introduction: {
-        title: '',
-        description: ''
-      },
       finished: false,
       currentQuestion: undefined,
       loading: false,
@@ -171,10 +167,6 @@ export default {
         this.$q.loading.hide()
       }
       this.formDescr = formDescr
-      this.introduction = {
-        title: this.formDescr.name,
-        description: this.formDescr.description
-      }
       this.currentQuestion = this.formDescr.questions[0]
       setTimeout(() => { this.slideName = 'fadeInDown' }, 10)
     } catch (error) {
@@ -192,7 +184,6 @@ export default {
   },
   computed: {
     isFirstQuestion () {
-      if (this.introduction) return false
       if (this.currentQuestion.id === this.formDescr.questions[0].id) return true
       return false
     },
