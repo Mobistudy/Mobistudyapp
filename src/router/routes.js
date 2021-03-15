@@ -36,10 +36,15 @@ const routes = [
       { path: '/', name: 'home', component: () => import('pages/home/Tasker.vue'), props: true },
       { path: '/tasker', name: 'tasker', component: () => import('pages/home/Tasker.vue'), props: true },
       { path: '/profile', name: 'profile', component: () => import('pages/home/Profile.vue') },
-      { path: '/studies', name: 'studies', component: () => import('pages/home/Studies.vue') },
-      // { path: '/about', name: 'about', component: () => import('pages/home/About.vue') },
-      { path: '/studyConfig', name: 'studyConfig', component: () => import('pages/home/StudyConfig.vue'), props: true },
       { path: '/test', name: 'test', component: () => import('pages/home/Test.vue') }
+    ]
+  },
+  {
+    path: '/studies',
+    component: () => import('layouts/HomeLayout.vue'),
+    children: [
+      { path: '/studies', name: 'studies', component: () => import('pages/home/Studies.vue') },
+      { path: '/studies/studyConfig', name: 'studyConfig', component: () => import('pages/home/StudyConfig.vue'), props: true }
     ]
   },
   {
