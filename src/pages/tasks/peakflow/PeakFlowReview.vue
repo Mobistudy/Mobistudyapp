@@ -92,7 +92,7 @@ export default {
       try {
         // await miband3.getStoredData(this.startDate, this.dataCallback)
 
-        this.renderLineChart(this.currentStartHour, this.currentEndHour)
+        this.renderLineChart(this.currentStartWeek, this.currentEndWeek)
         this.isDownloading = false
       } catch (err) {
         console.error('cannot download data', err)
@@ -100,13 +100,14 @@ export default {
       }
     },
     renderLineChart (startTime, endTime) {
+      // startTime and endTime in week
       lineChart.reset()
-      let startIndexInMinutes = startTime * 60
-      let endIndexInMinutes = endTime * 60 - 1
-      if (endIndexInMinutes > storedData.length) {
-        endIndexInMinutes = storedData.length - 1
+      let startIndexInHours = startTime * 7 * 24
+      let endIndexInHours = endTime * 7 * 24 - 1
+      if (endIndexInHours > storedData.length) {
+        endIndexInHours = storedData.length - 1
       }
-      for (let i = startIndexInMinutes; i <= endIndexInMinutes; i++) {
+      for (let i = startIndexInHours; i <= endIndexInHours; i++) {
         let data = storedData[i]
         this.addToLineChart(data.hr, data.pef, data.date)
       }
@@ -114,17 +115,12 @@ export default {
       this.updatePlusMinusButtons()
     },
 
-    addToLineChart (hr, pef, date) {
-      if (hr > 30 && hr < 210) {
-        // filter out unreasonable HR
-        lineChart.hrs.push({ x: date, y: hr })
-      }
+    addToLineChart (pef, date) {
       lineChart.pef.push({ x: date, y: pef })
       lineChart.labels.push(date)
     },
     updateLineChartReferences () {
-      this.lineChart.data.datasets[0].data = lineChart.hrs
-      this.lineChart.data.datasets[1].data = lineChart.pef
+      this.lineChart.data.datasets[0].data = lineChart.pef
       this.lineChart.data.labels = lineChart.labels
       this.lineChart.update()
     },
@@ -135,16 +131,6 @@ export default {
         data: {
           labels: lineChart.labels,
           datasets: [
-            {
-              label: this.$t('studies.tasks.peakflow.weeks'),
-              data: lineChart.hrs,
-              backgroundColor: '#C74038',
-              borderColor: '#C74038',
-              borderWidth: 0,
-              pointRadius: 1,
-              fill: false,
-              lineTension: 0
-            },
             {
               label: this.$t('studies.tasks.peakflow.pef'),
               data: lineChart.pef,
@@ -167,7 +153,7 @@ export default {
               type: 'time',
               time: {
                 displayFormats: {
-                  quarter: 'HH:MM:SS'
+                  quarter: 'DD/MM hA'
                 }
               },
               scaleLabel: {
