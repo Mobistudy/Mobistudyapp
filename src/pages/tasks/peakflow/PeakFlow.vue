@@ -4,23 +4,35 @@
       {{ $t('studies.tasks.peakflow.title') }}
     </div>
     <div class="text-center text-h6 q-mt-lg" v-if="isStarted">
-      {{ pef }} L/min
+      {{ pef[pef.length - 1] }} L/min
     </div>
     <div class="row justify-center q-mt-lg">
       <q-btn
         @click="startMeasurement"
-        v-if="!isStarted"
+        v-if="testAttempts <= maxTestAttempts"
         color="secondary"
-        :label="$t('common.start')"
+        :label="$t('studies.tasks.peakflow.measure')"
         padding="lg"
       />
       <q-btn
         @click="completeTest"
-        v-if="isStarted"
+        v-if="testAttempts > maxTestAttempts"
         color="purple"
         :label="$t('common.complete')"
         padding="lg"
       />
+    </div>
+    <div class="text-center text-h5 q-mt-lg" v-if="isStarted">
+      {{ $t('studies.tasks.peakflow.todayResults') }}
+      <q-item
+        v-for="(reading, index) in pef"
+        :data="reading"
+        :key="'pef' + index"
+      >
+        <q-item-selection>
+          {{index+1}}) {{ reading }} L/min
+        </q-item-selection>
+      </q-item>
     </div>
 
   </q-page>
@@ -43,13 +55,17 @@ export default {
     return {
       isStarted: false,
       isCompleted: false,
-      pef: 0
+      testAttempts: 0,
+      maxTestAttempts: 2,
+      pef: []
     }
   },
   methods: {
     async startMeasurement () {
-      if (!this.isStarted) {
+      if (this.testAttempts <= this.maxTestAttempts) {
         this.isStarted = true
+        this.testAttempts++
+        this.pef.push(Math.floor(Math.random() * 100))
       }
     },
     completeTest () {
