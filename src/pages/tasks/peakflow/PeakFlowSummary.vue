@@ -1,14 +1,9 @@
 <template>
   <q-page padding>
     <div class="text-center">
-      <div class="text-h5">{{ $t('studies.tasks.capTestComplete') }}</div>
-      <img
-        class="q-mt-md"
-        alt="Finish flag"
-        src="~assets/goalflags.svg"
-        style="width: 50%; margin: 0px auto;"
-      >
-
+      <div class="text-h5">
+        {{ $t('studies.tasks.peakflow.todayResults') }} {{pefMax}} L/min
+      </div>
       <q-btn
         color="primary"
         @click="send()"
@@ -43,12 +38,13 @@ export default {
   },
   data: function () {
     return {
-      pefMax: undefined
+      pefMax: Math.max(...this.report.pef) // undefined
     }
   },
   methods: {
     async send () {
       this.$q.loading.show()
+      // this.pefMax = Math.max(...this.report.pef)
       this.report.pef = this.pefMax
 
       // Only for testing purposes! Please remove before deploying app.
@@ -68,7 +64,8 @@ export default {
           new Date()
         )
         this.$q.loading.hide()
-        this.$router.push('/home')
+        this.$router.push({ name: 'peakflowReview' })
+        // this.$router.push('/home')
       } catch (error) {
         this.$q.loading.hide()
         console.error(error)
@@ -77,10 +74,13 @@ export default {
           message: this.$t('errors.connectionError') + ' ' + error.message,
           icon: 'report_problem',
           onDismiss () {
-            this.$router.push('/home')
+            this.$router.push({ name: 'peakflowReview' })
+            // this.$router.push('/home')
           }
         })
       }
+
+      // this.$router.push({ name: 'peakflowReview' })
     }
   },
   computed: {
