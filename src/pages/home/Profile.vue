@@ -133,8 +133,15 @@ export default {
       this.$q.dialog({
         title: this.$i18n.t('accountMgmt.login.logout'),
         message: this.$i18n.t('accountMgmt.login.logoutConfirmation'),
-        ok: this.$i18n.t('accountMgmt.login.logout'),
-        cancel: this.$i18n.t('common.cancel')
+        ok: {
+          label: this.$i18n.t('accountMgmt.login.logout'),
+          color: 'warning'
+        },
+        cancel: {
+          label: this.$i18n.t('common.cancel'),
+          color: 'primary',
+          flat: true
+        }
       }).onOk(async () => {
         try {
           await userinfo.logout()
@@ -199,12 +206,11 @@ export default {
         message: this.$i18n.t('accountMgmt.deleteWarning'),
         ok: {
           label: this.$i18n.t('common.delete'),
-          push: true,
           color: 'negative'
         },
         cancel: {
-          push: true,
-          color: 'grey',
+          label: this.$i18n.t('common.cancel'),
+          color: 'primary',
           flat: true
         }
       }).onOk(async () => {

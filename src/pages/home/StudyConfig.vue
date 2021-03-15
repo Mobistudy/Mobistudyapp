@@ -129,8 +129,15 @@ export default {
           model: '',
           type: 'text'
         },
-        ok: this.$i18n.t('studies.consent.withdraw'),
-        cancel: this.$i18n.t('common.cancel')
+        ok: {
+          label: this.$i18n.t('studies.consent.withdraw'),
+          color: 'negative'
+        },
+        cancel: {
+          label: this.$i18n.t('common.cancel'),
+          color: 'primary',
+          flat: true
+        }
       }).onOk(async (withdrawalReason) => {
         // set the study as withdrawn
         this.studyParticipation.currentStatus = 'withdrawn'
