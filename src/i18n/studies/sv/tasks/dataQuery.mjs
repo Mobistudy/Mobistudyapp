@@ -6,7 +6,7 @@ export default {
   shortTitle: 'Databegäran',
   OSpermissioniOS: 'Den här uppgiften kräver tillgång till delar av data insamlad av HealthKit på din telefon. Datan behövs av forskningsgruppen för analys.\n Klicka på Nästa om du vill fortsätta auktoriseringsprocessen för detta.',
   OSpermissionAndroid: 'Den här uppgiften kräver tillgång till delar av data insamlad av Google Fit på din telefon. Datan behövs av forskningsgruppen för analys.\n Klicka på Nästa om du vill fortsätta auktoriseringsprocessen för detta.',
-  instructionSlidesAndroid: [
+  introductionSlidesAndroid: [
     {
       title: 'Introduktion',
       img: 'instructions/data_query_android_1.png',
@@ -17,7 +17,7 @@ export default {
       description: 'Mobistudy-appen kommer endast hämta data som är efterfrågad av denna studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan du skicka informationen eller kasta bort den.'
     }
   ],
-  instructionSlidesiOS: [
+  introductionSlidesiOS: [
     {
       title: 'Introduktion',
       img: 'instructions/data_query_ios_1.png',
@@ -28,5 +28,5 @@ export default {
       description: 'Mobistudy-appen kommer endast hämta data som är efterfrågad av denna studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan du skicka informationen eller kasta bort den.'
     }
   ],
-  dataQueryExplanation: 'Detta är en sammanfattning av den data som hämtats från din mobil. Skicka iväg informationen eller kasta bort den.'
+  dataQueryExplanation: 'Detta är en sammanfattning av den data som hämtats från din mobil. Tryck på "Skicka" för att dela datan med forskningsgruppen eller tryck på "Kasta bort" om du inte vill skicka datan.'
 }
