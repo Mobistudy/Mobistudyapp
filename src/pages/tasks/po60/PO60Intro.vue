@@ -1,9 +1,9 @@
 <template>
-    <Intro
-      :introductionSlides="$t('studies.tasks.po60.introductionSlides')"
-      v-on:start="start()"
-    >
-    </Intro>
+  <Intro
+    :introductionSlides="instructions"
+    v-on:start="start()"
+  >
+  </Intro>
 </template>
 
 <script>
@@ -16,6 +16,12 @@ export default {
   props: {
     studyKey: String,
     taskId: Number
+  },
+  computed: {
+    instructions () {
+      if (this.$q.platform.is.ios) return this.$t('studies.tasks.po60.introductionSlidesiOS')
+      else return this.$t('studies.tasks.po60.introductionSlidesAndroid')
+    }
   },
   methods: {
     start () {

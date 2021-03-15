@@ -4,9 +4,30 @@ export default {
   title: 'Mätning av syremättnadsnivå',
   shortTitle: 'Pulsoximeter',
   shortDescription: 'Mät din syremättnadsnivå',
-  OSpermissioniOS: 'Denna uppgift kräver att appen har tillgång till Bluetooth på din telefon. Detta behövs för att koppla appen till pulseoximeter (PO60) och samla in uppmätt syremättnadsnivå i blodet. Insamlad data delas med forskningsgruppen för analys.\n Klicka på Nästa om du vill fortsätt autentiseringsprocessen.',
-  OSpermissionAndroid: 'Denna uppgift kräver att appen har tillgång till Bluetooth på din telefon. Detta behövs för att koppla appen till pulseoximeter (PO60) och samla in uppmätt syremättnadsnivå i blodet. Insamlad data delas med forskningsgruppen för analys.\n Klicka på Nästa om du vill fortsätt autentiseringsprocessen.',
-  introductionSlides: [
+  OSpermissioniOS: `Denna uppgift kräver att appen har tillgång till Bluetooth på din telefon. 
+  Detta behövs för att koppla appen till pulseoximeter (PO60) och samla in uppmätt syremättnadsnivå i blodet.
+  Insamlad data delas med forskningsgruppen för analys.\n
+  Klicka på Nästa om du vill fortsätt autentiseringsprocessen.`,
+  OSpermissionAndroid: `Denna uppgift kräver att appen har tillgång till Bluetooth på din telefon. 
+  Detta behövs för att koppla appen till pulseoximeter (PO60) och samla in uppmätt syremättnadsnivå i blodet.
+  Insamlad data delas med forskningsgruppen för analys.\n
+  Klicka på Nästa om du vill fortsätt autentiseringsprocessen.`,
+  introductionSlidesAndroid: [
+    {
+      img: 'instructions/po60_1.jpg',
+      description: 'I den här uppgiften kommer du mäta din syremättnadsnivå med hjälp av en Beurer PO60 pulsoximeter.'
+    },
+    {
+      img: 'instructions/po60_2.jpg',
+      description: `Placera ditt finger i pulsoximetern, vänta tills hjärtfrekvens och syremättnadsnivån 
+      visas på skärmen och ta sedan ut ditt finger.`
+    },
+    {
+      img: 'instructions/po60_3_android.jpg',
+      description: `CARL CARL CARL.`
+    }
+  ],
+  introductionSlidesiOS: [
     {
       img: 'instructions/po60_1.jpg',
       description: 'I den här uppgiften kommer du mäta din syremättnadsnivå med hjälp av en Beurer PO60 pulsoximeter.'
@@ -16,8 +37,10 @@ export default {
       description: 'Placera ditt finger i pulsoximetern, vänta tills hjärtfrekvens och syremättnadsnivån visas på skärmen och ta sedan ut ditt finger.'
     },
     {
-      img: 'instructions/po60_3.jpg',
-      description: 'Säkerställ att Bluetooth är aktiverad på din telefon. Om det är första gången du ansluter till pulsoximeter kommer mobilen att be dig bekräfta anslutningen genom att skriva in koden du ser på pulsoximeterns skärm.'
+      img: 'instructions/po60_3_ios.jpg',
+      description: `Säkerställ att Bluetooth är aktiverad på din telefon. 
+      Om det är första gången du ansluter till pulsoximeter kommer mobilen att be dig bekräfta 
+      anslutningen genom att skriva in koden du ser på pulsoximeterns skärm.`
     }
   ],
   connect: 'Anslut',

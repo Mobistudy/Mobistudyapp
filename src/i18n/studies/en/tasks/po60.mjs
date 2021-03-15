@@ -4,9 +4,12 @@ export default {
   title: 'Pulse oximeter measurement',
   shortTitle: 'Pulse oximeter',
   shortDescription: 'Take a blood oxygen saturation measurement',
-  OSpermissioniOS: 'This task requires the app to access Bluetooth on your phone. This is needed to connect the app with the PO60 pulseoximeter and collect the measured blood oxygen saturation. The collected data will be shared with the research team of this study for analysis.\n Tap on Next if you want to proceed with the authorization process.',
+  OSpermissioniOS: `This task requires the app to access Bluetooth on your phone. 
+  This is needed to connect the app with the PO60 pulseoximeter and collect the measured blood oxygen
+  saturation. The collected data will be shared with the research team of this study for analysis.\n
+  Tap on Next if you want to proceed with the authorization process.`,
   OSpermissionAndroid: 'This task requires the app to access Bluetooth on your phone. This is needed to connect the app with the PO60 pulseoximeter and collect the measured blood oxygen saturation. The collected data will be shared with the research team of this study for analysis.\n Tap on Next if you want to proceed with the authorization process.',
-  introductionSlides: [
+  introductionSlidesAndroid: [
     {
       img: 'instructions/po60_1.jpg',
       description: 'In this task you will measure your blood oxygen saturation using the Beurer PO60 pulse oximeter.'
@@ -16,8 +19,28 @@ export default {
       description: 'Place your finger in the pulse-oximeter, wait until the heart rate and the oxygen saturation values are visible and remove your finger.'
     },
     {
-      img: 'instructions/po60_3.jpg',
-      description: 'Make sure the Bluetooth is switched on on your phone. If it is the first time you connect the pulse-oximeter, the phone will ask you to confirm the connection by entering the code shown on the pulse-oximeter.'
+      img: 'instructions/po60_3_android.jpg',
+      description: `Make sure the Bluetooth is activated on your phone.
+      If it is the first time you connect the pulse-oximeter, you will receive a notification 
+      asking if you want to pair the device.
+      After accepting the notification, you need to copy the code shown on the pulse-oximeter to your phone
+      to complete the pairing process.`
+    }
+  ],
+  introductionSlidesiOS: [
+    {
+      img: 'instructions/po60_1.jpg',
+      description: 'In this task you will measure your blood oxygen saturation using the Beurer PO60 pulse oximeter.'
+    },
+    {
+      img: 'instructions/po60_2.jpg',
+      description: 'Place your finger in the pulse-oximeter, wait until the heart rate and the oxygen saturation values are visible and remove your finger.'
+    },
+    {
+      img: 'instructions/po60_3_ios.jpg',
+      description: `Make sure the Bluetooth is activated on your phone. 
+      If it is the first time you connect the pulse-oximeter, the phone will ask you to confirm 
+      the connection by entering the code shown on the pulse-oximeter.`
     }
   ],
   connect: 'Connect',
