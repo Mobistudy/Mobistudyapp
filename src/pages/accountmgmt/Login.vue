@@ -35,7 +35,7 @@
             <q-btn
               class="q-ma-sm full-width"
               :label="$t('accountMgmt.login.login')"
-              color="positive"
+              color="primary"
               @click="login"
               type="submit"
             />
@@ -59,7 +59,7 @@
                   <q-btn
                     class="full-width"
                     :label="$t('accountMgmt.register')"
-                    color="primary"
+                    color="secondary"
                     to="register_pp"
                   />
                 </q-item-section>
