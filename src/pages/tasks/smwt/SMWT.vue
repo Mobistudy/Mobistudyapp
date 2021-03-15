@@ -22,14 +22,14 @@
       <q-btn
         @click="startTest"
         v-show="!isStarted"
-        color="secondary"
+        color="primary"
         :label="$t('common.start')"
         :disabled="isSignalCheck"
       />
       <q-btn
         @click="completeTest"
         v-show="isStarted"
-        color="purple"
+        color="secondary"
         :label="$t('common.complete')"
       />
     </div>

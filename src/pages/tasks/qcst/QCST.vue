@@ -9,14 +9,14 @@
       <q-btn
         @click="startTest"
         v-if="!isStarted"
-        color="secondary"
+        color="primary"
         :label="$t('common.start')"
         padding="lg"
       />
       <q-btn
         @click="completeTest"
         v-if="isStarted"
-        color="purple"
+        color="secondary"
         :label="$t('common.complete')"
         padding="lg"
       />
