@@ -76,7 +76,8 @@ const routes = [
       { path: '/peakflowIntro', name: 'peakflowIntro', component: () => import('pages/tasks/peakflow/PeakFlowIntro.vue'), props: true },
       { path: '/peakflowCalibrate', name: 'peakflowCalibrate', component: () => import('pages/tasks/peakflow/PeakFlowCalibrate.vue'), props: true },
       { path: '/peakflow', name: 'peakflow', component: () => import('pages/tasks/peakflow/PeakFlow.vue'), props: true },
-      { path: '/peakflowSummary', name: 'peakflowSummary', component: () => import('pages/tasks/peakflow/PeakFlowSummary.vue'), props: true }
+      { path: '/peakflowSummary', name: 'peakflowSummary', component: () => import('pages/tasks/peakflow/PeakFlowSummary.vue'), props: true },
+      { path: '/peakflowReview', name: 'peakflowReview', component: () => import('pages/tasks/peakflow/PeakFlowReview.vue'), props: true }
     ]
   },
   {
