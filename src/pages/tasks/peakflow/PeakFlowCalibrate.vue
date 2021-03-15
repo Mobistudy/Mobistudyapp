@@ -11,9 +11,11 @@
       <div class="text-h6" v-if="calibrateAttempts>0 & !isCalibrated & !calibrating">
         {{ $t('studies.tasks.peakflow.calibrateError') }}
       </div>
+    </div>
       <!-- <div class=" text-h6" v-if="isStarted">
         {{ $t('studies.tasks.peakflow.calibrating') }}
       </div> -->
+    <div class="row justify-center q-mt-lg">
       <q-btn
         @click="startCalibration"
         v-if="!isCalibrated & !calibrating"
@@ -62,7 +64,7 @@ export default {
       isCalibrated: false,
       calibrating: false,
       calibrateAttempts: 0,
-      maxCalibrateAttempts: 2
+      maxCalibrateAttempts: 1
     }
   },
   methods: {
@@ -71,16 +73,20 @@ export default {
       if (!this.isCalibrated) {
         this.calibrateAttempts++
         this.isStarted = true
+        console.log('Calibrating Peak Flow')
         // this.isCalibrated = true
       }
       // Mock calibrating
       setTimeout(function (scope) {
-        scope.calibrating = false
-        scope.isCalibrated = false
+        if (!scope.isCalibrated) {
+          scope.calibrating = false
+          scope.isCalibrated = false
+        }
       }, 2000, this)
       if (this.calibrateAttempts > this.maxCalibrateAttempts) {
         this.calibrating = false
         this.isCalibrated = true
+        console.log('Finish Calibrating')
       }
       // this.calibrating = false
     },
