@@ -77,7 +77,7 @@
         :enter-active-class="'animated ' + this.slideName"
         mode="out-in"
       >
-        <router-view @updateTransition="update"></router-view>
+        <router-view></router-view>
       </transition>
     </q-page-container>
   </q-layout>

@@ -96,7 +96,6 @@ export default {
           }
         }, 1000)
         audio.metronome.start(this.cadence, this.$refs.metronome_indicator.$el)
-        this.$emit('updateTransition', 'slideInRight')
       }
     },
     completeTest () {

@@ -36,8 +36,8 @@
     <div v-if="enableRouting">
       <transition
         appear
-        enter-active-class="animated fadeInDown"
-        leave-active-class="animated fadeOutUp"
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut"
         mode="out-in"
       >
         <router-view />

@@ -259,7 +259,6 @@ export default {
     },
     async joinStudy (index) {
       let study = this.newStudies[index]
-      this.$emit('updateTransition', 'slideInDown')
       this.$router.push({ name: 'invitation', params: { studyDescription: study } })
     },
     async showInvitationDialog () {

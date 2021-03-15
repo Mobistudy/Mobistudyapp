@@ -199,7 +199,6 @@ export default {
       }
 
       this.$router.push({ name: 'smwtSummary', params: { report: report } })
-      this.$emit('updateTransition', 'slideInRight')
     }
   },
   computed: {

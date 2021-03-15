@@ -39,7 +39,6 @@ export default {
       const formKey = this.formKey
 
       this.$router.push({ name: 'form', params: { studyKey: studyKey, taskId: taskId, formKey: formKey } })
-      this.$emit('updateTransition', 'fadeInDown')
     }
   },
   async created () {

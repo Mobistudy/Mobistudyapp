@@ -60,7 +60,7 @@
         leave-active-class="fadeOut"
         mode="out-in"
       >
-        <router-view @updateTransition="update" />
+        <router-view />
       </transition>
     </q-page-container>
   </q-layout>

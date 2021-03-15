@@ -320,11 +320,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.slideInLeft,
-.slideInRight,
-.fadeInDown {
-  animation-duration: 600ms;
-}
-</style>
