@@ -46,6 +46,7 @@
 
 <script>
 // import phone from 'modules/phone'
+import peakflow from 'modules/peakflow'
 import audio from 'modules/audio'
 // import userinfo from 'modules/userinfo'
 // import { format as Qformat } from 'quasar'
@@ -69,26 +70,20 @@ export default {
   },
   methods: {
     async startCalibration () {
-      this.calibrating = true
+      this.isStarted = true
       if (!this.isCalibrated) {
         this.calibrateAttempts++
-        this.isStarted = true
-        console.log('Calibrating Peak Flow')
-        // this.isCalibrated = true
-      }
-      // Mock calibrating
-      setTimeout(function (scope) {
-        if (!scope.isCalibrated) {
-          scope.calibrating = false
-          scope.isCalibrated = false
+        this.calibrating = true
+        try {
+          this.isCalibrated = await peakflow.startCalibration()
+          console.log('Calibrating Peak Flow')
+          this.calibrating = false
+        } catch (err) {
+          console.error('Error in calibration', err)
+          this.isCalibrated = false
+          this.calibrating = false
         }
-      }, 2000, this)
-      if (this.calibrateAttempts > this.maxCalibrateAttempts) {
-        this.calibrating = false
-        this.isCalibrated = true
-        console.log('Finish Calibrating')
       }
-      // this.calibrating = false
     },
     completeTest () {
       audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.peakflow.pef'))

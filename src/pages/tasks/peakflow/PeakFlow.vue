@@ -40,6 +40,7 @@
 
 <script>
 import phone from 'modules/phone'
+import peakflow from 'modules/peakflow'
 import audio from 'modules/audio'
 import userinfo from 'modules/userinfo'
 // import { format as Qformat } from 'quasar'
@@ -57,6 +58,7 @@ export default {
       isCompleted: false,
       testAttempts: 0,
       maxTestAttempts: 2,
+      measurement: undefined,
       pef: []
     }
   },
@@ -65,8 +67,10 @@ export default {
       if (this.testAttempts <= this.maxTestAttempts) {
         this.isStarted = true
         this.testAttempts++
-        this.pef.push(Math.floor(Math.random() * 100))
+        this.measurement = await peakflow.startMeasurement()
+        this.pef.push(this.measurement.pef)
       }
+      await peakflow.stopMeasurement()
     },
     completeTest () {
       audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.peakflow.pef'))
