@@ -43,7 +43,7 @@
       >
         <q-route-tab
           class="q-px-sm col"
-          :to="{ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true, pathIndex: 1 } }"
+          :to="{ name: 'tasker', params: { pathIndex: 1 } }"
           icon="check_box"
         >{{ $t('layouts.homeMenu.dailyTasks') }}
         </q-route-tab>

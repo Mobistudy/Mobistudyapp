@@ -110,10 +110,7 @@ export default {
         if (!resettingpwd) {
           API.setToken(userinfo.user.token)
           console.log('LOGGED IN, REDIRECTING TO HOME')
-          this.$router.replace({
-            name: 'tasker',
-            params: { rescheduleTasks: true, checkNewStudies: true }
-          })
+          this.$router.replace({ name: 'tasker' })
           this.enableRouting = true
         }
       }

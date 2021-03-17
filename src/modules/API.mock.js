@@ -182,11 +182,15 @@ export default {
 
   async getNewStudiesKeys () {
     console.log('API - getting new study')
-    let studyPart = participant.studies.find((s) => {
-      return s.studyKey === '1234'
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        let studyPart = participant.studies.find((s) => {
+          return s.studyKey === '1234'
+        })
+        if (!studyPart) resolve(['1234'])
+        else resolve([])
+      }, 10)
     })
-    if (!studyPart) return ['1234']
-    else return []
   },
 
   // retrieves an invitational study based on a code

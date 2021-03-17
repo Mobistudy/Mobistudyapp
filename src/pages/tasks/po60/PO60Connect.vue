@@ -184,7 +184,7 @@ export default {
       } catch (err) {
         console.error('cannot disconnect pulse oximeter', err)
       }
-      this.$router.push({ name: 'tasker', params: { rescheduleTasks: true } })
+      this.$router.push({ name: 'tasker' })
     },
     moveToDownloadPage () {
       this.$router.push({ name: 'po60DataDownload', params: { studyKey: this.studyKey, taskId: this.taskId } })

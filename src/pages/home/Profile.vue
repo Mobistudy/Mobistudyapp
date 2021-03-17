@@ -171,7 +171,7 @@ export default {
         await API.updateProfile(profile)
         await userinfo.setProfile(profile)
 
-        this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
+        this.$router.push({ name: 'tasker' })
       } catch (error) {
         this.$q.notify({
           color: 'negative',

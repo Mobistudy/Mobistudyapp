@@ -141,7 +141,7 @@ export default {
           // profile exists
           await userinfo.setProfile(profile)
           if (profile.studies) await DB.setStudiesParticipation(profile.studies)
-          this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
+          this.$router.push({ name: 'tasker' })
         } catch (error) {
           if (error.response.status === 404) {
             this.$router.push('/register_profile')

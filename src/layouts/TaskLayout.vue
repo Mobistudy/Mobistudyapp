@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     goBack () {
-      this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
+      this.$router.push({ name: 'tasker' })
     },
     update (transition) {
       setTimeout(() => {

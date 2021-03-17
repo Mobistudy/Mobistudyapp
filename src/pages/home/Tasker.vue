@@ -190,7 +190,6 @@ export default {
   components: {
     taskListItem
   },
-  props: ['rescheduleTasks', 'checkNewStudies'],
   data () {
     return {
       nostudies: false,
@@ -211,24 +210,7 @@ export default {
   },
   methods: {
     refresh (done) {
-      const notify = this.$q.notify({
-        group: false,
-        spinner: true,
-        type: 'ongoing',
-        message: this.$i18n.t('studies.searchingForStudies') + '...',
-        timeout: 0
-      })
-      setTimeout(() => {
-        this.checkForStudy()
-        done()
-        notify({
-          type: this.newstudies ? 'positive' : 'warning',
-          spinner: false,
-          message: this.newstudies ? this.$i18n.t('studies.newStudyInvite') : this.$i18n.t('studies.foundNoStudies'),
-          timeout: 1000
-        })
-        this.loading = false
-      }, 1000)
+      this.load(true).then(done)
     },
     filterTask (task, study) {
       if (task.studyKey === study._key) {
@@ -237,8 +219,9 @@ export default {
         return ''
       }
     },
-    async checkForStudy () {
-      if (this.checkNewStudies) {
+    async load (skipSpinner) {
+      if (!skipSpinner) this.$q.loading.show()
+      try {
         // let's see if there are any new eligible studies
         try {
           let newStudyIds = await API.getNewStudiesKeys()
@@ -252,31 +235,24 @@ export default {
           console.error('Cannot connect to server, but thats OK', error)
           // if it fails it's fine
         }
-      }
-    },
-    async load () {
-      this.$q.loading.show()
-      try {
-        this.checkForStudy()
-        if (this.rescheduleTasks) {
-          // the first time we show this component, tasks are re-scheduled
-          await scheduler.cancelNotifications()
-          try {
-            // let's retrieve the studies from the API, just in case
-            let profile = await API.getProfile(userinfo.user._key)
-            if (!profile.studies || profile.studies.length === 0) {
-              await DB.setStudiesParticipation([])
-              // this user has no studies !
-              this.$q.loading.hide()
-              this.nostudies = true
-              return
-            } else {
-              await DB.setStudiesParticipation(profile.studies)
-            }
-          } catch (error) {
-            console.error('Cannot connect to server, but thats OK', error)
-            // if it fails, we just rely on the stored data
+
+        // the first time we show this component, tasks are re-scheduled
+        await scheduler.cancelNotifications()
+        try {
+          // let's retrieve the studies from the API, just in case
+          let profile = await API.getProfile(userinfo.user._key)
+          if (!profile.studies || profile.studies.length === 0) {
+            await DB.setStudiesParticipation([])
+            // this user has no studies !
+            this.$q.loading.hide()
+            this.nostudies = true
+            return
+          } else {
+            await DB.setStudiesParticipation(profile.studies)
           }
+        } catch (error) {
+          console.error('Cannot connect to server, but thats OK', error)
+          // if it fails, we just rely on the stored data
         }
 
         // retrieve studies
@@ -290,18 +266,15 @@ export default {
 
         let activestudiesPart = []
         let activeStudiesDescr = []
+        this.studiesInfo = []
         for (const studyPart of studiesPart) {
           let studyDescr = await DB.getStudyDescription(studyPart.studyKey)
           if (!studyDescr) {
             // study description needs to be retrieved from the server
             studyDescr = await API.getStudyDescription(studyPart.studyKey)
             await DB.setStudyDescription(studyPart.studyKey, studyDescr)
-            if (studyPart.currentStatus === 'accepted' && !this.rescheduleTasks && studyPart.reminders) {
-              // only schedule it here if we are not scheduling all of them
-              await scheduler.scheduleNotificationsSingleStudy(new Date(studyPart.acceptedTS), studyDescr, studyPart)
-            }
           }
-          if (studyPart.currentStatus === 'accepted' && this.rescheduleTasks && studyPart.reminders) {
+          if (studyPart.currentStatus === 'accepted' && studyPart.reminders) {
             // schedule all of them
             await scheduler.scheduleNotificationsSingleStudy(new Date(studyPart.acceptedTS), studyDescr, studyPart)
           }
