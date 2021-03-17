@@ -77,16 +77,18 @@ export default {
         try {
           this.isCalibrated = await peakflow.startCalibration()
           console.log('Calibrating Peak Flow')
+          audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.peakflow.calibrateSuccess'))
           this.calibrating = false
         } catch (err) {
           console.error('Error in calibration', err)
+          audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.peakflow.calibrateError'))
           this.isCalibrated = false
           this.calibrating = false
         }
       }
     },
     completeTest () {
-      audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.peakflow.pef'))
+      // audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.peakflow.calibrateSuccess'))
       const studyKey = this.studyKey
       const taskId = parseInt(this.taskId)
 

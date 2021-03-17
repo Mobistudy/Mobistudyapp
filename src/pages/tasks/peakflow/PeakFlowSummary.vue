@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="text-center">
       <div class="text-h5">
-        {{ $t('studies.tasks.peakflow.todayResults') }} {{pefMax}} L/min
+        {{ $t('studies.tasks.peakflow.todayBest') }} {{pefMax}} L/min
       </div>
       <q-btn
         color="primary"
@@ -64,7 +64,7 @@ export default {
           new Date()
         )
         this.$q.loading.hide()
-        this.$router.push({ name: 'peakflowReview' })
+        this.$router.push({ name: 'peakflowReview', params: { report: this.report } })
         // this.$router.push('/home')
       } catch (error) {
         this.$q.loading.hide()

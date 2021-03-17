@@ -69,11 +69,13 @@ export default {
         this.testAttempts++
         this.measurement = await peakflow.startMeasurement()
         this.pef.push(this.measurement.pef)
+        audio.textToSpeech.playVoice(this.measurement.pef)
       }
       await peakflow.stopMeasurement()
     },
     completeTest () {
-      audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.peakflow.pef'))
+      audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.peakflow.todayBest'))
+      audio.textToSpeech.playVoice(Math.max(...this.pef))
       phone.pedometer.stopNotifications()
       this.completionTS = new Date()
       const studyKey = this.studyKey

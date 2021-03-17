@@ -24,5 +24,6 @@ export default {
   calibrateError: 'There was an error is calibration. Please check the top of the device is not covered, the connection between the peak flow meter and your phone/Bluetooth adapter is secure, and there is sufficient light above the peak flow meter.',
   measure: 'Measure',
   todayResults: `Today's Readings:`,
+  todayBest: `Today's Best Peak Flow:`,
   results: 'Past Peak Flow Readings'
 }
