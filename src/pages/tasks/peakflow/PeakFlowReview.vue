@@ -11,16 +11,16 @@
         />
         <div class="row justify-around">
           <q-btn
-            :label="'-2 ' + $t('studies.tasks.peakflow.weeks')"
-            color="secondary"
-            :disable="disableMinus"
-            @click="lineChartAdd((-2))"
-          />
-          <q-btn
-            :label="'+2 ' + $t('studies.tasks.peakflow.weeks')"
+            :label="'+1 ' + $t('studies.tasks.peakflow.weeks')"
             color="secondary"
             :disable="disablePlus"
-            @click="lineChartAdd((2))"
+            @click="lineChartAdd((1))"
+          />
+          <q-btn
+            :label="'-1 ' + $t('studies.tasks.peakflow.weeks')"
+            color="secondary"
+            :disable="disableMinus"
+            @click="lineChartAdd((-1))"
           />
         </div>
     </div>
@@ -49,6 +49,7 @@
 <script>
 // import API from 'modules/API'
 // import DB from 'modules/db'
+import peakflow from 'modules/peakflow'
 import Chart from 'chart.js'
 // import fileSystem from 'modules/files'
 import { format as Qformat } from 'quasar'
@@ -76,9 +77,10 @@ export default {
       isDownloading: false,
       lineChart: undefined,
       currentStartWeek: 0,
-      currentEndWeek: 4,
+      currentEndWeek: 2,
       disableMinus: true,
       disablePlus: false,
+      startDate: new Date(),
       pefMax: undefined
     }
   },
@@ -91,25 +93,30 @@ export default {
 
       try {
         // await miband3.getStoredData(this.startDate, this.dataCallback)
-
+        this.startDate = Date.now()
+        storedData = await peakflow.getStoredData(this.startDate)
+        console.log('startWeek' + this.currentStartWeek)
+        console.log('endWeek' + this.currentEndWeek)
         this.renderLineChart(this.currentStartWeek, this.currentEndWeek)
         this.isDownloading = false
       } catch (err) {
         console.error('cannot download data', err)
-        this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective.
+        this.isDownloading = false
       }
     },
     renderLineChart (startTime, endTime) {
       // startTime and endTime in week
       lineChart.reset()
-      let startIndexInHours = startTime * 7 * 24
-      let endIndexInHours = endTime * 7 * 24 - 1
-      if (endIndexInHours > storedData.length) {
-        endIndexInHours = storedData.length - 1
+      // let startIndexInHours = startTime * 7 * 24
+      // let endIndexInHours = endTime * 7 * 24 - 1
+      let startIndexInDays = startTime * 7
+      let endIndexInDays = endTime * 7 - 1
+      if (endIndexInDays > storedData.length) {
+        endIndexInDays = storedData.length - 1
       }
-      for (let i = startIndexInHours; i <= endIndexInHours; i++) {
+      for (let i = startIndexInDays; i <= endIndexInDays; i++) {
         let data = storedData[i]
-        this.addToLineChart(data.hr, data.pef, data.date)
+        this.addToLineChart(data.pef, data.date)
       }
       this.updateLineChartReferences()
       this.updatePlusMinusButtons()
@@ -139,7 +146,8 @@ export default {
               borderWidth: 0,
               pointRadius: 1,
               fill: false,
-              lineTension: 0
+              lineTension: 0,
+              showLine: true
             }
           ]
         },
@@ -184,7 +192,7 @@ export default {
       } else {
         this.disableMinus = false
       }
-      if (this.currentEndWeek >= (storedData.length)) {
+      if (this.currentEndWeek >= (storedData.length / 7)) {
         this.disablePlus = true
       } else {
         this.disablePlus = false
@@ -195,7 +203,7 @@ export default {
     }
   },
   async mounted () {
-    this.createActivityLineChart()
+    this.createPeakFlowLineChart()
     await this.downloadData()
   },
   computed: {
