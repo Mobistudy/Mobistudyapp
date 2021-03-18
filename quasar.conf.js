@@ -97,7 +97,7 @@ module.exports = function (ctx) {
         cfg.resolve.alias['moment$'] = 'moment/moment.js'
         if (!cfg.resolve.modules) cfg.resolve.modules = []
         cfg.resolve.modules.push('./src')
-        if (config.API_ENDPOINT.toLowerCase() === 'mock') cfg.resolve.alias['modules/API'] = 'modules/API.mock'
+        if (config.API_ENDPOINT.toLowerCase() === 'mock') cfg.resolve.alias['modules/API/API'] = 'modules/API/API.mock'
         if (config.HEALTHSTORE.toLowerCase() === 'mock') cfg.resolve.alias['modules/healthstore'] = 'modules/healthstore.mock'
         if (config.NOTIFICATIONS.toLowerCase() === 'web') cfg.resolve.alias['modules/notifications'] = 'modules/notifications.web'
         if (config.PHONE.toLowerCase() === 'mock') cfg.resolve.alias['modules/phone'] = 'modules/phone.mock'

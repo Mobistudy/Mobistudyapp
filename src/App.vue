@@ -49,7 +49,7 @@
 <script>
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import phone from 'modules/phone'
 export default {
   name: 'MobistudyApp',

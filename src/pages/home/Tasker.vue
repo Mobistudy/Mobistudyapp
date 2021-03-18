@@ -182,7 +182,7 @@
 import taskListItem from 'components/TaskListItem.vue'
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import * as scheduler from 'modules/scheduler'
 
 export default {

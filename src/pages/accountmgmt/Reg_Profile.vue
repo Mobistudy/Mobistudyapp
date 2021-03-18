@@ -21,7 +21,7 @@
 import i18nStrings from 'i18n/accountMgmt/accountMgmt'
 
 import ProfileEditor from 'components/ProfileEditor'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import userinfo from 'modules/userinfo'
 
 export default {

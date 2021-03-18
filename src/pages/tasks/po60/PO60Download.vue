@@ -60,7 +60,7 @@
 import po60 from 'modules/po60/IPulseOxDevice'
 import db from 'modules/db'
 import userinfo from 'modules/userinfo'
-import API from 'modules/API'
+import API from 'modules/API/API'
 
 export default {
   props: {

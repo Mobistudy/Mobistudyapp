@@ -76,7 +76,7 @@ import Chart from 'chart.js'
 import { getStringIdentifier } from 'modules/miband3/miband3ActivityTypeEnum.js'
 import db from 'modules/db'
 import userinfo from 'modules/userinfo'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import moment from 'moment'
 
 // a bunch of colors that nicely fit together on a multi-line or bar chart

@@ -9,7 +9,7 @@
 </template>
 <script>
 import Intro from 'components/Intro.vue'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import DB from 'modules/db'
 
 export default {

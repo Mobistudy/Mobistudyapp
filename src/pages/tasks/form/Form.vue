@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import API from 'modules/API'
+import API from 'modules/API/API'
 import DB from 'modules/db'
 import userinfo from 'modules/userinfo'
 

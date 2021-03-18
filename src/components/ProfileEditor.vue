@@ -235,7 +235,7 @@
 import i18nString from 'i18n/accountMgmt/accountMgmt'
 
 import { required, minValue, maxValue, numeric } from 'vuelidate/lib/validators'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import { date } from 'quasar'
 
 export default {

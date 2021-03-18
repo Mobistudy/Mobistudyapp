@@ -39,7 +39,7 @@ import BarChart from 'components/BarChart'
 import LineChart from 'components/LineChart'
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import HealthDataEnum from 'modules/healthDataTypesEnum'
 import moment from 'moment'
 

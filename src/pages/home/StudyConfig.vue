@@ -82,7 +82,7 @@ import Consents from 'components/Consents.vue'
 import StudyInfo from 'components/StudyInfo'
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
-import API from 'modules/API'
+import API from 'modules/API/API'
 
 export default {
   name: 'StudyConfigPage',

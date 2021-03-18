@@ -66,7 +66,7 @@ import i18nPwdCheck from 'i18n/passwordCheck/passwordCheck'
 import { mergeDeep } from 'modules/tools.mjs'
 
 import { checkPwdStrength, pwdCheckError, owaspConfig } from 'modules/passwordChecker'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import userinfo from 'modules/userinfo'
 import { required, email, sameAs } from 'vuelidate/lib/validators'
 
