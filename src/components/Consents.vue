@@ -42,7 +42,7 @@
         <q-item-section avatar>
           <q-checkbox
             :value="value.reminders"
-            @click.native="requestNotificationsPermission()"
+            @click.native="setReminders()"
           />
         </q-item-section>
       </q-item>
@@ -175,7 +175,7 @@ export default {
       }
     },
 
-    async requestNotificationsPermission () {
+    async setReminders () {
       if (this.value.reminders) {
         this.value.reminders = false
       } else {
