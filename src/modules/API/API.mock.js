@@ -1,10 +1,10 @@
 'use strict'
 // MOCK API implementation
-import study1234 from '../mockdata/study1234'
-import form1234 from '../mockdata/form1234'
-import study9999 from '../mockdata/study9999'
-import form9999 from '../mockdata/form9999'
-import participant from '../mockdata/participant'
+import study1234 from './mockdata/study1234'
+import form1234 from './mockdata/form1234'
+import study9999 from './mockdata/study9999'
+import form9999 from './mockdata/form9999'
+import participant from './mockdata/participant'
 
 export default {
 
