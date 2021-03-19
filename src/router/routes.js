@@ -79,7 +79,12 @@ const routes = [
       { path: '/notEnoughDataPage', name: 'notEnoughDataPage', component: () => import('pages/tasks/miband3/notEnoughDataPage.vue'), props: true },
       { path: '/po60Intro', name: 'po60Intro', component: () => import('pages/tasks/po60/PO60Intro.vue'), props: true },
       { path: '/po60Connect', name: 'po60Connect', component: () => import('pages/tasks/po60/PO60Connect.vue'), props: true },
-      { path: '/po60Download', name: 'po60DataDownload', component: () => import('pages/tasks/po60/PO60Download.vue'), props: true }
+      { path: '/po60Download', name: 'po60DataDownload', component: () => import('pages/tasks/po60/PO60Download.vue'), props: true },
+      { path: '/peakflowIntro', name: 'peakflowIntro', component: () => import('pages/tasks/peakflow/PeakFlowIntro.vue'), props: true },
+      { path: '/peakflowCalibrate', name: 'peakflowCalibrate', component: () => import('pages/tasks/peakflow/PeakFlowCalibrate.vue'), props: true },
+      { path: '/peakflow', name: 'peakflow', component: () => import('pages/tasks/peakflow/PeakFlow.vue'), props: true },
+      { path: '/peakflowSummary', name: 'peakflowSummary', component: () => import('pages/tasks/peakflow/PeakFlowSummary.vue'), props: true },
+      { path: '/peakflowReview', name: 'peakflowReview', component: () => import('pages/tasks/peakflow/PeakFlowReview.vue'), props: true }
     ]
   },
   {

@@ -2,6 +2,10 @@
 // MOCK API implementation
 import study1234 from './mockdata/study1234'
 import form1234 from './mockdata/form1234'
+import form3333 from './mockdata/form3333'
+import form3334 from './mockdata/form3334'
+import form3335 from './mockdata/form3335'
+import study3333 from './mockdata/study3333'
 import study9999 from './mockdata/study9999'
 import form9999 from './mockdata/form9999'
 import participant from './mockdata/participant'
@@ -172,6 +176,14 @@ export default {
         setTimeout(function () {
           resolve(study9999)
         }, 1000)
+      } else if (studyKey === '1010') {
+        setTimeout(function () {
+          resolve(studyInvitational)
+        }, 1000)
+      } else if (studyKey === '3333') {
+        setTimeout(function () {
+          resolve(study3333)
+        }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study not found'))
@@ -216,6 +228,18 @@ export default {
         setTimeout(function () {
           resolve(form9999)
         }, Math.floor(Math.random() * 2000))
+      } else if (key === '3333') {
+        setTimeout(function () {
+          resolve(form3333)
+        }, Math.floor(Math.random() * 3000))
+      } else if (key === '3334') {
+        setTimeout(function () {
+          resolve(form3334)
+        }, Math.floor(Math.random() * 3000))
+      } else if (key === '3335') {
+        setTimeout(function () {
+          resolve(form3335)
+        }, Math.floor(Math.random() * 3000))
       } else {
         reject(new Error('Questionnaire not found'))
       }
@@ -272,6 +296,12 @@ export default {
 
   async sendPO60Data (data) {
     console.log('API - sending po60 data', data)
+    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
+    return Promise.resolve()
+  },
+
+  async sendPeakFlowData (data) {
+    console.log('API - sending peakflow data', data)
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
   }

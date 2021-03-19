@@ -103,6 +103,7 @@ module.exports = function (ctx) {
         if (config.PHONE.toLowerCase() === 'mock') cfg.resolve.alias['modules/phone'] = 'modules/phone.mock'
         if (config.MIBAND3.toLowerCase() === 'mock') cfg.resolve.alias['modules/miband3/miband3'] = 'modules/miband3/miband3.mock'
         if (config.PO60.toLowerCase() === 'mock') cfg.resolve.alias['modules/po60/IPulseOxDevice'] = 'modules/po60/IPulseOxDevice.mock'
+        if (config.PEAKFLOW.toLowerCase() === 'mock') cfg.resolve.alias['modules/peakflow'] = 'modules/peakflow.mock'
         if (config.STORAGE.toLowerCase() === 'local') cfg.resolve.alias['modules/storage'] = 'modules/storage.local'
         if (config.STORAGE.toLowerCase() === 'native') cfg.resolve.alias['modules/storage'] = 'modules/storage.native'
         if (config.STORAGE.toLowerCase() === 'encrypted') cfg.resolve.alias['modules/storage'] = 'modules/storage.encrypted'

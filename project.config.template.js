@@ -7,5 +7,6 @@ module.exports = {
   STORAGE: 'encrypted', // use 'local' for browser localStorage or 'native' for cordova native storage, 'encrypted' for encrypted native
   PHONE: 'cordova', // use 'MOCK' for mocked phone functionalities or 'cordova' otherwise
   MIBAND3: 'cordova', // use 'MOCK' for mocked tracker or 'cordova' otherwise
-  PO60: 'cordova' // use 'MOCK' for mocked pulse oximeter or 'cordova' otherwise
+  PO60: 'cordova', // use 'MOCK' for mocked pulse oximeter or 'cordova' otherwise
+  PEAKFLOW: 'MOCK' // use 'MOCK' for mocked peak flow meter or 'cordova' otherwise
 }
