@@ -17,31 +17,33 @@
           :name="'slide-' + idx"
           :key="idx"
         >
-          <slot :name="'slide-' + idx">
-            <div
-              class="text-h5 text-center q-pb-sm q-pt-sm"
-              v-if="slide.title"
-            >
-              {{slide.title}}
-            </div>
-            <div
-              v-if="slide.img"
-              class="q-pb-lg q-pl-xl q-pr-xl q-pt-lg"
-            >
-              <q-img :src="slide.img"></q-img>
-            </div>
-            <div
-              v-if="slide.description"
-              :slide="slide"
-              class="q-pb-lg q-pl-lg q-pr-lg q-pt-sm"
-            >
+          <q-scroll-area class="fit">
+            <slot :name="'slide-' + idx">
               <div
-                class="text-body1 text-center"
-                v-html="slide.description"
+                class="text-h5 text-center q-pb-sm q-pt-sm"
+                v-if="slide.title"
               >
+                {{slide.title}}
               </div>
-            </div>
-          </slot>
+              <div
+                v-if="slide.img"
+                class="q-pb-lg q-pl-xl q-pr-xl q-pt-lg"
+              >
+                <q-img :src="slide.img"></q-img>
+              </div>
+              <div
+                v-if="slide.description"
+                :slide="slide"
+                class="q-pb-lg q-pl-lg q-pr-lg q-pt-sm"
+              >
+                <div
+                  class="text-body1 text-center"
+                  v-html="slide.description"
+                >
+                </div>
+              </div>
+            </slot>
+          </q-scroll-area>
         </q-carousel-slide>
       </q-carousel>
       <slot name="finishButton">
@@ -51,6 +53,7 @@
         >
           <q-btn
             color="primary"
+            class="full-width"
             @click="$emit('start')"
             replace
             :label="$t('common.start')"

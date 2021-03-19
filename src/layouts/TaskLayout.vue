@@ -42,7 +42,7 @@
               color="primary"
               v-close-popup
             >
-            {{ $t('studies.tasks.cancelTaskLabel') }}
+              {{ $t('studies.tasks.cancelTaskLabel') }}
             </q-btn>
             <q-btn
               flat
@@ -50,7 +50,7 @@
               v-close-popup
               @click="goBack()"
             >
-            {{ $t('studies.tasks.quitTaskLabel') }}
+              {{ $t('studies.tasks.quitTaskLabel') }}
             </q-btn>
           </q-card-actions>
         </q-card>
@@ -60,7 +60,7 @@
         leave-active-class="fadeOut"
         mode="out-in"
       >
-        <router-view @updateTransition="update" />
+        <router-view />
       </transition>
     </q-page-container>
   </q-layout>
@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     goBack () {
-      this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
+      this.$router.push({ name: 'tasker' })
     },
     update (transition) {
       setTimeout(() => {

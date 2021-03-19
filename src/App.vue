@@ -36,8 +36,8 @@
     <div v-if="enableRouting">
       <transition
         appear
-        enter-active-class="animated fadeInDown"
-        leave-active-class="animated fadeOutUp"
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut"
         mode="out-in"
       >
         <router-view />
@@ -49,7 +49,7 @@
 <script>
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import phone from 'modules/phone'
 export default {
   name: 'MobistudyApp',
@@ -63,7 +63,6 @@ export default {
   },
   methods: {
     async onResume () {
-      console.log('onResume called...')
       try {
         await phone.pin.isPINSet()
         this.showPINPage = false
@@ -89,9 +88,9 @@ export default {
           console.log('Setting locale to', userinfo.user.language)
           this.$root.$i18n.locale = userinfo.user.language
         }
+
         // here we are sure that the database works fine
         this.showPINPage = false
-        this.enableRouting = true
       } catch (error) {
         console.error('Error bootstraping', error)
         this.showPINPage = true
@@ -103,19 +102,16 @@ export default {
         this.$route.path === '/resetpw' || this.$route.path === '/changepw'
       if ((!userinfo.user.loggedin || !userinfo.user.name) && !resettingpwd) {
         console.log('LOGGED OUT, GOING TO LOGIN')
-        this.enableRouting = true
         this.$router.replace({
           name: 'login'
         })
-      } else {
         this.enableRouting = true
+      } else {
         if (!resettingpwd) {
           API.setToken(userinfo.user.token)
           console.log('LOGGED IN, REDIRECTING TO HOME')
-          this.$router.replace({
-            name: 'tasker',
-            params: { rescheduleTasks: true, checkNewStudies: true }
-          })
+          this.$router.replace({ name: 'tasker' })
+          this.enableRouting = true
         }
       }
 
@@ -124,14 +120,14 @@ export default {
         function (response) {
           return response
         },
-        function (error) {
+        async function (error) {
           if (
             error.response.status === 401 &&
             !error.config.url.includes('login')
           ) {
             console.log('Got disconnected !')
-            userinfo.logout()
-            window.location = '/#/login'
+            await userinfo.logout()
+            window.location = '#/login'
           }
           throw error
         }
@@ -146,7 +142,7 @@ export default {
 
     try {
       await phone.pin.isPINSet()
-      this.bootstrap()
+      await this.bootstrap()
     } catch (error) {
       this.showPINPage = true
     }

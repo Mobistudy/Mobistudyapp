@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.mobistudy.app" version="0.2.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.mobistudy.app" version="0.2.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Mobistudy App</name>
     <description>The participants' app of Mobistudy</description>
     <author href="http://mobistudy.org">
@@ -14,6 +14,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="android">
+        <preference name="AndroidXEnabled" value="true" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="res/android/ldpi.png" />
         <icon density="mdpi" src="res/android/mdpi.png" />
@@ -33,31 +34,56 @@
         <splash density="port-xxhdpi" src="res/screen/android/splash-port-xxhdpi.png" />
         <splash density="land-xxxhdpi" src="res/screen/android/splash-land-xxxhdpi.png" />
         <splash density="port-xxxhdpi" src="res/screen/android/splash-port-xxxhdpi.png" />
+        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+            <application android:allowBackup="false" />
+        </edit-config>
     </platform>
     <platform name="ios">
+        <preference name="SplashMaintainAspectRatio" value="true" />
+
+        <!-- Block access to keychain if no passcode is set -->
+        <preference name="KeychainAccessibility" value="WhenPasscodeSetThisDeviceOnly" />
+        
+        <!-- Allow playback in all conditions -->
+        <preference name="MediaTypesRequiringUserActionForPlayback" value="none" />
+        <preference name="AllowInlineMediaPlayback" value="true" />
+        
+        <!-- disallow rubber band effect in iOS -->
+        <preference name="DisallowOverscroll" value="true" />
+
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+
+        <!-- access location in 6mwt -->
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-            <string>The app needs to estimate your physical activity</string>
+            <string>Mobistudy needs to estimate your physical activity</string>
         </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysUsageDescription">
-            <string>The app needs to estimate your physical activity</string>
+            <string>Mobistudy needs to estimate your physical activity</string>
         </edit-config>
+
+        <!-- access HealthKit -->
         <edit-config file="*-Info.plist" mode="merge" target="NSHealthShareUsageDescription">
-            <string>The app needs to read health-related data from your phone</string>
+            <string>Mobistudy needs to read health-related data from your phone</string>
         </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="NSHealthUpdateUsageDescription">
-            <string>The app needs to store health-related data from your phone</string>
+            <string>Mobistudy needs to store health-related data in your phone</string>
         </edit-config>
+
+        <!-- Useful for debugging, could be removed in production -->
         <edit-config file="*-Info.plist" mode="merge" target="UIFileSharingEnabled">
             <true />
         </edit-config>
-        <preference name="WKWebViewOnly" value="true" />
-        <feature name="CDVWKWebViewEngine">
-            <param name="ios-package" value="CDVWKWebViewEngine" />
-        </feature>
-        <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
-        <preference name="KeychainAccessibility" value="WhenPasscodeSetThisDeviceOnly" />
+
+        <!-- Allow audio and bluetooth access if app is in background -->
+        <edit-config file="*-Info.plist" mode="merge" target="UIBackgroundModes">
+            <array>
+                <string>audio</string>
+                <string>bluetooth-central</string>
+            </array>
+        </edit-config>
+
+        <!-- icons -->
         <icon height="57" src="res/ios/icon.png" width="57" />
         <icon height="114" src="res/ios/icon@2x.png" width="114" />
         <icon height="40" src="res/ios/icon-20@2x.png" width="40" />
@@ -83,6 +109,8 @@
         <icon height="88" src="res/ios/icon-44@2x.png" width="88" />
         <icon height="172" src="res/ios/icon-86@2x.png" width="172" />
         <icon height="196" src="res/ios/icon-98@2x.png" width="196" />
+
+        <!-- splash screen -->
         <splash src="res/screen/ios/Default@2x~iphone~anyany.png" />
         <splash src="res/screen/ios/Default@2x~iphone~comany.png" />
         <splash src="res/screen/ios/Default@2x~iphone~comcom.png" />
@@ -94,16 +122,4 @@
     </platform>
     <allow-navigation href="about:*" />
     <preference name="SplashMaintainAspectRatio" value="true" />
-    <plugin name="cordova-plugin-whitelist" spec="1" />
-    <plugin name="cordova-plugin-device" spec="~2.0.3" />
-    <plugin name="cordova-plugin-insomnia" spec="~4.3.0" />
-    <plugin name="cordova-plugin-geolocation" spec="~4.0.2" />
-    <plugin name="cordova-plugin-file" spec="~6.0.2" />
-    <plugin name="cordova-plugin-health" spec="~1.1.4">
-        <variable name="HEALTH_READ_PERMISSION" value="App needs read access" />
-        <variable name="HEALTH_WRITE_PERMISSION" value="App needs write access" />
-    </plugin>
-    <plugin name="cordova-plugin-local-notification" spec="~0.9.0-beta.2" />
-    <plugin name="cordova-plugin-splashscreen" spec="~5.0.3" />
-    <plugin name="cordova-plugin-pedometer" spec="~0.4.1" />
 </widget>

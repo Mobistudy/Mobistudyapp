@@ -5,7 +5,6 @@
 * Different implementations of local storage can be used, as long as they are promisified
 */
 import * as storage from 'modules/storage'
-// TODO: the best solution would be including encryption, eg via https://www.npmjs.com/package/secure-web-storage
 
 export default {
 
@@ -16,6 +15,7 @@ export default {
     return storage.clear()
   },
   async emptyUserData () {
+    console.log('Emptying user DB.')
     let appversion = await storage.getItem('app_version')
     await storage.clear()
     // do not delete the app version, only delete user data
@@ -49,9 +49,11 @@ export default {
     let studies = await storage.getItem('studiesParticipation')
     return studies.find(sp => sp.studyKey === studyKey)
   },
-  async getStudyParticipationTaskItemConsent (studyKey) {
+  async getStudyParticipationTaskItemConsent (studyKey, taskId) {
+    if (!studyKey) throw new Error('studyKey must be specified')
+    if (!taskId) throw new Error('taskId must be specified')
     let studyParticipation = await this.getStudyParticipation(studyKey)
-    return (studyParticipation.taskItemsConsent)
+    return studyParticipation.taskItemsConsent.find(x => x.taskId === Number(taskId))
   },
   async setStudyParticipation (studyPart) {
     let studies = await storage.getItem('studiesParticipation')
@@ -62,25 +64,27 @@ export default {
   async setStudiesParticipation (studies) {
     return storage.setItem('studiesParticipation', studies)
   },
-  async setTaskCompletion (studyKey, taskId, timestamp) {
+  async setStudyParticipationTaskItemConsent (studyKey, taskId, task) {
     if (!studyKey) throw new Error('studyKey must be specified')
     if (!taskId) throw new Error('taskId must be specified')
-    if (!timestamp) throw new Error('timestamp must be specified')
+    if (!task) throw new Error('task must be specified')
     let studies = await storage.getItem('studiesParticipation')
     let sudyInd = studies.findIndex(x => x.studyKey === studyKey)
     if (!studies[sudyInd].taskItemsConsent) studies[sudyInd].taskItemsConsent = []
     let taksstatusInd = studies[sudyInd].taskItemsConsent.findIndex(x => x.taskId === taskId)
     if (taksstatusInd < 0) {
       // this case shouldn't happen really
-      studies[sudyInd].taskItemsConsent.push({
-        taskId: taskId, consented: true, lastExecuted: timestamp
-      })
+      studies[sudyInd].taskItemsConsent.push(task)
       taksstatusInd = 0
     } else {
-      studies[sudyInd].taskItemsConsent[taksstatusInd].lastExecuted = timestamp
+      studies[sudyInd].taskItemsConsent[taksstatusInd] = task
     }
-    await this.setStudiesParticipation(studies)
-    return Promise.resolve()
+    return this.setStudiesParticipation(studies)
+  },
+  async setTaskCompletion (studyKey, taskId, timestamp) {
+    let task = await this.getStudyParticipationTaskItemConsent(studyKey, taskId)
+    task.lastExecuted = timestamp
+    return this.setStudyParticipationTaskItemConsent(studyKey, taskId, task)
   },
   /* Study descriptions */
   async getStudyDescription (studyKey) {
@@ -98,11 +102,6 @@ export default {
     if (!studyDes) throw new Error('study with key ' + studyKey + ' does not exist')
     return studyDes.tasks.find(x => x.id === Number(taskId))
   },
-  async getLastCompletedTaskDate (studyKey, taskId) {
-    let taskItemConsent = await this.getStudyParticipationTaskItemConsent(studyKey)
-    let lastCompleted = taskItemConsent.find(x => x.taskId === Number(taskId)).lastExecuted
-    return lastCompleted
-  },
 
   /* FORMS */
   async getFormDescription (formkey) {
@@ -117,14 +116,23 @@ export default {
 
   /* MIBAND3 */
   async setDeviceMiBand3 (device) {
-    return storage.setItem('miband3', JSON.stringify(device))
+    return storage.setItem('miband3', device)
   },
   async getDeviceMiBand3 () {
-    let device = await storage.getItem('miband3')
-    if (!device) return
-    return JSON.parse(device)
+    return storage.getItem('miband3')
   },
   async removeDeviceMiBand3 () {
     return storage.removeItem('miband3')
+  },
+
+  /* PO60 */
+  async setDevicePO60 (device) {
+    return storage.setItem('po60', device)
+  },
+  async getDevicePO60 () {
+    return storage.getItem('po60')
+  },
+  async removeDevicePO60 () {
+    return storage.removeItem('po60')
   }
 }

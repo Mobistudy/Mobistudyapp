@@ -32,12 +32,14 @@
 </template>
 
 <script>
+import i18nHealthDataTypes from 'i18n/healthDataTypes/healthDataTypes'
+
 import healthstore from 'modules/healthstore'
 import BarChart from 'components/BarChart'
 import LineChart from 'components/LineChart'
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import HealthDataEnum from 'modules/healthDataTypesEnum'
 import moment from 'moment'
 
@@ -63,6 +65,9 @@ export default {
     taskId: Number
   },
   components: { BarChart, LineChart },
+  i18n: {
+    messages: i18nHealthDataTypes
+  },
   data: function () {
     return {
       task: {},

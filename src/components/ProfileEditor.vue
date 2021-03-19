@@ -223,7 +223,7 @@
       <q-btn
         v-if="buttonOk"
         :label="buttonOk"
-        color="positive"
+        color="primary"
         @click="buttonOkClick()"
       />
     </div>
@@ -232,13 +232,18 @@
 </template>
 
 <script>
+import i18nString from 'i18n/accountMgmt/accountMgmt'
+
 import { required, minValue, maxValue, numeric } from 'vuelidate/lib/validators'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import { date } from 'quasar'
 
 export default {
   name: 'ProfileEditor',
   props: ['value', 'buttonCancel', 'buttonOk'],
+  i18n: {
+    messages: i18nString
+  },
   data () {
     return {
       sexOptions: [
@@ -366,6 +371,7 @@ export default {
     selectLanguage () {
       this.$root.$i18n.locale = this.value.language
       this.update()
+      this.$emit('language-changed')
     },
     async searchDisease (diseaseDescription, update, abort) {
       if (diseaseDescription.length < 3) {
@@ -376,16 +382,15 @@ export default {
         return
       }
       try {
-        const concepts = await API.searchDiseaseConcept(diseaseDescription, 'en')
-        console.log('this.diseases:', this.value.diseases)
-        concepts.data = concepts.data.filter((concept) => {
+        let concepts = await API.searchDiseaseConcept(diseaseDescription, 'en')
+        concepts = concepts.filter((concept) => {
           if (!this.conceptIdExistsInArrayOfObjects(this.value.diseases, concept.conceptId)) {
             return true
           } else return false
         })
-        if (concepts.data.length) {
+        if (concepts.length) {
           update(() => {
-            this.diseaseOptions = concepts.data.map((c) => {
+            this.diseaseOptions = concepts.map((c) => {
               return {
                 label: c.term,
                 value: c.conceptId,
@@ -418,15 +423,15 @@ export default {
         return
       }
       try {
-        const concepts = await API.searchMedicationConcept(medDescription, 'en')
-        concepts.data = concepts.data.filter((concept) => {
+        let concepts = await API.searchMedicationConcept(medDescription, 'en')
+        concepts = concepts.filter((concept) => {
           if (!this.conceptIdExistsInArrayOfObjects(this.value.medications, concept.conceptId)) {
             return true
           } else return false
         })
-        if (concepts.data.length) {
+        if (concepts.length) {
           update(() => {
-            this.medOptions = concepts.data.map((c) => {
+            this.medOptions = concepts.map((c) => {
               return {
                 label: c.term,
                 value: c.conceptId,
@@ -452,10 +457,8 @@ export default {
     },
     conceptIdExistsInArrayOfObjects (array, conceptId) {
       let exists = false
-      console.log('Array to check', array)
       // eslint-disable-next-line no-unused-vars
       for (let [key, value] of array.entries()) {
-        console.log('Checking value:', value)
         if (value.conceptId === conceptId) {
           exists = true
         }

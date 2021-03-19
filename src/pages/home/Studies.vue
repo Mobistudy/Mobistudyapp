@@ -15,7 +15,7 @@
           </div>
         </div>
       </q-card-section>
-      <q-card-section>
+      <q-card-section v-if="study.inclusionCriteria.criteriaQuestions && study.inclusionCriteria.criteriaQuestions.length >0">
         {{ $t('studies.newStudyExtraCriteria') }}:
         <div
           v-for="(question, questionIndex) in study.inclusionCriteria.criteriaQuestions"
@@ -121,6 +121,7 @@
       </q-item>
     </q-list>
     <q-page-sticky
+      v-if="pageLoaded"
       position="bottom-right"
       :offset="[18, 18]"
     >
@@ -137,7 +138,7 @@
 <script>
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import { date } from 'quasar'
 
 export default {
@@ -147,7 +148,8 @@ export default {
       newStudies: [],
       newStudiesCustomAnswers: [],
       activeStudies: [],
-      previousStudies: []
+      previousStudies: [],
+      pageLoaded: false
     }
   },
   async created () {
@@ -183,6 +185,7 @@ export default {
       })
     }
     this.$q.loading.hide()
+    this.pageLoaded = true
   },
   computed: {
     eligible () {
@@ -243,7 +246,7 @@ export default {
           await DB.setStudiesParticipation(studies)
           this.newStudies.splice(index, 1)
           this.newStudiesCustomAnswers.splice(index, 1)
-          this.$router.push({ name: 'tasker', params: { rescheduleTasks: false, checkNewStudies: true } })
+          this.$router.push({ name: 'tasker' })
         } catch (error) {
           console.error('Cannot connect to server', error)
           this.$q.notify({
@@ -256,7 +259,6 @@ export default {
     },
     async joinStudy (index) {
       let study = this.newStudies[index]
-      this.$emit('updateTransition', 'slideInDown')
       this.$router.push({ name: 'invitation', params: { studyDescription: study } })
     },
     async showInvitationDialog () {
@@ -318,14 +320,12 @@ export default {
       else return true
     },
     studyExists (studies, studyToFind) {
-      console.log('Attempting to find study in app studies:', studyToFind._key)
       let studyFound = false
       studies.find((study) => {
         if (study._key === studyToFind._key) {
           studyFound = true
         }
       })
-      console.log('Study found:', studyFound)
       return studyFound
     }
   }

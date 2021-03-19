@@ -27,7 +27,7 @@
     >
       <q-card>
         <div class="q-pa-sm">
-          <q-img src="/statics/instructions/miband3_tap.png" />
+          <q-img src="instructions/miband3_tap.png" />
         </div>
         <q-card-section>
           <div class="
@@ -92,7 +92,6 @@ export default {
       this.showSearching = true
       try {
         this.devices = await miband3.search(12000)
-        console.log('All devices found:', this.devices)
         if (this.devices.length === 0) {
           this.$q.dialog({
             title: this.$t('studies.tasks.miband3.noDeviceTitle'),
@@ -106,7 +105,6 @@ export default {
             this.abandon()
           })
         } else if (this.devices.length === 1) {
-          console.log('Found device:', this.devices[0])
           this.connect(this.devices[0])
         } else {
           // sort devices by RSSI, desc
@@ -132,17 +130,19 @@ export default {
     async connect (device) {
       this.showConnecting = true
       try {
+        if (this.$q.platform.is.ios) {
+          await miband3.searchForId(device.id, 12000)
+        }
+
         this.connectionAttempts++
         await miband3.connect(device)
         // Authenticate after connect.
         if (!device.authenticated) this.tapToAuthDialog = true
         await miband3.authenticate(device.authenticated)
-
         // configure the watch
         let user = userinfo.user
         const taskDescr = await db.getTaskDescription(this.studyKey, this.taskId)
-        await miband3.configure(user, taskDescr.hrInterval)
-
+        await miband3.configure(user, taskDescr.hrInterval) // TODO: Maybe do not always configure upon connect?
         this.tapToAuthDialog = false
         this.showConnecting = false
 
@@ -162,13 +162,18 @@ export default {
           this.connect(device)
         } else {
           this.$q.dialog({
-            title: this.$t('studies.errors.error'),
+            title: this.$t('errors.error'),
             message: this.$t('studies.tasks.miband3.connectionFail'),
             cancel: this.$t('common.cancel'),
             ok: this.$t('common.retry'),
             persistent: true
           }).onOk(async () => {
-            await miband3.disconnect()
+            try {
+              await miband3.disconnect()
+            } catch (error) {
+              console.log(error)
+            }
+            console.log('Error:', error)
             if (device.authenticated) {
               // if already authenticated once, retry connection
               this.connect(device)
@@ -189,7 +194,7 @@ export default {
       } catch (err) {
         console.error('cannot disconnect miband3', err)
       }
-      this.$router.push({ name: 'tasker', params: { rescheduleTasks: true } })
+      this.$router.push({ name: 'tasker' })
     },
     moveToDownloadPage () {
       this.$router.push({ name: 'miband3DataDownload', params: { studyKey: this.studyKey, taskId: this.taskId } })
@@ -200,7 +205,7 @@ export default {
     if (device) {
       // a device has been paired in the past!
       this.connect(device)
-    } else {
+    } else { // IOS always needs to search for devices before connecting
       this.search()
     }
   }

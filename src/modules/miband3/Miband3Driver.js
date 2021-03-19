@@ -13,33 +13,33 @@ import crypto_aes from 'browserify-aes'
 import CustomDate from './CustomDate'
 
 const customUUID = x => `0000${x}-0000-3512-2118-0009af100700`
-const standardUUID = x => `0000${x}-0000-1000-8000-00805f9b34fb`
+// const standardUUID = x => `0000${x}-0000-1000-8000-00805f9b34fb`
 
 var Miband3 = {
   authenticationKey: undefined,
   deviceId: undefined,
   // services
-  hrMonitorService: standardUUID('180d'),
-  mibandCustomService0: standardUUID('fee0'),
-  mibandCustomService1: standardUUID('fee1'),
+  hrMonitorService: '180d',
+  mibandCustomService0: 'fee0',
+  mibandCustomService1: 'fee1',
   // characteristics
   authenticationCharacteristic: customUUID('0009'),
   notificationCharacteristic: customUUID('0003'),
-  hrMonitorControlCharacteristic: standardUUID('2a39'),
-  hrMonitorMeasureCharacteristic: standardUUID('2a37'),
-  timeCharacteristic: standardUUID('2a2b'),
+  hrMonitorControlCharacteristic: '2a39',
+  hrMonitorMeasureCharacteristic: '2a37',
+  timeCharacteristic: '2a2b',
   batteryCharacteristic: customUUID('0006'),
-  deviceInformationService: standardUUID('180a'),
-  hardwareCharacteristic: standardUUID('2a27'),
-  softwareCharacteristic: standardUUID('2a28'),
+  deviceInformationService: '180a',
+  hardwareCharacteristic: '2a27',
+  softwareCharacteristic: '2a28',
   storageControlCharacteristic: customUUID('0004'),
   storageDataCharacteristic: customUUID('0005'),
   rawDataCharacteristic: customUUID('0002'),
   configCharacteristic: customUUID('0003'),
-  manufacturerNameCharacteristic: standardUUID('2a29'),
-  modelNumberCharacteristic: standardUUID('2a24'),
-  serialNumberCharacteristic: standardUUID('2a25'),
-  firmwareCharacteristic: standardUUID('2a26'),
+  manufacturerNameCharacteristic: '2a29',
+  modelNumberCharacteristic: '2a24',
+  serialNumberCharacteristic: '2a25',
+  firmwareCharacteristic: '2a26',
   userCharacteristic: customUUID('0008'),
   stepCountCharacteristic: customUUID('0007'),
   sensorCharacteristic: customUUID('0001'),
@@ -239,8 +239,8 @@ var Miband3 = {
           const command = value.slice(0, 3).toString('hex')
 
           if (command === this.messages.authentication.keySentOK) {
-            let currentDate = new Date()
-            this.setTimeStatus(currentDate)
+            // let currentDate = new Date()
+            // this.setTimeStatus(currentDate)
             this.requestEncryptionValue()
           } else if (
             command === this.messages.authentication.encryptionValueReceived
@@ -869,7 +869,6 @@ var Miband3 = {
   },
 
   // STORED DATA
-
   /**
    * Fetches stored data from a given date
    * @returns a promise which is solved if the fecthing starts
@@ -988,7 +987,7 @@ var Miband3 = {
   differenceInMinutes (date1, date2) {
     let diff = (date2.getTime() - date1.getTime()) / 1000
     diff /= 60
-    return Math.abs(Math.round(diff))
+    return Math.round(diff)
   },
 
   createDateFromHexString: function (hexString) {
@@ -1388,7 +1387,7 @@ var Miband3 = {
     return new Date(year, mon, day, hrs, min, sec)
   },
 
-  setCurrentTimeStatus: async function () {
+  setCurrentTimeStatus: async function () { // TODO: Convert to UTC
     let currentDate = new Date()
     return this.setTimeStatus(currentDate)
   },
@@ -1396,7 +1395,6 @@ var Miband3 = {
   setTimeStatus: async function (date) {
     let customDate = new CustomDate(date)
     let packetContent = customDate.getDateStringPacket()
-
     let packet = this.hexStringToHexBuffer(packetContent)
 
     return this.sendWithResponse(
@@ -1488,7 +1486,7 @@ var Miband3 = {
   },
 
   sendWithResponse: async function (service, characteristic, data) {
-    var dataInBits = new Uint8Array(data)
+    const dataInBits = new Uint8Array(data)
     return new Promise((resolve, reject) => {
       ble.write(
         this.deviceId,
@@ -1496,11 +1494,18 @@ var Miband3 = {
         characteristic,
         dataInBits.buffer,
         successResponse => {
+          if (!successResponse) {
+            resolve() // IOS doesnt send a response for some strange reason.
+            return
+          }
           let response = Buffer.from(successResponse).toString('hex')
           if (response === '4f4b') {
             // User step goals set properly, probably also an OK response for a bunch of other messages.
             // Sleep support set properly, same confirmation response is used for several characteristics.
+            // Only Android sends a response.
             resolve(successResponse)
+          } else {
+            reject()
           }
         },
         failure => {

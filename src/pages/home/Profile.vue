@@ -26,7 +26,7 @@
         <q-item-label caption>{{$t('accountMgmt.resetPassword.resetPasswordShort')}}</q-item-label>
         <div class="q-my-md">
           <q-btn
-            color="primary"
+            color="secondary"
             @click="resetPwd()"
             :label="$t('accountMgmt.resetPassword.resetPassword')"
           />
@@ -81,8 +81,10 @@
 </template>
 
 <script>
+import i18nStrings from 'i18n/accountMgmt/accountMgmt'
+
 import ProfileEditor from 'components/ProfileEditor'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import DB from 'modules/db'
 import notifications from 'modules/notifications'
 import userinfo from 'modules/userinfo'
@@ -90,6 +92,9 @@ import userinfo from 'modules/userinfo'
 export default {
   name: 'ProfilePage',
   components: { ProfileEditor },
+  i18n: {
+    messages: i18nStrings
+  },
   data () {
     return {
       profile: {
@@ -128,10 +133,21 @@ export default {
       this.$q.dialog({
         title: this.$i18n.t('accountMgmt.login.logout'),
         message: this.$i18n.t('accountMgmt.login.logoutConfirmation'),
-        ok: this.$i18n.t('accountMgmt.login.logout'),
-        cancel: this.$i18n.t('common.cancel')
-      }).onOk(() => {
-        userinfo.logout()
+        ok: {
+          label: this.$i18n.t('accountMgmt.login.logout'),
+          color: 'warning'
+        },
+        cancel: {
+          label: this.$i18n.t('common.cancel'),
+          color: 'primary',
+          flat: true
+        }
+      }).onOk(async () => {
+        try {
+          await userinfo.logout()
+        } catch (error) {
+          console.log(error)
+        }
         API.setToken('')
         this.$router.push('/login')
       })
@@ -155,7 +171,7 @@ export default {
         await API.updateProfile(profile)
         await userinfo.setProfile(profile)
 
-        this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
+        this.$router.push({ name: 'tasker' })
       } catch (error) {
         this.$q.notify({
           color: 'negative',
@@ -171,9 +187,10 @@ export default {
         // keep a copy of the email before it's deleted by logout
         let email = userinfo.user.email
         notifications.cancelAll()
-        userinfo.logout()
+
+        await userinfo.logout()
         API.unsetToken()
-        DB.emptyUserData()
+        await DB.emptyUserData()
         this.$router.push({ name: 'changepw', params: { email: email } })
       } catch (error) {
         this.$q.notify({
@@ -185,16 +202,15 @@ export default {
     },
     async deleteUser () {
       this.$q.dialog({
-        title: 'Warning',
-        message: 'Deleting your user will delete all the data permanently for all studies. Are you sure you want to continue?',
+        title: this.$i18n.t('common.warning'),
+        message: this.$i18n.t('accountMgmt.deleteWarning'),
         ok: {
-          label: 'DELETE',
-          push: true,
+          label: this.$i18n.t('common.delete'),
           color: 'negative'
         },
         cancel: {
-          push: true,
-          color: 'grey',
+          label: this.$i18n.t('common.cancel'),
+          color: 'primary',
           flat: true
         }
       }).onOk(async () => {

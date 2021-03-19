@@ -40,6 +40,7 @@ module.exports = {
     '^~/(.*)$': '<rootDir>/$1',
     '^src/(.*)$': '<rootDir>/src/$1',
     '^modules/(.*)$': '<rootDir>/src/modules/$1',
+    '^i18n/(.*)$': '<rootDir>/src/i18n/$1',
     '.*css$': '@quasar/quasar-app-extension-testing-unit-jest/stub.css'
   },
   transform: {

@@ -1,70 +1,177 @@
 <template>
   <q-page padding>
-    <q-pull-to-refresh @refresh="refresh" label="Default spinner">
-      <q-banner rounded inline-actions class="bg-warning text-white q-mb-sm" v-if="newstudies" icon="new_releases" type="warning">
+    <q-pull-to-refresh
+      @refresh="refresh"
+      label="Default spinner"
+    >
+      <!-- Banner for when there is a new study available -->
+      <q-banner
+        rounded
+        inline-actions
+        class="bg-warning text-white q-mb-sm"
+        v-if="newstudies"
+        icon="new_releases"
+        type="warning"
+      >
         {{ $t('studies.newStudy') }}!
         <template v-slot:action>
-          <q-btn color="blue" :label="$t('studies.checkNewStusy')" to="studies"/>
+          <q-btn
+            color="blue"
+            :label="$t('studies.checkNewStusy')"
+            to="studies"
+          />
         </template>
       </q-banner>
-      <q-item-label v-if="nostudies" class="q-title fixed-center">{{ $t('studies.noStudies') }}</q-item-label>
-      <div v-else highlight>
+      <!-- end of banner -->
+
+      <!-- Message for when there are not studies -->
+      <q-item-label
+        v-if="nostudies"
+        class="q-title fixed-center"
+      >
+        {{ $t('studies.noStudies') }}
+      </q-item-label>
+      <!-- end of message -->
+
+      <div
+        v-else
+        highlight
+      >
+        <!-- Pending tasks list -->
         <q-item-label header>
           {{ $t('studies.tasks.pendingTasks') }}
         </q-item-label>
-        <q-list padding bordered v-for="study in studiesInfo" :key="`upcoming-${study._key}`" class="q-mt-sm">
+        <q-list
+          padding
+          bordered
+          v-for="study in studiesInfo"
+          :key="`upcoming-${study._key}`"
+          class="q-mt-sm"
+        >
           <q-item-section>
-            <q-item-label header overline>{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
+            <q-item-label
+              header
+              overline
+            >{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
             <taskListItem
               v-for="(task, index) in tasks.upcoming"
               :task="filterTask(task, study)"
               :isMissedTask="false"
-              :key="`item-${index}`">
+              :key="`item-${index}`"
+            >
             </taskListItem>
           </q-item-section>
           <q-item v-if="tasks.upcoming.length === 0">
             <q-item-section avatar>
-              <q-icon color="primary" name="check" />
+              <q-icon
+                color="primary"
+                name="check"
+              />
             </q-item-section>
             <q-item-section>
               <q-item-label>{{ $t('studies.tasks.noPendingTasks') }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
+        <!-- end of pending tasks list -->
+
+        <!-- Missed tasks list -->
         <q-item-label header>
           {{ $t('studies.tasks.missedTasks') }}
         </q-item-label>
-        <q-list padding bordered v-for="study in studiesInfo" :key="`missed-${study._key}`" class="q-mt-sm">
-          <q-item-section>
-            <q-item-label header overline>{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
+        <q-list
+          padding
+          bordered
+          v-for="study in studiesInfo"
+          :key="`missed-${study._key}`"
+          class="q-mt-sm"
+        >
+          <q-item-section v-if="tasks.missed.length > 0">
+            <q-item-label
+              header
+              overline
+            >{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
             <taskListItem
               v-for="(task, index) in tasks.missed"
               :task="filterTask(task, study)"
               :isMissedTask="true"
-              :key="`item-${index}`">
+              :key="`item-${study._key}-${index}`"
+            >
             </taskListItem>
           </q-item-section>
-          <q-item v-if="tasks.missed.length === 0">
+          <q-item v-else>
             <q-item-section avatar>
-              <q-icon color="primary" name="check" />
+              <q-icon
+                color="primary"
+                name="check"
+              />
             </q-item-section>
             <q-item-section>
               <q-item-label>{{ $t('studies.tasks.noMissedTasks') }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
+        <!-- end of missed tasks list -->
+
+        <!-- AlwaysOn tasks list -->
+        <div v-if="tasks.alwaysOn.length > 0">
+          <q-item-label header>
+            {{ $t('studies.tasks.alwaysOnTasks') }}
+          </q-item-label>
+          <q-list
+            padding
+            bordered
+            v-for="study in studiesInfo"
+            :key="`alwayson-${study._key}`"
+            class="q-mt-sm"
+          >
+            <q-item-section>
+              <q-item-label
+                header
+                overline
+              >{{study.generalities.title[$root.$i18n.locale]}}</q-item-label>
+              <taskListItem
+                v-for="(task, index) in tasks.alwaysOn"
+                :task="filterTask(task, study)"
+                :isMissedTask="false"
+                :key="`item-${index}`"
+              >
+              </taskListItem>
+            </q-item-section>
+          </q-list>
+        </div>
+        <!-- end of alwaysOn tasks list -->
+
       </div>
     </q-pull-to-refresh>
-      <q-dialog v-if="this.tasks.completedStudyAlert" v-model="completedStudyModal" maximized>
-        <div class="q-pa-lg text-center" style="background-color:white">
-          <div class="text-h4 q-mb-md">{{ $t('studies.studyCompletedHeadline') }}!</div>
-          <div>
-            <img src="statics/icons/confetti.svg" style="width:30vw; max-width:150px;">
-          </div>
-          <p v-html="$t('studies.studyCompletedText', { studyname: completedStudyTitle })"></p>
-          <q-btn color="primary" @click="studyCompleted()" :label="$t('common.close')" />
+
+    <!-- Completed study dialog -->
+    <q-dialog
+      v-if="this.tasks.completedStudyAlert"
+      v-model="completedStudyModal"
+      maximized
+    >
+      <div
+        class="q-pa-lg text-center"
+        style="background-color:white"
+      >
+        <div class="text-h4 q-mb-md">{{ $t('studies.studyCompletedHeadline') }}!</div>
+        <div>
+          <img
+            src="imgs/confetti.svg"
+            style="width:30vw; max-width:150px;"
+          >
         </div>
-      </q-dialog>
+        <p v-html="$t('studies.studyCompletedText', { studyname: completedStudyTitle })"></p>
+        <q-btn
+          color="primary"
+          @click="studyCompleted()"
+          :label="$t('common.close')"
+        />
+      </div>
+    </q-dialog>
+    <!-- end of completed study dialog -->
+
   </q-page>
 </template>
 
@@ -75,7 +182,7 @@
 import taskListItem from 'components/TaskListItem.vue'
 import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import * as scheduler from 'modules/scheduler'
 
 export default {
@@ -83,7 +190,6 @@ export default {
   components: {
     taskListItem
   },
-  props: ['rescheduleTasks', 'checkNewStudies'],
   data () {
     return {
       nostudies: false,
@@ -91,6 +197,7 @@ export default {
       tasks: {
         upcoming: [],
         missed: [],
+        alwaysOn: [],
         completedStudyAlert: undefined,
         completedStudyTitle: undefined
       },
@@ -103,24 +210,7 @@ export default {
   },
   methods: {
     refresh (done) {
-      const notify = this.$q.notify({
-        group: false,
-        spinner: true,
-        type: 'ongoing',
-        message: this.$i18n.t('studies.searchingForStudies') + '...',
-        timeout: 0
-      })
-      setTimeout(() => {
-        this.checkForStudy()
-        done()
-        notify({
-          type: this.newstudies ? 'positive' : 'warning',
-          spinner: false,
-          message: this.newstudies ? this.$i18n.t('studies.newStudyInvite') : this.$i18n.t('studies.foundNoStudies'),
-          timeout: 1000
-        })
-        this.loading = false
-      }, 1000)
+      this.load(true).then(done)
     },
     filterTask (task, study) {
       if (task.studyKey === study._key) {
@@ -129,8 +219,9 @@ export default {
         return ''
       }
     },
-    async checkForStudy () {
-      if (this.checkNewStudies) {
+    async load (skipSpinner) {
+      if (!skipSpinner) this.$q.loading.show()
+      try {
         // let's see if there are any new eligible studies
         try {
           let newStudyIds = await API.getNewStudiesKeys()
@@ -144,31 +235,24 @@ export default {
           console.error('Cannot connect to server, but thats OK', error)
           // if it fails it's fine
         }
-      }
-    },
-    async load () {
-      this.$q.loading.show()
-      try {
-        this.checkForStudy()
-        if (this.rescheduleTasks) {
-          // the first time we show this component, tasks are re-scheduled
-          await scheduler.cancelNotifications()
-          try {
-            // let's retrieve the studies from the API, just in case
-            let profile = await API.getProfile(userinfo.user._key)
-            if (!profile.studies || profile.studies.length === 0) {
-              await DB.setStudiesParticipation([])
-              // this user has no studies !
-              this.$q.loading.hide()
-              this.nostudies = true
-              return
-            } else {
-              await DB.setStudiesParticipation(profile.studies)
-            }
-          } catch (error) {
-            console.error('Cannot connect to server, but thats OK', error)
-            // if it fails, we just rely on the stored data
+
+        // the first time we show this component, tasks are re-scheduled
+        await scheduler.cancelNotifications()
+        try {
+          // let's retrieve the studies from the API, just in case
+          let profile = await API.getProfile(userinfo.user._key)
+          if (!profile.studies || profile.studies.length === 0) {
+            await DB.setStudiesParticipation([])
+            // this user has no studies !
+            this.$q.loading.hide()
+            this.nostudies = true
+            return
+          } else {
+            await DB.setStudiesParticipation(profile.studies)
           }
+        } catch (error) {
+          console.error('Cannot connect to server, but thats OK', error)
+          // if it fails, we just rely on the stored data
         }
 
         // retrieve studies
@@ -182,18 +266,15 @@ export default {
 
         let activestudiesPart = []
         let activeStudiesDescr = []
+        this.studiesInfo = []
         for (const studyPart of studiesPart) {
           let studyDescr = await DB.getStudyDescription(studyPart.studyKey)
           if (!studyDescr) {
             // study description needs to be retrieved from the server
             studyDescr = await API.getStudyDescription(studyPart.studyKey)
             await DB.setStudyDescription(studyPart.studyKey, studyDescr)
-            if (studyPart.currentStatus === 'accepted' && !this.rescheduleTasks && studyPart.reminders) {
-              // only schedule it here if we are not scheduling all of them
-              await scheduler.scheduleNotificationsSingleStudy(new Date(studyPart.acceptedTS), studyDescr, studyPart)
-            }
           }
-          if (studyPart.currentStatus === 'accepted' && this.rescheduleTasks && studyPart.reminders) {
+          if (studyPart.currentStatus === 'accepted' && studyPart.reminders) {
             // schedule all of them
             await scheduler.scheduleNotificationsSingleStudy(new Date(studyPart.acceptedTS), studyDescr, studyPart)
           }
@@ -230,7 +311,6 @@ export default {
           ok: this.$i18n.t('common.retry'),
           preventClose: true
         }).onOk(() => {
-          console.log('retry')
           this.load()
         })
       }

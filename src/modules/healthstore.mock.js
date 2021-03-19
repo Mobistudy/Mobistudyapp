@@ -16,7 +16,7 @@ export default {
     return new Promise((resolve, reject) => {
       Dialog.create({
         title: 'Confirm',
-        message: 'Would you like to give access to ' + datatypes + '?',
+        message: 'Would you like to give access to ' + datatypes[0].read[0] + '?',
         cancel: true,
         persistent: true
       }).onOk(() => {
@@ -39,24 +39,36 @@ export default {
 
   query: async function (queryOpts) {
     let retval = []
-    if (queryOpts.dataType === 'steps') {
-      const days = Math.round((queryOpts.endDate.getTime() - queryOpts.startDate.getTime()) / 1000 * 60 * 60 * 24)
-      for (let day = 0; day < days; day++) {
-        for (let hour = 0; hour < 4; hour++) {
-          let startDate = queryOpts.startDate
-          startDate.setDate(startDate.getDate() + day)
-          startDate = startDate.getTime() + hour * (60 * 60 * 1000)
-          let endDate = startDate.getTime() + (30 * 60 * 1000)
-          retval.push({
-            startDate: startDate,
-            endDate: endDate,
-            unit: 'count',
-            value: Math.floor((Math.random() * 100) + 1)
-          })
-        }
+    let date = queryOpts.startDate.getTime()
+    do {
+      let value, unit, timeDur
+      if (queryOpts.dataType === 'steps') {
+        timeDur = (Math.random() * 60000) + 120000 // 2 to 3m
+        value = Math.floor((Math.random() * 100) + 1)
+        unit = 'count'
+      } else if (queryOpts.dataType === 'weight') {
+        const dayms = 24 * 60 * 60 * 1000
+        timeDur = (Math.random() * dayms) + dayms // 1 to 2d
+        value = Math.floor((Math.random() * 2) + 79)
+        unit = 'kg'
+      } else if (queryOpts.dataType === 'heart_rate') {
+        timeDur = (Math.random() * 120000) + 180000 // 3 to 5h
+        value = Math.floor((Math.random() * 20) + 60)
+        unit = 'bpm'
+      } else if (queryOpts.dataType === 'distance') {
+        timeDur = (Math.random() * 10800000) + 3600000 // 1 to 4h
+        value = Math.floor(Math.random() * 1000)
+        unit = 'm'
       }
+      retval.push({
+        startDate: new Date(date),
+        endDate: new Date(date + timeDur),
+        unit,
+        value
+      })
+      date = date + timeDur
     }
-
+    while (date < queryOpts.endDate.getTime())
     return retval
   },
 
@@ -65,6 +77,7 @@ export default {
     let startDate = moment(queryOpts.startDate)
     let endDate = moment(queryOpts.endDate)
     if (queryOpts.bucket && queryOpts.bucket !== 'none') {
+      // aggregated with bucket
       retval = []
       startDate.subtract(1, queryOpts.bucket + 's')
 
@@ -78,6 +91,13 @@ export default {
             endDate: endDate.toDate(),
             unit: 'count',
             value: Math.floor((Math.random() * 5000) + 500)
+          })
+        } if (queryOpts.dataType === 'distancee') {
+          retval.push({
+            startDate: startDate.toDate(),
+            endDate: endDate.toDate(),
+            unit: 'm',
+            value: Math.floor((Math.random() * 5000) + 100)
           })
         } else if (queryOpts.dataType === 'activity') {
           retval.push({
@@ -105,25 +125,28 @@ export default {
         }
       }
     } else {
-      retval = {
-        startDate: startDate.toDate(),
-        endDate: endDate.toDate(),
-        unit: 'activitySummary',
-        value: {
-          still: {
-            duration: Math.floor((Math.random() * 64800000) + 28800000),
-            calories: 1500,
-            distance: 0
-          },
-          walking: {
-            duration: Math.floor((Math.random() * 10800000) + 1800000),
-            calories: 20,
-            distance: 1250
-          },
-          in_vehicle: {
-            duration: Math.floor((Math.random() * 10800000) + 1800000),
-            calories: 20,
-            distance: 3520
+      // aggregated no bucket
+      if (queryOpts.dataType === 'activity') {
+        retval = {
+          startDate: startDate.toDate(),
+          endDate: endDate.toDate(),
+          unit: 'activitySummary',
+          value: {
+            still: {
+              duration: Math.floor((Math.random() * 64800000) + 28800000),
+              calories: 1500,
+              distance: 0
+            },
+            walking: {
+              duration: Math.floor((Math.random() * 10800000) + 1800000),
+              calories: 20,
+              distance: 1250
+            },
+            in_vehicle: {
+              duration: Math.floor((Math.random() * 10800000) + 1800000),
+              calories: 20,
+              distance: 3520
+            }
           }
         }
       }

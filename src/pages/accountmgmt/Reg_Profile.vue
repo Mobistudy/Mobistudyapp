@@ -10,19 +10,26 @@
       v-model="profile"
       :buttonOk="$t('common.next')"
       @buttonOk="saveProfile()"
+      v-on:language-changed="forceRerender"
+      :key="componentKey"
     />
 
   </q-page>
 </template>
 
 <script>
+import i18nStrings from 'i18n/accountMgmt/accountMgmt'
+
 import ProfileEditor from 'components/ProfileEditor'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import userinfo from 'modules/userinfo'
 
 export default {
   name: 'RegisterPage',
   components: { ProfileEditor },
+  i18n: {
+    messages: i18nStrings
+  },
   data () {
     return {
       profile: {
@@ -35,7 +42,8 @@ export default {
         diseases: [],
         medications: [],
         studiesSuggestions: true
-      }
+      },
+      componentKey: 0
     }
   },
   methods: {
@@ -59,7 +67,7 @@ export default {
         await API.createProfile(profile)
         await userinfo.setProfile(profile)
 
-        this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
+        this.$router.push({ name: 'tasker' })
       } catch (error) {
         this.$q.notify({
           color: 'negative',
@@ -67,6 +75,9 @@ export default {
           icon: 'report_problem'
         })
       }
+    },
+    forceRerender () {
+      this.componentKey += 1
     }
   }
 }

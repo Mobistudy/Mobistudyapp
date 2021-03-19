@@ -64,7 +64,7 @@
         <q-btn
           no-caps
           flat
-          :label="$t('common.clear')"
+          :label="$t('studies.tasks.form.removeAnswer')"
           color="negative"
           icon-right="cancel"
           @click="clearAnswer()"
@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import API from 'modules/API'
+import API from 'modules/API/API'
 import DB from 'modules/db'
 import userinfo from 'modules/userinfo'
 
@@ -147,10 +147,6 @@ export default {
       freetextAnswer: undefined,
       singleChoiceAnswer: undefined,
       multiChoiceAnswer: [],
-      introduction: {
-        title: '',
-        description: ''
-      },
       finished: false,
       currentQuestion: undefined,
       loading: false,
@@ -160,7 +156,6 @@ export default {
   async created () {
     this.isRetrieving = true
     const formKey = this.formKey
-    console.log('Form Key:', formKey)
 
     try {
       let formDescr = await DB.getFormDescription(formKey)
@@ -172,13 +167,7 @@ export default {
         this.$q.loading.hide()
       }
       this.formDescr = formDescr
-      console.log('Form description:', this.formDescr)
-      this.introduction = {
-        title: this.formDescr.name,
-        description: this.formDescr.description
-      }
       this.currentQuestion = this.formDescr.questions[0]
-      console.log('Current question:', this.currentQuestion)
       setTimeout(() => { this.slideName = 'fadeInDown' }, 10)
     } catch (error) {
       console.error(error)
@@ -195,7 +184,6 @@ export default {
   },
   computed: {
     isFirstQuestion () {
-      if (this.introduction) return false
       if (this.currentQuestion.id === this.formDescr.questions[0].id) return true
       return false
     },
@@ -332,11 +320,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.slideInLeft,
-.slideInRight,
-.fadeInDown {
-  animation-duration: 600ms;
-}
-</style>

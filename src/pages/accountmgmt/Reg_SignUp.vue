@@ -46,7 +46,7 @@
 
     <div class="row fit justify-around q-mt-lg">
       <q-btn
-        color="secondary"
+        color="negative"
         to="/login"
         :label="$t('common.cancel')"
       />
@@ -61,13 +61,20 @@
 </template>
 
 <script>
+import i18nStrings from 'i18n/accountMgmt/accountMgmt'
+import i18nPwdCheck from 'i18n/passwordCheck/passwordCheck'
+import { mergeDeep } from 'modules/tools.mjs'
+
 import { checkPwdStrength, pwdCheckError, owaspConfig } from 'modules/passwordChecker'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import userinfo from 'modules/userinfo'
 import { required, email, sameAs } from 'vuelidate/lib/validators'
 
 export default {
   name: 'SignUp',
+  i18n: {
+    messages: mergeDeep(i18nStrings, i18nPwdCheck)
+  },
   data () {
     return {
       account: {

@@ -76,7 +76,7 @@ import Chart from 'chart.js'
 import { getStringIdentifier } from 'modules/miband3/miband3ActivityTypeEnum.js'
 import db from 'modules/db'
 import userinfo from 'modules/userinfo'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import moment from 'moment'
 
 // a bunch of colors that nicely fit together on a multi-line or bar chart
@@ -96,9 +96,7 @@ const chartColors = [
 
 // holder of all the stored data, this is kept outside of Vue for efficiency
 let storedData = []
-let minimumDataRequired = 5 // 30 minutes of data is required at a minimum to upload the data
-// eslint-disable-next-line no-unused-vars, TODO: not sure why this is complaining?
-let deviceInfo = {}
+let minimumDataRequired = 30 // 30 minutes of data is required at a minimum to upload the data
 
 // pie chart configuration
 let pieChartConfig = {
@@ -160,6 +158,7 @@ export default {
       isSending: false
     }
   },
+
   methods: {
     async downloadData () {
       this.isDownloading = true
@@ -169,35 +168,39 @@ export default {
       pieChartConfig.reset()
       lineChart.reset()
 
-      let startDate = await this.getDateToUseForDownload()
+      this.startDate = await this.getDateToUseForDownload()
       try {
-        await miband3.getStoredData(this.startDate, this.dataCallback)
-        if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
-          await this.storeDownloadDate(startDate)
-          this.$router.push({ name: 'notEnoughDataPage' })
-          return
-        }
         this.deviceInfo = await miband3.getDeviceInfo()
-        console.log('Device info retrieved:', deviceInfo)
-        await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
+        await miband3.getStoredData(this.startDate, this.dataCallback)
+
         try {
           await miband3.disconnect()
         } catch (err) {
           // doesn't matter if it fails here, but let's print out a message on console
           console.error('cannot disconnect miband3', err)
         }
+
+        if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
+          await this.storeDownloadDate(this.startDate) // by storing this, we make sure to retrieve the data from the time the data was not enough instead of from today - period (which depends on when the user performs the task)
+          // TODO: should we also store that the task is completed?
+          this.$router.push({ name: 'notEnoughDataPage' })
+          return
+        }
+
         this.createPieChart()
         this.renderLineChart(this.currentStartHour, this.currentEndHour)
         this.isDownloading = false
       } catch (err) {
         console.error('cannot download data', err)
-        this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective.
+        this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective. ?? Retry moves to Connect page, make sure i am disconnected.
       }
     },
     async storeDownloadDate (date) {
-      let device = await db.getDeviceMiBand3()
-      device.lastStoredDataDate = date
-      return db.setDeviceMiBand3(device)
+      // Update task
+      let consentedTask = await db.getStudyParticipationTaskItemConsent(this.studyKey, this.taskId)
+      consentedTask.lastMiband3SampleTS = date
+      await db.setStudyParticipationTaskItemConsent(this.studyKey, this.taskId, consentedTask)
+      return consentedTask
     },
     getLatestDownloadedSampleDate () {
       return storedData[storedData.length - 1].date
@@ -208,9 +211,10 @@ export default {
      */
     async getDateToUseForDownload () {
       let startDate
-      let device = await db.getDeviceMiBand3()
-      if (device.lastStoredDataDate) {
-        startDate = new Date(device.lastStoredDataDate)
+      let consentedTask = await db.getStudyParticipationTaskItemConsent(this.studyKey, this.taskId)
+      let latestSampleTS = consentedTask.lastMiband3SampleTS
+      if (latestSampleTS) {
+        startDate = new Date(latestSampleTS)
       } else {
         const taskDescription = await db.getTaskDescription(this.studyKey, this.taskId)
         let lastExecuted = taskDescription.lastExecuted
@@ -245,7 +249,7 @@ export default {
       lineChart.reset()
       let startIndexInMinutes = startTime * 60
       let endIndexInMinutes = endTime * 60 - 1
-      if (endIndexInMinutes > storedData.length) {
+      if (endIndexInMinutes >= storedData.length) {
         endIndexInMinutes = storedData.length - 1
       }
       for (let i = startIndexInMinutes; i <= endIndexInMinutes; i++) {
@@ -415,11 +419,11 @@ export default {
     },
     async skipSend () {
       // TODO: show a popup for confirmation
-      await this.storeDownloadDate(this.startDate)
+      await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
       let studyKey = this.studyKey
       let taskId = Number(this.taskId)
       await db.setTaskCompletion(studyKey, taskId, new Date())
-      this.$router.push('/home')
+      this.$router.push({ name: 'tasker' })
     },
     async sendData () {
       this.isSending = true
@@ -435,11 +439,13 @@ export default {
           device: this.deviceInfo,
           miband3Data: storedData
         })
-        await this.storeDownloadDate(this.startDate)
         await db.setTaskCompletion(studyKey, taskId, new Date())
+        let newTaskItemConsent = await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
+        await API.updateTaskItemConsent(studyKey, taskId, newTaskItemConsent)
+
         this.isSending = false
         // go back to home page
-        this.$router.push('/home')
+        this.$router.push({ name: 'tasker' })
       } catch (error) {
         this.isSending = false
         console.error(error)
@@ -448,13 +454,12 @@ export default {
           message: this.$t('errors.connectionError') + ' ' + error.message,
           icon: 'report_problem',
           onDismiss () {
-            this.$router.push('/home')
+            this.$router.push({ name: 'tasker' })
           }
         })
       }
     },
     async delay (seconds) {
-      console.log('delaying')
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve()

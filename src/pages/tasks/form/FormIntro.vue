@@ -9,7 +9,7 @@
 </template>
 <script>
 import Intro from 'components/Intro.vue'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import DB from 'modules/db'
 
 export default {
@@ -39,7 +39,6 @@ export default {
       const formKey = this.formKey
 
       this.$router.push({ name: 'form', params: { studyKey: studyKey, taskId: taskId, formKey: formKey } })
-      this.$emit('updateTransition', 'fadeInDown')
     }
   },
   async created () {

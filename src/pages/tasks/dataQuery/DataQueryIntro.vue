@@ -20,8 +20,8 @@ export default {
   },
   computed: {
     instructions () {
-      if (this.$q.platform.is.ios) return this.$t('studies.tasks.dataQuery.instructionSlidesiOS')
-      else return this.$t('studies.tasks.dataQuery.instructionSlidesAndroid')
+      if (this.$q.platform.is.ios) return this.$t('studies.tasks.dataQuery.introductionSlidesiOS')
+      else return this.$t('studies.tasks.dataQuery.introductionSlidesAndroid')
     }
   },
   methods: {
@@ -30,7 +30,6 @@ export default {
       const taskId = this.taskId
 
       this.$router.push({ name: 'dataQuery', params: { studyKey: studyKey, taskId: taskId } })
-      this.$emit('updateTransition', 'fadeInDown')
     }
   }
 }

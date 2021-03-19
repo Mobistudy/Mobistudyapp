@@ -6,14 +6,30 @@
       class="bg-primary text-white"
     >
       <q-toolbar>
-        <q-avatar rounded>
-          <img src="../statics/icons/favicon-128x128.png">
+        <img
+          v-if="!subAbout"
+          square
+          src="logos/mobistudy-white.svg"
+          style="max-width: 130px"
+        >
+        <q-avatar
+          v-if="subAbout"
+          rounded
+        >
+          <q-btn
+            flat
+            dense
+            icon-right="arrow_back"
+            :to="{ name: 'about', params: { pathIndex: 5 } }"
+          />
         </q-avatar>
-        <q-toolbar-title>
-          {{ $t('layouts.home') }}
+
+        <q-toolbar-title v-if="subAbout">
+          {{ $t('layouts.about') }}
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
+
     <q-footer
       bordered
       class="elevated"
@@ -22,12 +38,12 @@
         mobile-arrows
         narrow-indicator
         dense
-        active-color="secondary"
+        active-color="primary"
         class="bg-white text-grey-7 row"
       >
         <q-route-tab
           class="q-px-sm col"
-          :to="{ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true, pathIndex: 1 } }"
+          :to="{ name: 'tasker', params: { pathIndex: 1 } }"
           icon="check_box"
         >{{ $t('layouts.homeMenu.dailyTasks') }}
         </q-route-tab>
@@ -61,7 +77,7 @@
         :enter-active-class="'animated ' + this.slideName"
         mode="out-in"
       >
-        <router-view @updateTransition="update"></router-view>
+        <router-view></router-view>
       </transition>
     </q-page-container>
   </q-layout>
@@ -72,7 +88,8 @@ export default {
   name: 'HomeLayout',
   data () {
     return {
-      leftDrawerOpen: false,
+      // tells if we are inside one of the about sections
+      subAbout: false,
       slideName: ''
     }
   },
@@ -85,6 +102,16 @@ export default {
   },
   watch: {
     '$route' (to, from) {
+      if (to.path.startsWith('/about/')) {
+        this.subAbout = true
+      } else {
+        this.subAbout = false
+      }
+
+      if (from.path.startsWith('/about/')) {
+        from.params.pathIndex = 6
+      }
+
       const toDepth = to.params.pathIndex
       const fromDepth = from.params.pathIndex
       this.slideName = toDepth < fromDepth ? 'slideInLeft' : 'slideInRight'

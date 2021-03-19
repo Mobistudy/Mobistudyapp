@@ -79,8 +79,8 @@ module.exports = function (ctx) {
       // extractCSS: false,
       env: {
         // environmental variables passed to the rest of the code
-        APP_VERSION: JSON.stringify(require('./package.json').version),
-        API_ENDPOINT: JSON.stringify(config.API_ENDPOINT)
+        APP_VERSION: require('./package.json').version,
+        API_ENDPOINT: config.API_ENDPOINT
       },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
@@ -93,14 +93,16 @@ module.exports = function (ctx) {
             formatter: require('eslint').CLIEngine.getFormatter('stylish')
           }
         })
+        cfg.resolve.alias['i18n/(.*)$'] = 'src/i18n/$1'
         cfg.resolve.alias['moment$'] = 'moment/moment.js'
         if (!cfg.resolve.modules) cfg.resolve.modules = []
         cfg.resolve.modules.push('./src')
-        if (config.API_ENDPOINT.toLowerCase() === 'mock') cfg.resolve.alias['modules/API'] = 'modules/API.mock'
+        if (config.API_ENDPOINT.toLowerCase() === 'mock') cfg.resolve.alias['modules/API/API'] = 'modules/API/API.mock'
         if (config.HEALTHSTORE.toLowerCase() === 'mock') cfg.resolve.alias['modules/healthstore'] = 'modules/healthstore.mock'
         if (config.NOTIFICATIONS.toLowerCase() === 'web') cfg.resolve.alias['modules/notifications'] = 'modules/notifications.web'
         if (config.PHONE.toLowerCase() === 'mock') cfg.resolve.alias['modules/phone'] = 'modules/phone.mock'
         if (config.MIBAND3.toLowerCase() === 'mock') cfg.resolve.alias['modules/miband3/miband3'] = 'modules/miband3/miband3.mock'
+        if (config.PO60.toLowerCase() === 'mock') cfg.resolve.alias['modules/po60/IPulseOxDevice'] = 'modules/po60/IPulseOxDevice.mock'
         if (config.PEAKFLOW.toLowerCase() === 'mock') cfg.resolve.alias['modules/peakflow'] = 'modules/peakflow.mock'
         if (config.STORAGE.toLowerCase() === 'local') cfg.resolve.alias['modules/storage'] = 'modules/storage.local'
         if (config.STORAGE.toLowerCase() === 'native') cfg.resolve.alias['modules/storage'] = 'modules/storage.native'
@@ -124,7 +126,7 @@ module.exports = function (ctx) {
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
     animations: [
-      'fadeInDown',
+      'fadeIn',
       'fadeOut',
       'slideInDown',
       'slideInRight',
@@ -151,27 +153,27 @@ module.exports = function (ctx) {
         theme_color: '#027be3',
         icons: [
           {
-            'src': 'statics/icons/icon-128x128.png',
+            'src': 'icons/icon-128x128.png',
             'sizes': '128x128',
             'type': 'image/png'
           },
           {
-            'src': 'statics/icons/icon-192x192.png',
+            'src': 'icons/icon-192x192.png',
             'sizes': '192x192',
             'type': 'image/png'
           },
           {
-            'src': 'statics/icons/icon-256x256.png',
+            'src': 'icons/icon-256x256.png',
             'sizes': '256x256',
             'type': 'image/png'
           },
           {
-            'src': 'statics/icons/icon-384x384.png',
+            'src': 'icons/icon-384x384.png',
             'sizes': '384x384',
             'type': 'image/png'
           },
           {
-            'src': 'statics/icons/icon-512x512.png',
+            'src': 'icons/icon-512x512.png',
             'sizes': '512x512',
             'type': 'image/png'
           }

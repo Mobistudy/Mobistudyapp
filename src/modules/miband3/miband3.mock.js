@@ -19,7 +19,7 @@ export default {
       return Promise.reject()
     }
     return new Promise((resolve, reject) => {
-      setInterval(() => {
+      setTimeout(() => {
         resolve([
           {
             id: '00:11:22:33:FF:EE',
@@ -31,6 +31,19 @@ export default {
           }
         ])
       }, searchTime)
+    })
+  },
+  async searchForId (deviceId, searchTime) {
+    if (SEARCH_FAIL) {
+      return Promise.reject()
+    }
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({
+          id: deviceId,
+          rssi: 200
+        })
+      }, 2000)
     })
   },
   /**
