@@ -14,6 +14,16 @@ export default {
       title: 'Requirements',
       // img: '/statics/instructions/qcst_1.jpg',
       description: 'You will need a light source for the peak flow meter, either a desk lamp or the window would suffice.'
+    },
+    {
+      title: 'Setup',
+      // img: '/statics/instructions/qcst_1.jpg',
+      description: `Don't cover the window at the top of the device.`
+    },
+    {
+      title: 'Instruction',
+      // img: '/statics/instructions/qcst_1.jpg',
+      description: 'Stand upright and tap start, then ... 1) inhale as deeply as you can 2) cover the whole device with your mouth 3) exhale hard through your mouth. Repeat 3 times'
     }
   ],
   pef: 'Peak Flow',
