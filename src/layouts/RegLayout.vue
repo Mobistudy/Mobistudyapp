@@ -1,8 +1,18 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header reveal elevated class="bg-primary text-white">
+    <q-header
+      reveal
+      elevated
+      class="bg-primary text-white"
+    >
       <q-toolbar>
-        <q-btn flat dense round @click="goBack()" aria-label="Back">
+        <q-btn
+          flat
+          dense
+          round
+          @click="goBack()"
+          aria-label="Back"
+        >
           <q-icon name="arrow_back" />
         </q-btn>
         <q-toolbar-title>

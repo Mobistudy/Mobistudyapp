@@ -12,42 +12,49 @@
   ],
   "author": "Mobistudy team",
   "license": "MIT",
-  "dependencies": {
-    "cordova-android": "^8.1.0",
-    "cordova-ios": "^5.1.1",
-    "cordova-plugin-badge": "0.8.8",
-    "cordova-plugin-device": "2.0.3",
-    "cordova-plugin-file": "6.0.2",
-    "cordova-plugin-health": "1.1.4",
-    "cordova-plugin-insomnia": "git+https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git",
-    "cordova-plugin-local-notification": "0.9.0-beta.2",
-    "cordova-plugin-pedometer": "git+https://github.com/dariosalvi78/cordova-plugin-pedometer.git",
-    "cordova-plugin-splashscreen": "^5.0.3",
-    "cordova-plugin-wkwebview-engine": "^1.2.1",
-    "device": "^0.3.11"
-  },
   "devDependencies": {
+    "cordova-android": "^9.0.0",
+    "cordova-ios": "^6.2.0",
+    "cordova-plugin-badge": "^0.8.8",
+    "cordova-plugin-ble-central": "^1.3.1",
+    "cordova-plugin-device": "^2.0.3",
+    "cordova-plugin-file": "^6.0.2",
+    "cordova-plugin-geolocation": "^4.1.0",
+    "cordova-plugin-health": "^2.0.0",
+    "cordova-plugin-insomnia": "^4.3.0",
+    "cordova-plugin-local-notification": "github:timkellypa/cordova-plugin-local-notifications#3c8e9288780b57d3e6ff3a217f87fa8c2673658e",
+    "cordova-plugin-pedometer": "github:dariosalvi78/cordova-plugin-pedometer",
+    "cordova-plugin-pincheck": "0.0.6",
+    "cordova-plugin-secure-storage-echo": "github:mibrito707/cordova-plugin-secure-storage-echo",
+    "cordova-plugin-splashscreen": "^6.0.0",
     "cordova-plugin-whitelist": "^1.3.4"
   },
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-wkwebview-engine": {},
       "cordova-plugin-insomnia": {},
       "cordova-plugin-geolocation": {},
+      "cordova-plugin-pedometer": {},
+      "cordova-plugin-pincheck": {},
+      "cordova-plugin-secure-storage-echo": {},
       "cordova-plugin-device": {},
       "cordova-plugin-file": {},
       "cordova-plugin-health": {
-        "HEALTH_READ_PERMISSION": "The app needs to read health-related data from your phone",
-        "HEALTH_WRITE_PERMISSION": "The app needs to store health-related data from your phone"
+        "HEALTH_READ_PERMISSION": "Mobistudy needs to read health-related data from your phone",
+        "HEALTH_WRITE_PERMISSION": "Mobistudy needs to store health-related data in your phone"
       },
-      "cordova-plugin-local-notification": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-pedometer": {}
+      "cordova-plugin-local-notification": {
+        "ANDROID_SUPPORT_V4_VERSION": "26.+"
+      },
+      "cordova-plugin-ble-central": {
+        "BLUETOOTH_USAGE_DESCRIPTION": "This app needs to connect to Bluetooth devices",
+        "IOS_INIT_ON_LOAD": "false"
+      }
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

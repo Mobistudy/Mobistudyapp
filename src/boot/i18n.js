@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import messages from 'src/i18n'
+import { mergeDeep } from 'modules/tools'
+import studiesMessages from 'i18n/studies/studies'
+import commonMessages from 'i18n/common/common'
 
 Vue.use(VueI18n)
 
 const i18n = new VueI18n({
   locale: navigator.language.split('-')[0],
   fallbackLocale: 'en',
-  messages
+  silentFallbackWarn: true,
+  messages: mergeDeep(commonMessages, studiesMessages)
 })
 
 export default ({ app }) => {

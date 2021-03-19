@@ -3,7 +3,6 @@
 The participants' app of Mobistudy.
 The app is developed as an Apache Cordova app using the [quasar framework](https://quasar-framework.org/) as UI frontend.
 
-
 ## Prerequisites
 
 You need to install the following on your system:
@@ -20,7 +19,10 @@ cd src-cordova
 npm install
 ```
 
+If you're running any task which relates to the cordova plugins, make sure to create an empty 'www' directory under the src-cordova directory;
 
+1. Cd into src-cordova
+2. Run; mkdir www
 
 ### Run the app in iOS
 
@@ -33,6 +35,7 @@ Prepare the Xcode project:
 cd src-cordova
 cordova prepare ios
 ```
+
 (if you get an error like "Conflict found, edit-config changes from config.xm
 will overwrite plugin.xml changes", repeat `cordova prepare ios`)
 
@@ -56,18 +59,21 @@ are set. For example:
 
 In order to be able to retrieve files that are stored in the app through iTunes,
 make sure the following also is present:
+
 ```xml
 <key>UIFileSharingEnabled</key>
 <true/>
 ```
 
 For the pedometer to work properly:
+
 ```xml
 <key>NSMotionUsageDescription</key>
 <string>The app needs to detect steps</string>
 ```
 
 For the GPS:
+
 ```xml
 <key>NSLocationWhenInUseUsageDescription</key>
 <string>The app needs to estimate your physical activity</string>
@@ -87,15 +93,16 @@ This will run in the browser, if you want to run it on a phone (supposing it's a
 quasar dev -m ios
 ```
 
-
 ## Test
 
 The repository contains some unit tests, to run them:
+
 ```bash
 npm run test:unit
 ```
 
 If you want to have quasar and the tests running in parallel and watching for code changes:
+
 ```bash
 npm run concurrently:dev:jest
 ```
@@ -108,7 +115,6 @@ If you use VS Code, follow the
 
 For development, you may want to mock some modules, see project.conf.js to
 activate mocked modules.
-
 
 ## Deploy
 
@@ -124,6 +130,7 @@ You need to open the project in Xcode, have a provisioning profile for distribut
 on the App Store and Archive then Distribute the app.
 
 ## Android
+
 Generate the compiled code.
 
 ```bash
@@ -135,10 +142,12 @@ Create a keystore (only once! not for every release).
 ```bash
 keytool -genkey -v -keystore mobistudy-release.keystore -alias upload -keyalg RSA -keysize 2048 -validity 10000
 ```
+
 Write down the password you set for the keystore and the certificate. Let's say
 it's "pwdpwd"
 
 Then, inside src-cordova do:
+
 ```bash
 cordova prepare android
 cordova build android --release -- --keystore=mobistudy-release.keystore --alias=upload --storePassword=pwdpwd --password=pwdpwd
@@ -153,12 +162,20 @@ Original idea: [Dario Salvi](https://github.com/dariosalvi78) and [Carmelo Velar
 Coordination: [Dario Salvi](https://github.com/dariosalvi78) and [Carl Magnus Olsson](https://github.com/Trasselkalle).
 
 Development:
+
 - [Dario Salvi](https://github.com/dariosalvi78)
 - [Arvind Goburdhun](https://github.com/arvgo)
 - [Jameson Lee](https://github.com/jamtholee)
 - [Lennart Czienskowski](https://github.com/lencz)
 - [Elin Forsnor](https://github.com/elinforsnor)
 - [Felix Morau](https://github.com/femosc2)
+- [Milo Bengtsson](https://github.com/palladog)
+- [Jacky Tu](https://github.com/jackytu99)
+- [Elliott Hellstrand](https://github.com/Elliott0121)
+- [Andreas Holm](https://github.com/HeyOooh)
+- [Moustafa Allouhaibi](https://github.com/af9593)
+- [John Håkansson](https://github.com/JohnHakansson)
+- [Daniel Abella](https://github.com/assimilate)
 
 ## License
 

@@ -1,10 +1,9 @@
-import { mount, createLocalVue, shallowMount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import PROFILEEDITOR from '../../../src/components/ProfileEditor.vue'
 import * as All from 'quasar'
 const { Quasar } = All
-import {  Notify } from 'quasar'
+import { Notify } from 'quasar'
 import Vuelidate from 'vuelidate'
-
 
 const components = Object.keys(All).reduce((object, key) => {
   const val = All[key]
@@ -16,6 +15,10 @@ const components = Object.keys(All).reduce((object, key) => {
 
 describe('Profile Editor', () => {
   const localVue = createLocalVue()
+  // mock the notify plugin
+  Notify.create = () => {
+    return jest.fn()
+  }
   localVue.use(Quasar, { components, plugins: [Notify] })
   localVue.use(Vuelidate)
 
@@ -31,25 +34,18 @@ describe('Profile Editor', () => {
         sex: 'male',
         diseases: [],
         medications: [],
-        lifestyle: {
-          smoker: false,
-          active: true
-        }
+        studiesSuggestions: true
       },
       buttonCancel: 'cancel',
       buttonOk: 'next'
     },
     mocks: {
       // let's mock i18n, we don't need it for this test
-      $t: () => {},
+      $t: () => { return 'xxx' },
       $i18n: {
-        t: () => {}
+        t: () => { return 'xxx' }
       }
-    },
-  })
-
-  it('passes the sanity check and creates a wrapper', () => {
-    expect(editor.isVueInstance()).toBe(true)
+    }
   })
 
   it('has a created hook', () => {
@@ -59,7 +55,7 @@ describe('Profile Editor', () => {
   it('sets the correct default data', () => {
     expect(editor.props('value').name).toBe('Dario')
     expect(editor.props('value').surname).toBe('Salvi')
-    let qinputs = editor.findAll(components.QInput)
+    let qinputs = editor.findAllComponents(components.QInput)
     // there should be 3 input fields (name, surname, DOB)
     expect(qinputs.length).toBe(3)
     expect(qinputs.at(0).isVisible()).toBe(true)
@@ -68,6 +64,9 @@ describe('Profile Editor', () => {
     expect(qinputs.at(0).vm.value).toBe('Dario')
     expect(qinputs.at(1).vm.value).toBe('Salvi')
     expect(qinputs.at(2).vm.value).toBe('1978/01/01')
+    let qtoggles = editor.findAllComponents(components.QToggle)
+    expect(qtoggles.length).toBe(1) // one toggle only: studiesSuggestions
+    expect(qtoggles.at(0).vm.value).toBe(true)
   })
 
   it('if wrong data is input, no next button can be called', async () => {
@@ -98,5 +97,4 @@ describe('Profile Editor', () => {
     expect(editor.emitted().buttonCancel).toBeTruthy()
     expect(editor.emitted().buttonOK).toBeFalsy()
   })
-
 })

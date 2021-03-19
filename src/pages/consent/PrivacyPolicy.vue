@@ -3,11 +3,23 @@
     <div class="text-h5 text-center">
       {{$t('studies.privacyPolicy')}}
     </div>
-    <div class="q-my-md" style="white-space: pre-line;">{{studyDescription.consent.privacyPolicy[$i18n.locale]}}</div>
+    <div
+      class="q-my-md"
+      style="white-space: pre-line;"
+    >{{studyDescription.consent.privacyPolicy[$i18n.locale]}}</div>
 
     <div class="q-my-md row justify-around">
-      <q-btn :label="$t('common.reject')" flat color="negative" @click="deny()"></q-btn>
-      <q-btn :label="$t('common.accept')" color="primary" @click="accept()"></q-btn>
+      <q-btn
+        :label="$t('common.reject')"
+        flat
+        color="negative"
+        @click="deny()"
+      ></q-btn>
+      <q-btn
+        :label="$t('common.accept')"
+        color="primary"
+        @click="accept()"
+      ></q-btn>
     </div>
   </q-page>
 </template>
@@ -15,7 +27,7 @@
 <script>
 import userinfo from '../../modules/userinfo'
 import DB from '../../modules/db'
-import API from '../../modules/API'
+import API from 'modules/API/API'
 
 export default {
   name: 'PrivacyPolicyPage',

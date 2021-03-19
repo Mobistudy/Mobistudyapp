@@ -1,24 +1,35 @@
 <template>
   <q-page padding>
     <div class="row fit justify-center">
-      <div class="text-h6 text-center q-pt-md">
+      <div class="text-h5 text-center q-pt-md">
         {{ $t('accountMgmt.profile.profile') }}
       </div>
     </div>
 
-    <profile-editor v-model="profile" :buttonOk="$t('common.update')" @buttonOk="saveProfile()"/>
+    <profile-editor
+      v-model="profile"
+      :buttonOk="$t('common.update')"
+      @buttonOk="saveProfile()"
+    />
 
     <q-separator />
 
     <q-item class="q-mt-md">
       <q-item-section avatar>
-        <q-icon color="grey" name="security" />
+        <q-icon
+          color="grey"
+          name="security"
+        />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{$t('accountMgmt.resetPassword.resetPassword')}}</q-item-label>
         <q-item-label caption>{{$t('accountMgmt.resetPassword.resetPasswordShort')}}</q-item-label>
         <div class="q-my-md">
-          <q-btn color="primary" @click="resetPwd()" :label="$t('accountMgmt.resetPassword.resetPassword')" />
+          <q-btn
+            color="secondary"
+            @click="resetPwd()"
+            :label="$t('accountMgmt.resetPassword.resetPassword')"
+          />
         </div>
       </q-item-section>
     </q-item>
@@ -27,12 +38,21 @@
 
     <q-item class="q-mt-md">
       <q-item-section avatar>
-        <q-icon color="grey" name="exit_to_app" />
+        <q-icon
+          color="grey"
+          name="exit_to_app"
+        />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{$t('accountMgmt.login.logout')}}</q-item-label>
         <q-item-label caption>{{$t('accountMgmt.login.logoutShort')}}</q-item-label>
-        <div class="q-my-md"><q-btn color="warning" to="Login" :label="$t('accountMgmt.login.logout')" /></div>
+        <div class="q-my-md">
+          <q-btn
+            color="warning"
+            :label="$t('accountMgmt.login.logout')"
+            @click="logout()"
+          />
+        </div>
       </q-item-section>
     </q-item>
 
@@ -40,20 +60,31 @@
 
     <q-item class="q-mt-md">
       <q-item-section avatar>
-        <q-icon color="grey" name="delete_forever" />
+        <q-icon
+          color="grey"
+          name="delete_forever"
+        />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{$t('accountMgmt.deleteAccount')}}</q-item-label>
         <q-item-label caption>{{$t('accountMgmt.deleteShort')}}</q-item-label>
-        <div class="q-my-md"><q-btn color="negative" :label="$t('common.delete')" @click="deleteUser()" /></div>
+        <div class="q-my-md">
+          <q-btn
+            color="negative"
+            :label="$t('common.delete')"
+            @click="deleteUser()"
+          />
+        </div>
       </q-item-section>
     </q-item>
   </q-page>
 </template>
 
 <script>
+import i18nStrings from 'i18n/accountMgmt/accountMgmt'
+
 import ProfileEditor from 'components/ProfileEditor'
-import API from 'modules/API'
+import API from 'modules/API/API'
 import DB from 'modules/db'
 import notifications from 'modules/notifications'
 import userinfo from 'modules/userinfo'
@@ -61,6 +92,9 @@ import userinfo from 'modules/userinfo'
 export default {
   name: 'ProfilePage',
   components: { ProfileEditor },
+  i18n: {
+    messages: i18nStrings
+  },
   data () {
     return {
       profile: {
@@ -95,6 +129,29 @@ export default {
     }
   },
   methods: {
+    async logout () {
+      this.$q.dialog({
+        title: this.$i18n.t('accountMgmt.login.logout'),
+        message: this.$i18n.t('accountMgmt.login.logoutConfirmation'),
+        ok: {
+          label: this.$i18n.t('accountMgmt.login.logout'),
+          color: 'warning'
+        },
+        cancel: {
+          label: this.$i18n.t('common.cancel'),
+          color: 'primary',
+          flat: true
+        }
+      }).onOk(async () => {
+        try {
+          await userinfo.logout()
+        } catch (error) {
+          console.log(error)
+        }
+        API.setToken('')
+        this.$router.push('/login')
+      })
+    },
     async saveProfile () {
       try {
         // iOS SAFARI COMPATIBILITY
@@ -107,23 +164,14 @@ export default {
           dobTemp = this.profile.dateOfBirth
           console.error(this.profile.dateOfBirth + ' cannot be cut to date only')
         }
-        let profile = {
-          userKey: userinfo.user._key,
-          updatedTS: new Date(),
-          name: this.profile.name,
-          surname: this.profile.surname,
-          dateOfBirth: dobTemp,
-          country: this.profile.country,
-          language: this.profile.language,
-          sex: this.profile.sex,
-          diseases: this.profile.diseases,
-          medications: this.profile.medications,
-          lifestyle: this.profile.lifestyle
-        }
+        let profile = this.profile
+        profile.dateOfBirth = dobTemp
+        profile.userKey = userinfo.user._key
+        profile.updatedTS = new Date()
         await API.updateProfile(profile)
         await userinfo.setProfile(profile)
 
-        this.$router.push({ name: 'tasker', params: { rescheduleTasks: true, checkNewStudies: true } })
+        this.$router.push({ name: 'tasker' })
       } catch (error) {
         this.$q.notify({
           color: 'negative',
@@ -139,9 +187,10 @@ export default {
         // keep a copy of the email before it's deleted by logout
         let email = userinfo.user.email
         notifications.cancelAll()
-        userinfo.logout()
+
+        await userinfo.logout()
         API.unsetToken()
-        DB.emptyUserData()
+        await DB.emptyUserData()
         this.$router.push({ name: 'changepw', params: { email: email } })
       } catch (error) {
         this.$q.notify({
@@ -153,16 +202,15 @@ export default {
     },
     async deleteUser () {
       this.$q.dialog({
-        title: 'Warning',
-        message: 'Deleting your user will delete all the data permanently for all studies. Are you sure you want to continue?',
+        title: this.$i18n.t('common.warning'),
+        message: this.$i18n.t('accountMgmt.deleteWarning'),
         ok: {
-          label: 'DELETE',
-          push: true,
+          label: this.$i18n.t('common.delete'),
           color: 'negative'
         },
         cancel: {
-          push: true,
-          color: 'grey',
+          label: this.$i18n.t('common.cancel'),
+          color: 'primary',
           flat: true
         }
       }).onOk(async () => {

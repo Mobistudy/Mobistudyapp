@@ -81,8 +81,12 @@ export default {
             endDate: new Date()
           })
         } else {
-          // in Android no permissions are needed
-          resolve()
+          window.pedometer.startPedometerUpdates(function (data) {
+            resolve()
+            window.pedometer.stopPedometerUpdates()
+          }, function (err) {
+            reject(err)
+          })
         }
       })
     },
@@ -99,6 +103,23 @@ export default {
     async stopNotifications () {
       return new Promise((resolve, reject) => {
         window.pedometer.stopPedometerUpdates(resolve, reject)
+      })
+    }
+  },
+  pin: {
+    async isPINSet () {
+      return new Promise((resolve, reject) => {
+        if (window.cordova && window.cordova.plugins.PinCheck) {
+          window.cordova.plugins.PinCheck.isPinSetup(
+            (success) => {
+              resolve()
+            },
+            (failure) => {
+              reject(new Error(failure))
+            })
+        } else {
+          reject(new Error('NO_PIN_PLUGIN'))
+        }
       })
     }
   }
