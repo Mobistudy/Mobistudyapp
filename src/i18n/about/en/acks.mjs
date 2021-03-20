@@ -27,7 +27,7 @@ The following people have contributed to the project with code, design or ideas:
 <li><a href="https://github.com/HeyOooh">Andreas Holm</a></li>
 <li><a href="https://github.com/af9593">Moustafa Allouhaibi</a></li>
 <li><a href="https://github.com/JohnHakansson">John Håkansson</a></li>
-<li>Matilda Svensson</li>
+<li><a href="https://www.behance.net/matildasvensson1"> Matilda Svensson</a></li>
 </ul>
 <br>
 <br>
@@ -52,5 +52,5 @@ This app was developed with thanks to the following open source projects:
 </ul>
 <br>
 <br>
-The Mobistudy icons were made by Matilda Svensson.
+The Mobistudy icons were made by <a href="https://www.behance.net/matildasvensson1"> Matilda Svensson</a>.
 `
