@@ -70,7 +70,7 @@
           @click="clearAnswer()"
         />
       </div>
-      <div class="row justify-around q-mb-xl fixed-bottom">
+      <div class="row justify-around q-mb-xl q-mt-md">
         <q-btn
           v-show="!isFirstQuestion"
           icon="arrow_back"
@@ -232,7 +232,7 @@ export default {
 
       // reset fields
       this.freetextAnswer = undefined
-      this.multiChoiceAnswer = undefined
+      this.multiChoiceAnswer = []
       this.singleChoiceAnswer = undefined
 
       if (!nextQuestionId) {
