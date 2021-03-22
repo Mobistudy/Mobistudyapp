@@ -1,4 +1,4 @@
-export default `<p>Version 2020-06-18</p>
+export default `<p>Version 2021-02-25</p>
   <p>
   Mobistudy:s app är avsedd att användas av personer som vill bidra till forskningsstudier 
   med hjälp av deras mobiltelefon.
@@ -45,6 +45,10 @@ export default `<p>Version 2020-06-18</p>
     studier för att undvika att bjuda in dig till studier du redan deltar i eller inte är lämpliga
     att delta samtidigt i.
   </p>
+
+  CARL: there is some stuff to be translated here!
+  CARL: I have made changes to the PP in several places, so I'd suggest you review the translation of all of it (sorry!)
+
   <p>
     Den här datan är säkert överförd (via HTTPS) och lagrad på en server som hanteras och ansvaras
     för av Malmö Universtiet, Sverige. Datan är krypterad både i appen, på servern och under 
