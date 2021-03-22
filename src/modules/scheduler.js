@@ -255,7 +255,15 @@ export function generateRRule (startTime, studyEnd, scheduling) {
   rruleObj.byweekday = byweekday
   if (scheduling.occurrences) rruleObj.count = scheduling.occurrences
 
-  return new RRule(rruleObj)
+  try {
+    return new RRule(rruleObj)
+  } catch (er) {
+    console.error('Error while parsing scheduling object', rruleObj)
+    console.error('Scheduling information: ', scheduling)
+    console.error('Star time, study end:', startTime, studyEnd)
+
+    throw er
+  }
 }
 
 export function scheduleNotificationsAllStudies (studiesParts, studiesDescr) {
