@@ -168,7 +168,7 @@ export default {
             sv: 'CARL'
           }
         }, {
-          id: 'Q4A11',
+          id: 'Q4A12',
           text: {
             en: 'Sore throat',
             sv: 'CARL'
