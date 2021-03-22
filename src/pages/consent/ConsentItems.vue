@@ -84,7 +84,6 @@ export default {
         // set the study as accepted
         this.studyParticipation.currentStatus = 'accepted'
         this.studyParticipation.acceptedTS = new Date()
-        console.log('/////', this.studyParticipation)
 
         // call the API
         await API.updateStudyStatus(userinfo.user._key, this.studyDescription._key, this.studyParticipation)
