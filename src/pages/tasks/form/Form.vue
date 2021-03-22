@@ -232,7 +232,7 @@ export default {
 
       // reset fields
       this.freetextAnswer = undefined
-      this.multiChoice = undefined
+      this.multiChoiceAnswer = undefined
       this.singleChoiceAnswer = undefined
 
       if (!nextQuestionId) {
@@ -263,7 +263,7 @@ export default {
     back () {
       this.slideName = ''
       this.freetextAnswer = undefined
-      this.multiChoice = undefined
+      this.multiChoiceAnswer = undefined
       this.singleChoiceAnswer = undefined
 
       const lastResponse = this.responses[this.responses.length - 1]
@@ -276,7 +276,7 @@ export default {
         } else if (this.currentQuestion.type === 'singleChoice') {
           this.singleChoiceAnswer = lastResponse.answer.answerId
         } else if (this.currentQuestion.type === 'multiChoice') {
-          this.multiChoice = lastResponse.map(x => x.answer.answerId)
+          this.multiChoiceAnswer = lastResponse.answer.map(x => x.answerId)
         }
       }
 
