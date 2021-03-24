@@ -15,7 +15,7 @@ export default `
       Your email address. This is needed to identify you, allow you to login, and to recover your password.
     </li>
     <li>
-      Your name and surname. These are needed to personalise messages sent to you or in those studies where it is
+      Your name and surname. These are needed to personalise messages sent to you, or in studies where it is
       necessary to identify each participant.
     </li>
     <li>
@@ -56,8 +56,8 @@ export default `
     </li>
     <li>
       Data collected from Google Fit (Android phones), or HealthKit (iPhones). Only the data of relevance to each study
-      will be collected. These may include your weight, height, steps count, heart rate,
-      distance, activity, sleep, or nutrition.
+      will be collected. These may include your weight, height, steps count, heart rate, distance, activity, sleep, or 
+      nutrition.
     </li>
     <li>
       Heart rate and steps collected during a Queens College Step Test.
@@ -81,10 +81,10 @@ export default `
 
   <p>
     All the collected data are securely transferred and stored on a server hosted and managed by the University of
-    Malmö, Sweden. Data is encrypted on both the app and the server and during transmission. Personnel from the
-    University of Malmö may access the server and your data for technical maintenance, but will not process any of these
-    data for clinical or research purposes, unless they are part of the research studies you have decided to participate
-    in. The University of Malmö may publish general statistics about the number of users registered on the platform,
+    Malmö, Sweden. Data is encrypted on both the app and the server and during transmission. Personnel from Malmö 
+    University may access the server and your data for technical maintenance, but will not process any of these data 
+    for clinical or research purposes, unless they are part of the research studies you have decided to participate
+    in. Malmö University may publish general statistics about the number of users registered on the platform,
     their country of residence and age group.
   </p>
 
