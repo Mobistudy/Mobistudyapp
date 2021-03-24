@@ -2,12 +2,11 @@ export default {
   createdTS: '2019-10-25T10:09:53.222Z',
   name: {
     en: 'COVID-19 Symptoms tracking',
-    sv: 'CARL'
+    sv: 'Spårning av symptom på COVID-19'
   },
   description: {
-    en: `This questionnaire is about identifying symptoms related to COVID19 and factors that are related
-    to worse outcomes of the disease.`,
-    sv: 'CARL'
+    en: `This questionnaire is about identifying symptoms related to COVID-19 and factors that are related to more difficult problems with the disease.`,
+    sv: 'Denna enkät handlar om att identifiera symptom relaterade till COVID-19 och andra faktorer som är relaterade till svårare problem med sjukdomen'
   },
   questions: [
     {
@@ -15,45 +14,45 @@ export default {
       type: 'multiChoice',
       text: {
         en: `Do you suffer any of these diseases?`,
-        sv: 'CARL'
+        sv: 'Har du några av följande sjukdomar?'
       },
       helper: {
         en: 'You can choose more than one option.',
-        sv: 'CARL'
+        sv: 'Du kan välja mer än ett alternativ.'
       },
       nextDefaultId: 'Q2',
       answerChoices: [{
         id: 'Q1A1',
         text: {
           en: 'Diabetes',
-          sv: 'CARL'
+          sv: 'Diabetes'
         }
       },
       {
         id: 'Q1A2',
         text: {
           en: 'Arterial hypertension',
-          sv: 'CARL'
+          sv: 'Arteriell hypertension'
         }
       }, {
         id: 'Q1A3',
         text: {
           en: 'Chronic lung disease',
-          sv: 'CARL'
+          sv: 'Kronisk lungsjukdom'
         }
       }, {
         id: 'Q1A4',
         text: {
           en: 'Chronic heart disease',
-          sv: 'CARL'
+          sv: 'Kronisk hjärtsjukdom'
         }
       }]
     },
     {
       id: 'Q2',
       text: {
-        en: 'Have you ever diagnosed with CODIV19?',
-        sv: 'CARL'
+        en: 'Have you ever diagnosed with COVID-19?',
+        sv: 'Har du någonsin diagnostiserats med COVID-19?'
       },
       helper: {
         en: 'Choose one option.',
@@ -81,12 +80,12 @@ export default {
       id: 'Q3',
       type: 'freetext',
       text: {
-        en: 'Please specify when you were diagnosed with COVID19',
-        sv: 'CARL'
+        en: 'Please specify when you were diagnosed with COVID-19',
+        sv: 'Vänligen beskriv när du först diagnostiserades med COVID-19'
       },
       helper: {
-        en: 'Indicate the date of when the test came positive',
-        sv: 'CARL'
+        en: 'What date did you receive the positive test result?',
+        sv: 'Vilket datum fick du det positiva testresultatet?'
       }
     },
     {
@@ -94,84 +93,84 @@ export default {
       type: 'multiChoice',
       text: {
         en: 'Which symptoms do you have today?',
-        sv: 'CARL'
+        sv: 'Vilka symptom har du idag?'
       },
       helper: {
         en: 'You can select as many as needed',
-        sv: 'CARL'
+        sv: 'Du kan välja så många alternativ du behöver'
       },
       answerChoices: [
         {
           id: 'Q4A1',
           text: {
             en: 'Loss of smell',
-            sv: 'CARL'
+            sv: 'Försämrat luktsinne'
           }
         }, {
           id: 'Q4A2',
           text: {
             en: 'Fatigue',
-            sv: 'CARL'
+            sv: 'Trötthet'
           }
         }, {
           id: 'Q4A3',
           text: {
             en: 'Shortness of breath',
-            sv: 'CARL'
+            sv: 'Svårigheter att andas'
           }
         }, {
           id: 'Q4A4',
           text: {
             en: 'Fever',
-            sv: 'CARL'
+            sv: 'Feber'
           }
         }, {
           id: 'Q4A5',
           text: {
             en: 'Persistent cough',
-            sv: 'CARL'
+            sv: 'Rethosta'
           }
         }, {
           id: 'Q4A6',
           text: {
             en: 'Diarrhea',
-            sv: 'CARL'
+            sv: 'Diarré'
           }
         }, {
           id: 'Q4A7',
           text: {
             en: 'Chills',
-            sv: 'CARL'
+            sv: 'Frossa'
           }
         }, {
           id: 'Q4A8',
           text: {
             en: 'Headache',
-            sv: 'CARL'
+            sv: 'Huvudvärk'
           }
         }, {
           id: 'Q4A9',
           text: {
-            en: 'Sniffling and snorting',
-            sv: 'CARL'
+            en: 'Runny nose',
+            sv: 'Rinnsnuva'
           }
         }, {
           id: 'Q4A10',
           text: {
             en: 'Nausea and vomiting',
-            sv: 'CARL'
+            sv: 'Illamående och kräkningar'
           }
         }, {
           id: 'Q4A11',
           text: {
             en: 'Body aches',
-            sv: 'CARL'
+            sv: 'Muskelvärk'
           }
         }, {
           id: 'Q4A12',
           text: {
             en: 'Sore throat',
-            sv: 'CARL'
+            sv: 'Halsont'
           }
         }
       ],

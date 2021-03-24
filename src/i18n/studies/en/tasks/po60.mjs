@@ -21,10 +21,9 @@ export default {
     {
       img: 'instructions/po60_3_android.jpg',
       description: `Make sure the Bluetooth is activated on your phone.
-      If it is the first time you connect the pulse-oximeter, you will receive a notification 
-      asking if you want to pair the device.
-      After accepting the notification, you need to copy the code shown on the pulse-oximeter to your phone
-      to complete the pairing process.`
+      If it is the first time you connect the pulse oximeter, you will receive a notification asking if you want to 
+      pair the device. After accepting the notification, you need to copy the code shown on the pulse-oximeter to 
+      your phone to complete the pairing process.`
     }
   ],
   introductionSlidesiOS: [
