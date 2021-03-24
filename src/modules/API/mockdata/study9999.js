@@ -213,7 +213,7 @@ export default {
       
       For questions about how data is processed by each institution involved in the study please contact:
       - Malmö University, at: dataskyddsombud@mau.se`,
-      sv:  `För att genomföra denna studie behöver vi samla in data från dig genom app:en Mobistudy.
+      sv: `För att genomföra denna studie behöver vi samla in data från dig genom app:en Mobistudy.
 
       Vilken personlig data samlas in?
 
