@@ -1,7 +1,7 @@
 {
   "name": "org.mobistudy.app",
   "displayName": "Mobistudy",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "The participants' app of Mobistudy",
   "main": "index.js",
   "scripts": {
