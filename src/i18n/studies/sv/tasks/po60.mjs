@@ -24,7 +24,10 @@ export default {
     },
     {
       img: 'instructions/po60_3_android.jpg',
-      description: `CARL CARL CARL.`
+      description: `Försäkra dig om att Bluetooth är aktiverat på din telefon.
+      Om detta är din första gång du kopplar upp pulsoximetern kommer du få en notifikation som frågar om du vill
+      ansluta den. Efter du accepterar detta behöver du kopiera koden som står på pulsoximetern till din telefon
+      för att fullgöra anslutningen av den.`
     }
   ],
   introductionSlidesiOS: [
