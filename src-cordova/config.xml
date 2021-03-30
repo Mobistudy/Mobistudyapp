@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.mobistudy.app" version="0.2.3" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.mobistudy.app" version="0.2.4" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Mobistudy App</name>
     <description>The participants' app of Mobistudy</description>
     <author href="http://mobistudy.org">
@@ -67,7 +67,7 @@
             <string>Mobistudy needs to read health-related data from your phone</string>
         </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="NSHealthUpdateUsageDescription">
-            <string>Mobistudy needs to store health-related data in your phone</string>
+            <string>Mobistudy needs to store health-related data on your phone</string>
         </edit-config>
 
         <!-- Useful for debugging, could be removed in production -->
