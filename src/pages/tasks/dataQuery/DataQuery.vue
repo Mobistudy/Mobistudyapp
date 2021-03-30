@@ -2,7 +2,7 @@
   <q-page padding>
     <!-- content -->
     <div v-if="chartData">
-      <p style="margin-top: 0">{{$t('studies.tasks.dataQuery.dataQueryExplanation')}}</p>
+      <p>{{explanation}}</p>
       <bar-chart
         v-if="plotBar"
         :chart-data="chartData"
@@ -78,6 +78,12 @@ export default {
       plotLine: false,
       plotBar: false,
       loading: false
+    }
+  },
+  computed: {
+    explanation () {
+      if (this.$q.platform.is.ios) return this.$t('studies.tasks.dataQuery.dataQueryExplanationiOS')
+      else return this.$t('studies.tasks.dataQuery.dataQueryExplanationAndroid')
     }
   },
   async mounted () {

@@ -28,5 +28,6 @@ export default {
       description: 'The Mobistudy app will only retrieve the data that is requested for this study. A summary of the data will be shown in the form of charts. After reviewing the information, you are free to send it or discard it.'
     }
   ],
-  dataQueryExplanation: 'This is a summary of the data that has been retrieved from your phone. Tap on "Send" to share these data with the research team or tap on "Discard" to avoid sending these data.'
+  dataQueryExplanationiOS: 'This is a summary of the data that has been retrieved from HealthKit. Tap on "Send" to share these data with the research team or tap on "Discard" to avoid sending these data.',
+  dataQueryExplanationAndroid: 'This is a summary of the data that has been retrieved from Google Fit. Tap on "Send" to share these data with the research team or tap on "Discard" to avoid sending these data.'
 }
