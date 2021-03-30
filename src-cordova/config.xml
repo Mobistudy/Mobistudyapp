@@ -76,12 +76,12 @@
         </edit-config>
 
         <!-- Allow audio and bluetooth access if app is in background -->
-        <edit-config file="*-Info.plist" mode="merge" target="UIBackgroundModes">
+        <!-- <edit-config file="*-Info.plist" mode="merge" target="UIBackgroundModes">
             <array>
                 <string>audio</string>
                 <string>bluetooth-central</string>
             </array>
-        </edit-config>
+        </edit-config> -->
 
         <!-- icons -->
         <icon height="57" src="res/ios/icon.png" width="57" />
