@@ -33,8 +33,8 @@
             :max="currentQuestion.max"
             :rules="[
               val => val !== null && val !== '' || $t('studies.tasks.form.freeTextExplanation'),
-              val => val > currentQuestion.min || $t('studies.tasks.form.numberTooSmall'),
-              val => val < currentQuestion.max || $t('studies.tasks.form.numberTooBig')
+              val => val >= currentQuestion.min || $t('studies.tasks.form.numberTooSmall'),
+              val => val <= currentQuestion.max || $t('studies.tasks.form.numberTooBig')
             ]"
             outlined
           />
@@ -222,7 +222,7 @@ export default {
     isAnswered () {
       return (this.currentQuestion.type === 'singleChoice' && this.singleChoiceAnswer) ||
         (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
-        (this.currentQuestion.type === 'number' && this.numberAnswer) ||
+        (this.currentQuestion.type === 'number' && (this.numberAnswer || this.numberAnswer === 0)) ||
         (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
         (this.currentQuestion.type === 'textOnly')
     }
