@@ -24,7 +24,7 @@
                 "sv": ""
             },
             "type": "singleChoice",
-            "nextDefaultId": "Q8",
+            "nextDefaultId": "Q7",
             "answerChoices": [
                 {
                     "id": "Q1A1",
@@ -79,7 +79,7 @@
               "sv": ""
           },
           "type": "singleChoice",
-          "nextDefaultId": "Q8",
+          "nextDefaultId": "Q7",
           "answerChoices": [
               {
                   "id": "Q2A1",
@@ -108,10 +108,10 @@
               },
               {
                   "id": "Q2A5",
+                  "includeFreeText": true,
                   "text": {
                       "en": "Any other Asian background"
-                  },
-                  "nextQuestionId": "Q7"
+                  }
               }
           ]
         },
@@ -130,7 +130,7 @@
               "sv": ""
           },
           "type": "singleChoice",
-          "nextDefaultId": "Q8",
+          "nextDefaultId": "Q7",
           "answerChoices": [
               {
                   "id": "Q3A1",
@@ -146,10 +146,10 @@
               },
               {
                   "id": "Q3A3",
+                  "includeFreeText": true,
                   "text": {
                       "en": "Any other Black /African/Caribbean background"
-                  },
-                  "nextQuestionId": "Q7"
+                  }
               }
           ]
         },
@@ -168,7 +168,7 @@
               "sv": ""
           },
           "type": "singleChoice",
-          "nextDefaultId": "Q8",
+          "nextDefaultId": "Q7",
           "answerChoices": [
               {
                   "id": "Q4A1",
@@ -190,10 +190,10 @@
               },
               {
                   "id": "Q4A4",
+                  "includeFreeText": true,
                   "text": {
                       "en": "Any other Mixed/multiple ethnic background"
-                  },
-                  "nextQuestionId": "Q7"
+                  }
               }
           ]
         },
@@ -212,7 +212,7 @@
               "sv": ""
           },
           "type": "singleChoice",
-          "nextDefaultId": "Q8",
+          "nextDefaultId": "Q7",
           "answerChoices": [
               {
                   "id": "Q5A1",
@@ -234,10 +234,10 @@
               },
               {
                   "id": "Q5A4",
+                  "includeFreeText": true,
                   "text": {
                       "en": "Any other White ethnic group"
-                  },
-                  "nextQuestionId": "Q7"
+                  }
               }
           ]
         },
@@ -256,7 +256,7 @@
               "sv": ""
           },
           "type": "singleChoice",
-          "nextDefaultId": "Q8",
+          "nextDefaultId": "Q7",
           "answerChoices": [
               {
                   "id": "Q6A1",
@@ -266,34 +266,15 @@
               },
               {
                   "id": "Q6A2",
+                  "includeFreeText": true,
                   "text": {
                       "en": "Any other ethnic group"
-                  },
-                  "nextQuestionId": "Q7"
+                  }
               }
           ]
         },
         {
             "id": "Q7",
-            "text": {
-                "en": "Please describe your ethnic group or background"
-            },
-            "helper": {
-                "en": ""
-            },
-            "footer": {},
-            "type": "freetext",
-            "answerChoices": [
-                {
-                    "id": "Q7A1",
-                    "text": {
-                        "en": ""
-                    }
-                }
-            ]
-        },
-        {
-            "id": "Q8",
             "text": {
                 "en": "What is your smoking status?"
             },
@@ -302,31 +283,31 @@
             },
             "footer": {},
             "type": "singleChoice",
-            "nextDefaultId": "Q10",
+            "nextDefaultId": "Q9",
             "answerChoices": [
                 {
-                    "id": "Q8A1",
+                    "id": "Q7A1",
                     "text": {
                         "en": "Never (<100 cigarettes in lifetime)"
                     }
                 },
                 {
-                    "id": "Q8A2",
+                    "id": "Q7A2",
                     "text": {
                         "en": "Current"
                     }
                 },
                 {
-                    "id": "Q8A3",
+                    "id": "Q7A3",
                     "text": {
                         "en": "Previous"
                     },
-                    "nextQuestionId": "Q9"
+                    "nextQuestionId": "Q8"
                 }
             ]
         },
         {
-            "id": "Q9",
+            "id": "Q8",
             "text": {
                 "en": "When did you stop smoking?"
             },
@@ -339,7 +320,7 @@
             "max": 2030
         },
         {
-            "id": "Q10",
+            "id": "Q9",
             "text": {
                 "en": "On average, how many cigarettes do/did you smoke daily?"
             },
@@ -352,7 +333,7 @@
             "max": 500
         },
         {
-            "id": "Q11",
+            "id": "Q10",
             "text": {
                 "en": "How many years have you been smoking/did you smoke?"
             },

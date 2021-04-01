@@ -372,7 +372,7 @@
                 "en": "What is your personal best peak flow (PEF) measurement?"
             },
             "helper": {
-                "en": "Average personal best peak flow ranges between 300 and 700. Units: litres of air breathed out per minute, L/min"
+                "en": "Average personal best peak flow ranges between 300 and 700. Units: litres of air breathed out per minute, L/min. Skip if you are unsure."
             },
             "footer": {},
             "type": "number",

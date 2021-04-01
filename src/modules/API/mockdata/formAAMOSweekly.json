@@ -197,7 +197,7 @@
                 "en": "If so, please select which days"
             },
             "footer": {},
-            "type": "singleChoice",
+            "type": "multiChoice",
             "answerChoices": [
                 {
                     "id": "Q7A1",
@@ -258,7 +258,7 @@
                 "en": "If so, please select which days"
             },
             "footer": {},
-            "type": "singleChoice",
+            "type": "multiChoice",
             "answerChoices": [
                 {
                     "id": "Q8A1",
@@ -319,7 +319,7 @@
                 "en": "If so, please select which days"
             },
             "footer": {},
-            "type": "singleChoice",
+            "type": "multiChoice",
             "answerChoices": [
                 {
                     "id": "Q9A1",

@@ -194,116 +194,122 @@
             "type": "multiChoice",
             "answerChoices": [
                 {
-                    "id": "Q6A1",
+                  "id": "Q6A1",
+                  "text": {
+                      "en": "No, I did not encounter any asthma triggers today"
+                  }
+                },
+                {
+                    "id": "Q6A2",
                     "text": {
                         "en": "A cold"
                     }
                 },
                 {
-                    "id": "Q6A2",
+                    "id": "Q6A3",
                     "text": {
                         "en": "Exercise or being more active than usual"
                     }
                 },
                 {
-                    "id": "Q6A3",
+                    "id": "Q6A4",
                     "text": {
                         "en": "Strong smells / exhaust fumes"
                     }
                 },
                 {
-                    "id": "Q6A4",
+                    "id": "Q6A5",
                     "text": {
                         "en": "Mould"
                     }
                 },
                 {
-                    "id": "Q6A5",
+                    "id": "Q6A6",
                     "text": {
                         "en": "House dust / dust mites"
                     }
                 },
                 {
-                    "id": "Q6A6",
+                    "id": "Q6A7",
                     "text": {
                         "en": "Feathers"
                     }
                 },
                 {
-                    "id": "Q6A7",
+                    "id": "Q6A8",
                     "text": {
                         "en": "Dogs / cats / other furry / feathered animals"
                     }
                 },
                 {
-                    "id": "Q6A8",
+                    "id": "Q6A9",
                     "text": {
                         "en": "Pollen from trees grass or weeds"
                     }
                 },
                 {
-                    "id": "Q6A9",
+                    "id": "Q6A10",
                     "text": {
                         "en": "Extreme heat"
                     }
                 },
                 {
-                    "id": "Q6A10",
+                    "id": "Q6A11",
                     "text": {
                         "en": "Extreme cold"
                     }
                 },
                 {
-                    "id": "Q6A11",
+                    "id": "Q6A12",
                     "text": {
                         "en": "Changes in weather"
                     }
                 },
                 {
-                    "id": "Q6A12",
+                    "id": "Q6A13",
                     "text": {
                         "en": "Poor air quality"
                     }
                 },
                 {
-                    "id": "Q6A13",
+                    "id": "Q6A14",
                     "text": {
                         "en": "Someone smoking near me"
                     }
                 },
                 {
-                    "id": "Q6A14",
+                    "id": "Q6A15",
                     "text": {
                         "en": "Foods"
                     }
                 },
                 {
-                    "id": "Q6A15",
+                    "id": "Q6A16",
                     "text": {
                         "en": "Around the time of my period"
                     }
                 },
                 {
-                    "id": "Q6A16",
+                    "id": "Q6A17",
                     "text": {
                         "en": "Feeling sad, angry, excited, tense, stressed"
                     }
                 },
                 {
-                    "id": "Q6A17",
+                    "id": "Q6A18",
                     "text": {
                         "en": "Laughter"
                     }
                 },
                 {
-                    "id": "Q6A18",
+                    "id": "Q6A19",
                     "text": {
                         "en": "I am not sure"
                     }
                 },
                 {
-                    "id": "Q6A19",
-                    "includeFreeText":true,
+                    "id": "Q6A20",
+                    "includeFreeText": true,
                     "text": {
                         "en": "Other"
                     }
