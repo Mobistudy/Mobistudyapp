@@ -25,6 +25,19 @@
             rows="3"
             outlined
           />
+          <q-input
+            v-show="currentQuestion.type === 'number'"
+            v-model.number="numberAnswer"
+            type="number"
+            :min="currentQuestion.min"
+            :max="currentQuestion.max"
+            :rules="[
+              val => val !== null && val !== '' || $t('studies.tasks.form.freeTextExplanation'),
+              val => val > currentQuestion.min || $t('studies.tasks.form.numberTooSmall'),
+              val => val < currentQuestion.max || $t('studies.tasks.form.numberTooBig')
+            ]"
+            outlined
+          />
           <div
             v-show="currentQuestion.type === 'singleChoice'"
             v-for="(answerChoice, index) in currentQuestion.answerChoices"
@@ -145,6 +158,7 @@ export default {
       responses: [],
       oldResponses: [],
       freetextAnswer: undefined,
+      numberAnswer: undefined,
       singleChoiceAnswer: undefined,
       multiChoiceAnswer: [],
       finished: false,
@@ -190,6 +204,7 @@ export default {
     isAnswered () {
       return (this.currentQuestion.type === 'singleChoice' && this.singleChoiceAnswer) ||
         (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
+        (this.currentQuestion.type === 'number' && this.numberAnswer) ||
         (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
         (this.currentQuestion.type === 'textOnly')
     }
@@ -208,6 +223,8 @@ export default {
       }
       if (this.currentQuestion.type === 'freetext') {
         answer.answer = this.freetextAnswer
+      } else if (this.currentQuestion.type === 'number') {
+        answer.answer = this.numberAnswer
       } else if (this.currentQuestion.type === 'singleChoice') {
         let chosenAnswerChoice = this.currentQuestion.answerChoices.find(x => x.id === this.singleChoiceAnswer)
         if (chosenAnswerChoice) {
@@ -232,6 +249,7 @@ export default {
 
       // reset fields
       this.freetextAnswer = undefined
+      this.numberAnswer = undefined
       this.multiChoiceAnswer = []
       this.singleChoiceAnswer = undefined
 
@@ -263,6 +281,7 @@ export default {
     back () {
       this.slideName = ''
       this.freetextAnswer = undefined
+      this.numberAnswer = undefined
       this.multiChoiceAnswer = undefined
       this.singleChoiceAnswer = undefined
 
@@ -273,6 +292,8 @@ export default {
       if (lastResponse.answer) {
         if (this.currentQuestion.type === 'freetext') {
           this.freetextAnswer = lastResponse.answer
+        } else if (this.currentQuestion.type === 'number') {
+          this.numberAnswer = lastResponse.answer
         } else if (this.currentQuestion.type === 'singleChoice') {
           this.singleChoiceAnswer = lastResponse.answer.answerId
         } else if (this.currentQuestion.type === 'multiChoice') {
@@ -315,6 +336,7 @@ export default {
     clearAnswer () {
       if (this.currentQuestion.type === 'singleChoice') this.singleChoiceAnswer = undefined
       if (this.currentQuestion.type === 'freetext') this.freetextAnswer = undefined
+      if (this.currentQuestion.type === 'number') this.numberAnswer = undefined
       if (this.currentQuestion.type === 'multiChoice') this.multiChoiceAnswer = []
     }
   }
