@@ -4,6 +4,10 @@ import study1234 from './mockdata/study1234'
 import form1234 from './mockdata/form1234'
 import study9999 from './mockdata/study9999'
 import studyAAMOS from './mockdata/studyAAMOS.json'
+import formAAMOSaboutasthma from './mockdata/formAAMOSaboutasthma.json'
+import formAAMOSaboutyou from './mockdata/formAAMOSaboutyou.json'
+import formAAMOSdaily from './mockdata/formAAMOSdaily.json'
+import formAAMOSweekly from './mockdata/formAAMOSweekly.json'
 import form9999 from './mockdata/form9999'
 import participant from './mockdata/participant'
 
@@ -205,7 +209,7 @@ export default {
       if (invitationalCode === study9999.invitationCode) {
         resolve(study9999)
       } else if (invitationalCode === studyAAMOS.invitationCode) {
-        resolve(study9999)
+        resolve(studyAAMOS)
       } else {
         reject(new Error('Cannot retrieve invitational study based on code.'))
       }
@@ -222,6 +226,22 @@ export default {
       } else if (key === '9999') {
         setTimeout(function () {
           resolve(form9999)
+        }, Math.floor(Math.random() * 2000))
+      } else if (key === '2606718') {
+        setTimeout(function () {
+          resolve(formAAMOSaboutasthma)
+        }, Math.floor(Math.random() * 2000))
+      } else if (key === '2613568') {
+        setTimeout(function () {
+          resolve(formAAMOSaboutyou)
+        }, Math.floor(Math.random() * 2000))
+      } else if (key === '2608088') {
+        setTimeout(function () {
+          resolve(formAAMOSdaily)
+        }, Math.floor(Math.random() * 2000))
+      } else if (key === '2707817') {
+        setTimeout(function () {
+          resolve(formAAMOSweekly)
         }, Math.floor(Math.random() * 2000))
       } else {
         reject(new Error('Questionnaire not found'))
