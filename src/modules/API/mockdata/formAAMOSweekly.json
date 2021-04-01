@@ -23,16 +23,9 @@
                 "en": "",
                 "sv": ""
             },
-            "type": "freetext",
-            "answerChoices": [
-                {
-                    "id": "Q1A1",
-                    "text": {
-                        "en": "",
-                        "sv": ""
-                    }
-                }
-            ]
+            "type": "number",
+            "min": 0,
+            "max": 7
         },
         {
             "id": "Q2",
@@ -43,15 +36,9 @@
                 "en": ""
             },
             "footer": {},
-            "type": "freetext",
-            "answerChoices": [
-                {
-                    "id": "Q2A1",
-                    "text": {
-                        "en": ""
-                    }
-                }
-            ]
+            "type": "number",
+            "min": 0,
+            "max": 7
         },
         {
             "id": "Q3",
@@ -62,15 +49,9 @@
                 "en": ""
             },
             "footer": {},
-            "type": "freetext",
-            "answerChoices": [
-                {
-                    "id": "Q3A1",
-                    "text": {
-                        "en": ""
-                    }
-                }
-            ]
+            "type": "number",
+            "min": 0,
+            "max": 7
         },
         {
             "id": "Q4",

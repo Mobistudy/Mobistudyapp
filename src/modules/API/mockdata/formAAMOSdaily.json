@@ -303,27 +303,9 @@
                 },
                 {
                     "id": "Q6A19",
+                    "includeFreeText":true,
                     "text": {
                         "en": "Other"
-                    }
-                }
-            ]
-        },
-        {
-            "id": "Q7",
-            "text": {
-                "en": "What other asthma triggers did you encounter today/ (If Other)"
-            },
-            "helper": {
-                "en": "If you answered \"Other\" in the previous question, please specify."
-            },
-            "footer": {},
-            "type": "freetext",
-            "answerChoices": [
-                {
-                    "id": "Q7A1",
-                    "text": {
-                        "en": ""
                     }
                 }
             ]
