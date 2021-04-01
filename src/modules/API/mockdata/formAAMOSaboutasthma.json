@@ -1,0 +1,424 @@
+{
+    "teamKey": "2402037",
+    "name": {
+        "en": "About your asthma",
+        "sv": ""
+    },
+    "description": {
+        "en": "Questionnaire about your asthma condition",
+        "sv": ""
+    },
+    "questions": [
+        {
+            "id": "Q1",
+            "text": {
+                "en": "Do you think of your asthma as:",
+                "sv": ""
+            },
+            "helper": {
+                "en": "",
+                "sv": ""
+            },
+            "footer": {
+                "en": "",
+                "sv": ""
+            },
+            "type": "singleChoice",
+            "answerChoices": [
+                {
+                    "id": "Q1A1",
+                    "text": {
+                        "en": "Very mild",
+                        "sv": ""
+                    }
+                },
+                {
+                    "id": "Q1A2",
+                    "text": {
+                        "en": "Mild"
+                    }
+                },
+                {
+                    "id": "Q1A3",
+                    "text": {
+                        "en": "Moderate"
+                    }
+                },
+                {
+                    "id": "Q1A4",
+                    "text": {
+                        "en": "Severe"
+                    }
+                },
+                {
+                    "id": "Q1A5",
+                    "text": {
+                        "en": "Very severe"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q2",
+            "text": {
+                "en": "What triggers your asthma?"
+            },
+            "helper": {
+                "en": "Select all that apply"
+            },
+            "footer": {},
+            "type": "multiChoice",
+            "answerChoices": [
+                {
+                    "id": "Q2A1",
+                    "text": {
+                        "en": "A cold"
+                    }
+                },
+                {
+                    "id": "Q2A2",
+                    "text": {
+                        "en": "Exercise"
+                    }
+                },
+                {
+                    "id": "Q2A3",
+                    "text": {
+                        "en": "Being more active than usual"
+                    }
+                },
+                {
+                    "id": "Q2A4",
+                    "text": {
+                        "en": "Strong smells"
+                    }
+                },
+                {
+                    "id": "Q2A5",
+                    "text": {
+                        "en": "Exhaust fumes"
+                    }
+                },
+                {
+                    "id": "Q2A6",
+                    "text": {
+                        "en": "House dust"
+                    }
+                },
+                {
+                    "id": "Q2A7",
+                    "text": {
+                        "en": "Dogs"
+                    }
+                },
+                {
+                    "id": "Q2A8",
+                    "text": {
+                        "en": "Cats"
+                    }
+                },
+                {
+                    "id": "Q2A9",
+                    "text": {
+                        "en": "Other furry/feathered animals"
+                    }
+                },
+                {
+                    "id": "Q2A10",
+                    "text": {
+                        "en": "Feathers"
+                    }
+                },
+                {
+                    "id": "Q2A11",
+                    "text": {
+                        "en": "Mould"
+                    }
+                },
+                {
+                    "id": "Q2A12",
+                    "text": {
+                        "en": "Pollen from trees grass or weeds"
+                    }
+                },
+                {
+                    "id": "Q2A13",
+                    "text": {
+                        "en": "Extreme heat"
+                    }
+                },
+                {
+                    "id": "Q2A14",
+                    "text": {
+                        "en": "Extreme cold"
+                    }
+                },
+                {
+                    "id": "Q2A15",
+                    "text": {
+                        "en": "Changes in weather"
+                    }
+                },
+                {
+                    "id": "Q2A16",
+                    "text": {
+                        "en": "Around the time of my period"
+                    }
+                },
+                {
+                    "id": "Q2A17",
+                    "text": {
+                        "en": "Poor air quality"
+                    }
+                },
+                {
+                    "id": "Q2A18",
+                    "text": {
+                        "en": "Someone smoking near me"
+                    }
+                },
+                {
+                    "id": "Q2A19",
+                    "text": {
+                        "en": "Foods"
+                    }
+                },
+                {
+                    "id": "Q2A20",
+                    "text": {
+                        "en": "Stress"
+                    }
+                },
+                {
+                    "id": "Q2A21",
+                    "text": {
+                        "en": "Feeling sad, angry, excited, tense"
+                    }
+                },
+                {
+                    "id": "Q2A22",
+                    "text": {
+                        "en": "Laughter"
+                    }
+                },
+                {
+                    "id": "Q2A23",
+                    "text": {
+                        "en": "I don't know what triggers my asthma"
+                    }
+                },
+                {
+                    "id": "Q2A24",
+                    "text": {
+                        "en": "Other"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q3",
+            "text": {
+                "en": "What triggers your asthma? (If Other)"
+            },
+            "helper": {
+                "en": "If you answered \"Other\" in the previous question, please specify."
+            },
+            "footer": {},
+            "type": "freetext",
+            "answerChoices": [
+                {
+                    "id": "Q3A1",
+                    "text": {
+                        "en": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q4",
+            "text": {
+                "en": "Have you been hospitalised for asthma in the past 12 months?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "singleChoice",
+            "answerChoices": [
+                {
+                    "id": "Q4A1",
+                    "text": {
+                        "en": "Yes"
+                    }
+                },
+                {
+                    "id": "Q4A2",
+                    "text": {
+                        "en": "No"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q5",
+            "text": {
+                "en": "Have you been to the A&E (emergency department) for asthma in the past 12 months?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "singleChoice",
+            "answerChoices": [
+                {
+                    "id": "Q5A1",
+                    "text": {
+                        "en": "Yes"
+                    }
+                },
+                {
+                    "id": "Q5A2",
+                    "text": {
+                        "en": "No"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q6",
+            "text": {
+                "en": "Have you had a course of corticosteroids (Prednisone, etc.) for three days or more for an asthma attack in the past 12 months?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "singleChoice",
+            "answerChoices": [
+                {
+                    "id": "Q6A1",
+                    "text": {
+                        "en": "Yes"
+                    }
+                },
+                {
+                    "id": "Q6A2",
+                    "text": {
+                        "en": "No"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q7",
+            "text": {
+                "en": "In the past month, have you had difficulty sleeping because of your asthma symptoms (including cough)?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "singleChoice",
+            "answerChoices": [
+                {
+                    "id": "Q7A1",
+                    "text": {
+                        "en": "Yes"
+                    }
+                },
+                {
+                    "id": "Q7A2",
+                    "text": {
+                        "en": "No"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q8",
+            "text": {
+                "en": "In the past month, have you had your usual asthma symptoms during the day (cough, wheeze, chest tightness, or breathlessness)?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "singleChoice",
+            "answerChoices": [
+                {
+                    "id": "Q8A1",
+                    "text": {
+                        "en": "Yes"
+                    }
+                },
+                {
+                    "id": "Q8A2",
+                    "text": {
+                        "en": "No"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q9",
+            "text": {
+                "en": "In the past month, has your asthma interfered with your usual activities (e.g. housework, work/school, etc.)?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "singleChoice",
+            "answerChoices": [
+                {
+                    "id": "Q9A1",
+                    "text": {
+                        "en": "Yes"
+                    }
+                },
+                {
+                    "id": "Q9A2",
+                    "text": {
+                        "en": "No"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q10",
+            "text": {
+                "en": "What is your personal best peak flow (PEF) measurement?"
+            },
+            "helper": {
+                "en": "Average personal best peak flow ranges between 300 and 700. Units: litres of air breathed out per minute, L/min"
+            },
+            "footer": {},
+            "type": "freetext"
+        },
+        {
+            "id": "Q11",
+            "text": {
+                "en": "How old were you when first diagnosed with asthma, or when you had your first symptoms?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "freetext"
+        },
+        {
+            "id": "Q12",
+            "text": {
+                "en": "How many different relief inhalers (“blue puffer”) do you use on a regular basis?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "number",
+            "min": 10,
+            "max": 1000
+        }
+    ],
+    "created": "2021-03-29T17:35:19.461Z"
+}
