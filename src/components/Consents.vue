@@ -185,11 +185,6 @@ export default {
         } else {
           try {
             this.value.reminders = await notifications.requestPermission()
-            this.$q.notify({
-              color: 'positive',
-              message: this.$i18n.t('studies.consent.OSPermissionGiven'),
-              icon: 'check'
-            })
           } catch (error) {
             console.error('Cannot get authorisation for sending reminders', error)
             this.$q.notify({
