@@ -1,42 +1,10 @@
 {
-    "consent": {
-        "invitation": {
-            "en": "",
-            "sv": ""
-        },
-        "privacyPolicy": {
-            "en": "The University of Edinburgh is the data controller for this study. You can read the University of Edinburgh’s data policy at https://www.ed.ac.uk/information-services/about/policies-and-regulations/research-data-policy. \n\nData gathered with Mobistudy will be stored at Malmö University, then copied to the University of Edinburgh. Mobistudy is GDPR compliant organisation and they must follow our rules about keeping your information safe. To safeguard rights, Mobistudy will only collect the minimum of information that identifies you (your name and email address) and this personal data will be detached from the questionnaire data and stored separately. The data will remain encrypted at storage and in transfer. Your data will remain on Mobistudy for as long as you keep your Mobistudy profile. You can read Mobistudy’s privacy policy at https://mobistudy.org/appPrivacyPolicy.html. Only the research team will have access to personal data, which will be securely destroyed three years after the end of the study.\n\nThe date, time, and IP address of your login and when you send data in Mobistudy will be logged for security reasons and kept for 5 years. The study team can’t access this data.\nHere’s the data we’ll be collecting in phase 1:\n•Height, weight, ethnic group, smoking history, about your asthma at the start of phase 1 using Mobistudy\n•Daily asthma questionnaire using Mobistudy\n•Weekly asthma questionnaire using Mobistudy\n",
-            "sv": ""
-        },
-        "taskItems": [
-            {
-                "description": {
-                    "en": "I agree to answer the About your asthma form, Repeated 1 times. Repeated daily. "
-                },
-                "taskId": 1
-            },
-            {
-                "description": {
-                    "en": "I agree to answer the Daily Questionnaire  form, Until 27 days after you have consented. Repeated daily. "
-                },
-                "taskId": 2
-            },
-            {
-                "description": {
-                    "en": "I agree to answer the About you form, Repeated 1 times. Repeated daily. "
-                },
-                "taskId": 3
-            },
-            {
-                "description": {
-                    "en": "I agree to answer the Weekly Questionnaire form, 7 days after you have consented. Until 29 days after you have consented. Repeated weekly. "
-                },
-                "taskId": 4
-            }
-        ],
-        "extraItems": []
-    },
+    "_key": "8989",
+    "invitationCode": "231206",
+    "invitational": true,
     "createdTS": "2021-03-26T14:22:12.517Z",
+    "teamKey": "2402037",
+    "updatedTS": "2021-03-31T15:29:24.053Z",
     "generalities": {
         "languages": [
             "en"
@@ -106,15 +74,6 @@
             "female",
             "other"
         ],
-        "criteriaQuestions": [
-            {
-                "title": {
-                    "en": "",
-                    "sv": ""
-                },
-                "answer": ""
-            }
-        ],
         "diseases": [
             {
                 "term": "Asthma",
@@ -128,8 +87,6 @@
         "minBMI": 5,
         "maxBMI": 80
     },
-    "invitationCode": "231206",
-    "invitational": true,
     "tasks": [
         {
             "id": 1,
@@ -209,6 +166,41 @@
             }
         }
     ],
-    "teamKey": "2402037",
-    "updatedTS": "2021-03-31T15:29:24.053Z"
+    "consent": {
+        "invitation": {
+            "en": "",
+            "sv": ""
+        },
+        "privacyPolicy": {
+            "en": "The University of Edinburgh is the data controller for this study. You can read the University of Edinburgh’s data policy at https://www.ed.ac.uk/information-services/about/policies-and-regulations/research-data-policy. \n\nData gathered with Mobistudy will be stored at Malmö University, then copied to the University of Edinburgh. Mobistudy is GDPR compliant organisation and they must follow our rules about keeping your information safe. To safeguard rights, Mobistudy will only collect the minimum of information that identifies you (your name and email address) and this personal data will be detached from the questionnaire data and stored separately. The data will remain encrypted at storage and in transfer. Your data will remain on Mobistudy for as long as you keep your Mobistudy profile. You can read Mobistudy’s privacy policy at https://mobistudy.org/appPrivacyPolicy.html. Only the research team will have access to personal data, which will be securely destroyed three years after the end of the study.\n\nThe date, time, and IP address of your login and when you send data in Mobistudy will be logged for security reasons and kept for 5 years. The study team can’t access this data.\nHere’s the data we’ll be collecting in phase 1:\n•Height, weight, ethnic group, smoking history, about your asthma at the start of phase 1 using Mobistudy\n•Daily asthma questionnaire using Mobistudy\n•Weekly asthma questionnaire using Mobistudy\n",
+            "sv": ""
+        },
+        "taskItems": [
+            {
+                "description": {
+                    "en": "I agree to answer the About your asthma form, Repeated 1 times. Repeated daily. "
+                },
+                "taskId": 1
+            },
+            {
+                "description": {
+                    "en": "I agree to answer the Daily Questionnaire  form, Until 27 days after you have consented. Repeated daily. "
+                },
+                "taskId": 2
+            },
+            {
+                "description": {
+                    "en": "I agree to answer the About you form, Repeated 1 times. Repeated daily. "
+                },
+                "taskId": 3
+            },
+            {
+                "description": {
+                    "en": "I agree to answer the Weekly Questionnaire form, 7 days after you have consented. Until 29 days after you have consented. Repeated weekly. "
+                },
+                "taskId": 4
+            }
+        ],
+        "extraItems": []
+    }
 }

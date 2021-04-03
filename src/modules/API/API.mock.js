@@ -27,12 +27,13 @@ export default {
       let err = new Error('bad credentials')
       err.response = { status: 401 }
       throw err
-    }
-    console.log('API - Logging in')
-    return {
-      _key: '1231232',
-      email: 'jameson@test.test',
-      token: 'asdasdasdasdasd'
+    } else {
+      console.log('API - Logging in')
+      return {
+        _key: '1231232',
+        email: 'jameson@test.test',
+        token: 'asdasdasdasdasd'
+      }
     }
   },
 
@@ -177,13 +178,13 @@ export default {
         setTimeout(function () {
           resolve(study9999)
         }, 1000)
-      } else if (studyKey === '8989') {
+      } else if (studyKey === studyAAMOS._key) {
         setTimeout(function () {
           resolve(studyAAMOS)
         }, 1000)
       } else {
         setTimeout(function () {
-          reject(new Error('Study not found'))
+          reject(new Error('Study ' + studyKey + ' not found'))
         }, 500)
       }
     })

@@ -5,17 +5,14 @@
         padding
         class="flex flex-center"
       >
-        <p
-          class="q-title q-mt-lg"
-          style="text-align: center"
-        >
+        <div class="text-center">
           <img
             src="logos/logo.svg"
             style="width:30vw; max-width:150px;"
-          ><br />
-        </p>
+          >
+          <div class="q-title text-h5 text-center">Mobistudy v {{appVersion}}</div>
+        </div>
         <div style="width: 90vw">
-          <p class="text-h5">{{ $t('accountMgmt.login.login') }}</p>
           <q-input
             v-model="username"
             :label="$t('accountMgmt.email')"
@@ -78,7 +75,7 @@ import { required } from 'vuelidate/lib/validators'
 import DB from 'modules/db'
 import API from 'modules/API/API'
 import userinfo from 'modules/userinfo'
-import notifications from 'modules/notifications'
+import notifications from 'modules/notifications/notifications'
 
 export default {
   name: 'LoginPage',
@@ -90,6 +87,11 @@ export default {
       username: '',
       password: '',
       error: false
+    }
+  },
+  computed: {
+    appVersion () {
+      return process.env.APP_VERSION
     }
   },
   validations: {
