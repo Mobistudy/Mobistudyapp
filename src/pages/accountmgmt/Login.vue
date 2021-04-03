@@ -75,7 +75,7 @@ import { required } from 'vuelidate/lib/validators'
 import DB from 'modules/db'
 import API from 'modules/API/API'
 import userinfo from 'modules/userinfo'
-import notifications from 'modules/notifications'
+import notifications from 'modules/notifications/notifications'
 
 export default {
   name: 'LoginPage',

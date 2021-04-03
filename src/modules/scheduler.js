@@ -2,7 +2,7 @@
 import { i18n } from '../boot/i18n.js'
 import * as moment from 'moment'
 import { RRule } from 'rrule'
-import notifications from 'modules/notifications'
+import notifications from 'modules/notifications/notifications'
 import { Platform } from 'quasar'
 import HealthDataEnum from './healthDataTypesEnum'
 
