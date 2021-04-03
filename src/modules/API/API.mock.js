@@ -205,7 +205,7 @@ export default {
       if (invitationalCode === study9999.invitationCode) {
         resolve(study9999)
       } else if (invitationalCode === studyAAMOS.invitationCode) {
-        resolve(study9999)
+        resolve(studyAAMOS)
       } else {
         reject(new Error('Cannot retrieve invitational study based on code.'))
       }
