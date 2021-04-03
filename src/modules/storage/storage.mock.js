@@ -1,8 +1,9 @@
-const storage = window.localStorage
-
+'use strict'
 // use these flags for testing:
 const FAIL_INIT = false
 const DB_CORRUPTED = false
+
+let memStorage = {}
 
 export async function init () {
   if (FAIL_INIT) return Promise.reject()
@@ -15,17 +16,21 @@ export async function getItem (key) {
     document.dispatchEvent(event)
     return Promise.reject()
   }
-  return Promise.resolve(JSON.parse(storage.getItem(key)))
+  if (memStorage[key]) return Promise.resolve(JSON.parse(memStorage[key]))
+  else return Promise.resolve()
 }
 
 export async function setItem (key, value) {
-  return Promise.resolve(storage.setItem(key, JSON.stringify(value)))
+  memStorage[key] = JSON.stringify(value)
+  return Promise.resolve()
 }
 
 export async function removeItem (key) {
-  return Promise.resolve(storage.removeItem(key))
+  delete memStorage[key]
+  return Promise.resolve()
 }
 
 export async function clear () {
-  return Promise.resolve(storage.clear())
+  memStorage = {}
+  return Promise.resolve()
 }
