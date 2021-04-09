@@ -32,7 +32,6 @@
             :min="currentQuestion.min"
             :max="currentQuestion.max"
             :rules="[
-              val => val !== null && val !== '' || $t('studies.tasks.form.freeTextExplanation'),
               val => val >= currentQuestion.min || $t('studies.tasks.form.numberTooSmall'),
               val => val <= currentQuestion.max || $t('studies.tasks.form.numberTooBig')
             ]"
@@ -49,7 +48,8 @@
               :label="answerChoice.text[$i18n.locale]"
             />
             <q-input
-              v-show="singleChoiceAnswer == answerChoice.id && answerChoice.includeFreeText"
+              v-show="answerChoice.includeFreeText"
+              :disable="singleChoiceAnswer !== answerChoice.id"
               v-model="singleChoiceAnswerFreeText"
               type="textarea"
               :label="$t('studies.tasks.form.freeTextExplanation')"
@@ -68,7 +68,8 @@
               :label="answerChoice.text[$i18n.locale]"
             />
             <q-input
-              v-show="multiChoiceAnswer.includes(answerChoice.id) && answerChoice.includeFreeText"
+              v-show="answerChoice.includeFreeText"
+              :disable = "!multiChoiceAnswer.includes(answerChoice.id)"
               v-model="multiChoiceAnswerFreeText[index]"
               type="textarea"
               :label="$t('studies.tasks.form.freeTextExplanation')"
