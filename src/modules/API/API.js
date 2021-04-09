@@ -133,5 +133,10 @@ export default {
   // send data from po60 stored data
   sendPO60Data: async function (data) {
     return axios.post(BASE_URL + '/po60Data', data, axiosConfig)
+  },
+
+  // send data from Peak Flow Meter
+  sendPeakFlowData: async function (data) {
+    return axios.post(BASE_URL + '/PeakFlowData', data, axiosConfig)
   }
 }

@@ -5,6 +5,7 @@ import qcstTask from './tasks/qcst.mjs'
 import miband3Task from './tasks/miband3.mjs'
 import dataQueryTask from './tasks/dataQuery.mjs'
 import po60Task from './tasks/po60.mjs'
+import peakflowTask from './tasks/peakflow.mjs'
 
 let studies = {
   studies: {
@@ -85,6 +86,7 @@ let studies = {
 studies.studies.tasks.smwt = smwtTask
 studies.studies.tasks.qcst = qcstTask
 studies.studies.tasks.miband3 = miband3Task
+studies.studies.tasks.peakflow = peakflowTask
 studies.studies.tasks.dataQuery = dataQueryTask
 studies.studies.tasks.po60 = po60Task
 
