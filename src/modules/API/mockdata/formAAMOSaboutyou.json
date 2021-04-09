@@ -24,145 +24,257 @@
                 "sv": ""
             },
             "type": "singleChoice",
-            "nextDefaultId": "Q3",
+            "nextDefaultId": "Q7",
             "answerChoices": [
                 {
                     "id": "Q1A1",
                     "text": {
-                        "en": "Asian/Asian British - Indian",
+                        "en": "Asian/Asian British",
                         "sv": ""
-                    }
+                    },
+                    "nextQuestionId": "Q2"
                 },
                 {
                     "id": "Q1A2",
                     "text": {
-                        "en": "Asian/Asian British - Pakistani"
-                    }
+                        "en": "Black/African/Caribbean/Black British"
+                    },
+                    "nextQuestionId": "Q3"
                 },
                 {
                     "id": "Q1A3",
                     "text": {
-                        "en": "Asian/Asian British - Bangladeshi"
-                    }
+                        "en": "Mixed/multiple ethnic groups"
+                    },
+                    "nextQuestionId": "Q4"
                 },
                 {
                     "id": "Q1A4",
                     "text": {
-                        "en": "Asian/Asian British - Chinese"
-                    }
-                },
-                {
-                    "id": "Q1A5",
-                    "text": {
-                        "en": "Any other Asian background, please describe"
+                        "en": "White"
                     },
-                    "nextQuestionId": "Q2"
-                },
-                {
-                    "id": "Q1A6",
-                    "text": {
-                        "en": "Black/African/Caribbean/Black British - African"
-                    }
-                },
-                {
-                    "id": "Q1A7",
-                    "text": {
-                        "en": "Black/African/Caribbean/Black British - Caribbean"
-                    }
-                },
-                {
-                    "id": "Q1A8",
-                    "text": {
-                        "en": "Any other Black /African/Caribbean background, please describe"
-                    },
-                    "nextQuestionId": "Q2"
-                },
-                {
-                    "id": "Q1A9",
-                    "text": {
-                        "en": "Mixed/multiple ethnic groups - White and Black Caribbean"
-                    }
-                },
-                {
-                    "id": "Q1A10",
-                    "text": {
-                        "en": "Mixed/multiple ethnic groups - White and Black African"
-                    }
-                },
-                {
-                    "id": "Q1A11",
-                    "text": {
-                        "en": "Mixed/multiple ethnic groups - White and Asian"
-                    }
-                },
-                {
-                    "id": "Q1A12",
-                    "text": {
-                        "en": "Any other Mixed/multiple ethnic background, please describe"
-                    },
-                    "nextQuestionId": "Q2"
-                },
-                {
-                    "id": "Q1A13",
-                    "text": {
-                        "en": "White - British/ English/ Northern Irish/ Scottish/ Welsh"
-                    }
-                },
-                {
-                    "id": "Q1A14",
-                    "text": {
-                        "en": "White - Irish"
-                    }
-                },
-                {
-                    "id": "Q1A15",
-                    "text": {
-                        "en": "White - Gypsy or Irish Traveller"
-                    }
-                },
-                {
-                    "id": "Q1A16",
-                    "text": {
-                        "en": "Any other White ethnic group, please describe "
-                    },
-                    "nextQuestionId": "Q2"
+                    "nextQuestionId": "Q5"
                 },
                 {
                     "id": "Q1A17",
                     "text": {
-                        "en": "Other ethnic group - Arab"
-                    }
-                },
-                {
-                    "id": "Q1A18",
-                    "text": {
-                        "en": "Any other ethnic group, please describe"
+                        "en": "Other ethnic group"
                     },
-                    "nextQuestionId": "Q2"
+                    "nextQuestionId": "Q6"
                 }
             ]
         },
         {
-            "id": "Q2",
-            "text": {
-                "en": "Please describe your ethnic group or background"
-            },
-            "helper": {
-                "en": ""
-            },
-            "footer": {},
-            "type": "freetext",
-            "answerChoices": [
-                {
-                    "id": "Q2A1",
-                    "text": {
-                        "en": ""
-                    }
-                }
-            ]
+          "id": "Q2",
+          "text": {
+              "en": "What is your ethnic group?",
+              "sv": ""
+          },
+          "helper": {
+              "en": "Choose one option that best describes your ethnic group or background",
+              "sv": ""
+          },
+          "footer": {
+              "en": "Previous answer: Asian/Asian British",
+              "sv": ""
+          },
+          "type": "singleChoice",
+          "nextDefaultId": "Q7",
+          "answerChoices": [
+              {
+                  "id": "Q2A1",
+                  "text": {
+                      "en": "Indian",
+                      "sv": ""
+                  }
+              },
+              {
+                  "id": "Q2A2",
+                  "text": {
+                      "en": "Pakistani"
+                  }
+              },
+              {
+                  "id": "Q2A3",
+                  "text": {
+                      "en": "Bangladeshi"
+                  }
+              },
+              {
+                  "id": "Q2A4",
+                  "text": {
+                      "en": "Chinese"
+                  }
+              },
+              {
+                  "id": "Q2A5",
+                  "includeFreeText": true,
+                  "text": {
+                      "en": "Any other Asian background"
+                  }
+              }
+          ]
         },
         {
-            "id": "Q3",
+          "id": "Q3",
+          "text": {
+              "en": "What is your ethnic group?",
+              "sv": ""
+          },
+          "helper": {
+              "en": "Choose one option that best describes your ethnic group or background",
+              "sv": ""
+          },
+          "footer": {
+              "en": "Previous answer: Black/African/Caribbean/Black British",
+              "sv": ""
+          },
+          "type": "singleChoice",
+          "nextDefaultId": "Q7",
+          "answerChoices": [
+              {
+                  "id": "Q3A1",
+                  "text": {
+                      "en": "African"
+                  }
+              },
+              {
+                  "id": "Q3A2",
+                  "text": {
+                      "en": "Caribbean"
+                  }
+              },
+              {
+                  "id": "Q3A3",
+                  "includeFreeText": true,
+                  "text": {
+                      "en": "Any other Black /African/Caribbean background"
+                  }
+              }
+          ]
+        },
+        {
+          "id": "Q4",
+          "text": {
+              "en": "What is your ethnic group?",
+              "sv": ""
+          },
+          "helper": {
+              "en": "Choose one option that best describes your ethnic group or background",
+              "sv": ""
+          },
+          "footer": {
+              "en": "Previous answer: Mixed/multiple ethnic groups",
+              "sv": ""
+          },
+          "type": "singleChoice",
+          "nextDefaultId": "Q7",
+          "answerChoices": [
+              {
+                  "id": "Q4A1",
+                  "text": {
+                      "en": "White and Black Caribbean"
+                  }
+              },
+              {
+                  "id": "Q4A2",
+                  "text": {
+                      "en": "White and Black African"
+                  }
+              },
+              {
+                  "id": "Q4A3",
+                  "text": {
+                      "en": "White and Asian"
+                  }
+              },
+              {
+                  "id": "Q4A4",
+                  "includeFreeText": true,
+                  "text": {
+                      "en": "Any other Mixed/multiple ethnic background"
+                  }
+              }
+          ]
+        },
+        {
+          "id": "Q5",
+          "text": {
+              "en": "What is your ethnic group?",
+              "sv": ""
+          },
+          "helper": {
+              "en": "Choose one option that best describes your ethnic group or background",
+              "sv": ""
+          },
+          "footer": {
+              "en": "Previous answer: White",
+              "sv": ""
+          },
+          "type": "singleChoice",
+          "nextDefaultId": "Q7",
+          "answerChoices": [
+              {
+                  "id": "Q5A1",
+                  "text": {
+                      "en": "British/ English/ Northern Irish/ Scottish/ Welsh"
+                  }
+              },
+              {
+                  "id": "Q5A2",
+                  "text": {
+                      "en": "Irish"
+                  }
+              },
+              {
+                  "id": "Q5A3",
+                  "text": {
+                      "en": "Gypsy or Irish Traveller"
+                  }
+              },
+              {
+                  "id": "Q5A4",
+                  "includeFreeText": true,
+                  "text": {
+                      "en": "Any other White ethnic group"
+                  }
+              }
+          ]
+        },
+        {
+          "id": "Q6",
+          "text": {
+              "en": "What is your ethnic group?",
+              "sv": ""
+          },
+          "helper": {
+              "en": "Choose one option that best describes your ethnic group or background",
+              "sv": ""
+          },
+          "footer": {
+              "en": "Previous answer: Other ethnic group",
+              "sv": ""
+          },
+          "type": "singleChoice",
+          "nextDefaultId": "Q7",
+          "answerChoices": [
+              {
+                  "id": "Q6A1",
+                  "text": {
+                      "en": "Arab"
+                  }
+              },
+              {
+                  "id": "Q6A2",
+                  "includeFreeText": true,
+                  "text": {
+                      "en": "Any other ethnic group"
+                  }
+              }
+          ]
+        },
+        {
+            "id": "Q7",
             "text": {
                 "en": "What is your smoking status?"
             },
@@ -171,31 +283,31 @@
             },
             "footer": {},
             "type": "singleChoice",
-            "nextDefaultId": "Q5",
+            "nextDefaultId": "Q9",
             "answerChoices": [
                 {
-                    "id": "Q3A1",
+                    "id": "Q7A1",
                     "text": {
                         "en": "Never (<100 cigarettes in lifetime)"
                     }
                 },
                 {
-                    "id": "Q3A2",
+                    "id": "Q7A2",
                     "text": {
                         "en": "Current"
                     }
                 },
                 {
-                    "id": "Q3A3",
+                    "id": "Q7A3",
                     "text": {
                         "en": "Previous"
                     },
-                    "nextQuestionId": "Q4"
+                    "nextQuestionId": "Q8"
                 }
             ]
         },
         {
-            "id": "Q4",
+            "id": "Q8",
             "text": {
                 "en": "When did you stop smoking?"
             },
@@ -203,18 +315,12 @@
                 "en": "Which year?"
             },
             "footer": {},
-            "type": "freetext",
-            "answerChoices": [
-                {
-                    "id": "Q4A1",
-                    "text": {
-                        "en": ""
-                    }
-                }
-            ]
+            "type": "number",
+            "min": 1800,
+            "max": 2030
         },
         {
-            "id": "Q5",
+            "id": "Q9",
             "text": {
                 "en": "On average, how many cigarettes do/did you smoke daily?"
             },
@@ -222,18 +328,12 @@
                 "en": ""
             },
             "footer": {},
-            "type": "freetext",
-            "answerChoices": [
-                {
-                    "id": "Q5A1",
-                    "text": {
-                        "en": ""
-                    }
-                }
-            ]
+            "type": "number",
+            "min": 0,
+            "max": 500
         },
         {
-            "id": "Q6",
+            "id": "Q10",
             "text": {
                 "en": "How many years have you been smoking/did you smoke?"
             },
@@ -241,15 +341,9 @@
                 "en": ""
             },
             "footer": {},
-            "type": "freetext",
-            "answerChoices": [
-                {
-                    "id": "Q6A1",
-                    "text": {
-                        "en": ""
-                    }
-                }
-            ]
+            "type": "number",
+            "min": 0,
+            "max": 200
         }
     ],
     "created": "2021-03-29T20:41:10.470Z"
