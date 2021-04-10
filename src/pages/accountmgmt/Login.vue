@@ -143,10 +143,10 @@ export default {
           // profile exists
           await userinfo.setProfile(profile)
           if (profile.studies) await DB.setStudiesParticipation(profile.studies)
-          this.$router.push({ name: 'tasker' })
+          this.$router.replace({ name: 'tasker' })
         } catch (error) {
           if (error.response.status === 404) {
-            this.$router.push('/register_profile')
+            this.$router.replace('/register_profile')
           }
         }
       }
