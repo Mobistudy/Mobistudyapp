@@ -15,7 +15,7 @@
           style="width: 100%"
         >
         <div class="q-my-md text-center">
-          Welcome to Mobistudy! This app allows you to participate to clinical research using your phone.
+          {{$t('intro1')}}
         </div>
         <div style="height:50px;"></div>
 
@@ -27,7 +27,7 @@
           style="width: 100%"
         >
         <div class="q-my-md text-center">
-          Researchers around the world create studies which are proposed to you based on your profile.
+          {{$t('intro2')}}
         </div>
         <div style="height: 50px;"></div>
       </q-carousel-slide>
@@ -37,7 +37,7 @@
           style="width: 100%"
         >
         <div class="q-my-md text-center">
-          You can contribute to the research by collecting data in “tasks” and by sharing that data with the researchers.
+          {{$t('intro3')}}
         </div>
         <div style="height: 50px;"></div>
       </q-carousel-slide>
@@ -47,7 +47,7 @@
           style="width: 100%"
         >
         <div class="q-my-md text-center">
-          All your data is kept secure and you will have complete control over what is shared and when.
+          {{$t('intro4')}}
         </div>
         <div style="height: 50px;"></div>
       </q-carousel-slide>
@@ -57,7 +57,7 @@
         v-show="slide != 'intro1'"
         icon="chevron_left"
         color="primary"
-        label="Back"
+        :label="$t('common.back')"
         @click="prev()"
       />
       <div
@@ -67,7 +67,7 @@
       <q-btn
         :icon-right="slide == 'intro4'? 'arrow_forward' : 'chevron_right'"
         color="primary"
-        :label="slide == 'intro4'? 'Start' : 'Next'"
+        :label="slide == 'intro4'? $t('common.start') : $t('common.next')"
         @click="next()"
       />
     </div>
@@ -76,12 +76,17 @@
 </template>
 
 <script>
+import welcomeIntro from 'i18n/accountMgmt/welcomeIntro'
+
 export default {
   name: 'IntroPage',
   data () {
     return {
       slide: 'intro1'
     }
+  },
+  i18n: {
+    messages: welcomeIntro
   },
   methods: {
     next () {
