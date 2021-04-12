@@ -212,7 +212,9 @@ export default {
       } else if (invitationalCode === studyAAMOS.invitationCode) {
         resolve(studyAAMOS)
       } else {
-        reject(new Error('Cannot retrieve invitational study based on code.'))
+        let err = new Error('Cannot retrieve invitational study based on code.')
+        err.response = { status: 400 }
+        reject(err)
       }
     })
   },
