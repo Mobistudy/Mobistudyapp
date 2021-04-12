@@ -59,8 +59,8 @@ let studies = {
         formCompleted: 'Form completed. Thank you.',
         freeTextExplanation: 'Type your answer',
         removeAnswer: 'Remove answer',
-        numberTooSmall: 'Number too small',
-        numberTooBig: 'Number too big'
+        numberTooSmall: 'Too small',
+        numberTooBig: 'Too big'
       }
     },
     consent: {

@@ -58,7 +58,9 @@ let studies = {
         shortDescription: 'Besvara några frågor',
         formCompleted: 'Formulär slutförd. Tack.',
         freeTextExplanation: 'Skriv ditt svar',
-        removeAnswer: 'Ta bort svar'
+        removeAnswer: 'Ta bort svar',
+        numberTooSmall: 'För litet',
+        numberTooBig: 'För stort'
       }
     },
     consent: {
