@@ -35,8 +35,13 @@ export default {
         navigator.geolocation.getCurrentPosition(() => {
           resolve(true)
         }, (err) => {
-          reject(err)
-        })
+          if (err.code === 3) {
+            // timeout, so permissions should be OK
+            resolve(true)
+          } else {
+            reject(err)
+          }
+        }, { timeout: 2000 })
       })
     },
     startNotifications (options, cbk, error) {
@@ -81,6 +86,8 @@ export default {
             endDate: new Date()
           })
         } else {
+          // to make it more robust, it could stop updates before this
+          // in case the updates are running (very unlikely)
           window.pedometer.startPedometerUpdates(function (data) {
             resolve()
             window.pedometer.stopPedometerUpdates()
