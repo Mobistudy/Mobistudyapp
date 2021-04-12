@@ -286,10 +286,16 @@ export default {
         study = await API.getInvitationalStudy(invitationCode)
       } catch (error) {
         console.error('Error:', error)
-        if (error.response.status === 404) {
+        if (error.response && error.response.status && error.response.status === 404) {
           this.$q.notify({
             color: 'negative',
             message: this.$i18n.t('errors.invitationalStudyNotFound'),
+            icon: 'report_problem'
+          })
+        } else {
+          this.$q.notify({
+            color: 'negative',
+            message: this.$i18n.t('errors.connectionError'),
             icon: 'report_problem'
           })
         }
