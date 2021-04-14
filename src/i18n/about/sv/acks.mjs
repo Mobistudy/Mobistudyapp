@@ -28,7 +28,6 @@ Dessa personer har bidragit till projektet med kod, design och idéer:
 <li><a href="https://www.behance.net/matildasvensson1"> Matilda Svensson</a></li>
 </ul>
 <br>
-<br>
 Denna app har utvecklats med tack till följande projekt med öppen källkod:
 <ul>
 <li><a href="https://cordova.apache.org/">Apache Cordova</a></li>
@@ -49,6 +48,5 @@ Denna app har utvecklats med tack till följande projekt med öppen källkod:
 <li><a href="https://www.npmjs.com/package/cordova-plugin-whitelist">cordova-plugin-whitelist</a></li>
 </ul>
 <br>
-<br>
-Mobistudy:s ikoner skapades av <a href="https://www.behance.net/matildasvensson1"> Matilda Svensson</a>.
+Mobistudy:s ikoner och illustrationer skapades av <a href="https://www.behance.net/matildasvensson1"> Matilda Svensson</a>.
 `
