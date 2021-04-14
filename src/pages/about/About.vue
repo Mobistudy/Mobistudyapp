@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div align="center">
-      <div class="text-center">Mobistudy version{{appVersion}}</div>
+      <div class="q-my-sm text-center">Mobistudy Participants' app version {{appVersion}}</div>
       <div class="q-pa-md">
         <q-btn
           flat
