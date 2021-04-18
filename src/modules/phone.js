@@ -33,10 +33,13 @@ export default {
     async requestPermission () {
       return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(() => {
+          // got a position, permissions should be OK now
           resolve(true)
         }, (err) => {
-          if (err.code === 3) {
-            // timeout, so permissions should be OK
+          if (err.code !== 1) {
+            // code 1 means no permissions
+            // see https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError/code
+            // in all other cases permissions should have been given
             resolve(true)
           } else {
             reject(err)
