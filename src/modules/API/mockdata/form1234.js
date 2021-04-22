@@ -11,11 +11,11 @@ export default {
     {
       id: 'Q1',
       text: {
-        en: 'On average, during the past week, how often did you feel short of breath at rest?',
+        en: 'How many steps do you think you have taken so far today?',
         sv: 'I genomsnitt under den senaste veckan, hur ofta kände du andnöd i vila?'
       },
       helper: {
-        en: 'Choose one option.',
+        en: 'Amount of steps so far.',
         sv: 'Välj ett alternativ.'
       },
       type: 'singleChoice',
@@ -23,43 +23,22 @@ export default {
         {
           id: 'Q1A1',
           text: {
-            en: 'never',
+            en: 'Below 100',
             sv: 'aldrig'
           }
         },
         {
           id: 'Q1A2',
           text: {
-            en: 'hardly ever',
+            en: 'Above 100 but below 500',
             sv: 'nästan aldrig'
           }
         },
         {
           id: 'Q1A3',
           text: {
-            en: 'a few times',
+            en: 'Above 500',
             sv: 'några gånger'
-          }
-        },
-        {
-          id: 'Q1A4',
-          text: {
-            en: 'several times',
-            sv: 'flera gånger'
-          }
-        },
-        {
-          id: 'Q1A5',
-          text: {
-            en: 'many times',
-            sv: 'många gånger'
-          }
-        },
-        {
-          id: 'Q1A6',
-          text: {
-            en: 'almost all the time',
-            sv: 'nästan hela tiden'
           }
         }
       ]
