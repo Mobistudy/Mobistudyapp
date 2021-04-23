@@ -4,7 +4,7 @@
 * Simple DAO from local storage
 * Different implementations of local storage can be used, as long as they are promisified
 */
-import * as storage from 'modules/storage'
+import * as storage from 'modules/storage/storage'
 
 export default {
 

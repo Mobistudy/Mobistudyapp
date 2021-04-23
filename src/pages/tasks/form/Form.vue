@@ -25,6 +25,18 @@
             rows="3"
             outlined
           />
+          <q-input
+            v-show="currentQuestion.type === 'number'"
+            v-model.number="numberAnswer"
+            type="number"
+            :min="currentQuestion.min"
+            :max="currentQuestion.max"
+            :rules="[
+              val => val >= currentQuestion.min || $t('studies.tasks.form.numberTooSmall'),
+              val => val <= currentQuestion.max || $t('studies.tasks.form.numberTooBig')
+            ]"
+            outlined
+          />
           <div
             v-show="currentQuestion.type === 'singleChoice'"
             v-for="(answerChoice, index) in currentQuestion.answerChoices"
@@ -34,6 +46,15 @@
               v-model="singleChoiceAnswer"
               :val="answerChoice.id"
               :label="answerChoice.text[$i18n.locale]"
+            />
+            <q-input
+              v-show="answerChoice.includeFreeText"
+              :disable="singleChoiceAnswer !== answerChoice.id"
+              v-model="singleChoiceAnswerFreeText"
+              type="textarea"
+              :label="$t('studies.tasks.form.freeTextExplanation')"
+              rows="3"
+              outlined
             />
           </div>
           <div
@@ -45,6 +66,15 @@
               v-model="multiChoiceAnswer"
               :val="answerChoice.id"
               :label="answerChoice.text[$i18n.locale]"
+            />
+            <q-input
+              v-show="answerChoice.includeFreeText"
+              :disable = "!multiChoiceAnswer.includes(answerChoice.id)"
+              v-model="multiChoiceAnswerFreeText[index]"
+              type="textarea"
+              :label="$t('studies.tasks.form.freeTextExplanation')"
+              rows="3"
+              outlined
             />
           </div>
           <div
@@ -145,8 +175,11 @@ export default {
       responses: [],
       oldResponses: [],
       freetextAnswer: undefined,
+      numberAnswer: undefined,
       singleChoiceAnswer: undefined,
+      singleChoiceAnswerFreeText: undefined,
       multiChoiceAnswer: [],
+      multiChoiceAnswerFreeText: [],
       finished: false,
       currentQuestion: undefined,
       loading: false,
@@ -190,6 +223,7 @@ export default {
     isAnswered () {
       return (this.currentQuestion.type === 'singleChoice' && this.singleChoiceAnswer) ||
         (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
+        (this.currentQuestion.type === 'number' && (this.numberAnswer || this.numberAnswer === 0)) ||
         (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
         (this.currentQuestion.type === 'textOnly')
     }
@@ -208,12 +242,23 @@ export default {
       }
       if (this.currentQuestion.type === 'freetext') {
         answer.answer = this.freetextAnswer
+      } else if (this.currentQuestion.type === 'number') {
+        answer.answer = this.numberAnswer
       } else if (this.currentQuestion.type === 'singleChoice') {
         let chosenAnswerChoice = this.currentQuestion.answerChoices.find(x => x.id === this.singleChoiceAnswer)
         if (chosenAnswerChoice) {
-          answer.answer = {
-            answerText: chosenAnswerChoice.text,
-            answerId: chosenAnswerChoice.id
+          if (chosenAnswerChoice.includeFreeText) {
+            answer.answer = {
+              answerText: chosenAnswerChoice.text,
+              answerId: chosenAnswerChoice.id,
+              freetextAnswer: this.singleChoiceAnswerFreeText,
+              includeFreeText: true
+            }
+          } else {
+            answer.answer = {
+              answerText: chosenAnswerChoice.text,
+              answerId: chosenAnswerChoice.id
+            }
           }
           if (chosenAnswerChoice.nextQuestionId) nextQuestionId = chosenAnswerChoice.nextQuestionId
         }
@@ -221,10 +266,20 @@ export default {
         answer.answer = []
         for (let answerID of this.multiChoiceAnswer) {
           let chosenAnswerChoice = this.currentQuestion.answerChoices.find(x => x.id === answerID)
-          answer.answer.push({
-            answerText: chosenAnswerChoice.text,
-            answerId: chosenAnswerChoice.id
-          })
+          let chosenAnswerIndex = this.currentQuestion.answerChoices.findIndex(x => x.id === answerID)
+          if (chosenAnswerChoice.includeFreeText) {
+            answer.answer.push({
+              answerText: chosenAnswerChoice.text,
+              answerId: chosenAnswerChoice.id,
+              freetextAnswer: this.multiChoiceAnswerFreeText[chosenAnswerIndex],
+              includeFreeText: true
+            })
+          } else {
+            answer.answer.push({
+              answerText: chosenAnswerChoice.text,
+              answerId: chosenAnswerChoice.id
+            })
+          }
         }
       }
 
@@ -232,8 +287,11 @@ export default {
 
       // reset fields
       this.freetextAnswer = undefined
+      this.numberAnswer = undefined
       this.multiChoiceAnswer = []
       this.singleChoiceAnswer = undefined
+      this.singleChoiceAnswerFreeText = undefined
+      this.multiChoiceAnswerFreeText = []
 
       if (!nextQuestionId) {
         if (this.currentQuestion.id === this.formDescr.questions[(this.formDescr.questions.length - 1)].id) {
@@ -263,8 +321,11 @@ export default {
     back () {
       this.slideName = ''
       this.freetextAnswer = undefined
-      this.multiChoiceAnswer = undefined
+      this.numberAnswer = undefined
+      this.multiChoiceAnswer = []
       this.singleChoiceAnswer = undefined
+      this.singleChoiceAnswerFreeText = undefined
+      this.multiChoiceAnswerFreeText = []
 
       const lastResponse = this.responses[this.responses.length - 1]
       this.currentQuestion = this.formDescr.questions.find(x => x.id === lastResponse.questionId)
@@ -273,10 +334,23 @@ export default {
       if (lastResponse.answer) {
         if (this.currentQuestion.type === 'freetext') {
           this.freetextAnswer = lastResponse.answer
+        } else if (this.currentQuestion.type === 'number') {
+          this.numberAnswer = lastResponse.answer
         } else if (this.currentQuestion.type === 'singleChoice') {
           this.singleChoiceAnswer = lastResponse.answer.answerId
+          if (lastResponse.answer.includeFreeText) {
+            this.singleChoiceAnswerFreeText = lastResponse.answer.freetextAnswer
+          }
         } else if (this.currentQuestion.type === 'multiChoice') {
           this.multiChoiceAnswer = lastResponse.answer.map(x => x.answerId)
+          // populate multiChoiceAnswerFreeText
+          if (lastResponse.answer.some(x => x.includeFreeText)) {
+            for (let answerID of this.multiChoiceAnswer) {
+              let chosenAnswerIndex = this.currentQuestion.answerChoices.findIndex(x => x.id === answerID)
+              let lastResponseIndex = lastResponse.answer.findIndex(x => x.answerId === answerID)
+              this.multiChoiceAnswerFreeText[chosenAnswerIndex] = lastResponse.answer[lastResponseIndex].freetextAnswer
+            }
+          }
         }
       }
 
@@ -313,9 +387,16 @@ export default {
       }
     },
     clearAnswer () {
-      if (this.currentQuestion.type === 'singleChoice') this.singleChoiceAnswer = undefined
+      if (this.currentQuestion.type === 'singleChoice') {
+        this.singleChoiceAnswer = undefined
+        this.singleChoiceAnswerFreeText = undefined
+      }
       if (this.currentQuestion.type === 'freetext') this.freetextAnswer = undefined
-      if (this.currentQuestion.type === 'multiChoice') this.multiChoiceAnswer = []
+      if (this.currentQuestion.type === 'number') this.numberAnswer = undefined
+      if (this.currentQuestion.type === 'multiChoice') {
+        this.multiChoiceAnswer = []
+        this.multiChoiceAnswerFreeText = []
+      }
     }
   }
 }

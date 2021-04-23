@@ -1,42 +1,11 @@
 {
-    "consent": {
-        "invitation": {
-            "en": "",
-            "sv": ""
-        },
-        "privacyPolicy": {
-            "en": "The University of Edinburgh is the data controller for this study. You can read the University of Edinburgh’s data policy at https://www.ed.ac.uk/information-services/about/policies-and-regulations/research-data-policy. \n\nData gathered with Mobistudy will be stored at Malmö University, then copied to the University of Edinburgh. Mobistudy is GDPR compliant organisation and they must follow our rules about keeping your information safe. To safeguard rights, Mobistudy will only collect the minimum of information that identifies you (your name and email address) and this personal data will be detached from the questionnaire data and stored separately. The data will remain encrypted at storage and in transfer. Your data will remain on Mobistudy for as long as you keep your Mobistudy profile. You can read Mobistudy’s privacy policy at https://mobistudy.org/appPrivacyPolicy.html. Only the research team will have access to personal data, which will be securely destroyed three years after the end of the study.\n\nThe date, time, and IP address of your login and when you send data in Mobistudy will be logged for security reasons and kept for 5 years. The study team can’t access this data.\nHere’s the data we’ll be collecting in phase 1:\n•Height, weight, ethnic group, smoking history, about your asthma at the start of phase 1 using Mobistudy\n•Daily asthma questionnaire using Mobistudy\n•Weekly asthma questionnaire using Mobistudy\n",
-            "sv": ""
-        },
-        "taskItems": [
-            {
-                "description": {
-                    "en": "I agree to answer the About your asthma form, Repeated 1 times. Repeated daily. "
-                },
-                "taskId": 1
-            },
-            {
-                "description": {
-                    "en": "I agree to answer the Daily Questionnaire  form, Until 27 days after you have consented. Repeated daily. "
-                },
-                "taskId": 2
-            },
-            {
-                "description": {
-                    "en": "I agree to answer the About you form, Repeated 1 times. Repeated daily. "
-                },
-                "taskId": 3
-            },
-            {
-                "description": {
-                    "en": "I agree to answer the Weekly Questionnaire form, 7 days after you have consented. Until 29 days after you have consented. Repeated weekly. "
-                },
-                "taskId": 4
-            }
-        ],
-        "extraItems": []
-    },
+    "_key": "2440521",
+    "invitationCode": "231206",
+    "invitational": true,
     "createdTS": "2021-03-26T14:22:12.517Z",
+    "teamKey": "2402037",
+    "updatedTS": "2021-04-22T14:08:19.137Z",
+    "numberOfParticipants": "300",
     "generalities": {
         "languages": [
             "en"
@@ -95,7 +64,50 @@
             }
         ],
         "startDate": "2021-04-01",
-        "endDate": "2021-05-01"
+        "endDate": "2021-12-31"
+    },
+    "consent": {
+        "invitation": {
+            "en": "Thank you for your interest in participating in phase 1 of the AAMOS-00 study. In this month, we will ask you to fill in a daily and weekly questionnaire about your asthma symptoms and condition. \n\nWe know it’s hard to complete questions every day, and we expect that most people will forget or not be able to complete some readings. However, for phase 2, we need to recruit people able to complete daily questionnaires as regularly as possible and this is one of the things we will consider when we choose people to help with it.",
+            "sv": ""
+        },
+        "privacyPolicy": {
+            "en": "The University of Edinburgh is the data controller for this study. You can read the University of Edinburgh’s data policy at https://www.ed.ac.uk/information-services/about/policies-and-regulations/research-data-policy. \n\nData gathered with Mobistudy will be stored at Malmö University, then copied to the University of Edinburgh. Mobistudy is GDPR compliant organisation and they must follow our rules about keeping your information safe. To safeguard rights, Mobistudy will only collect the minimum of information that identifies you (your name and email address) and this personal data will be detached from the questionnaire data and stored separately. The data will remain encrypted at storage and in transfer. Your data will remain on Mobistudy for as long as you keep your Mobistudy profile. You can read Mobistudy’s privacy policy at https://mobistudy.org/appPrivacyPolicy.html. Only the research team will have access to personal data, which will be securely destroyed three years after the end of the study.\n\nThe date, time, and IP address of your login and when you send data in Mobistudy will be logged for security reasons and kept for 5 years. The study team can’t access this data.\n\nHere’s the data we’ll be collecting in phase 1 using Mobistudy:\n    • Your general profile information like email address, name, surname, date of birth, sex, country, language, main health conditions, long-term treatments, weight and height.\n    • Answers given to About you form.\n    • Answers given to About your asthma form.\n    • Answers given to Daily Questionnaire form.\n    • Answers given to Weekly Questionnaire form.\n    • Answers given to AAMOS-00 Phase 2 Participation Interest form.\n\nFor questions about how data is processed by each institution involved in the study please contact:\n• Malmö University, at: dataskyddsombud@mau.se\n• Kevin Tsang at: k.c.h.tsang@sms.ed.ac.uk\n• Dr. Syed Ahmar Shah at: ahmar.shah@ed.ac.uk",
+            "sv": ""
+        },
+        "taskItems": [
+            {
+                "description": {
+                    "en": "I agree to answer the \"About your asthma\" questionnaire once."
+                },
+                "taskId": 1
+            },
+            {
+                "description": {
+                    "en": "I agree to answer the \"About you\" questionnaire once."
+                },
+                "taskId": 2
+            },
+            {
+                "description": {
+                    "en": "I agree to answer the \"Daily Questionnaire\" as regularly as possible for 1 month."
+                },
+                "taskId": 3
+            },
+            {
+                "description": {
+                    "en": "I agree to answer the \"Weekly Questionnaire\", every week for 1 month."
+                },
+                "taskId": 4
+            },
+            {
+                "description": {
+                    "en": "I agree to answer the \"AAMOS-00 Phase 2 Participation Interest\" questionnaire once, near the end of the study."
+                },
+                "taskId": 5
+            }
+        ],
+        "extraItems": []
     },
     "inclusionCriteria": {
         "countries": [
@@ -106,15 +118,7 @@
             "female",
             "other"
         ],
-        "criteriaQuestions": [
-            {
-                "title": {
-                    "en": "",
-                    "sv": ""
-                },
-                "answer": ""
-            }
-        ],
+        "criteriaQuestions": [],
         "diseases": [
             {
                 "term": "Asthma",
@@ -128,8 +132,6 @@
         "minBMI": 5,
         "maxBMI": 80
     },
-    "invitationCode": "231206",
-    "invitational": true,
     "tasks": [
         {
             "id": 1,
@@ -155,25 +157,7 @@
             "type": "form",
             "scheduling": {
                 "startEvent": "consent",
-                "untilSecs": 2332800,
-                "alwaysOn": false,
-                "intervalType": "d",
-                "months": [],
-                "monthDays": [],
-                "weekDays": [],
-                "interval": 1
-            },
-            "formKey": "2608088",
-            "formName": {
-                "en": "Daily Questionnaire ",
-                "sv": ""
-            }
-        },
-        {
-            "id": 3,
-            "type": "form",
-            "scheduling": {
-                "startEvent": "consent",
+                "untilSecs": 0,
                 "alwaysOn": false,
                 "occurrences": "1",
                 "intervalType": "d",
@@ -189,13 +173,33 @@
             }
         },
         {
+            "id": 3,
+            "type": "form",
+            "scheduling": {
+                "startEvent": "consent",
+                "alwaysOn": false,
+                "occurrences": "28",
+                "intervalType": "d",
+                "months": [],
+                "monthDays": [],
+                "weekDays": [],
+                "interval": 1
+            },
+            "formKey": "2608088",
+            "formName": {
+                "en": "Daily Questionnaire ",
+                "sv": ""
+            }
+        },
+        {
             "id": 4,
             "type": "form",
             "scheduling": {
                 "startEvent": "consent",
                 "startDelaySecs": 604800,
-                "untilSecs": 2505600,
+                "untilSecs": 0,
                 "alwaysOn": false,
+                "occurrences": "4",
                 "intervalType": "w",
                 "months": [],
                 "monthDays": [],
@@ -207,8 +211,26 @@
                 "en": "Weekly Questionnaire",
                 "sv": ""
             }
+        },
+        {
+            "id": 5,
+            "type": "form",
+            "scheduling": {
+                "startEvent": "consent",
+                "startDelaySecs": 1814400,
+                "alwaysOn": false,
+                "occurrences": "1",
+                "intervalType": "d",
+                "months": [],
+                "monthDays": [],
+                "weekDays": [],
+                "interval": 1
+            },
+            "formKey": "2962448",
+            "formName": {
+                "en": "AAMOS-00 Phase 2 Participation Interest",
+                "sv": ""
+            }
         }
-    ],
-    "teamKey": "2402037",
-    "updatedTS": "2021-03-31T15:29:24.053Z"
+    ]
 }

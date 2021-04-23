@@ -13,7 +13,6 @@ Malmö University and funded by: \
 <li>The <a href="https://www.matspaulssonstiftelserna.com/">Mats Paulsson Foundation</a></li>
 </ul>
 <br>
-<br>
 The following people have contributed to the project with code, design or ideas:
 <ul>
 <li><a href="https://github.com/assimilate">Daniel Abella</a></li>
@@ -29,7 +28,6 @@ The following people have contributed to the project with code, design or ideas:
 <li><a href="https://github.com/JohnHakansson">John Håkansson</a></li>
 <li><a href="https://www.behance.net/matildasvensson1"> Matilda Svensson</a></li>
 </ul>
-<br>
 <br>
 This app was developed with thanks to the following open source projects:
 <ul>
@@ -51,6 +49,5 @@ This app was developed with thanks to the following open source projects:
 <li><a href="https://www.npmjs.com/package/cordova-plugin-whitelist">cordova-plugin-whitelist</a></li>
 </ul>
 <br>
-<br>
-The Mobistudy icons were made by <a href="https://www.behance.net/matildasvensson1"> Matilda Svensson</a>.
+The Mobistudy icons and illustrations were designed by <a href="https://www.behance.net/matildasvensson1"> Matilda Svensson</a>.
 `

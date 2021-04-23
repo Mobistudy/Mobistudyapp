@@ -1,6 +1,7 @@
 <template>
   <q-page padding>
     <div align="center">
+      <div class="q-my-sm text-center">Mobistudy Participants' app version {{appVersion}}</div>
       <div class="q-pa-md">
         <q-btn
           flat
@@ -57,6 +58,11 @@ export default {
   name: 'AboutPagePage',
   i18n: {
     messages: i18nStrings
+  },
+  computed: {
+    appVersion () {
+      return process.env.APP_VERSION
+    }
   }
 }
 </script>

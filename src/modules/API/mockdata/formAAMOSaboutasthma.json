@@ -209,6 +209,7 @@
                 },
                 {
                     "id": "Q2A24",
+                    "includeFreeText":true,
                     "text": {
                         "en": "Other"
                     }
@@ -218,18 +219,24 @@
         {
             "id": "Q3",
             "text": {
-                "en": "What triggers your asthma? (If Other)"
+                "en": "Have you been hospitalised for asthma in the past 12 months?"
             },
             "helper": {
-                "en": "If you answered \"Other\" in the previous question, please specify."
+                "en": ""
             },
             "footer": {},
-            "type": "freetext",
+            "type": "singleChoice",
             "answerChoices": [
                 {
                     "id": "Q3A1",
                     "text": {
-                        "en": ""
+                        "en": "Yes"
+                    }
+                },
+                {
+                    "id": "Q3A2",
+                    "text": {
+                        "en": "No"
                     }
                 }
             ]
@@ -237,7 +244,7 @@
         {
             "id": "Q4",
             "text": {
-                "en": "Have you been hospitalised for asthma in the past 12 months?"
+                "en": "Have you been to the A&E (emergency department) for asthma in the past 12 months?"
             },
             "helper": {
                 "en": ""
@@ -262,7 +269,7 @@
         {
             "id": "Q5",
             "text": {
-                "en": "Have you been to the A&E (emergency department) for asthma in the past 12 months?"
+                "en": "Have you had a course of corticosteroids (Prednisone, etc.) for three days or more for an asthma attack in the past 12 months?"
             },
             "helper": {
                 "en": ""
@@ -287,7 +294,7 @@
         {
             "id": "Q6",
             "text": {
-                "en": "Have you had a course of corticosteroids (Prednisone, etc.) for three days or more for an asthma attack in the past 12 months?"
+                "en": "In the past month, have you had difficulty sleeping because of your asthma symptoms (including cough)?"
             },
             "helper": {
                 "en": ""
@@ -312,7 +319,7 @@
         {
             "id": "Q7",
             "text": {
-                "en": "In the past month, have you had difficulty sleeping because of your asthma symptoms (including cough)?"
+                "en": "In the past month, have you had your usual asthma symptoms during the day (cough, wheeze, chest tightness, or breathlessness)?"
             },
             "helper": {
                 "en": ""
@@ -337,7 +344,7 @@
         {
             "id": "Q8",
             "text": {
-                "en": "In the past month, have you had your usual asthma symptoms during the day (cough, wheeze, chest tightness, or breathlessness)?"
+                "en": "In the past month, has your asthma interfered with your usual activities (e.g. housework, work/school, etc.)?"
             },
             "helper": {
                 "en": ""
@@ -362,41 +369,18 @@
         {
             "id": "Q9",
             "text": {
-                "en": "In the past month, has your asthma interfered with your usual activities (e.g. housework, work/school, etc.)?"
-            },
-            "helper": {
-                "en": ""
-            },
-            "footer": {},
-            "type": "singleChoice",
-            "answerChoices": [
-                {
-                    "id": "Q9A1",
-                    "text": {
-                        "en": "Yes"
-                    }
-                },
-                {
-                    "id": "Q9A2",
-                    "text": {
-                        "en": "No"
-                    }
-                }
-            ]
-        },
-        {
-            "id": "Q10",
-            "text": {
                 "en": "What is your personal best peak flow (PEF) measurement?"
             },
             "helper": {
-                "en": "Average personal best peak flow ranges between 300 and 700. Units: litres of air breathed out per minute, L/min"
+                "en": "Average personal best peak flow ranges between 300 and 700. Units: litres of air breathed out per minute, L/min. Skip if you are unsure."
             },
             "footer": {},
-            "type": "freetext"
+            "type": "number",
+            "min": 10,
+            "max": 1000
         },
         {
-            "id": "Q11",
+            "id": "Q10",
             "text": {
                 "en": "How old were you when first diagnosed with asthma, or when you had your first symptoms?"
             },
@@ -404,10 +388,12 @@
                 "en": ""
             },
             "footer": {},
-            "type": "freetext"
+            "type": "number",
+            "min": 0,
+            "max": 100
         },
         {
-            "id": "Q12",
+            "id": "Q11",
             "text": {
                 "en": "How many different relief inhalers (“blue puffer”) do you use on a regular basis?"
             },
@@ -416,8 +402,8 @@
             },
             "footer": {},
             "type": "number",
-            "min": 10,
-            "max": 1000
+            "min": 0,
+            "max": 100
         }
     ],
     "created": "2021-03-29T17:35:19.461Z"

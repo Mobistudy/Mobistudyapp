@@ -33,10 +33,18 @@ export default {
     async requestPermission () {
       return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(() => {
+          // got a position, permissions should be OK now
           resolve(true)
         }, (err) => {
-          reject(err)
-        })
+          if (err.code !== 1) {
+            // code 1 means no permissions
+            // see https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError/code
+            // in all other cases permissions should have been given
+            resolve(true)
+          } else {
+            reject(err)
+          }
+        }, { timeout: 2000 })
       })
     },
     startNotifications (options, cbk, error) {
@@ -81,6 +89,8 @@ export default {
             endDate: new Date()
           })
         } else {
+          // to make it more robust, it could stop updates before this
+          // in case the updates are running (very unlikely)
           window.pedometer.startPedometerUpdates(function (data) {
             resolve()
             window.pedometer.stopPedometerUpdates()
