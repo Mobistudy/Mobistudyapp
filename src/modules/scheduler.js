@@ -30,7 +30,7 @@ export function generateTasker (studiesParts, studiesDescr) {
       let studyDescr = studiesDescr.find(sd => {
         return sd._key === studyPart.studyKey
       })
-      // it we are beyond end date of the study, study should be marked as completed
+      // if we are beyond end date of the study, study should be marked as completed
       if (new Date().toISOString() > studyDescr.generalities.endDate + 'T23:59:59') {
         taskerItems.completedStudyAlert = {
           studyTitle: studyDescr.generalities.title,
@@ -44,13 +44,14 @@ export function generateTasker (studiesParts, studiesDescr) {
         const taskPart = studyPart.taskItemsConsent.find(x => x.taskId === tdescr.id)
         return taskPart.consented
       })
-      // if this is true, then there are no more tasks to be executed within this study
+
+      // if studyCompleted is true, then there are no more tasks to be executed within this study
       // it means that the study is completed for this user
-      // in this happens an extra property is added to the returned object
+      // if this happens an extra property is added to the returned object
       let studyCompleted = true
+
       for (const taskDescription of consentedTasks) {
         // manage alwaysOn tasks here:
-
         if (taskDescription.scheduling.alwaysOn) {
           if (isTaskIntervalDue(studyPart.acceptedTS, taskDescription.scheduling)) {
             studyCompleted = false
@@ -74,7 +75,7 @@ export function generateTasker (studiesParts, studiesDescr) {
           let instancesToEnd = rrule.between(moment().startOf('day').toDate(), moment(studyEndDate).endOf('day').toDate())
           if (instancesToEnd.length > 0) {
             studyCompleted = false
-          } else continue
+          }
 
           // filter out tasks that are not relevant for this operating system
           if (taskDescription.type === 'dataQuery') {
