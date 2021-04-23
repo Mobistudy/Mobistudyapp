@@ -2,12 +2,12 @@
 // MOCK API implementation
 import study1234 from './mockdata/study1234'
 import form1234 from './mockdata/form1234'
-import form3333 from './mockdata/form3333'
-import form3334 from './mockdata/form3334'
-import form3335 from './mockdata/form3335'
-import study3333 from './mockdata/study3333'
 import study9999 from './mockdata/study9999'
 import studyAAMOS from './mockdata/studyAAMOS.json'
+import formAAMOSaboutasthma from './mockdata/formAAMOSaboutasthma.json'
+import formAAMOSaboutyou from './mockdata/formAAMOSaboutyou.json'
+import formAAMOSdaily from './mockdata/formAAMOSdaily.json'
+import formAAMOSweekly from './mockdata/formAAMOSweekly.json'
 import form9999 from './mockdata/form9999'
 import participant from './mockdata/participant'
 
@@ -27,12 +27,13 @@ export default {
       let err = new Error('bad credentials')
       err.response = { status: 401 }
       throw err
-    }
-    console.log('API - Logging in')
-    return {
-      _key: '1231232',
-      email: 'jameson@test.test',
-      token: 'asdasdasdasdasd'
+    } else {
+      console.log('API - Logging in')
+      return {
+        _key: '1231232',
+        email: 'jameson@test.test',
+        token: 'asdasdasdasdasd'
+      }
     }
   },
 
@@ -177,20 +178,17 @@ export default {
         setTimeout(function () {
           resolve(study9999)
         }, 1000)
-      } else if (studyKey === '8989') {
+      } else if (studyKey === studyAAMOS._key) {
         setTimeout(function () {
           resolve(studyAAMOS)
-      } else if (studyKey === '1010') {
-        setTimeout(function () {
-          resolve(studyInvitational)
         }, 1000)
-      } else if (studyKey === '3333') {
-        setTimeout(function () {
-          resolve(study3333)
-        }, 1000)
+      // } else if (studyKey === '1010') {
+      //   setTimeout(function () {
+      //     resolve(studyInvitational)
+      //   }, 1000)
       } else {
         setTimeout(function () {
-          reject(new Error('Study not found'))
+          reject(new Error('Study ' + studyKey + ' not found'))
         }, 500)
       }
     })
@@ -216,9 +214,11 @@ export default {
       if (invitationalCode === study9999.invitationCode) {
         resolve(study9999)
       } else if (invitationalCode === studyAAMOS.invitationCode) {
-        resolve(study9999)
+        resolve(studyAAMOS)
       } else {
-        reject(new Error('Cannot retrieve invitational study based on code.'))
+        let err = new Error('Cannot retrieve invitational study based on code.')
+        err.response = { status: 400 }
+        reject(err)
       }
     })
   },
@@ -234,18 +234,22 @@ export default {
         setTimeout(function () {
           resolve(form9999)
         }, Math.floor(Math.random() * 2000))
-      } else if (key === '3333') {
+      } else if (key === '2606718') {
         setTimeout(function () {
-          resolve(form3333)
-        }, Math.floor(Math.random() * 3000))
-      } else if (key === '3334') {
+          resolve(formAAMOSaboutasthma)
+        }, Math.floor(Math.random() * 2000))
+      } else if (key === '2613568') {
         setTimeout(function () {
-          resolve(form3334)
-        }, Math.floor(Math.random() * 3000))
-      } else if (key === '3335') {
+          resolve(formAAMOSaboutyou)
+        }, Math.floor(Math.random() * 2000))
+      } else if (key === '2608088') {
         setTimeout(function () {
-          resolve(form3335)
-        }, Math.floor(Math.random() * 3000))
+          resolve(formAAMOSdaily)
+        }, Math.floor(Math.random() * 2000))
+      } else if (key === '2707817') {
+        setTimeout(function () {
+          resolve(formAAMOSweekly)
+        }, Math.floor(Math.random() * 2000))
       } else {
         reject(new Error('Questionnaire not found'))
       }
