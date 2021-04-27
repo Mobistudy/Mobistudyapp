@@ -42,7 +42,8 @@ export default {
     createProfile: 'Skapa profil',
     privacyPolicy: 'Integritetspolicy',
     registrationError: 'Registrering misslyckades',
-    registrationErrorUserExists: 'Användare existerar redan'
+    registrationErrorUserExists: 'Användare existerar redan',
+    registrationErrorWrongEmail: 'E-postadressen kan inte verifieras'
   },
   profile: {
     profile: 'Profil',

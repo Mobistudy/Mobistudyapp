@@ -43,7 +43,8 @@ export default {
     createProfile: 'Create Profile',
     privacyPolicy: 'Privacy Policy',
     registrationError: 'Registration failed',
-    registrationErrorUserExists: 'User already exists'
+    registrationErrorUserExists: 'User already exists',
+    registrationErrorWrongEmail: 'Email address cannot be verified'
   },
   profile: {
     profile: 'Profile',

@@ -118,10 +118,17 @@ export default {
               message: this.$i18n.t('accountMgmt.registration.registrationErrorUserExists'),
               icon: 'report_problem'
             })
-          } else {
+          } if (error.response && error.response.status === 400) {
             this.$q.notify({
               color: 'negative',
-              message: this.$i18n.t('accountMgmt.registration.registrationError') + ': ' + error.message,
+              message: this.$i18n.t('accountMgmt.registration.registrationErrorWrongEmail'),
+              icon: 'report_problem'
+            })
+          } else {
+            let errmsg = error.response && error.response.data ? error.response.data : error.message
+            this.$q.notify({
+              color: 'negative',
+              message: this.$i18n.t('accountMgmt.registration.registrationError') + ': ' + errmsg,
               icon: 'report_problem'
             })
           }
