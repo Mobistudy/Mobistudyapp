@@ -4,16 +4,16 @@ export default {
   generalities: {
     languages: ['en', 'sv'],
     title: {
-      en: 'COPD study',
-      sv: 'KOL-forskningsstudie'
+      en: 'Example research study',
+      sv: 'Exempel forskningsstudie'
     },
     shortDescription: {
-      en: 'Assessment of the relevance of physical activity indicators in COPD',
-      sv: 'Detta är en provstudie för KOLS-patienter.'
+      en: `An example research study to showcase Mobistudy's functionalities.`,
+      sv: `Ett exempel på en forskningsstudie för att visa Mobistudys funktioner.`
     },
     longDescription: {
-      en: 'In this study we want to link physical activity indicators gathered from mobile phones and wearable devices to symptoms, gathered through questionnaires.',
-      sv: 'Denna studie handlar om KOL, vi vill utvärdera din KOL-nivå.'
+      en: 'This example study showcases all the functionalities included in the app. It proposes a set of data collection tasks with no particular purpose. The data collected within this study may be used for technical analysis and debugging of the software.',
+      sv: 'Denna exempelstudie visar alla funktioner som ingår i appen. Det föreslår en uppsättning uppgifter för datainsamling utan något särskilt syfte. Data som samlas in i denna studie kan användas för teknisk analys och felsökning av programvaran.'
     },
     startDate: new Date(new Date().getTime() - 1296000000).toISOString(), // 15 days ago
     endDate: new Date(new Date().getTime() + 5184000000).toISOString(), // 60 days from now
@@ -22,30 +22,16 @@ export default {
         name: 'Dario Salvi',
         contact: 'dario@mau.se',
         institution: 'Malmö University'
-      },
-      {
-        name: 'Carmelo Velardo',
-        contact: 'IBME Oxford',
-        institution: 'University of Oxford'
       }
     ],
     institutions: [
-      {
-        name: 'University of Oxford, IBME',
-        contact: 'Old Road Campus, Oxford',
-        dataAccess: 'full',
-        reasonForDataAccess: {
-          en: 'In order to analyse the physical activity data.',
-          sv: 'För att analysera uppgifterna om fysisk aktivitet.'
-        }
-      },
       {
         name: 'Malmö University',
         contact: 'Nordenskiöldsgatan 1, 211 19 Malmö',
         dataAccess: 'full',
         reasonForDataAccess: {
-          en: 'To develop an algorithm to predict worsening of COPD symptoms based on physical activity data',
-          sv: 'For att utveckla en algoritm för att förutsäga försämring av KOL-symtom baserat på uppgifter om fysisk aktivitet.'
+          en: 'Malmö University may use the data for technical analysis and for improving the app.',
+          sv: 'Malmö universitet kan använda informationen för teknisk analys och för att förbättra appen.'
         }
       }
     ]
@@ -61,13 +47,13 @@ export default {
     criteriaQuestions: [
       {
         title: {
-          en: 'Have you been diagnosed with COPD?',
-          sv: 'Har du KOL?'
+          en: 'Do you satisfy this example inclusion criterium?',
+          sv: 'Uppfyller du detta exempel införande kriterium?'
         },
         answer: 'yes'
       }
     ],
-    diseases: [{ name: 'COPD', conceptId: '123123123' }],
+    diseases: [],
     medications: []
   },
   tasks: [
@@ -77,7 +63,7 @@ export default {
       scheduling: {
         startEvent: 'consent',
         intervalType: 'd',
-        untilSecs: 2592000, // 1 month
+        untilSecs: 60 * 60 * 24 * 7, // 1 week
         interval: 1,
         months: [],
         monthDays: [],
@@ -85,8 +71,8 @@ export default {
       },
       formKey: '1234',
       formName: {
-        en: 'COPD form',
-        sv: 'KOL formulär'
+        en: 'Example questionnaire',
+        sv: 'Exempel formulär'
       }
     },
     {
@@ -96,7 +82,7 @@ export default {
         startEvent: 'consent',
         intervalType: 'd',
         interval: 1,
-        occurrences: 20,
+        occurrences: 5,
         months: [],
         monthDays: [],
         weekDays: []
@@ -107,36 +93,34 @@ export default {
     },
     {
       id: 3,
-      type: 'smwt',
+      type: 'miband3',
+      hrInterval: 1,
       scheduling: {
         startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7, // 1 week
         intervalType: 'd',
-        interval: 7,
-        untilSecs: 2592000 // 1 month
+        interval: 1
+      }
+    },
+    {
+      id: 4,
+      type: 'smwt',
+      scheduling: {
+        alwaysOn: true,
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
       },
       dataType: 'distance'
     },
     {
-      id: 4,
+      id: 5,
       type: 'qcst',
       scheduling: {
+        alwaysOn: true,
         startEvent: 'consent',
-        intervalType: 'd',
-        interval: 7,
-        untilSecs: 2592000 // 1 month
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
       },
       dataType: 'steps'
-    },
-    {
-      id: 5,
-      type: 'miband3',
-      hrInterval: 5,
-      scheduling: {
-        startEvent: 'consent',
-        intervalType: 'd',
-        untilSecs: 2592000, // 1 month
-        interval: 1
-      }
     },
     {
       id: 6,
@@ -144,9 +128,7 @@ export default {
       scheduling: {
         alwaysOn: true,
         startEvent: 'consent',
-        intervalType: 'd',
-        untilSecs: 2592000, // 1 month
-        interval: 1
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
       }
     }
   ],
@@ -254,43 +236,43 @@ export default {
     taskItems: [
       {
         description: {
-          en: 'I agree to answer the Clinical COPD Questionnaire, every day.',
-          sv: 'Jag accepterar att besvara Kliniska COPD-frågeformuläret varje dag.'
+          en: 'I agree to answer the sample questionnaire, every day.',
+          sv: 'Jag accepterar att besvara Exempel formulär, varje dag.'
         },
         taskId: 1
       },
       {
         description: {
-          en: 'I agree to send my data about steps, every day.',
-          sv: 'Jag accepterar att skicka min information om steg varje dag'
+          en: 'I agree to send my data about steps, every day for 1 week.',
+          sv: 'Jag accepterar att skicka min information om steg varje dag i 1 vecka.'
         },
         taskId: 2
       },
       {
         description: {
-          en: 'I agree to perform the six-minute walk test once a week.',
-          sv: 'Jag accepterar att utföra sex minuters promenadtest en gång i veckan.'
+          en: 'I agree to wear the fitness tracker and share the data it collects every day for 1 week.',
+          sv: 'Jag samtycker till att bära fitnessspåraren och dela informationen som samlas varje dag i 1 vecka.'
         },
         taskId: 3
       },
       {
         description: {
-          en: 'I agree to perform the Queen\'s College Step Test once a week.',
-          sv: 'Jag accepterar att utföra Queen\'s College Step Test en gång i veckan.'
+          en: 'I agree to perform the six-minute walk test at least once in a week.',
+          sv: 'Jag accepterar att utföra sex minuters promenadtest minst en gång i en vecka.'
         },
         taskId: 4
       },
       {
         description: {
-          en: 'I agree to wear the fitness tracker and share the data it collects every day.',
-          sv: 'Jag samtycker till att bära fitnessspåraren och dela informationen som samlas.'
+          en: 'I agree to perform the Queen\'s College Step Test at least once in a week',
+          sv: 'Jag accepterar att utföra Queen\'s College Step Test minst en gång i en vecka.'
         },
         taskId: 5
       },
       {
         description: {
-          en: 'I agree to measure my blood oxygen saturation every day.',
-          sv: 'Jag går med på att mäta min syremättnad i blodet varje dag.'
+          en: 'I agree to measure my blood oxygen saturation at least once in a week.',
+          sv: 'Jag går med på att mäta min syremättnad i blodet minst en gång i en vecka.'
         },
         taskId: 6
       }

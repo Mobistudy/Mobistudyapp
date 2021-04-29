@@ -199,7 +199,7 @@ export default {
         })
         if (!studyPart) resolve(['1234'])
         else resolve([])
-      }, 10)
+      }, 100)
     })
   },
 
