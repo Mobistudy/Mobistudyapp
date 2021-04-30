@@ -80,7 +80,7 @@ export default {
     conditionsSearch: 'Skriv ett ord för att söka efter problem',
     conditionSearchError: 'Kan inte hitta sjukdom',
     noResults: 'Inga resultat',
-    medications: 'Långsiktiga mediciner',
+    medications: 'Långtidsmediciner',
     medicationSearchError: 'Kan inte hitta medicin',
     studiesSuggestions: 'Föreslå nya studier som matchar min profil'
   }
