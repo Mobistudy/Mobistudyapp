@@ -59,7 +59,7 @@ export default {
       },
       footer: {
         en: `Example of footer text.`,
-        it: `Exempel på sidfotstext.`
+        sv: `Exempel på sidfotstext.`
       },
       helper: {
         en: 'Any text is valid.',
@@ -105,7 +105,7 @@ export default {
           id: 'Q3A4',
           text: {
             en: 'Other',
-            sv: 'Val 4'
+            sv: 'Övrig'
           },
           includeFreeText: true
         }
@@ -117,6 +117,8 @@ export default {
         en: 'Example of number question.',
         sv: 'Exempel på nummerfråga.'
       },
+      min: 1,
+      max: 10,
       helper: {
         en: 'A number between 1 and 10 must be inserted.',
         sv: 'Ett tal mellan 1 och 10 måste infogas.'
