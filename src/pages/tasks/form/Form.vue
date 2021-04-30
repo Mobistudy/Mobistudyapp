@@ -69,21 +69,13 @@
             />
             <q-input
               v-show="answerChoice.includeFreeText"
-              :disable = "!multiChoiceAnswer.includes(answerChoice.id)"
+              :disable="!multiChoiceAnswer.includes(answerChoice.id)"
               v-model="multiChoiceAnswerFreeText[index]"
               type="textarea"
               :label="$t('studies.tasks.form.freeTextExplanation')"
               rows="3"
               outlined
             />
-          </div>
-          <div
-            v-show="currentQuestion.type === 'textOnly'"
-            class="text-subtitle1 q-mb-md"
-          >
-            <div v-if="currentQuestion.type === 'textOnly'">
-              <div v-html="currentQuestion.html[$i18n.locale]"></div>
-            </div>
           </div>
         </div>
       </transition>
