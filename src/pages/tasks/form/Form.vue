@@ -38,6 +38,26 @@
             outlined
           />
           <div
+            v-if="currentQuestion.type === 'slider'"
+            class="text-center"
+          >
+            <div class="q-mt-sm">
+              {{ currentQuestion.maxText[$i18n.locale] }}
+            </div>
+            <div class="row justify-center">
+              <q-slider
+                v-model.number="numberAnswer"
+                :min="currentQuestion.min"
+                :max="currentQuestion.max"
+                vertical
+                reverse
+              />
+            </div>
+            <div class="q-mb-sm">
+              {{ currentQuestion.minText[$i18n.locale] }}
+            </div>
+          </div>
+          <div
             v-show="currentQuestion.type === 'singleChoice'"
             v-for="(answerChoice, index) in currentQuestion.answerChoices"
             :key="'sc' + index"
@@ -108,7 +128,6 @@
           :label="$t('common.next')"
         />
         <q-btn
-          v-model="singleChoiceAnswer"
           v-show="!isAnswered"
           icon-right="arrow_forward"
           color="warning"
@@ -216,6 +235,7 @@ export default {
       return (this.currentQuestion.type === 'singleChoice' && this.singleChoiceAnswer) ||
         (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
         (this.currentQuestion.type === 'number' && (this.numberAnswer || this.numberAnswer === 0)) ||
+        (this.currentQuestion.type === 'slider' && (this.numberAnswer || this.numberAnswer === 0)) ||
         (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
         (this.currentQuestion.type === 'textOnly')
     }
@@ -235,6 +255,8 @@ export default {
       if (this.currentQuestion.type === 'freetext') {
         answer.answer = this.freetextAnswer
       } else if (this.currentQuestion.type === 'number') {
+        answer.answer = this.numberAnswer
+      } else if (this.currentQuestion.type === 'slider') {
         answer.answer = this.numberAnswer
       } else if (this.currentQuestion.type === 'singleChoice') {
         let chosenAnswerChoice = this.currentQuestion.answerChoices.find(x => x.id === this.singleChoiceAnswer)
@@ -328,6 +350,8 @@ export default {
           this.freetextAnswer = lastResponse.answer
         } else if (this.currentQuestion.type === 'number') {
           this.numberAnswer = lastResponse.answer
+        } else if (this.currentQuestion.type === 'slider') {
+          this.numberAnswer = lastResponse.answer
         } else if (this.currentQuestion.type === 'singleChoice') {
           this.singleChoiceAnswer = lastResponse.answer.answerId
           if (lastResponse.answer.includeFreeText) {
@@ -385,6 +409,7 @@ export default {
       }
       if (this.currentQuestion.type === 'freetext') this.freetextAnswer = undefined
       if (this.currentQuestion.type === 'number') this.numberAnswer = undefined
+      if (this.currentQuestion.type === 'slider') this.numberAnswer = undefined
       if (this.currentQuestion.type === 'multiChoice') {
         this.multiChoiceAnswer = []
         this.multiChoiceAnswerFreeText = []
