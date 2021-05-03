@@ -12,7 +12,8 @@
           <q-input
             class="col-grow"
             v-model="token"
-            type="text"
+            type="textarea"
+            autogrow
             @blur.native="$v.token.$touch"
             clearable
             :label="$t('accountMgmt.resetPassword.token')"
@@ -56,7 +57,7 @@
             <q-btn
               class="float-right"
               :label="$t('accountMgmt.resetPassword.changePassword')"
-              color="positive"
+              color="primary"
               type="submit"
               @click="resetUserPassword"
             />
