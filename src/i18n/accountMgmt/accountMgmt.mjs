@@ -1,5 +1,6 @@
 import MGMTen from './en/accountMgmt'
 import MGMTsv from './sv/accountMgmt'
+import MGMTes from './es/accountMgmt'
 
 export default {
   en: {
@@ -7,5 +8,8 @@ export default {
   },
   sv: {
     accountMgmt: MGMTsv
+  },
+  es: {
+    accountMgmt: MGMTes
   }
 }

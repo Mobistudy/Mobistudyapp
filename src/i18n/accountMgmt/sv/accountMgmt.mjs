@@ -54,14 +54,16 @@ export default {
     language: 'Språk',
     languageError: 'Språk krävs.',
     languages: {
-      en: 'English',
-      sv: 'Swedish'
+      en: 'Engelska',
+      sv: 'Svenska',
+      es: 'Spanska'
     },
     country: 'Land',
     countryError: 'Land krävs.',
     countries: {
-      gb: 'United Kingdom',
-      se: 'Sweden'
+      gb: 'Storbritannien',
+      se: 'Sverige',
+      es: 'Spanien'
     },
     sex: 'Kön',
     sexes: {

@@ -56,13 +56,15 @@ export default {
     languageError: 'Language is required.',
     languages: {
       en: 'English',
-      sv: 'Swedish'
+      sv: 'Swedish',
+      es: 'Spanish'
     },
     country: 'Country',
     countryError: 'Country is required.',
     countries: {
       gb: 'United Kingdom',
-      se: 'Sweden'
+      se: 'Sweden',
+      es: 'Spain'
     },
     sex: 'Sex',
     sexes: {
