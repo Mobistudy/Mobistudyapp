@@ -268,6 +268,10 @@ export default {
         {
           label: this.$i18n.t('accountMgmt.profile.languages.sv'),
           value: 'sv'
+        },
+        {
+          label: this.$i18n.t('accountMgmt.profile.languages.es'),
+          value: 'es'
         }
       ],
       countryOptions: [
@@ -278,6 +282,10 @@ export default {
         {
           label: this.$i18n.t('accountMgmt.profile.countries.se'),
           value: 'se'
+        },
+        {
+          label: this.$i18n.t('accountMgmt.profile.countries.es'),
+          value: 'es'
         }
       ],
       diseaseOptions: [],

@@ -1,11 +1,15 @@
 import CONen from './en/contact'
 import CONsv from './sv/contact'
+import CONes from './es/contact'
 
 export default {
-  'en': {
+  en: {
     contactFull: CONen
   },
-  'sv': {
+  sv: {
     contactFull: CONsv
+  },
+  es: {
+    contactFull: CONes
   }
 }

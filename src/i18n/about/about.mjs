@@ -1,11 +1,15 @@
 import ABen from './en/about'
 import ABsv from './sv/about'
+import ABes from './es/about'
 
 export default {
-  'en': {
+  en: {
     about: ABen
   },
-  'sv': {
+  sv: {
     about: ABsv
+  },
+  es: {
+    ABes
   }
 }

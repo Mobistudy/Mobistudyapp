@@ -1,11 +1,15 @@
 import ACKSen from './en/acks'
 import ACKSsv from './sv/acks'
+import ACKSes from './es/acks'
 
 export default {
-  'en': {
+  en: {
     acknowledgements: ACKSen
   },
-  'sv': {
+  sv: {
     acknowledgements: ACKSsv
+  },
+  es: {
+    acknowledgements: ACKSes
   }
 }
