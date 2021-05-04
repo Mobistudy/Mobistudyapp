@@ -22,5 +22,5 @@ export default {
   noCommonPwd: 'esta es una contraseña muy común.',
   noCommonPwdSimilar: 'Esta contraseña es muy similar a las utilizadas comunmente.',
   no1Word: 'Una palabra por sí sola es fácil de adivinar.',
-  noNames: 'Los nombres y apellidos por sí mismos son fáciles de adivinar'.
+  noNames: 'Los nombres y apellidos por sí mismos son fáciles de adivinar.'
 }
