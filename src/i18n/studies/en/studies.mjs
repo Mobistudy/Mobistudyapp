@@ -1,5 +1,3 @@
-'use strict'
-
 import smwtTask from './tasks/smwt.mjs'
 import qcstTask from './tasks/qcst.mjs'
 import miband3Task from './tasks/miband3.mjs'
@@ -72,7 +70,7 @@ let studies = {
       remindersConsent: 'I want to receive reminders about the tasks of this study',
       giveRemindersOSPermission: 'Allow reminders',
       informedConsent: 'Informed consent',
-      consentExplanation: 'Consent to the following items to join the study. You do not have to consent to all of them, however some items may be required to join the study. When an item requires access to the phone\'s functions, you can tap the button to grant access to this app.',
+      consentExplanation: 'Consent to the following items to join the study. You do not have to consent to all of them, however some items may be required to join the study. Some items may require access to the phone\'s functions.',
       updateConsent: 'Update consent',
       consentUpdated: 'Consent updated',
       joinStudy: 'Join study',

@@ -1,4 +1,3 @@
-'use strict'
 export default {
   title: 'Queens College Step Test',
   shortTitle: 'QCST',

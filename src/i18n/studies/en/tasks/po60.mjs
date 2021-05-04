@@ -1,5 +1,3 @@
-'use strict'
-
 export default {
   title: 'Pulse oximeter measurement',
   shortTitle: 'Pulse oximeter',

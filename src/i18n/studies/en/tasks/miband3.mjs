@@ -1,5 +1,3 @@
-'use strict'
-
 export default {
   title: 'Activity tracker download',
   shortTitle: 'Activity tracker',

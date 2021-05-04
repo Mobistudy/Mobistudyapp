@@ -43,7 +43,7 @@ export default {
     {
       title: 'Setup',
       img: 'instructions/6mwt_8.jpg',
-      description: 'You can place your phone in a pocket or use an arm band if needed, but do not switch off the screen!'
+      description: 'You can place your phone in a pocket or use an armband if needed, but do not switch off the screen!'
     }
   ],
   signalCheck: 'Waiting for the GPS signal.',
