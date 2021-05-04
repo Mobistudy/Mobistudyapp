@@ -1,5 +1,6 @@
 import PCen from './en/passwordCheck'
 import PCsv from './sv/passwordCheck'
+import PCes from './es/passwordCheck'
 
 export default {
   en: {
@@ -7,5 +8,8 @@ export default {
   },
   sv: {
     passwordCheck: PCsv
+  },
+  es: {
+    passwordCheck: PCes
   }
 }
