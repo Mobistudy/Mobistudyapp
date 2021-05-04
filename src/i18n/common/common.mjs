@@ -1,11 +1,11 @@
-'use strict'
-
-import en from './en/en.mjs'
-import sv from './sv/sv.mjs'
+import en from './en/common.mjs'
+import sv from './sv/common.mjs'
+import es from './es/common.mjs'
 
 let messages = {
-  'en': en,
-  'sv': sv
+  en,
+  sv,
+  es
 }
 
 export default messages
