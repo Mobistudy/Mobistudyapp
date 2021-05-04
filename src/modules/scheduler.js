@@ -250,10 +250,10 @@ export function generateRRule (startTime, studyEnd, scheduling) {
   rruleObj.dtstart = startTimeM.toDate()
   rruleObj.until = endTime.toDate()
   rruleObj.freq = freq
-  if (scheduling.interval) rruleObj.interval = scheduling.interval
-  if (scheduling.months) rruleObj.bymonth = scheduling.months
-  if (scheduling.monthDays) rruleObj.bymonthday = scheduling.monthDays
-  rruleObj.byweekday = byweekday
+  if (scheduling.interval && scheduling.interval.length) rruleObj.interval = scheduling.interval
+  if (scheduling.months && scheduling.months.length) rruleObj.bymonth = scheduling.months
+  if (scheduling.monthDays && scheduling.monthDays.length) rruleObj.bymonthday = scheduling.monthDays
+  if (scheduling.weekDays && scheduling.weekDays.length) rruleObj.byweekday = byweekday
   if (scheduling.occurrences) rruleObj.count = scheduling.occurrences
 
   try {
