@@ -29,11 +29,12 @@
             v-show="currentQuestion.type === 'number'"
             v-model.number="numberAnswer"
             type="number"
-            :min="currentQuestion.min"
-            :max="currentQuestion.max"
             :rules="[
-              val => val >= currentQuestion.min || $t('studies.tasks.form.numberTooSmall'),
-              val => val <= currentQuestion.max || $t('studies.tasks.form.numberTooBig')
+              val => {
+                if (!val || (val >= currentQuestion.min && val <= currentQuestion.max)) return true;
+                if (val < currentQuestion.min) return $t('studies.tasks.form.numberTooSmall');
+                if (val > currentQuestion.max) return $t('studies.tasks.form.numberTooBig')
+              }
             ]"
             outlined
           />
@@ -110,6 +111,7 @@
         />
         <q-btn
           v-show="isAnswered"
+          :disable="!isValidAnswer"
           icon-right="arrow_forward"
           color="primary"
           @click="next()"
@@ -226,6 +228,14 @@ export default {
         (this.currentQuestion.type === 'number' && (this.numberAnswer || this.numberAnswer === 0)) ||
         (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
         (this.currentQuestion.type === 'textOnly')
+    },
+    isValidAnswer () {
+      return (this.currentQuestion.type === 'singleChoice' && this.singleChoiceAnswer) ||
+          (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
+          (this.currentQuestion.type === 'number' && (!this.numberAnswer || (
+            this.numberAnswer >= this.currentQuestion.min && this.numberAnswer <= this.currentQuestion.max))) ||
+          (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
+          (this.currentQuestion.type === 'textOnly')
     }
   },
   methods: {
