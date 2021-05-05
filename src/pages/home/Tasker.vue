@@ -207,6 +207,9 @@ export default {
   },
   async created () {
     this.load()
+    setTimeout(() => {
+      this.load(false)
+    }, 1000 * 60 * 60 * 12) // auto-reload every 12 hours
   },
   methods: {
     refresh (done) {
