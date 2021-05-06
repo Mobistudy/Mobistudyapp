@@ -330,8 +330,39 @@ export default {
       }
       // check for old responses
       if (this.oldResponses[1] && this.oldResponses[1].questionId === nextQuestionId) {
-        if (this.oldResponses[1].answer) this.singleChoiceAnswer = this.oldResponses[1].answer.answerId
-        else this.singleChoiceAnswer = undefined
+        if (this.oldResponses[1].answer) {
+          const nextQuestion = this.formDescr.questions.find(x => x.id === nextQuestionId)
+          if (nextQuestion.type === 'freetext') {
+            this.freetextAnswer = this.oldResponses[1].answer
+          } else if (nextQuestion.type === 'number') {
+            this.numberAnswer = this.oldResponses[1].answer
+          } else if (nextQuestion.type === 'slider') {
+            this.numberAnswer = this.oldResponses[1].answer
+          } else if (nextQuestion.type === 'singleChoice') {
+            this.singleChoiceAnswer = this.oldResponses[1].answer.answerId
+            if (this.oldResponses[1].answer.includeFreeText) {
+              this.singleChoiceAnswerFreeText = this.oldResponses[1].answer.freetextAnswer
+            }
+          } else if (nextQuestion.type === 'multiChoice' && Array.isArray(this.oldResponses[1].answer)) {
+          // identify multichoice as array
+            this.multiChoiceAnswer = this.oldResponses[1].answer.map(x => x.answerId)
+            if (this.oldResponses[1].answer.some(x => x.includeFreeText)) {
+              for (let answerID of this.multiChoiceAnswer) {
+                let chosenAnswerIndex = nextQuestion.answerChoices.findIndex(x => x.id === answerID)
+                let oldResponseIndex = this.oldResponses[1].answer.findIndex(x => x.answerId === answerID)
+                this.multiChoiceAnswerFreeText[chosenAnswerIndex] = this.oldResponses[1].answer[oldResponseIndex].freetextAnswer
+              }
+            }
+          }
+        } else {
+          // reset fields
+          this.freetextAnswer = undefined
+          this.numberAnswer = undefined
+          this.multiChoiceAnswer = []
+          this.singleChoiceAnswer = undefined
+          this.singleChoiceAnswerFreeText = undefined
+          this.multiChoiceAnswerFreeText = []
+        }
         this.oldResponses.shift()
       } else this.oldResponses = []
 
