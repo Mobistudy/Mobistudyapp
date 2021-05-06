@@ -243,12 +243,12 @@ export default {
     },
     isValidAnswer () {
       return (this.currentQuestion.type === 'singleChoice' && this.singleChoiceAnswer) ||
-          (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
-          (this.currentQuestion.type === 'number' && (!this.numberAnswer || (
-            this.numberAnswer >= this.currentQuestion.min && this.numberAnswer <= this.currentQuestion.max))) ||
-          (this.currentQuestion.type === 'slider' && (this.numberAnswer || this.numberAnswer === 0)) ||
-          (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
-          (this.currentQuestion.type === 'textOnly')
+        (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
+        (this.currentQuestion.type === 'number' && (!this.numberAnswer || (
+          this.numberAnswer >= this.currentQuestion.min && this.numberAnswer <= this.currentQuestion.max))) ||
+        (this.currentQuestion.type === 'slider' && (this.numberAnswer || this.numberAnswer === 0)) ||
+        (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
+        (this.currentQuestion.type === 'textOnly')
     }
   },
   methods: {
@@ -331,12 +331,11 @@ export default {
       // check for old responses
       if (this.oldResponses[1] && this.oldResponses[1].questionId === nextQuestionId) {
         if (this.oldResponses[1].answer) {
+          // copy the old answer into the current one
           const nextQuestion = this.formDescr.questions.find(x => x.id === nextQuestionId)
           if (nextQuestion.type === 'freetext') {
             this.freetextAnswer = this.oldResponses[1].answer
-          } else if (nextQuestion.type === 'number') {
-            this.numberAnswer = this.oldResponses[1].answer
-          } else if (nextQuestion.type === 'slider') {
+          } else if (nextQuestion.type === 'number' || nextQuestion.type === 'slider') {
             this.numberAnswer = this.oldResponses[1].answer
           } else if (nextQuestion.type === 'singleChoice') {
             this.singleChoiceAnswer = this.oldResponses[1].answer.answerId
@@ -344,7 +343,7 @@ export default {
               this.singleChoiceAnswerFreeText = this.oldResponses[1].answer.freetextAnswer
             }
           } else if (nextQuestion.type === 'multiChoice' && Array.isArray(this.oldResponses[1].answer)) {
-          // identify multichoice as array
+            // identify multichoice as array
             this.multiChoiceAnswer = this.oldResponses[1].answer.map(x => x.answerId)
             if (this.oldResponses[1].answer.some(x => x.includeFreeText)) {
               for (let answerID of this.multiChoiceAnswer) {
@@ -354,14 +353,6 @@ export default {
               }
             }
           }
-        } else {
-          // reset fields
-          this.freetextAnswer = undefined
-          this.numberAnswer = undefined
-          this.multiChoiceAnswer = []
-          this.singleChoiceAnswer = undefined
-          this.singleChoiceAnswerFreeText = undefined
-          this.multiChoiceAnswerFreeText = []
         }
         this.oldResponses.shift()
       } else this.oldResponses = []
