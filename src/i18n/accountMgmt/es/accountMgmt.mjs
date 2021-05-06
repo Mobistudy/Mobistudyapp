@@ -78,11 +78,11 @@ export default {
     weightError: 'El peso tiene que ser un número positivo',
     height: 'Altura (cm)',
     heightError: 'La altura tiene que ser un número positivo',
-    conditions: 'Condiciones a largo plazo, por ejemplo cronicas',
+    conditions: 'Condiciones cronicas o a largo plazo',
     conditionsSearch: 'Tipo de palabra para buscar una condición',
     conditionSearchError: 'No se encuentra ninguna enfermedad',
     noResults: 'Ningun resultado',
-    medications: 'Medicaciones para condiciones a largo plazo, por ejemplo insulina',
+    medications: 'Medicaciones con uso a largo plazo',
     medicationSearchError: 'No se encuentra ninguna medicación',
     studiesSuggestions: 'Sugiereme nuevos estudios que se ajustan a mi perfil '
   }
