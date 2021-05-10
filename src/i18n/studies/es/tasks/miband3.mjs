@@ -34,7 +34,7 @@ export default {
   noDevice: 'No se pudo encontrar ningún MiBand. Asegúrese de que Bluetooth esté activado en su teléfono. ¿Te gustaría buscar otra vez?',
   notEnoughData: 'No hubo datos recientes para recuperar de MiBand. Puede volver a intentarlo la próxima vez que termine esta tarea.',
   moreDevices: 'Se encontró más de un dispositivo MiBand. El más cercano en proximidad es el primer dispositivo de la lista. Seleccione el dispositivo en la lista a la que desea conectarse.',
-  tap: 'Seleccione el rastreador de actividad.',
+  tap: 'Pulse el botón!',
   connectionFail: 'No se puede conectar al dispositivo. ¿Quiere volver a intentarlo?',
   connecting: 'Conentando a la pulsera',
   activityTypes: {
