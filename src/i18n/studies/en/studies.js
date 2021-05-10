@@ -1,8 +1,8 @@
-import smwtTask from './tasks/smwt.mjs'
-import qcstTask from './tasks/qcst.mjs'
-import miband3Task from './tasks/miband3.mjs'
-import dataQueryTask from './tasks/dataQuery.mjs'
-import po60Task from './tasks/po60.mjs'
+import smwtTask from './tasks/smwt'
+import qcstTask from './tasks/qcst'
+import miband3Task from './tasks/miband3'
+import dataQueryTask from './tasks/dataQuery'
+import po60Task from './tasks/po60'
 
 let studies = {
   studies: {
