@@ -14,11 +14,26 @@ export default {
       title: 'Requirements',
       // img: '/statics/instructions/qcst_1.jpg',
       description: 'You will need a light source for the peak flow meter, either a desk lamp or the window would suffice.'
+    },
+    {
+      title: 'Setup',
+      // img: '/statics/instructions/qcst_1.jpg',
+      description: `Don't cover the window at the top of the device.`
+    },
+    {
+      title: 'Instruction',
+      // img: '/statics/instructions/qcst_1.jpg',
+      description: 'Stand upright and tap start, then ... 1) inhale as deeply as you can 2) cover the whole device with your mouth 3) exhale hard through your mouth. Repeat 3 times'
     }
   ],
   pef: 'Peak Flow',
+  weeks: 'Weeks',
   calibrate: 'Calibrate Smart Peak Flow Meter',
   calibrating: 'Calibrating...',
   calibrateSuccess: 'Calibration finished',
-  calibrateError: 'There was an error is calibration. Please check the top of the device is not covered, the connection between the peak flow meter and your phone/Bluetooth adapter is secure, and there is sufficient light above the peak flow meter.'
+  calibrateError: 'There was an error is calibration. Please check the top of the device is not covered, the connection between the peak flow meter and your phone/Bluetooth adapter is secure, and there is sufficient light above the peak flow meter.',
+  measure: 'Measure',
+  todayResults: `Today's Readings:`,
+  todayBest: `Today's Best Peak Flow:`,
+  results: 'Past Peak Flow Readings'
 }

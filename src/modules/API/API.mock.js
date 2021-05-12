@@ -3,6 +3,7 @@
 import study1234 from './mockdata/study1234'
 import form1234 from './mockdata/form1234'
 import study9999 from './mockdata/study9999'
+import study3333 from './mockdata/study3333'
 import studyAAMOS from './mockdata/studyAAMOS.json'
 import formAAMOSaboutasthma from './mockdata/formAAMOSaboutasthma.json'
 import formAAMOSaboutyou from './mockdata/formAAMOSaboutyou.json'
@@ -177,6 +178,10 @@ export default {
       } else if (studyKey === '9999') {
         setTimeout(function () {
           resolve(study9999)
+        }, 1000)
+      } else if (studyKey === '3333') {
+        setTimeout(function () {
+          resolve(study3333)
         }, 1000)
       } else if (studyKey === studyAAMOS._key) {
         setTimeout(function () {

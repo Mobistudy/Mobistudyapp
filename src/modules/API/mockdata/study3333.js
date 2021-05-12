@@ -4,7 +4,7 @@ export default {
   generalities: {
     languages: ['en'],
     title: {
-      en: 'AAMOS-00 phase 1'
+      en: 'AAMOS-00 phase 2'
     },
     shortDescription: {
       en: 'Mobile device monitoring to inform prediction of asthma attacks: an observational study (phase 1)'
@@ -15,7 +15,7 @@ export default {
       We’ll use the findings to develop a method that can accurately predict an asthma attack smart devices and symptom diaries. In the future this could be used in a connected asthma system to help people look after their asthma and avoid troublesome attacks.`
     },
     startDate: '2021-03-01',
-    endDate: '2021-03-30',
+    endDate: '2021-12-30',
     principalInvestigators: [
       {
         name: 'Kevin Tsang',
@@ -79,16 +79,18 @@ export default {
       type: 'form',
       scheduling: {
         startEvent: 'consent',
+        alwaysOn: false,
+        occurrences: '28',
         intervalType: 'd',
-        untilSecs: 2592000, // 1 month
-        interval: 1,
         months: [],
         monthDays: [],
-        weekDays: []
+        weekDays: [],
+        interval: 1
       },
-      formKey: '3335',
+      formKey: '2608088',
       formName: {
-        en: 'Daily Questionnaire'
+        en: 'Daily Questionnaire',
+        sv: ''
       }
     },
     {
