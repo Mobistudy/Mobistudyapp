@@ -131,9 +131,15 @@ export default {
         }
         for (let i = 0; i < 10; i++) {
           ++amountPackages
+          let ran = this.randomNum(3)
+          let activity = 0
+          if (ran === 1) activity = 98 // sedentary
+          else if (ran === 2) activity = 92 // sedentary
+          else if (ran === 3) activity = 112 // sleep
+
           cbk({
             date: new Date(startDate.getTime() + amountPackages * 60000),
-            activityType: this.randomNum(5),
+            activityType: activity,
             intensity: this.randomNum(10),
             steps: this.randomNum(20),
             hr: this.randomNum(100),

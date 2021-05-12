@@ -28,5 +28,6 @@ export default {
       description: 'Mobistudy-appen kommer endast hämta data som är efterfrågad av denna studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan du skicka informationen eller kasta bort den.'
     }
   ],
-  dataQueryExplanation: 'Detta är en sammanfattning av den data som hämtats från din mobil. Tryck på "Skicka" för att dela datan med forskningsgruppen eller tryck på "Kasta bort" om du inte vill skicka datan.'
+  dataQueryExplanationiOS: 'Detta är en sammanfattning av den data som hämtats från HealthKit. Tryck på "Skicka" för att dela datan med forskningsgruppen eller tryck på "Kasta bort" om du inte vill skicka datan.',
+  dataQueryExplanationAndroid: 'Detta är en sammanfattning av den data som hämtats från Google Fit. Tryck på "Skicka" för att dela datan med forskningsgruppen eller tryck på "Kasta bort" om du inte vill skicka datan.'
 }

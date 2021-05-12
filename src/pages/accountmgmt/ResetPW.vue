@@ -26,7 +26,7 @@
           <q-btn
             class="float-right"
             :label="$t('accountMgmt.resetPassword.resetPassword')"
-            color="positive"
+            color="primary"
             type="submit"
             @click="submit"
           />

@@ -58,10 +58,6 @@ export default {
       'female',
       'other'
     ],
-    lifestyle: {
-      active: 'notrequired',
-      smoker: 'notrequired'
-    },
     criteriaQuestions: [
       {
         title: {

@@ -1,6 +1,6 @@
 {
   "name": "mobistudyapp",
-  "version": "0.2.1",
+  "version": "0.2.6",
   "description": "The participants' app of Mobistudy",
   "productName": "Mobistudy App",
   "cordovaId": "org.mobistudy.org",
@@ -17,20 +17,20 @@
     "concurrently:dev:jest": "concurrently \"quasar dev\" \"jest --watch\""
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.17",
+    "@quasar/extras": "^1.10.2",
     "axios": "^0.21.1",
     "chart.js": "^2.9.4",
     "moment": "^2.29.1",
     "owasp-password-strength-test": "^1.3.0",
-    "quasar": "^1.15.4",
+    "quasar": "^1.15.10",
     "rrule": "^2.6.6",
     "vue-chartjs": "^3.5.1",
-    "vue-i18n": "^8.23.0",
+    "vue-i18n": "^8.24.0",
     "vuelidate": "^0.7.6",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@quasar/app": "^2.1.14",
+    "@quasar/app": "^2.2.4",
     "@quasar/quasar-app-extension-testing": "^1.0.3",
     "@quasar/quasar-app-extension-testing-unit-jest": "^1.1.0-beta.7",
     "@vue/eslint-config-standard": "^4.0.0",

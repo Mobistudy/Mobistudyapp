@@ -1,264 +1,179 @@
 export default {
   createdTS: '2019-10-25T10:09:53.222Z',
   name: {
-    en: 'Global Physical Activity Questionnaire'
+    en: 'COVID-19 Symptoms tracking',
+    sv: 'Spårning av symptom på COVID-19'
   },
   description: {
-    en: `The Global Physical Activity Questionnaire was developed by WHO for
-    physical activity surveillance in countries. It collects information on physical
-    activity participation in three settings (or domains) as well as sedentary
-    behaviour, comprising 16 questions.`
+    en: `This questionnaire is about identifying symptoms related to COVID-19 and factors that are related to more difficult problems with the disease.`,
+    sv: 'Denna enkät handlar om att identifiera symptom relaterade till COVID-19 och andra faktorer som är relaterade till svårare problem med sjukdomen'
   },
   questions: [
     {
       id: 'Q1',
-      type: 'singleChoice',
+      type: 'multiChoice',
       text: {
-        en: `Does your work involve vigorous-intensity activity that causes
-        large increases in breathing or heart rate like (carrying or lifting
-        heavy loads, digging or construction work) for at least 10 minutes continuously?`
+        en: `Do you suffer any of these diseases?`,
+        sv: 'Har du några av följande sjukdomar?'
       },
       helper: {
-        en: 'Choose one option.'
+        en: 'You can choose more than one option.',
+        sv: 'Du kan välja mer än ett alternativ.'
       },
       nextDefaultId: 'Q2',
       answerChoices: [{
         id: 'Q1A1',
         text: {
-          en: 'Yes'
-        },
-        nextQuestionId: 'Q2'
+          en: 'Diabetes',
+          sv: 'Diabetes'
+        }
       },
       {
         id: 'Q1A2',
         text: {
-          en: 'No'
+          en: 'Arterial hypertension',
+          sv: 'Arteriell hypertension'
+        }
+      }, {
+        id: 'Q1A3',
+        text: {
+          en: 'Chronic lung disease',
+          sv: 'Kronisk lungsjukdom'
+        }
+      }, {
+        id: 'Q1A4',
+        text: {
+          en: 'Chronic heart disease',
+          sv: 'Kronisk hjärtsjukdom'
+        }
+      }]
+    },
+    {
+      id: 'Q2',
+      text: {
+        en: 'Have you ever diagnosed with COVID-19?',
+        sv: 'Har du någonsin diagnostiserats med COVID-19?'
+      },
+      helper: {
+        en: 'Choose one option.',
+        sv: 'Välj ett alternativ.'
+      },
+      type: 'singleChoice',
+      answerChoices: [{
+        id: 'Q2A1',
+        text: {
+          en: 'Yes',
+          sv: 'Ja'
+        },
+        nextQuestionId: 'Q3'
+      },
+      {
+        id: 'Q2A2',
+        text: {
+          en: 'No',
+          sv: 'Nej'
         },
         nextQuestionId: 'Q4'
       }]
     },
     {
-      id: 'Q2',
-      type: 'freetext',
-      text: {
-        en: 'In a typical week, on how many days do you do vigorous-intensity activities as part of your work? '
-      },
-      helper: {
-        en: 'Number of days'
-      },
-      nextDefaultId: 'Q3'
-    },
-    {
       id: 'Q3',
       type: 'freetext',
       text: {
-        en: 'How much time do you spend doing vigorous-intensity activities at work on a typical day?'
+        en: 'Please specify when you were diagnosed with COVID-19',
+        sv: 'Vänligen beskriv när du först diagnostiserades med COVID-19'
       },
       helper: {
-        en: 'Hours : minutes'
-      },
-      nextDefaultId: 'Q4'
+        en: 'What date did you receive the positive test result?',
+        sv: 'Vilket datum fick du det positiva testresultatet?'
+      }
     },
     {
       id: 'Q4',
-      type: 'singleChoice',
+      type: 'multiChoice',
       text: {
-        en: `Does your work involve moderate-intensity activity, that causes
-      small increases in breathing or heart rate such as brisk walking
-      [or carrying light loads] for at least 10 minutes continuously?`
+        en: 'Which symptoms do you have today?',
+        sv: 'Vilka symptom har du idag?'
       },
       helper: {
-        en: 'Choose one option.'
+        en: 'You can select as many as needed',
+        sv: 'Du kan välja så många alternativ du behöver'
       },
-      nextDefaultId: 'Q5',
-      answerChoices: [{
-        id: 'Q4A1',
-        text: {
-          en: 'Yes'
-        },
-        nextQuestionId: 'Q5'
-      },
-      {
-        id: 'Q4A2',
-        text: {
-          en: 'No'
-        },
-        nextQuestionId: 'Q7'
-      }]
-    },
-    {
-      id: 'Q5',
-      type: 'freetext',
-      text: {
-        en: 'In a typical week, on how many days do you do moderate-intensity activities as part of your work?'
-      },
-      helper: {
-        en: 'Number of days'
-      },
-      nextDefaultId: 'Q6'
-    },
-    {
-      id: 'Q6',
-      type: 'freetext',
-      text: {
-        en: 'How much time do you spend doing moderate-intensity activities at work on a typical day? '
-      },
-      helper: {
-        en: 'Hours : minutes'
-      },
-      nextDefaultId: 'Q7'
-    },
-    {
-      id: 'Q7',
-      type: 'singleChoice',
-      text: {
-        en: 'Do you walk or use a bicycle (pedal cycle) for at least 10 minutes continuously to get to and from places?'
-      },
-      helper: {
-        en: 'Choose one option.'
-      },
-      nextDefaultId: 'Q8',
-      answerChoices: [{
-        id: 'Q7A1',
-        text: {
-          en: 'Yes'
-        },
-        nextQuestionId: 'Q8'
-      },
-      {
-        id: 'Q7A2',
-        text: {
-          en: 'No'
-        },
-        nextQuestionId: 'Q10'
-      }]
-    },
-    {
-      id: 'Q8',
-      type: 'freetext',
-      text: {
-        en: 'In a typical week, on how many days do you walk or bicycle for at least 10 minutes continuously to get to and from places? '
-      },
-      helper: {
-        en: 'Number of days '
-      },
-      nextDefaultId: 'Q9'
-    },
-    {
-      id: 'Q9',
-      type: 'freetext',
-      text: {
-        en: 'How much time do you spend walking or bicycling for travel on a typical day?'
-      },
-      helper: {
-        en: 'Hours : minutes'
-      },
-      nextDefaultId: 'Q10'
-    },
-    {
-      id: 'Q10',
-      type: 'singleChoice',
-      text: {
-        en: `Do you do any vigorous-intensity sports, fitness or recreational (leisure) activities
-        that cause large increases in breathing or heart rate like [running or football] for at least 10 minutes continuously?`
-      },
-      helper: {
-        en: 'Choose one option.'
-      },
-      nextDefaultId: 'Q11',
-      answerChoices: [{
-        id: 'Q10A1',
-        text: {
-          en: 'Yes'
-        },
-        nextQuestionId: 'Q11'
-      },
-      {
-        id: 'Q10A2',
-        text: {
-          en: 'No'
-        },
-        nextQuestionId: 'Q13'
-      }]
-    },
-    {
-      id: 'Q11',
-      type: 'freetext',
-      text: {
-        en: 'In a typical week, on how many days do you do vigorous-intensity sports, fitness or recreational (leisure) activities?'
-      },
-      helper: {
-        en: 'Number of days'
-      },
-      nextDefaultId: 'Q12'
-    },
-    {
-      id: 'Q12',
-      type: 'freetext',
-      text: {
-        en: 'How much time do you spend doing vigorous-intensity sports, fitness or recreational activities on a typical day? '
-      },
-      helper: {
-        en: 'Hours : minutes'
-      },
-      nextDefaultId: 'Q13'
-    },
-    {
-      id: 'Q13',
-      type: 'singleChoice',
-      text: {
-        en: 'Do you do any moderate-intensity sports, fitness or recreational (leisure) activities that cause a small increase in breathing or heart rate such as brisk walking, [cycling, swimming, volleyball] for at least 10 minutes continuously? '
-      },
-      helper: {
-        en: 'Choose one option.'
-      },
-      nextDefaultId: 'Q14',
-      answerChoices: [{
-        id: 'Q13A1',
-        text: {
-          en: 'Yes'
-        },
-        nextQuestionId: 'Q14'
-      },
-      {
-        id: 'Q13A2',
-        text: {
-          en: 'No'
-        },
-        nextQuestionId: 'Q16'
-      }]
-    },
-    {
-      id: 'Q14',
-      type: 'freetext',
-      text: {
-        en: 'In a typical week, on how many days do you do moderate-intensity sports, fitness or recreational (leisure) activities?'
-      },
-      helper: {
-        en: 'Hours : minutes'
-      },
-      nextDefaultId: 'Q15'
-    },
-    {
-      id: 'Q15',
-      type: 'freetext',
-      text: {
-        en: 'How much time do you spend doing moderate-intensity sports, fitness or recreational (leisure) activities on a typical day? '
-      },
-      helper: {
-        en: 'Hours : minutes'
-      },
-      nextDefaultId: 'Q16'
-    },
-    {
-      id: 'Q16',
-      type: 'freetext',
-      text: {
-        en: 'How much time do you usually spend sitting or reclining on a typical day? '
-      },
-      helper: {
-        en: 'Hours : minutes'
-      },
+      answerChoices: [
+        {
+          id: 'Q4A1',
+          text: {
+            en: 'Loss of smell',
+            sv: 'Försämrat luktsinne'
+          }
+        }, {
+          id: 'Q4A2',
+          text: {
+            en: 'Fatigue',
+            sv: 'Trötthet'
+          }
+        }, {
+          id: 'Q4A3',
+          text: {
+            en: 'Shortness of breath',
+            sv: 'Svårigheter att andas'
+          }
+        }, {
+          id: 'Q4A4',
+          text: {
+            en: 'Fever',
+            sv: 'Feber'
+          }
+        }, {
+          id: 'Q4A5',
+          text: {
+            en: 'Persistent cough',
+            sv: 'Rethosta'
+          }
+        }, {
+          id: 'Q4A6',
+          text: {
+            en: 'Diarrhea',
+            sv: 'Diarré'
+          }
+        }, {
+          id: 'Q4A7',
+          text: {
+            en: 'Chills',
+            sv: 'Frossa'
+          }
+        }, {
+          id: 'Q4A8',
+          text: {
+            en: 'Headache',
+            sv: 'Huvudvärk'
+          }
+        }, {
+          id: 'Q4A9',
+          text: {
+            en: 'Runny nose',
+            sv: 'Rinnsnuva'
+          }
+        }, {
+          id: 'Q4A10',
+          text: {
+            en: 'Nausea and vomiting',
+            sv: 'Illamående och kräkningar'
+          }
+        }, {
+          id: 'Q4A11',
+          text: {
+            en: 'Body aches',
+            sv: 'Muskelvärk'
+          }
+        }, {
+          id: 'Q4A12',
+          text: {
+            en: 'Sore throat',
+            sv: 'Halsont'
+          }
+        }
+      ],
       nextDefaultId: 'ENDFORM'
     }]
 }

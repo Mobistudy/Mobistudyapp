@@ -97,13 +97,12 @@ export default {
         this.enableRouting = false
         return
       }
-      // check if already logged in, otherwise go to login
+      // check if already logged in, otherwise go to intro
       let resettingpwd =
         this.$route.path === '/resetpw' || this.$route.path === '/changepw'
       if ((!userinfo.user.loggedin || !userinfo.user.name) && !resettingpwd) {
-        console.log('LOGGED OUT, GOING TO LOGIN')
         this.$router.replace({
-          name: 'login'
+          name: 'intro'
         })
         this.enableRouting = true
       } else {

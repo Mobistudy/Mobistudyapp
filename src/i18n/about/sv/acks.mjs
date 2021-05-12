@@ -25,9 +25,8 @@ Dessa personer har bidragit till projektet med kod, design och idéer:
 <li><a href="https://github.com/HeyOooh">Andreas Holm</a></li>
 <li><a href="https://github.com/af9593">Moustafa Allouhaibi</a></li>
 <li><a href="https://github.com/JohnHakansson">John Håkansson</a></li>
-<li>Matilda Svensson</li>
+<li><a href="https://www.behance.net/matildasvensson1"> Matilda Svensson</a></li>
 </ul>
-<br>
 <br>
 Denna app har utvecklats med tack till följande projekt med öppen källkod:
 <ul>
@@ -49,6 +48,5 @@ Denna app har utvecklats med tack till följande projekt med öppen källkod:
 <li><a href="https://www.npmjs.com/package/cordova-plugin-whitelist">cordova-plugin-whitelist</a></li>
 </ul>
 <br>
-<br>
-Mobistudy:s ikoner skapades av Matilda Svensson.
+Mobistudy:s ikoner och illustrationer skapades av <a href="https://www.behance.net/matildasvensson1"> Matilda Svensson</a>.
 `

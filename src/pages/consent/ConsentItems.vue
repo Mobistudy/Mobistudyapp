@@ -68,6 +68,11 @@ export default {
   },
   computed: {
     canAccept () {
+      // there must be at least one task accepted
+      let consentedTasks = this.studyParticipation.taskItemsConsent.reduce((acc, curr) => acc + curr.consented, 0)
+      if (consentedTasks === 0) return false
+
+      // all mandatory extra items must have been accepted
       if (this.studyDescription.consent.extraItems && this.studyDescription.consent.extraItems.length) {
         for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
           if (!this.studyDescription.consent.extraItems[i].optional) {
@@ -84,7 +89,6 @@ export default {
         // set the study as accepted
         this.studyParticipation.currentStatus = 'accepted'
         this.studyParticipation.acceptedTS = new Date()
-        console.log('/////', this.studyParticipation)
 
         // call the API
         await API.updateStudyStatus(userinfo.user._key, this.studyDescription._key, this.studyParticipation)

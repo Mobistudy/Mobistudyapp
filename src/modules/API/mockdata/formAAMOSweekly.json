@@ -1,0 +1,413 @@
+{
+    "teamKey": "2402037",
+        "name": {
+        "en": "Weekly Questionnaire",
+            "sv": ""
+    },
+    "description": {
+        "en": "Questionnaire about your asthma condition in the past week",
+            "sv": ""
+    },
+    "questions": [
+        {
+            "id": "Q1",
+            "text": {
+                "en": "How many days over the last week have you had difficulty sleeping because of your asthma symptoms (including cough)?",
+                "sv": ""
+            },
+            "helper": {
+                "en": "",
+                "sv": ""
+            },
+            "footer": {
+                "en": "",
+                "sv": ""
+            },
+            "type": "number",
+            "min": 0,
+            "max": 7
+        },
+        {
+            "id": "Q2",
+            "text": {
+                "en": "How many days over the last week have you had your usual asthma symptoms during the day (cough, wheeze, chest tightness or breathlessness)?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "number",
+            "min": 0,
+            "max": 7
+        },
+        {
+            "id": "Q3",
+            "text": {
+                "en": "How many days over the last week has your asthma interfered with your usual activities (e.g. housework, work, school, etc)?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "number",
+            "min": 0,
+            "max": 7
+        },
+        {
+            "id": "Q4",
+            "text": {
+                "en": "Which of the following statement best describes how often you had experienced a shortness of breath due to your asthma in the last seven days?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "singleChoice",
+            "answerChoices": [
+                {
+                    "id": "Q4A1",
+                    "text": {
+                        "en": "I did not experience any shortness of breath due to my asthma"
+                    }
+                },
+                {
+                    "id": "Q4A2",
+                    "text": {
+                        "en": "I sometimes had a shortness of breath due to my asthma"
+                    }
+                },
+                {
+                    "id": "Q4A3",
+                    "text": {
+                        "en": "I had a moderate amount of shortness of breath due to my asthma"
+                    }
+                },
+                {
+                    "id": "Q4A4",
+                    "text": {
+                        "en": "I often had a shortness of breath due to my asthma"
+                    }
+                },
+                {
+                    "id": "Q4A5",
+                    "text": {
+                        "en": "I had a shortness of breath due to my asthma all the time"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q5",
+            "text": {
+                "en": "Which of the following statement best describes how often you had experienced wheezing due to your asthma in the last seven days?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "singleChoice",
+            "answerChoices": [
+                {
+                    "id": "Q5A1",
+                    "text": {
+                        "en": "I did not wheeze due to my asthma"
+                    }
+                },
+                {
+                    "id": "Q5A2",
+                    "text": {
+                        "en": "I sometimes wheezed due to my asthma"
+                    }
+                },
+                {
+                    "id": "Q5A3",
+                    "text": {
+                        "en": "I had a moderate amount of wheezing due to my asthma"
+                    }
+                },
+                {
+                    "id": "Q5A4",
+                    "text": {
+                        "en": "I often wheezed due to my asthma"
+                    }
+                },
+                {
+                    "id": "Q5A5",
+                    "text": {
+                        "en": "I was wheezing all the time due to my asthma"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q6",
+            "text": {
+                "en": "Which of the following statement best describes your average daily total puffs of your relief inhaler (“blue puffer”), except for use before exercise, in the last seven days?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "singleChoice",
+            "answerChoices": [
+                {
+                    "id": "Q6A1",
+                    "text": {
+                        "en": "I had not used my relief inhaler"
+                    }
+                },
+                {
+                    "id": "Q6A2",
+                    "text": {
+                        "en": "I had 1 – 2 puffs of my relief inhaler"
+                    }
+                },
+                {
+                    "id": "Q6A3",
+                    "text": {
+                        "en": "I had 3 – 4 puffs of my relief inhaler"
+                    }
+                },
+                {
+                    "id": "Q6A4",
+                    "text": {
+                        "en": "I had 5 – 8 puffs of my relief inhaler"
+                    }
+                },
+                {
+                    "id": "Q6A5",
+                    "text": {
+                        "en": "I had 9 – 12 puffs of my relief inhaler"
+                    }
+                },
+                {
+                    "id": "Q6A6",
+                    "text": {
+                        "en": "I had 12 or more puffs of my relief inhaler"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q7",
+            "text": {
+                "en": "Did you visit a general practice (GP) or asthma doctor, not including regular visits regarding your asthma in the past week?"
+            },
+            "helper": {
+                "en": "If so, please select which days"
+            },
+            "footer": {},
+            "type": "multiChoice",
+            "answerChoices": [
+                {
+                    "id": "Q7A1",
+                    "text": {
+                        "en": "No"
+                    }
+                },
+                {
+                    "id": "Q7A2",
+                    "text": {
+                        "en": "Yesterday"
+                    }
+                },
+                {
+                    "id": "Q7A3",
+                    "text": {
+                        "en": "2 days ago"
+                    }
+                },
+                {
+                    "id": "Q7A4",
+                    "text": {
+                        "en": "3 days ago"
+                    }
+                },
+                {
+                    "id": "Q7A5",
+                    "text": {
+                        "en": "4 days ago"
+                    }
+                },
+                {
+                    "id": "Q7A6",
+                    "text": {
+                        "en": "5 days ago"
+                    }
+                },
+                {
+                    "id": "Q7A7",
+                    "text": {
+                        "en": "6 days ago"
+                    }
+                },
+                {
+                    "id": "Q7A8",
+                    "text": {
+                        "en": "7 days ago"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q8",
+            "text": {
+                "en": "Were you hospitalised due to your asthma in the past week?"
+            },
+            "helper": {
+                "en": "If so, please select which days"
+            },
+            "footer": {},
+            "type": "multiChoice",
+            "answerChoices": [
+                {
+                    "id": "Q8A1",
+                    "text": {
+                        "en": "No"
+                    }
+                },
+                {
+                    "id": "Q8A2",
+                    "text": {
+                        "en": "Yesterday"
+                    }
+                },
+                {
+                    "id": "Q8A3",
+                    "text": {
+                        "en": "2 days ago"
+                    }
+                },
+                {
+                    "id": "Q8A4",
+                    "text": {
+                        "en": "3 days ago"
+                    }
+                },
+                {
+                    "id": "Q8A5",
+                    "text": {
+                        "en": "4 days ago"
+                    }
+                },
+                {
+                    "id": "Q8A6",
+                    "text": {
+                        "en": "5 days ago"
+                    }
+                },
+                {
+                    "id": "Q8A7",
+                    "text": {
+                        "en": "6 days ago"
+                    }
+                },
+                {
+                    "id": "Q8A8",
+                    "text": {
+                        "en": "7 days ago"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q9",
+            "text": {
+                "en": "Did you visit an emergency room (ER) for your asthma in the past week?"
+            },
+            "helper": {
+                "en": "If so, please select which days"
+            },
+            "footer": {},
+            "type": "multiChoice",
+            "answerChoices": [
+                {
+                    "id": "Q9A1",
+                    "text": {
+                        "en": "No"
+                    }
+                },
+                {
+                    "id": "Q9A2",
+                    "text": {
+                        "en": "Yesterday"
+                    }
+                },
+                {
+                    "id": "Q9A3",
+                    "text": {
+                        "en": "2 days ago"
+                    }
+                },
+                {
+                    "id": "Q9A4",
+                    "text": {
+                        "en": "3 days ago"
+                    }
+                },
+                {
+                    "id": "Q9A5",
+                    "text": {
+                        "en": "4 days ago"
+                    }
+                },
+                {
+                    "id": "Q9A6",
+                    "text": {
+                        "en": "5 days ago"
+                    }
+                },
+                {
+                    "id": "Q9A7",
+                    "text": {
+                        "en": "6 days ago"
+                    }
+                },
+                {
+                    "id": "Q9A8",
+                    "text": {
+                        "en": "7 days ago"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "Q10",
+            "text": {
+                "en": "Did you use systemic corticosteroids (Prednisone, etc.) in the past week?"
+            },
+            "helper": {
+                "en": ""
+            },
+            "footer": {},
+            "type": "singleChoice",
+            "answerChoices": [
+                {
+                    "id": "Q10A1",
+                    "text": {
+                        "en": "No"
+                    }
+                },
+                {
+                    "id": "Q10A2",
+                    "text": {
+                        "en": "Yes, but no more than usual"
+                    }
+                },
+                {
+                    "id": "Q10A3",
+                    "text": {
+                        "en": "Yes, more than usual"
+                    }
+                },
+                {
+                    "id": "Q10A4",
+                    "text": {
+                        "en": "I'm not sure"
+                    }
+                }
+            ]
+        }
+    ],
+        "created": "2021-03-31T15:15:04.786Z"
+}

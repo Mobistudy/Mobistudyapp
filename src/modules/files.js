@@ -46,15 +46,16 @@ export default {
   * Opens a file.
   * @param {string} filename - filename to be opened
   * @param {string} forcecreate - if true the file is created if does not exist
+  * @returns {Promise} returns a promise, the resolve callback passes an instance of the file
   */
-  async openFile (filename, forcecreate, onOpen, onError) {
+  async openFile (filename, forcecreate) {
     let folder
     if (Platform.is.ios) folder = cordova.file.documentsDirectory
     else folder = cordova.file.externalDataDirectory
 
     return new Promise((resolve, reject) => {
       window.resolveLocalFileSystemURL(folder, function (dir) {
-        dir.getFile(filename, { create: true }, function (file) {
+        dir.getFile(filename, { create: forcecreate }, function (file) {
           resolve(file)
         }, function (e) {
           reject('Cannot get file ' + filename + ', ' + errorCodeToString(e.code))

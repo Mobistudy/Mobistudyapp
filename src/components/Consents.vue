@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import notifications from 'modules/notifications'
+import notifications from 'modules/notifications/notifications'
 import healthStore from 'modules/healthstore'
 import phone from 'modules/phone'
 import PO60 from 'modules/po60/IPulseOxDevice'
@@ -185,11 +185,6 @@ export default {
         } else {
           try {
             this.value.reminders = await notifications.requestPermission()
-            this.$q.notify({
-              color: 'positive',
-              message: this.$i18n.t('studies.consent.OSPermissionGiven'),
-              icon: 'check'
-            })
           } catch (error) {
             console.error('Cannot get authorisation for sending reminders', error)
             this.$q.notify({
