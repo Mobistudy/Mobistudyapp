@@ -310,8 +310,7 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
     }
     if (task.scheduling.alwaysOn) continue // skip always ON tasks
     let rrule = generateRRule(acceptedTS, studyDescr.generalities.endDate, task.scheduling)
-    // DARIO
-    let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
+    let taskTimes = rrule.between(toUTC(new Date()), toUTC(new Date(studyDescr.generalities.endDate)), true)
     for (let scheduleI = 0; scheduleI < taskTimes.length && scheduleI < 1000; scheduleI++) {
       let taskTime = taskTimes[scheduleI]
       let executionDate = moment(taskTime).startOf('minute').toDate()
