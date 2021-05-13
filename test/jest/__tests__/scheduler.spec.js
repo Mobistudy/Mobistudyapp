@@ -151,7 +151,7 @@ describe('When testing the scheduler', () => {
     expect(tasks.upcoming[0].due.getMinutes()).toBe(0)
   })
 
-  test('an ended study is marked as completed', () => {
+  test('a study beyond end date is marked as completed', () => {
     let studyDescr = [{
       _key: '1234',
       generalities: {
@@ -175,6 +175,92 @@ describe('When testing the scheduler', () => {
       studyKey: '1234',
       currentStatus: 'accepted',
       acceptedTS: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 15).toISOString(),
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 2).toISOString()
+      }]
+    }]
+
+    let tasks = generateTasker(studiesPart, studyDescr)
+    expect(tasks.upcoming.length).toBe(0)
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+    expect(tasks.completedStudyAlert).not.toBeFalsy()
+    expect(tasks.completedStudyAlert.studyTitle).not.toBeFalsy()
+    expect(tasks.completedStudyAlert.studyTitle.en).toBe('study')
+    expect(tasks.completedStudyAlert.studyPart).not.toBeFalsy()
+    expect(tasks.completedStudyAlert.studyPart.studyKey).toBe('1234')
+  })
+
+  test('a study with an ended task is marked as completed', () => {
+    let studyDescr = [{
+      _key: '1234',
+      generalities: {
+        title: {
+          en: 'study'
+        },
+        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10),
+        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10).toISOString().substring(0, 10)
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          startEvent: 'consent',
+          intervalType: 'd',
+          interval: 1,
+          untilSecs: 60 * 60 * 24 // 1 day
+        }
+      }]
+    }]
+    let studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 2).toISOString(),
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 2).toISOString()
+      }]
+    }]
+
+    let tasks = generateTasker(studiesPart, studyDescr)
+    expect(tasks.upcoming.length).toBe(0)
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+    expect(tasks.completedStudyAlert).not.toBeFalsy()
+    expect(tasks.completedStudyAlert.studyTitle).not.toBeFalsy()
+    expect(tasks.completedStudyAlert.studyTitle.en).toBe('study')
+    expect(tasks.completedStudyAlert.studyPart).not.toBeFalsy()
+    expect(tasks.completedStudyAlert.studyPart.studyKey).toBe('1234')
+  })
+
+  test('a study with no more occurrences is marked as completed', () => {
+    let studyDescr = [{
+      _key: '1234',
+      generalities: {
+        title: {
+          en: 'study'
+        },
+        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10),
+        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10).toISOString().substring(0, 10)
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          startEvent: 'consent',
+          intervalType: 'd',
+          interval: 1,
+          occurrences: 5
+        }
+      }]
+    }]
+    let studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 7).toISOString(),
       taskItemsConsent: [{
         taskId: 1,
         consented: true,
