@@ -26,6 +26,7 @@
     "cordova-plugin-pedometer": "github:dariosalvi78/cordova-plugin-pedometer",
     "cordova-plugin-pincheck": "0.0.6",
     "cordova-plugin-secure-storage-echo": "github:mibrito707/cordova-plugin-secure-storage-echo",
+    "cordova-plugin-spf": "github:kevinchtsang/cordova-plugin-spf",
     "cordova-plugin-splashscreen": "^6.0.0",
     "cordova-plugin-whitelist": "^1.3.4"
   },
@@ -42,6 +43,9 @@
       "cordova-plugin-health": {
         "HEALTH_READ_PERMISSION": "Mobistudy needs to read health-related data from your phone",
         "HEALTH_WRITE_PERMISSION": "Mobistudy needs to store health-related data in your phone"
+      },
+      "cordova-plugin-spf": {
+        "MICROPHONE_USAGE_DESCRIPTION": "This app needs a microphone connection to the smart peak flow meter"
       },
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-local-notification": {
