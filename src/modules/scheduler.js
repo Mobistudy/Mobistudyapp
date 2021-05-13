@@ -6,6 +6,16 @@ import notifications from 'modules/notifications/notifications'
 import { Platform } from 'quasar'
 import HealthDataEnum from './healthDataTypesEnum'
 
+function toUTC (d) {
+  if (!d) return null
+  return new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds()))
+}
+
+function fromUTC (d) {
+  if (!d) return null
+  return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds())
+}
+
 // Returns an array of tasks that need to be done today.
 // These are tasks that were "missed" between the last execution and the end of
 // today and those that are to be done by the end of today.
@@ -18,7 +28,7 @@ import HealthDataEnum from './healthDataTypesEnum'
 // alwaysOn: an array of {type: 'form', studyKey: '2121', taskId: 1, alwaysOn: true, due: '2019-04-02'}
 // if there is a study that has been completed because no tasks are to be done
 // then the returned object also contains:
-// completedStudyAlert: an object like { studyTitle: 'MyStudy', studyPart: participation object for that study }
+// completedStudyAlert: an object like { studyTitle: { en: 'Mystudy' }, studyPart: participation object for that study }
 export function generateTasker (studiesParts, studiesDescr) {
   let taskerItems = {
     upcoming: [],
@@ -51,6 +61,11 @@ export function generateTasker (studiesParts, studiesDescr) {
       let studyCompleted = true
 
       for (const taskDescription of consentedTasks) {
+        // filter out tasks that are not relevant for this operating system
+        if (taskDescription.type === 'dataQuery') {
+          if (Platform.is.ios && HealthDataEnum.isAndroidOnly(taskDescription.dataType)) continue
+          if (Platform.is.android && HealthDataEnum.isIOSOnly(taskDescription.dataType)) continue
+        }
         // manage alwaysOn tasks here:
         if (taskDescription.scheduling.alwaysOn) {
           if (isTaskIntervalDue(studyPart.acceptedTS, taskDescription.scheduling)) {
@@ -70,19 +85,21 @@ export function generateTasker (studiesParts, studiesDescr) {
         } else {
           // manage non-always on tasks:
 
-          let studyEndDate = moment(new Date(studyDescr.generalities.endDate)).add(1, 'days').toDate() // RRrule will not show any instances.between if todays date is the same as end date. By adding one day this problem is solved.
-          let rrule = generateRRule(studyPart.acceptedTS, studyEndDate, taskDescription.scheduling)
-          let instancesToEnd = rrule.between(moment().startOf('day').toDate(), moment(studyEndDate).endOf('day').toDate())
+          let startOfToday = new Date()
+          startOfToday.setHours(0, 0, 0, 0)
+          let endOfToday = new Date()
+          endOfToday.setHours(23, 59, 59, 999)
+
+          // RRrule will not show any instances.between if todays date is the same as end date. By adding one day this problem is solved.
+          let studyEndDate = new Date(new Date(studyDescr.generalities.endDate).getTime() + 1000 * 60 * 60 * 24)
+          let startEvent = new Date(studyPart.acceptedTS)
+          startEvent.setHours(0, 0, 1) // add 1s to start so that it's not as midnight
+          let rrule = generateRRule(startEvent, studyEndDate, taskDescription.scheduling)
+          let instancesToEnd = rrule.between(toUTC(startOfToday), toUTC(studyEndDate))
           if (instancesToEnd.length > 0) {
             studyCompleted = false
           }
 
-          // filter out tasks that are not relevant for this operating system
-          if (taskDescription.type === 'dataQuery') {
-            if (Platform.is.ios && HealthDataEnum.isAndroidOnly(taskDescription.dataType)) continue
-            if (Platform.is.android && HealthDataEnum.isIOSOnly(taskDescription.dataType)) continue
-          }
-          let missed
           // the time this task was completed last time is stored into the studyParticipation
           // example: "taskItemsConsent": [ { "taskId": 1, "consented": true, "lastExecuted": "ISO string" } ]
           let lastCompletionTS
@@ -90,33 +107,35 @@ export function generateTasker (studiesParts, studiesDescr) {
             const taskStatus = studyPart.taskItemsConsent.find(x => x.taskId === taskDescription.id)
             if (taskStatus && taskStatus.lastExecuted) {
               // Task has been completed before
-              lastCompletionTS = moment(new Date(taskStatus.lastExecuted))
+              lastCompletionTS = new Date(taskStatus.lastExecuted)
             }
           }
 
+          let missed
           if (lastCompletionTS) {
-            missed = rrule.between(lastCompletionTS.toDate(), moment().startOf('day').toDate())
+            missed = rrule.between(toUTC(lastCompletionTS), toUTC(startOfToday))
             if (missed.length > 0) {
-              missed = missed[missed.length - 1]
+              missed = fromUTC(missed[missed.length - 1])
             } else {
               missed = null
             }
           } else {
             // Task has never been completed
             // get the last occurrence of the rrule before today
-            missed = rrule.before(moment().startOf('day').toDate())
+            missed = fromUTC(rrule.before(toUTC(startOfToday)))
           }
           // Get next task within the day
           let upcoming
-          if (lastCompletionTS && lastCompletionTS.isAfter(moment().startOf('day'))) {
-            upcoming = null
+          if (lastCompletionTS && (lastCompletionTS > startOfToday)) {
+            upcoming = rrule.between(toUTC(lastCompletionTS), toUTC(new Date()))
           } else {
-            upcoming = rrule.between(moment().startOf('day').toDate(), moment().endOf('day').toDate())
-            if (upcoming.length > 0) {
-              upcoming = upcoming[0]
-            } else {
-              upcoming = null
-            }
+            upcoming = rrule.between(toUTC(startOfToday), toUTC(new Date()))
+          }
+          if (upcoming.length > 0) {
+            // convert from UTC to local time
+            upcoming = fromUTC(upcoming[0])
+          } else {
+            upcoming = null
           }
           let templateObj = {
             type: taskDescription.type,
@@ -162,7 +181,6 @@ export function isTaskIntervalDue (acceptTime, scheduling) {
       startTimeD = new Date(startTimeD.getTime() + scheduling.startDelaySecs * 1000) // Add seconds
     }
   } else {
-    // TODO!!!
     throw new Error('The only start event recognised is consent')
   }
   if (scheduling.untilSecs) {
@@ -178,25 +196,25 @@ export function isTaskIntervalDue (acceptTime, scheduling) {
 
 /**
 * generates an instance of RRule
-* startTime - when the task was accepted
+* startDate - when the task was accepted
 * studyEnd - when the study ends
 * scheduling - as from the study description
 */
-export function generateRRule (startTime, studyEnd, scheduling) {
-  let startTimeM = moment(startTime)
+export function generateRRule (startDate, studyEnd, scheduling) {
+  // dates in RRULE must be provided in UTC
+  let startDateUTC = startDate
   if (scheduling.startEvent === 'consent') {
     if (scheduling.startDelaySecs) {
       // add start delay
-      startTimeM = startTimeM.clone().add(scheduling.startDelaySecs, 's') // Add seconds
+      startDateUTC = new Date(startDate.getTime() + 1000 * scheduling.startDelaySecs) // Add seconds
     }
   } else {
-    // TODO!!!
     throw new Error('The only start event recognised is consent')
   }
-  let endTime = moment(studyEnd)
+  let endDateUTC = studyEnd
   if (scheduling.untilSecs) {
-    let untilTime = startTimeM.clone().add(scheduling.untilSecs, 's')
-    if (untilTime.isBefore(endTime)) endTime = untilTime.clone()
+    let untilTime = new Date(startDateUTC.getTime() + 1000 * scheduling.untilSecs)
+    if (untilTime < endDateUTC) endDateUTC = new Date(untilTime)
   }
   // Frequency
   let freq
@@ -247,13 +265,14 @@ export function generateRRule (startTime, studyEnd, scheduling) {
   }
   // Put into rrule config
   let rruleObj = {}
-  rruleObj.dtstart = startTimeM.toDate()
-  rruleObj.until = endTime.toDate()
+  rruleObj.dtstart = toUTC(startDateUTC) // here needs to be converted to UTC to make things coherent
+  rruleObj.until = endDateUTC
   rruleObj.freq = freq
   if (scheduling.interval && scheduling.interval.length) rruleObj.interval = scheduling.interval
   if (scheduling.months && scheduling.months.length) rruleObj.bymonth = scheduling.months
   if (scheduling.monthDays && scheduling.monthDays.length) rruleObj.bymonthday = scheduling.monthDays
-  if (scheduling.weekDays && scheduling.weekDays.length) rruleObj.byweekday = byweekday
+  if (byweekday && byweekday.length) rruleObj.byweekday = byweekday
+  if (scheduling.hours && scheduling.hours.length) rruleObj.byhour = scheduling.hours
   if (scheduling.occurrences) rruleObj.count = scheduling.occurrences
 
   try {
@@ -261,7 +280,7 @@ export function generateRRule (startTime, studyEnd, scheduling) {
   } catch (er) {
     console.error('Error while parsing scheduling object', rruleObj)
     console.error('Scheduling information: ', scheduling)
-    console.error('Star time, study end:', startTime, studyEnd)
+    console.error('Star time, study end:', startDate, studyEnd)
 
     throw er
   }
@@ -290,13 +309,14 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
       if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
     }
     if (task.scheduling.alwaysOn) continue // skip always ON tasks
-    let rrule = generateRRule(acceptedTS, new Date(studyDescr.generalities.endDate), task.scheduling)
+    let rrule = generateRRule(acceptedTS, studyDescr.generalities.endDate, task.scheduling)
+    // DARIO
     let taskTimes = rrule.between(new Date(), new Date(studyDescr.generalities.endDate), true)
     for (let scheduleI = 0; scheduleI < taskTimes.length && scheduleI < 1000; scheduleI++) {
       let taskTime = taskTimes[scheduleI]
       let executionDate = moment(taskTime).startOf('minute').toDate()
       // we could use the unix timestamp of the execution date as id, but we
-      // don't knwo how internally the ids are stored, so it's better to keep
+      // don't know how internally the ids are stored, so it's better to keep
       // their length to less than 9 digits
       // we generate the id by combining the study id, the task id and the single schedule
 
