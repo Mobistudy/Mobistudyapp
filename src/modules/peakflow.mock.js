@@ -6,6 +6,15 @@ export default {
   /**
    * a function call for each functions in the cordova-spf plugin
    */
+  async requestPermission () {
+    // return Promise.resolve(true)
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(true)
+      }, 3000)
+    })
+  },
+
   async startCalibration () {
     // return Promise.resolve(true)
     return new Promise((resolve, reject) => {
