@@ -28,7 +28,7 @@
 <script>
 import i18nString from 'i18n/accountMgmt/accountMgmt'
 import i18nPP from 'i18n/about/privacyPolicy'
-import { mergeDeep } from 'modules/tools.mjs'
+import { mergeDeep } from 'modules/tools.js'
 
 export default {
   name: 'PrivacyPolicy',

@@ -303,31 +303,45 @@ export default {
     taskItems: [
       {
         description: {
+          en: 'I agree to share my answers to the health questionnaire every day.',
+          sv: 'Jag accepterar att dela mina svar på hälsoenkäten varje dag.'
+        },
+        taskId: 1
+      },
+      {
+        description: {
+          en: 'I agree to share my answers to the WHO quality of life questionnaire every day.',
+          sv: 'Jag accepterar att dela mina svar på livskvalitetsenkäten varje dag.'
+        },
+        taskId: 2
+      },
+      {
+        description: {
           en: 'I agree to share my answers to the COVID-19 Symptoms questionnaire every day.',
           sv: 'Jag accepterar att dela mina svar på COVID-19-symptom via enkät varje dag.'
         },
-        taskId: 1
+        taskId: 3
       },
       {
         description: {
           en: 'I agree to send the data collected by the activty tracker every day.',
           sv: 'Jag accepterar att skicka data insamlat av aktivitetsbandet varje dag.'
         },
-        taskId: 2
+        taskId: 4
       },
       {
         description: {
           en: 'I agree to send the data about my physical activity collected by my phone every week.',
           sv: 'Jag accepterar att skicka data om mina fysiska aktiviteter insamlat av min telefon varje vecka.'
         },
-        taskId: 3
+        taskId: 5
       },
       {
         description: {
           en: 'I agree to send the readings of the pulseoximeter at least once a day.',
           sv: 'Jag accepterar att skicka mätningar med pulsoximetern minst en gång om dagen.'
         },
-        taskId: 4
+        taskId: 6
       }
     ]
   }
