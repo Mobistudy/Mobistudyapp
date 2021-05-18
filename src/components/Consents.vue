@@ -81,6 +81,7 @@ import notifications from 'modules/notifications/notifications'
 import healthStore from 'modules/healthstore'
 import phone from 'modules/phone'
 import PO60 from 'modules/po60/IPulseOxDevice'
+import peakflow from 'modules/peakflow'
 
 export default {
   props: [
@@ -115,6 +116,10 @@ export default {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.po60.OSpermissioniOS')
         } else this.permissionMessage = this.$t('studies.tasks.po60.OSpermissionAndroid')
+      } else if (taskType === 'peakflow') {
+        if (this.$q.platform.is.ios) {
+          this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissioniOS')
+        } else this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissionAndroid')
       } else return true
       this.permissionDialog = true
       return new Promise((resolve, reject) => {
@@ -154,6 +159,8 @@ export default {
             await PO60.requestPermission()
           } else if (taskType === 'po60') {
             await PO60.requestPermission()
+          } else if (taskType === 'peakflow') {
+            await peakflow.requestPermission()
           }
           // if we get to this point we have permission
           this.value.taskItemsConsent[taskIndex].consented = true
