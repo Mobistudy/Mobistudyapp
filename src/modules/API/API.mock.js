@@ -9,6 +9,8 @@ import formAAMOSaboutyou from './mockdata/formAAMOSaboutyou.json'
 import formAAMOSdaily from './mockdata/formAAMOSdaily.json'
 import formAAMOSweekly from './mockdata/formAAMOSweekly.json'
 import form9999 from './mockdata/form9999'
+import form9999 from './mockdata/form9999Health'
+import form9999 from './mockdata/form9999whoqol'
 import participant from './mockdata/participant'
 
 export default {
@@ -227,6 +229,14 @@ export default {
           resolve(form1234)
         }, Math.floor(Math.random() * 2000))
       } else if (key === '9999') {
+        setTimeout(function () {
+          resolve(form9999)
+        }, Math.floor(Math.random() * 2000))
+      } else if (key === '9999Health') {
+        setTimeout(function () {
+          resolve(form9999)
+        }, Math.floor(Math.random() * 2000))
+      } else if (key === '9999whoqol') {
         setTimeout(function () {
           resolve(form9999)
         }, Math.floor(Math.random() * 2000))
