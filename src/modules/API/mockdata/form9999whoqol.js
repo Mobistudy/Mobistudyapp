@@ -24,36 +24,36 @@ export default {
         [{
           id: 'Q1A1',
           text: {
-            en: '(1) Very poor',
-            sv: '(1) Väldigt dålig'
+            en: 'Very poor',
+            sv: 'Väldigt dålig'
           }
         },
         {
           id: 'Q1A2',
           text: {
-            en: '(2) Poor',
-            sv: '(2) Dålig'
+            en: 'Poor',
+            sv: 'Dålig'
           }
         },
         {
           id: 'Q1A3',
           text: {
-            en: '(3) Neither poor nor good',
-            sv: '(3) Varken bra eller dålig'
+            en: 'Neither poor nor good',
+            sv: 'Varken bra eller dålig'
           }
         },
         {
           id: 'Q1A4',
           text: {
-            en: '(4) Good',
-            sv: '(4) Bra'
+            en: 'Good',
+            sv: 'Bra'
           }
         },
         {
           id: 'Q1A5',
           text: {
-            en: '(5) Very good',
-            sv: '(5) Väldigt bra'
+            en: 'Very good',
+            sv: 'Väldigt bra'
           }
         }
         ]
@@ -73,36 +73,36 @@ export default {
         [{
           id: 'Q2A1',
           text: {
-            en: '(1) Very dissatisfied',
-            sv: '(1) Väldigt missnöjd'
+            en: 'Very dissatisfied',
+            sv: 'Väldigt missnöjd'
           }
         },
         {
           id: 'Q2A2',
           text: {
-            en: '(2) Dissatisfied',
-            sv: '(2) Missnöjd'
+            en: 'Dissatisfied',
+            sv: 'Missnöjd'
           }
         },
         {
           id: 'Q2A3',
           text: {
-            en: '(3) Neither satisfied nor dissatisfied',
-            sv: '(3) Varken nöjd eller missnöjd'
+            en: 'Neither satisfied nor dissatisfied',
+            sv: 'Varken nöjd eller missnöjd'
           }
         },
         {
           id: 'Q2A4',
           text: {
-            en: '(4) Satisfied',
-            sv: '(4) Nöjd'
+            en: 'Satisfied',
+            sv: 'Nöjd'
           }
         },
         {
           id: 'Q2A5',
           text: {
-            en: '(5) Very satisfied',
-            sv: '(5) Väldigt nöjd'
+            en: 'Very satisfied',
+            sv: 'Väldigt nöjd'
           }
         }
         ],
