@@ -10,13 +10,14 @@
       <q-btn
         @click="startMeasurement"
         v-if="testAttempts <= maxTestAttempts"
-        color="secondary"
+        color="primary"
+        :disable="isMeasuring"
         :label="$t('studies.tasks.peakflow.measure')"
         padding="lg"
       />
       <q-btn
         @click="completeTest"
-        v-if="testAttempts > maxTestAttempts"
+        v-if="testAttempts > maxTestAttempts && !isMeasuring"
         color="purple"
         :label="$t('common.complete')"
         padding="lg"
@@ -34,7 +35,16 @@
         </q-item-section>
       </q-item>
     </div>
-
+    <q-inner-loading :showing="isMeasuring">
+      <div
+        class="text-overline"
+        color="dark-grey"
+      >{{$t('studies.tasks.peakflow.measuring')}}</div>
+      <q-spinner-dots
+        size="40px"
+        color="primary"
+      />
+    </q-inner-loading>
   </q-page>
 </template>
 
@@ -56,6 +66,7 @@ export default {
     return {
       isStarted: false,
       isCompleted: false,
+      isMeasuring: false,
       testAttempts: 0,
       maxTestAttempts: 2,
       measurement: undefined,
@@ -66,10 +77,12 @@ export default {
     async startMeasurement () {
       if (this.testAttempts <= this.maxTestAttempts) {
         this.isStarted = true
+        this.isMeasuring = true
         this.testAttempts++
         this.measurement = await peakflow.startMeasurement()
         this.pef.push(this.measurement.pef)
         audio.textToSpeech.playVoice(this.measurement.pef)
+        this.isMeasuring = false
       }
       await peakflow.stopMeasurement()
     },
