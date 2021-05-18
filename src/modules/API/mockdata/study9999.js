@@ -76,6 +76,38 @@ export default {
         intervalType: 'd',
         interval: 1
       },
+      formKey: '9999Health',
+      formName: {
+        en: 'Health questionnaire',
+        sv: 'Hälsoenkät'
+      }
+    },
+    {
+      id: 2,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
+        startDelaySecs: 0,
+        untilSecs: 2592000, // 1 month
+        intervalType: 'd',
+        interval: 1
+      },
+      formKey: '9999whoqol',
+      formName: {
+        en: 'WHO Quality of Life',
+        sv: 'WHO Livskvalitet'
+      }
+    },
+    {
+      id: 3,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
+        startDelaySecs: 0,
+        untilSecs: 2592000, // 1 month
+        intervalType: 'd',
+        interval: 1
+      },
       formKey: '9999',
       formName: {
         en: 'COVID-19 Symptoms questionnaire',
@@ -83,7 +115,7 @@ export default {
       }
     },
     {
-      id: 2,
+      id: 4,
       type: 'miband3',
       scheduling: {
         startEvent: 'consent',
@@ -95,7 +127,7 @@ export default {
       hrInterval: 5
     },
     {
-      id: 3,
+      id: 5,
       type: 'dataQuery',
       scheduling: {
         startEvent: 'consent',
@@ -109,7 +141,7 @@ export default {
       bucket: 'day'
     },
     {
-      id: 4,
+      id: 6,
       type: 'po60',
       scheduling: {
         alwaysOn: true,
