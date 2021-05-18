@@ -9,10 +9,14 @@ export default {
     })
   },
 
-  async startCalibration () {
+  async startCalibration (maxTime) {
     return new Promise((resolve, reject) => {
       if (!cordova.plugins.spf) reject(new Error('Cordova spf is not installed'))
       cordova.plugins.spf.startCalibration(resolve, reject)
+      setTimeout(() => {
+        cordova.plugins.spf.stopCalibration(reject(console.log('Calibration reached maxTime')),
+          reject(new Error('Error in stopping calibration')))
+      }, maxTime)
     })
   },
 

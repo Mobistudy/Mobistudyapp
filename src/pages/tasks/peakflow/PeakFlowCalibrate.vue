@@ -65,7 +65,8 @@ export default {
       isCalibrated: false,
       calibrating: false,
       calibrateAttempts: 0,
-      maxCalibrateAttempts: 1
+      maxCalibrateAttempts: 1,
+      maxTime: 10000
     }
   },
   methods: {
@@ -75,7 +76,7 @@ export default {
         this.calibrateAttempts++
         this.calibrating = true
         try {
-          this.isCalibrated = await peakflow.startCalibration()
+          this.isCalibrated = await peakflow.startCalibration(this.maxTime)
           console.log('Calibrating Peak Flow')
           audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.peakflow.calibrateSuccess'))
           this.calibrating = false
