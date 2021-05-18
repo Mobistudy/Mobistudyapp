@@ -29,9 +29,9 @@
         :data="reading"
         :key="'pef' + index"
       >
-        <q-item-selection>
+        <q-item-section>
           {{index+1}}) {{ reading }} L/min
-        </q-item-selection>
+        </q-item-section>
       </q-item>
     </div>
 
