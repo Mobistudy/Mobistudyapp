@@ -1,6 +1,7 @@
 'use strict'
 
 import { Platform } from 'quasar'
+import axios from 'axios'
 
 // this module groups a bunch of hardware functionalities, basically cordova plugins
 
@@ -113,6 +114,24 @@ export default {
     async stopNotifications () {
       return new Promise((resolve, reject) => {
         window.pedometer.stopPedometerUpdates(resolve, reject)
+      })
+    }
+  },
+  postcodes: {
+    getPostcode (position) {
+      var longitude = position.coords.longitude
+      var latitude = position.coords.latitude
+      var postcodeLimit = 1
+      var queryString = 'https://api.postcodes.io/postcodes?lon=' + longitude + '&lat=' + latitude + '&limit=' + postcodeLimit
+      return new Promise((resolve, reject) => {
+        axios
+          .get(queryString)
+          .then(response => {
+            resolve({ postcode: response.data.result[0].postcode })
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     }
   },

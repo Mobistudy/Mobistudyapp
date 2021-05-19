@@ -1,6 +1,7 @@
 'use strict'
 
 import { Dialog } from 'quasar'
+// import axios from 'axios'
 
 // this module mocks the cordova plugins of phone.js
 
@@ -104,6 +105,11 @@ export default {
     async stopNotifications () {
       clearInterval(this.timer)
       return Promise.resolve()
+    }
+  },
+  postcodes: {
+    getPostcode (position) {
+      return Promise.resolve({ postcode: 'OX1 4DS' })
     }
   },
   pin: {
