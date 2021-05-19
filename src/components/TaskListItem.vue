@@ -92,7 +92,7 @@ export default {
     } else if (this.task.type === 'gps') {
       this.title = this.$i18n.t('studies.tasks.gps.shortTitle')
       this.main = this.$i18n.t('studies.tasks.gps.shortDescription')
-      this.icon = 'location_outline'
+      this.icon = 'place'
     }
   },
   computed: {
