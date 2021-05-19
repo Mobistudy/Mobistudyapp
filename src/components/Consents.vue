@@ -115,6 +115,10 @@ export default {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.po60.OSpermissioniOS')
         } else this.permissionMessage = this.$t('studies.tasks.po60.OSpermissionAndroid')
+      } else if (taskType === 'gps') {
+        if (this.$q.platform.is.ios) {
+          this.permissionMessage = this.$t('studies.tasks.gps.OSpermissioniOS')
+        } else this.permissionMessage = this.$t('studies.tasks.gps.OSpermissionAndroid')
       } else return true
       this.permissionDialog = true
       return new Promise((resolve, reject) => {
@@ -154,6 +158,10 @@ export default {
             await PO60.requestPermission()
           } else if (taskType === 'po60') {
             await PO60.requestPermission()
+          } else if (taskType === 'gps') {
+            if (await phone.geolocation.isAvailable()) {
+              await phone.geolocation.requestPermission()
+            }
           }
           // if we get to this point we have permission
           this.value.taskItemsConsent[taskIndex].consented = true
