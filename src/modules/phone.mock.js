@@ -2,6 +2,7 @@
 
 import { Dialog } from 'quasar'
 // import axios from 'axios'
+// import config from '../../project.config.js'
 
 // this module mocks the cordova plugins of phone.js
 
@@ -110,6 +111,34 @@ export default {
   postcodes: {
     getPostcode (position) {
       return Promise.resolve({ postcode: 'OX1 4DS' })
+    }
+  },
+  weather: {
+    getWeather (position) {
+      return Promise.resolve({
+        location: 'Oxford',
+        description: 'Rain',
+        icon: 'http://openweathermap.org/img/w/10d.png',
+        temperature: Math.floor(Math.random() * 30),
+        humidity: Math.round(Math.floor(Math.random() * 100) * 100) / 100,
+        clouds: Math.round(Math.floor(Math.random() * 100) * 100) / 100,
+        wind: Math.round(Math.floor(Math.random() * 100) * 100) / 100
+      })
+    },
+    getPollution (position) {
+      return Promise.resolve({
+        aqi: Math.floor(Math.random() * 5)
+      })
+    },
+    getPollen (position) {
+      return Promise.resolve({
+        risk: {
+          grass_pollen: 'Low',
+          tree_pollen: 'Low',
+          weed_pollen: 'Low'
+        },
+        species: {}
+      })
     }
   },
   pin: {

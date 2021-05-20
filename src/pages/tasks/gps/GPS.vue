@@ -14,9 +14,14 @@
       class="text-subtitle1 text-center "
     >{{ $t('studies.tasks.gps.signalCheck') }}</div>
     <div
-      v-show="position"
+      v-show="position && (!weather || !pollution || !pollen)"
       class="text-subtitle1 text-center "
-    >{{ $t('studies.tasks.gps.approxPostcode') }}{{postcode}}</div>
+    >{{ $t('studies.tasks.gps.apiCalling') }}</div>
+    <div
+      v-show="weather"
+      class="text-subtitle1 text-center "
+    >{{ $t('studies.tasks.gps.approxLocation') }}{{ weather.location }}
+    </div>
     <div class="row justify-center q-mt-lg">
       <!-- <q-btn
         @click="getPostcode"
@@ -36,6 +41,34 @@
         color="secondary"
         :label="$t('common.complete')"
       />
+    </div>
+    <div
+      v-show="weather"
+      class="text-subtitle2 text-center ">
+      <img :src="weather.icon"> <br/>
+      {{ $t('studies.tasks.gps.weather') }}{{ weather.description }} <br/>
+      {{ $t('studies.tasks.gps.temperature') }}{{ weather.temperature }} °C <br/>
+      {{ $t('studies.tasks.gps.humidity') }}{{ weather.humidity }}% <br/>
+      {{ $t('studies.tasks.gps.clouds') }}{{ weather.clouds }}% <br/>
+      {{ $t('studies.tasks.gps.wind') }}{{ weather.wind }}m/s <br/>
+    </div>
+    <div
+      v-show="pollution"
+      class="text-subtitle2 text-center ">
+      <br/>
+      {{ $t('studies.tasks.gps.airQuality') }}
+      {{ pollution.aqi==1 ? $t('studies.tasks.gps.aqiscale.l1') : '' }}
+      {{ pollution.aqi==2 ? $t('studies.tasks.gps.aqiscale.l2') : '' }}
+      {{ pollution.aqi==3 ? $t('studies.tasks.gps.aqiscale.l3') : '' }}
+      {{ pollution.aqi==4 ? $t('studies.tasks.gps.aqiscale.l4') : '' }}
+      {{ pollution.aqi==5 ? $t('studies.tasks.gps.aqiscale.l5') : '' }}
+    </div>
+    <div
+      v-show="pollen"
+      class="text-subtitle2 text-center ">
+      Grass: {{ pollen.risk.grass_pollen }} <br/>
+      Tree: {{ pollen.risk.tree_pollen }} <br/>
+      Weed: {{ pollen.risk.weed_pollen }} <br/>
     </div>
   </q-page>
 </template>
@@ -77,7 +110,10 @@ export default {
       // completionTS: undefined,
       positionTS: undefined,
       position: undefined,
-      postcode: undefined
+      postcode: undefined,
+      weather: undefined,
+      pollution: undefined,
+      pollen: undefined
     }
   },
   mounted: async function () {
@@ -89,14 +125,30 @@ export default {
         console.log('GPS is available')
         phone.geolocation.startNotifications({
           maximumAge: 5000,
-          timeout: 5000,
+          timeout: 30000,
           enableHighAccuracy: true
         }, async (position) => {
           console.log('Got position: ', position)
 
-          this.positionTS = new Date()
-          this.position = position
-          this.getPostcode(position)
+          if (!this.position) {
+            this.positionTS = new Date()
+            this.position = position
+          } else {
+            phone.geolocation.stopNotifications()
+          }
+          // this.getPostcode(position)
+          if (!this.weather) {
+            this.weather = await phone.weather.getWeather(position)
+            console.log(this.weather)
+          }
+          if (!this.pollution) {
+            this.pollution = await phone.weather.getPollution(position)
+            console.log(this.pollution)
+          }
+          if (!this.pollen) {
+            this.pollen = await phone.weather.getPollen(position)
+            console.log(this.pollen)
+          }
         }, (err) => {
           console.error('Cannot retrieve GPS position', err)
         })
@@ -135,7 +187,11 @@ export default {
         taskId: taskId,
         createdTS: new Date(),
         positionTS: this.positionTS,
-        postcode: this.postcode
+        // postcode: this.postcode,
+        // position: this.position,
+        weather: this.weather,
+        pollution: this.pollution,
+        pollen: this.pollen
       }
       this.$router.push({ name: 'gpsSummary', params: { report: report } })
     }
