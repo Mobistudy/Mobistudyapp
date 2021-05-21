@@ -188,7 +188,7 @@ export default {
         createdTS: new Date(),
         positionTS: this.positionTS,
         // postcode: this.postcode,
-        // position: this.position,
+        position: this.position,
         weather: this.weather,
         pollution: this.pollution,
         pollen: this.pollen
