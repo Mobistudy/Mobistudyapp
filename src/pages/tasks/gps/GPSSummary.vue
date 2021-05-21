@@ -6,7 +6,6 @@
         color="primary"
         @click="send()"
         :label="$t('common.send')"
-        :disabled="!borgValue"
       />
     </div>
 
@@ -34,11 +33,6 @@ export default {
   name: 'GPSSummaryPage',
   props: {
     report: Object
-  },
-  data: function () {
-    return {
-      borgValue: undefined
-    }
   },
   methods: {
     async send () {
