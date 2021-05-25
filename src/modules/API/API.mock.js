@@ -314,5 +314,11 @@ export default {
     console.log('API - sending po60 data', data)
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
+  },
+
+  async sendtappingData (data) {
+    console.log('API - sending tapping data', data)
+    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
+    return Promise.resolve()
   }
 }

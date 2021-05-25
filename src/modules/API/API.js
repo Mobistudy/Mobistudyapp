@@ -133,5 +133,10 @@ export default {
   // send data from po60 stored data
   sendPO60Data: async function (data) {
     return axios.post(BASE_URL + '/po60Data', data, axiosConfig)
+  },
+
+  // send data from finger tapping data
+  sendtappingData: async function (data) {
+    return axios.post(BASE_URL + '/tappingData', data, axiosConfig)
   }
 }

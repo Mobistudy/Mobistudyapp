@@ -81,6 +81,7 @@ For the GPS:
 
 ## Run
 
+Before you run `quasar dev` create the project.config.js file using the available template
 To start the app in development mode (hot-code reloading, error reporting, etc.), run:
 
 ```bash
