@@ -88,12 +88,15 @@
 
 <script>
 import phone from 'modules/phone'
+import DB from 'modules/db'
 // import distanceAlgo from 'modules/outdoorDistance'
 import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'
 // import axios from 'axios'
 
-// const SIGNAL_CHECK_TIMEOUT = 60000
+const CLOSE_TS = 600000 // 10 minutes
+const CLOSE_LONG_LAT = 0.001 // 111 meters
+const MAX_DAILY_API_CALLS = 2
 
 export default {
   name: 'GPSPage',
@@ -133,21 +136,109 @@ export default {
           if (!this.position) {
             this.positionTS = new Date()
             this.position = position
-          } else {
-            phone.geolocation.stopNotifications()
           }
-          // this.getPostcode(position)
+          phone.geolocation.stopNotifications()
+
+          // check recent API calls
+          let oldWeather = await DB.getOldAPIData('weather')
+          if (oldWeather) {
+            if (this.closePosition(oldWeather.position, position)) {
+              this.weather = oldWeather.weather
+              console.log('Use old weather, from ' + oldWeather.position.timestamp)
+            }
+          }
+          let oldPollution = await DB.getOldAPIData('pollution')
+          if (oldPollution) {
+            if (this.closePosition(oldPollution.position, position)) {
+              this.pollution = oldPollution.pollution
+              console.log('Use old pollution, from ' + oldWeather.position.timestamp)
+            }
+          }
+          let oldPollen = await DB.getOldAPIData('pollen')
+          if (oldPollen) {
+            if (this.closePosition(oldPollen.position, position)) {
+              this.pollen = oldPollen.pollen
+              console.log('Use old pollen, from ' + oldWeather.position.timestamp)
+            }
+          }
+
+          // make calls to API service
           if (!this.weather) {
-            this.weather = await phone.weather.getWeather(position)
-            console.log(this.weather)
+            var APICalls = await DB.getAPITimeStamp('weather')
+            if (!APICalls || APICalls.length <= MAX_DAILY_API_CALLS) {
+              this.weather = await phone.weather.getWeather(position)
+              console.log('Fetched weather ')
+              console.log(this.weather)
+              DB.setOldAPIData('weather', {
+                position: position,
+                weather: this.weather
+              })
+              DB.setAPITimeStamp('weather', position.timestamp)
+            } else {
+              this.weather = {
+                location: null,
+                description: null,
+                icon: null,
+                temperature: null,
+                humidity: null,
+                clouds: null,
+                wind: null
+              }
+              this.$q.notify({
+                color: 'negative',
+                message: this.$i18n.t('studies.tasks.gps.apiCallError'),
+                icon: 'report_problem'
+              })
+            }
           }
           if (!this.pollution) {
-            this.pollution = await phone.weather.getPollution(position)
-            console.log(this.pollution)
+            let APICalls = await DB.getAPITimeStamp('pollution')
+            if (!APICalls || APICalls.length <= MAX_DAILY_API_CALLS) {
+              this.pollution = await phone.weather.getPollution(position)
+              console.log('Fetched pollution ')
+              console.log(this.pollution)
+              DB.setOldAPIData('pollution', {
+                position: position,
+                pollution: this.pollution
+              })
+              DB.setAPITimeStamp('pollution', position.timestamp)
+            } else {
+              this.pollution = {
+                aqi: null
+              }
+              this.$q.notify({
+                color: 'negative',
+                message: this.$i18n.t('studies.tasks.gps.apiCallError'),
+                icon: 'report_problem'
+              })
+            }
           }
           if (!this.pollen) {
-            this.pollen = await phone.weather.getPollen(position)
-            console.log(this.pollen)
+            let APICalls = await DB.getAPITimeStamp('pollen')
+            if (!APICalls || APICalls.length <= MAX_DAILY_API_CALLS) {
+              this.pollen = await phone.weather.getPollen(position)
+              console.log('Fetched pollen ')
+              console.log(this.pollen)
+              DB.setOldAPIData('pollen', {
+                position: position,
+                pollen: this.pollen
+              })
+              DB.setAPITimeStamp('pollen', position.timestamp)
+            } else {
+              this.pollen = {
+                risk: {
+                  grass_pollen: null,
+                  tree_pollen: null,
+                  weed_pollen: null
+                },
+                species: {}
+              }
+              this.$q.notify({
+                color: 'negative',
+                message: this.$i18n.t('studies.tasks.gps.apiCallError'),
+                icon: 'report_problem'
+              })
+            }
           }
         }, (err) => {
           console.error('Cannot retrieve GPS position', err)
@@ -175,6 +266,13 @@ export default {
       } catch (error) {
         console.error('Issues while getting postcode', error)
       }
+    },
+    closePosition (position1, position2) {
+      // if close enough (10 minutes and within 0.001 = 111 meters)
+      return (Math.abs(position1.timestamp - position2.timestamp) < CLOSE_TS && (
+        Math.abs(position1.coords.latitude - position2.coords.latitude) < CLOSE_LONG_LAT) && (
+        Math.abs(position1.coords.longitude - position2.coords.longitude) < CLOSE_LONG_LAT
+      ))
     },
     completeTest () {
       // send report

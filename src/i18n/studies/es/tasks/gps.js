@@ -19,6 +19,7 @@ export default {
   ],
   signalCheck: 'Waiting for the GPS signal.',
   apiCalling: 'Waiting for weather information.',
+  apiCallError: 'You have reached the limit of weather calls today, but you may still complete the task by proceeding and sending your location',
   approxPostcode: 'Approximate postcode: ',
   approxLocation: 'Approximate location: ',
   weather: 'Weather: ',

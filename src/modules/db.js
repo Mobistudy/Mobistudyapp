@@ -134,5 +134,32 @@ export default {
   },
   async removeDevicePO60 () {
     return storage.removeItem('po60')
+  },
+
+  /* GPS weather */
+  async setAPITimeStamp (api, timestamp) {
+    let timestamps = await storage.getItem('gps_ts_' + api)
+    if (!timestamps) {
+      timestamps = []
+    }
+    timestamps.push(timestamp)
+    // remove old timestamp if more than 24 hours ( 8.64e+7 milliseconds)
+    timestamps = timestamps.filter(ts => Math.abs(ts - timestamp) < 86400000)
+    return storage.setItem('gps_ts_' + api, timestamps)
+  },
+  async getAPITimeStamp (api) {
+    return storage.getItem('gps_ts_' + api)
+  },
+  async removeAPITimeStamp (api) {
+    return storage.removeItem('gps_ts_' + api)
+  },
+  async setOldAPIData (api, report) {
+    return storage.setItem('gps_data_' + api, report)
+  },
+  async getOldAPIData (api) {
+    return storage.getItem('gps_data_' + api)
+  },
+  async removeOldAPIData (api) {
+    return storage.removeItem('gps_data_' + api)
   }
 }
