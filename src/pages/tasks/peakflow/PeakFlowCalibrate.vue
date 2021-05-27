@@ -66,7 +66,7 @@ export default {
       calibrating: false,
       calibrateAttempts: 0,
       maxCalibrateAttempts: 1,
-      maxTime: 10000
+      maxTime: 30000
     }
   },
   methods: {

@@ -28,7 +28,7 @@
 <script>
 import API from 'modules/API/API'
 import DB from 'modules/db'
-import fileSystem from 'modules/files'
+// import fileSystem from 'modules/files'
 import { format as Qformat } from 'quasar'
 
 export default {
@@ -48,12 +48,12 @@ export default {
       this.report.pef = this.pefMax
 
       // Only for testing purposes! Please remove before deploying app.
-      try {
-        let filename = 'peakflow_' + new Date().getTime() + '.json'
-        await fileSystem.save(filename, this.report)
-      } catch (err) {
-        console.error('Cannot save to file', err)
-      }
+      // try {
+      //   let filename = 'peakflow_' + new Date().getTime() + '.json'
+      //   await fileSystem.save(filename, this.report)
+      // } catch (err) {
+      //   console.error('Cannot save to file', err)
+      // }
 
       // Save the data to server
       try {
@@ -63,6 +63,7 @@ export default {
           this.report.taskId,
           new Date()
         )
+        await DB.setPastPeakFlowMeas(this.report.pef)
         this.$q.loading.hide()
         this.$router.push({ name: 'peakflowReview', params: { report: this.report } })
         // this.$router.push('/home')

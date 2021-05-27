@@ -1,5 +1,7 @@
 'use strict'
 
+import DB from 'modules/db'
+
 // smart peak flow meter cordova-plugin
 export default {
   async requestPermission () {
@@ -14,7 +16,7 @@ export default {
       if (!cordova.plugins.spf) reject(new Error('Cordova spf is not installed'))
       cordova.plugins.spf.startCalibration(resolve, reject)
       setTimeout(() => {
-        cordova.plugins.spf.stopCalibration(reject(console.log('Calibration reached maxTime')),
+        cordova.plugins.spf.stopCalibration(reject(new Error('Calibration reached maxTime')),
           reject(new Error('Error in stopping calibration')))
       }, maxTime)
     })
@@ -53,6 +55,6 @@ export default {
   },
 
   async getStoredData (startDate) {
-
+    return DB.getPastPeakFlowMeas()
   }
 }
