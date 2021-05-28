@@ -40,17 +40,8 @@ export default {
       },
       type: 'slider',
       min: 1,
-      minText: {
-        en: 'Minimum value',
-        sv: 'Minsta värde',
-        es: 'Valor minimo'
-      },
       max: 100,
-      maxText: {
-        en: 'Maximum value',
-        sv: 'Maximalt värde',
-        es: 'Valor maximo'
-      }
+      vertical: true
     },
 
     {

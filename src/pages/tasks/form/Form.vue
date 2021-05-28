@@ -42,20 +42,15 @@
             v-if="currentQuestion.type === 'slider'"
             class="text-center"
           >
-            <div class="q-mt-sm">
-              {{ currentQuestion.maxText[$i18n.locale] }}
-            </div>
             <div class="row justify-center">
               <q-slider
+                class="q-ma-sm"
                 v-model.number="numberAnswer"
                 :min="currentQuestion.min"
                 :max="currentQuestion.max"
-                vertical
-                reverse
+                :vertical="currentQuestion.vertical"
+                :reverse="currentQuestion.vertical"
               />
-            </div>
-            <div class="q-mb-sm">
-              {{ currentQuestion.minText[$i18n.locale] }}
             </div>
           </div>
           <div
