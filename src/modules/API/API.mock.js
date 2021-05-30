@@ -314,5 +314,11 @@ export default {
     console.log('API - sending po60 data', data)
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
+  },
+
+  async sendGPSData (data) {
+    console.log('API - sending gps data', data)
+    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
+    return Promise.resolve()
   }
 }

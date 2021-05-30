@@ -1,6 +1,8 @@
 'use strict'
 
 import { Platform } from 'quasar'
+import axios from 'axios'
+import config from '../../project.config.js'
 
 // this module groups a bunch of hardware functionalities, basically cordova plugins
 
@@ -113,6 +115,95 @@ export default {
     async stopNotifications () {
       return new Promise((resolve, reject) => {
         window.pedometer.stopPedometerUpdates(resolve, reject)
+      })
+    }
+  },
+  postcodes: {
+    getPostcode (position) {
+      var longitude = position.coords.longitude
+      var latitude = position.coords.latitude
+      var postcodeLimit = 1
+      var queryString = 'https://api.postcodes.io/postcodes?lon=' + longitude + '&lat=' + latitude + '&limit=' + postcodeLimit
+      return new Promise((resolve, reject) => {
+        axios
+          .get(queryString)
+          .then(response => {
+            resolve({ postcode: response.data.result[0].postcode })
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    }
+  },
+  weather: {
+    getWeather (position) {
+      var longitude = Math.round(position.coords.longitude * 100) / 100
+      var latitude = Math.round(position.coords.latitude * 100) / 100
+      var apiKey = config.API_KEY_OPENWEATHER
+      var queryString = 'https://api.openweathermap.org/data/2.5/weather?lon=' + longitude + '&lat=' + latitude + '&appid=' + apiKey
+      return new Promise((resolve, reject) => {
+        axios
+          .get(queryString)
+          .then(response => {
+            console.log(response)
+            var wea = response.data
+            resolve({
+              location: wea.name,
+              description: wea.weather[0].description,
+              icon: 'https://openweathermap.org/img/w/' + wea.weather[0].icon + '.png',
+              temperature: Math.round((wea.main.temp - 273.15) * 10) / 10,
+              humidity: Math.round(wea.main.humidity * 100) / 100,
+              clouds: Math.round(wea.clouds.all * 100) / 100,
+              wind: Math.round(wea.wind.speed * 100) / 100
+            })
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    getPollution (position) {
+      var longitude = Math.round(position.coords.longitude * 100) / 100
+      var latitude = Math.round(position.coords.latitude * 100) / 100
+      var apiKey = config.API_KEY_OPENWEATHER
+      var queryString = 'https://api.openweathermap.org/data/2.5/air_pollution?lon=' + longitude + '&lat=' + latitude + '&appid=' + apiKey
+      return new Promise((resolve, reject) => {
+        axios
+          .get(queryString)
+          .then(response => {
+            var pollut = response.data.list[0]
+            resolve({
+              aqi: pollut.main.aqi
+            })
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    getPollen (position) {
+      var longitude = Math.round(position.coords.longitude * 100) / 100
+      var latitude = Math.round(position.coords.latitude * 100) / 100
+      var apiKey = config.API_KEY_AMBEE
+      var queryString = ' https://api.ambeedata.com/latest/pollen/by-lat-lng?lng=' + longitude + '&lat=' + latitude
+      var options = {
+        headers: { 'x-api-key': apiKey }
+      }
+      return new Promise((resolve, reject) => {
+        axios
+          .get(queryString, options)
+          .then(response => {
+            var pol = response.data.data[0]
+            console.log(pol)
+            resolve({
+              risk: pol.Risk,
+              species: pol.Species
+            })
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     }
   },
