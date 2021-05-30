@@ -68,6 +68,17 @@ export default {
     async stopNotifications () {
       clearInterval(this.timerid)
       return Promise.resolve()
+    },
+    async getCurrentPosition () {
+      return {
+        timestamp: new Date().getTime(),
+        coords: {
+          latitude: 51.751985,
+          longitude: -1.257609,
+          altitude: 69.82,
+          accuracy: 30
+        }
+      }
     }
   },
   pedometer: {

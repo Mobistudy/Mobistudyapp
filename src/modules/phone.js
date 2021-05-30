@@ -70,6 +70,11 @@ export default {
     async stopNotifications () {
       navigator.geolocation.clearWatch(this.watchid)
       return Promise.resolve()
+    },
+    async getCurrentPosition () {
+      return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+      })
     }
   },
   pedometer: {
