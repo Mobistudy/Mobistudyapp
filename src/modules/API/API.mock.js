@@ -316,9 +316,16 @@ export default {
     return Promise.resolve()
   },
 
-  async sendGPSData (data) {
-    console.log('API - sending gps data', data)
+  async sendPosition (data) {
+    console.log('API - sending position', data)
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
+  },
+
+  getEnvironmentFromPosition (lat, long) {
+    console.log('API - getting environment', lat, long)
+    return Promise.resolve({
+      // TODO: put some fake data
+    })
   }
 }

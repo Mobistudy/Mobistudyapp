@@ -138,5 +138,9 @@ export default {
   // send data from gps
   sendPosition: async function (data) {
     return axios.post(BASE_URL + '/positions', data, axiosConfig)
+  },
+
+  getEnvironmentFromPosition (lat, long) {
+    return axios.get(BASE_URL + '/positions/environment?lat=' + lat + '&long=' + long, axiosConfig)
   }
 }

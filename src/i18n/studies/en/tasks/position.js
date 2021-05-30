@@ -1,6 +1,6 @@
 export default {
   title: 'Position',
-  shortDescription: 'Collect your current location',
+  shortDescription: 'Send your current location',
   shortTitle: 'Position',
   OSpermissioniOS: 'This task requires the app to access the positioning system of your phone (like the GPS). Your location will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   OSpermissionAndroid: 'This task requires the app to access the positioning system of your phone (like the GPS). Your location will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
@@ -8,7 +8,7 @@ export default {
     {
       title: 'Introduction',
       img: 'instructions/6mwt_6.jpg',
-      description: 'This task consists of collecting your current location using the phone. The task will also collect information about the environment you are in, like the weather or pollution levels.'
+      description: 'This task consists of sending your current location using the phone. The task will also collect information about the environment you are in, like the weather or pollution levels.'
     },
     {
       title: 'Setup',

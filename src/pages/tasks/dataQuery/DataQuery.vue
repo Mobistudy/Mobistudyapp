@@ -310,8 +310,11 @@ export default {
       this.$q.loading.hide()
       this.$q.notify({
         color: 'negative',
-        message: 'Cannot retrieve data: ' + error.message,
-        icon: 'report_problem'
+        message: error.message,
+        icon: 'report_problem',
+        onDismiss () {
+          this.$router.push('/home')
+        }
       })
     }
   },

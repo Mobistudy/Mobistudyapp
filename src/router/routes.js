@@ -82,8 +82,7 @@ const routes = [
       { path: '/po60Connect', name: 'po60Connect', component: () => import('pages/tasks/po60/PO60Connect.vue'), props: true },
       { path: '/po60Download', name: 'po60DataDownload', component: () => import('pages/tasks/po60/PO60Download.vue'), props: true },
       { path: '/positionIntro', name: 'positionIntro', component: () => import('pages/tasks/position/PositionIntro.vue'), props: true },
-      { path: '/position', name: 'position', component: () => import('pages/tasks/position/Position.vue'), props: true },
-      { path: '/positionSummary', name: 'positionSummary', component: () => import('pages/tasks/position/PositionSummary.vue'), props: true }
+      { path: '/position', name: 'position', component: () => import('pages/tasks/position/Position.vue'), props: true }
     ]
   },
   {
