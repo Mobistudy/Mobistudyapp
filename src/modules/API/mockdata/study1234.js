@@ -139,12 +139,11 @@ export default {
     },
     {
       id: 7,
-      type: 'gps',
+      type: 'position',
       scheduling: {
+        alwaysOn: true,
         startEvent: 'consent',
-        untilSecs: 60 * 60 * 24 * 7, // 1 week
-        intervalType: 'd',
-        interval: 1
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
       }
     }
   ],
@@ -170,6 +169,7 @@ export default {
       - Your geographical position, distance and steps during the Six-minute Walk Test.
       - Your heart rate, activity level, steps and activity type collected by the MiBand3 fitness tracker.
       - Your blood oxygen saturation and heart rate measured by a pulseoximeter.
+      - Your geographical location during the positioning task.
 
       These data are not really needed for anything in particular, as this is just an example, but they may be useful for finding bugs and improving Mobistudy.
 
@@ -212,6 +212,7 @@ export default {
       - Din geografiska position, avstånd och steg under sex minuters promenadtest.
       - Din hjärtfrekvens, aktivitetsnivå, steg och aktivitetstyp som samlas in av MiBand3 fitnessspårare
       - Din blodsyremättnad och hjärtfrekvens mätt med en pulsoximeter.
+      - Din geografiska plats under positioneringsuppgiften.
 
       Dessa data behövs egentligen inte för något särskilt, eftersom detta bara är ett exempel, men de kan vara användbara för att hitta buggar och förbättra Mobistudy.
 
@@ -255,7 +256,8 @@ export default {
       \u2022 Frecuencia cardíaca y pasos recopilados durante el Queens College Step Test
       \u2022 Tu posición geográfica, distancia y pasos durante el 6-minute Walk Test
       \u2022 Tu frecuencia cardíaca, nivel de actividad, pasos y tipo de actividad recopilados por el monitor de actividad
-      \u2022 Tu saturación de oxígeno en sangre y frecuencia cardíaca medida por el oxímetro de pulso
+      \u2022 Tu saturación de oxígeno en sangre y frecuencia cardíaca medida por el oxímetro de pulso.
+      \u2022 Tu ubicación geográfica durante la tarea de posicionamiento.
 
       Estos datos no son realmente necesarios para nada en particular, ya que esto es solo un ejemplo, pero pueden ser útiles para encontrar errores y mejorar Mobistudy.
       Todos estos datos se almacenarán en el servidor de Mobistudy, gestionado por la Universidad de Malmö en Suecia. Su teléfono solo conservará su perfil y datos sobre los estudios en los que está participando.

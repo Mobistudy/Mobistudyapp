@@ -136,7 +136,7 @@ export default {
   },
 
   // send data from gps
-  sendGPSData: async function (data) {
-    return axios.post(BASE_URL + '/gpsData', data, axiosConfig)
+  sendPosition: async function (data) {
+    return axios.post(BASE_URL + '/positions', data, axiosConfig)
   }
 }

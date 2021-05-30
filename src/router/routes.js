@@ -81,9 +81,9 @@ const routes = [
       { path: '/po60Intro', name: 'po60Intro', component: () => import('pages/tasks/po60/PO60Intro.vue'), props: true },
       { path: '/po60Connect', name: 'po60Connect', component: () => import('pages/tasks/po60/PO60Connect.vue'), props: true },
       { path: '/po60Download', name: 'po60DataDownload', component: () => import('pages/tasks/po60/PO60Download.vue'), props: true },
-      { path: '/gpsIntro', name: 'gpsIntro', component: () => import('pages/tasks/gps/GPSIntro.vue'), props: true },
-      { path: '/gps', name: 'gps', component: () => import('pages/tasks/gps/GPS.vue'), props: true },
-      { path: '/gpsSummary', name: 'gpsSummary', component: () => import('pages/tasks/gps/GPSSummary.vue'), props: true }
+      { path: '/positionIntro', name: 'positionIntro', component: () => import('pages/tasks/position/PositionIntro.vue'), props: true },
+      { path: '/position', name: 'position', component: () => import('pages/tasks/position/Position.vue'), props: true },
+      { path: '/positionSummary', name: 'positionSummary', component: () => import('pages/tasks/position/PositionSummary.vue'), props: true }
     ]
   },
   {

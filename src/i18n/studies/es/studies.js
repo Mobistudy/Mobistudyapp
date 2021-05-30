@@ -3,7 +3,7 @@ import qcstTask from './tasks/qcst'
 import miband3Task from './tasks/miband3'
 import dataQueryTask from './tasks/dataQuery'
 import po60Task from './tasks/po60'
-import gpsTask from './tasks/gps'
+import positionTask from './tasks/position'
 
 let studies = {
   studies: {
@@ -52,6 +52,7 @@ let studies = {
       capTestComplete: '¡Felicidades!',
       capTestCompleteSubtext: '¡Completaste la prueba!',
       taskCompleted: 'La tarea se completó y el resultado se envió al servidor. ¡Gracias!',
+      due: 'Pendiente',
       form: {
         title: '{formname} formulario',
         shortDescription: 'Responde algunas preguntas',
@@ -88,6 +89,6 @@ studies.studies.tasks.qcst = qcstTask
 studies.studies.tasks.miband3 = miband3Task
 studies.studies.tasks.dataQuery = dataQueryTask
 studies.studies.tasks.po60 = po60Task
-studies.studies.tasks.gps = gpsTask
+studies.studies.tasks.position = positionTask
 
 export default studies

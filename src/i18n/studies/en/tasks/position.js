@@ -1,20 +1,19 @@
 export default {
-  title: 'Weather / Location',
-  shortDescription: 'Collect GPS location and local weather',
-  shortTitle: 'Weather',
-  description: 'We will use your GPS location to find out your local weather.',
+  title: 'Position',
+  shortDescription: 'Collect your current location',
+  shortTitle: 'Position',
   OSpermissioniOS: 'This task requires the app to access the positioning system of your phone (like the GPS). Your location will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   OSpermissionAndroid: 'This task requires the app to access the positioning system of your phone (like the GPS). Your location will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   introductionSlides: [
     {
-      title: '',
+      title: 'Introduction',
       img: 'instructions/6mwt_6.jpg',
-      description: 'We will use your location to find out your local weather.'
+      description: 'This task consists of collecting your current location using the phone. The task will also collect information about the environment you are in, like the weather or pollution levels.'
     },
     {
       title: 'Setup',
       img: 'instructions/6mwt_6.jpg',
-      description: 'Make sure the positioning (GPS) on your phone is turned ON before starting the test.'
+      description: 'Make sure the positioning (GPS) on your phone is turned ON before starting this task.'
     }
   ],
   signalCheck: 'Waiting for the GPS signal.',

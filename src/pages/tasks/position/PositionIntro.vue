@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <Intro
-      :introductionSlides="$t('studies.tasks.gps.introductionSlides')"
+      :introductionSlides="$t('studies.tasks.position.introductionSlides')"
       v-on:start="start()"
     >
     </Intro>
@@ -11,7 +11,7 @@
 <script>
 import Intro from 'components/Intro.vue'
 export default {
-  name: 'GPSIntroPage',
+  name: 'PositionIntroPage',
   components: {
     Intro
   },
@@ -23,7 +23,7 @@ export default {
     start () {
       const studyKey = this.studyKey
       const taskId = this.taskId
-      this.$router.push({ name: 'gps', params: { studyKey: studyKey, taskId: taskId } })
+      this.$router.push({ name: 'position', params: { studyKey: studyKey, taskId: taskId } })
     }
   }
 }

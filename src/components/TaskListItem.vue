@@ -55,8 +55,8 @@ export default {
         this.$router.push({ name: 'miband3Intro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'po60') {
         this.$router.push({ name: 'po60Intro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
-      } else if (type === 'gps') {
-        this.$router.push({ name: 'gpsIntro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
+      } else if (type === 'position') {
+        this.$router.push({ name: 'positionIntro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'dataQuery') {
         this.$router.push({ name: 'dataQueryIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else {
@@ -89,15 +89,15 @@ export default {
       this.title = this.$i18n.t('studies.tasks.po60.shortTitle')
       this.main = this.$i18n.t('studies.tasks.po60.shortDescription')
       this.icon = 'touch_app'
-    } else if (this.task.type === 'gps') {
-      this.title = this.$i18n.t('studies.tasks.gps.shortTitle')
-      this.main = this.$i18n.t('studies.tasks.gps.shortDescription')
+    } else if (this.task.type === 'position') {
+      this.title = this.$i18n.t('studies.tasks.position.shortTitle')
+      this.main = this.$i18n.t('studies.tasks.position.shortDescription')
       this.icon = 'place'
     }
   },
   computed: {
     timeRemaining: function () {
-      return 'Due ' + moment(this.task.due).fromNow()
+      return this.$i18n.t('studies.tasks.due') + ' ' + moment(this.task.due).fromNow()
     }
   }
 }

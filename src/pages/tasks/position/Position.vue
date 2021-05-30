@@ -1,8 +1,5 @@
 <template>
   <q-page padding>
-    <div class="text-center text-h5 q-mt-lg">
-      {{ $t('studies.tasks.gps.title') }}
-    </div>
     <!-- <div
       ref="map"
       style="width: 100%; height: 50vh;"
@@ -12,15 +9,15 @@
     <div
       v-show="!position"
       class="text-subtitle1 text-center "
-    >{{ $t('studies.tasks.gps.signalCheck') }}</div>
+    >{{ $t('studies.tasks.position.signalCheck') }}</div>
     <div
       v-show="position && (!weather || !pollution || !pollen)"
       class="text-subtitle1 text-center "
-    >{{ $t('studies.tasks.gps.apiCalling') }}</div>
+    >{{ $t('studies.tasks.position.apiCalling') }}</div>
     <div
       v-show="weather"
       class="text-subtitle1 text-center "
-    >{{ $t('studies.tasks.gps.approxLocation') }}{{ weather.location }}
+    >{{ $t('studies.tasks.position.approxLocation') }}{{ weather.location }}
     </div>
     <div class="row justify-center q-mt-lg">
       <!-- <q-btn
@@ -46,22 +43,22 @@
       v-show="weather"
       class="text-subtitle2 text-center ">
       <img :src="weather.icon"> <br/>
-      {{ $t('studies.tasks.gps.weather') }}{{ weather.description }} <br/>
-      {{ $t('studies.tasks.gps.temperature') }}{{ weather.temperature }} °C <br/>
-      {{ $t('studies.tasks.gps.humidity') }}{{ weather.humidity }}% <br/>
-      {{ $t('studies.tasks.gps.clouds') }}{{ weather.clouds }}% <br/>
-      {{ $t('studies.tasks.gps.wind') }}{{ weather.wind }}m/s <br/>
+      {{ $t('studies.tasks.position.weather') }}{{ weather.description }} <br/>
+      {{ $t('studies.tasks.position.temperature') }}{{ weather.temperature }} °C <br/>
+      {{ $t('studies.tasks.position.humidity') }}{{ weather.humidity }}% <br/>
+      {{ $t('studies.tasks.position.clouds') }}{{ weather.clouds }}% <br/>
+      {{ $t('studies.tasks.position.wind') }}{{ weather.wind }}m/s <br/>
     </div>
     <div
       v-show="pollution"
       class="text-subtitle2 text-center ">
       <br/>
-      {{ $t('studies.tasks.gps.airQuality') }}
-      {{ pollution.aqi==1 ? $t('studies.tasks.gps.aqiscale.l1') : '' }}
-      {{ pollution.aqi==2 ? $t('studies.tasks.gps.aqiscale.l2') : '' }}
-      {{ pollution.aqi==3 ? $t('studies.tasks.gps.aqiscale.l3') : '' }}
-      {{ pollution.aqi==4 ? $t('studies.tasks.gps.aqiscale.l4') : '' }}
-      {{ pollution.aqi==5 ? $t('studies.tasks.gps.aqiscale.l5') : '' }}
+      {{ $t('studies.tasks.position.airQuality') }}
+      {{ pollution.aqi==1 ? $t('studies.tasks.position.aqiscale.l1') : '' }}
+      {{ pollution.aqi==2 ? $t('studies.tasks.position.aqiscale.l2') : '' }}
+      {{ pollution.aqi==3 ? $t('studies.tasks.position.aqiscale.l3') : '' }}
+      {{ pollution.aqi==4 ? $t('studies.tasks.position.aqiscale.l4') : '' }}
+      {{ pollution.aqi==5 ? $t('studies.tasks.position.aqiscale.l5') : '' }}
     </div>
     <div
       v-show="pollen"
@@ -99,7 +96,7 @@ const CLOSE_LONG_LAT = 0.001 // 111 meters
 const MAX_DAILY_API_CALLS = 2
 
 export default {
-  name: 'GPSPage',
+  name: 'PositionPage',
   props: {
     studyKey: String,
     taskId: Number
