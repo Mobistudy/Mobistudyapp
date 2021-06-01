@@ -1,38 +1,39 @@
 export default {
-  title: 'Weather / Location',
-  shortDescription: 'Collect GPS location and local weather',
-  shortTitle: 'Weather',
-  description: 'We will use your GPS location to find out your local weather.',
-  OSpermissioniOS: 'This task requires the app to access the positioning system of your phone (like the GPS). Your location will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
-  OSpermissionAndroid: 'This task requires the app to access the positioning system of your phone (like the GPS). Your location will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
+  title: 'Ubicación',
+  shortDescription: 'Envía tu ubicación actual',
+  shortTitle: 'Ubicación',
+  OSpermissioniOS: 'Esta tarea requiere que la aplicación acceda al sistema de posicionamiento de tu teléfono (como el GPS). Tu ubicación se compartirá con el equipo de investigación de este estudio para su análisis. Toca "Siguiente" si deseas continuar con el proceso de autorización.',
+  OSpermissionAndroid: 'Esta tarea requiere que la aplicación acceda al sistema de posicionamiento de tu teléfono (como el GPS). Tu ubicación se compartirá con el equipo de investigación de este estudio para su análisis. Toca "Siguiente" si deseas continuar con el proceso de autorización.',
   introductionSlides: [
     {
-      title: '',
+      title: 'Introducción',
       img: 'instructions/6mwt_6.jpg',
-      description: 'We will use your location to find out your local weather.'
+      description: 'Esta tarea consiste en enviar tu ubicación actual a través del teléfono. La tarea también recopilará información sobre el entorno en el que te encuentras, como el clima o los niveles de contaminación.'
     },
     {
-      title: 'Setup',
+      title: 'Configuración',
       img: 'instructions/6mwt_6.jpg',
-      description: 'Make sure the positioning (GPS) on your phone is turned ON before starting the test.'
+      description: 'Asegúrate de que el posicionamiento (GPS) en tu teléfono esté encendido antes de comenzar esta tarea.'
     }
   ],
-  signalCheck: 'Waiting for the GPS signal.',
-  apiCalling: 'Waiting for weather information.',
-  apiCallError: 'You have reached the limit of weather calls today, but you may still complete the task by proceeding and sending your location',
-  approxPostcode: 'Approximate postcode: ',
-  approxLocation: 'Approximate location: ',
-  weather: 'Weather: ',
-  temperature: 'Temperature: ',
-  humidity: 'Humidity: ',
-  clouds: 'Clouds: ',
-  wind: 'Wind: ',
-  airQuality: 'Air Quality: ',
+  connecting: 'Recuperando tu posición y entorno',
+  approxLocation: 'Ubicacion aproximada',
+  weather: 'Tiempo',
+  temperature: 'Temperatura',
+  humidity: 'Humedad',
+  clouds: 'Nubes',
+  wind: 'Viento',
+  airQuality: 'Calidad del aire',
   aqiscale: {
-    l1: 'Good',
-    l2: 'Fair',
-    l3: 'Moderate',
-    l4: 'Poor',
-    l5: 'Very Poor'
+    l1: 'Buena',
+    l2: 'Justa',
+    l3: 'Moderada',
+    l4: 'Pobre',
+    l5: 'Muy pobre'
+  },
+  allergens: {
+    riskOfGrass: 'Riesgo de polen de césped',
+    riskOfTree: 'Riesgo de polen de arboles',
+    riskOfWeed: 'Riesgo de polen de hierba'
   }
 }

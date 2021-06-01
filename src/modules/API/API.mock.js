@@ -12,6 +12,7 @@ import form9999 from './mockdata/form9999'
 import form9999Health from './mockdata/form9999Health'
 import form9999whoqol from './mockdata/form9999whoqol'
 import participant from './mockdata/participant'
+import environmentmock from './mockdata/environment'
 
 export default {
 
@@ -324,8 +325,10 @@ export default {
 
   getEnvironmentFromPosition (lat, long) {
     console.log('API - getting environment', lat, long)
-    return Promise.resolve({
-      // TODO: put some fake data
+    return new Promise((resolve, reject) => {
+      setTimeout(function () {
+        resolve(environmentmock)
+      }, 1500)
     })
   }
 }

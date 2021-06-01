@@ -16,22 +16,24 @@ export default {
       description: 'Make sure the positioning (GPS) on your phone is turned ON before starting this task.'
     }
   ],
-  signalCheck: 'Waiting for the GPS signal.',
-  apiCalling: 'Waiting for weather information.',
-  apiCallError: 'You have reached the limit of weather calls today, but you may still complete the task by proceeding and sending your location',
-  approxPostcode: 'Approximate postcode: ',
-  approxLocation: 'Approximate location: ',
-  weather: 'Weather: ',
-  temperature: 'Temperature: ',
-  humidity: 'Humidity: ',
-  clouds: 'Clouds: ',
-  wind: 'Wind: ',
-  airQuality: 'Air Quality: ',
+  connecting: 'Retrieving your position and environment',
+  approxLocation: 'Approximate location',
+  weather: 'Weather',
+  temperature: 'Temperature',
+  humidity: 'Humidity',
+  clouds: 'Clouds',
+  wind: 'Wind',
+  airQuality: 'Air Quality',
   aqiscale: {
     l1: 'Good',
     l2: 'Fair',
     l3: 'Moderate',
     l4: 'Poor',
     l5: 'Very Poor'
+  },
+  allergens: {
+    riskOfGrass: 'Risk of grass pollen',
+    riskOfTree: 'Risk of tree pollen',
+    riskOfWeed: 'Risk of weed pollen'
   }
 }

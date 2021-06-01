@@ -1,38 +1,39 @@
 export default {
-  title: 'Weather / Location',
-  shortDescription: 'Collect GPS location and local weather',
-  shortTitle: 'Weather',
-  description: 'We will use your GPS location to find out your local weather.',
-  OSpermissioniOS: 'This task requires the app to access the positioning system of your phone (like the GPS). Your location will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
-  OSpermissionAndroid: 'This task requires the app to access the positioning system of your phone (like the GPS). Your location will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
+  title: 'Position',
+  shortDescription: 'Skicka din nuvarande plats',
+  shortTitle: 'Position',
+  OSpermissioniOS: 'Denna uppgift kräver att appen har åtkomst till positioneringssystemet på din telefon (som GPS). Din plats kommer att delas med forskargruppen i denna studie för analys. Klicka på Nästa om du vill fortsätta med auktoriseringsprocessen.',
+  OSpermissionAndroid: 'Denna uppgift kräver att appen har åtkomst till positioneringssystemet på din telefon (som GPS). Din plats kommer att delas med forskargruppen i denna studie för analys. Klicka på Nästa om du vill fortsätta med auktoriseringsprocessen.',
   introductionSlides: [
     {
-      title: '',
+      title: 'Introduktion',
       img: 'instructions/6mwt_6.jpg',
-      description: 'We will use your location to find out your local weather.'
+      description: 'Denna uppgift består i att skicka din nuvarande plats med telefonen. Uppgiften kommer också att samla in information om den miljö du befinner dig i, till exempel väder eller föroreningsnivåer.'
     },
     {
-      title: 'Setup',
+      title: 'Uppstart',
       img: 'instructions/6mwt_6.jpg',
-      description: 'Make sure the positioning (GPS) on your phone is turned ON before starting the test.'
+      description: 'Se till att positioneringen (GPS) på din telefon är på innan du startar den här uppgiften.'
     }
   ],
-  signalCheck: 'Waiting for the GPS signal.',
-  apiCalling: 'Waiting for weather information.',
-  apiCallError: 'You have reached the limit of weather calls today, but you may still complete the task by proceeding and sending your location',
-  approxPostcode: 'Approximate postcode: ',
-  approxLocation: 'Approximate location: ',
-  weather: 'Weather: ',
-  temperature: 'Temperature: ',
-  humidity: 'Humidity: ',
-  clouds: 'Clouds: ',
-  wind: 'Wind: ',
-  airQuality: 'Air Quality: ',
+  connecting: 'Hämtar din position och miljö',
+  approxLocation: 'Ungefärlig plats',
+  weather: 'Väder',
+  temperature: 'Temperatur',
+  humidity: 'Fuktighet',
+  clouds: 'Moln',
+  wind: 'Vind',
+  airQuality: 'Luftkvalitet',
   aqiscale: {
-    l1: 'Good',
-    l2: 'Fair',
-    l3: 'Moderate',
-    l4: 'Poor',
-    l5: 'Very Poor'
+    l1: 'Bra',
+    l2: 'Rättvis',
+    l3: 'Måttlig',
+    l4: 'Fattig',
+    l5: 'Väldigt fattig'
+  },
+  allergens: {
+    riskOfGrass: 'Risk för gräspollen',
+    riskOfTree: 'Risk för trädpollen',
+    riskOfWeed: 'Risk för ogräs pollen'
   }
 }
