@@ -140,7 +140,8 @@ export default {
     return axios.post(BASE_URL + '/positions', data, axiosConfig)
   },
 
-  getEnvironmentFromPosition (lat, long) {
-    return axios.get(BASE_URL + '/positions/environment?lat=' + lat + '&long=' + long, axiosConfig)
+  getEnvironmentFromPosition: async function (lat, long) {
+    const resp = await axios.get(BASE_URL + '/positions/environment?lat=' + lat + '&long=' + long, axiosConfig)
+    return resp.data
   }
 }
