@@ -145,6 +145,15 @@ export default {
         startEvent: 'consent',
         untilSecs: 60 * 60 * 24 * 7 // 1 week
       }
+    },
+    {
+      id: 8,
+      type: 'peakFlow',
+      scheduling: {
+        alwaysOn: true,
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
+      }
     }
   ],
   consent: {
@@ -170,6 +179,7 @@ export default {
       - Your heart rate, activity level, steps and activity type collected by the MiBand3 fitness tracker.
       - Your blood oxygen saturation and heart rate measured by a pulseoximeter.
       - Your geographical location during the positioning task.
+      - Your peak flow rate measurements.
 
       These data are not really needed for anything in particular, as this is just an example, but they may be useful for finding bugs and improving Mobistudy.
 
@@ -213,6 +223,7 @@ export default {
       - Din hjärtfrekvens, aktivitetsnivå, steg och aktivitetstyp som samlas in av MiBand3 fitnessspårare
       - Din blodsyremättnad och hjärtfrekvens mätt med en pulsoximeter.
       - Din geografiska plats under positioneringsuppgiften.
+      - Dina toppflödesmätningar.
 
       Dessa data behövs egentligen inte för något särskilt, eftersom detta bara är ett exempel, men de kan vara användbara för att hitta buggar och förbättra Mobistudy.
 
@@ -258,6 +269,7 @@ export default {
       \u2022 Tu frecuencia cardíaca, nivel de actividad, pasos y tipo de actividad recopilados por el monitor de actividad
       \u2022 Tu saturación de oxígeno en sangre y frecuencia cardíaca medida por el oxímetro de pulso.
       \u2022 Tu ubicación geográfica durante la tarea de posicionamiento.
+      \u2022 Tu flujo espiratorio máximo.
 
       Estos datos no son realmente necesarios para nada en particular, ya que esto es solo un ejemplo, pero pueden ser útiles para encontrar errores y mejorar Mobistudy.
       Todos estos datos se almacenarán en el servidor de Mobistudy, gestionado por la Universidad de Malmö en Suecia. Su teléfono solo conservará su perfil y datos sobre los estudios en los que está participando.
@@ -338,6 +350,14 @@ export default {
           es: 'Acepto compartir mi ubicación todos los días durante 1 semana.'
         },
         taskId: 7
+      },
+      {
+        description: {
+          en: 'I agree to share my peak flow rate measurements for 1 week.',
+          sv: 'Jag samtycker till att dela mina toppflödesmätningar.',
+          es: 'Acepto compartir mis mediciones de flujo espiratorio máximo.'
+        },
+        taskId: 8
       }
     ],
     extraItems: []
