@@ -4,6 +4,7 @@ import miband3Task from './tasks/miband3'
 import dataQueryTask from './tasks/dataQuery'
 import po60Task from './tasks/po60'
 import positionTask from './tasks/position'
+import peakflowTask from './tasks/peakflow'
 
 let studies = {
   studies: {
@@ -90,5 +91,6 @@ studies.studies.tasks.miband3 = miband3Task
 studies.studies.tasks.dataQuery = dataQueryTask
 studies.studies.tasks.po60 = po60Task
 studies.studies.tasks.position = positionTask
+studies.studies.tasks.peakflow = peakflowTask
 
 export default studies

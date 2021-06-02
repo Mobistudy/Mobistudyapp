@@ -57,6 +57,8 @@ export default {
         this.$router.push({ name: 'po60Intro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'position') {
         this.$router.push({ name: 'positionIntro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
+      } else if (type === 'peakflow') {
+        this.$router.push({ name: 'peakflowIntro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'dataQuery') {
         this.$router.push({ name: 'dataQueryIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else {
@@ -93,6 +95,10 @@ export default {
       this.title = this.$i18n.t('studies.tasks.position.shortTitle')
       this.main = this.$i18n.t('studies.tasks.position.shortDescription')
       this.icon = 'place'
+    } else if (this.task.type === 'peakflow') {
+      this.title = this.$i18n.t('studies.tasks.peakflow.shortTitle')
+      this.main = this.$i18n.t('studies.tasks.peakflow.shortDescription')
+      this.icon = 'air'
     }
   },
   computed: {
