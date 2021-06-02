@@ -1,9 +1,11 @@
 'use strict'
 
-import DB from 'modules/db'
-
 // smart peak flow meter cordova-plugin
 export default {
+
+  /**
+   * Requests permission to access the microphone
+   */
   async requestPermission () {
     return new Promise((resolve, reject) => {
       if (!cordova.plugins.spf) reject(new Error('Cordova spf is not installed'))
@@ -11,6 +13,9 @@ export default {
     })
   },
 
+  /**
+   * Starts the calibration process, the promise is resolved once the process is completed
+   */
   async startCalibration (maxTime) {
     return new Promise((resolve, reject) => {
       if (!cordova.plugins.spf) reject(new Error('Cordova spf is not installed'))
@@ -22,6 +27,9 @@ export default {
     })
   },
 
+  /**
+   * Stops the calibration process
+   */
   async stopCalibration () {
     return new Promise((resolve, reject) => {
       if (!cordova.plugins.spf) reject(new Error('Cordova spf is not installed'))
@@ -29,9 +37,10 @@ export default {
     })
   },
 
+  /**
+   * Starts the peak flow measurement, promise is resolved when the measurement is completed
+   */
   async startMeasurement () {
-    console.log('start measure')
-
     return new Promise((resolve, reject) => {
       if (!cordova.plugins.spf) reject(new Error('Cordova spf is not installed'))
       var success = function (message) {
@@ -47,14 +56,13 @@ export default {
     })
   },
 
+  /**
+   * Stops the peak flow measurements
+   */
   async stopMeasurement () {
     return new Promise((resolve, reject) => {
       if (!cordova.plugins.spf) reject(new Error('Cordova spf is not installed'))
       cordova.plugins.spf.stopMeasurement(resolve, reject)
     })
-  },
-
-  async getStoredData (startDate) {
-    return DB.getPastPeakFlowMeas()
   }
 }

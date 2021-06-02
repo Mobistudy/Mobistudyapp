@@ -24,7 +24,7 @@ export default {
       const studyKey = this.studyKey
       const taskId = this.taskId
 
-      this.$router.push({ name: 'peakflowCalibrate', params: { studyKey: studyKey, taskId: taskId } })
+      this.$router.push({ name: 'peakFlowCalibrate', params: { studyKey: studyKey, taskId: taskId } })
       this.$emit('updateTransition', 'fadeInDown')
     }
   }

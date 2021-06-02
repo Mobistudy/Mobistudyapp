@@ -120,7 +120,7 @@ export default {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.position.OSpermissioniOS')
         } else this.permissionMessage = this.$t('studies.tasks.position.OSpermissionAndroid')
-      } else if (taskType === 'peakflow') {
+      } else if (taskType === 'peakFlow') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissioniOS')
         } else this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissionAndroid')
@@ -167,7 +167,7 @@ export default {
             if (await phone.geolocation.isAvailable()) {
               await phone.geolocation.requestPermission()
             }
-          } else if (taskType === 'peakflow') {
+          } else if (taskType === 'peakFlow') {
             await peakflow.requestPermission()
           }
           // if we get to this point we have permission

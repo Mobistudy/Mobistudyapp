@@ -137,7 +137,7 @@ export default {
   },
 
   /* Peak flow */
-  async setPastPeakFlowMeas (pef) {
+  async addPastPeakFlowMeas (pef) {
     // check if existing
     let data = await storage.getItem('peakflow')
     if (!data) {

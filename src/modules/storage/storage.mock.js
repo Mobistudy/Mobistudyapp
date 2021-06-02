@@ -16,6 +16,16 @@ export async function getItem (key) {
     document.dispatchEvent(event)
     return Promise.reject()
   }
+  if (key === 'peakflow') {
+    let mockPEFs = []
+    for (let i = 0; i < 21; i++) {
+      mockPEFs.push({
+        PEFs: [500, 488, 510],
+        createdTS: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * i)
+      })
+    }
+    return Promise.resolve(mockPEFs)
+  }
   if (memStorage[key]) return Promise.resolve(JSON.parse(memStorage[key]))
   else return Promise.resolve()
 }

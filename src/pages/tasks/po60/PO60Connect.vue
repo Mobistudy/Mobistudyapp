@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <q-page padding>
     <div v-if="devices.length > 1">{{ $t('studies.tasks.po60.moreDevices') }}</div>
     <q-list
       v-if="devices.length > 1"
@@ -59,7 +59,7 @@
         color="primary"
       />
     </q-inner-loading>
-  </div>
+  </q-page>
 </template>
 
 <script>

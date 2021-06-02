@@ -65,29 +65,36 @@ const routes = [
     children: [
       { path: '/form', name: 'form', component: () => import('pages/tasks/form/Form.vue'), props: true },
       { path: '/formIntro', name: 'formIntro', component: () => import('pages/tasks/form/FormIntro'), props: true },
+
       { path: '/dataQueryIntro', name: 'dataQueryIntro', component: () => import('pages/tasks/dataQuery/DataQueryIntro'), props: true },
       { path: '/dataQuery', name: 'dataQuery', component: () => import('pages/tasks/dataQuery/DataQuery'), props: true },
+
       { path: '/smwtIntro', name: 'smwtIntro', component: () => import('pages/tasks/smwt/SMWTIntro.vue'), props: true },
       { path: '/smwt', name: 'smwt', component: () => import('pages/tasks/smwt/SMWT.vue'), props: true },
       { path: '/smwtSummary', name: 'smwtSummary', component: () => import('pages/tasks/smwt/SMWTSummary.vue'), props: true },
+
       { path: '/qcstIntro', name: 'qcstIntro', component: () => import('pages/tasks/qcst/QCSTIntro.vue'), props: true },
       { path: '/qcst', name: 'qcst', component: () => import('pages/tasks/qcst/QCST.vue'), props: true },
       { path: '/qcsthr', name: 'qcsthr', component: () => import('pages/tasks/qcst/QCSTHR.vue'), props: true },
       { path: '/qcstSummary', name: 'qcstSummary', component: () => import('pages/tasks/qcst/QCSTSummary.vue'), props: true },
+
       { path: '/miband3Intro', name: 'miband3Intro', component: () => import('pages/tasks/miband3/MiBand3Intro.vue'), props: true },
       { path: '/miband3Connect', name: 'miband3Connect', component: () => import('pages/tasks/miband3/MiBand3Connect.vue'), props: true },
       { path: '/miband3DataDownload', name: 'miband3DataDownload', component: () => import('pages/tasks/miband3/MiBand3DataDownload.vue'), props: true },
       { path: '/notEnoughDataPage', name: 'notEnoughDataPage', component: () => import('pages/tasks/miband3/notEnoughDataPage.vue'), props: true },
+
       { path: '/po60Intro', name: 'po60Intro', component: () => import('pages/tasks/po60/PO60Intro.vue'), props: true },
       { path: '/po60Connect', name: 'po60Connect', component: () => import('pages/tasks/po60/PO60Connect.vue'), props: true },
       { path: '/po60Download', name: 'po60DataDownload', component: () => import('pages/tasks/po60/PO60Download.vue'), props: true },
+
       { path: '/positionIntro', name: 'positionIntro', component: () => import('pages/tasks/position/PositionIntro.vue'), props: true },
-      { path: '/position', name: 'position', component: () => import('pages/tasks/position/Position.vue'), props: true }
-      { path: '/peakflowIntro', name: 'peakflowIntro', component: () => import('pages/tasks/peakflow/PeakFlowIntro.vue'), props: true },
-      { path: '/peakflowCalibrate', name: 'peakflowCalibrate', component: () => import('pages/tasks/peakflow/PeakFlowCalibrate.vue'), props: true },
-      { path: '/peakflow', name: 'peakflow', component: () => import('pages/tasks/peakflow/PeakFlow.vue'), props: true },
-      { path: '/peakflowSummary', name: 'peakflowSummary', component: () => import('pages/tasks/peakflow/PeakFlowSummary.vue'), props: true },
-      { path: '/peakflowReview', name: 'peakflowReview', component: () => import('pages/tasks/peakflow/PeakFlowReview.vue'), props: true }
+      { path: '/position', name: 'position', component: () => import('pages/tasks/position/Position.vue'), props: true },
+
+      { path: '/peakFlowIntro', name: 'peakFlowIntro', component: () => import('pages/tasks/peakFlow/PeakFlowIntro.vue'), props: true },
+      { path: '/peakFlowCalibrate', name: 'peakFlowCalibrate', component: () => import('pages/tasks/peakFlow/PeakFlowCalibrate.vue'), props: true },
+      { path: '/peakFlow', name: 'peakFlow', component: () => import('pages/tasks/peakFlow/PeakFlow.vue'), props: true },
+      { path: '/peakFlowSummary', name: 'peakFlowSummary', component: () => import('pages/tasks/peakFlow/PeakFlowSummary.vue'), props: true },
+      { path: '/peakFlowReview', name: 'peakFlowReview', component: () => import('pages/tasks/peakFlow/PeakFlowReview.vue'), props: true }
     ]
   },
   {

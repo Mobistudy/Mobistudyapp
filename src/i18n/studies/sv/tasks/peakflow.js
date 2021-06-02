@@ -1,48 +1,50 @@
-'use strict'
 export default {
-  title: 'Smart Peak Flow Meter Recording',
+  title: 'Smart Peak Flow Meter measurement',
   shortTitle: 'Peak Flow',
-  description: 'This task is to record peak flow measurements using the SRP smart peak flow meter.',
-  shortDescription: 'Record peak flow with smart peak flow meter',
-  OSpermissioniOS: `This task requires the app to access the Microphone on your phone.
+  shortDescription: 'Record peak flow with the smart peak flow meter',
+  OSpermissioniOS: `This task requires the app to access the microphone on your phone.
   This is needed to measure peak flow using the Smart Peak Flow Meter.
   The collected data will be shared with the research team of this study for analysis.
   Tap on Next if you want to proceed with the authorization process.`,
-  OSpermissionAndroid: `This task requires the app to access the Microphone on your phone.
+  OSpermissionAndroid: `This task requires the app to access the microphone on your phone.
   This is needed to measure peak flow using the Smart Peak Flow Meter.
   The collected data will be shared with the research team of this study for analysis.
   Tap on Next if you want to proceed with the authorization process.`,
   introductionSlides: [
     {
-      title: 'Requirements',
-      // img: '/statics/instructions/qcst_1.jpg',
-      description: 'For this task you will need to connect the smart peak flow meter to your phone, either with the Bluetooth adpater or with the audio jack.'
+      // title: 'Requirements',
+      img: 'instructions/peakflow_1.svg',
+      description: 'In this task you are going to measure your peak flow, which is a measure of how quickly you can blow air out of your lungs.'
     },
     {
       title: 'Requirements',
-      // img: '/statics/instructions/qcst_1.jpg',
-      description: 'You will need a light source for the peak flow meter, either a desk lamp or the window would suffice.'
+      img: 'instructions/peakflow_2.svg',
+      description: 'For this task, you need to plug the “Smart Peak Flow” meter into the audio socket of your phone. If your phone does not have an audio jack, use the Bluetooth adapter instead.'
     },
     {
       title: 'Setup',
-      // img: '/statics/instructions/qcst_1.jpg',
-      description: `Don't cover the window at the top of the device.`
+      img: 'instructions/peakflow_3.svg',
+      description: `The peak flow meter requires light form above, like sunlight or an electric bulb. Make sure you are not covering the top of the device.`
     },
     {
       title: 'Instruction',
-      // img: '/statics/instructions/qcst_1.jpg',
-      description: 'Stand upright and tap start, then ... 1) inhale as deeply as you can 2) cover the whole device with your mouth 3) exhale hard through your mouth. Repeat 3 times'
+      img: 'instructions/peakflow_4.svg',
+      description: 'When ready, stand up and tap on “Start”. Then 1) inhale as much as you can, 2) cover the whole device with your mouth, 3) exhale as hard as you can. This is repeated 3 times.'
     }
   ],
-  pef: 'Peak Flow',
-  weeks: 'Weeks',
-  calibrate: 'Calibrate Smart Peak Flow Meter',
+  calibration: 'Calibration',
+  calibrationStart: 'Connect your Smart Peak Flow meter to the phone and hold your phone under a light source. Press "Start" when ready.',
   calibrating: 'Calibrating...',
-  calibrateSuccess: 'Calibration finished',
-  calibrateError: 'There was an error is calibration. Please check the top of the device is not covered, the connection between the peak flow meter and your phone/Bluetooth adapter is secure, and there is sufficient light above the peak flow meter.',
-  measure: 'Measure',
-  measuring: 'Blow when ready',
-  todayResults: `Today's Readings:`,
+  calibrationSuccess: 'Calibration completed, tap "Next" to start the measurement.',
+  calibrationError: 'There was an error during calibration. Please check the top of the device is not covered, the connection between the peak flow meter and your phone/Bluetooth adapter is secure, and that there is sufficient light above the peak flow meter.',
+  measurement: 'Measurement',
+  measurementStart: 'Stay still and make sure you are under a light source. When ready, press "Start".',
+  measurementInstructions: 'Inhale as much as you can, cover the device with your mouth and exhale as hard as you can.',
+  measurementCompleted1: 'First measurement completed. Please press "Start" when ready to start another measurement.',
+  measurementCompleted2: 'Second measurement completed. Please press "Start" when ready to start another measurement.',
+  measurementCompleted3: 'Third and last measurement completed. Press "Next" to proceed.',
   todayBest: `Today's Best Peak Flow:`,
-  results: 'Past Peak Flow Readings'
+  results: 'Past Peak Flow Readings',
+  pef: 'Peak Flow',
+  weeks: 'Weeks'
 }

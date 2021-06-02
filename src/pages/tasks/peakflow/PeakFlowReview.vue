@@ -11,13 +11,13 @@
         />
         <div class="row justify-around">
           <q-btn
-            :label="'+1 ' + $t('studies.tasks.peakflow.weeks')"
+            :label="'-1 ' + $t('studies.tasks.peakflow.weeks')"
             color="secondary"
             :disable="disablePlus"
             @click="lineChartAdd((1))"
           />
           <q-btn
-            :label="'-1 ' + $t('studies.tasks.peakflow.weeks')"
+            :label="'+1 ' + $t('studies.tasks.peakflow.weeks')"
             color="secondary"
             :disable="disableMinus"
             @click="lineChartAdd((-1))"
@@ -27,39 +27,21 @@
     <div class="row justify-center q-mt-lg">
       <q-btn
           @click="completeTest"
-          color="purple"
+          color="primary"
           :label="$t('common.complete')"
-          padding="lg"
         />
     </div>
   </q-page>
 </template>
 
-<style>
-.decoratedTable {
-  background: #f8f8f8;
-  padding: 4px;
-  width: 70%;
-  margin: 0px auto;
-  font-size: 1rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-</style>
-
 <script>
-// import API from 'modules/API'
-// import DB from 'modules/db'
-import peakflow from 'modules/peakflow'
+import DB from 'modules/db'
 import Chart from 'chart.js'
-// import fileSystem from 'modules/files'
-import { format as Qformat } from 'quasar'
 
 var lineChart = {
-  hrs: [],
   pef: [],
   labels: [],
   reset () {
-    this.hrs = []
     this.pef = []
     this.labels = []
   }
@@ -74,7 +56,6 @@ export default {
   },
   data: function () {
     return {
-      isDownloading: false,
       lineChart: undefined,
       currentStartWeek: 0,
       currentEndWeek: 2,
@@ -86,29 +67,19 @@ export default {
   },
   methods: {
     async downloadData () {
-      this.isDownloading = true
-
       storedData = []
       lineChart.reset()
 
       try {
-        // await miband3.getStoredData(this.startDate, this.dataCallback)
-        this.startDate = Date.now()
-        storedData = await peakflow.getStoredData(this.startDate)
-        console.log('startWeek' + this.currentStartWeek)
-        console.log('endWeek' + this.currentEndWeek)
+        storedData = await DB.getPastPeakFlowMeas()
         this.renderLineChart(this.currentStartWeek, this.currentEndWeek)
-        this.isDownloading = false
       } catch (err) {
         console.error('cannot download data', err)
-        this.isDownloading = false
       }
     },
     renderLineChart (startTime, endTime) {
       // startTime and endTime in week
       lineChart.reset()
-      // let startIndexInHours = startTime * 7 * 24
-      // let endIndexInHours = endTime * 7 * 24 - 1
       let startIndexInDays = startTime * 7
       let endIndexInDays = endTime * 7 - 1
       if (endIndexInDays > storedData.length) {
@@ -116,7 +87,8 @@ export default {
       }
       for (let i = startIndexInDays; i <= endIndexInDays; i++) {
         let data = storedData[i]
-        this.addToLineChart(data.pef, data.date)
+        let maxPef = Math.max(...data.PEFs)
+        this.addToLineChart(maxPef, data.createdTS)
       }
       this.updateLineChartReferences()
       this.updatePlusMinusButtons()
@@ -205,17 +177,6 @@ export default {
   async mounted () {
     this.createPeakFlowLineChart()
     await this.downloadData()
-  },
-  computed: {
-    totalTime () {
-      return Math.floor((this.report.completionTS - this.report.startedTS) / 1000)
-    },
-    minutes () {
-      return Qformat.pad(Math.floor(this.totalTime / 60))
-    },
-    seconds () {
-      return Math.floor(this.totalTime - (this.minutes * 60))
-    }
   }
 }
 </script>
