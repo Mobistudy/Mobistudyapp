@@ -20,5 +20,8 @@ module.exports = {
   MIBAND3: 'cordova',
 
   // use 'MOCK' for mocked pulse oximeter or 'cordova' otherwise
-  PO60: 'cordova'
+  PO60: 'cordova',
+
+  // use 'MOCK' for mocked peak flow meter or 'cordova' otherwise
+  PEAKFLOW: 'MOCK'
 }

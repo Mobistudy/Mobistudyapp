@@ -134,5 +134,28 @@ export default {
   },
   async removeDevicePO60 () {
     return storage.removeItem('po60')
+  },
+
+  /* Peak flow */
+  async setPastPeakFlowMeas (pef) {
+    // check if existing
+    let data = await storage.getItem('peakflow')
+    if (!data) {
+      data = []
+    }
+
+    let newData = {
+      date: new Date(),
+      pef: pef
+    }
+    data.push(newData)
+
+    return storage.setItem('peakflow', data)
+  },
+  async getPastPeakFlowMeas () {
+    return storage.getItem('peakflow')
+  },
+  async removePastPeakFlowMeas () {
+    return storage.removeItem('peakflow')
   }
 }

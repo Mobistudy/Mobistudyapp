@@ -3,6 +3,7 @@
 import study1234 from './mockdata/study1234'
 import form1234 from './mockdata/form1234'
 import study9999 from './mockdata/study9999'
+import study3333 from './mockdata/study3333'
 import studyAAMOS from './mockdata/studyAAMOS.json'
 import formAAMOSaboutasthma from './mockdata/formAAMOSaboutasthma.json'
 import formAAMOSaboutyou from './mockdata/formAAMOSaboutyou.json'
@@ -181,10 +182,18 @@ export default {
         setTimeout(function () {
           resolve(study9999)
         }, 1000)
+      } else if (studyKey === '3333') {
+        setTimeout(function () {
+          resolve(study3333)
+        }, 1000)
       } else if (studyKey === studyAAMOS._key) {
         setTimeout(function () {
           resolve(studyAAMOS)
         }, 1000)
+      // } else if (studyKey === '1010') {
+      //   setTimeout(function () {
+      //     resolve(studyInvitational)
+      //   }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study ' + studyKey + ' not found'))
@@ -323,12 +332,18 @@ export default {
     return Promise.resolve()
   },
 
-  getEnvironmentFromPosition (lat, long) {
+  async getEnvironmentFromPosition (lat, long) {
     console.log('API - getting environment', lat, long)
     return new Promise((resolve, reject) => {
       setTimeout(function () {
         resolve(environmentmock)
       }, 1500)
     })
+  },
+
+  async sendPeakFlow (data) {
+    console.log('API - sending peakflow data', data)
+    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
+    return Promise.resolve()
   }
 }
