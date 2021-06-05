@@ -13,7 +13,7 @@ export default {
     {
       title: 'Setup',
       img: 'instructions/6mwt_6.jpg',
-      description: 'Make sure the positioning (GPS) on your phone is turned ON before starting this task.'
+      description: 'Make sure positioning (GPS) on your phone is turned ON before starting this task.'
     }
   ],
   connecting: 'Retrieving your position and environment',

@@ -4,10 +4,11 @@ export default {
   shortDescription: 'Record peak flow with the smart peak flow meter',
   OSpermissioniOS: `This task requires the app to access the microphone on your phone.
   This is needed to measure peak flow using the Smart Peak Flow Meter.
-  The collected data will be shared with the research team of this study for analysis.
+  The recorded sound will not be share with the research team, but only the peak flow values.
   Tap on Next if you want to proceed with the authorization process.`,
   OSpermissionAndroid: `This task requires the app to access the microphone on your phone.
   This is needed to measure peak flow using the Smart Peak Flow Meter.
+  The recorded sound will not be share with the research team, but only the peak flow values.
   The collected data will be shared with the research team of this study for analysis.
   Tap on Next if you want to proceed with the authorization process.`,
   introductionSlides: [
@@ -24,10 +25,10 @@ export default {
     {
       title: 'Setup',
       img: 'instructions/peakflow_3.svg',
-      description: `The peak flow meter requires light form above, like sunlight or an electric bulb. Make sure you are not covering the top of the device.`
+      description: `The peak flow meter requires light from above, like sunlight or an electric bulb. Make sure you are not covering the top of the device.`
     },
     {
-      title: 'Instruction',
+      title: 'Instructions',
       img: 'instructions/peakflow_4.svg',
       description: 'When ready, stand up and tap on “Start”. Then 1) inhale as much as you can, 2) cover the whole device with your mouth, 3) exhale as hard as you can. This is repeated 3 times.'
     }

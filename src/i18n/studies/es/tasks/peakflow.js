@@ -1,50 +1,50 @@
 export default {
-  title: 'Smart Peak Flow Meter measurement',
-  shortTitle: 'Peak Flow',
-  shortDescription: 'Record peak flow with the smart peak flow meter',
-  OSpermissioniOS: `This task requires the app to access the microphone on your phone.
-  This is needed to measure peak flow using the Smart Peak Flow Meter.
-  The collected data will be shared with the research team of this study for analysis.
-  Tap on Next if you want to proceed with the authorization process.`,
-  OSpermissionAndroid: `This task requires the app to access the microphone on your phone.
-  This is needed to measure peak flow using the Smart Peak Flow Meter.
-  The collected data will be shared with the research team of this study for analysis.
-  Tap on Next if you want to proceed with the authorization process.`,
+  title: 'Medición del flujo espiratorio máximo',
+  shortTitle: 'Flujo máximo',
+  shortDescription: 'Registra el flujo espiratorio máximo con el medidor de flujo máximo inteligente',
+  OSpermissioniOS: `Esta tarea requiere que la aplicación acceda al micrófono de tu teléfono.
+  Esto es necesario para medir el flujo máximo con el medidor de flujo máximo inteligente.
+  El sonido grabado no se compartirá con el equipo de investigación, sino solo los valores de flujo máximo.
+  Toca "Siguiente" si deseas continuar con el proceso de autorización.`,
+  OSpermissionAndroid: `Esta tarea requiere que la aplicación acceda al micrófono de tu teléfono.
+  Esto es necesario para medir el flujo máximo con el medidor de flujo máximo inteligente.
+  El sonido grabado no se compartirá con el equipo de investigación, sino solo los valores de flujo máximo.
+  Toca "Siguiente" si deseas continuar con el proceso de autorización.`,
   introductionSlides: [
     {
       // title: 'Requirements',
       img: 'instructions/peakflow_1.svg',
-      description: 'In this task you are going to measure your peak flow, which is a measure of how quickly you can blow air out of your lungs.'
+      description: 'En esta tarea, vas a medir tu flujo espiratorio máximo, que es una medida de la rapidez con la que puedes expulsar aire de los pulmones.'
     },
     {
-      title: 'Requirements',
+      title: 'Requisitos',
       img: 'instructions/peakflow_2.svg',
-      description: 'For this task, you need to plug the “Smart Peak Flow” meter into the audio socket of your phone. If your phone does not have an audio jack, use the Bluetooth adapter instead.'
+      description: 'Para esta tarea, debes conectar el medidor "Smart Peak Flow" en la toma de audio de tu teléfono. Si el teléfono no tiene un conector de audio, usa el adaptador Bluetooth en su lugar.'
     },
     {
-      title: 'Setup',
+      title: 'Preparación',
       img: 'instructions/peakflow_3.svg',
-      description: `The peak flow meter requires light form above, like sunlight or an electric bulb. Make sure you are not covering the top of the device.`
+      description: `El medidor de flujo máximo requiere luz de arriba, como la luz del sol o de una bombilla eléctrica. Asegúrate de no cubrir la parte superior del dispositivo.`
     },
     {
-      title: 'Instruction',
+      title: 'Instrucciones',
       img: 'instructions/peakflow_4.svg',
-      description: 'When ready, stand up and tap on “Start”. Then 1) inhale as much as you can, 2) cover the whole device with your mouth, 3) exhale as hard as you can. This is repeated 3 times.'
+      description: 'Cuando estés listo, levántate y pulsa "Iniciar". Luego 1) inhala tanto como pueda, 2) cubre todo el dispositivo con la boca, 3) exhala tan fuerte como puedas. Esto se repite 3 veces.'
     }
   ],
-  calibration: 'Calibration',
-  calibrationStart: 'Connect your Smart Peak Flow meter to the phone and hold your phone under a light source. Press "Start" when ready.',
-  calibrating: 'Calibrating...',
-  calibrationSuccess: 'Calibration completed, tap "Next" to start the measurement.',
-  calibrationError: 'There was an error during calibration. Please check the top of the device is not covered, the connection between the peak flow meter and your phone/Bluetooth adapter is secure, and that there is sufficient light above the peak flow meter.',
-  measurement: 'Measurement',
-  measurementStart: 'Stay still and make sure you are under a light source. When ready, press "Start".',
-  measurementInstructions: 'Inhale as much as you can, cover the device with your mouth and exhale as hard as you can.',
-  measurementCompleted1: 'First measurement completed. Please press "Start" when ready to start another measurement.',
-  measurementCompleted2: 'Second measurement completed. Please press "Start" when ready to start another measurement.',
-  measurementCompleted3: 'Third and last measurement completed. Press "Next" to proceed.',
-  todayBest: `Today's Best Peak Flow:`,
-  results: 'Past Peak Flow Readings',
-  pef: 'Peak Flow',
-  weeks: 'Weeks'
+  calibration: 'Calibración',
+  calibrationStart: 'Conecta tu medidor de flujo máximo inteligente al teléfono y sostén el teléfono debajo de una fuente de luz. Presiona "Iniciar" cuando estés listo.',
+  calibrating: 'Calibrando...',
+  calibrationSuccess: 'Calibración completa, toca "Siguiente" para iniciar la medición.',
+  calibrationError: 'Hubo un error durante la calibración. Verifica que la parte superior del dispositivo no esté cubierta, que la conexión entre el medidor de flujo máximo y el teléfono / adaptador Bluetooth sea segura y que haya suficiente luz por encima del medidor de flujo.',
+  measurement: 'Medida',
+  measurementStart: 'Quédate quieto y asegúrate de estar bajo una fuente de luz. Cuando estés listo, presiona "Iniciar".',
+  measurementInstructions: 'Inhala tanto como puedas, cubra el dispositivo con la boca y exhala lo más fuerte que puedas.',
+  measurementCompleted1: 'Primera medición completada. Presiona "Iniciar" cuando estés listo para iniciar otra medición.',
+  measurementCompleted2: 'Segunda medición completada. Pulsa "Iniciar" cuando estés listo para iniciar otra medición.',
+  measurementCompleted3: 'Tercera y última medición completada. Presiona "Siguiente" para continuar.',
+  todayBest: `El mejor flujo máximo de hoy:`,
+  results: 'Lecturas de flujo máximo pasadas',
+  pef: 'Flujo máximo',
+  weeks: 'Semanas'
 }
