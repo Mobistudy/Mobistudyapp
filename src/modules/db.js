@@ -145,7 +145,7 @@ export default {
     }
 
     let newData = {
-      date: new Date(),
+      createdTS: new Date(),
       pef: pef
     }
     data.push(newData)
