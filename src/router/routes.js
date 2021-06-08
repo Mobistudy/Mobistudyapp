@@ -80,7 +80,10 @@ const routes = [
       { path: '/notEnoughDataPage', name: 'notEnoughDataPage', component: () => import('pages/tasks/miband3/notEnoughDataPage.vue'), props: true },
       { path: '/po60Intro', name: 'po60Intro', component: () => import('pages/tasks/po60/PO60Intro.vue'), props: true },
       { path: '/po60Connect', name: 'po60Connect', component: () => import('pages/tasks/po60/PO60Connect.vue'), props: true },
-      { path: '/po60Download', name: 'po60DataDownload', component: () => import('pages/tasks/po60/PO60Download.vue'), props: true }
+      { path: '/po60Download', name: 'po60DataDownload', component: () => import('pages/tasks/po60/PO60Download.vue'), props: true },
+      { path: '/tappingIntro', name: 'tappingIntro', component: () => import('pages/tasks/tapping/tappingIntro.vue'), props: true },
+      { path: '/tapping', name: 'tapping', component: () => import('pages/tasks/tapping/tapping.vue'), props: true },
+      { path: '/tappingfinnish', name: 'tappingfinnish', component: () => import('pages/tasks/tapping/tappingfinnish.vue'), props: true }
     ]
   },
   {

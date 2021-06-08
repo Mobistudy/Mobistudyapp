@@ -57,6 +57,8 @@ export default {
         this.$router.push({ name: 'po60Intro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'dataQuery') {
         this.$router.push({ name: 'dataQueryIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
+      } else if (type === 'tapping') {
+        this.$router.push({ name: 'tappingIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else {
         throw new Error('Could not changeRoute with task type.')
       }
@@ -86,6 +88,10 @@ export default {
     } else if (this.task.type === 'po60') {
       this.title = this.$i18n.t('studies.tasks.po60.shortTitle')
       this.main = this.$i18n.t('studies.tasks.po60.shortDescription')
+      this.icon = 'touch_app'
+    } else if (this.task.type === 'tapping') {
+      this.title = this.$i18n.t('studies.tasks.tapping.shortTitle')
+      this.main = this.$i18n.t('studies.tasks.tapping.shortDescription')
       this.icon = 'touch_app'
     }
   },

@@ -115,6 +115,10 @@ export default {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.po60.OSpermissioniOS')
         } else this.permissionMessage = this.$t('studies.tasks.po60.OSpermissionAndroid')
+      } else if (taskType === 'tapping') {
+        if (this.$q.platform.is.ios) {
+          this.permissionMessage = this.$t('studies.tasks.tapping.OSpermissioniOS')
+        } else this.permissionMessage = this.$t('studies.tasks.tapping.OSpermissionAndroid')
       } else return true
       this.permissionDialog = true
       return new Promise((resolve, reject) => {
@@ -147,6 +151,10 @@ export default {
               await phone.pedometer.requestPermission()
             }
           } else if (taskType === 'qcst') {
+            if (await phone.pedometer.isAvailable()) {
+              await phone.pedometer.requestPermission()
+            }
+          } else if (taskType === 'tapping') {
             if (await phone.pedometer.isAvailable()) {
               await phone.pedometer.requestPermission()
             }
