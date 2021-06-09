@@ -87,7 +87,7 @@ export default {
       }
       for (let i = startIndexInDays; i <= endIndexInDays; i++) {
         let data = storedData[i]
-        this.addToLineChart(data.maxPef, data.createdTS)
+        this.addToLineChart(data.pefMax, data.createdTS)
       }
       this.updateLineChartReferences()
       this.updatePlusMinusButtons()
