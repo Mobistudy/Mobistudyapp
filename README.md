@@ -19,12 +19,71 @@ cd src-cordova
 npm install
 ```
 
-If you're running any task which relates to the cordova plugins, make sure to create an empty 'www' directory under the src-cordova directory;
+Create a file named `project.config.js`, use `project.config.template.js` for an example and guidance.
 
-1. Cd into src-cordova
-2. Run; mkdir www
+Before running the app on a phone, create an empty 'www' directory under the src-cordova directory:
+```bash
+cd src-cordova
+mkdir www
+```
 
-### Run the app in iOS
+## Develop
+
+The code is consistent with how projects are structured in Quasar.
+If you use VS Code, follow the
+[recommended settings from Quasar](https://quasar.dev/start/vs-code-configuration#Introduction).
+
+For development, you may want to mock some modules, see project.conf.js to
+activate mocked modules.
+
+## Test in the broswer
+
+To start the app in development mode (hot-code reloading, error reporting, etc.), run:
+
+```bash
+quasar dev
+```
+
+### Test in the phone
+
+If you want to run it on a phone (supposing it's an iPhone):
+
+```bash
+quasar dev -m ios
+```
+
+Use `android` instead of `ios` for android.
+
+Additional setup may be required if you use cordova plugins instead of mocks. Check the deploy section for details.
+
+## Automatic tests
+
+The repository contains some unit tests, to run them:
+
+```bash
+npm run test:unit
+```
+
+If you want to have quasar and the tests running in parallel and watching for code changes:
+
+```bash
+npm run concurrently:dev:jest
+```
+
+## Deploy
+
+Setup `project.config.js` to use cordova plugins and the official API endpoint.
+
+## iOS
+
+Generate the compiled code.
+
+```bash
+quasar build -m ios
+```
+
+You need to open the project in Xcode, have a provisioning profile for distribution
+on the App Store and Archive then Distribute the app.
 
 To run the app properly in iOS through Cordova, there are a couple of manual settings
 to be sorted out with Xcode.
@@ -36,7 +95,7 @@ cd src-cordova
 cordova prepare ios
 ```
 
-(if you get an error like "Conflict found, edit-config changes from config.xm
+(if you get an error like "Conflict found, edit-config changes from config.xml
 will overwrite plugin.xml changes", repeat `cordova prepare ios`)
 
 This will create a folder under src-cordova/platforms/ios
@@ -78,56 +137,6 @@ For the GPS:
 <key>NSLocationWhenInUseUsageDescription</key>
 <string>The app needs to estimate your physical activity</string>
 ```
-
-## Run
-
-To start the app in development mode (hot-code reloading, error reporting, etc.), run:
-
-```bash
-quasar dev
-```
-
-This will run in the browser, if you want to run it on a phone (supposing it's an iPhone):
-
-```bash
-quasar dev -m ios
-```
-
-## Test
-
-The repository contains some unit tests, to run them:
-
-```bash
-npm run test:unit
-```
-
-If you want to have quasar and the tests running in parallel and watching for code changes:
-
-```bash
-npm run concurrently:dev:jest
-```
-
-## Develop
-
-The code is consistent with how projects are structured in Quasar.
-If you use VS Code, follow the
-[recommended settings from Quasar](https://quasar.dev/start/vs-code-configuration#Introduction).
-
-For development, you may want to mock some modules, see project.conf.js to
-activate mocked modules.
-
-## Deploy
-
-## iOS
-
-Generate the compiled code.
-
-```bash
-quasar build -m ios
-```
-
-You need to open the project in Xcode, have a provisioning profile for distribution
-on the App Store and Archive then Distribute the app.
 
 ## Android
 
