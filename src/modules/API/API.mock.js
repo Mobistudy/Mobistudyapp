@@ -36,7 +36,8 @@ export default {
       return {
         _key: '1231232',
         email: 'jameson@test.test',
-        token: 'asdasdasdasdasd'
+        token: 'asdasdasdasdasd',
+        role: 'participant'
       }
     }
   },
