@@ -143,12 +143,7 @@ export default {
     if (!data) {
       data = []
     }
-
-    let newData = {
-      date: new Date(),
-      pef: pef
-    }
-    data.push(newData)
+    data.push(pef)
 
     return storage.setItem('peakflow', data)
   },

@@ -20,7 +20,7 @@ export async function getItem (key) {
     let mockPEFs = []
     for (let i = 0; i < 21; i++) {
       mockPEFs.push({
-        PEFs: [500, 488, 510],
+        maxPef: 400 + Math.random() * 100,
         createdTS: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * i)
       })
     }

@@ -35,13 +35,11 @@ export default {
   data: function () {
     return {
       PEFs: this.report.PEFs,
-      pefMax: Math.max(...this.report.PEFs)
+      pefMax: this.report.pefMax
     }
   },
   methods: {
     async send () {
-      this.report.pef = this.pefMax
-
       // Save the data to server
       try {
         await API.sendPeakFlow(this.report)
@@ -50,7 +48,10 @@ export default {
           this.report.taskId,
           new Date()
         )
-        await DB.addPastPeakFlowMeas(this.report.pef)
+        await DB.addPastPeakFlowMeas({
+          pefMax: this.report.pefMax,
+          createdTS: this.report.createdTS
+        })
         this.$q.loading.hide()
         this.$router.push({ name: 'peakFlowReview', params: { report: this.report } })
       } catch (error) {

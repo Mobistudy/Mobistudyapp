@@ -92,7 +92,8 @@ export default {
         studyKey: studyKey,
         taskId: taskId,
         createdTS: new Date(),
-        PEFs: this.PEFs
+        PEFs: this.PEFs,
+        pefMax: Math.max(...this.PEFs)
       }
 
       this.$router.push({ name: 'peakFlowSummary', params: { report: report } })
