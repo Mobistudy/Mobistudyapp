@@ -32,14 +32,14 @@
     <div class="row justify-center q-mt-lg">
       <q-btn
         @click="startMeasurement"
-        v-show="isMeasuring || (testAttempts <= maxTestAttempts)"
+        v-show="isMeasuring || (testAttempts <= totalTestsNumber)"
         color="primary"
         :disable="isMeasuring"
         :label="$t('common.start')"
       />
       <q-btn
         @click="completeTest"
-        v-show="testAttempts > maxTestAttempts && !isMeasuring"
+        v-show="testAttempts > totalTestsNumber && !isMeasuring"
         color="primary"
         :label="$t('common.next')"
       />
@@ -64,18 +64,28 @@ export default {
       isCompleted: false,
       isMeasuring: false,
       testAttempts: 0,
-      maxTestAttempts: 2,
+      totalTestsNumber: 2,
       measurement: undefined,
       PEFs: []
     }
   },
   methods: {
     async startMeasurement () {
-      if (this.testAttempts <= this.maxTestAttempts) {
+      if (this.testAttempts <= this.totalTestsNumber) {
         this.isMeasuring = true
-        this.testAttempts++
-        this.measurement = await peakflow.startMeasurement()
-        this.PEFs.push(this.measurement.pef)
+        try {
+          this.measurement = await peakflow.startMeasurement()
+          // TODO: reject absurd measurements?
+          this.testAttempts++
+          this.PEFs.push(this.measurement.pef)
+        } catch (err) {
+          console.error(err)
+          this.$q.notify({
+            color: 'negative',
+            message: this.$t('studies.tasks.peakflow.measurementError'),
+            icon: 'report_problem'
+          })
+        }
         this.isMeasuring = false
       }
       await peakflow.stopMeasurement()

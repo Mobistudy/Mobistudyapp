@@ -43,6 +43,7 @@ export default {
   measurementCompleted1: 'First measurement completed. Please press "Start" when ready to start another measurement.',
   measurementCompleted2: 'Second measurement completed. Please press "Start" when ready to start another measurement.',
   measurementCompleted3: 'Third and last measurement completed. Press "Next" to proceed.',
+  measurementError: 'Something went wrong, please retry',
   todayBest: `Today's Best Peak Flow:`,
   results: 'Past Peak Flow Readings',
   pef: 'Peak Flow',

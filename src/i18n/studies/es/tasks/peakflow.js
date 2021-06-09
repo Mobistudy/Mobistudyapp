@@ -42,6 +42,7 @@ export default {
   measurementCompleted1: 'Primera medición completada. Presiona "Iniciar" cuando estés listo para iniciar otra medición.',
   measurementCompleted2: 'Segunda medición completada. Pulsa "Iniciar" cuando estés listo para iniciar otra medición.',
   measurementCompleted3: 'Tercera y última medición completada. Presiona "Siguiente" para continuar.',
+  measurementError: 'Algo salió mal, vuelve a intentarlo',
   todayBest: `El mejor flujo máximo de hoy:`,
   results: 'Lecturas de flujo máximo pasadas',
   pef: 'Flujo máximo',
