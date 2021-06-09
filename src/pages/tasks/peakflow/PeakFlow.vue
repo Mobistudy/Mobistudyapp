@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import phone from 'modules/phone'
 import peakflow from 'modules/peakflow'
 import userinfo from 'modules/userinfo'
 
@@ -82,8 +81,6 @@ export default {
       await peakflow.stopMeasurement()
     },
     completeTest () {
-      phone.pedometer.stopNotifications()
-      this.completionTS = new Date()
       const studyKey = this.studyKey
       const taskId = parseInt(this.taskId)
       const userKey = userinfo.user._key
