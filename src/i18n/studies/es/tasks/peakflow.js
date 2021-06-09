@@ -35,7 +35,6 @@ export default {
   calibration: 'Calibración',
   calibrationStart: 'Conecta tu medidor de flujo máximo inteligente al teléfono y sostén el teléfono debajo de una fuente de luz. Presiona "Iniciar" cuando estés listo.',
   calibrating: 'Calibrando...',
-  calibrationSuccess: 'Calibración completa, toca "Siguiente" para iniciar la medición.',
   calibrationError: 'Hubo un error durante la calibración. Verifica que la parte superior del dispositivo no esté cubierta, que la conexión entre el medidor de flujo máximo y el teléfono / adaptador Bluetooth sea segura y que haya suficiente luz por encima del medidor de flujo.',
   measurement: 'Medida',
   measurementStart: 'Quédate quieto y asegúrate de estar bajo una fuente de luz. Cuando estés listo, presiona "Iniciar".',

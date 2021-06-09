@@ -35,7 +35,6 @@ export default {
   calibration: 'Calibration',
   calibrationStart: 'Connect your Smart Peak Flow meter to the phone and hold your phone under a light source. Press "Start" when ready.',
   calibrating: 'Calibrating...',
-  calibrationSuccess: 'Calibration completed, tap "Next" to start the measurement.',
   calibrationError: 'There was an error during calibration. Please check the top of the device is not covered, the connection between the peak flow meter and your phone/Bluetooth adapter is secure, and that there is sufficient light above the peak flow meter.',
   measurement: 'Measurement',
   measurementStart: 'Stay still and make sure you are under a light source. When ready, press "Start".',
