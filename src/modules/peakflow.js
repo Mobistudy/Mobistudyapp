@@ -1,4 +1,5 @@
 'use strict'
+import { Platform } from 'quasar'
 
 // smart peak flow meter cordova-plugin
 export default {
@@ -9,7 +10,15 @@ export default {
   async requestPermission () {
     return new Promise((resolve, reject) => {
       if (!cordova.plugins.spf) reject(new Error('Cordova spf is not installed'))
-      cordova.plugins.spf.requestPermissions(resolve, reject)
+
+      if (Platform.is.ios) {
+        cordova.plugins.spf.startCalibration(() => {
+          cordova.plugins.spf.stopCalibration()
+          resolve()
+        }, reject)
+      } else {
+        cordova.plugins.spf.requestPermissions(resolve, reject)
+      }
     })
   },
 
@@ -44,9 +53,7 @@ export default {
     return new Promise((resolve, reject) => {
       if (!cordova.plugins.spf) reject(new Error('Cordova spf is not installed'))
       var success = function (message) {
-        console.log(message)
         if (message.state === 'completed') {
-          console.log(message.peakFlowRate)
           resolve({
             pef: message.peakFlowRate
           })

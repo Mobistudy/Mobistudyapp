@@ -24,13 +24,13 @@ export default {
   async startCalibration () {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(true)
+        resolve()
       }, 3000)
     })
   },
 
   async stopCalibration () {
-    return Promise.resolve(true)
+    return Promise.resolve()
   },
 
   async startMeasurement () {
