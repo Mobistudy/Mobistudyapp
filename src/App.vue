@@ -121,6 +121,8 @@ export default {
         },
         async function (error) {
           if (
+            error.response &&
+            error.response.status &&
             error.response.status === 401 &&
             !error.config.url.includes('login')
           ) {

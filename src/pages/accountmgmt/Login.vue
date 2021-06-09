@@ -128,7 +128,7 @@ export default {
         } catch (error) {
           console.error(error)
           this.error = true
-          if (error.response && error.response.status === 401) {
+          if (error.response && error.response.status && error.response.status === 401) {
             this.$q.notify({
               color: 'negative',
               message: this.$i18n.t('accountMgmt.login.loginErrorCredentials'),
