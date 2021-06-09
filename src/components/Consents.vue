@@ -81,7 +81,7 @@ import notifications from 'modules/notifications/notifications'
 import healthStore from 'modules/healthstore'
 import phone from 'modules/phone'
 import PO60 from 'modules/po60/IPulseOxDevice'
-import peakflow from 'modules/peakflow'
+import peakflow from 'modules/peakflow/peakflow'
 
 export default {
   props: [

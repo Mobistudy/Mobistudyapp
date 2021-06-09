@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import peakflow from 'modules/peakflow'
+import peakflow from 'modules/peakflow/peakflow'
 import userinfo from 'modules/userinfo'
 
 export default {

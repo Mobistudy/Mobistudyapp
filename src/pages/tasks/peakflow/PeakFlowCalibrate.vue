@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import peakflow from 'modules/peakflow'
+import peakflow from 'modules/peakflow/peakflow'
 
 export default {
   name: 'PeakFlowCalibratePage',
