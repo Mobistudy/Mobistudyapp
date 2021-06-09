@@ -5,20 +5,17 @@
     </div>
 
     <div class="text-center q-mt-lg">
-      <span v-show="!isCalibrated && !calibrating">
+      <span v-show="!calibrationError && !calibrating">
         {{ $t('studies.tasks.peakflow.calibrationStart') }}
       </span>
-      <span v-if="isCalibrated">
-        {{ $t('studies.tasks.peakflow.calibrationSuccess') }}
-      </span>
-      <span v-if="calibrateAttempts>0 & !isCalibrated & !calibrating">
-        {{ $t('studies.tasks.peakflow.calibrationError') }}
-      </span>
+    </div>
+    <div class="text-center q-mt-lg" v-if="calibrationError">
+      {{ $t('studies.tasks.peakflow.calibrationError') }}
     </div>
     <div class="row justify-center q-mt-lg">
       <q-btn
         @click="startCalibration"
-        v-show="!isCalibrated & !calibrating"
+        v-show="!calibrating"
         color="primary"
         :label="$t('common.start')"
       />
@@ -49,7 +46,7 @@ export default {
   data: function () {
     return {
       isCompleted: false,
-      isCalibrated: false,
+      calibrationError: false,
       calibrating: false,
       calibrateAttempts: 0,
       maxTime: 30000
@@ -57,17 +54,17 @@ export default {
   },
   methods: {
     async startCalibration () {
-      if (!this.isCalibrated) {
-        this.calibrateAttempts++
-        this.calibrating = true
-        try {
-          this.isCalibrated = await peakflow.startCalibration(this.maxTime)
-          this.calibrating = false
-          if (this.isCalibrated) this.$router.push({ name: 'peakFlow', params: { studyKey: this.studyKey, taskId: parseInt(this.taskId) } })
-        } catch (err) {
-          console.error('Error in calibration', err)
-          this.calibrating = false
-        }
+      this.calibrateAttempts++
+      this.calibrating = true
+      this.calibrationError = false
+      try {
+        await peakflow.startCalibration(this.maxTime)
+        this.calibrating = false
+        this.$router.push({ name: 'peakFlow', params: { studyKey: this.studyKey, taskId: parseInt(this.taskId) } })
+      } catch (err) {
+        console.error('Error in calibration', err)
+        this.calibrationError = true
+        this.calibrating = false
       }
     }
   },
