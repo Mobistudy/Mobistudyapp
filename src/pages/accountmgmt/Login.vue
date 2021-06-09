@@ -114,6 +114,14 @@ export default {
       if (!this.$v.$error) {
         try {
           let user = await API.login(this.username.toLowerCase(), this.password)
+          if (user.role !== 'participant') {
+            this.$q.notify({
+              color: 'negative',
+              message: 'You cannot login as researcher in the participant\' app!',
+              icon: 'report_problem'
+            })
+            return
+          }
           // user is authenticated, return user object
           await userinfo.login(user)
           API.setToken(user.token)
