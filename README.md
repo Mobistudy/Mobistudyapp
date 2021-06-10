@@ -10,6 +10,8 @@ You need to install the following on your system:
 - nodejs
 - Apache Cordova
 - (optional) the [quasar command line tool](https://quasar.dev/quasar-cli/installation)
+- XCode
+- Android SDK and build tools
 
 Install all other dependencies with:
 
@@ -27,6 +29,77 @@ cd src-cordova
 mkdir www
 ```
 
+### Setup for Android
+
+You need to have Java, gradle, a recent version of Android SKD and the build tools installed on your computer.
+The easiest thing to do is to install Android Studio and use the the SDK manager to download the SDK and build tools.
+
+The actual versions to download should match the ones specified inside src-cordova/platforms/android/build.gradle (look for defaultBuildToolsVersion and defaultTargetSdkVersion).
+
+If that file hasn't been created yet, run:
+
+```bash
+cd src-cordova
+cordova prepare android
+```
+
+### Setup for iOS
+
+Prepare the Xcode project:
+
+```bash
+cd src-cordova
+cordova prepare ios
+```
+
+(if you get an error like "Conflict found, edit-config changes from config.xml
+will overwrite plugin.xml changes", repeat `cordova prepare ios`)
+
+This will create a folder under src-cordova/platforms/ios
+Open that folder with Xcode. It will contain an iOS project.
+Add the HealthKit capability.
+
+You need to make sure there is a valid signing profile for the app, at least for
+development. Try compiling the project and see if it works.
+
+
+Open the Mobistudy App-info.plist file located under Resources. Open it as source
+file. Then check that the following flags are set:
+
+For accessing HealthKit:
+```xml
+<key>NSHealthShareUsageDescription</key>
+<string>The app needs to read health-related data from your phone</string>
+<key>NSHealthUpdateUsageDescription</key>
+<string>The app needs to store health-related data from your phone</string>
+```
+
+In order to be able to retrieve files that are stored in the app through iTunes,
+make sure the following also is present:
+```xml
+<key>UIFileSharingEnabled</key>
+<true/>
+```
+
+For the pedometer to work properly:
+```xml
+<key>NSMotionUsageDescription</key>
+<string>The app needs to detect steps</string>
+```
+
+For the GPS:
+```xml
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>The app needs to estimate your physical activity</string>
+```
+
+
+### Peak Flow Meter plugin
+
+The peak flwo meter requires a plugin that can only be installed manually.
+See https://github.com/kevinchtsang/cordova-plugin-spf for instructions.
+
+
 ## Develop
 
 The code is consistent with how projects are structured in Quasar.
@@ -36,7 +109,9 @@ If you use VS Code, follow the
 For development, you may want to mock some modules, see project.conf.js to
 activate mocked modules.
 
-## Test in the broswer
+## Test
+
+### Test in the broswer
 
 To start the app in development mode (hot-code reloading, error reporting, etc.), run:
 
@@ -56,7 +131,7 @@ Use `android` instead of `ios` for android.
 
 Additional setup may be required if you use cordova plugins instead of mocks. Check the deploy section for details.
 
-## Automatic tests
+### Automatic tests
 
 The repository contains some unit tests, to run them:
 
@@ -74,7 +149,7 @@ npm run concurrently:dev:jest
 
 Setup `project.config.js` to use cordova plugins and the official API endpoint.
 
-## iOS
+### iOS
 
 Generate the compiled code.
 
@@ -82,63 +157,9 @@ Generate the compiled code.
 quasar build -m ios
 ```
 
-You need to open the project in Xcode, have a provisioning profile for distribution
-on the App Store and Archive then Distribute the app.
+Sign the app with a provisioning profile prepared for distribution on the App Store.
 
-To run the app properly in iOS through Cordova, there are a couple of manual settings
-to be sorted out with Xcode.
-
-Prepare the Xcode project:
-
-```bash
-cd src-cordova
-cordova prepare ios
-```
-
-(if you get an error like "Conflict found, edit-config changes from config.xml
-will overwrite plugin.xml changes", repeat `cordova prepare ios`)
-
-This will create a folder under src-cordova/platforms/ios
-Open that folder with Xcode. It will contain an iOS project.
-You need to make sure there is a valid signing profile for the app, at least for
-development. Try compiling the project and see if it works.
-
-Also, you need to add the HealthKit capability.
-
-Open the Mobistudy App-info.plist file located under Resources. Open it as source
-file. Then check that NSHealthShareUsageDescription and NSHealthUpdateUsageDescription
-are set. For example:
-
-```xml
-<key>NSHealthShareUsageDescription</key>
-<string>The app needs to read health-related data from your phone</string>
-<key>NSHealthUpdateUsageDescription</key>
-<string>The app needs to store health-related data from your phone</string>
-```
-
-In order to be able to retrieve files that are stored in the app through iTunes,
-make sure the following also is present:
-
-```xml
-<key>UIFileSharingEnabled</key>
-<true/>
-```
-
-For the pedometer to work properly:
-
-```xml
-<key>NSMotionUsageDescription</key>
-<string>The app needs to detect steps</string>
-```
-
-For the GPS:
-
-```xml
-<key>NSLocationWhenInUseUsageDescription</key>
-<string>The app needs to estimate your physical activity</string>
-```
-
-## Android
+### Android
 
 Generate the compiled code.
 
@@ -146,7 +167,7 @@ Generate the compiled code.
 quasar build -m android
 ```
 
-Create a keystore (only once! not for every release).
+To sign the APK for the Play store: create a keystore (only once! not for every release).
 
 ```bash
 keytool -genkey -v -keystore mobistudy-release.keystore -alias upload -keyalg RSA -keysize 2048 -validity 10000
