@@ -353,9 +353,9 @@ export default {
       },
       {
         description: {
-          en: 'I agree to share my peak flow rate measurements for 1 week.',
-          sv: 'Jag samtycker till att dela mina toppflödesmätningar.',
-          es: 'Acepto compartir mis mediciones de flujo espiratorio máximo.'
+          en: 'I agree to measure my peak flow rate for 1 week.',
+          sv: 'Jag går med på att mäta min toppflöde i 1 vecka.',
+          es: 'Acepto medir mi flujo espiratorio máximo durante 1 semana.'
         },
         taskId: 8
       }
