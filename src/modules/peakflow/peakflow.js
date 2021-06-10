@@ -52,14 +52,28 @@ export default {
   async startMeasurement () {
     return new Promise((resolve, reject) => {
       if (!cordova.plugins.spf) reject(new Error('Cordova spf is not installed'))
-      var success = function (message) {
+
+      // set a timeout in case the plugin does not callback
+      let timerID = setTimeout(() => {
+        cordova.plugins.spf.stopMeasurement()
+        reject('Timeout')
+      }, 30000)
+
+      cordova.plugins.spf.startMeasurement((message) => {
+        console.log(message)
+        clearTimeout(timerID)
+        timerID = setTimeout(() => {
+          cordova.plugins.spf.stopMeasurement()
+          reject('Timeout')
+        }, 5000)
+
         if (message.state === 'completed') {
+          clearTimeout(timerID)
           resolve({
             pef: message.peakFlowRate
           })
         }
-      }
-      cordova.plugins.spf.startMeasurement(success, reject)
+      }, reject)
     })
   },
 
