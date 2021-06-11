@@ -7,12 +7,12 @@ export default {
   introductionSlides: [
     {
       title: 'Introduktion',
-      img: 'instructions/6mwt_6.jpg',
+      img: 'instructions/position-01.svg',
       description: 'Denna uppgift består i att skicka din nuvarande plats med telefonen. Uppgiften kommer också att samla in information om den miljö du befinner dig i, till exempel väder eller föroreningsnivåer.'
     },
     {
       title: 'Uppstart',
-      img: 'instructions/6mwt_6.jpg',
+      img: 'instructions/position-02.svg',
       description: 'Se till att positioneringen (GPS) på din telefon är på innan du startar den här uppgiften.'
     }
   ],

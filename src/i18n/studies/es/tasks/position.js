@@ -7,12 +7,12 @@ export default {
   introductionSlides: [
     {
       title: 'Introducción',
-      img: 'instructions/6mwt_6.jpg',
+      img: 'instructions/position-01.svg',
       description: 'Esta tarea consiste en enviar tu ubicación actual a través del teléfono. La tarea también recopilará información sobre el entorno en el que te encuentras, como el clima o los niveles de contaminación.'
     },
     {
       title: 'Configuración',
-      img: 'instructions/6mwt_6.jpg',
+      img: 'instructions/position-02.svg',
       description: 'Asegúrate de que el posicionamiento (GPS) en tu teléfono esté encendido antes de comenzar esta tarea.'
     }
   ],
