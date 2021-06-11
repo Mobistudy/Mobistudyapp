@@ -2,28 +2,28 @@ export default {
   title: 'Baja los datos del monitor de actividad',
   shortTitle: 'Monitor de actividad',
   shortDescription: 'Extrae los datos de tu monitor de actividad',
-  OSpermissioniOS: `Esta tarea requiere que la aplicación acceda a Bluetooth en su teléfono. 
+  OSpermissioniOS: `Esta tarea requiere que la aplicación acceda a Bluetooth en su teléfono.
   Esto es necesario para conectar la aplicación con el monitor de actividad física MiBand3 y recopilar los datos de él.
   Los datos recopilados se compartirán con el equipo de investigación de este estudio para su análisis.
   Seleccione Siguiente si desea continuar con el proceso de autorización.`,
-  OSpermissionAndroid: `Esta tarea requiere que la aplicación acceda a Bluetooth en su teléfono. 
+  OSpermissionAndroid: `Esta tarea requiere que la aplicación acceda a Bluetooth en su teléfono.
   Esto es necesario para conectar la aplicación con el monitor de actividad física MiBand3 y recopilar los datos de él.
   Los datos recopilados se compartirán con el equipo de investigación de este estudio para su análisis.
   Seleccione Siguiente si desea continuar con el proceso de autorización.`,
   introductionSlides: [
     {
       title: 'Introducción',
-      img: 'instructions/miband3_1.png',
+      img: 'instructions/miband3_1.svg',
       description: 'En esta tarea, se conectará a su monitor de actividad MiBand y descargará los datos de su actividad, incluidos los pasos, la frecuencia cardíaca, la actividad y el sueño.'
     },
     {
       title: 'Configuración',
-      img: 'instructions/miband3_2.png',
+      img: 'instructions/miband3_2.svg',
       description: 'Para que el teléfono se conecte a MiBand, asegúrese de que el Bluetooth esté activado en el teléfono, que el Miband esté cargado y cerca del teléfono.'
     },
     {
       title: 'Importante!',
-      img: 'instructions/miband3_tap.png',
+      img: 'instructions/miband3_tap.svg',
       description: 'Si es la primera vez que se conecta a MiBand, la pulsera le pedirá que confirme la conexión con el teléfono tocándolo. Por favor, toque la pulsera cuando sienta la vibración en la muñeca.'
     }
   ],
