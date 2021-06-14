@@ -1,7 +1,10 @@
 <template>
   <q-page padding>
     <div class="text-center">
-      <div class="text-center q-mt-lg">
+      <div class="text-center text-h6 q-mt-lg">
+        {{ $t('studies.tasks.peakflow.summary') }}
+      </div>
+      <div class="text-center q-my-lg">
       <p
         v-for="(reading, index) in PEFs"
         :data="reading"
@@ -10,16 +13,24 @@
         {{index+1}}) {{ reading }} L/min
       </p>
     </div>
-      <div class="text-bold">
+      <div class="text-bold q-my-lg">
         {{ $t('studies.tasks.peakflow.todayBest') }} {{pefMax}} L/min
       </div>
-      <q-btn
-        color="primary"
-        @click="send()"
-        :label="$t('common.send')"
-        :disabled="!pefMax"
-      />
     </div>
+    <div class="row justify-around q-mt-lg">
+        <q-btn
+          color="secondary"
+          :loading="sending"
+          :label="$t('common.discard')"
+          @click="discard()"
+        />
+        <q-btn
+          color="primary"
+          :loading="sending"
+          :label="$t('common.send')"
+          @click="send()"
+        />
+      </div>
   </q-page>
 </template>
 
@@ -35,11 +46,13 @@ export default {
   data: function () {
     return {
       PEFs: this.report.PEFs,
-      pefMax: this.report.pefMax
+      pefMax: this.report.pefMax,
+      sending: false
     }
   },
   methods: {
     async send () {
+      this.sending = true
       // Save the data to server
       try {
         await API.sendPeakFlow(this.report)
@@ -52,10 +65,9 @@ export default {
           pefMax: this.report.pefMax,
           createdTS: this.report.createdTS
         })
-        this.$q.loading.hide()
         this.$router.push({ name: 'peakFlowReview', params: { report: this.report } })
       } catch (error) {
-        this.$q.loading.hide()
+        this.sending = false
         console.error(error)
         this.$q.notify({
           color: 'negative',
@@ -63,6 +75,12 @@ export default {
           icon: 'report_problem'
         })
       }
+    },
+    async discard () {
+      let studyKey = this.studyKey
+      let taskId = Number(this.taskId)
+      await DB.setTaskCompletion(studyKey, taskId, new Date())
+      this.$router.push('/home')
     }
   }
 }
