@@ -1,7 +1,7 @@
 'use strict'
 // MOCK API implementation
-import study1234 from './mockdata/study1234'
-import form1234 from './mockdata/form1234'
+import study1978 from './mockdata/study1978'
+import form3507 from './mockdata/form3507'
 import study9999 from './mockdata/study9999'
 import study3333 from './mockdata/study3333'
 import studyAAMOS from './mockdata/studyAAMOS.json'
@@ -175,9 +175,9 @@ export default {
   async getStudyDescription (studyKey) {
     console.log('API- getting study ' + studyKey)
     return new Promise(function (resolve, reject) {
-      if (studyKey === '1234') {
+      if (studyKey === '1978') {
         setTimeout(function () {
-          resolve(study1234)
+          resolve(study1978)
         }, 2000)
       } else if (studyKey === '9999') {
         setTimeout(function () {
@@ -191,10 +191,6 @@ export default {
         setTimeout(function () {
           resolve(studyAAMOS)
         }, 1000)
-      // } else if (studyKey === '1010') {
-      //   setTimeout(function () {
-      //     resolve(studyInvitational)
-      //   }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study ' + studyKey + ' not found'))
@@ -208,9 +204,9 @@ export default {
     return new Promise(function (resolve, reject) {
       setTimeout(function () {
         let studyPart = participant.studies.find((s) => {
-          return s.studyKey === '1234'
+          return s.studyKey === '1978'
         })
-        if (!studyPart) resolve(['1234'])
+        if (!studyPart) resolve(['1978'])
         else resolve([])
       }, 100)
     })
@@ -235,9 +231,9 @@ export default {
   async getForm (key) {
     console.log('API - getting form', key)
     return new Promise(function (resolve, reject) {
-      if (key === '1234') {
+      if (key === '3507') {
         setTimeout(function () {
-          resolve(form1234)
+          resolve(form3507)
         }, Math.floor(Math.random() * 2000))
       } else if (key === '9999') {
         setTimeout(function () {
@@ -268,7 +264,7 @@ export default {
           resolve(formAAMOSweekly)
         }, Math.floor(Math.random() * 2000))
       } else {
-        reject(new Error('Questionnaire not found'))
+        reject(new Error('Questionnaire not found ' + key))
       }
     })
   },

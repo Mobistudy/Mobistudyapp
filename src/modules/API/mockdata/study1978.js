@@ -1,6 +1,12 @@
 export default {
-  _key: '1234',
-  publishedTS: '2019-11-09T11:09:20.498Z',
+  _key: '1978',
+  teamKey: '1608',
+  invitationCode: '696174',
+  invitational: true,
+  numberOfParticipants: 1000,
+  createdTS: '2021-02-08T14:25:00.741Z',
+  updatedTS: '2021-02-11T16:47:58.945Z',
+  publishedTS: '2021-02-11T16:47:58.863Z',
   generalities: {
     languages: ['en', 'sv', 'es'],
     title: {
@@ -74,7 +80,7 @@ export default {
         monthDays: [],
         weekDays: []
       },
-      formKey: '1234',
+      formKey: '3507',
       formName: {
         en: 'Example questionnaire',
         sv: 'Exempel formulär',

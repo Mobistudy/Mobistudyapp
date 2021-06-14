@@ -43,6 +43,7 @@ export default {
   },
   async created () {
     const formKey = this.formKey
+
     let formDescr = await DB.getFormDescription(formKey)
     if (!formDescr) {
       // we need to retrieve it from the API
