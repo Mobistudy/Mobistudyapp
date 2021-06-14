@@ -1,236 +1,238 @@
 {
-    "_key": "2440521",
-    "invitationCode": "231206",
-    "invitational": true,
-    "createdTS": "2021-03-26T14:22:12.517Z",
-    "teamKey": "2402037",
-    "updatedTS": "2021-04-22T14:08:19.137Z",
-    "numberOfParticipants": "300",
-    "generalities": {
-        "languages": [
-            "en"
-        ],
-        "title": {
-            "en": "AAMOS-00 Phase 1",
-            "sv": ""
-        },
-        "shortDescription": {
-            "en": "Phase 1 of the AAMOS-00 study to use mobile device monitoring to inform prediction of asthma attacks",
-            "sv": ""
-        },
-        "longDescription": {
-            "en": "Smart monitoring devices and mobile-health (mHealth) technologies are used more and more to help with asthma self-management. These technologies, including smartwatches and smartphones, give new ways for people with asthma to monitor their condition with the least interruption to their lives. Smart devices can replace the burden of daily monitoring, helping people to look after their asthma so that they manage their treatment and avoid attacks. Examples are smart inhalers and smart watches.\n\nTo develop a useful and safe system for people with asthma, we need to collect information using new smart technologies alongside the traditional daily symptom and peak flow diary. We can then compare the two sets of readings to develop systems that detect worsening asthma using smart devices and potentially reducing the need for burdensome data entry.\n\nThe aim of this study is to collect these two sets of data from about 30 people for 6 months. We’ll use the findings to develop a method that can accurately predict an asthma attack smart devices and symptom diaries. In the future this could be used in a connected asthma system to help people look after their asthma and avoid troublesome attacks. \n",
-            "sv": ""
-        },
-        "principalInvestigators": [
-            {
-                "name": "Kevin Tsang",
-                "contact": "k.c.h.tsang@sms.ed.ac.uk",
-                "institution": "University of Edinburgh"
-            },
-            {
-                "name": "Dr. Syed Ahmar Shah",
-                "contact": "ahmar.shah@ed.ac.uk",
-                "institution": "University of Edinburgh"
-            }
-        ],
-        "institutions": [
-            {
-                "name": "University of Edinburgh",
-                "contact": "Kevin Tsang, K.C.H.Tsang@sms.ed.ac.uk",
-                "dataAccess": "full",
-                "reasonForDataAccess": {
-                    "en": "The University of Edinburgh will analyse your data to fulfil the research objectives of this study.",
-                    "sv": ""
-                }
-            },
-            {
-                "name": "Malmö University",
-                "contact": "Dario Salvi, Malmö University, Nordenskiöldsgatan 1, Malmo, Sweden. Email: dario.salvi@mau.se",
-                "dataAccess": "full",
-                "reasonForDataAccess": {
-                    "en": "Malmö University is responsible for the technical maintenance of the Mobistudy app and server and will participate in the data analysis.",
-                    "sv": ""
-                }
-            },
-            {
-                "name": "University of East Anglia",
-                "contact": "Andrew Wilson, a.m.wilson@uea.ac.uk",
-                "dataAccess": "anonymised",
-                "reasonForDataAccess": {
-                    "en": "Participate in data analysis.",
-                    "sv": ""
-                }
-            }
-        ],
-        "startDate": "2021-04-01",
-        "endDate": "2021-12-31"
+  "_key": "5349389",
+  "teamKey": "2402037",
+  "invitationCode": "157297",
+  "invitational": true,
+  "generalities": {
+    "languages": [
+      "en"
+    ],
+    "title": {
+      "en": "AAMOS-00 Phase 2",
+      "sv": "",
+      "es": ""
     },
-    "consent": {
-        "invitation": {
-            "en": "Thank you for your interest in participating in phase 1 of the AAMOS-00 study. In this month, we will ask you to fill in a daily and weekly questionnaire about your asthma symptoms and condition. \n\nWe know it’s hard to complete questions every day, and we expect that most people will forget or not be able to complete some readings. However, for phase 2, we need to recruit people able to complete daily questionnaires as regularly as possible and this is one of the things we will consider when we choose people to help with it.",
-            "sv": ""
-        },
-        "privacyPolicy": {
-            "en": "The University of Edinburgh is the data controller for this study. You can read the University of Edinburgh’s data policy at https://www.ed.ac.uk/information-services/about/policies-and-regulations/research-data-policy. \n\nData gathered with Mobistudy will be stored at Malmö University, then copied to the University of Edinburgh. Mobistudy is GDPR compliant organisation and they must follow our rules about keeping your information safe. To safeguard rights, Mobistudy will only collect the minimum of information that identifies you (your name and email address) and this personal data will be detached from the questionnaire data and stored separately. The data will remain encrypted at storage and in transfer. Your data will remain on Mobistudy for as long as you keep your Mobistudy profile. You can read Mobistudy’s privacy policy at https://mobistudy.org/appPrivacyPolicy.html. Only the research team will have access to personal data, which will be securely destroyed three years after the end of the study.\n\nThe date, time, and IP address of your login and when you send data in Mobistudy will be logged for security reasons and kept for 5 years. The study team can’t access this data.\n\nHere’s the data we’ll be collecting in phase 1 using Mobistudy:\n    • Your general profile information like email address, name, surname, date of birth, sex, country, language, main health conditions, long-term treatments, weight and height.\n    • Answers given to About you form.\n    • Answers given to About your asthma form.\n    • Answers given to Daily Questionnaire form.\n    • Answers given to Weekly Questionnaire form.\n    • Answers given to AAMOS-00 Phase 2 Participation Interest form.\n\nFor questions about how data is processed by each institution involved in the study please contact:\n• Malmö University, at: dataskyddsombud@mau.se\n• Kevin Tsang at: k.c.h.tsang@sms.ed.ac.uk\n• Dr. Syed Ahmar Shah at: ahmar.shah@ed.ac.uk",
-            "sv": ""
-        },
-        "taskItems": [
-            {
-                "description": {
-                    "en": "I agree to answer the \"About your asthma\" questionnaire once."
-                },
-                "taskId": 1
-            },
-            {
-                "description": {
-                    "en": "I agree to answer the \"About you\" questionnaire once."
-                },
-                "taskId": 2
-            },
-            {
-                "description": {
-                    "en": "I agree to answer the \"Daily Questionnaire\" as regularly as possible for 1 month."
-                },
-                "taskId": 3
-            },
-            {
-                "description": {
-                    "en": "I agree to answer the \"Weekly Questionnaire\", every week for 1 month."
-                },
-                "taskId": 4
-            },
-            {
-                "description": {
-                    "en": "I agree to answer the \"AAMOS-00 Phase 2 Participation Interest\" questionnaire once, near the end of the study."
-                },
-                "taskId": 5
-            }
-        ],
-        "extraItems": []
+    "shortDescription": {
+      "en": "Phase 2 of the AAMOS-00 study to use mobile device monitoring to inform prediction of asthma attacks",
+      "sv": "",
+      "es": ""
     },
-    "inclusionCriteria": {
-        "countries": [
-            "gb"
-        ],
-        "sex": [
-            "male",
-            "female",
-            "other"
-        ],
-        "criteriaQuestions": [],
-        "diseases": [
-            {
-                "term": "Asthma",
-                "conceptId": "195967001",
-                "vocabulary": "SNOMEDCT"
-            }
-        ],
-        "medications": [],
-        "minAge": 18,
-        "maxAge": 100,
-        "minBMI": 5,
-        "maxBMI": 80
+    "longDescription": {
+      "en": "Smart monitoring devices and mobile-health (mHealth) technologies are used more and more to help with asthma self-management. These technologies, including smartwatches and smartphones, give new ways for people with asthma to monitor their condition with the least interruption to their lives. Smart devices can replace the burden of daily monitoring, helping people to look after their asthma so that they manage their treatment and avoid attacks. Examples are smart inhalers and smart watches. To develop a useful and safe system for people with asthma, we need to collect information using new smart technologies alongside the traditional daily symptom and peak flow diary. We can then compare the two sets of readings to develop systems that detect worsening asthma using smart devices and potentially reducing the need for burdensome data entry. The aim of this study is to collect these two sets of data from about 30 people for 6 months. We’ll use the findings to develop a method that can accurately predict an asthma attack smart devices and symptom diaries. In the future this could be used in a connected asthma system to help people look after their asthma and avoid troublesome attacks.",
+      "sv": "",
+      "es": ""
     },
-    "tasks": [
-        {
-            "id": 1,
-            "type": "form",
-            "scheduling": {
-                "startEvent": "consent",
-                "alwaysOn": false,
-                "occurrences": "1",
-                "intervalType": "d",
-                "months": [],
-                "monthDays": [],
-                "weekDays": [],
-                "interval": 1
-            },
-            "formKey": "2606718",
-            "formName": {
-                "en": "About your asthma",
-                "sv": ""
-            }
-        },
-        {
-            "id": 2,
-            "type": "form",
-            "scheduling": {
-                "startEvent": "consent",
-                "untilSecs": 0,
-                "alwaysOn": false,
-                "occurrences": "1",
-                "intervalType": "d",
-                "months": [],
-                "monthDays": [],
-                "weekDays": [],
-                "interval": 1
-            },
-            "formKey": "2613568",
-            "formName": {
-                "en": "About you",
-                "sv": ""
-            }
-        },
-        {
-            "id": 3,
-            "type": "form",
-            "scheduling": {
-                "startEvent": "consent",
-                "alwaysOn": false,
-                "occurrences": "28",
-                "intervalType": "d",
-                "months": [],
-                "monthDays": [],
-                "weekDays": [],
-                "interval": 1
-            },
-            "formKey": "2608088",
-            "formName": {
-                "en": "Daily Questionnaire ",
-                "sv": ""
-            }
-        },
-        {
-            "id": 4,
-            "type": "form",
-            "scheduling": {
-                "startEvent": "consent",
-                "startDelaySecs": 604800,
-                "untilSecs": 0,
-                "alwaysOn": false,
-                "occurrences": "4",
-                "intervalType": "w",
-                "months": [],
-                "monthDays": [],
-                "weekDays": [],
-                "interval": 1
-            },
-            "formKey": "2707817",
-            "formName": {
-                "en": "Weekly Questionnaire",
-                "sv": ""
-            }
-        },
-        {
-            "id": 5,
-            "type": "form",
-            "scheduling": {
-                "startEvent": "consent",
-                "startDelaySecs": 1814400,
-                "alwaysOn": false,
-                "occurrences": "1",
-                "intervalType": "d",
-                "months": [],
-                "monthDays": [],
-                "weekDays": [],
-                "interval": 1
-            },
-            "formKey": "2962448",
-            "formName": {
-                "en": "AAMOS-00 Phase 2 Participation Interest",
-                "sv": ""
-            }
+    "principalInvestigators": [
+      {
+        "name": "Kevin Tsang",
+        "contact": "k.c.h.tsang@sms.ed.ac.uk",
+        "institution": "University of Edinburgh"
+      },
+      {
+        "name": "Dr. Syed Ahmar Shah",
+        "contact": "ahmar.shah@ed.ac.uk",
+        "institution": "University of Edinburgh"
+      }
+    ],
+    "institutions": [
+      {
+        "name": "University of Edinburgh",
+        "contact": "Kevin Tsang, K.C.H.Tsang@sms.ed.ac.uk",
+        "dataAccess": "full",
+        "reasonForDataAccess": {
+          "en": "The University of Edinburgh will analyse your data to fulfil the research objectives of this study.",
+          "sv": "",
+          "es": ""
         }
-    ]
+      },
+      {
+        "name": "Malmö University",
+        "contact": "Dario Salvi, Malmö University, Nordenskiöldsgatan 1, Malmo, Sweden. Email: dario.salvi@mau.se",
+        "dataAccess": "full",
+        "reasonForDataAccess": {
+          "en": "Malmö University is responsible for the technical maintenance of the Mobistudy app and server and will participate in the data analysis.",
+          "sv": "",
+          "es": ""
+        }
+      },
+      {
+        "name": "University of East Anglia",
+        "contact": "Andrew Wilson, a.m.wilson@uea.ac.uk",
+        "dataAccess": "anonymised",
+        "reasonForDataAccess": {
+          "en": "Participate in data analysis.",
+          "sv": "",
+          "es": ""
+        }
+      }
+    ],
+    "startDate": "2021-05-24",
+    "endDate": "2022-05-01"
+  },
+  "inclusionCriteria": {
+    "countries": [
+      "gb"
+    ],
+    "sex": [
+      "male",
+      "female",
+      "other"
+    ],
+    "criteriaQuestions": [],
+    "diseases": [
+      {
+        "term": "Asthma",
+        "conceptId": "195967001",
+        "vocabulary": "SNOMEDCT"
+      }
+    ],
+    "medications": [],
+    "minAge": 18,
+    "maxAge": 100,
+    "minBMI": "5",
+    "maxBMI": "208"
+  },
+  "tasks": [
+    {
+      "id": 1,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "untilSecs": 15897600,
+        "alwaysOn": false,
+        "occurrences": "",
+        "intervalType": "d",
+        "months": [],
+        "monthDays": [],
+        "weekDays": [],
+        "interval": 1
+      },
+      "formKey": "2608088",
+      "formName": {
+        "en": "Daily Questionnaire ",
+        "sv": ""
+      }
+    },
+    {
+      "id": 2,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "untilSecs": 15897600,
+        "alwaysOn": false,
+        "occurrences": "",
+        "intervalType": "w",
+        "months": [],
+        "monthDays": [],
+        "weekDays": [],
+        "interval": 1
+      },
+      "formKey": "2707817",
+      "formName": {
+        "en": "Weekly Questionnaire",
+        "sv": ""
+      }
+    },
+    {
+      "id": 3,
+      "type": "miband3",
+      "scheduling": {
+        "startEvent": "consent",
+        "untilSecs": 15897600,
+        "alwaysOn": false,
+        "intervalType": "d",
+        "months": [],
+        "monthDays": [],
+        "weekDays": [],
+        "interval": 1
+      },
+      "hrInterval": 1
+    },
+    {
+      "id": 4,
+      "type": "peakFlow",
+      "scheduling": {
+        "startEvent": "consent",
+        "untilSecs": 15897600,
+        "alwaysOn": false,
+        "intervalType": "d",
+        "hours": [
+          "5",
+          "15"
+        ],
+        "months": [],
+        "monthDays": [],
+        "weekDays": [],
+        "interval": 1
+      }
+    },
+    {
+      "id": 5,
+      "type": "position",
+      "scheduling": {
+        "startEvent": "consent",
+        "untilSecs": 15897600,
+        "alwaysOn": false,
+        "intervalType": "d",
+        "hours": [],
+        "months": [],
+        "monthDays": [],
+        "weekDays": [],
+        "interval": 1
+      }
+    }
+  ],
+  "consent": {
+    "invitation": {
+      "en": "Thank you for your interest in participating in phase 2 of the AAMOS-00 study. Over the next 6 months, we will ask you to fill in a daily and weekly questionnaire about your asthma symptoms and condition in addition to using the 3 smart monitoring devices we provide (smart inhaler, smart peak flow meter, and smartwatch). We know it’s hard to complete questions and use the devices every day, and we expect that most people will forget or not be able to complete some readings. However, for accurate asthma attack predictions, we need as much data as regularly as possible. Thank you for your help.",
+      "sv": "",
+      "es": ""
+    },
+    "privacyPolicy": {
+      "en": "The University of Edinburgh is the data controller for this study. You can read the University of Edinburgh’s data policy at https://www.ed.ac.uk/information-services/about/policies-and-regulations/research-data-policy.\n\nData gathered with Mobistudy will be stored at Malmö University, then copied to the University of Edinburgh. Mobistudy is GDPR compliant organisation and they must follow our rules about keeping your information safe. To safeguard rights, Mobistudy will only collect the minimum of information that identifies you (your name and email address) and this personal data will be detached from the questionnaire data and stored separately. The data will remain encrypted at storage and in transfer. Your data will remain on Mobistudy for as long as you keep your Mobistudy profile. You can read Mobistudy’s privacy policy at https://mobistudy.org/appPrivacyPolicy.html. Only the research team will have access to personal data, which will be securely destroyed three years after the end of the study.\n\nThe date, time, and IP address of your login and when you send data in Mobistudy will be logged for security reasons and kept for 5 years. The study team can’t access this data.\n\nHere’s the data we’ll be collecting in phase 2 using Mobistudy:\n• Your general profile information like email address, name, surname, date of birth, sex, country, language, main health conditions, long-term treatments, weight and height.\n• Answers given to Daily Questionnaire form.\n• Answers given to Weekly Questionnaire form.\n• Answers given to AAMOS-00 Phase 2 Participation Interest form.\n• Readings given to peak flow task.\n• Data given to activity tracking task.\n• Location given to weather/ location task.\n\nFor questions about how data is processed by each institution involved in the study please contact:\n• Malmö University, at: dataskyddsombud@mau.se\n• Kevin Tsang at: k.c.h.tsang@sms.ed.ac.uk\n• Dr. Syed Ahmar Shah at: ahmar.shah@ed.ac.uk",
+      "sv": "",
+      "es": ""
+    },
+    "taskItems": [
+      {
+        "description": {
+          "en": "I agree to answer the Daily Questionnaire every day. "
+        },
+        "taskId": 1,
+        "type": "form"
+      },
+      {
+        "description": {
+          "en": "I agree to answer the Weekly Questionnaire once a week. "
+        },
+        "taskId": 2,
+        "type": "form"
+      },
+      {
+        "description": {
+          "en": "I agree to send my data collected by the MiBand3 fitness tracker at least once every three days."
+        },
+        "taskId": 3,
+        "type": "miband3"
+      },
+      {
+        "description": {
+          "en": "I agree to send my data collected by the Smart Peak Flow Meter twice a day (day and night), every day."
+        },
+        "taskId": 4,
+        "type": "peakFlow"
+      },
+      {
+        "description": {
+          "en": "I agree to send my location every day."
+        },
+        "taskId": 5,
+        "type": "position"
+      }
+    ],
+    "extraItems": []
+  },
+  "createdTS": "2021-05-24T14:10:37.885Z",
+  "numberOfParticipants": "40",
+  "updatedTS": "2021-06-14T11:56:17.629Z"
 }

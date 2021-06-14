@@ -1,17 +1,18 @@
 'use strict'
 // MOCK API implementation
-import study1978 from './mockdata/study1978'
-import form3507 from './mockdata/form3507'
-import study9999 from './mockdata/study9999'
-import study3333 from './mockdata/study3333'
+import studyTest from './mockdata/studyTest'
+import formTest from './mockdata/formTest'
+
+import studyLindangen from './mockdata/studyLindngen'
+import formLindangenCovid from './mockdata/formLindangenCovid'
+import formLindangenHealth from './mockdata/formLindangenHealth'
+import formLindangenQoL from './mockdata/formLindangenQoL'
+
 import studyAAMOS from './mockdata/studyAAMOS.json'
-import formAAMOSaboutasthma from './mockdata/formAAMOSaboutasthma.json'
-import formAAMOSaboutyou from './mockdata/formAAMOSaboutyou.json'
+
 import formAAMOSdaily from './mockdata/formAAMOSdaily.json'
 import formAAMOSweekly from './mockdata/formAAMOSweekly.json'
-import form9999 from './mockdata/form9999'
-import form9999Health from './mockdata/form9999Health'
-import form9999whoqol from './mockdata/form9999whoqol'
+
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
 
@@ -175,17 +176,13 @@ export default {
   async getStudyDescription (studyKey) {
     console.log('API- getting study ' + studyKey)
     return new Promise(function (resolve, reject) {
-      if (studyKey === '1978') {
+      if (studyKey === studyTest._key) {
         setTimeout(function () {
-          resolve(study1978)
+          resolve(studyTest)
         }, 2000)
-      } else if (studyKey === '9999') {
+      } else if (studyKey === studyLindangen._key) {
         setTimeout(function () {
-          resolve(study9999)
-        }, 1000)
-      } else if (studyKey === '3333') {
-        setTimeout(function () {
-          resolve(study3333)
+          resolve(studyLindangen)
         }, 1000)
       } else if (studyKey === studyAAMOS._key) {
         setTimeout(function () {
@@ -216,8 +213,8 @@ export default {
   async getInvitationalStudy (invitationalCode) {
     console.log('API - getting invitational study')
     return new Promise((resolve, reject) => {
-      if (invitationalCode === study9999.invitationCode) {
-        resolve(study9999)
+      if (invitationalCode === studyLindangen.invitationCode) {
+        resolve(studyLindangen)
       } else if (invitationalCode === studyAAMOS.invitationCode) {
         resolve(studyAAMOS)
       } else {
@@ -231,38 +228,30 @@ export default {
   async getForm (key) {
     console.log('API - getting form', key)
     return new Promise(function (resolve, reject) {
-      if (key === '3507') {
+      if (key === formTest._key) {
         setTimeout(function () {
-          resolve(form3507)
-        }, Math.floor(Math.random() * 2000))
-      } else if (key === '9999') {
+          resolve(formTest)
+        }, Math.floor(1000))
+      } else if (key === formLindangenCovid._key) {
         setTimeout(function () {
-          resolve(form9999)
-        }, Math.floor(Math.random() * 2000))
-      } else if (key === '9999Health') {
+          resolve(formLindangenCovid)
+        }, Math.floor(1000))
+      } else if (key === formLindangenHealth._key) {
         setTimeout(function () {
-          resolve(form9999Health)
-        }, Math.floor(Math.random() * 2000))
-      } else if (key === '9999whoqol') {
+          resolve(formLindangenHealth)
+        }, Math.floor(1000))
+      } else if (key === formLindangenQoL._key) {
         setTimeout(function () {
-          resolve(form9999whoqol)
-        }, Math.floor(Math.random() * 2000))
-      } else if (key === '2606718') {
-        setTimeout(function () {
-          resolve(formAAMOSaboutasthma)
-        }, Math.floor(Math.random() * 2000))
-      } else if (key === '2613568') {
-        setTimeout(function () {
-          resolve(formAAMOSaboutyou)
-        }, Math.floor(Math.random() * 2000))
-      } else if (key === '2608088') {
+          resolve(formLindangenQoL)
+        }, Math.floor(1000))
+      } else if (key === formAAMOSdaily._key) {
         setTimeout(function () {
           resolve(formAAMOSdaily)
-        }, Math.floor(Math.random() * 2000))
-      } else if (key === '2707817') {
+        }, Math.floor(1000))
+      } else if (key === formAAMOSweekly._key) {
         setTimeout(function () {
           resolve(formAAMOSweekly)
-        }, Math.floor(Math.random() * 2000))
+        }, Math.floor(1000))
       } else {
         reject(new Error('Questionnaire not found ' + key))
       }

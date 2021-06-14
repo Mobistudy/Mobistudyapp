@@ -24,12 +24,12 @@ export default {
       physical activity, heart rate, blood oxygen saturation and symptoms to detect the onset
       of COVID-19 before the worsening of symptoms.
       `,
-      sv: `Målet med denna studie är att använda mobiltelefon för att förstå spridning av COVID-19 
+      sv: `Målet med denna studie är att använda mobiltelefon för att förstå spridning av COVID-19
       inom grannskapet Lindängen i Malmö.
-      
-      Deltagare frågas om deras symptom via deras mobiltelefoner och att de mäter puls, 
+
+      Deltagare frågas om deras symptom via deras mobiltelefoner och att de mäter puls,
       aktivitetsnivå, samt syremättnad i blodet dagligen i en månad.
-      
+
       Den insamlade datan kommer användas för att förstå hur COVID-19 spreds i grannskapet,
       vilka de typiska symptom som deltagare rapporterar och vilka indikatorer som kan användas,
       såsom fysisk aktivitet, puls, syremättnad i blodet, samt symptom för att identifiera
@@ -76,7 +76,7 @@ export default {
         intervalType: 'd',
         interval: 1
       },
-      formKey: '9999Health',
+      formKey: 'lindangenHealth',
       formName: {
         en: 'Health questionnaire',
         sv: 'Hälsoenkät'
@@ -92,7 +92,7 @@ export default {
         intervalType: 'd',
         interval: 1
       },
-      formKey: '9999whoqol',
+      formKey: 'lindangenQol',
       formName: {
         en: 'WHO Quality of Life',
         sv: 'WHO Livskvalitet'
@@ -108,7 +108,7 @@ export default {
         intervalType: 'd',
         interval: 1
       },
-      formKey: '9999',
+      formKey: 'lindangenCovid',
       formName: {
         en: 'COVID-19 Symptoms questionnaire',
         sv: 'Enkät för symptom av COVID-19'
@@ -155,94 +155,94 @@ export default {
     invitation: {
       en: `We would like to invite you to take part in this research study about understanding
       the spread of COVID-19 within the Lindängen neighbourhood.
-      
+
       In order to participate, you will have to be referred to this study by a health promoter working
       in the area and you will need to own a smartphone (either Android or iPhone).
 
       If you decide to join the study, you will be asked to download the free Mobistudy app on your phone
-      to wear a "activity tracker" as well as take measurements of the level of oxygen in your blood using 
-      a "pulseoximeter" (no blood samples are needed for this). You will be able to borrow the activity 
+      to wear a "activity tracker" as well as take measurements of the level of oxygen in your blood using
+      a "pulseoximeter" (no blood samples are needed for this). You will be able to borrow the activity
       tracker and the pulseoximeter from the health promoter.
       Every day, for a month, you will be asked to report any COVID-19 related symptoms through the app,
-      at the same time as your physical activity and heart beat is measured using the phone and activity 
+      at the same time as your physical activity and heart beat is measured using the phone and activity
       tracker, while the blood oxygen saturation using the pulseoximeter.
 
       The data collected by the app will be sent to the Malmö University for analysis and will not be shared
       with anyone else except the research team at the University.
 
       The participation to this study is voluntary and you can withdraw at any moment.`,
-      sv: `Vi vill bjuda in dig att vara med i denna forskningsstudie för att förstå spridning av 
+      sv: `Vi vill bjuda in dig att vara med i denna forskningsstudie för att förstå spridning av
       COVID-19 inom Lindängens grannskap.
-      
+
       För att delta krävs att du blivit inbjuden av en av de hälsofrämjare som arbetar i området och
       att du kan använda din egen smartphone (Android eller iPhone).
-      
+
       Om du beslutar dig för att delta i studien så kommer du behöva ladda ned appen Mobistudy (gratis)
-      till din telefon och använda ett "aktivitetsband", samt mäta hur mycket syre du har i blodet med 
-      en "pulsoximeter" (kräver inget blodprov). Du kommer få låna aktivitetsbandet och pulsoximeter 
+      till din telefon och använda ett "aktivitetsband", samt mäta hur mycket syre du har i blodet med
+      en "pulsoximeter" (kräver inget blodprov). Du kommer få låna aktivitetsbandet och pulsoximeter
       från hälsofrämjaren.
-      Varje dag under en månad frågas du om du har några COVID-19-symptom via appen på telefonen, 
-      samtidigt som din telefon mäter din fysiska aktivitet och puls mäts av aktivitetsbandet. Din 
+      Varje dag under en månad frågas du om du har några COVID-19-symptom via appen på telefonen,
+      samtidigt som din telefon mäter din fysiska aktivitet och puls mäts av aktivitetsbandet. Din
       syremängd i blodet mäts med hjälp av pulsoximetern.
-      
+
       Data som samlas in av appen skickas till Malmö Universitet för analys och delas inte med någon
       annan utöver forskningsgruppen på universitetet.
-      
+
       Deltagandet i denna studie är frivilligt och du kan avsluta deltagandet när du vill.`
     },
     privacyPolicy: {
       en: `To conduct this study, we need to collect some data from you using the Mobistudy app.
 
       What personal data will be collected?
-      
-      - Your general profile information like email address, name, surname, date of birth, sex, country, 
-      language, main health conditions, long-term treatments, weight and height. 
+
+      - Your general profile information like email address, name, surname, date of birth, sex, country,
+      language, main health conditions, long-term treatments, weight and height.
       These are needed to identify you and to create statistics about those who participate in this study.
-      - Your participation in the study and the times you complete a task. These are needed to assess 
+      - Your participation in the study and the times you complete a task. These are needed to assess
       your level of involvement into the study.
       - Technical information about access to the server (like logins). These are needed for security and auditing.
-      
-      Data collected within the tasks assigned in this study, concretely: 
+
+      Data collected within the tasks assigned in this study, concretely:
       - Answers given to the COVID-19 symptoms questionnaire.
       - Your heart rate, activity level, steps and activity type collected by the MiBand3 activity tracker.
       - Activity detected by your phone.
       - Your blood oxygen saturation and heart rate measured by a pulseoximeter.
-      
+
       These data are needed to fulfil the aims of the research. Specifically, we want to understand how the
       disease spreads, what symptoms are common among patients and if it is possible to identify a link
       between physical activity data, as collected by your phone and the activity tracker, with clinical
       symptoms, as collected by the questionnaire and the pulseoximeter.
-      
-      All these data will be stored on the Mobistudy servers, which are managed by the Malmö University 
+
+      All these data will be stored on the Mobistudy servers, which are managed by the Malmö University
       in Sweden. Your phone will keep your profile and data about your participation in the studies only.
-      
-      
+
+
       For how long will this data be kept?
-      
+
       Your profile and participation in the study will be kept for as long as you will keep an account on Mobistudy.
-      Data collected within the tasks assigned in this study will be kept on the Mobistudy servers until the 
+      Data collected within the tasks assigned in this study will be kept on the Mobistudy servers until the
       end of the study, on 2021-12-31.
       Technical logs will be deleted after 1 year they are produced.
       Researchers of Malmö University will keep the data for 5 years.
-      
-      
+
+
       Who will have access to this data?
-      
+
       - Personnel from the Malmö University for technical maintenance and auditing (Malmö University is the processor of your personal information).
       - Malmö University, in order to analyse the data (Malmö University is also the controller of your personal information).
-      
+
       What are my rights?
-      
-      - You can withdraw from this study whenever you want by accessing the “studies” section of this app. 
+
+      - You can withdraw from this study whenever you want by accessing the “studies” section of this app.
       The data you have produced so far within the study will be kept, but if you want them to be removed contact mobistudy@mau.se.
-      - You can remove your account from Mobistudy by accessing the “profile” section of this app. 
+      - You can remove your account from Mobistudy by accessing the “profile” section of this app.
       This will remove all your data collected by Mobistudy except the technical logs, which will be deleted after 1 year. Be aware that data already downloaded by institutions involved in this or past studies may still keep your data after you have removed your account. If you want these data to be deleted, please contact mobistudy@mau.se.
-      - You can ask the processing of your data to be stopped or restricted (even without deleting your account). 
+      - You can ask the processing of your data to be stopped or restricted (even without deleting your account).
       In this case contact mobistudy@mau.se.
       - You can find out what has been registered about you and download the data in a machine-readable format by contacting mobistudy@mau.se.
       - You can ask errors in your data to be corrected. In this case write to mobistudy@mau.se.
       - If you have complaints that cannot be resolved with Malmö University you may submit these to Datainspektionen.
-      
+
       For questions about how data is processed by each institution involved in the study please contact:
       - Malmö University, at: dataskyddsombud@mau.se`,
       sv: `För att genomföra denna studie behöver vi samla in data från dig genom app:en Mobistudy.
@@ -254,7 +254,7 @@ export default {
       skapa statistik om de som deltar i studien.
       - Ditt deltagande i studien och de tidpunkter du gjort klart uppgifter. Dessa behövs för att avgöra
       din nivå av engagemang i studien.
-      - Teknisk information såsom tillgång till server vid inloggning. Detta behövs för säkerhet och vid 
+      - Teknisk information såsom tillgång till server vid inloggning. Detta behövs för säkerhet och vid
       granskningar av vår säkerhet.
 
       Data samlas in genom uppgifter som ska göras i studien, specifikt:
@@ -274,13 +274,13 @@ export default {
       Hur länge sparas denna data?
 
       Din profil och deltagande i studien sparas så länge du har kvar ett konto på Mobistudy. Data samlas in
-      genom de uppgifter studien ger dig och sparas på Mobistudys server till slutet på studien, 2021-12-31. 
+      genom de uppgifter studien ger dig och sparas på Mobistudys server till slutet på studien, 2021-12-31.
       Tekniska loggar tas bort 1 år efter de skapas. Forskare på Malmö Universitet sparar datan i 5 år.
-      
+
       Vem har tillgång till denna data?
       - Personal från Malmö Universitet för tekniskt underhåll och granskningar (Malmö Universitet är den som
       formellt behandlar din personliga information).
-      - Malmö Universitet, för att kunna analysera data (Malmö Universitet är även den som formellt kontrollerar 
+      - Malmö Universitet, för att kunna analysera data (Malmö Universitet är även den som formellt kontrollerar
       din personliga information).
 
       Vilka är mina rättigheter?
