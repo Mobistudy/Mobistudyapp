@@ -15,7 +15,7 @@ export default {
     {
       title: 'Inställning',
       img: 'instructions/miband3_2.svg',
-      description: 'För ansluta mobiltelefon med MiBand:et, var god att försäkra dig om att Bluetooth är aktiverat på din mobil, samt att armbandet är laddat och i närheten av mobilen.'
+      description: 'För ansluta mobiltelefon med MiBand:et, var god att försäkra dig om att Bluetooth och Positionering (eller Bluetooth-skanning) är aktiverade på telefonen, samt att armbandet är laddat och i närheten av mobilen.'
     },
     {
       title: 'Viktigt!',

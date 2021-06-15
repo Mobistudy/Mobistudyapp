@@ -19,7 +19,7 @@ export default {
     {
       title: 'Configuración',
       img: 'instructions/miband3_2.svg',
-      description: 'Para que el teléfono se conecte a MiBand, asegúrese de que el Bluetooth esté activado en el teléfono, que el Miband esté cargado y cerca del teléfono.'
+      description: 'Para que el teléfono se conecte a MiBand, asegúrate de que el Bluetooth y Ubicación (o escaneo de Bluetooth) estén habilitados en el teléfono, que el Miband esté cargado y cerca del teléfono.'
     },
     {
       title: 'Importante!',

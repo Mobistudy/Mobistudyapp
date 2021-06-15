@@ -19,7 +19,7 @@ export default {
     {
       title: 'Setup',
       img: 'instructions/miband3_2.svg',
-      description: 'In order for the phone to connect to the MiBand, please, make sure that Blueetooth is activated on the phone, that the Miband is charged, and is near the phone.'
+      description: 'In order for the phone to connect to the MiBand, please, make sure that Blueetooth and Location (or Bluetooth scanning) are enabled on the phone, that the Miband is charged, and is near the phone.'
     },
     {
       title: 'Important!',
