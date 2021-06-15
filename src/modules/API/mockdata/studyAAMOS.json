@@ -102,9 +102,6 @@
         "alwaysOn": false,
         "occurrences": "",
         "intervalType": "d",
-        "months": [],
-        "monthDays": [],
-        "weekDays": [],
         "interval": 1
       },
       "formKey": "2608088",
@@ -122,9 +119,6 @@
         "alwaysOn": false,
         "occurrences": "",
         "intervalType": "w",
-        "months": [],
-        "monthDays": [],
-        "weekDays": [],
         "interval": 1
       },
       "formKey": "2707817",
@@ -141,9 +135,6 @@
         "untilSecs": 15897600,
         "alwaysOn": false,
         "intervalType": "d",
-        "months": [],
-        "monthDays": [],
-        "weekDays": [],
         "interval": 1
       },
       "hrInterval": 1
@@ -160,9 +151,6 @@
           "5",
           "15"
         ],
-        "months": [],
-        "monthDays": [],
-        "weekDays": [],
         "interval": 1
       }
     },
@@ -174,10 +162,6 @@
         "untilSecs": 15897600,
         "alwaysOn": false,
         "intervalType": "d",
-        "hours": [],
-        "months": [],
-        "monthDays": [],
-        "weekDays": [],
         "interval": 1
       }
     }

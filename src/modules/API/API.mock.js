@@ -9,7 +9,6 @@ import formLindangenHealth from './mockdata/formLindangenHealth'
 import formLindangenQoL from './mockdata/formLindangenQoL'
 
 import studyAAMOS from './mockdata/studyAAMOS.json'
-
 import formAAMOSdaily from './mockdata/formAAMOSdaily.json'
 import formAAMOSweekly from './mockdata/formAAMOSweekly.json'
 
@@ -201,9 +200,9 @@ export default {
     return new Promise(function (resolve, reject) {
       setTimeout(function () {
         let studyPart = participant.studies.find((s) => {
-          return s.studyKey === '1978'
+          return s.studyKey === studyTest._key
         })
-        if (!studyPart) resolve(['1978'])
+        if (!studyPart) resolve([studyTest._key])
         else resolve([])
       }, 100)
     })
