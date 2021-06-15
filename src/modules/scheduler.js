@@ -300,6 +300,10 @@ export async function cancelNotifications () {
   return notifications.cancelAll()
 }
 
+// Scheduling notifications can be slow, this is the maximum number of notifications that
+// will be scheduled in one go
+const MAX_NOTIFICATIONS = 20
+
 export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, studyPart) {
   let notificationStack = []
   let timeStack = []
@@ -311,7 +315,7 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
     if (task.scheduling.alwaysOn) continue // skip always ON tasks
     let rrule = generateRRule(acceptedTS, studyDescr.generalities.endDate, task.scheduling)
     let taskTimes = rrule.between(toUTC(new Date()), toUTC(new Date(studyDescr.generalities.endDate)), true)
-    for (let scheduleI = 0; scheduleI < taskTimes.length && scheduleI < 1000; scheduleI++) {
+    for (let scheduleI = 0; scheduleI < taskTimes.length && scheduleI < MAX_NOTIFICATIONS; scheduleI++) {
       let taskTime = taskTimes[scheduleI]
       let executionDate = moment(taskTime).startOf('minute').toDate()
       // we could use the unix timestamp of the execution date as id, but we
