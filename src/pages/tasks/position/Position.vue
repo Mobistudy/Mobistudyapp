@@ -70,9 +70,10 @@ export default {
         color: 'negative',
         message: 'No positioning available',
         icon: 'report_problem',
-        onDismiss () {
-          this.$router.push('/home')
-        }
+        timeout: 0, // will not disapper until dismissed
+        actions: [
+          { label: 'Dismiss', color: 'white', handler: () => { this.$router.push('/home') } }
+        ]
       })
     } else {
       this.showConnecting = true
@@ -86,9 +87,10 @@ export default {
           color: 'negative',
           message: this.$t('errors.connectionError') + ' ' + err.message,
           icon: 'report_problem',
-          onDismiss () {
-            this.$router.push('/home')
-          }
+          timeout: 0, // will not disapper until dismissed
+          actions: [
+            { label: 'Dismiss', color: 'white', handler: () => { this.$router.push('/home') } }
+          ]
         })
       }
       this.showConnecting = false

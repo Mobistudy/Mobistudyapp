@@ -408,6 +408,17 @@
           }
         }
       ]
+    },
+    {
+      "id": "Q11",
+      "text": {
+        "en": "Please describe any other asthma symptoms you have experienced over the last week."
+      },
+      "helper": {
+        "en": ""
+      },
+      "footer": {},
+      "type": "freetext"
     }
   ],
   "created": "2021-03-31T15:15:04.786Z"
