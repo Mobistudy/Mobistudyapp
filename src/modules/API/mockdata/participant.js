@@ -54,18 +54,17 @@ export default {
     // }
 
     // {
-    //   studyKey: '2440521',
+    //   studyKey: '5349389',
     //   currentStatus: 'accepted',
-    //   acceptedTS: new Date(new Date().getTime() - 691200000).toISOString(), // 1 day ago
+    //   acceptedTS: new Date(new Date().getTime() - 1000 * 60 * 60).toISOString(),
     //   reminders: true,
     //   criteriaAnswers: ['yes'],
     //   taskItemsConsent: [
-    //     { taskId: 1, consented: true }, // 1 day ago
-    //     { taskId: 2, consented: true }, // 2 day ago
-    //     { taskId: 3, consented: true }, // 8 days ago
-    //     { taskId: 4, consented: true }, // 8 days ago
-    //     { taskId: 5, consented: true }, // 8 days ago
-    //     { taskId: 6, consented: true } // 8 days ago
+    //     { taskId: 1, consented: true },
+    //     { taskId: 2, consented: true },
+    //     { taskId: 3, consented: true },
+    //     { taskId: 4, consented: true },
+    //     { taskId: 5, consented: true }
     //   ]
     // }
   ]

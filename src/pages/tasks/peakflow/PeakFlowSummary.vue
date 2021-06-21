@@ -30,7 +30,7 @@
           :label="$t('common.send')"
           @click="send()"
         />
-      </div>
+    </div>
   </q-page>
 </template>
 

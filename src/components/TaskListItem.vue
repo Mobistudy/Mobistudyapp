@@ -61,8 +61,8 @@ export default {
         this.$router.push({ name: 'peakFlowIntro', params: { studyKey: studyKey, taskId: taskId }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'dataQuery') {
         this.$router.push({ name: 'dataQueryIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
-      } else if (type === 'tapping') {
-        this.$router.push({ name: 'tappingIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
+      } else if (type === 'fingerTapping') {
+        this.$router.push({ name: 'fingerTappingIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else {
         throw new Error('Could not changeRoute with task type.')
       }

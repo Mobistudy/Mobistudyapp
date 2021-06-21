@@ -1,43 +1,82 @@
 <template>
   <q-page padding>
-    <q-item-section id="tappingData">
-      <h6>Finished task</h6>
-      <p>
-        <i></i>
-      </p>
-<!--      <q-input-->
-<!--        outlined-->
-<!--        v-model="heartRate"-->
-<!--        label="Heart rate"-->
-<!--        type="number"-->
-<!--      />-->
-<!--      <q-btn-->
-<!--        color="primary"-->
-<!--        @click="completeTest()"-->
-<!--        :label="$t('common.next')"-->
-<!--        class="q-mt-md"-->
-<!--      />-->
-    </q-item-section>
+    <div class="text-center text-h5 q-mt-lg text-center">
+      {{ $t('studies.tasks.fingerTapping.completed') }}
+    </div>
+    <p class="text-center q-mt-lg text-center">
+      {{ $t('studies.tasks.fingerTapping.summary', { count: report.tappingData.length, sec: 20} ) }}
+    </p>
+    <div class="row justify-around q-mt-lg">
+        <q-btn
+          color="secondary"
+          :loading="sending"
+          :label="$t('common.discard')"
+          @click="discard()"
+        />
+        <q-btn
+          color="primary"
+          :loading="sending"
+          :label="$t('common.send')"
+          @click="send()"
+        />
+    </div>
   </q-page>
 </template>
 
 <script>
+import API from 'modules/API/API'
+import DB from 'modules/db'
+
 export default {
-  name: 'TappingFinishPage',
+  name: 'TappingSummaryPage',
   props: {
     report: Object
   },
   data: function () {
     return {
-      tappingData: undefined
+      sending: false
     }
   },
   methods: {
-    completeTest () {
-      const report = this.report
-      this.report.counter = this.counter
-
-      this.$router.push({ name: 'tappingSummary', params: { report: report } })
+    async send () {
+      this.sending = true
+      try {
+        await API.sendFingerTappingData(this.report)
+        await DB.setTaskCompletion(
+          this.report.studyKey,
+          this.report.taskId,
+          new Date()
+        )
+        this.$router.push({ name: 'home' })
+      } catch (error) {
+        this.sending = false
+        console.error(error)
+        this.$q.notify({
+          color: 'negative',
+          message: this.$t('errors.connectionError') + ' ' + error.message,
+          icon: 'report_problem'
+        })
+      }
+    },
+    async discard () {
+      try {
+        this.report.tappingData = 'discarded'
+        await API.sendFingerTappingData(this.report)
+        await DB.setTaskCompletion(
+          this.report.studyKey,
+          this.report.taskId,
+          new Date()
+        )
+        this.$router.push({ name: 'home' })
+      } catch (error) {
+        this.sending = false
+        console.error(error)
+        this.$q.notify({
+          color: 'negative',
+          message: this.$t('errors.connectionError') + ' ' + error.message,
+          icon: 'report_problem'
+        })
+      }
     }
   }
 }
