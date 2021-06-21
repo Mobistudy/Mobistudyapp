@@ -159,6 +159,10 @@ export default {
             if (await phone.pedometer.isAvailable()) {
               await phone.pedometer.requestPermission()
             }
+          } else if (taskType === 'tapping') {
+            if (await phone.pedometer.isAvailable()) {
+              await phone.pedometer.requestPermission()
+            }
           } else if (taskType === 'miband3') {
             await PO60.requestPermission()
           } else if (taskType === 'po60') {

@@ -34,7 +34,8 @@ export default {
         { taskId: 5, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
         { taskId: 6, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
         { taskId: 7, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
-        { taskId: 8, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() }
+        { taskId: 8, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
+        { taskId: 9, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() }
       ]
     }
 

@@ -135,7 +135,7 @@ export default {
     return axios.post(BASE_URL + '/po60Data', data, axiosConfig)
   },
 
-  // send data from gps
+  // send position
   sendPosition: async function (data) {
     return axios.post(BASE_URL + '/positions', data, axiosConfig)
   },
@@ -149,5 +149,10 @@ export default {
   // send data from Peak Flow Meter
   sendPeakFlow: async function (data) {
     return axios.post(BASE_URL + '/peakFlow', data, axiosConfig)
+  },
+
+  // send data from finger tapping data
+  sendFingerTappingData: async function (data) {
+    return axios.post(BASE_URL + '/fingerTapping', data, axiosConfig)
   }
 }
