@@ -12,11 +12,11 @@ export default {
       title: 'Setup',
       img: 'instructions/fingertapping_1.png',
       description: `Make sure your phone is flat on a surface before the test begins.
-      Then use the index and middle fingers of the dominant hand to alternately tap the buttons that appear.
+      Then use the index and middle fingers of the dominant hand to alternately tap the buttons with numbers 1 and 2.
       Keep tapping for 20 seconds and try to be as regular as possible.`
     }
   ],
   instructions: 'Press start to begin the exercise. Once started, tap with the index and middle fingers on the two buttons at the botton of the screen as fast as you can.',
-  completed: 'Task complted',
+  completed: 'Task completed',
   summary: 'You tapped {count} times in {sec} seconds.'
 }
