@@ -146,6 +146,12 @@
       </div>
       <div class="row justify-around q-ma-lg">
         <q-btn
+          color="secondary"
+          :loading="loading"
+          :label="$t('common.discard')"
+          @click="discard()"
+        />
+        <q-btn
           color="primary"
           @click="send()"
           :loading="loading"
@@ -402,6 +408,19 @@ export default {
 
       setTimeout(() => { this.slideName = 'slideInLeft' }, 10)
     },
+    clearAnswer () {
+      if (this.currentQuestion.type === 'singleChoice') {
+        this.singleChoiceAnswer = undefined
+        this.singleChoiceAnswerFreeText = undefined
+      }
+      if (this.currentQuestion.type === 'freetext') this.freetextAnswer = undefined
+      if (this.currentQuestion.type === 'number') this.numberAnswer = undefined
+      if (this.currentQuestion.type === 'slider') this.numberAnswer = undefined
+      if (this.currentQuestion.type === 'multiChoice') {
+        this.multiChoiceAnswer = []
+        this.multiChoiceAnswerFreeText = []
+      }
+    },
     async send () {
       this.loading = true
       const studyKey = this.studyKey
@@ -423,24 +442,32 @@ export default {
         this.$q.notify({
           color: 'negative',
           message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem',
-          onDismiss () {
-            this.$router.push('/home')
-          }
+          icon: 'report_problem'
         })
       }
     },
-    clearAnswer () {
-      if (this.currentQuestion.type === 'singleChoice') {
-        this.singleChoiceAnswer = undefined
-        this.singleChoiceAnswerFreeText = undefined
-      }
-      if (this.currentQuestion.type === 'freetext') this.freetextAnswer = undefined
-      if (this.currentQuestion.type === 'number') this.numberAnswer = undefined
-      if (this.currentQuestion.type === 'slider') this.numberAnswer = undefined
-      if (this.currentQuestion.type === 'multiChoice') {
-        this.multiChoiceAnswer = []
-        this.multiChoiceAnswerFreeText = []
+    async discard () {
+      this.loading = true
+      const studyKey = this.studyKey
+      const taskId = Number(this.taskId)
+      try {
+        await API.sendAnswers({
+          userKey: userinfo.user._key,
+          studyKey: studyKey,
+          taskId: taskId,
+          createdTS: new Date(),
+          responses: 'discarded'
+        })
+        await DB.setTaskCompletion(studyKey, taskId, new Date())
+        this.$router.push({ name: 'home' })
+      } catch (error) {
+        this.loading = false
+        console.error(error)
+        this.$q.notify({
+          color: 'negative',
+          message: this.$t('errors.connectionError') + ' ' + error.message,
+          icon: 'report_problem'
+        })
       }
     }
   }

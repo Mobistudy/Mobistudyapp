@@ -37,31 +37,25 @@
         ></canvas>
       </div>
       <q-separator></q-separator>
-      <div class="q-my-md row justify-around">
+      <div class="row justify-around q-my-lg">
         <q-btn
-          :label="$t('common.discard')"
-          flat
           color="secondary"
-          @click="skipSend()"
-        ></q-btn>
+          :loading="isSending"
+          :label="$t('common.discard')"
+          @click="discard()"
+        />
         <q-btn
-          :label="$t('common.send')"
           color="primary"
-          @click="sendData()"
-        ></q-btn>
+          :loading="isSending"
+          :label="$t('common.send')"
+          @click="send()"
+        />
       </div>
     </div>
 
     <q-inner-loading :showing="isDownloading">
       <div class="text-overline">{{ $t('studies.tasks.miband3.dataDownload') }}</div>
-      <q-spinner-oval
-        size="50px"
-        color="primary"
-      />
-    </q-inner-loading>
-    <q-inner-loading :showing="isSending">
-      <div class="text-overline">{{ $t('studies.tasks.miband3.dataSending') }}</div>
-      <q-spinner-oval
+      <q-pinner-dots
         size="50px"
         color="primary"
       />
@@ -417,17 +411,33 @@ export default {
         this.disablePlus = false
       }
     },
-    async skipSend () {
-      // TODO: show a popup for confirmation
-      await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
+    async discard () {
+      this.isSending = true
       let studyKey = this.studyKey
       let taskId = Number(this.taskId)
-      await db.setTaskCompletion(studyKey, taskId, new Date())
-      this.$router.push({ name: 'tasker' })
+      try {
+        await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
+        await API.sendMiBand3Data({
+          userKey: userinfo.user._key,
+          studyKey: studyKey,
+          taskId: taskId,
+          createdTS: new Date(),
+          miband3Data: 'discarded'
+        })
+        await db.setTaskCompletion(studyKey, taskId, new Date())
+        this.$router.push({ name: 'home' })
+      } catch (error) {
+        this.isSending = false
+        console.error(error)
+        this.$q.notify({
+          color: 'negative',
+          message: this.$t('errors.connectionError') + ' ' + error.message,
+          icon: 'report_problem'
+        })
+      }
     },
-    async sendData () {
+    async send () {
       this.isSending = true
-      await this.delay(2) // If the data is small the sending is instant and the user doesn't see that something is in the process of being sent.
       try {
         let studyKey = this.studyKey
         let taskId = Number(this.taskId)
@@ -445,26 +455,16 @@ export default {
 
         this.isSending = false
         // go back to home page
-        this.$router.push({ name: 'tasker' })
+        this.$router.push({ name: 'home' })
       } catch (error) {
         this.isSending = false
         console.error(error)
         this.$q.notify({
           color: 'negative',
           message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem',
-          onDismiss () {
-            this.$router.push({ name: 'tasker' })
-          }
+          icon: 'report_problem'
         })
       }
-    },
-    async delay (seconds) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve()
-        }, seconds * 1000)
-      })
     }
   },
   async mounted () {

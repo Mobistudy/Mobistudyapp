@@ -32,26 +32,20 @@
         </q-circular-progress>
       </div>
     </div>
-    <div class="q-my-md row justify-around fixed-bottom">
-      <q-btn
-        :label="$t('common.skip')"
-        flat
-        color="negative"
-        @click="skipSend()"
-      ></q-btn>
-      <q-btn
-        :label="$t('common.send')"
-        color="primary"
-        @click="sendData()"
-      ></q-btn>
+    <div class="row justify-around q-mt-lg">
+        <q-btn
+          color="secondary"
+          :loading="sending"
+          :label="$t('common.discard')"
+          @click="discard()"
+        />
+        <q-btn
+          color="primary"
+          :loading="sending"
+          :label="$t('common.send')"
+          @click="send()"
+        />
     </div>
-    <q-inner-loading :showing="isSending">
-      <div class="text-overline">{{ $t('studies.tasks.po60.dataSending') }}</div>
-      <q-spinner-oval
-        size="50px"
-        color="primary"
-      />
-    </q-inner-loading>
   </q-page>
 </template>
 
@@ -73,7 +67,8 @@ export default {
       isSending: false,
       storedData: undefined,
       avgHR: '',
-      avgSPO2: ''
+      avgSPO2: '',
+      sending: false
     }
   },
   watch: {
@@ -85,7 +80,6 @@ export default {
   methods: {
     async downloadData () {
       this.isDownloading = true
-      await this.delay(1)
       try {
         this.storedData = await po60.getLatestData()
         try {
@@ -128,17 +122,8 @@ export default {
       this.$router.push({ name: 'tasker' })
     },
 
-    async skipSend () {
-      // TODO: show a popup for confirmation
-      let studyKey = this.studyKey
-      let taskId = Number(this.taskId)
-      await db.setTaskCompletion(studyKey, taskId, new Date())
-      this.$router.push('/home')
-    },
-
-    async sendData () {
+    async send () {
       this.isSending = true
-      await this.delay(2) // If the data is small the sending is instant and the user doesn't see that something is in the process of being sent.
       try {
         let studyKey = this.studyKey
         let taskId = Number(this.taskId)
@@ -167,12 +152,30 @@ export default {
         })
       }
     },
-    async delay (seconds) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve()
-        }, seconds * 1000)
-      })
+
+    async discard () {
+      let studyKey = this.studyKey
+      let taskId = Number(this.taskId)
+      this.isSending = true
+      try {
+        await API.sendPO60Data({
+          userKey: userinfo.user._key,
+          studyKey: studyKey,
+          taskId: taskId,
+          createdTS: new Date(),
+          po60Data: 'discarded'
+        })
+        await db.setTaskCompletion(studyKey, taskId, new Date())
+        this.$router.push({ name: 'home' })
+      } catch (error) {
+        this.isSending = false
+        console.error(error)
+        this.$q.notify({
+          color: 'negative',
+          message: this.$t('errors.connectionError') + ' ' + error.message,
+          icon: 'report_problem'
+        })
+      }
     }
   },
   async mounted () {

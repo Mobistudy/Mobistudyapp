@@ -59,6 +59,7 @@ export default {
       }
     },
     async discard () {
+      this.sending = true
       try {
         this.report.tappingData = 'discarded'
         await API.sendFingerTappingData(this.report)
