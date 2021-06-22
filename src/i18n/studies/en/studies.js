@@ -69,6 +69,7 @@ let studies = {
       itemsExplanation: 'You can opt-in or opt-out of these items whenever you want',
       OSpermission: 'This item requires the app to access some functionalities on the phone.',
       giveOSPermission: 'Give permission to this app',
+      OSPermissionGivenSeeking: 'Seeking permission',
       OSPermissionGiven: 'Permission given',
       OSPermissionNotGiven: 'Could not get permission',
       remindersConsent: 'I want to receive reminders about the tasks of this study',

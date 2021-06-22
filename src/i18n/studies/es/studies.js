@@ -69,6 +69,7 @@ let studies = {
       itemsExplanation: 'Puede optar por aceptar o rechazar estas condiciones cuando lo desee',
       OSpermission: 'Esta tarea requiere que la aplicación acceda a algunas funcionalidades en el teléfono.',
       giveOSPermission: 'Dar permiso a esta aplicación',
+      OSPermissionGivenSeeking: 'Obteniendo el permiso',
       OSPermissionGiven: 'Permiso otorgado',
       OSPermissionNotGiven: 'No se pudo obtener el permiso',
       remindersConsent: 'Quiero recibir recordatorios sobre las tareas de este estudio.',

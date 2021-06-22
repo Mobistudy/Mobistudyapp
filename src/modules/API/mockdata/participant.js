@@ -20,24 +20,24 @@ export default {
   studiesSuggestions: true,
   // studies: []
   studies: [
-    {
-      studyKey: '1978',
-      currentStatus: 'accepted',
-      acceptedTS: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString(),
-      reminders: true,
-      criteriaAnswers: ['yes'],
-      taskItemsConsent: [
-        { taskId: 1, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 2).toISOString() },
-        { taskId: 2, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
-        { taskId: 3, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
-        { taskId: 4, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
-        { taskId: 5, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
-        { taskId: 6, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
-        { taskId: 7, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
-        { taskId: 8, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
-        { taskId: 9, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() }
-      ]
-    }
+    // {
+    //   studyKey: '1978',
+    //   currentStatus: 'accepted',
+    //   acceptedTS: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString(),
+    //   reminders: true,
+    //   criteriaAnswers: ['yes'],
+    //   taskItemsConsent: [
+    //     { taskId: 1, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 2).toISOString() },
+    //     { taskId: 2, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
+    //     { taskId: 3, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
+    //     { taskId: 4, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
+    //     { taskId: 5, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
+    //     { taskId: 6, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
+    //     { taskId: 7, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
+    //     { taskId: 8, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() },
+    //     { taskId: 9, consented: true, lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 3).toISOString() }
+    //   ]
+    // }
 
     // {
     //   studyKey: '9999',
