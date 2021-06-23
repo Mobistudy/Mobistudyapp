@@ -2,8 +2,8 @@ export default {
   title: 'Ubicación',
   shortDescription: 'Envía tu ubicación actual',
   shortTitle: 'Ubicación',
-  OSpermissioniOS: 'Esta tarea requiere que la aplicación acceda al sistema de posicionamiento de tu teléfono (como el GPS). Tu ubicación se compartirá con el equipo de investigación de este estudio para su análisis. Toca "Siguiente" si deseas continuar con el proceso de autorización.',
-  OSpermissionAndroid: 'Esta tarea requiere que la aplicación acceda al sistema de posicionamiento de tu teléfono (como el GPS). Tu ubicación se compartirá con el equipo de investigación de este estudio para su análisis. Toca "Siguiente" si deseas continuar con el proceso de autorización.',
+  OSpermissioniOS: 'Esta tarea requiere que la app acceda al sistema de posicionamiento de tu teléfono (como el GPS). Tu ubicación se compartirá con el equipo de investigación de este estudio para su análisis. Toca "Siguiente" si deseas continuar con el proceso de autorización.',
+  OSpermissionAndroid: 'Esta tarea requiere que la app acceda al sistema de posicionamiento de tu teléfono (como el GPS). Tu ubicación se compartirá con el equipo de investigación de este estudio para su análisis. Toca "Siguiente" si deseas continuar con el proceso de autorización.',
   introductionSlides: [
     {
       title: 'Introducción',
@@ -33,7 +33,7 @@ export default {
   },
   allergens: {
     riskOfGrass: 'Riesgo de polen de césped',
-    riskOfTree: 'Riesgo de polen de arboles',
+    riskOfTree: 'Riesgo de polen de árboles',
     riskOfWeed: 'Riesgo de polen de hierba'
   }
 }

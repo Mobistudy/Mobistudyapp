@@ -1,5 +1,5 @@
 export default `Mobistudy fue comenzada por Dario Salvi, Carmelo Velardo \
-y Rishi Arvin Goburdhun en la Universidad de Oxford a traves de las siguientes fuentes de financiacion: \
+y Rishi Arvin Goburdhun en la Universidad de Oxford a través de las siguientes fuentes de financiación: \
 <ul>
 <li><a href="https://oxfordbrc.nihr.ac.uk/">NIHR Oxford Biomedical Research Centre (BRC)</a></li>
 <li><a href="https://www.clahrc-oxford.nihr.ac.uk/">NIHR Oxford Collaboration for Leadership in Applied Health Research (CLAHRC)</a></li>
@@ -13,7 +13,7 @@ Universidad de Malmö y financiado por: \
 <li>La fundactión <a href="https://www.matspaulssonstiftelserna.com/">Mats Paulsson</a></li>
 </ul>
 <br>
-Las personas a continuacion han contribuido al proyecto con códigos, diseños o ideas:
+Las personas a continuación han contribuido al proyecto con códigos, diseños o ideas:
 <ul>
 <li><a href="https://github.com/assimilate">Daniel Abella</a></li>
 <li><a href="https://github.com/jamtholee">Jameson Lee</a></li>

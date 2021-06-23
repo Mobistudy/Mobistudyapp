@@ -3,7 +3,7 @@ export default {
     error: 'Error',
     generalError: 'La aplicación está experimentando un error inesperado, asegúrate de tener una conexión a Internet y vuelve a intentarlo',
     connectionError: 'No se puede contactar con el servidor',
-    correctFields: 'Por favor, corrija los siguientes campos',
+    correctFields: 'Por favor, corrije los siguientes campos',
     invitationalStudyNotFound: 'No se encontró el estudio',
     invitationalStudyAlreadyAdded: 'Ya agregaste este estudio',
     invitationalStudyAlreadyParticipated: 'Ya has participado en este estudio'
@@ -52,12 +52,12 @@ export default {
     }
   },
   pin: {
-    pinNotSetTitle: 'Su teléfono no está protegido',
-    pinNotSet: `Para que esta aplicación funcione correctamente, su teléfono debe estar protegido con un código PIN o equivalente.
-     Por favor, configure un mecanismo de bloqueo y reinicie esta aplicación.
-     Tenga en cuenta que configurar el código PIN y luego eliminarlo puede dañar el almacenamiento seguro de la aplicación y obligarlo a reiniciarla.`,
+    pinNotSetTitle: 'Tu teléfono no está protegido',
+    pinNotSet: `Para que esta app funcione correctamente, tu teléfono debe estar protegido con un código PIN o equivalente.
+     Por favor, configura un mecanismo de bloqueo y reinicia esta app.
+     Ten en cuenta que configurar el código PIN y luego eliminarlo puedes dañar el almacenamiento seguro de la app y obligarlo a reiniciarla`,
     dbCorruptedTitle: '¡Oops!',
-    dbCorrupted: `La eliminación de la protección con pin inutiliza el almacenamiento seguro de la aplicación.
-     Por favor, vuelva a configurar la protección con pin y reinicie la aplicación.`
+    dbCorrupted: `La eliminación de la protección con PIN inutiliza el almacenamiento seguro de la app.
+     Por favor, vuelve a configurar la protección con PIN y reinicia la app`
   }
 }
