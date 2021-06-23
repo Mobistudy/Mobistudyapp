@@ -40,7 +40,7 @@
           :label="$t('common.send')"
           @click="send()"
         />
-      </div>
+    </div>
   </q-page>
 </template>
 
@@ -104,7 +104,6 @@ export default {
       const studyKey = this.studyKey
       const taskId = parseInt(this.taskId)
       const userKey = userinfo.user._key
-      console.log(userinfo.user)
       let report = {
         userKey: userKey,
         studyKey: studyKey,
@@ -132,10 +131,32 @@ export default {
       }
     },
     async discard () {
-      let studyKey = this.studyKey
-      let taskId = Number(this.taskId)
-      await DB.setTaskCompletion(studyKey, taskId, new Date())
-      this.$router.push('/home')
+      this.sending = true
+
+      const studyKey = this.studyKey
+      const taskId = parseInt(this.taskId)
+      const userKey = userinfo.user._key
+
+      try {
+        await API.sendPosition({
+          userKey: userKey,
+          studyKey: studyKey,
+          taskId: taskId,
+          createdTS: new Date(),
+          position: 'discarded',
+          environment: 'discarded'
+        })
+        await DB.setTaskCompletion(studyKey, taskId, new Date())
+        this.$router.push({ name: 'home' })
+      } catch (error) {
+        this.sending = false
+        console.error(error)
+        this.$q.notify({
+          color: 'negative',
+          message: this.$t('errors.connectionError') + ' ' + error.message,
+          icon: 'report_problem'
+        })
+      }
     }
   },
   computed: {

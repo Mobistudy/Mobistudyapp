@@ -73,6 +73,14 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <q-inner-loading :showing="permissionSpinner">
+      <div class="text-overline">{{ $t('studies.consent.OSPermissionGivenSeeking') }}</div>
+      <q-spinner-dots
+        size="50px"
+        color="primary"
+      />
+    </q-inner-loading>
   </div>
 </template>
 
@@ -91,7 +99,8 @@ export default {
   data () {
     return {
       permissionMessage: '',
-      permissionDialog: false
+      permissionDialog: false,
+      permissionSpinner: false
     }
   },
   methods: {
@@ -141,6 +150,7 @@ export default {
         try {
           await this.showOSPermissionWarning(taskType)
           this.permissionDialog = false
+          this.permissionSpinner = true
 
           if (taskType === 'dataQuery') {
             let taskId = this.studyDescription.consent.taskItems[taskIndex].taskId
@@ -174,6 +184,7 @@ export default {
           } else if (taskType === 'peakFlow') {
             await peakflow.requestPermission()
           }
+          this.permissionSpinner = false
           // if we get to this point we have permission
           this.value.taskItemsConsent[taskIndex].consented = true
 

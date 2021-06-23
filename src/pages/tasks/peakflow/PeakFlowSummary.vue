@@ -77,10 +77,26 @@ export default {
       }
     },
     async discard () {
-      let studyKey = this.studyKey
-      let taskId = Number(this.taskId)
-      await DB.setTaskCompletion(studyKey, taskId, new Date())
-      this.$router.push('/home')
+      this.sending = true
+      try {
+        this.report.PEFs = 'discarded'
+        this.report.pefMax = 'discarded'
+        await API.sendPeakFlow(this.report)
+        await DB.setTaskCompletion(
+          this.report.studyKey,
+          this.report.taskId,
+          new Date()
+        )
+        this.$router.push({ name: 'home' })
+      } catch (error) {
+        this.sending = false
+        console.error(error)
+        this.$q.notify({
+          color: 'negative',
+          message: this.$t('errors.connectionError') + ' ' + error.message,
+          icon: 'report_problem'
+        })
+      }
     }
   }
 }

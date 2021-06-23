@@ -348,10 +348,29 @@ export default {
       }
     },
     async discard () {
-      let studyKey = this.studyKey
-      let taskId = Number(this.taskId)
-      await DB.setTaskCompletion(studyKey, taskId, new Date())
-      this.$router.push('/home')
+      this.loading = true
+      try {
+        let studyKey = this.studyKey
+        let taskId = Number(this.taskId)
+        await API.sendDataQuery({
+          userKey: userinfo.user._key,
+          studyKey: studyKey,
+          taskId: taskId,
+          dataType: this.taskDescr.dataType,
+          createdTS: new Date(),
+          healthData: 'discarded'
+        })
+        await DB.setTaskCompletion(studyKey, taskId, new Date())
+        this.$router.push({ name: 'home' })
+      } catch (error) {
+        this.loading = false
+        console.error(error)
+        this.$q.notify({
+          color: 'negative',
+          message: this.$t('errors.connectionError') + ' ' + error.message,
+          icon: 'report_problem'
+        })
+      }
     }
   }
 }
