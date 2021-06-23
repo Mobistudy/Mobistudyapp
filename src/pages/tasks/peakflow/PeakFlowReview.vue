@@ -115,7 +115,7 @@ export default {
               backgroundColor: '#4038C7',
               borderColor: '#4038C7',
               borderWidth: 0,
-              pointRadius: 1,
+              pointRadius: 4,
               fill: false,
               lineTension: 0,
               showLine: true
@@ -132,7 +132,7 @@ export default {
               type: 'time',
               time: {
                 displayFormats: {
-                  quarter: 'DD/MM hA'
+                  day: 'DD/MM hA'
                 }
               },
               scaleLabel: {

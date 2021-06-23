@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <q-page padding class="text-center">
     <div class="text-center text-h5 q-mt-lg">
       {{ $t('studies.tasks.qcst.title') }}
     </div>
@@ -34,6 +34,15 @@
 
   </q-page>
 </template>
+
+<style scoped>
+#timer {
+  font-size: 3rem;
+}
+.q-mt-xl {
+  margin-top: 150px;
+}
+</style>
 
 <script>
 import phone from 'modules/phone'
@@ -136,16 +145,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.q-page {
-  text-align: center;
-}
-#timer {
-  font-size: 5rem;
-  padding: 20px;
-}
-.q-mt-xl {
-  margin-top: 150px;
-}
-</style>

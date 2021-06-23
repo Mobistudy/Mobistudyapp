@@ -40,8 +40,6 @@
 #timer {
   font-size: 3rem;
   text-align: center;
-  padding: 0px;
-  margin: 0px;
 }
 
 .text-subtitle1 {

@@ -94,7 +94,11 @@ const routes = [
       { path: '/peakFlowCalibrate', name: 'peakFlowCalibrate', component: () => import('pages/tasks/peakFlow/PeakFlowCalibrate.vue'), props: true },
       { path: '/peakFlow', name: 'peakFlow', component: () => import('pages/tasks/peakFlow/PeakFlow.vue'), props: true },
       { path: '/peakFlowSummary', name: 'peakFlowSummary', component: () => import('pages/tasks/peakFlow/PeakFlowSummary.vue'), props: true },
-      { path: '/peakFlowReview', name: 'peakFlowReview', component: () => import('pages/tasks/peakFlow/PeakFlowReview.vue'), props: true }
+      { path: '/peakFlowReview', name: 'peakFlowReview', component: () => import('pages/tasks/peakFlow/PeakFlowReview.vue'), props: true },
+
+      { path: '/fingerTappingIntro', name: 'fingerTappingIntro', component: () => import('pages/tasks/fingerTapping/tappingIntro.vue'), props: true },
+      { path: '/fingerTapping', name: 'fingerTapping', component: () => import('pages/tasks/fingerTapping/tapping.vue'), props: true },
+      { path: '/fingerTappingSummary', name: 'fingerTappingSummary', component: () => import('pages/tasks/fingerTapping/tappingSummary.vue'), props: true }
     ]
   },
   {

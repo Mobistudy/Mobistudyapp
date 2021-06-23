@@ -9,17 +9,17 @@ export default {
   introductionSlides: [
     {
       title: 'Introduktion',
-      img: 'instructions/miband3_1.png',
+      img: 'instructions/miband3_1.svg',
       description: 'I den här uppgiften kommer du att ansluta till ditt MiBand-armband och ladda ner aktivitetsdata, inklusive stegräkning, hjärtfrekvens, aktivitet och sömninformation.'
     },
     {
       title: 'Inställning',
-      img: 'instructions/miband3_2.png',
-      description: 'För ansluta mobiltelefon med MiBand:et, var god att försäkra dig om att Bluetooth är aktiverat på din mobil, samt att armbandet är laddat och i närheten av mobilen.'
+      img: 'instructions/miband3_2.svg',
+      description: 'För ansluta mobiltelefon med MiBand:et, var god att försäkra dig om att Bluetooth och Positionering (eller Bluetooth-skanning) är aktiverade på telefonen, samt att armbandet är laddat och i närheten av mobilen.'
     },
     {
       title: 'Viktigt!',
-      img: 'instructions/miband3_tap.png',
+      img: 'instructions/miband3_tap.svg',
       description: 'Om det är första gången du ansluter till Miband:et, då kommer armbandet att be dig att konfirmera anslutningen till mobilen genom att trycka på armbandet. Var god och tryck på armbandet när du känner att den vibrerar på din handled.'
     }
   ],

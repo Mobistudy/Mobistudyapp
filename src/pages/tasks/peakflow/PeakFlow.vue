@@ -4,42 +4,64 @@
       {{ $t('studies.tasks.peakflow.measurement') }}
     </div>
     <div class="text-center q-mt-lg">
-      <span v-show="!isMeasuring && testAttempts==0">
-        {{ $t('studies.tasks.peakflow.measurementStart') }}
-      </span>
-      <span v-show="isMeasuring">
-        {{ $t('studies.tasks.peakflow.measurementInstructions') }}
-      </span>
-      <span v-show="!isMeasuring && testAttempts==1">
-        {{ $t('studies.tasks.peakflow.measurementCompleted1') }}
-      </span>
-      <span v-show="!isMeasuring && testAttempts==2">
-        {{ $t('studies.tasks.peakflow.measurementCompleted2') }}
-      </span>
-      <span v-show="!isMeasuring && testAttempts==3">
-        {{ $t('studies.tasks.peakflow.measurementCompleted3') }}
-      </span>
-    </div>
-    <div class="text-center text-h6 q-mt-lg" v-if="testAttempts>0">
-      <p
-        v-for="(reading, index) in PEFs"
-        :data="reading"
-        :key="'pef' + index"
+      <div v-show="!isMeasuring && !(testErrors > maxErrors) && completedTests==0">
+        <div>
+          <img src="instructions/peakflow_3.svg" style="max-width: 50%">
+        </div>
+        <p>
+          {{ $t('studies.tasks.peakflow.measurementStart') }}
+        </p>
+      </div>
+      <div v-show="isMeasuring">
+        <div>
+          <img src="instructions/peakflow_4.svg" style="max-width: 50%">
+        </div>
+        <p>
+          {{ $t('studies.tasks.peakflow.measurementInstructions') }}
+        </p>
+      </div>
+      <div class="text-center text-h6 q-mt-lg"
+        v-show="!isMeasuring && (completedTests>0) && !(testErrors > maxErrors)"
+        style="min-height: 236px"
       >
-        {{index+1}}) {{ reading }} L/min
+        <p
+          v-for="(reading, index) in PEFs"
+          :data="reading"
+          :key="'pef' + index"
+        >
+          {{index+1}}) {{ reading }} L/min
+        </p>
+      </div>
+      <p v-show="!isMeasuring && !(testErrors > maxErrors) && completedTests==1">
+        {{ $t('studies.tasks.peakflow.measurementCompleted1') }}
+      </p>
+      <p v-show="!isMeasuring && !(testErrors > maxErrors) && completedTests==2">
+        {{ $t('studies.tasks.peakflow.measurementCompleted2') }}
+      </p>
+      <p v-show="!isMeasuring && !(testErrors > maxErrors) && completedTests==3">
+        {{ $t('studies.tasks.peakflow.measurementCompleted3') }}
+      </p>
+      <p v-show="testErrors > maxErrors" class="text-weight-bold text-negative q-pa-md">
+        {{ $t('studies.tasks.peakflow.measurementErrorMaxRetries') }}
       </p>
     </div>
     <div class="row justify-center q-mt-lg">
       <q-btn
         @click="startMeasurement"
-        v-show="isMeasuring || (testAttempts <= totalTestsNumber)"
+        v-show="!(testErrors > maxErrors) && (isMeasuring || (completedTests <= totalTestsNumber))"
         color="primary"
         :disable="isMeasuring"
         :label="$t('common.start')"
       />
       <q-btn
         @click="completeTest"
-        v-show="testAttempts > totalTestsNumber && !isMeasuring"
+        v-show="completedTests > totalTestsNumber && !isMeasuring"
+        color="primary"
+        :label="$t('common.next')"
+      />
+      <q-btn
+        @click="abandonTest"
+        v-show="testErrors > maxErrors"
         color="primary"
         :label="$t('common.next')"
       />
@@ -63,22 +85,25 @@ export default {
     return {
       isCompleted: false,
       isMeasuring: false,
-      testAttempts: 0,
+      completedTests: 0,
       totalTestsNumber: 2,
+      testErrors: 0,
+      maxErrors: 6,
       measurement: undefined,
       PEFs: []
     }
   },
   methods: {
     async startMeasurement () {
-      if (this.testAttempts <= this.totalTestsNumber) {
+      if (this.completedTests <= this.totalTestsNumber) {
         this.isMeasuring = true
         try {
           this.measurement = await peakflow.startMeasurement()
-          // TODO: reject absurd measurements?
-          this.testAttempts++
+          if (this.measurement.pef > 1000) throw new Error('PEF is too high')
+          this.completedTests++
           this.PEFs.push(this.measurement.pef)
         } catch (err) {
+          this.testErrors++
           console.error(err)
           this.$q.notify({
             color: 'negative',
@@ -104,6 +129,9 @@ export default {
       }
 
       this.$router.push({ name: 'peakFlowSummary', params: { report: report } })
+    },
+    abandonTest () {
+      this.$router.push({ name: 'tasker' })
     }
   },
 

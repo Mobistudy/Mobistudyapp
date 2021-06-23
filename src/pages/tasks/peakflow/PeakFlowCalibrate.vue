@@ -5,12 +5,15 @@
     </div>
 
     <div class="text-center q-mt-lg">
-      <span v-show="!calibrationError && !calibrating">
+      <div v-show="!calibrating">
+          <img src="instructions/peakflow_3.svg" style="max-width: 50%">
+      </div>
+      <p v-show="!calibrationError && !calibrating">
         {{ $t('studies.tasks.peakflow.calibrationStart') }}
-      </span>
-    </div>
-    <div class="text-center q-mt-lg" v-if="calibrationError">
-      {{ $t('studies.tasks.peakflow.calibrationError') }}
+      </p>
+      <p v-if="calibrationError">
+        {{ $t('studies.tasks.peakflow.calibrationError') }}
+      </p>
     </div>
     <div class="row justify-center q-mt-lg">
       <q-btn

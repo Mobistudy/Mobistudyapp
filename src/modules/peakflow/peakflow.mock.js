@@ -1,5 +1,8 @@
 import { Dialog } from 'quasar'
 
+// simulates a device that sends absurd data
+const SEND_BADDATA = false
+
 // MOCK smart peak flow meter
 export default {
 
@@ -36,9 +39,10 @@ export default {
   async startMeasurement () {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve({
-          pef: Math.floor(Math.random() * 1000)
-        })
+        let pef
+        if (SEND_BADDATA) pef = 12000
+        else pef = 400 + Math.floor(Math.random() * 200)
+        resolve({ pef })
       }, 5000)
     })
   },

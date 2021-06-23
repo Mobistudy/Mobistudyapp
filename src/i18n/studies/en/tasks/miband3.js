@@ -2,28 +2,28 @@ export default {
   title: 'Activity tracker download',
   shortTitle: 'Activity tracker',
   shortDescription: 'Extract data from your activity tracker',
-  OSpermissioniOS: `This task requires the app to access Bluetooth on your phone. 
+  OSpermissioniOS: `This task requires the app to access Bluetooth on your phone.
   This is needed to connect the app with the MiBand3 fitness tracker and collect the data from it.
   The collected data will be shared with the research team of this study for analysis.
   Tap on Next if you want to proceed with the authorization process.`,
-  OSpermissionAndroid: `This task requires the app to access Bluetooth on your phone. 
+  OSpermissionAndroid: `This task requires the app to access Bluetooth on your phone.
   This is needed to connect the app with the MiBand3 fitness tracker and collect the data from it.
   The collected data will be shared with the research team of this study for analysis.
   Tap on Next if you want to proceed with the authorization process.`,
   introductionSlides: [
     {
       title: 'Introduction',
-      img: 'instructions/miband3_1.png',
+      img: 'instructions/miband3_1.svg',
       description: 'In this task you will connect to your MiBand smart bracelet and download your activity data, including steps, heart rate, activity and sleep.'
     },
     {
       title: 'Setup',
-      img: 'instructions/miband3_2.png',
-      description: 'In order for the phone to connect to the MiBand, please, make sure that Blueetooth is activated on the phone, that the Miband is charged, and is near the phone.'
+      img: 'instructions/miband3_2.svg',
+      description: 'In order for the phone to connect to the MiBand, please, make sure that Blueetooth and Location (or Bluetooth scanning) are enabled on the phone, that the Miband is charged, and is near the phone.'
     },
     {
       title: 'Important!',
-      img: 'instructions/miband3_tap.png',
+      img: 'instructions/miband3_tap.svg',
       description: 'If it is the first time you connect to the MiBand, the MiBand will ask you to confirm the connection to the phone by tapping on it. Please tap on the bracelet when you feel the vibration on the wrist.'
     }
   ],

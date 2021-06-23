@@ -1,6 +1,12 @@
 export default {
-  _key: '1234',
-  publishedTS: '2019-11-09T11:09:20.498Z',
+  _key: '1978',
+  teamKey: '1608',
+  invitationCode: '696174',
+  invitational: true,
+  numberOfParticipants: 1000,
+  createdTS: '2021-02-08T14:25:00.741Z',
+  updatedTS: '2021-02-11T16:47:58.945Z',
+  publishedTS: '2021-02-11T16:47:58.863Z',
   generalities: {
     languages: ['en', 'sv', 'es'],
     title: {
@@ -74,7 +80,7 @@ export default {
         monthDays: [],
         weekDays: []
       },
-      formKey: '1234',
+      formKey: '3507',
       formName: {
         en: 'Example questionnaire',
         sv: 'Exempel formulär',
@@ -154,6 +160,15 @@ export default {
         startEvent: 'consent',
         untilSecs: 60 * 60 * 24 * 7 // 1 week
       }
+    },
+    {
+      id: 9,
+      type: 'fingerTapping',
+      scheduling: {
+        alwaysOn: true,
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
+      }
     }
   ],
   consent: {
@@ -180,6 +195,7 @@ export default {
       - Your blood oxygen saturation and heart rate measured by a pulseoximeter.
       - Your geographical location during the positioning task.
       - Your peak flow rate measurements.
+      - The time you tap the screen during the finger tapping exercise.
 
       These data are not really needed for anything in particular, as this is just an example, but they may be useful for finding bugs and improving Mobistudy.
 
@@ -224,6 +240,7 @@ export default {
       - Din blodsyremättnad och hjärtfrekvens mätt med en pulsoximeter.
       - Din geografiska plats under positioneringsuppgiften.
       - Dina toppflödesmätningar.
+      - Den tid du trycker på skärmen under fingertryckningen.
 
       Dessa data behövs egentligen inte för något särskilt, eftersom detta bara är ett exempel, men de kan vara användbara för att hitta buggar och förbättra Mobistudy.
 
@@ -270,6 +287,8 @@ export default {
       \u2022 Tu saturación de oxígeno en sangre y frecuencia cardíaca medida por el oxímetro de pulso.
       \u2022 Tu ubicación geográfica durante la tarea de posicionamiento.
       \u2022 Tu flujo espiratorio máximo.
+      \u2022 Tu saturación de oxígeno en sangre y frecuencia cardíaca medida por el oxímetro de pulso.
+      \u2022 El tiempo que toca la pantalla durante el ejercicio de tocar con el dedo.
 
       Estos datos no son realmente necesarios para nada en particular, ya que esto es solo un ejemplo, pero pueden ser útiles para encontrar errores y mejorar Mobistudy.
       Todos estos datos se almacenarán en el servidor de Mobistudy, gestionado por la Universidad de Malmö en Suecia. Su teléfono solo conservará su perfil y datos sobre los estudios en los que está participando.
@@ -358,6 +377,14 @@ export default {
           es: 'Acepto medir mi flujo espiratorio máximo durante 1 semana.'
         },
         taskId: 8
+      },
+      {
+        description: {
+          en: 'I agree to perform a finger tapping exercise per day for 1 week.',
+          sv: 'Jag går med på att utföra en fingeravtryckningsövning per dag i en vecka.',
+          es: 'Acepto realizar un ejercicio de golpeteo con los dedos por día durante 1 semana.v'
+        },
+        taskId: 9
       }
     ],
     extraItems: []

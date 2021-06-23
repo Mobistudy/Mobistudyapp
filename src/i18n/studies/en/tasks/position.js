@@ -7,12 +7,12 @@ export default {
   introductionSlides: [
     {
       title: 'Introduction',
-      img: 'instructions/6mwt_6.jpg',
+      img: 'instructions/position-01.svg',
       description: 'This task consists of sending your current location using the phone. The task will also collect information about the environment you are in, like the weather or pollution levels.'
     },
     {
       title: 'Setup',
-      img: 'instructions/6mwt_6.jpg',
+      img: 'instructions/position-02.svg',
       description: 'Make sure positioning (GPS) on your phone is turned ON before starting this task.'
     }
   ],

@@ -1,4 +1,5 @@
 export default {
+  _key: 'lindangenCovid',
   createdTS: '2019-10-25T10:09:53.222Z',
   name: {
     en: 'COVID-19 Symptoms tracking',
