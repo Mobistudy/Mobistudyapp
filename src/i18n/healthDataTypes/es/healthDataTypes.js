@@ -1,10 +1,10 @@
 export default {
-  steps: 'pasos',
-  weight: 'peso',
-  height: 'altura',
-  activity: 'actividad',
-  heart_rate: 'frecuencia cardiaca',
-  heart_rate_variability: 'variabilidad de la frecuencia cardiaca',
-  calories: 'calorias',
-  distance: 'distancia'
+  steps: 'Pasos',
+  weight: 'Peso',
+  height: 'Altura',
+  activity: 'Actividad',
+  heart_rate: 'Frecuencia cardiaca',
+  heart_rate_variability: 'Variabilidad de la frecuencia cardiaca',
+  calories: 'Calorías',
+  distance: 'Distancia'
 }

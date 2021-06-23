@@ -1,52 +1,52 @@
 export default {
   title: 'Six Minute Walk Test (6MWT)',
-  shortDescription: 'Prueba de caminata de 6 minutos',
+  shortDescription: 'Prueba de caminar de 6 minutos',
   shortTitle: '6MWT',
-  description: 'Esta tarea consiste en medir la distancia que puede caminar en 6 minutos (prueba de caminata de 6 minutos). Su teléfono inteligente controlará su posición mientras camina y calculará la distancia total caminada. Esta distancia puede proporcionar indicaciones sobre su capacidad de ejercicio y su salud en general.',
-  OSpermissioniOS: 'Esta tarea requiere que la aplicación acceda al sistema de posicionamiento de su teléfono (como el GPS) y al contador de pasos, si está disponible. Estos son necesarios para calcular la distancia recorrida durante la prueba. Tanto su ubicación como los pasos recorridos se compartirán con el equipo de investigación de este estudio para su análisis. Seleccione Siguiente si desea continuar con el proceso de autorización..',
-  OSpermissionAndroid: 'Esta tarea requiere que la aplicación acceda al sistema de posicionamiento de su teléfono (como el GPS) y al contador de pasos, si está disponible. Estos son necesarios para calcular la distancia recorrida durante la prueba. Tanto su ubicación como los pasos recorridos se compartirán con el equipo de investigación de este estudio para su análisis. Seleecione Siguiente si desea continuar con el proceso de autorización..',
+  description: 'Esta tarea consiste en medir la distancia que puedes caminar en 6 minutos (prueba de caminar de 6 minutos). El teléfono inteligente controlará tu posición mientras caminas y calculará la distancia total caminada. Esta distancia puede proporcionar indicaciones sobre tu capacidad de ejercicio y tu salud en general',
+  OSpermissioniOS: 'Esta tarea requiere que la app acceda al sistema de posicionamiento de su teléfono (como el GPS) y al contador de pasos, si está disponible. Estos son necesarios para calcular la distancia recorrida durante la prueba. Tanto tu ubicación como los pasos recorridos se compartirán con el equipo de investigación de este estudio para su análisis. Selecciona "Siguiente" si deseas continuar con el proceso de autorización',
+  OSpermissionAndroid: 'Esta tarea requiere que la app acceda al sistema de posicionamiento de su teléfono (como el GPS) y al contador de pasos, si está disponible. Estos son necesarios para calcular la distancia recorrida durante la prueba. Tanto tu ubicación como los pasos recorridos se compartirán con el equipo de investigación de este estudio para su análisis. Selecciona "Siguiente" si deseas continuar con el proceso de autorización',
   introductionSlides: [
     {
       title: 'Instrucciones',
       img: 'instructions/6mwt_1.jpg',
-      description: 'El objetivo de esta prueba es caminar lo más lejos posible en 6 minutos.'
+      description: 'El objetivo de esta prueba es caminar lo más lejos posible en 6 minutos'
     },
     {
       title: 'Instrucciones',
       img: 'instructions/6mwt_2.jpg',
-      description: 'Es importante que intente caminar lo más recto posible. Trate de evitar las escaleras y caminar cuesta arriba o cuesta abajo.'
+      description: 'Es importante que intentes caminar lo más recto posible. Trata de evitar las escaleras y caminar cuesta arriba o cuesta abajo'
     },
     {
       title: 'Instrucciones',
       img: 'instructions/6mwt_3.jpg',
-      description: 'Si es posible, trate de evitar áreas con muchos edificios altos o árboles cerca de usted, ya que pueden afectar la forma en que el teléfono lo localiza.'
+      description: 'Si es posible, trata de evitar áreas con muchos edificios altos o árboles cerca de usted, ya que pueden afectar la forma en que el teléfono te localiza'
     },
     {
       title: 'Importante!',
       img: 'instructions/6mwt_4.jpg',
-      description: 'Puede reducir la velocidad y detenerse si es necesario. Deténgase inmediatamente si tiene dolor en el pecho o mareos.'
+      description: 'Puedes reducir la velocidad y detenerte si es necesario. Detente inmediatamente si tienes dolor en el pecho o mareos'
     },
     {
       img: 'instructions/6mwt_1.jpg',
-      description: 'La prueba se detendrá automáticamente después de 6 minutos y se le pedirá que envíe los datos recopilados. Si necesita completar la prueba antes, presione el botón "Completar".'
+      description: 'La prueba se detendrá automáticamente después de 6 minutos y se te pedirá que envíes los datos recopilados. Si necesitas completar la prueba antes, presiona el botón "Completar"'
     },
     {
       title: 'Configuración',
       img: 'instructions/6mwt_6.jpg',
-      description: 'Asegúrese de que el posicionamiento (GPS) en su teléfono esté encendido antes de comenzar la prueba.'
+      description: 'Asegúrate de que el posicionamiento (GPS) en tu teléfono está encendido antes de comenzar la prueba'
     },
     {
       title: 'Configuración',
       img: 'instructions/6mwt_7.jpg',
-      description: 'Sostenga su teléfono quieto en una mano e intente evitar sacudirlo o torcerlo hasta que termine la prueba.'
+      description: 'Sostén tu teléfono quieto en una mano e intenta evitar sacudirlo o torcerlo hasta que termine la prueba'
     },
     {
       title: 'Configuración',
       img: 'instructions/6mwt_8.jpg',
-      description: 'Puede colocar su teléfono en un bolsillo o usar una banda para el brazo si es necesario, ¡pero no apague la pantalla!'
+      description: 'Puedes colocar tu teléfono en un bolsillo o usar una banda para el brazo si es necesario, ¡pero no apagues la pantalla!'
     }
   ],
-  signalCheck: 'Esperando la señal de GPS.',
+  signalCheck: 'Esperando la señal de GPS',
   time: 'Tiempo',
   steps: 'Pasos',
   distance: 'Distancia',
@@ -62,6 +62,6 @@ export default {
     l7: 'Muy fuerte',
     l9: 'Muy muy fuerte',
     l10: 'Máximo',
-    result: 'Su seleeción es:'
+    result: 'Tu seleción es:'
   }
 }
