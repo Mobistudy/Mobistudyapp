@@ -1,12 +1,12 @@
 export default {
-  title: 'Baja los datos del monitor de actividad',                                       
+  title: 'Baja los datos del monitor de actividad',
   shortTitle: 'Monitor de actividad',
   shortDescription: 'Extrae los datos de tu monitor de actividad',
-  OSpermissioniOS: `Esta tarea requiere que la app acceda a Bluetooth en tu teléfono. 
+  OSpermissioniOS: `Esta tarea requiere que la app acceda a Bluetooth en tu teléfono.
   Esto es necesario para conectar la app con el monitor de actividad física y recopilar los datos de él.
   Los datos recopilados se compartirán con el equipo de investigación de este estudio para su análisis.
   Selecciona "Siguiente" si desea continuar con el proceso de autorización.`,
-  OSpermissionAndroid: `Esta tarea requiere que la app acceda a Bluetooth de tu teléfono. 
+  OSpermissionAndroid: `Esta tarea requiere que la app acceda a Bluetooth de tu teléfono.
   Esto es necesario para conectar la app con el monitor de actividad física y recopilar los datos de ésta.
   Los datos recopilados se compartirán con el equipo de investigación de este estudio para su análisis.
   Selecciona "Siguiente" si desea continuar con el proceso de autorización`,
@@ -16,7 +16,7 @@ export default {
       img: 'instructions/miband3_1.png',
       description: 'En esta tarea, se conectará al monitor de actividad y descargará los datos de tu actividad, incluidos los pasos, la frecuencia cardíaca, la actividad y el sueño'
     },
-    {                 
+    {
       title: 'Configuración',
       img: 'instructions/miband3_2.png',
       description: 'Para que el teléfono se conecte al monitor de actividad, asegúrate de que el Bluetooth está activado en el teléfono, que el monitor de actividad esté cargado y cerca del teléfono'
