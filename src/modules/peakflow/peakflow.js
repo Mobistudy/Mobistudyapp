@@ -10,15 +10,7 @@ export default {
   async requestPermission () {
     return new Promise((resolve, reject) => {
       if (!cordova.plugins.spf) reject(new Error('Cordova spf is not installed'))
-
-      if (Platform.is.ios) {
-        cordova.plugins.spf.startCalibration(() => {
-          cordova.plugins.spf.stopCalibration()
-          resolve()
-        }, reject)
-      } else {
-        cordova.plugins.spf.requestPermissions(resolve, reject)
-      }
+      cordova.plugins.spf.requestPermissions(resolve, reject)
     })
   },
 
