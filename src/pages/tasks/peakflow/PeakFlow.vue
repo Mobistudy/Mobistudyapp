@@ -88,7 +88,7 @@ export default {
       completedTests: 0,
       totalTestsNumber: 2,
       testErrors: 0,
-      maxErrors: 6,
+      maxErrors: 4,
       measurement: undefined,
       PEFs: []
     }
