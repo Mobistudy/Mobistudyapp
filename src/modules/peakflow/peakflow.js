@@ -1,5 +1,4 @@
 'use strict'
-import { Platform } from 'quasar'
 
 // smart peak flow meter cordova-plugin
 export default {
