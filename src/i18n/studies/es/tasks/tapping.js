@@ -1,22 +1,22 @@
 export default {
-  title: 'Finger Tapping Exercise',
-  shortDescription: 'Tap your fingers on the screen',
-  shortTitle: 'Finger Tapping',
+  title: 'Análisis de movimiento de los dedos',
+  shortDescription: 'Pulsa la pantalla rápidamente',
+  shortTitle: 'Movimiento de los dedos',
   introductionSlides: [
     {
-      title: 'Instruction',
+      title: 'Instrucciones',
       img: 'instructions/fingertapping_1.png',
-      description: 'In this task you will have to tap the screen of your phone with your index and middle fingers as fast as you can.'
+      description: 'En esta tarea tendrás que tocar la pantalla de tu teléfono con tus dedos índice y medio tan rápido como puedas.'
     },
     {
-      title: 'Setup',
+      title: 'Configuración',
       img: 'instructions/fingertapping_1.png',
-      description: `Make sure your phone is flat on a surface before the test begins.
-      Then use the index and middle fingers of the dominant hand to alternately tap the buttons with numbers 1 and 2.
-      Keep tapping for 20 seconds and try to be as regular as possible.`
+      description: `Asegúrate de que el teléfono esté apoyado sobre una superficie plana antes de que comience la prueba.
+      Luego, usa los dedos índice y medio de la mano dominante para tocar alternativamente los botones con los números 1 y 2.
+      Sigue pulsando durante 20 segundos e intenta ser lo más regular posible.`
     }
   ],
-  instructions: 'Press start to begin the exercise. Once started, tap with the index and middle fingers on the two buttons at the botton of the screen as fast as you can.',
-  completed: 'Task completed',
-  summary: 'You tapped {count} times in {sec} seconds.'
+  instructions: 'Dale a comenzar para empezar el ejercicio. Una vez que hayas comenzado, toca con los dedos índice y medio en los dos botones en la parte inferior de la pantalla lo más rápido que puedas.',
+  completed: 'Tarea completada',
+  summary: 'Pulsaste la pantalla {count} veces durante {sec} segundos.'
 }
