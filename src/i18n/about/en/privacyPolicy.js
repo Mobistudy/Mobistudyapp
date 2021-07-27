@@ -1,5 +1,5 @@
 export default `
-  <p>Version 2021-02-25</p>
+  <p>Version 2021-07-27</p>
 
   <p>
     The Mobistudy app is meant to be used by citizens who want to contribute to research studies using their mobile
@@ -56,7 +56,7 @@ export default `
     </li>
     <li>
       Data collected from Google Fit (Android phones), or HealthKit (iPhones). Only the data of relevance to each study
-      will be collected. These may include your weight, height, steps count, heart rate, distance, activity, sleep, or 
+      will be collected. These may include your weight, height, steps count, heart rate, distance, activity, sleep, or
       nutrition.
     </li>
     <li>
@@ -71,6 +71,15 @@ export default `
     <li>
       Blood oxygen saturation and heart rate measured by a pulseoximeter.
     </li>
+    <li>
+      Peak expiratory flow measured by the smart peak flow meter.
+    </li>
+    <li>
+      Geographical position collected for the positioning task.
+    </li>
+    <li>
+      The time you tap on the screen during the finger tapping task.
+    </li>
   </ul>
 
   <p>
@@ -81,8 +90,8 @@ export default `
 
   <p>
     All the collected data are securely transferred and stored on a server hosted and managed by the University of
-    Malmö, Sweden. Data is encrypted on both the app and the server and during transmission. Personnel from Malmö 
-    University may access the server and your data for technical maintenance, but will not process any of these data 
+    Malmö, Sweden. Data is encrypted on both the app and the server and during transmission. Personnel from Malmö
+    University may access the server and your data for technical maintenance, but will not process any of these data
     for clinical or research purposes, unless they are part of the research studies you have decided to participate
     in. Malmö University may publish general statistics about the number of users registered on the platform,
     their country of residence and age group.
