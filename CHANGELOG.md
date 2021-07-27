@@ -8,7 +8,12 @@
 
 0.2.8
 
-- added Peak Flow Meter, Position and environment and Finger Tapping tests.
+- added Peak Flow Meter, Position and environment and Finger Tapping tests
 - added the option to discard measurements
 - fixed bugs and translations
 
+0.2.9
+
+- fixed issues related to the Peak Flow Meter, especially when the Bluetooth adapter is used
+- reduced the number of retries when peak flow cannot be measured
+- updated privacy policy
