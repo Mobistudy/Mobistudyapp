@@ -1,0 +1,68 @@
+{
+  "_key": "4654194",
+  "teamKey": "4589022",
+  "name": {
+    "en": "",
+    "sv": "",
+    "es": "VAS"
+  },
+  "description": {
+    "en": "",
+    "sv": "",
+    "es": "Escala del dolor"
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "text": {
+        "en": "",
+        "sv": "",
+        "es": "¿Cuánto dolor sientes en este momento?"
+      },
+      "helper": {
+        "en": "",
+        "sv": "",
+        "es": "Posiciona el dedo entre el valor izquierdo (sin dolor) y el derecho (máximo dolor)."
+      },
+      "footer": {
+        "en": "",
+        "sv": "",
+        "es": ""
+      },
+      "type": "slider",
+      "nextDefaultId": "Q2",
+      "min": 0,
+      "max": 10,
+      "vertical": false
+    },
+    {
+      "id": "Q2",
+      "text": {
+        "es": "¿Has tomado medicación para el dolor?"
+      },
+      "helper": {
+        "es": "En caso afirmativo indique qué medicación y dosis."
+      },
+      "footer": {},
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q2A1",
+          "text": {
+            "es": "Sí"
+          },
+          "nextQuestionId": "ENDFORM",
+          "includeFreeText": true
+        },
+        {
+          "id": "Q2A2",
+          "text": {
+            "es": "No"
+          },
+          "includeFreeText": false
+        }
+      ]
+    }
+  ],
+  "created": "2021-05-11T13:15:30.637Z"
+}

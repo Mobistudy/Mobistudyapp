@@ -3,10 +3,9 @@
 import studyTest from './mockdata/studyTest'
 import formTest from './mockdata/formTest'
 
-import studyLindangen from './mockdata/studyLindngen'
-import formLindangenCovid from './mockdata/formLindangenCovid'
-import formLindangenHealth from './mockdata/formLindangenHealth'
-import formLindangenQoL from './mockdata/formLindangenQoL'
+import studyPainApp from './mockdata/studyPainApp'
+import formPainAppReminder from './mockdata/formPainApp1'
+import formPainAppVAS from './mockdata/formPainApp2'
 
 import studyAAMOS from './mockdata/studyAAMOS.json'
 import formAAMOSdaily from './mockdata/formAAMOSdaily.json'
@@ -179,9 +178,9 @@ export default {
         setTimeout(function () {
           resolve(studyTest)
         }, 2000)
-      } else if (studyKey === studyLindangen._key) {
+      } else if (studyKey === studyPainApp._key) {
         setTimeout(function () {
-          resolve(studyLindangen)
+          resolve(studyPainApp)
         }, 1000)
       } else if (studyKey === studyAAMOS._key) {
         setTimeout(function () {
@@ -212,8 +211,8 @@ export default {
   async getInvitationalStudy (invitationalCode) {
     console.log('API - getting invitational study')
     return new Promise((resolve, reject) => {
-      if (invitationalCode === studyLindangen.invitationCode) {
-        resolve(studyLindangen)
+      if (invitationalCode === studyPainApp.invitationCode) {
+        resolve(studyPainApp)
       } else if (invitationalCode === studyAAMOS.invitationCode) {
         resolve(studyAAMOS)
       } else {
@@ -231,17 +230,13 @@ export default {
         setTimeout(function () {
           resolve(formTest)
         }, Math.floor(1000))
-      } else if (key === formLindangenCovid._key) {
+      } else if (key === formPainAppReminder._key) {
         setTimeout(function () {
-          resolve(formLindangenCovid)
+          resolve(formPainAppReminder)
         }, Math.floor(1000))
-      } else if (key === formLindangenHealth._key) {
+      } else if (key === formPainAppVAS._key) {
         setTimeout(function () {
-          resolve(formLindangenHealth)
-        }, Math.floor(1000))
-      } else if (key === formLindangenQoL._key) {
-        setTimeout(function () {
-          resolve(formLindangenQoL)
+          resolve(formPainAppVAS)
         }, Math.floor(1000))
       } else if (key === formAAMOSdaily._key) {
         setTimeout(function () {

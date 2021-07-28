@@ -3,7 +3,7 @@ export default {
   createdTS: '2019-12-10T09:30:32.492Z',
   name: 'Jameson',
   surname: 'Lee',
-  country: 'se',
+  country: 'gb',
   language: 'en',
   sex: 'male',
   dateOfBirth: '1970-11-10',
@@ -18,7 +18,6 @@ export default {
   ],
   medications: [],
   studiesSuggestions: true,
-  // studies: []
   studies: [
     // {
     //   studyKey: '1978',
@@ -40,17 +39,26 @@ export default {
     // }
 
     // {
-    //   studyKey: '9999',
+    //   studyKey: '4590699',
     //   currentStatus: 'accepted',
-    //   acceptedTS: new Date(new Date().getTime() - 691200000).toISOString(), // 8 days ago
+    //   acceptedTS: '2021-07-10T10:35:23.279Z',
     //   reminders: true,
-    //   criteriaAnswers: ['yes'],
     //   taskItemsConsent: [
-    //     { taskId: 1, consented: true, lastExecuted: new Date(new Date().getTime() - 86400000).toISOString() }, // 1 day ago
-    //     { taskId: 2, consented: true, lastExecuted: new Date(new Date().getTime() - 86400000).toISOString() }, // 1 day ago
-    //     { taskId: 3, consented: true, lastExecuted: new Date(new Date().getTime() - 691200000).toISOString() }, // 8 days ago
-    //     { taskId: 4, consented: true, lastExecuted: new Date(new Date().getTime() - 86400000).toISOString() } // 1 day ago
-    //   ]
+    //     {
+    //       taskId: 1,
+    //       consented: true,
+    //       lastExecuted: '2021-07-22T12:49:55.859Z'
+    //     },
+    //     {
+    //       taskId: 2,
+    //       consented: true
+    //     },
+    //     {
+    //       taskId: 3,
+    //       consented: true
+    //     }
+    //   ],
+    //   extraItemsConsent: []
     // }
 
     // {
