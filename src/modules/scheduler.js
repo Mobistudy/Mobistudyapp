@@ -178,7 +178,7 @@ export function isTaskIntervalDue (acceptTime, scheduling) {
   if (scheduling.startEvent === 'consent') {
     if (scheduling.startDelaySecs) {
       // add start delay
-      startTimeD = new Date(startTimeD.getTime() + scheduling.startDelaySecs * 1000) // Add seconds
+      startTimeD = new Date(startTimeD.getTime() + (scheduling.startDelaySecs * 1000)) // Add seconds
     }
   } else {
     throw new Error('The only start event recognised is consent')
@@ -206,7 +206,7 @@ export function generateRRule (startDate, studyEnd, scheduling) {
   if (scheduling.startEvent === 'consent') {
     if (scheduling.startDelaySecs) {
       // add start delay
-      startDateUTC = new Date(startDate.getTime() + 1000 * scheduling.startDelaySecs) // Add seconds
+      startDateUTC = new Date(startDate.getTime() + (1000 * scheduling.startDelaySecs)) // Add seconds
     }
   } else {
     throw new Error('The only start event recognised is consent')
@@ -307,7 +307,16 @@ const MAX_NOTIFICATIONS = 20
 export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, studyPart) {
   let notificationStack = []
   let timeStack = []
+
   for (const task of studyDescr.tasks) {
+    // find consented task
+    let consentedTask
+    if (studyPart.taskItemsConsent) {
+      consentedTask = studyPart.taskItemsConsent.find(x => x.taskId === task.id)
+    }
+    // skip tasks that have not been consented
+    if (consentedTask && !consentedTask.consented) continue
+
     if (task.type === 'dataQuery') {
       if (Platform.is.ios && HealthDataEnum.isAndroidOnly(task.dataType)) continue
       if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
@@ -335,12 +344,9 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
 
       // Check if tasks was completed within the last day:
       let lastCompletionTS
-      if (studyPart.taskItemsConsent) {
-        const taskStatus = studyPart.taskItemsConsent.find(x => x.taskId === task.id)
-        if (taskStatus && taskStatus.lastExecuted) {
-          // Task has been completed before
-          lastCompletionTS = moment(new Date(taskStatus.lastExecuted))
-        }
+      if (consentedTask && consentedTask.lastExecuted) {
+      // Task has been completed before
+        lastCompletionTS = moment(new Date(consentedTask.lastExecuted))
       }
 
       let taskCompletedWithinDay = false
