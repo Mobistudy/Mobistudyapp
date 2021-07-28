@@ -1,0 +1,189 @@
+{
+  "_key": "4590699",
+  "teamKey": "4589022",
+  "invitationCode": "387732",
+  "invitational": true,
+  "generalities": {
+    "languages": [
+      "es"
+    ],
+    "title": {
+      "en": "",
+      "sv": "",
+      "es": "MSCA-DolorApp-1"
+    },
+    "shortDescription": {
+      "en": "",
+      "sv": "",
+      "es": "El objetivo principal de este estudio es describir cómo cambia la intensidad del dolor a lo largo  de un mes."
+    },
+    "longDescription": {
+      "en": "",
+      "sv": "",
+      "es": "En este estudio vamos a evaluar el curso de dolor a lo largo de un mes además de recoger señales biológicas como\nla frecuencia cardiaca, fases del sueño y/o la actividad cerebral mediante aparatos inalámbricos."
+    },
+    "startDate": "2021-05-01",
+    "endDate": "2022-05-30",
+    "principalInvestigators": [
+      {
+        "name": "Vanesa Soto León",
+        "contact": "vsleon@sescam.jccm.es",
+        "institution": "Hospital Nacional de Parapléjicos, Toledo"
+      },
+      {
+        "name": "Carmen Carrasco López",
+        "contact": "carmen.carrasco-lopez@mau.se",
+        "institution": "Universidad de Malmö"
+      }
+    ],
+    "institutions": [
+      {
+        "name": "Hospital Nacional de Parapléjicos",
+        "contact": "Finca de la Peraleda, S/N. Código Postal: 45071, Toledo, España",
+        "dataAccess": "full",
+        "reasonForDataAccess": {
+          "en": "",
+          "sv": "",
+          "es": "Análisis de datos"
+        }
+      },
+      {
+        "name": "Universidad de Malmö",
+        "contact": "Nordenskiöldsgatan 1A, 211 19 Malmö, Suecia",
+        "dataAccess": "full",
+        "reasonForDataAccess": {
+          "en": "",
+          "sv": "",
+          "es": "Análisis de datos"
+        }
+      }
+    ]
+  },
+  "inclusionCriteria": {
+    "countries": [
+      "es"
+    ],
+    "minAge": 18,
+    "maxAge": 75,
+    "sex": [
+      "male",
+      "female",
+      "other"
+    ],
+    "criteriaQuestions": [],
+    "diseases": [],
+    "minBMI": "10",
+    "maxBMI": "200",
+    "medications": []
+  },
+  "tasks": [
+    {
+      "id": 1,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "alwaysOn": false,
+        "untilSecs": 2592000,
+        "intervalType": "d",
+        "hours": [
+          "8",
+          "14",
+          "20"
+        ],
+        "months": [],
+        "monthDays": [],
+        "weekDays": [],
+        "interval": 1
+      },
+      "formKey": "4654194",
+      "formName": {
+        "en": "",
+        "sv": "",
+        "es": "VAS"
+      }
+    },
+    {
+      "id": 2,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "startDelaySecs": 0,
+        "untilSecs": 2592000,
+        "alwaysOn": true,
+        "intervalType": "d",
+        "months": [],
+        "monthDays": [],
+        "weekDays": [],
+        "interval": 1
+      },
+      "formKey": "4654194",
+      "formName": {
+        "en": "",
+        "sv": "",
+        "es": "VAS"
+      }
+    },
+    {
+      "id": 3,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "startDelaySecs": 1296000,
+        "alwaysOn": false,
+        "occurrences": "1",
+        "intervalType": "d",
+        "hours": [],
+        "months": [],
+        "monthDays": [],
+        "weekDays": [],
+        "interval": 1
+      },
+      "formKey": "6939291",
+      "formName": {
+        "en": "",
+        "sv": "",
+        "es": "Recordatorio"
+      }
+    }
+  ],
+  "consent": {
+    "invitation": {
+      "en": "",
+      "sv": "",
+      "es": "Querido participante, muchas gracias por tu interés.Te hemos invitado a este estudio porque gracias a tu participación ayudarás a caracterizar los ciclos de dolor neuropático en personas con lesión medular."
+    },
+    "privacyPolicy": {
+      "en": "",
+      "sv": "",
+      "es": "Para realizar este estudio, necesitamos recopilar algunos datos suyos utilizando la aplicación Mobistudy.\n     ¿Qué datos personales se recopilarán?\n• Su información general de perfil como dirección de correo electrónico, nombre, apellido, fecha de nacimiento, sexo, país, idioma, principales condiciones de salud, tratamientos a largo plazo, peso y altura.\nEstos son necesarios para identificarte y crear estadísticas sobre quienes participan en este estudio.\n\n• Tu participación en el estudio y las veces que completas una tarea.\nEsto es necesario para evaluar el nivel de participación en el estudio.\n\n• Información técnica relacionada con el acceso al servidor (como inicios de sesión).\nEsto es necesario para seguridad y auditoría.\n\n• Datos recogidos dentro de las tareas asignadas en este estudio, específicamente: \n   • Respuestas dadas al formulario de la VAS.\nEstos datos son necesarios para cumplir con los objetivos de la investigación.\n\nTodos estos datos se almacenarán en el servidor de Mobistudy, gestionado por la Universidad de Malmö en Suecia. Tu teléfono solo conservará tu perfil y datos sobre los estudios en los que estás participando.\n\n¿Durante cuánto tiempo se conservarán estos datos?\nTu perfil y participación en un estudio se mantendrán mientras mantengas una cuenta en Mobistudy.\nLos datos recopilados dentro de las tareas asignadas en este estudio se mantendrán en el servidor de Mobistudy hasta el final del estudio, el 2022-01-31.\nLos registros técnicos se eliminarán después de 1 año de su producción.\nLos datos recopilados dentro de las tareas asignadas en este estudio serán guardados por los investigadores durante 5 años, posteriormente a este plazo se eliminarán.\n\n¿Quién tendrá acceso a estos datos?\n• El Hospital Nacional de Parapléjicos,  para analizar los datos (el grupo FENNSI  es controlador de tu información personal).\n• Universidad de Malmö,  para mantenimiento técnico auditoría, y análisis de los datos (la Universidad de Malmö es también controlador de tu información personal).\n\n¿Cuáles son mis derechos?\n• Puedes retirarte de este estudio cuando lo desees desde la sección \"estudios\" de la aplicación. Los datos que hayas producido hasta ahora dentro del estudio se conservarán, pero si deseas que también se eliminen, comunícate con mobistudy@mau.se.\n• Puedes eliminar tu cuenta de Mobistudy desde la sección \"perfil\" de la aplicación. Así, se eliminarán todos tus datos recopilados por Mobistudy, excepto los registros técnicos, que se eliminarán después de 1 año. Ten en cuenta que los datos ya descargados por las instituciones involucradas en este o en estudios anteriores aún pueden conservarse después de haber eliminado tu cuenta. Si deseas que también se eliminen estos datos, ponte en contacto con mobistudy@mau.se.\n• Puedes solicitar que se detenga o restrinja el procesamiento de tus datos (incluso sin eliminar tu cuenta). En este caso, ponte en contacto con mobistudy@mau.se.\n• Puedes averiguar qué se ha registrado sobre ti y descargar los datos en un formato legible por máquina poniéndote en contacto con mobistudy@mau.se.\n• Puedes solicitar la corrección de errores en tus datos. En este caso, ponte en contacto con mobistudy@mau.se.\n• Si tienes quejas que no se pueden resolver con la Universidad de Malmö, puedes enviarlas a Datainspektionen.\n\nSi tienes preguntas sobre cómo procesa los datos cada institución involucrada en el estudio, comunícate con: \n• Responsable de protección de datos de la Universidad de Malmö en dataskyddsombud@mau.se\n• Vanesa Soto: vsleon@sescam.jccm.es"
+    },
+    "taskItems": [
+      {
+        "description": {
+          "es": "Acepto contestar el formulario de la escala de dolor (VAS) diariamente, tres veces al día."
+        },
+        "taskId": 1,
+        "type": "form"
+      },
+      {
+        "description": {
+          "es": "Acepto contestar el formulario de la escala de dolor (VAS) cada vez que tenga un episodio de dolor. "
+        },
+        "taskId": 2,
+        "type": "form"
+      },
+      {
+        "description": {
+          "es": "Acepto recibir el recordatorio de rellenar la VAS en paper a los 15 días del comienzo del estudio."
+        },
+        "taskId": 3,
+        "type": "form"
+      }
+    ],
+    "extraItems": []
+  },
+  "numberOfParticipants": "50",
+  "createdTS": "2021-05-10T08:39:48.166Z",
+  "updatedTS": "2021-06-23T12:23:05.015Z",
+  "publishedTS": "2021-06-23T12:23:04.943Z"
+}

@@ -1,0 +1,52 @@
+{
+  "_key": "6939291",
+  "teamKey": "4589022",
+  "name": {
+    "en": "",
+    "sv": "",
+    "es": "Recordatorio"
+  },
+  "description": {
+    "en": "",
+    "sv": "",
+    "es": "Este es un recordatorio de que a partir del día 15 del estudio, deberías rellenar el formulario de la escala de dolor (VAS) en el app y también en papel."
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "text": {
+        "en": "",
+        "sv": "",
+        "es": "Estás de acuerdo con rellenar la VAS también en papel a partir de hoy?"
+      },
+      "helper": {
+        "en": "",
+        "sv": "",
+        "es": ""
+      },
+      "footer": {
+        "en": "",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q1A1",
+          "text": {
+            "es": "Sí"
+          },
+          "includeFreeText": false
+        },
+        {
+          "id": "Q1A2",
+          "text": {
+            "es": "No"
+          },
+          "includeFreeText": false
+        }
+      ]
+    }
+  ],
+  "created": "2021-06-23T11:56:20.749Z"
+}
