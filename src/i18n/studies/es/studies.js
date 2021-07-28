@@ -10,7 +10,7 @@ import fingerTappingTask from './tasks/tapping'
 let studies = {
   studies: {
     newStudy: 'Nuevo estudio disponible',
-    checkNewStusy: 'Revisión',
+    checkNewStusy: 'Ábrelo',
     newStudyInvite: '¡Estás invitado a un nuevo estudio!',
     newStudyExtraCriteria: 'Responde lo siguiente para saber si eres elegible',
     notEligible: 'No eres elegible para este estudio',
@@ -48,7 +48,7 @@ let studies = {
       quitTaskLabel: 'Salir de la tarea',
       pendingTasks: 'Tareas pendientes de hoy',
       missedTasks: 'Tareas perdidas',
-      alwaysOnTasks: 'Tareas que siempre están disponibles',
+      alwaysOnTasks: 'Tareas que están siempre disponibles',
       noMissedTasks: 'No hay tareas pendientes',
       instructionsNote: 'Lee atentamente las instrucciones. La precisión de la prueba depende de que las instrucciones se sigan lo más fielmente posible',
       capTestComplete: '¡Felicidades!',
