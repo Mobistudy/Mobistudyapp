@@ -137,13 +137,13 @@ Additional setup may be required if you use cordova plugins instead of mocks. Ch
 The repository contains some unit tests, to run them:
 
 ```bash
-npm run test:unit
+npm run test
 ```
 
 If you want to have quasar and the tests running in parallel and watching for code changes:
 
 ```bash
-npm run concurrently:dev:jest
+npm run dev:test
 ```
 
 ## Deploy
