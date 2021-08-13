@@ -3,7 +3,7 @@ export default `<p>Version 2021-07-27</p>
   Mobistudys app är avsedd att användas av personer som vill bidra till forskningsstudier
   med hjälp av deras mobiltelefon.
   För att kunna använda app:en krävs att ett konto skapas på Mobistudys server.
-  Den profilen är nödvändig oavsett om man deltagar i en studie eller inte. Profilen
+  Den profilen är nödvändig oavsett om man deltar i en studie eller inte. Profilen
   kräver följande information:
   </p>
   <ul>
@@ -12,7 +12,7 @@ export default `<p>Version 2021-07-27</p>
       Detta behövs för att identifiera dig, gör att du kan logga in, samt återställa ditt lösenord.
     </li>
     <li>
-      Ditt förnman och efternamn.
+      Ditt förnamn och efternamn.
       Detta behövs för att personanpassa meddelanden till dig, eller i de studier där det krävs
       att varje deltagare går att identifiera.
     </li>
@@ -92,7 +92,7 @@ export default `<p>Version 2021-07-27</p>
 
   <p>
     All insamlad data är säkert överförd och lagrad på en server som hanteras och ansvaras för av Malmö
-    Universtiet, Sverige. Datan är krypterad både i appen, på servern och under överföring. Personal från
+    Universitet, Sverige. Datan är krypterad både i appen, på servern och under överföring. Personal från
     Malmö Universitet har tillgång till server och din data för tekniskt underhåll, men kommer inte att
     analysera datan om detta inte är en del av den forskningsstudie du har valt att delta i. Malmö Universitet
     kan publicera statisk om antalet registrerade användare på plattformen, vilket land de bor i, samt deras
@@ -119,9 +119,9 @@ export default `<p>Version 2021-07-27</p>
   </p>
 
   <p>
-    Malmö Universitet är Controller av behandlingen av personlig information vilket sker baserat på ditt
+    Malmö Universitet är ansvarig av behandlingen av personlig information vilket sker baserat på ditt
     samtycke. Detta samtycke kan avbrytas när som helst genom att kontakta mobistudy@mau.se för att allt
-    material processat baserat på tidigare samtycke ska tas bort. Smma adress gäller om du vill få svar på
+    material processat baserat på tidigare samtycke ska tas bort. Samma adress gäller om du vill få svar på
     vad som har registrerats om dig eller om du vill ha felaktigheter korrigerade, information borttagen,
     eller processande begränsat.
   </p>
