@@ -31,12 +31,11 @@ export default {
   },
   async schedule (obj) {
     for (let not of obj) {
-      let millis = new Date().getTime() - not.trigger.at.getTime()
+      let millis = not.trigger.at.getTime() - (new Date().getTime())
       if (millis < 0) {
         // discard the notification, it's in the past
-        return
+        continue
       }
-      // console.log('notification scheduled ' + not.trigger.at + ' in ' + millis, not)
       if (millis <= 2147483647) {
         let timeoutID = setTimeout(function () {
           Dialog.create({

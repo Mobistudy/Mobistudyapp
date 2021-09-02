@@ -340,7 +340,7 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
         id += keyStr.slice(-4)
       }
       id += task.id // tasks will rarely be more than 2 decimals
-      id += scheduleI // this is capped to 999 anyway
+      id += scheduleI // this is capped anyway
 
       // Check if tasks was completed within the last day:
       let lastCompletionTS

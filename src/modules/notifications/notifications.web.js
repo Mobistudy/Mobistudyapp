@@ -22,7 +22,7 @@ export default {
       let millis = moment(not.trigger.at).diff(moment())
       if (millis < 0) {
         // discard the notification, it's in the past
-        return
+        continue
       }
       console.log('notification scheduled ' + not.trigger.at + ' in ' + millis, not)
       if (millis <= 2147483647) {
