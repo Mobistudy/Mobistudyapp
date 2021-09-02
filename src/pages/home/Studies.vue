@@ -264,8 +264,8 @@ export default {
     async showInvitationDialog () {
       try {
         this.$q.dialog({
-          title: 'New study',
-          message: 'Paste your invitation code here',
+          title: this.$i18n.t('study.newStudy'),
+          message: this.$i18n.t('study.insertInvitationCode'),
           color: 'primary',
           ok: true,
           cancel: true,

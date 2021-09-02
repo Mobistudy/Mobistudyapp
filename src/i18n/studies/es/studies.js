@@ -9,7 +9,9 @@ import fingerTappingTask from './tasks/tapping'
 
 let studies = {
   studies: {
-    newStudy: 'Nuevo estudio disponible',
+    newStudy: 'Nuevo estudio',
+    insertInvitationCode: 'Copie el código de invitación aquí',
+    newStudyAvailable: 'Nuevo estudio disponible',
     checkNewStusy: 'Ábrelo',
     newStudyInvite: '¡Estás invitado a un nuevo estudio!',
     newStudyExtraCriteria: 'Responde lo siguiente para saber si eres elegible',

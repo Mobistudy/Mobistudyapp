@@ -9,7 +9,9 @@ import fingerTappingTask from './tasks/tapping'
 
 let studies = {
   studies: {
-    newStudy: 'Ny studie tillgänglig',
+    newStudy: 'Ny studie',
+    insertInvitationCode: 'Ange inbjudningskoden här',
+    newStudyAvailable: 'Ny studie tillgänglig',
     checkNewStusy: 'Se den',
     newStudyInvite: 'Du är inbjuden till en ny studie!',
     newStudyExtraCriteria: 'Svara på följande för att ta reda på om du är behörig',
