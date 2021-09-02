@@ -13,7 +13,7 @@
         icon="new_releases"
         type="warning"
       >
-        {{ $t('studies.newStudyAvalable') }}!
+        {{ $t('studies.newStudyAvailable') }}!
         <template v-slot:action>
           <q-btn
             color="blue"
