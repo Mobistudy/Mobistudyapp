@@ -55,7 +55,7 @@
 
     <q-inner-loading :showing="isDownloading">
       <div class="text-overline">{{ $t('studies.tasks.miband3.dataDownload') }}</div>
-      <q-pinner-dots
+      <q-spinner-dots
         size="50px"
         color="primary"
       />

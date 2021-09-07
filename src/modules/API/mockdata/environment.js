@@ -32,8 +32,8 @@ export default {
     }
   },
   postcode: {
-    'postcode': 'OX1 4DS',
-    'county': 'Oxfordshire'
+    postcode: 'OX1 4DS',
+    county: 'Oxfordshire'
   },
   allergens: {
     pollen: {

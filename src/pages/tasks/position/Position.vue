@@ -14,17 +14,17 @@
       v-if="environment"
       class="text-subtitle2 text-center "
     >
-    {{ $t('studies.tasks.position.approxLocation') }}: {{ environment.weather.location }}<br/>
-    <img :src="environment.weather.icon"> <br/>
-      {{ $t('studies.tasks.position.weather') }}: {{ environment.weather.description }} <br/>
-      {{ $t('studies.tasks.position.temperature') }}: {{ environment.weather.temperature.toFixed(0) }} °C <br/>
-      {{ $t('studies.tasks.position.humidity') }}: {{ environment.weather.humidity.toFixed(0) }} % <br/>
-      {{ $t('studies.tasks.position.clouds') }}: {{ environment.weather.clouds }} % <br/>
-      {{ $t('studies.tasks.position.wind') }}: {{ environment.weather.wind.speed }} m/s <br/>
-      {{ $t('studies.tasks.position.airQuality') }} : {{ aqiLevel }}<br/>
-      {{ $t('studies.tasks.position.allergens.riskOfGrass') }}: {{ environment.allergens.pollen.Risk.grass_pollen }} <br/>
-      {{ $t('studies.tasks.position.allergens.riskOfTree') }}: {{ environment.allergens.pollen.Risk.tree_pollen }} <br/>
-      {{ $t('studies.tasks.position.allergens.riskOfWeed') }}: {{ environment.allergens.pollen.Risk.weed_pollen }}
+    <span v-if="environment.weather && environment.weather.location"> {{ $t('studies.tasks.position.approxLocation') }}: {{ environment.weather.location }}<br/> </span>
+    <span v-if="environment.weather && environment.weather.icon"> <img :src="environment.weather.icon"> <br/> </span>
+    <span v-if="environment.weather && environment.weather.description"> {{ $t('studies.tasks.position.weather') }}: {{ environment.weather.description }} <br/> </span>
+    <span v-if="environment.weather && environment.weather.temperature"> {{ $t('studies.tasks.position.temperature') }}: {{ environment.weather.temperature.toFixed(0) }} °C <br/> </span>
+    <span v-if="environment.weather && environment.weather.humidity"> {{ $t('studies.tasks.position.humidity') }}: {{ environment.weather.humidity.toFixed(0) }} % <br/> </span>
+    <span v-if="environment.weather && environment.weather.clouds"> {{ $t('studies.tasks.position.clouds') }}: {{ environment.weather.clouds }} % <br/> </span>
+    <span v-if="environment.weather && environment.weather.wind && environment.weather.speed"> {{ $t('studies.tasks.position.wind') }}: {{ environment.weather.wind.speed }} m/s <br/> </span>
+    <span v-if="aqiLevel"> {{ $t('studies.tasks.position.airQuality') }} : {{ aqiLevel }}<br/> </span>
+    <span v-if="environment.allergens && environment.allergens.pollen && environment.allergens.pollen.Risk">{{ $t('studies.tasks.position.allergens.riskOfGrass') }}: {{ environment.allergens.pollen.Risk.grass_pollen }} <br/></span>
+    <span v-if="environment.allergens && environment.allergens.pollen && environment.allergens.pollen.Risk">{{ $t('studies.tasks.position.allergens.riskOfTree') }}: {{ environment.allergens.pollen.Risk.tree_pollen }} <br/></span>
+    <span v-if="environment.allergens && environment.allergens.pollen && environment.allergens.pollen.Risk">{{ $t('studies.tasks.position.allergens.riskOfWeed') }}: {{ environment.allergens.pollen.Risk.weed_pollen }} <br/></span>
     </p>
 
     <div v-if="environment" class="row justify-around">
@@ -161,7 +161,8 @@ export default {
   },
   computed: {
     aqiLevel () {
-      return this.$t('studies.tasks.position.aqiscale.l' + this.environment.pollution.aqi)
+      if (this.environment.pollution && this.environment.pollution.aqi) return this.$t('studies.tasks.position.aqiscale.l' + this.environment.pollution.aqi)
+      else return undefined
     }
   }
 }
