@@ -97,6 +97,7 @@ export default {
         createdTS: new Date(),
         startedTS: this.startedTS,
         completionTS: completionTS,
+        tappingCount: this.tappingData.length,
         tappingData: this.tappingData
       }
 

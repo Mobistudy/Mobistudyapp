@@ -4,7 +4,7 @@
       {{ $t('studies.tasks.fingerTapping.completed') }}
     </div>
     <p class="text-center q-mt-lg text-center">
-      {{ $t('studies.tasks.fingerTapping.summary', { count: report.tappingData.length, sec: 20} ) }}
+      {{ $t('studies.tasks.fingerTapping.summary', { count: report.tappingCount, sec: 20} ) }}
     </p>
     <div class="row justify-around q-mt-lg">
         <q-btn
