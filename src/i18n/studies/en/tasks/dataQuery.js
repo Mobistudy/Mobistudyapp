@@ -9,22 +9,22 @@ export default {
   introductionSlidesAndroid: [
     {
       title: 'Introduction',
-      img: 'instructions/data_query_android_1.png',
+      img: 'instructions/dataquery1.svg',
       description: 'In this task, the app will retrieve data gathered by the Google Fit app if you have it installed on your phone.'
     },
     {
-      img: 'instructions/data_query_2.png',
+      img: 'instructions/dataquery2.svg',
       description: 'The Mobistudy app will only retrieve the data that is requested for this study. A summary of the data will be shown in the form of charts. After reviewing the information, you are free to send it or discard it.'
     }
   ],
   introductionSlidesiOS: [
     {
       title: 'Introduction',
-      img: 'instructions/data_query_ios_1.png',
+      img: 'instructions/dataquery1.svg',
       description: 'In this task, the app will retrieve data gathered by the Health app.'
     },
     {
-      img: 'instructions/data_query_2.png',
+      img: 'instructions/dataquery2.svg',
       description: 'The Mobistudy app will only retrieve the data that is requested for this study. A summary of the data will be shown in the form of charts. After reviewing the information, you are free to send it or discard it.'
     }
   ],

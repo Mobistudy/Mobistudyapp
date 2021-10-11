@@ -4,6 +4,16 @@ export default {
   shortTitle: 'Fingerfärdighet',
   introductionSlides: [
     {
+      title: 'Instruction',
+      img: 'instructions/fingertapping1.svg',
+      description: 'In this task you will have to tap the screen of your phone with your index and middle fingers as fast as you can.'
+    },
+    {
+      title: 'Setup',
+      img: 'instructions/fingertapping2.svg',
+      description: `Make sure your phone is flat on a surface before the test begins.
+      Then use the index and middle fingers of the dominant hand to alternately tap the buttons with numbers 1 and 2.
+      Keep tapping for 20 seconds and try to be as regular as possible.`
       title: 'Instruktioner',
       img: 'instructions/fingertapping_1.png',
       description: 'I denna uppgift växlar du så fort du kan mellan att trycka med pekfingret och långfingret på skärmen av din telefon.'
