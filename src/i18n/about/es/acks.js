@@ -26,7 +26,7 @@ Las personas a continuación han contribuido al proyecto con códigos, diseños 
 <li><a href="https://github.com/HeyOooh">Andreas Holm</a></li>
 <li><a href="https://github.com/af9593">Moustafa Allouhaibi</a></li>
 <li><a href="https://github.com/JohnHakansson">John Håkansson</a></li>
-<li><a href="https://www.behance.net/matildasvensson1"> Matilda Svensson</a></li>
+<li><a href="https://www.behance.net/matildasvensson1"> Matilda Thorwaldsson</a></li>
 </ul>
 <br>
 Esta app fue desarrollada gracias a los siguientes proyectos de código abierto:
@@ -49,5 +49,5 @@ Esta app fue desarrollada gracias a los siguientes proyectos de código abierto:
 <li><a href="https://www.npmjs.com/package/cordova-plugin-whitelist">cordova-plugin-whitelist</a></li>
 </ul>
 <br>
-Los iconos de Mobistudy e ilustraciones fueron diseñados por <a href="https://www.behance.net/matildasvensson1">Matilda Svensson</a>.
+Los iconos de Mobistudy e ilustraciones fueron diseñados por <a href="https://www.behance.net/matildasvensson1">Matilda Thorwaldsson</a>.
 `

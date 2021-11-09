@@ -210,6 +210,9 @@ Development:
 - [Kevin Tsang](https://github.com/kevinchtsang)
 - [Gent Ymeri](https://github.com/gentymeri)
 
+Graphic design and illustations:
+- [Matilda Thorwaldsson](https://www.behance.net/matildasvensson1)
+
 ## License
 
 See [license file](LICENSE)
