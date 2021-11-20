@@ -87,23 +87,4 @@ describe('When testing RRules', () => {
     dd = fromUTC(instances[3])
     expect(dd.getHours()).toBe(18)
   })
-
-  //   test('a daily schedule with hours at this hour starts at this hour', () => {
-  //     let startEvent = new Date(2020, 1, 10, 12, 0, 0, 0, 1)
-  //     startEvent.setHours(0, 0, 0, 1)
-  //     let rr = new RRule({
-  //       freq: RRule.DAILY,
-  //       interval: 1,
-  //       dtstart: toUTC(startEvent),
-  //       byhour: [new Date(new Date().getTime() - 1000).getHours()]
-  //     })
-
-  //     let startOfToday = new Date(2020, 1, 15, 0, 0, 0, 0, 1)
-  //     startOfToday.setHours(0, 0, 0, 0)
-
-//     let instances = rr.between(startOfToday, new Date(2020, 1, 15, 21, 0, 0, 0, 0))
-//     expect(instances.length).toBe(1)
-//     let dd = fromUTC(instances[0])
-//     expect(dd.getHours()).toBe(19)
-//   })
 })

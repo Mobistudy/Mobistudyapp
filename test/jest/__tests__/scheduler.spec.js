@@ -11,7 +11,7 @@ describe('When testing the scheduler', () => {
       startDelaySecs: 86400,
       untilSecs: 100000000
     }
-    let due = isTaskIntervalDue(acceptTime, scheduling)
+    let due = isTaskIntervalDue(scheduling, acceptTime)
 
     expect(due).toBe(true)
   })
@@ -23,7 +23,7 @@ describe('When testing the scheduler', () => {
       startEvent: 'consent',
       startDelaySecs: 86400
     }
-    let due = isTaskIntervalDue(acceptTime, scheduling)
+    let due = isTaskIntervalDue(scheduling, acceptTime)
 
     expect(due).toBe(true)
   })
@@ -35,9 +35,70 @@ describe('When testing the scheduler', () => {
       startEvent: 'consent',
       startDelaySecs: 86400
     }
-    let due = isTaskIntervalDue(acceptTime, scheduling)
+    let due = isTaskIntervalDue(scheduling, acceptTime)
 
     expect(due).toBe(false)
+  })
+
+  test('a task depending on another task is not due before the other task', () => {
+    let acceptTime = new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString()
+    let scheduling = {
+      alwaysOn: false,
+      startEvent: 'taskExecution',
+      eventTaskId: 1,
+      startDelaySecs: 0,
+      untilSecs: 3600
+    }
+    let due = isTaskIntervalDue(scheduling, acceptTime, [{ taskId: 1, consented: true }])
+
+    expect(due).toBe(false)
+  })
+
+  test('a task depending on another task is not due if other task is not consented', () => {
+    let acceptTime = new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString()
+    let scheduling = {
+      startEvent: 'taskExecution',
+      eventTaskId: 1,
+      startDelaySecs: 0,
+      untilSecs: 3600
+    }
+    let due = isTaskIntervalDue(scheduling, acceptTime, [{ taskId: 1, consented: false }])
+
+    expect(due).toBe(false)
+  })
+
+  test('a task depending on another task and that has expired is not due', () => {
+    let acceptTime = new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString()
+    let scheduling = {
+      startEvent: 'taskExecution',
+      eventTaskId: 1,
+      startDelaySecs: 0,
+      untilSecs: 3600 // 1 hour
+    }
+    let due = isTaskIntervalDue(scheduling, acceptTime, [{
+      taskId: 1,
+      consented: true,
+      lastExecuted: new Date(new Date().getTime() - 5 * 60 * 60 * 1000).toISOString() // 5 h ago
+    }])
+
+    expect(due).toBe(false)
+  })
+
+  test('a task depending on another task and that has not expired is due', () => {
+    let acceptTime = new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString()
+    let scheduling = {
+      startEvent: 'taskExecution',
+      eventTaskId: 1,
+      startDelaySecs: 900, // 15 m
+      untilSecs: 7200 // 2 hours
+    }
+    let due = isTaskIntervalDue(scheduling, acceptTime, [{
+      taskId: 1,
+      consented: true,
+      lastExecuted: new Date(new Date().getTime() - 30 * 60 * 1000).toISOString() // 30 m ago
+    }])
+
+    expect(due).toBe(true)
   })
 
   test('a rejected study is not scheduled', () => {
@@ -587,5 +648,150 @@ describe('When testing the scheduler', () => {
     expect(tasks.missed.length).toBe(0)
   })
 
-  // todo test that second task in a day appears
+  test('a task due 15 minutes another task is scheduled', () => {
+    let studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10),
+        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30).toISOString().substring(0, 10)
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          startEvent: 'consent',
+          intervalType: 'd',
+          interval: 1
+        }
+      }, {
+        id: 2,
+        type: 'form',
+        scheduling: {
+          startEvent: 'taskExecution',
+          eventTaskId: 1,
+          intervalType: 'd',
+          interval: 1,
+          startDelaySecs: 900, // 15 m
+          untilSecs: 7200 // 2 hours
+        }
+      }]
+    }]
+    let studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        lastExecuted: new Date(new Date().getTime() - 30 * 60 * 1000).toISOString() // 30 m ago
+      }, {
+        taskId: 2,
+        consented: true
+      }]
+    }]
+    let tasks = generateTasker(studiesPart, studyDescr)
+    expect(tasks.upcoming.length).toBe(1)
+    expect(tasks.upcoming[0].taskId).toBe(2)
+
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
+
+  test('a task due after another task and that has already been performed is not scheduled', () => {
+    let studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10),
+        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30).toISOString().substring(0, 10)
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          startEvent: 'consent',
+          intervalType: 'd',
+          interval: 1
+        }
+      }, {
+        id: 2,
+        type: 'form',
+        scheduling: {
+          startEvent: 'taskExecution',
+          eventTaskId: 1,
+          intervalType: 'd',
+          interval: 1,
+          untilSecs: 60 * 60 * 24 * 5 // 5 days
+        }
+      }]
+    }]
+    let studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        lastExecuted: new Date(new Date().getTime() - 30 * 60 * 1000).toISOString() // 30 m ago
+      }, {
+        taskId: 2,
+        consented: true,
+        lastExecuted: new Date(new Date().getTime() - 30 * 60 * 1000).toISOString() // 30 m ago
+      }]
+    }]
+    let tasks = generateTasker(studiesPart, studyDescr)
+    expect(tasks.upcoming.length).toBe(0)
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
+
+  test('a daily task started after another task, performed the day before, is scheduled', () => {
+    let studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10),
+        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30).toISOString().substring(0, 10)
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          startEvent: 'consent',
+          intervalType: 'd',
+          interval: 1,
+          untilSecs: 60 * 60 * 24 * 1 // 1 day
+        }
+      }, {
+        id: 2,
+        type: 'form',
+        scheduling: {
+          startEvent: 'taskExecution',
+          eventTaskId: 1,
+          intervalType: 'd',
+          interval: 1,
+          untilSecs: 60 * 60 * 24 * 5 // 5 days
+        }
+      }]
+    }]
+    let studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        lastExecuted: new Date(new Date().getTime() - 25 * 60 * 60 * 1000).toISOString() // 2 d and 1 h ago
+      }, {
+        taskId: 2,
+        consented: true,
+        lastExecuted: new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString() // 2 d ago
+      }]
+    }]
+
+    let tasks = generateTasker(studiesPart, studyDescr)
+    expect(tasks.upcoming.length).toBe(1)
+    expect(tasks.upcoming[0].taskId).toBe(2)
+
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
 })

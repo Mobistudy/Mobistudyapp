@@ -16,19 +16,21 @@ function fromUTC (d) {
   return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds())
 }
 
-// Returns an array of tasks that need to be done today.
-// These are tasks that were "missed" between the last execution and the end of
-// today and those that are to be done by the end of today.
-// Params:
-// studiesParts: the participation to studies
-// studiesDescr: description of the studies, at least those that have been consented
-// returns an object with:
-// upcoming: an array of {type: 'form', studyKey: '2121', taskId: 1, missed: false, due: '2019-04-02'}
-// missed: an array of {type: 'form', studyKey: '2121', taskId: 1, missed: true, due: '2019-04-02'}
-// alwaysOn: an array of {type: 'form', studyKey: '2121', taskId: 1, alwaysOn: true, due: '2019-04-02'}
-// if there is a study that has been completed because no tasks are to be done
-// then the returned object also contains:
-// completedStudyAlert: an object like { studyTitle: { en: 'Mystudy' }, studyPart: participation object for that study }
+/**
+ * Generates an array of tasks that need to be done today.
+ * These are tasks that were "missed" between the last execution and the end of
+ * today and those that are to be done by the end of today.
+ * Params:
+ * @param { Object } studiesParts - the participation to studies
+ * @param { Object } studiesDescr - description of the studies, at least those that have been consented
+ * @return returns an object with:
+ * upcoming: an array of {type: 'form', studyKey: '2121', taskId: 1, missed: false, due: '2019-04-02'}
+ * missed: an array of {type: 'form', studyKey: '2121', taskId: 1, missed: true, due: '2019-04-02'}
+ * alwaysOn: an array of {type: 'form', studyKey: '2121', taskId: 1, alwaysOn: true, due: '2019-04-02'}
+ * if there is a study that has been completed because no tasks are to be done
+ * then the returned object also contains:
+ * completedStudyAlert: an object like { studyTitle: { en: 'Mystudy' }, studyPart: participation object for that study }
+**/
 export function generateTasker (studiesParts, studiesDescr) {
   let taskerItems = {
     upcoming: [],
@@ -49,10 +51,10 @@ export function generateTasker (studiesParts, studiesDescr) {
         // no need to analyse this study further
         continue // to the next study
       }
-
       const consentedTasks = studyDescr.tasks.filter((tdescr) => {
-        const taskPart = studyPart.taskItemsConsent.find(x => x.taskId === tdescr.id)
-        return taskPart.consented
+        const taskPart = studyPart.taskItemsConsent.find(x => (x.taskId === tdescr.id))
+        if (taskPart) return taskPart.consented
+        else return false
       })
 
       // if studyCompleted is true, then there are no more tasks to be executed within this study
@@ -68,7 +70,7 @@ export function generateTasker (studiesParts, studiesDescr) {
         }
         // manage alwaysOn tasks here:
         if (taskDescription.scheduling.alwaysOn) {
-          if (isTaskIntervalDue(studyPart.acceptedTS, taskDescription.scheduling)) {
+          if (isTaskIntervalDue(taskDescription.scheduling, studyPart.acceptedTS, studyPart.taskItemsConsent)) {
             studyCompleted = false
             let task = {
               type: taskDescription.type,
@@ -90,11 +92,9 @@ export function generateTasker (studiesParts, studiesDescr) {
           let endOfToday = new Date()
           endOfToday.setHours(23, 59, 59, 999)
 
-          // RRrule will not show any instances.between if todays date is the same as end date. By adding one day this problem is solved.
+          // RRrule will not show any instances.between if today's date is the same as end date. By adding one day this problem is solved.
           let studyEndDate = new Date(new Date(studyDescr.generalities.endDate).getTime() + 1000 * 60 * 60 * 24)
-          let startEvent = new Date(studyPart.acceptedTS)
-          startEvent.setHours(0, 0, 1) // add 1s to start so that it's not as midnight
-          let rrule = generateRRule(startEvent, studyEndDate, taskDescription.scheduling)
+          let rrule = generateRRule(taskDescription.scheduling, studyPart, studyEndDate)
           let instancesToEnd = rrule.between(toUTC(startOfToday), toUTC(studyEndDate))
           if (instancesToEnd.length > 0) {
             studyCompleted = false
@@ -131,6 +131,7 @@ export function generateTasker (studiesParts, studiesDescr) {
           } else {
             upcoming = rrule.between(toUTC(startOfToday), toUTC(new Date()))
           }
+
           if (upcoming.length > 0) {
             // convert from UTC to local time
             upcoming = fromUTC(upcoming[0])
@@ -168,20 +169,32 @@ export function generateTasker (studiesParts, studiesDescr) {
 
 /**
  * Tells if the current time is included in the task scheduling interval
- * @param {String} acceptTime when the task was accepted
- * @param {Object} scheduling scheudling information from study description
+ * @param {Object} scheduling - scheudling information from study description
+ * @param {String} acceptTime - when the task was accepted
+ * @param {Array} tasksParticipation - array containing information about the participation into the tasks, similar to taskItemsConsent
+ * example: { taskId: 1, consented: true, lastExecuted: "2019-02-27T12:46:07.294Z" }
  */
-export function isTaskIntervalDue (acceptTime, scheduling) {
+export function isTaskIntervalDue (scheduling, acceptTime, tasksParticipation) {
   if (!acceptTime || !scheduling) throw new Error('both arguments must be specified in isAlwaysOnTaskDue')
   let now = new Date()
-  let startTimeD = new Date(acceptTime)
+  let startTimeD
   if (scheduling.startEvent === 'consent') {
-    if (scheduling.startDelaySecs) {
-      // add start delay
-      startTimeD = new Date(startTimeD.getTime() + (scheduling.startDelaySecs * 1000)) // Add seconds
+    startTimeD = new Date(acceptTime)
+  } else if (scheduling.startEvent === 'taskExecution') {
+    // find the last time the task was performed
+    if (scheduling.eventTaskId === undefined) throw new Error('scheduling with taskExecution event must specify a taskId')
+    let taskPart = tasksParticipation.find(t => t.taskId === scheduling.eventTaskId)
+    if (taskPart && taskPart.consented && taskPart.lastExecuted) {
+      startTimeD = new Date(taskPart.lastExecuted)
+    } else {
+      return false
     }
   } else {
     throw new Error('The only start event recognised is consent')
+  }
+  if (scheduling.startDelaySecs) {
+    // add start delay
+    startTimeD = new Date(startTimeD.getTime() + (scheduling.startDelaySecs * 1000)) // Add seconds
   }
   if (scheduling.untilSecs) {
     let untilTimeD = new Date(startTimeD.getTime() + scheduling.untilSecs * 1000)
@@ -196,25 +209,34 @@ export function isTaskIntervalDue (acceptTime, scheduling) {
 
 /**
 * generates an instance of RRule
-* startDate - when the task was accepted
-* studyEnd - when the study ends
-* scheduling - as from the study description
+* @param {Object} scheduling - scheudling information from study description
+* @param {Date} studyPart - study participation object
+* @param {Date} studyEnd - when the study ends
 */
-export function generateRRule (startDate, studyEnd, scheduling) {
-  // dates in RRULE must be provided in UTC
-  let startDateUTC = startDate
+export function generateRRule (scheduling, studyPart, studyEnd) {
+  let startEventDate
+
   if (scheduling.startEvent === 'consent') {
+    startEventDate = new Date(studyPart.acceptedTS)
+    startEventDate.setHours(0, 0, 1) // add 1s to start so that it's not at midnight
+
     if (scheduling.startDelaySecs) {
       // add start delay
-      startDateUTC = new Date(startDate.getTime() + (1000 * scheduling.startDelaySecs)) // Add seconds
+      startEventDate = new Date(startEventDate.getTime() + (1000 * scheduling.startDelaySecs)) // Add seconds
     }
+  } else if (scheduling.startEvent === 'taskExecution') {
+    // find the last time the task was performed
+    if (scheduling.eventTaskId === undefined) throw new Error('scheduling with taskExecution event must specify a taskId')
+    let taskPart = studyPart.taskItemsConsent.find(t => t.taskId === scheduling.eventTaskId)
+    startEventDate = new Date(taskPart.lastExecuted)
   } else {
-    throw new Error('The only start event recognised is consent')
+    throw new Error('Start event ' + scheduling.startEvent + ' not recognsed')
   }
-  let endDateUTC = studyEnd
+
+  let endDate = studyEnd
   if (scheduling.untilSecs) {
-    let untilTime = new Date(startDateUTC.getTime() + 1000 * scheduling.untilSecs)
-    if (untilTime < endDateUTC) endDateUTC = new Date(untilTime)
+    let untilTime = new Date(startEventDate.getTime() + 1000 * scheduling.untilSecs)
+    if (untilTime < endDate) endDate = new Date(untilTime)
   }
   // Frequency
   let freq
@@ -265,8 +287,8 @@ export function generateRRule (startDate, studyEnd, scheduling) {
   }
   // Put into rrule config
   let rruleObj = {}
-  rruleObj.dtstart = toUTC(startDateUTC) // here needs to be converted to UTC to make things coherent
-  rruleObj.until = endDateUTC
+  rruleObj.dtstart = toUTC(startEventDate) // here needs to be converted to UTC to make things coherent
+  rruleObj.until = endDate
   rruleObj.freq = freq
   if (scheduling.interval && scheduling.interval.length) rruleObj.interval = scheduling.interval
   if (scheduling.months && scheduling.months.length) rruleObj.bymonth = scheduling.months
@@ -280,7 +302,7 @@ export function generateRRule (startDate, studyEnd, scheduling) {
   } catch (er) {
     console.error('Error while parsing scheduling object', rruleObj)
     console.error('Scheduling information: ', scheduling)
-    console.error('Star time, study end:', startDate, studyEnd)
+    console.error('Study part, study end:', studyPart, studyEnd)
 
     throw er
   }
@@ -304,7 +326,7 @@ export async function cancelNotifications () {
 // will be scheduled in one go
 const MAX_NOTIFICATIONS = 20
 
-export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, studyPart) {
+export async function scheduleNotificationsSingleStudy (studyDescr, studyPart) {
   let notificationStack = []
   let timeStack = []
 
@@ -322,7 +344,7 @@ export async function scheduleNotificationsSingleStudy (acceptedTS, studyDescr, 
       if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
     }
     if (task.scheduling.alwaysOn) continue // skip always ON tasks
-    let rrule = generateRRule(acceptedTS, studyDescr.generalities.endDate, task.scheduling)
+    let rrule = generateRRule(task.scheduling, studyPart, studyDescr.generalities.endDate)
     let taskTimes = rrule.between(toUTC(new Date()), toUTC(new Date(studyDescr.generalities.endDate)), true)
     for (let scheduleI = 0; scheduleI < taskTimes.length && scheduleI < MAX_NOTIFICATIONS; scheduleI++) {
       let taskTime = taskTimes[scheduleI]

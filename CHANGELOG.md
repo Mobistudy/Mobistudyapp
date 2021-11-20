@@ -17,3 +17,9 @@
 - fixed issues related to the Peak Flow Meter, especially when the Bluetooth adapter is used
 - reduced the number of retries when peak flow cannot be measured
 - updated privacy policy
+
+0.2.10
+
+- improved text and translations
+- added support for tasks scheduled when other tasks are executed
+- minor bugfixes
