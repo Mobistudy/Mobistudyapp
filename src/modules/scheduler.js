@@ -87,6 +87,7 @@ export function generateTasker (studiesParts, studiesDescr) {
         } else {
           // manage non-always on tasks:
 
+          let now = new Date()
           let startOfToday = new Date()
           startOfToday.setHours(0, 0, 0, 0)
           let endOfToday = new Date()
@@ -95,6 +96,8 @@ export function generateTasker (studiesParts, studiesDescr) {
           // RRrule will not show any instances.between if today's date is the same as end date. By adding one day this problem is solved.
           let studyEndDate = new Date(new Date(studyDescr.generalities.endDate).getTime() + 1000 * 60 * 60 * 24)
           let rrule = generateRRule(taskDescription.scheduling, studyPart, studyEndDate)
+          if (!rrule) continue // if the task should not start at all, go to the next task
+
           let instancesToEnd = rrule.between(toUTC(startOfToday), toUTC(studyEndDate))
           if (instancesToEnd.length > 0) {
             studyCompleted = false
@@ -112,6 +115,10 @@ export function generateTasker (studiesParts, studiesDescr) {
           }
 
           let missed
+          // tasks are marked as "missed" only the day after
+          // all tasks that need to be executed today, even if the time has passed, as marked as upcomig
+          // therefore, they are executions between last time it was executed and start of today
+          // or between start of the study and start of today
           if (lastCompletionTS) {
             missed = rrule.between(toUTC(lastCompletionTS), toUTC(startOfToday))
             if (missed.length > 0) {
@@ -124,12 +131,13 @@ export function generateTasker (studiesParts, studiesDescr) {
             // get the last occurrence of the rrule before today
             missed = fromUTC(rrule.before(toUTC(startOfToday)))
           }
-          // Get next task within the day
+          // Upcoming tasks are those that are scheduled from last time they were executed today and now
+          // or between the start of the day and now
           let upcoming
           if (lastCompletionTS && (lastCompletionTS > startOfToday)) {
-            upcoming = rrule.between(toUTC(lastCompletionTS), toUTC(new Date()))
+            upcoming = rrule.between(toUTC(lastCompletionTS), toUTC(now))
           } else {
-            upcoming = rrule.between(toUTC(startOfToday), toUTC(new Date()))
+            upcoming = rrule.between(toUTC(startOfToday), toUTC(now))
           }
 
           if (upcoming.length > 0) {
@@ -212,6 +220,7 @@ export function isTaskIntervalDue (scheduling, acceptTime, tasksParticipation) {
 * @param {Object} scheduling - scheudling information from study description
 * @param {Date} studyPart - study participation object
 * @param {Date} studyEnd - when the study ends
+* @returns an RRULE or null if the task is not supposed to be scheduled
 */
 export function generateRRule (scheduling, studyPart, studyEnd) {
   let startEventDate
@@ -219,18 +228,23 @@ export function generateRRule (scheduling, studyPart, studyEnd) {
   if (scheduling.startEvent === 'consent') {
     startEventDate = new Date(studyPart.acceptedTS)
     startEventDate.setHours(0, 0, 1) // add 1s to start so that it's not at midnight
-
-    if (scheduling.startDelaySecs) {
-      // add start delay
-      startEventDate = new Date(startEventDate.getTime() + (1000 * scheduling.startDelaySecs)) // Add seconds
-    }
   } else if (scheduling.startEvent === 'taskExecution') {
     // find the last time the task was performed
-    if (scheduling.eventTaskId === undefined) throw new Error('scheduling with taskExecution event must specify a taskId')
+    if (scheduling.eventTaskId === undefined) throw new Error('Scheduling with taskExecution event must specify a taskId')
     let taskPart = studyPart.taskItemsConsent.find(t => t.taskId === scheduling.eventTaskId)
+    if (!taskPart) throw new Error('Scheduling with taskExecution with unused taskId ' + scheduling.eventTaskId)
+    if (!taskPart.lastExecuted) {
+      // the task should not start at all! return null
+      return null
+    }
     startEventDate = new Date(taskPart.lastExecuted)
   } else {
     throw new Error('Start event ' + scheduling.startEvent + ' not recognsed')
+  }
+
+  if (scheduling.startDelaySecs) {
+    // add start delay
+    startEventDate = new Date(startEventDate.getTime() + (1000 * scheduling.startDelaySecs)) // Add seconds
   }
 
   let endDate = studyEnd
@@ -323,7 +337,7 @@ export async function cancelNotifications () {
 }
 
 // Scheduling notifications can be slow, this is the maximum number of notifications that
-// will be scheduled in one go
+// will be scheduled in one go per task
 const MAX_NOTIFICATIONS = 20
 
 export async function scheduleNotificationsSingleStudy (studyDescr, studyPart) {
@@ -344,10 +358,13 @@ export async function scheduleNotificationsSingleStudy (studyDescr, studyPart) {
       if (Platform.is.android && HealthDataEnum.isIOSOnly(task.dataType)) continue
     }
     if (task.scheduling.alwaysOn) continue // skip always ON tasks
+
     let rrule = generateRRule(task.scheduling, studyPart, studyDescr.generalities.endDate)
-    let taskTimes = rrule.between(toUTC(new Date()), toUTC(new Date(studyDescr.generalities.endDate)), true)
-    for (let scheduleI = 0; scheduleI < taskTimes.length && scheduleI < MAX_NOTIFICATIONS; scheduleI++) {
-      let taskTime = taskTimes[scheduleI]
+    if (!rrule) continue
+
+    let taskTimesUTC = rrule.between(toUTC(new Date()), toUTC(new Date(studyDescr.generalities.endDate)), true)
+    for (let scheduleI = 0; scheduleI < taskTimesUTC.length && scheduleI < MAX_NOTIFICATIONS; scheduleI++) {
+      let taskTime = fromUTC(taskTimesUTC[scheduleI])
       let executionDate = moment(taskTime).startOf('minute').toDate()
       // we could use the unix timestamp of the execution date as id, but we
       // don't know how internally the ids are stored, so it's better to keep

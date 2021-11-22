@@ -37,6 +37,7 @@ export default {
         continue
       }
       if (millis <= 2147483647) {
+        console.log('scheduling', not)
         let timeoutID = setTimeout(function () {
           Dialog.create({
             title: 'Notification',
