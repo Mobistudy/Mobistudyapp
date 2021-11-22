@@ -176,8 +176,10 @@ export default {
       scheduling: {
         startEvent: 'taskExecution',
         eventTaskId: 9,
+        intervalType: 'd',
+        interval: 1,
         occurrences: 1,
-        startDelaySecs: 10, // 10 seconds after the task is completed
+        startDelaySecs: 60 * 2, // 2 minutes after the task is completed
         untilSecs: 60 * 60 * 3 // available for 3 hours, then it disappears
       }
     }
