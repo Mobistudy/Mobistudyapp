@@ -182,6 +182,16 @@ export default {
         startDelaySecs: 60 * 2, // 2 minutes after the task is completed
         untilSecs: 60 * 60 * 3 // available for 3 hours, then it disappears
       }
+    },
+    {
+      id: 11,
+      type: 'tugt',
+      scheduling: {
+        alwaysOn: true,
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
+      },
+      dataType: 'distance'
     }
   ],
   consent: {
@@ -406,6 +416,14 @@ export default {
           es: 'Acepto realizar un segundo ejercicio de golpeteo de la pantalla 10 segundos después del primero.'
         },
         taskId: 10
+      },
+      {
+        description: {
+          en: 'I agree to perform a timed up and go test at least once in a week',
+          sv: 'Jag går med på att utföra ett tidsbestämt och gå-test minst en gång i veckan.',
+          es: 'Acepto realizar una prueba cronometrada e ir a la prueba al menos una vez a la semana.'
+        },
+        taskId: 11
       }
     ],
     extraItems: []

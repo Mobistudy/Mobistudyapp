@@ -133,6 +133,14 @@ export default {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissioniOS')
         } else this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissionAndroid')
+      } else if (taskType === 'fingerTapping') {
+        if (this.$q.platform.is.ios) {
+          this.permissionMessage = this.$t('studies.tasks.fingerTapping.OSpermissioniOS')
+        } else this.permissionMessage = this.$t('studies.tasks.fingerTapping.OSpermissionAndroid')
+      } else if (taskType === 'tugt') {
+        if (this.$q.platform.is.ios) {
+          this.permissionMessage = this.$t('studies.tasks.tugt.OSpermissioniOS')
+        } else this.permissionMessage = this.$t('studies.tasks.tugt.OSpermissionAndroid')
       } else return true
       this.permissionDialog = true
       return new Promise((resolve, reject) => {
@@ -172,6 +180,10 @@ export default {
           } else if (taskType === 'tapping') {
             if (await phone.pedometer.isAvailable()) {
               await phone.pedometer.requestPermission()
+            }
+          } else if (taskType === 'tugt') {
+            if (await phone.geolocation.isAvailable()) {
+              await phone.geolocation.requestPermission()
             }
           } else if (taskType === 'miband3') {
             await PO60.requestPermission()

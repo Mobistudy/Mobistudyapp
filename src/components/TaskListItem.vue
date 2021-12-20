@@ -63,6 +63,8 @@ export default {
         this.$router.push({ name: 'dataQueryIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'fingerTapping') {
         this.$router.push({ name: 'fingerTappingIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
+      } else if (type === 'tugt') {
+        this.$router.push({ name: 'tugtIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else {
         throw new Error('Could not changeRoute with task type.')
       }
@@ -105,6 +107,10 @@ export default {
       this.title = this.$i18n.t('studies.tasks.fingerTapping.shortTitle')
       this.main = this.$i18n.t('studies.tasks.fingerTapping.shortDescription')
       this.icon = 'touch_app'
+    } else if (this.task.type === 'tugt') {
+      this.title = this.$i18n.t('studies.tasks.tugt.shortTitle')
+      this.main = this.$i18n.t('studies.tasks.tugt.shortDescription')
+      this.icon = 'directions_walk'
     }
   },
   computed: {
