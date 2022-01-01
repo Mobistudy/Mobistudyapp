@@ -24,7 +24,7 @@
     "rrule": "^2.6.8",
     "vue-chartjs": "^3.5.1",
     "vue-i18n": "^8.26.7",
-    "vuelidate": "^0.7.6",
+    "vuelidate": "^0.7.7",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
