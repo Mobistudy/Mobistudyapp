@@ -64,7 +64,7 @@ export default {
       totalTime: TEST_DURATION,
       startedTS: undefined,
       completionTS: undefined,
-      acceleration: [],
+      motion: [],
       orientation: [],
       distance: 0
     }
@@ -88,16 +88,36 @@ export default {
       this.startedTS = new Date()
       this.startTimer()
       phone.screen.forbidSleep()
-      if (this.isStarted === true && this.isCompleted === false) {
-        window.addEventListener('devicemotion', function (event) {
-          this.saveAcceleration(event.acceleration)
-          console.log(event.acceleration)
-        })
-      }
-    },
 
-    saveAcceleration (acceleration) {
-      this.acceleration.push(acceleration)
+      try {
+        if (await phone.orientation.isAvailable()) {
+          await phone.orientation.requestPermission()
+          console.log('OrientationEvent is available')
+          phone.orientation.startNotifications({}, (event) => {
+            console.log('Got orientation events', event)
+            this.orientation.push(event)
+          }, (error) => {
+            console.error('Error getting orientation event', error)
+          })
+        }
+      } catch (err) {
+        console.error('Issues getting OrientationEvent', err)
+      }
+
+      try {
+        if (await phone.motion.isAvailable()) {
+          await phone.motion.requestPermission()
+          console.log('MotionEvent is available')
+          phone.motion.startNotifications({}, (event) => {
+            console.log('Got motion events', event)
+            this.motion.push(event)
+          }, (error) => {
+            console.error('Error getting MotionEvent', error)
+          })
+        }
+      } catch (err) {
+        console.error('Issues getting MotionEvent', err)
+      }
     },
 
     startTimer () {
@@ -122,6 +142,8 @@ export default {
       this.isStarted = false
       this.completionTS = new Date()
       this.stopTimer()
+      phone.orientation.stopNotifications()
+      phone.motion.stopNotifications()
       phone.screen.allowSleep()
 
       this.isCompleted = true
@@ -137,7 +159,7 @@ export default {
         createdTS: new Date(),
         startedTS: this.startedTS,
         completionTS: this.completionTS,
-        acceleration: [],
+        motion: [],
         orientation: [],
         borgScale: undefined
       }

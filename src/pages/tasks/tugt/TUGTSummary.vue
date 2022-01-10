@@ -15,8 +15,8 @@
           <td> {{ minutes }}:{{ seconds }}</td>
         </tr>
         <tr>
-          <td>Acceleration</td>
-          <td>{{acceleration}}</td>
+          <td>Motion Events</td>
+          <td>{{motion}}</td>
         </tr>
       </table>
 
