@@ -279,7 +279,7 @@ export default {
           }
           if (studyPart.currentStatus === 'accepted' && studyPart.reminders) {
             // schedule all of them
-            await scheduler.scheduleNotificationsSingleStudy(studyDescr, studyPart)
+            await scheduler.scheduleNotificationsSingleStudy(new Date(studyPart.acceptedTS), studyDescr, studyPart)
           }
           if (studyPart.currentStatus === 'accepted') {
             activestudiesPart.push(studyPart)

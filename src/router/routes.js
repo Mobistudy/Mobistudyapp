@@ -87,8 +87,11 @@ const routes = [
       { path: '/po60Connect', name: 'po60Connect', component: () => import('pages/tasks/po60/PO60Connect.vue'), props: true },
       { path: '/po60Download', name: 'po60DataDownload', component: () => import('pages/tasks/po60/PO60Download.vue'), props: true },
 
-      { path: '/positionIntro', name: 'positionIntro', component: () => import('pages/tasks/position/PositionIntro.vue'), props: true },
-      { path: '/position', name: 'position', component: () => import('pages/tasks/position/Position.vue'), props: true },
+      { path: '/positionIntro', name: 'positionIntro', component: () => import('pages/tasks/DrawSquare/SquareIntro.vue'), props: true },
+      { path: '/position', name: 'position', component: () => import('pages/tasks/DrawSquare/Square.vue'), props: true },
+
+      // { path: '/spiralIntro', name: 'spiralIntro', component: () => import('pages/tasks/DrawSpiral/SpiralIntro.vue'), props: true },
+      // { path: '/spiral', name: 'spiral', component: () => import('pages/tasks/DrawSpiral/Spiral.vue'), props: true },
 
       { path: '/peakFlowIntro', name: 'peakFlowIntro', component: () => import('pages/tasks/peakFlow/PeakFlowIntro.vue'), props: true },
       { path: '/peakFlowCalibrate', name: 'peakFlowCalibrate', component: () => import('pages/tasks/peakFlow/PeakFlowCalibrate.vue'), props: true },

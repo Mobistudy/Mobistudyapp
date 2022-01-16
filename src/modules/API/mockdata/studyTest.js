@@ -172,15 +172,11 @@ export default {
     },
     {
       id: 10,
-      type: 'fingerTapping',
+      type: 'drawSpiral',
       scheduling: {
-        startEvent: 'taskExecution',
-        eventTaskId: 9,
-        intervalType: 'd',
-        interval: 1,
-        occurrences: 1,
-        startDelaySecs: 60 * 2, // 2 minutes after the task is completed
-        untilSecs: 60 * 60 * 3 // available for 3 hours, then it disappears
+        alwaysOn: true,
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
       }
     }
   ],
@@ -377,7 +373,7 @@ export default {
       },
       {
         description: {
-          en: 'I agree to share my location every day for 1 week.',
+          en: 'I agree to perform a spiral tracing exercise per day for 1 week.',
           sv: 'Jag samtycker till att dela min plats varje dag i en vecka.',
           es: 'Acepto compartir mi ubicación todos los días durante 1 semana.'
         },
@@ -395,15 +391,15 @@ export default {
         description: {
           en: 'I agree to perform a finger tapping exercise per day for 1 week.',
           sv: 'Jag går med på att utföra en fingeravtryckningsövning per dag i en vecka.',
-          es: 'Acepto realizar un ejercicio de golpeteo de la pantalla por día durante 1 semana.'
+          es: 'Acepto realizar un ejercicio de golpeteo con los dedos por día durante 1 semana.v'
         },
         taskId: 9
       },
       {
         description: {
-          en: 'I agree to perform a second finger tapping exercise 10 seconds after the first one.',
-          sv: 'Jag går med på att utföra en andra fingeravtryckningsövning 10 sekunder efter den första.',
-          es: 'Acepto realizar un segundo ejercicio de golpeteo de la pantalla 10 segundos después del primero.'
+          en: 'I agree to perform a spiral tracing exercise per day for 1 week.',
+          sv: 'Jag går med på att utföra en fingeravtryckningsövning per dag i en vecka.',
+          es: 'Acepto realizar un ejercicio de golpeteo con los dedos por día durante 1 semana.v'
         },
         taskId: 10
       }
