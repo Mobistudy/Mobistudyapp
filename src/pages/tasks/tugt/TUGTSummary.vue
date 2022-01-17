@@ -16,7 +16,7 @@
         </tr>
         <tr>
           <td>Motion Events</td>
-          <td>{{motion}}</td>
+          <td>{{report.orientation}}</td>
         </tr>
       </table>
 
@@ -288,7 +288,8 @@ export default {
     },
     async discard () {
       this.sending = true
-      this.report.alpha = 'discarded'
+      this.report.motion = 'discarded'
+      this.report.orientation = 'discarded'
       this.report.borgScale = 'discarded'
 
       try {

@@ -83,41 +83,71 @@ export default {
 
   methods: {
 
+    motionHandler (event) {
+      console.log(event.acceleration.x + event.acceleration.y + event.acceleration.z + ' m/s2')
+      this.x = event.acceleration.x | 0
+      this.y = event.acceleration.y | 0
+      this.z = event.acceleration.z | 0
+
+      // Acceleration has three axes
+      this.motion.push(this.x = event.acceleration.x | 0)
+      this.motion.push(this.y = event.acceleration.y | 0)
+      this.motion.push(this.z = event.acceleration.z | 0)
+      // this.countDown();
+    },
+
+    orientationHandler (event) {
+      console.log('Orientation: ' + event.alpha + event.gamma + event.beta)
+      this.alpha = event.alpha
+      this.gamma = event.gamma
+      this.beta = event.beta
+
+      // Acceleration has three axes
+      this.orientation.push(this.alpha = event.alpha)
+      this.orientation.push(this.gamma = event.gamma)
+      this.orientation.push(this.beta = event.beta)
+
+      console.log('orientation data: ' + this.orientation)
+    },
+
     async startTest () {
       this.isStarted = true
       this.startedTS = new Date()
       this.startTimer()
       phone.screen.forbidSleep()
 
-      try {
-        if (await phone.orientation.isAvailable()) {
-          await phone.orientation.requestPermission()
-          console.log('OrientationEvent is available')
-          phone.orientation.startNotifications({}, (event) => {
-            console.log('Got orientation events', event)
-            this.orientation.push(event)
-          }, (error) => {
-            console.error('Error getting orientation event', error)
-          })
-        }
-      } catch (err) {
-        console.error('Issues getting OrientationEvent', err)
-      }
+      window.addEventListener('devicemotion', this.motionHandler, false)
+      window.addEventListener('deviceorientation', this.orientationHandler, false)
 
-      try {
-        if (await phone.motion.isAvailable()) {
-          await phone.motion.requestPermission()
-          console.log('MotionEvent is available')
-          phone.motion.startNotifications({}, (event) => {
-            console.log('Got motion events', event)
-            this.motion.push(event)
-          }, (error) => {
-            console.error('Error getting MotionEvent', error)
-          })
-        }
-      } catch (err) {
-        console.error('Issues getting MotionEvent', err)
-      }
+    //   try {
+    //     if (await phone.orientation.isAvailable()) {
+    //       await phone.orientation.requestPermission()
+    //       console.log('OrientationEvent is available')
+    //       phone.orientation.startNotifications({}, (event) => {
+    //         console.log('Got orientation events', event)
+    //         this.orientation.push(event)
+    //       }, (error) => {
+    //         console.error('Error getting orientation event', error)
+    //       })
+    //     }
+    //   } catch (err) {
+    //     console.error('Issues getting OrientationEvent', err)
+    //   }
+    //
+    //   try {
+    //     if (await phone.motion.isAvailable()) {
+    //       await phone.motion.requestPermission()
+    //       console.log('MotionEvent is available')
+    //       phone.motion.startNotifications({}, (event) => {
+    //         console.log('Got motion events', event)
+    //         this.motion.push(event)
+    //       }, (error) => {
+    //         console.error('Error getting MotionEvent', error)
+    //       })
+    //     }
+    //   } catch (err) {
+    //     console.error('Issues getting MotionEvent', err)
+    //   }
     },
 
     startTimer () {
@@ -142,8 +172,10 @@ export default {
       this.isStarted = false
       this.completionTS = new Date()
       this.stopTimer()
-      phone.orientation.stopNotifications()
-      phone.motion.stopNotifications()
+      // phone.orientation.stopNotifications()
+      // phone.motion.stopNotifications()
+      window.removeEventListener('devicemotion', this.motionHandler)
+      window.removeEventListener('deviceorientation', this.orientationHandler)
       phone.screen.allowSleep()
 
       this.isCompleted = true
