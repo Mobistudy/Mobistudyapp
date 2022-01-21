@@ -14,10 +14,10 @@
           <td>{{ $t('studies.tasks.tugt.time') }}</td>
           <td> {{ minutes }}:{{ seconds }}</td>
         </tr>
-        <tr>
-          <td>Motion Events</td>
-          <td>{{report.orientation}}</td>
-        </tr>
+<!--        <tr>-->
+<!--          <td>Motion Events</td>-->
+<!--          <td>{{report.orientation}}</td>-->
+<!--        </tr>-->
       </table>
 
 <!--      <div class="q-pa-md">-->
@@ -222,7 +222,6 @@
           :loading="sending"
           :label="$t('common.send')"
           @click="send()"
-          :disabled="!borgValue"
         />
       </div>
     </div>
@@ -244,7 +243,7 @@
 <script>
 import API from 'modules/API/API'
 import DB from 'modules/db'
-// import fileSystem from 'modules/files'
+import fileSystem from 'modules/files'
 import { format as Qformat } from 'quasar'
 
 export default {
@@ -261,15 +260,15 @@ export default {
   methods: {
     async send () {
       this.sending = true
-      this.report.borgScale = this.borgValue
+      // this.report.borgScale = this.borgValue
 
       // Only for testing purposes! Please remove before deploying app.
-      // try {
-      //   let filename = 'smwt_' + new Date().getTime() + '.json'
-      //   await fileSystem.save(filename, this.report)
-      // } catch (err) {
-      //   console.error('Cannot save to file', err)
-      // }
+      try {
+        let filename = 'tugt_' + new Date().getTime() + '.json'
+        await fileSystem.save(filename, this.report)
+      } catch (err) {
+        console.error('Cannot save to file', err)
+      }
 
       // Save the data to server
       try {
@@ -290,7 +289,7 @@ export default {
       this.sending = true
       this.report.motion = 'discarded'
       this.report.orientation = 'discarded'
-      this.report.borgScale = 'discarded'
+      // this.report.borgScale = 'discarded'
 
       try {
         await API.sendTUGTData(this.report)
