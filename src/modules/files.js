@@ -50,8 +50,8 @@ export default {
   */
   async openFile (filename, forcecreate) {
     let folder
-    if (Platform.is.ios) folder = cordova.file.documentsDirectory
-    else folder = cordova.file.externalDataDirectory
+    if (Platform.is.ios) folder = window.cordova.file.documentsDirectory
+    else folder = window.cordova.file.externalDataDirectory
 
     return new Promise((resolve, reject) => {
       window.resolveLocalFileSystemURL(folder, function (dir) {

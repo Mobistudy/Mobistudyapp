@@ -44,7 +44,7 @@ import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'
 import WalkingMan from 'components/WalkingMan'
 
-const TEST_DURATION = 180
+const TEST_DURATION = 180 // 3 minutes
 
 let orientations = []
 let motions = []
@@ -72,53 +72,16 @@ export default {
   },
 
   mounted: async function () {
-    // Events that are running always
-    if (window.DeviceMotionEvent) {
-      console.log('devicemotion was defined')
-    }
 
-    if (window.DeviceOrientationEvent) {
-      console.log('GyroScope was defined')
-    }
   },
 
   methods: {
-
-    // motionHandler (event) {
-    //   console.log(event.acceleration.x + event.acceleration.y + event.acceleration.z + ' m/s2')
-    //   // this.x = event.acceleration.x | 0
-    //   // this.y = event.acceleration.y | 0
-    //   // this.z = event.acceleration.z | 0
-    //
-    //   // Acceleration has three axes
-    //   this.motion.push(this.x = event.acceleration.x | 0)
-    //   this.motion.push(this.y = event.acceleration.y | 0)
-    //   this.motion.push(this.z = event.acceleration.z | 0)
-    //   // this.countDown();
-    // },
-    //
-    // orientationHandler (event) {
-    //   console.log('Orientation: ' + event.alpha + event.gamma + event.beta)
-    //   // this.alpha = event.alpha
-    //   // this.gamma = event.gamma
-    //   // this.beta = event.beta
-    //
-    //   // Acceleration has three axes
-    //   this.orientation.push(this.alpha = event.alpha)
-    //   this.orientation.push(this.gamma = event.gamma)
-    //   this.orientation.push(this.beta = event.beta)
-    //
-    //   console.log('orientation data: ' + this.orientation)
-    // },
 
     async startTest () {
       this.isStarted = true
       this.startedTS = new Date()
       this.startTimer()
       phone.screen.forbidSleep()
-
-      // window.addEventListener('devicemotion', this.motionHandler, false)
-      // window.addEventListener('deviceorientation', this.orientationHandler, false)
 
       try {
         if (await phone.orientation.isAvailable()) {
@@ -175,8 +138,6 @@ export default {
       this.stopTimer()
       phone.orientation.stopNotifications()
       phone.motion.stopNotifications()
-      // window.removeEventListener('devicemotion', this.motionHandler)
-      // window.removeEventListener('deviceorientation', this.orientationHandler)
       phone.screen.allowSleep()
 
       this.isCompleted = true
