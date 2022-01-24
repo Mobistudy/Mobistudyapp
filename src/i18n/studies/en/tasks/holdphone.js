@@ -18,5 +18,6 @@ export default {
   ],
   instructions: 'Press start to begin the exercise. Once started, hold your phone steady.',
   completed: 'Task completed',
+  time: 'Time',
   summary: 'Summary bla bla'
 }
