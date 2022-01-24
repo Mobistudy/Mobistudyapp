@@ -182,8 +182,11 @@ export default {
               await phone.pedometer.requestPermission()
             }
           } else if (taskType === 'tugt') {
-            if (await phone.geolocation.isAvailable()) {
-              await phone.geolocation.requestPermission()
+            if (await phone.motion.isAvailable()) {
+              await phone.motion.requestPermission()
+            }
+            if (await phone.orientation.isAvailable()) {
+              await phone.orientation.requestPermission()
             }
           } else if (taskType === 'miband3') {
             await PO60.requestPermission()
