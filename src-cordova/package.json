@@ -58,5 +58,8 @@
       "android",
       "ios"
     ]
+  },
+  "dependencies": {
+    "cordova": "^11.0.0"
   }
 }

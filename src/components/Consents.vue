@@ -133,6 +133,10 @@ export default {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissioniOS')
         } else this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissionAndroid')
+      } else if (taskType === 'holdPhone') {
+        if (this.$q.platform.is.ios) {
+          this.permissionMessage = this.$t('studies.tasks.holdPhone.OSpermissioniOS')
+        } else this.permissionMessage = this.$t('studies.tasks.holdPhone.OSpermissionAndroid')
       } else return true
       this.permissionDialog = true
       return new Promise((resolve, reject) => {
@@ -183,6 +187,13 @@ export default {
             }
           } else if (taskType === 'peakFlow') {
             await peakflow.requestPermission()
+          } else if (taskType === 'holdPhone') {
+            if (await phone.orientation.isAvailable()) {
+              await phone.orientation.requestPermission()
+            }
+            if (await phone.motion.isAvailable()) {
+              await phone.motion.requestPermission()
+            }
           }
           this.permissionSpinner = false
           // if we get to this point we have permission

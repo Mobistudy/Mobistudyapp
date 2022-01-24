@@ -182,6 +182,15 @@ export default {
         startDelaySecs: 60 * 2, // 2 minutes after the task is completed
         untilSecs: 60 * 60 * 3 // available for 3 hours, then it disappears
       }
+    },
+    {
+      id: 12,
+      type: 'holdPhone',
+      scheduling: {
+        alwaysOn: true,
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
+      }
     }
   ],
   consent: {
@@ -406,6 +415,14 @@ export default {
           es: 'Acepto realizar un segundo ejercicio de golpeteo de la pantalla 10 segundos después del primero.'
         },
         taskId: 10
+      },
+      {
+        description: {
+          en: 'I agree to perform hold the phone exercise.',
+          sv: 'Jag går med på att utföra håll telefonövningen.',
+          es: 'Acepto realizar el ejercicio de sostener el teléfono.'
+        },
+        taskId: 12
       }
     ],
     extraItems: []

@@ -154,5 +154,10 @@ export default {
   // send data from finger tapping data
   sendFingerTappingData: async function (data) {
     return axios.post(BASE_URL + '/fingerTapping', data, axiosConfig)
+  },
+
+  // send data of phone movement
+  sendHoldPhoneData: async function (data) {
+    return axios.post(BASE_URL + '/holdPhone', data, axiosConfig)
   }
 }
