@@ -209,9 +209,10 @@ Development:
 - [Daniel Abella](https://github.com/assimilate)
 - [Kevin Tsang](https://github.com/kevinchtsang)
 - [Gent Ymeri](https://github.com/gentymeri)
+- [Shreyas Rana](https://ranashreyas.github.io/)
 
 Graphic design and illustations:
-- [Matilda Thorwaldsson](https://www.behance.net/matildasvensson1)
+- [Matilda Thorwaldsson](https://www.behance.net/matildathorwaldsson)
 
 ## License
 
