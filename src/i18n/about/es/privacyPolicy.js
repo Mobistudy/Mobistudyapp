@@ -1,5 +1,5 @@
 export default `
-  <p>Versión 2021-07-27</p>
+  <p>Versión 2022-01-26</p>
 
   <p>
      La app de Mobistudy está destinada a ciudadanos que quieran contribuir a estudios de investigación utilizando su dispositivo móvil.
@@ -120,6 +120,6 @@ export default `
   <p>
     Si tienes preguntas sobre el procesamiento de información personal por parte de la universidad, puedes comunicarte con el Departamento de Protección de Datos
     Oficial en dataskyddsombud@mau.se y si tienes quejas que no se pueden resolver con la Universidad de Malmö, puedes
-    enviarlo a Datainspektionen.
+    enviarlo a Integritetsskyddsmyndigheten.
   </p>
 `
