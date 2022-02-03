@@ -158,7 +158,7 @@ export default {
     },
     startNotifications (options, cbk, error) {
       this.callback = cbk
-      window.addEventListener('devicemotion', this.motionHandler, false)
+      window.addEventListener('devicemotion', this.motionHandler.bind(this), false)
     },
     async stopNotifications () {
       window.removeEventListener('devicemotion', this.motionHandler)
@@ -187,7 +187,7 @@ export default {
     },
     startNotifications (options, cbk, error) {
       this.callback = cbk
-      window.addEventListener('deviceorientation', this.orientationHandler, false)
+      window.addEventListener('deviceorientation', this.orientationHandler.bind(this), false)
     },
     async stopNotifications () {
       window.removeEventListener('deviceorientation', this.orientationHandler)

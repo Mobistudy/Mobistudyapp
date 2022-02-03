@@ -331,5 +331,11 @@ export default {
     console.log('API - sending tapping data', data)
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
+  },
+
+  async sendTUGTData (data) {
+    console.log('API - sending TUGT data', data)
+    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
+    return Promise.resolve()
   }
 }

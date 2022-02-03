@@ -124,5 +124,74 @@ export default {
       if (PIN_SET) return Promise.resolve()
       else return Promise.reject()
     }
+  },
+  motion: {
+    callback: undefined,
+    motionHandler (event) {
+      let simplifiedEvent = {
+        timestamp: new Date().getTime(),
+        acc: {
+          x: event.acceleration.x,
+          y: event.acceleration.y,
+          z: event.acceleration.z
+        },
+        accG: {
+          x: event.accelerationIncludingGravity.x,
+          y: event.accelerationIncludingGravity.y,
+          z: event.accelerationIncludingGravity.z
+        },
+        rotRate: {
+          alpha: event.rotationRate.alpha,
+          beta: event.rotationRate.beta,
+          gamma: event.rotationRate.gamma
+        },
+        interval: event.interval
+      }
+      this.callback(simplifiedEvent)
+    },
+    async isAvailable () {
+      if (typeof DeviceMotionEvent !== 'undefined') return Promise.resolve(true)
+      else return Promise.resolve(false)
+    },
+    async requestPermission () {
+      return Promise.resolve(true)
+    },
+    startNotifications (options, cbk, error) {
+      this.callback = cbk
+      window.addEventListener('devicemotion', this.motionHandler.bind(this), false)
+    },
+    async stopNotifications () {
+      window.removeEventListener('devicemotion', this.motionHandler)
+      this.callback = null
+    }
+  },
+  orientation: {
+    callback: undefined,
+    orientationHandler (event) {
+      let simplifiedEvent = {
+        timestamp: new Date().getTime(),
+        abs: event.absolute,
+        alpha: event.alpha,
+        beta: event.beta,
+        gamma: event.gamma
+      }
+      if (event.webkitCompassHeading) simplifiedEvent.heading = event.webkitCompassHeading
+      this.callback(simplifiedEvent)
+    },
+    async isAvailable () {
+      if (typeof DeviceOrientationEvent !== 'undefined') return Promise.resolve(true)
+      else return Promise.resolve(false)
+    },
+    async requestPermission () {
+      return Promise.resolve(true)
+    },
+    startNotifications (options, cbk, error) {
+      this.callback = cbk
+      window.addEventListener('deviceorientation', this.orientationHandler.bind(this), false)
+    },
+    async stopNotifications () {
+      window.removeEventListener('deviceorientation', this.orientationHandler)
+      this.callback = null
+    }
   }
 }

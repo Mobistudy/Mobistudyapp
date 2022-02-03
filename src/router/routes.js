@@ -98,7 +98,11 @@ const routes = [
 
       { path: '/fingerTappingIntro', name: 'fingerTappingIntro', component: () => import('pages/tasks/fingerTapping/tappingIntro.vue'), props: true },
       { path: '/fingerTapping', name: 'fingerTapping', component: () => import('pages/tasks/fingerTapping/tapping.vue'), props: true },
-      { path: '/fingerTappingSummary', name: 'fingerTappingSummary', component: () => import('pages/tasks/fingerTapping/tappingSummary.vue'), props: true }
+      { path: '/fingerTappingSummary', name: 'fingerTappingSummary', component: () => import('pages/tasks/fingerTapping/tappingSummary.vue'), props: true },
+
+      { path: '/tugtIntro', name: 'tugtIntro', component: () => import('pages/tasks/tugt/tugtIntro.vue'), props: true },
+      { path: '/tugt', name: 'tugt', component: () => import('pages/tasks/tugt/TUGT.vue'), props: true },
+      { path: '/tugtSummary', name: 'tugtSummary', component: () => import('pages/tasks/tugt/TUGTSummary.vue'), props: true }
     ]
   },
   {
