@@ -211,5 +211,9 @@ export default {
         }
       })
     }
+  },
+
+  vibrate (ms) {
+    navigator.vibrate(3000)
   }
 }

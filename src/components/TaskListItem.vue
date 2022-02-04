@@ -110,7 +110,7 @@ export default {
     } else if (this.task.type === 'holdPhone') {
       this.title = this.$i18n.t('studies.tasks.holdPhone.shortTitle')
       this.main = this.$i18n.t('studies.tasks.holdPhone.shortDescription')
-      this.icon = 'touch_app'
+      this.icon = 'svguse:icons/holdphone-icon.svg#holdphone-icon'
     }
   },
   computed: {

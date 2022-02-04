@@ -3,21 +3,25 @@
     <div class="text-center text-h5 q-mt-lg">
       {{ $t('studies.tasks.holdPhone.title') }}
     </div>
-    <div class="text-center text-h5 q-mt-lg">
+    <div class="text-center text-h5 q-mt-lg" v-show="completedHand === 0">
       {{ $t('studies.tasks.holdPhone.instructions') }}
+    </div>
+    <div class="text-center text-h5 q-mt-lg" v-show="isStartedRight">
+      {{ $t('studies.tasks.holdPhone.afterStartRightH') }}
+    </div>
+    <div class="text-center text-h5 q-mt-lg" v-show="isCompletedRight && !isStartedLeft">
+      {{ $t('studies.tasks.holdPhone.leftHand') }}
+    </div>
+    <div class="text-center text-h5 q-mt-lg" v-show="isStartedLeft">
+      {{ $t('studies.tasks.holdPhone.afterStartLeftH') }}
     </div>
     <div class="row justify-center q-mt-lg">
       <q-btn
         @click="startTest"
-        v-show="!isStarted"
+        v-show="!isStartedRight || completedHand <= 2"
         color="primary"
+        :disable="isStartedRight || isStartedLeft"
         :label="$t('common.start')"
-      />
-      <q-btn
-        @click="completeTest"
-        v-show="isStarted"
-        color="secondary"
-        :label="$t('common.complete')"
       />
     </div>
   </q-page>
@@ -37,9 +41,20 @@
 import phone from 'modules/phone'
 import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'
-const TEST_DURATION = 60 // 1 minute
-let orientations = []
-let motions = []
+const TEST_DURATION = 5 // 10 sec
+
+// let orientations = []
+// let motions = []
+
+let leftHand = {
+  orientations: [],
+  motions: []
+}
+let rightHand = {
+  orientations: [],
+  motions: []
+}
+
 export default {
   name: 'HoldPhonePage',
   props: {
@@ -52,76 +67,149 @@ export default {
     return {
       isSignalCheck: true,
       isStarted: false,
+      isStartedRight: false,
+      isStartedLeft: false,
+      isCompletedRight: false,
+      isCompletedLeft: false,
       isCompleted: false,
       timer: undefined,
-      totalTime: TEST_DURATION,
+      rightHandTime: TEST_DURATION,
+      leftHandTime: TEST_DURATION,
+      totalTime: this.rightHandTime + this.leftHandTime,
       startedTS: undefined,
       completionTS: undefined,
-      distance: 0
+      completedHand: 0
     }
   },
   mounted: async function () {
   },
   methods: {
+
     async startTest () {
-      this.isStarted = true
-      this.startedTS = new Date()
-      this.startTimer()
-      // add sound when starting
-      phone.screen.forbidSleep()
-      try {
-        if (await phone.orientation.isAvailable()) {
-          await phone.orientation.requestPermission()
-          console.log('OrientationEvent is available')
-          phone.orientation.startNotifications({}, (event) => {
-            console.log('Got orientation events', event)
-            orientations.push(event)
-          }, (error) => {
-            console.error('Error getting orientation event', error)
-          })
+      this.completedHand++
+      if (this.completedHand <= 1) {
+        this.isStartedRight = true
+        this.startTimerRight()
+        this.startedTS = new Date()
+        // add sound when starting
+        phone.screen.forbidSleep()
+        try {
+          if (await phone.orientation.isAvailable()) {
+            await phone.orientation.requestPermission()
+            console.log('OrientationEvent is available')
+            phone.orientation.startNotifications({}, (event) => {
+              console.log('Got orientation events', event)
+              rightHand.orientations.push(event)
+            }, (error) => {
+              console.error('Error getting orientation event', error)
+            })
+          }
+        } catch (err) {
+          console.error('Issues getting OrientationEvent', err)
         }
-      } catch (err) {
-        console.error('Issues getting OrientationEvent', err)
+        try {
+          if (await phone.motion.isAvailable()) {
+            await phone.motion.requestPermission()
+            console.log('MotionEvent is available')
+            phone.motion.startNotifications({}, (event) => {
+              console.log('Got motion events', event)
+              rightHand.motions.push(event)
+            }, (error) => {
+              console.error('Error getting MotionEvent', error)
+            })
+          }
+        } catch (err) {
+          console.error('Issues getting MotionEvent', err)
+        }
       }
-      try {
-        if (await phone.motion.isAvailable()) {
-          await phone.motion.requestPermission()
-          console.log('MotionEvent is available')
-          phone.motion.startNotifications({}, (event) => {
-            console.log('Got motion events', event)
-            motions.push(event)
-          }, (error) => {
-            console.error('Error getting MotionEvent', error)
-          })
+
+      if (this.completedHand === 2) {
+        console.log('lefthandStart')
+        this.isStartedLeft = true
+        // this.startedTS = new Date()
+        this.startTimerLeft()
+        // add sound when starting
+        phone.screen.forbidSleep()
+        try {
+          if (await phone.orientation.isAvailable()) {
+            await phone.orientation.requestPermission()
+            console.log('OrientationEvent is available')
+            phone.orientation.startNotifications({}, (event) => {
+              console.log('Got orientation events', event)
+              leftHand.orientations.push(event)
+            }, (error) => {
+              console.error('Error getting orientation event', error)
+            })
+          }
+        } catch (err) {
+          console.error('Issues getting OrientationEvent', err)
         }
-      } catch (err) {
-        console.error('Issues getting MotionEvent', err)
+        try {
+          if (await phone.motion.isAvailable()) {
+            await phone.motion.requestPermission()
+            console.log('MotionEvent is available')
+            phone.motion.startNotifications({}, (event) => {
+              console.log('Got motion events', event)
+              leftHand.motions.push(event)
+            }, (error) => {
+              console.error('Error getting MotionEvent', error)
+            })
+          }
+        } catch (err) {
+          console.error('Issues getting MotionEvent', err)
+        }
+        console.log('leftHandFinish')
       }
     },
-    startTimer () {
-      this.totalTime = TEST_DURATION
-      this.timer = setInterval(() => this.countDown(), 1000)
+
+    startTimerRight () {
+      this.rightHandTime = TEST_DURATION
+      this.timerRight = setInterval(() => this.countDownRight(), 1000)
+    },
+    startTimerLeft () {
+      this.leftHandTime = TEST_DURATION
+      // this.totalTime = TEST_DURATION
+      this.timerLeft = setInterval(() => this.countDownLeft(), 1000)
     },
     stopTimer () {
-      clearInterval(this.timer)
+      clearInterval(this.timerRight)
+      clearInterval(this.timerLeft)
     },
-    countDown () {
-      if (this.totalTime >= 1) {
-        this.totalTime--
+    countDownRight () {
+      if (this.rightHandTime) {
+        this.rightHandTime--
+      } else {
+        this.completeRightHand()
+      }
+    },
+    countDownLeft () {
+      if (this.leftHandTime) {
+        this.leftHandTime--
       } else {
         this.completeTest()
       }
     },
+    completeRightHand () {
+      this.isStartedRight = false
+      // this.completionTS = new Date()
+      this.stopTimer()
+      phone.vibrate(3)
+      phone.orientation.stopNotifications()
+      phone.motion.stopNotifications()
+      this.isCompletedRight = true
+    },
     completeTest () {
-      this.isStarted = false
+      this.isStartedRight = false
+      this.isStartedLeft = false
       this.completionTS = new Date()
       this.stopTimer()
+      phone.vibrate(3)
       // add sound when test is complete
       // and add vibration from cordova-plugin-vibration
       phone.orientation.stopNotifications()
       phone.motion.stopNotifications()
       phone.screen.allowSleep()
-      this.isCompleted = true
+      this.isCompletedLeft = true
       // package the holdPhone report
       const studyKey = this.studyKey
       const taskId = parseInt(this.taskId)
@@ -133,8 +221,8 @@ export default {
         createdTS: new Date(),
         startedTS: this.startedTS,
         completionTS: this.completionTS,
-        motion: motions,
-        orientation: orientations,
+        leftHand: leftHand,
+        rightHand: rightHand,
         borgScale: undefined
       }
       this.$router.push({ name: 'holdPhoneSummary', params: { report: report } })

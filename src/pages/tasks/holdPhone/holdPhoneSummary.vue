@@ -13,6 +13,7 @@
         <tr>
           <td>{{ $t('studies.tasks.holdPhone.time') }}</td>
           <td> {{ minutes }}:{{ seconds }}</td>
+          <td>{{report}}</td>
         </tr>
       </table>
 
@@ -90,8 +91,8 @@ export default {
     },
     async discard () {
       this.sending = true
-      this.report.motion = 'discarded'
-      this.report.orientation = 'discarded'
+      this.report.rightHand = 'discarded'
+      this.report.leftHand = 'discarded'
       // this.report.borgScale = 'discarded'
       try {
         await API.sendHoldPhoneData(this.report)
