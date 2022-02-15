@@ -11,7 +11,7 @@
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
       <table class="decoratedTable">
         <tr>
-          <td>{{ $t('studies.tasks.holdPhone.time') }}</td>
+<!--          <td>{{ $t('studies.tasks.holdPhone.time') }}</td>-->
 <!--          <td> {{ minutes }}:{{ seconds }}</td>-->
         </tr>
       </table>
