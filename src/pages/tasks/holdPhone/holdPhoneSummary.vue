@@ -12,8 +12,7 @@
       <table class="decoratedTable">
         <tr>
           <td>{{ $t('studies.tasks.holdPhone.time') }}</td>
-          <td> {{ minutes }}:{{ seconds }}</td>
-          <td>{{report}}</td>
+<!--          <td> {{ minutes }}:{{ seconds }}</td>-->
         </tr>
       </table>
 
@@ -66,7 +65,6 @@ export default {
   methods: {
     async send () {
       this.sending = true
-      // this.report.borgScale = this.borgValue
       // Only for testing purposes! Please remove before deploying app.
       try {
         let filename = 'holdPhone_' + new Date().getTime() + '.json'

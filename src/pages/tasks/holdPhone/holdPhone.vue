@@ -91,7 +91,6 @@ export default {
         this.isStartedRight = true
         this.startTimerRight()
         this.startedTS = new Date()
-        // add sound when starting
         phone.screen.forbidSleep()
         try {
           if (await phone.orientation.isAvailable()) {
@@ -124,7 +123,6 @@ export default {
       }
 
       if (this.completedHand === 2) {
-        console.log('lefthandStart')
         this.isStartedLeft = true
         // this.startedTS = new Date()
         this.startTimerLeft()
@@ -158,7 +156,6 @@ export default {
         } catch (err) {
           console.error('Issues getting MotionEvent', err)
         }
-        console.log('leftHandFinish')
       }
     },
 
@@ -210,6 +207,7 @@ export default {
       phone.motion.stopNotifications()
       phone.screen.allowSleep()
       this.isCompletedLeft = true
+      this.isCompleted = true
       // package the holdPhone report
       const studyKey = this.studyKey
       const taskId = parseInt(this.taskId)
