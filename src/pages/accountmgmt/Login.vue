@@ -141,6 +141,7 @@ export default {
               icon: 'report_problem'
             })
           }
+          return
         }
         try {
           // retrieve the profile information
