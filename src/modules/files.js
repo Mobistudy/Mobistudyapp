@@ -69,7 +69,7 @@ export default {
   * @param {string} filename - the file to be opened
   */
   async load (filename) {
-    let file = await this.openFile(filename)
+    let file = await this.openFile(filename, false)
 
     return new Promise((resolve, reject) => {
       file.file(function (file) {
@@ -90,7 +90,7 @@ export default {
   * @param {object} object - is the object to be saved
   */
   async save (filename, object) {
-    let file = await this.openFile(filename)
+    let file = await this.openFile(filename, true)
     return new Promise((resolve, reject) => {
       file.createWriter(function (fileWriter) {
         var blob = JSON.stringify(object)
