@@ -112,7 +112,7 @@ export default {
     } else if (this.task.type === 'tugt') {
       this.title = this.$i18n.t('studies.tasks.tugt.shortTitle')
       this.main = this.$i18n.t('studies.tasks.tugt.shortDescription')
-      this.icon = 'directions_walk'
+      this.icon = 'transfer_within_a_station'
     } else if (this.task.type === 'holdPhone') {
       this.title = this.$i18n.t('studies.tasks.holdPhone.shortTitle')
       this.main = this.$i18n.t('studies.tasks.holdPhone.shortDescription')
