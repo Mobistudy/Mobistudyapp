@@ -154,7 +154,9 @@ export default {
       else return Promise.resolve(false)
     },
     async requestPermission () {
-      return Promise.resolve(true)
+      if (typeof (DeviceMotionEvent.requestPermission) === 'function') {
+        return DeviceMotionEvent.requestPermission()
+      } else return Promise.resolve(true)
     },
     startNotifications (options, cbk, error) {
       this.callback = cbk
@@ -184,6 +186,9 @@ export default {
       else return Promise.resolve(false)
     },
     async requestPermission () {
+      if (typeof (DeviceOrientationEvent.requestPermission) === 'function') {
+        return DeviceOrientationEvent.requestPermission()
+      }
       return Promise.resolve(true)
     },
     startNotifications (options, cbk, error) {
