@@ -140,11 +140,11 @@ export default {
       } else if (taskType === 'tugt') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.tugt.OSpermissioniOS')
-        } else this.permissionMessage = this.$t('studies.tasks.tugt.OSpermissionAndroid')
+        } else return true
       } else if (taskType === 'holdPhone') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.holdPhone.OSpermissioniOS')
-        } else this.permissionMessage = this.$t('studies.tasks.holdPhone.OSpermissionAndroid')
+        } else return true
       } else return true
       this.permissionDialog = true
       return new Promise((resolve, reject) => {
@@ -185,13 +185,6 @@ export default {
             if (await phone.pedometer.isAvailable()) {
               await phone.pedometer.requestPermission()
             }
-          } else if (taskType === 'tugt') {
-            if (await phone.motion.isAvailable()) {
-              await phone.motion.requestPermission()
-            }
-            if (await phone.orientation.isAvailable()) {
-              await phone.orientation.requestPermission()
-            }
           } else if (taskType === 'miband3') {
             await PO60.requestPermission()
           } else if (taskType === 'po60') {
@@ -202,6 +195,13 @@ export default {
             }
           } else if (taskType === 'peakFlow') {
             await peakflow.requestPermission()
+          } else if (taskType === 'tugt') {
+            if (await phone.motion.isAvailable()) {
+              await phone.motion.requestPermission()
+            }
+            if (await phone.orientation.isAvailable()) {
+              await phone.orientation.requestPermission()
+            }
           } else if (taskType === 'holdPhone') {
             if (await phone.orientation.isAvailable()) {
               await phone.orientation.requestPermission()
@@ -210,6 +210,7 @@ export default {
               await phone.motion.requestPermission()
             }
           }
+
           this.permissionSpinner = false
           // if we get to this point we have permission
           this.value.taskItemsConsent[taskIndex].consented = true
