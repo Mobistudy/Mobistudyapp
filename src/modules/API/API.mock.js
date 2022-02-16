@@ -337,5 +337,11 @@ export default {
     console.log('API - sending TUGT data', data)
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
+  },
+
+  async sendHoldPhoneData (data) {
+    console.log('API - sending phone movement data', data)
+    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
+    return Promise.resolve()
   }
 }

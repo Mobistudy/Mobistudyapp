@@ -65,6 +65,8 @@ export default {
         this.$router.push({ name: 'fingerTappingIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'tugt') {
         this.$router.push({ name: 'tugtIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
+      } else if (type === 'holdPhone') {
+        this.$router.push({ name: 'holdPhoneIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else {
         throw new Error('Could not changeRoute with task type.')
       }
@@ -111,6 +113,10 @@ export default {
       this.title = this.$i18n.t('studies.tasks.tugt.shortTitle')
       this.main = this.$i18n.t('studies.tasks.tugt.shortDescription')
       this.icon = 'directions_walk'
+    } else if (this.task.type === 'holdPhone') {
+      this.title = this.$i18n.t('studies.tasks.holdPhone.shortTitle')
+      this.main = this.$i18n.t('studies.tasks.holdPhone.shortDescription')
+      this.icon = 'svguse:icons/holdphone-icon.svg#holdphone-icon'
     }
   },
   computed: {
