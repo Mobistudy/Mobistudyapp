@@ -159,5 +159,10 @@ export default {
   // send data from TUG test
   sendTUGTData: async function (data) {
     return axios.post(BASE_URL + '/TUGTData', data, axiosConfig)
+  },
+
+  // send data of phone movement
+  sendHoldPhoneData: async function (data) {
+    return axios.post(BASE_URL + '/holdPhone', data, axiosConfig)
   }
 }

@@ -192,6 +192,15 @@ export default {
         untilSecs: 60 * 60 * 24 * 7 // 1 week
       },
       dataType: 'distance'
+    },
+    {
+      id: 12,
+      type: 'holdPhone',
+      scheduling: {
+        alwaysOn: true,
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
+      }
     }
   ],
   consent: {
@@ -424,6 +433,14 @@ export default {
           es: 'Acepto realizar una prueba cronometrada e ir a la prueba al menos una vez a la semana.'
         },
         taskId: 11
+      },
+      {
+        description: {
+          en: 'I agree to perform hold the phone exercise.',
+          sv: 'Jag går med på att utföra håll telefonövningen.',
+          es: 'Acepto realizar el ejercicio de sostener el teléfono.'
+        },
+        taskId: 12
       }
     ],
     extraItems: []

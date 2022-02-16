@@ -195,5 +195,9 @@ export default {
       window.removeEventListener('deviceorientation', this.orientationHandler)
       this.callback = null
     }
+  },
+
+  vibrate (ms) {
+    console.log('vibrating...')
   }
 }

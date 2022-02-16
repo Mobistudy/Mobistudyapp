@@ -31,8 +31,8 @@ mkdir www
 
 ### Setup for Android
 
-You need to have Java, gradle, a recent version of Android SKD and the build tools installed on your computer.
-The easiest thing to do is to install Android Studio and use the the SDK manager to download the SDK and build tools.
+You need to have Java, gradle, a recent version of Android SDK and the build tools installed on your computer.
+The easiest thing to do is to install Android Studio and use the SDK manager to download the SDK and build tools.
 
 The actual versions to download should match the ones specified inside src-cordova/platforms/android/build.gradle (look for defaultBuildToolsVersion and defaultTargetSdkVersion).
 

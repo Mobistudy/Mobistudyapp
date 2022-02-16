@@ -27,6 +27,7 @@
     "cordova-plugin-pincheck": "0.0.6",
     "cordova-plugin-secure-storage-echo": "github:mibrito707/cordova-plugin-secure-storage-echo",
     "cordova-plugin-splashscreen": "^6.0.0",
+    "cordova-plugin-vibration": "^3.1.1",
     "cordova-plugin-whitelist": "^1.3.4"
   },
   "cordova": {
@@ -52,11 +53,15 @@
         "HEALTH_WRITE_PERMISSION": "Mobistudy needs to store health-related data on your phone",
         "FIT_API_VERSION": "20.0.0",
         "PLAY_AUTH_VERSION": "19.0.0"
-      }
+      },
+      "cordova-plugin-vibration": {}
     },
     "platforms": [
       "android",
       "ios"
     ]
+  },
+  "dependencies": {
+    "cordova": "^11.0.0"
   }
 }
