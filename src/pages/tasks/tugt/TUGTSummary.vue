@@ -59,14 +59,12 @@ export default {
   },
   data: function () {
     return {
-      borgValue: undefined,
       sending: false
     }
   },
   methods: {
     async send () {
       this.sending = true
-      // this.report.borgScale = this.borgValue
 
       // Only for testing purposes! Please remove before deploying app.
       try {
@@ -95,7 +93,6 @@ export default {
       this.sending = true
       this.report.motion = 'discarded'
       this.report.orientation = 'discarded'
-      // this.report.borgScale = 'discarded'
 
       try {
         await API.sendTUGTData(this.report)

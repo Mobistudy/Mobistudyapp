@@ -154,8 +154,7 @@ export default {
         startedTS: this.startedTS,
         completionTS: this.completionTS,
         motion: motions,
-        orientation: orientations,
-        borgScale: undefined
+        orientation: orientations
       }
 
       this.$router.push({ name: 'tugtSummary', params: { report: report } })
