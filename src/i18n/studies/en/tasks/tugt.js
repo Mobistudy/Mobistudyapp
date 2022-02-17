@@ -1,10 +1,10 @@
 export default {
-  title: 'Timed up and go test (TUG Test)',
-  shortDescription: 'Perform a Timed Up & Go Test',
-  shortTitle: 'TUGT',
+  title: 'Timed Up & Go test',
+  shortTitle: 'TU&G test',
+  shortDescription: 'Perform a Timed Up and Go Test',
   description: 'This task is a simple test used to assess a person\'s mobility and requires both static and dynamic balance. ',
-  OSpermissioniOS: 'This task requires the app to access the positioning system of your phone (like the GPS), the orientation (gyroscope) and the step counter if available. Both your location, orientation data and the walked steps with the time will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
-  OSpermissionAndroid: 'This task requires the app to access the positioning system of your phone (like the GPS), the orientation (gyroscope) and the step counter if available. Both your location, orientation data and the walked steps with the time will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
+  OSpermissioniOS: 'This task requires the app to access the step counter in your phone if available. This is needed to compute how many steps you have done during the test. Detected steps will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
+  OSpermissionAndroid: 'This task requires the app to access the step counter in your phone if available. This is needed to compute how many steps you have done during the test. Detected steps will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   introductionSlides: [
     {
       title: 'Instruction',

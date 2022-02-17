@@ -228,6 +228,8 @@ export default {
       - Your geographical location during the positioning task.
       - Your peak flow rate measurements.
       - The time you tap the screen during the finger tapping exercise.
+      - The acceleration and orientation of the phone when you perform the Timed Up and Go test.
+      - The acceleration and orientation of the phone when you do the "Hold the phone" test.
 
       These data are not really needed for anything in particular, as this is just an example, but they may be useful for finding bugs and improving Mobistudy.
 
@@ -273,6 +275,8 @@ export default {
       - Din geografiska plats under positioneringsuppgiften.
       - Dina toppflödesmätningar.
       - Den tid du trycker på skärmen under fingertryckningen.
+      - Telefonens acceleration och orientering när du utför Timed Up and Go-testet.
+      - Telefonens acceleration och orientering när du gör "Håll i telefonen"-testet.
 
       Dessa data behövs egentligen inte för något särskilt, eftersom detta bara är ett exempel, men de kan vara användbara för att hitta buggar och förbättra Mobistudy.
 
@@ -321,6 +325,8 @@ export default {
       \u2022 Tu flujo espiratorio máximo.
       \u2022 Tu saturación de oxígeno en sangre y frecuencia cardíaca medida por el oxímetro de pulso.
       \u2022 El tiempo que toca la pantalla durante el ejercicio de tocar con el dedo.
+      \u2022 La aceleración y orientación del teléfono cuando realizas la prueba "Levanta y anda".
+      \u2022 La aceleración y orientación del teléfono cuando haces la prueba "Sostén el teléfono".
 
       Estos datos no son realmente necesarios para nada en particular, ya que esto es solo un ejemplo, pero pueden ser útiles para encontrar errores y mejorar Mobistudy.
       Todos estos datos se almacenarán en el servidor de Mobistudy, gestionado por la Universidad de Malmö en Suecia. Su teléfono solo conservará su perfil y datos sobre los estudios en los que está participando.
@@ -429,16 +435,16 @@ export default {
       {
         description: {
           en: 'I agree to perform a timed up and go test at least once in a week',
-          sv: 'Jag går med på att utföra ett tidsbestämt och gå-test minst en gång i veckan.',
-          es: 'Acepto realizar una prueba cronometrada e ir a la prueba al menos una vez a la semana.'
+          sv: 'Jag går med på att utföra ett "Timed Up and Go"-test minst en gång i veckan.',
+          es: 'Acepto realizar una prueba "Levanta y anda" al menos una vez a la semana.'
         },
         taskId: 11
       },
       {
         description: {
-          en: 'I agree to perform hold the phone exercise.',
-          sv: 'Jag går med på att utföra håll telefonövningen.',
-          es: 'Acepto realizar el ejercicio de sostener el teléfono.'
+          en: 'I agree to perform "Hold the phone" test.',
+          sv: 'Jag går med på att utföra "Håll i telefonen"-testet.',
+          es: 'Acepto realizar la prueba "Sostén el teléfono".'
         },
         taskId: 12
       }
