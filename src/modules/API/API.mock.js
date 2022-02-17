@@ -7,10 +7,6 @@ import studyPainApp from './mockdata/studyPainApp'
 import formPainAppReminder from './mockdata/formPainApp1'
 import formPainAppVAS from './mockdata/formPainApp2'
 
-import studyAAMOS from './mockdata/studyAAMOS.json'
-import formAAMOSdaily from './mockdata/formAAMOSdaily.json'
-import formAAMOSweekly from './mockdata/formAAMOSweekly.json'
-
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
 
@@ -182,10 +178,6 @@ export default {
         setTimeout(function () {
           resolve(studyPainApp)
         }, 1000)
-      } else if (studyKey === studyAAMOS._key) {
-        setTimeout(function () {
-          resolve(studyAAMOS)
-        }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study ' + studyKey + ' not found'))
@@ -213,8 +205,6 @@ export default {
     return new Promise((resolve, reject) => {
       if (invitationalCode === studyPainApp.invitationCode) {
         resolve(studyPainApp)
-      } else if (invitationalCode === studyAAMOS.invitationCode) {
-        resolve(studyAAMOS)
       } else {
         let err = new Error('Cannot retrieve invitational study based on code.')
         err.response = { status: 400 }
@@ -237,14 +227,6 @@ export default {
       } else if (key === formPainAppVAS._key) {
         setTimeout(function () {
           resolve(formPainAppVAS)
-        }, Math.floor(1000))
-      } else if (key === formAAMOSdaily._key) {
-        setTimeout(function () {
-          resolve(formAAMOSdaily)
-        }, Math.floor(1000))
-      } else if (key === formAAMOSweekly._key) {
-        setTimeout(function () {
-          resolve(formAAMOSweekly)
         }, Math.floor(1000))
       } else {
         reject(new Error('Questionnaire not found ' + key))
