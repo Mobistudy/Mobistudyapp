@@ -7,6 +7,7 @@ The app is developed as an Apache Cordova app using the [quasar framework](https
 
 You need to install the following on your system:
 
+- python (because nodejs requires python)
 - nodejs
 - Apache Cordova
 - (optional) the [quasar command line tool](https://quasar.dev/quasar-cli/installation)
@@ -17,17 +18,18 @@ Install all other dependencies with:
 
 ```bash
 npm install
+```
+
+Before running the app on a phone, create an empty 'www' directory under the src-cordova directory:
+
+```bash
 cd src-cordova
+mkdir www
 npm install
 ```
 
 Create a file named `project.config.js`, use `project.config.template.js` for an example and guidance.
 
-Before running the app on a phone, create an empty 'www' directory under the src-cordova directory:
-```bash
-cd src-cordova
-mkdir www
-```
 
 ### Setup for Android
 
