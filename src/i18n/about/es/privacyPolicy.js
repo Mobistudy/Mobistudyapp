@@ -1,5 +1,5 @@
 export default `
-  <p>Versión 2022-01-26</p>
+  <p>Versión 2022-02-24</p>
 
   <p>
      La app de Mobistudy está destinada a ciudadanos que quieran contribuir a estudios de investigación utilizando su dispositivo móvil.
@@ -73,6 +73,18 @@ export default `
     </li>
     <li>
       Los tiempos en los que tocas la pantalla durante la tarea de medición de movimiento de los dedos.
+    </li>
+    <li>
+      La aceleración y la orientación del teléfono durante la prueba cronometrada de "levántate y anda".
+     </li>
+     <li>
+       La aceleración y orientación de su teléfono durante la prueba de sostener el teléfono.
+     </li>
+     <li>
+       Los trazos que haces en la pantalla durante la prueba de dibujo.
+     </li>
+     <li>
+       Tu voz durante la prueba de vocalización.
     </li>
   </ul>
 

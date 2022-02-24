@@ -1,5 +1,5 @@
 export default `
-  <p>Version 2022-01-26</p>
+  <p>Version 2022-02-24</p>
 
   <p>
     The Mobistudy app is meant to be used by citizens who want to contribute to research studies using their mobile
@@ -79,6 +79,18 @@ export default `
     </li>
     <li>
       The time you tap on the screen during the finger tapping task.
+    </li>
+    <li>
+      The acceleration and orientation of your phone during the timed-up-and-go test.
+    </li>
+    <li>
+      The acceleration and orientation of your phone during the hold-the-phone test.
+    </li>
+    <li>
+      The strokes you make on the screen during the drawing test.
+    </li>
+    <li>
+      Your voice during the vocalization test.
     </li>
   </ul>
 

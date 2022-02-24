@@ -1,6 +1,6 @@
 export default {
-  title: 'Hold Your Phone Exercise',
-  shortDescription: 'Hold your phone steadily for 60 seconds.',
+  title: 'Hold the Phone Test',
+  shortDescription: 'Hold the phone steadily for 60 seconds.',
   shortTitle: 'Hold Phone',
   introductionSlides: [
     {

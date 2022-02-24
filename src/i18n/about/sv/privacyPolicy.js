@@ -1,4 +1,4 @@
-export default `<p>Version 2022-01-26</p>
+export default `<p>Version 2022-02-24</p>
   <p>
   Mobistudys app är avsedd att användas av personer som vill bidra till forskningsstudier
   med hjälp av deras mobiltelefon.
@@ -81,6 +81,18 @@ export default `<p>Version 2022-01-26</p>
     </li>
     <li>
       Tiden du trycker på skärmen under fingeravtryckningsuppgiften.
+    </li>
+    <li>
+      Accelerationen och orienteringen av din telefon under testet för att ta tid och gå.
+    </li>
+    <li>
+      Accelerationen och orienteringen av din telefon under håll telefonen-testet.
+    </li>
+    <li>
+      Strykningarna du gör på skärmen under ritprovet.
+    </li>
+    <li>
+      Din röst under vokaliseringstestet.
     </li>
   </ul>
 
