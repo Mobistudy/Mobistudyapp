@@ -12,9 +12,15 @@ import { Platform } from 'quasar'
 
 export default {
   device: {
-    manufacturer: window.device.manufacturer,
-    model: window.device.model,
-    OSversion: window.device.version
+    load () {
+      if (!window.device) throw new Error('Cannot load device specifications')
+      this.manufacturer = window.device.manufacturer
+      this.model = window.device.model
+      this.OSversion = window.device.version
+    },
+    manufacturer: window?.device?.manufacturer,
+    model: window?.device?.model,
+    OSversion: window?.device?.version
   },
   screen: {
     async forbidSleep () {

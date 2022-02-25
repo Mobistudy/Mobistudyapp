@@ -10,14 +10,11 @@ const PIN_SET = true
 
 export default {
   device: {
-    cordova: '0',
-    model: 'mock',
-    platform: 'Android', // also 'iOS'
-    uuid: 'c053ba18-e189-4fb1-9ff6-f70397b138fd',
-    version: '3.2',
+    load () {
+    },
     manufacturer: 'samsung',
-    isVirtual: false,
-    serial: 'f70397b138fd'
+    model: 'mock',
+    OSversion: '3.2'
   },
   screen: {
     async forbidSleep () {
