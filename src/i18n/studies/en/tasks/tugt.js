@@ -8,14 +8,29 @@ export default {
   introductionSlides: [
     {
       title: 'Instruction',
-      img: 'instructions/tug_1.png',
-      description: 'In this task you will perform the TUG test. After you have been seated in a chair, press start, put the phone in the pocket and follow these instructions: ' +
-        '1. Stand up and walk 3 meters, ' +
-        '2. Turn around and walk to the chair, ' +
-        '3. Sit on the chair and press the stop button. '
+      img: 'instructions/TUGtask-01.svg',
+      description: 'In this test you will stand up from a chair, walk 3 meters, come back and seat again.'
+    },
+    {
+      title: 'Instruction',
+      img: 'instructions/TUGtask-02.svg',
+      description: 'Choose a regular chair and place it in front of a 3-meter long walkable space. Make sure to mark a point at 3 meters from the chair.'
+    },
+    {
+      title: 'Instruction',
+      img: 'instructions/TUGtask-03.svg',
+      description: 'Once you have sat down, extract your phone and press “completed”'
+    },
+    {
+      title: 'Instruction',
+      img: 'instructions/TUGtask-04.svg',
+      description: 'When ready, press the start button, place the phone in the waist band keeping its screen switched on, stand up, walk 3 meters, turn around, come back and sit down.'
+    },
+    {
+      title: 'Instruction',
+      img: 'instructions/TUGtask-05.svg',
+      description: 'Use regular footwear and walking aids if needed. Make sure you wear your phone with you during the test, preferably in a waist band'
     }
   ],
-  time: 'Time',
-  steps: 'Steps',
-  distance: 'Distance'
+  time: 'Time'
 }
