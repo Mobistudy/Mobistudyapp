@@ -16,10 +16,15 @@ export default {
     }
     // we can have another image holding the phone with the left hand.
   ],
-  instructions: 'Hold your phone with your right hand and press start to begin.',
-  afterStartRightH: 'Continue holding the phone steadily with your right hand.',
-  leftHand: 'Now hold your phone with your left hand and press start',
-  afterStartLeftH: 'Continue holding the phone steadily with your left hand.',
+  instructions: {
+    preRestingLeft: 'Hold your phone with your LEFT hand lying on your lap. Press start to begin.',
+    preRestingRight: 'Hold your phone with your RIGHT hand lying on your lap. Press start to begin.',
+    prePosturalLeft: 'keep your arm outstretched at shoulder level while holding your phone with your LEFT hand. Press start to begin.',
+    prePosturalRight: 'keep your arm outstretched at shoulder level while holding your phone with your RIGHT hand. Press start to begin.',
+    preKineticLeft: 'Move your phone from outstretched to touching your nose while holding your phone with your LEFT hand. Press start to begin.',
+    preKineticRight: 'Move your phone from outstretched to touching your nose while holding your phone with your RIGHT hand. Press start to begin.',
+    afterStart: 'Continue holding the phone steadily in your hand.'
+  },
   completed: 'Task completed',
   time: 'Time',
   summary: 'Summary bla bla'
