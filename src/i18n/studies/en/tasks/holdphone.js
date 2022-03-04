@@ -5,12 +5,12 @@ export default {
   introductionSlides: [
     {
       title: 'Instruction',
-      img: 'instructions/holdphone.svg',
+      img: 'instructions/HoldYourPhone_task-01.svg',
       description: 'In this task you will have to keep your phone steady for a couple of seconds.'
     },
     {
       title: 'Setup',
-      img: 'instructions/holdphone.svg',
+      img: 'instructions/HoldYourPhone_task-02.svg',
       description: `First, hold your phone steady with your right hand and press start to start the measurement. Keep holding your phone steadily until you hear a sound and a vibration from the phone.
       Next, repeat the same with your left hand. Once the exercise is finished you will be redirected to another page showing the time it took for the whole exercise.`
     }
