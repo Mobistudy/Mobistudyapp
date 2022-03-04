@@ -69,7 +69,7 @@
 import phone from 'modules/phone'
 import userinfo from 'modules/userinfo'
 
-const TEST_DURATION = 2 // 5 sec
+const TEST_DURATION = 10 // 10 sec
 
 let orientations = []
 let motions = []
@@ -246,6 +246,7 @@ export default {
       }
 
       console.log(this.report)
+      phone.vibrate(3)
 
       this.testPhase++
 
