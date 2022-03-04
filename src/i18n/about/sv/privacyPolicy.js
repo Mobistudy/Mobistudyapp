@@ -83,13 +83,13 @@ export default `<p>Version 2022-02-24</p>
       Tiden du trycker på skärmen under fingeravtryckningsuppgiften.
     </li>
     <li>
-      Accelerationen och orienteringen av din telefon under testet för att ta tid och gå.
+      Acceleration och riktning av din telefon under testet Timed up and go.
     </li>
     <li>
-      Accelerationen och orienteringen av din telefon under håll telefonen-testet.
+      Acceleration och riktning av din telefon under testet Hålla telefonen.
     </li>
     <li>
-      Strykningarna du gör på skärmen under ritprovet.
+      Strecken du gör på skärmen under figurtestet.
     </li>
     <li>
       Din röst under vokaliseringstestet.
