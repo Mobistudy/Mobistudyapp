@@ -11,8 +11,9 @@
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
       <table class="decoratedTable">
         <tr>
-<!--          <td>{{ $t('studies.tasks.holdPhone.time') }}</td>-->
-<!--          <td> {{ minutes }}:{{ seconds }}</td>-->
+          <td>{{ $t('studies.tasks.holdPhone.time') }}</td>
+          <td> {{ minutes }}:{{ seconds }}</td>
+<!--          <td>{{this.report}}</td>-->
         </tr>
       </table>
 
@@ -65,6 +66,8 @@ export default {
   methods: {
     async send () {
       this.sending = true
+
+      console.log(this.report)
       // Only for testing purposes! Please remove before deploying app.
       try {
         let filename = 'holdPhone_' + new Date().getTime() + '.json'
@@ -89,8 +92,8 @@ export default {
     },
     async discard () {
       this.sending = true
-      this.report.rightHand = 'discarded'
-      this.report.leftHand = 'discarded'
+      this.report.orientation = 'discarded'
+      this.report.motion = 'discarded'
       // this.report.borgScale = 'discarded'
       try {
         await API.sendHoldPhoneData(this.report)
