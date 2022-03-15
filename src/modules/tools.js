@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Reusable, useful functions
  */
