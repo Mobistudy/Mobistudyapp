@@ -146,6 +146,7 @@ export default {
           studyKey: studyKey,
           taskId: taskId,
           createdTS: new Date(),
+          phone: phone.device,
           position: 'discarded',
           environment: 'discarded'
         })

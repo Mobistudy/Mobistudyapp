@@ -153,6 +153,7 @@ export default {
         createdTS: new Date(),
         startedTS: this.startedTS,
         completionTS: this.completionTS,
+        phone: phone.device,
         motion: motions,
         orientation: orientations
       }

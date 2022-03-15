@@ -34,6 +34,7 @@
 <script>
 import i18nHealthDataTypes from 'i18n/healthDataTypes/healthDataTypes'
 
+import phone from 'modules/phone/phone'
 import healthstore from 'modules/healthstore'
 import BarChart from 'components/BarChart'
 import LineChart from 'components/LineChart'
@@ -330,6 +331,7 @@ export default {
           taskId: taskId,
           dataType: this.taskDescr.dataType,
           createdTS: new Date(),
+          phone: phone.device,
           healthData: this.healthData
         })
         await DB.setTaskCompletion(studyKey, taskId, new Date())

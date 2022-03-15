@@ -1,5 +1,8 @@
 <template>
-  <q-page padding class="text-center">
+  <q-page
+    padding
+    class="text-center"
+  >
     <div class="text-center text-h5 q-mt-lg">
       {{ $t('studies.tasks.fingerTapping.title') }}
     </div>
@@ -18,8 +21,19 @@
 
     <div class="row justify-center q-mb-xl fixed-bottom">
 
-      <q-btn round size="xl" color="secondary" @click="leftTapped" class="q-mr-lg" >1</q-btn>
-      <q-btn round size="xl" color="secondary" @click="rightTapped">2</q-btn>
+      <q-btn
+        round
+        size="xl"
+        color="secondary"
+        @click="leftTapped"
+        class="q-mr-lg"
+      >1</q-btn>
+      <q-btn
+        round
+        size="xl"
+        color="secondary"
+        @click="rightTapped"
+      >2</q-btn>
     </div>
 
   </q-page>
@@ -33,6 +47,7 @@
 
 <script>
 import userinfo from 'modules/userinfo'
+import phone from 'modules/phone/phone'
 import { format as Qformat } from 'quasar'
 
 const TEST_DURATION = 20
@@ -97,6 +112,7 @@ export default {
         createdTS: new Date(),
         startedTS: this.startedTS,
         completionTS: completionTS,
+        phone: phone.device,
         tappingCount: this.tappingData.length,
         tappingData: this.tappingData
       }

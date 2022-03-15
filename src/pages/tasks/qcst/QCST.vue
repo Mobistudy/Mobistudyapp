@@ -124,6 +124,7 @@ export default {
         createdTS: new Date(),
         startedTS: this.startedTS,
         completionTS: this.completionTS,
+        phone: phone.device,
         steps: this.steps,
         heartRate: undefined,
         borgScale: undefined
