@@ -1,5 +1,3 @@
-'use strict'
-
 export default {
   isAvailable: async function () {
     return new Promise((resolve, reject) => {

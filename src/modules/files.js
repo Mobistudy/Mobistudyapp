@@ -1,4 +1,3 @@
-'use strict'
 import { Platform } from 'quasar'
 // this module abstracts the file system using cordova-plugin-file
 // files are stored on cordova.file.documentsDirectory on iOS and

@@ -3,26 +3,47 @@
     <div class="text-center text-h5 q-mt-lg">
       {{ $t('studies.tasks.holdPhone.title') }}
     </div>
-    <div class="text-center text-h5 q-mt-lg" v-show="testPhase === 0">
+    <div
+      class="text-center text-h5 q-mt-lg"
+      v-show="testPhase === 0"
+    >
       {{ $t('studies.tasks.holdPhone.instructions.preRestingLeft') }}
     </div>
-    <div class="text-center text-h5 q-mt-lg" v-show="testPhase === 2">
+    <div
+      class="text-center text-h5 q-mt-lg"
+      v-show="testPhase === 2"
+    >
       {{ $t('studies.tasks.holdPhone.instructions.preRestingRight') }}
     </div>
-    <div class="text-center text-h5 q-mt-lg" v-show="testPhase === 4">
+    <div
+      class="text-center text-h5 q-mt-lg"
+      v-show="testPhase === 4"
+    >
       {{ $t('studies.tasks.holdPhone.instructions.prePosturalLeft') }}
     </div>
-    <div class="text-center text-h5 q-mt-lg" v-show="testPhase === 6">
+    <div
+      class="text-center text-h5 q-mt-lg"
+      v-show="testPhase === 6"
+    >
       {{ $t('studies.tasks.holdPhone.instructions.prePosturalRight') }}
     </div>
-    <div class="text-center text-h5 q-mt-lg" v-show="testPhase === 8">
+    <div
+      class="text-center text-h5 q-mt-lg"
+      v-show="testPhase === 8"
+    >
       {{ $t('studies.tasks.holdPhone.instructions.preKineticLeft') }}
     </div>
-    <div class="text-center text-h5 q-mt-lg" v-show="testPhase === 10">
+    <div
+      class="text-center text-h5 q-mt-lg"
+      v-show="testPhase === 10"
+    >
       {{ $t('studies.tasks.holdPhone.instructions.preKineticRight') }}
     </div>
 
-    <div class="text-center text-h5 q-mt-lg" v-show="testPhase % 2 != 0">
+    <div
+      class="text-center text-h5 q-mt-lg"
+      v-show="testPhase % 2 != 0"
+    >
       {{ $t('studies.tasks.holdPhone.instructions.afterStart') }}
     </div>
 
@@ -66,7 +87,7 @@
 <!--</template>-->
 
 <script>
-import phone from 'modules/phone'
+import phone from 'modules/phone/phone'
 import userinfo from 'modules/userinfo'
 
 const TEST_DURATION = 10 // 10 sec

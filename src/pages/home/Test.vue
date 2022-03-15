@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import phone from 'modules/phone'
+import phone from 'modules/phone/phone'
 import files from 'modules/files'
 
 export default {

@@ -1,5 +1,8 @@
 <template>
-  <q-page padding class="text-center">
+  <q-page
+    padding
+    class="text-center"
+  >
     <div class="text-center text-h5 q-mt-lg">
       {{ $t('studies.tasks.qcst.title') }}
     </div>
@@ -45,7 +48,7 @@
 </style>
 
 <script>
-import phone from 'modules/phone'
+import phone from 'modules/phone/phone'
 import audio from 'modules/audio'
 import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'

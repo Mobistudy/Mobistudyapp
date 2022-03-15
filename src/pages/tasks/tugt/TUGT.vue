@@ -39,7 +39,7 @@
 </style>
 
 <script>
-import phone from 'modules/phone'
+import phone from 'modules/phone/phone'
 import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'
 import WalkingMan from 'components/WalkingMan'
