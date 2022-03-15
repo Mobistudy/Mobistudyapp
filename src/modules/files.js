@@ -44,16 +44,19 @@ export default {
   /**
   * Opens a file.
   * @param {string} filename - filename to be opened
+  * @param {string} folder - can be either 'cache' (default) for temporary storage or 'shared' for exposed folder
   * @param {string} forcecreate - if true the file is created if does not exist
   * @returns {Promise} returns a promise, the resolve callback passes an instance of the file
   */
-  async openFile (filename, forcecreate) {
-    let folder
-    if (Platform.is.ios) folder = window.cordova.file.documentsDirectory
-    else folder = window.cordova.file.externalDataDirectory
+  async openFile (filename, folder, forcecreate) {
+    let localDir = cordova.file.cacheDirectory
+    if (folder && folder === 'shared') {
+      if (Platform.is.ios) localDir = window.cordova.file.documentsDirectory
+      else localDir = window.cordova.file.externalDataDirectory
+    }
 
     return new Promise((resolve, reject) => {
-      window.resolveLocalFileSystemURL(folder, function (dir) {
+      window.resolveLocalFileSystemURL(localDir, function (dir) {
         dir.getFile(filename, { create: forcecreate }, function (file) {
           resolve(file)
         }, function (e) {
@@ -64,19 +67,25 @@ export default {
   },
 
   /**
-  * Reads a file and delivers the content as an object
+  * Reads a file and delivers the content
   * @param {string} filename - the file to be opened
+  * @param {string} folder - folder, either 'cache' (default) or 'shared'
+  * @param {string} type - how to read the data, 'blob' for Uint8Array, 'text' for text
   */
-  async load (filename) {
-    let file = await this.openFile(filename, false)
+  async load (filename, folder, type) {
+    let file = await this.openFile(filename, folder, false)
 
     return new Promise((resolve, reject) => {
       file.file(function (file) {
         var reader = new FileReader()
         reader.onloadend = function () {
-          resolve(JSON.parse(this.result))
+          resolve(this.result)
         }
-        reader.readAsText(file)
+        if (type === 'blob') {
+          reader.readAsArrayBuffer(file)
+        } else {
+          reader.readAsText(file)
+        }
       }, function (e) {
         reject('Cannot read file ' + filename + ': ' + errorCodeToString(e.code))
       })
@@ -88,8 +97,8 @@ export default {
   * @param {string} filename - filename is the name of the file
   * @param {object} object - is the object to be saved
   */
-  async save (filename, object) {
-    let file = await this.openFile(filename, true)
+  async save (filename, folder, object) {
+    let file = await this.openFile(filename, folder, true)
     return new Promise((resolve, reject) => {
       file.createWriter(function (fileWriter) {
         var blob = JSON.stringify(object)

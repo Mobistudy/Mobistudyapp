@@ -70,7 +70,7 @@ export default {
       // Only for testing purposes! Please remove before deploying app.
       try {
         let filename = 'holdPhone_' + new Date().getTime() + '.json'
-        await fileSystem.save(filename, this.report)
+        await fileSystem.save(filename, 'shared', this.report)
       } catch (err) {
         console.error('Cannot save to file', err)
       }
