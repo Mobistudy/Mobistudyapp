@@ -142,7 +142,7 @@ export default {
     document.addEventListener('dbcorrupted', this.onDBCorrupted, false)
 
     try {
-      phone.device.load()
+      phone.device.init()
       await phone.pin.isPINSet()
       await this.bootstrap()
     } catch (error) {
