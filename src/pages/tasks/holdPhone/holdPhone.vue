@@ -267,7 +267,7 @@ export default {
       }
 
       console.log(this.report)
-      phone.vibrate(3)
+      phone.vibrate(2000)
 
       this.testPhase++
 

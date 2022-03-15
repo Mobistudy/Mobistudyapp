@@ -53,7 +53,7 @@ export default {
   },
 
   vibrate (ms) {
-    navigator.vibrate(3000)
+    navigator.vibrate(ms)
   },
 
   audioRecorder: audioRecorder
