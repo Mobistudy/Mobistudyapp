@@ -15,6 +15,7 @@
   "devDependencies": {
     "cordova-android": "^9.1.0",
     "cordova-ios": "^6.2.0",
+    "cordova-plugin-audioinput": "git+https://github.com/edimuj/cordova-plugin-audioinput.git",
     "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-ble-central": "github:Gargamil/cordova-plugin-ble-central",
     "cordova-plugin-device": "^2.0.3",
@@ -54,7 +55,8 @@
         "FIT_API_VERSION": "20.0.0",
         "PLAY_AUTH_VERSION": "19.0.0"
       },
-      "cordova-plugin-vibration": {}
+      "cordova-plugin-vibration": {},
+      "cordova-plugin-audioinput": {}
     },
     "platforms": [
       "android",
