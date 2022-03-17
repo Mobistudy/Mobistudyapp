@@ -3,8 +3,11 @@ import { Dialog } from 'quasar'
 let geolocation = {
   watchid: null,
   async isAvailable () {
-    if (typeof navigator.geolocation === 'undefined') return Promise.resolve(false)
-    else return Promise.resolve(true)
+    if ('geolocation' in navigator) {
+      return Promise.resolve(true)
+    } else {
+      return Promise.resolve(false)
+    }
   },
   async requestPermission () {
     return new Promise((resolve, reject) => {
@@ -23,21 +26,25 @@ let geolocation = {
       }, { timeout: 2000 })
     })
   },
+  copyPosition (pos) {
+    // we need to create a copy of the position object because
+    // Chromium does something strange that is not serialisable as JSON
+    let copyPos = {}
+    // copyPos.timestamp = new Date().getTime() // use current timestamp because some phones mess up the timestamps
+    copyPos.timestamp = pos.timestamp
+    copyPos.coords = {}
+    copyPos.coords.latitude = pos.coords.latitude
+    copyPos.coords.longitude = pos.coords.longitude
+    copyPos.coords.altitude = pos.coords.altitude
+    if (pos.coords.accuracy) copyPos.coords.accuracy = pos.coords.accuracy
+    if (pos.coords.altitudeAccuracy) copyPos.coords.altitudeAccuracy = pos.coords.altitudeAccuracy
+    if (pos.coords.heading) copyPos.coords.heading = pos.coords.heading
+    if (pos.coords.speed) copyPos.coords.speed = pos.coords.speed
+    return copyPos
+  },
   startNotifications (options, cbk, error) {
     this.watchid = navigator.geolocation.watchPosition((position) => {
-      // we need to create a copy of the position object because
-      // Chromium does something strange that is not serialisable as JSON
-      var copyPos = {}
-      copyPos.timestamp = new Date().getTime() // use current timestamp because some phones mess up the timestamps
-      copyPos.coords = {}
-      copyPos.coords.latitude = position.coords.latitude
-      copyPos.coords.longitude = position.coords.longitude
-      copyPos.coords.altitude = position.coords.altitude
-      if (position.coords.accuracy) copyPos.coords.accuracy = position.coords.accuracy
-      if (position.coords.altitudeAccuracy) copyPos.coords.altitudeAccuracy = position.coords.altitudeAccuracy
-      if (position.coords.heading) copyPos.coords.heading = position.coords.heading
-      if (position.coords.speed) copyPos.coords.speed = position.coords.speed
-
+      let copyPos = this.copyPosition(position)
       cbk(copyPos)
     }, error, options)
   },
@@ -45,9 +52,12 @@ let geolocation = {
     navigator.geolocation.clearWatch(this.watchid)
     return Promise.resolve()
   },
-  async getCurrentPosition () {
+  async getCurrentPosition (options) {
     return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject)
+      navigator.geolocation.getCurrentPosition((position) => {
+        let copyPos = this.copyPosition(position)
+        resolve(copyPos)
+      }, reject, options)
     })
   }
 }
