@@ -13,7 +13,6 @@
         <tr>
           <td>{{ $t('studies.tasks.holdPhone.time') }}</td>
           <td> {{ minutes }}:{{ seconds }}</td>
-<!--          <td>{{this.report}}</td>-->
         </tr>
       </table>
 
@@ -48,6 +47,7 @@
 </style>
 
 <script>
+import phone from 'modules/phone/phone'
 import API from 'modules/API/API'
 import DB from 'modules/db'
 import fileSystem from 'modules/files'
@@ -67,14 +67,15 @@ export default {
     async send () {
       this.sending = true
 
-      console.log(this.report)
       // Only for testing purposes! Please remove before deploying app.
       try {
         let filename = 'holdPhone_' + new Date().getTime() + '.json'
-        await fileSystem.save(filename, this.report)
+        await fileSystem.save(filename, 'shared', this.report)
       } catch (err) {
         console.error('Cannot save to file', err)
       }
+
+      this.report.phone = phone.device
       // Save the data to server
       try {
         await API.sendHoldPhoneData(this.report)

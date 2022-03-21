@@ -12,7 +12,7 @@ const PIN_SET = true
 
 export default {
   device: {
-    load () {
+    init () {
     },
     manufacturer: 'samsung',
     model: 'mock',

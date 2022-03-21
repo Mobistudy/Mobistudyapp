@@ -18,7 +18,7 @@ import { orientation } from './orientation.js'
 
 export default {
   device: {
-    load () {
+    init () {
       if (!window.device) throw new Error('Cannot load device specifications')
       this.manufacturer = window.device.manufacturer
       this.model = window.device.model
@@ -53,7 +53,7 @@ export default {
   },
 
   vibrate (ms) {
-    navigator.vibrate(3000)
+    navigator.vibrate(ms)
   },
 
   audioRecorder: audioRecorder

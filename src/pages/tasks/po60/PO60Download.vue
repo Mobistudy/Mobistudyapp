@@ -33,18 +33,18 @@
       </div>
     </div>
     <div class="row justify-around q-mt-lg">
-        <q-btn
-          color="secondary"
-          :loading="sending"
-          :label="$t('common.discard')"
-          @click="discard()"
-        />
-        <q-btn
-          color="primary"
-          :loading="sending"
-          :label="$t('common.send')"
-          @click="send()"
-        />
+      <q-btn
+        color="secondary"
+        :loading="sending"
+        :label="$t('common.discard')"
+        @click="discard()"
+      />
+      <q-btn
+        color="primary"
+        :loading="sending"
+        :label="$t('common.send')"
+        @click="send()"
+      />
     </div>
   </q-page>
 </template>
@@ -55,6 +55,7 @@ import po60 from 'modules/po60/IPulseOxDevice'
 import db from 'modules/db'
 import userinfo from 'modules/userinfo'
 import API from 'modules/API/API'
+import phone from 'modules/phone/phone'
 
 export default {
   props: {
@@ -163,6 +164,7 @@ export default {
           studyKey: studyKey,
           taskId: taskId,
           createdTS: new Date(),
+          phone: phone.device,
           po60Data: 'discarded'
         })
         await db.setTaskCompletion(studyKey, taskId, new Date())

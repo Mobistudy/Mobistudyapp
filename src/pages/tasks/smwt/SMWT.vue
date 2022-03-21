@@ -190,6 +190,7 @@ export default {
         createdTS: new Date(),
         startedTS: this.startedTS,
         completionTS: this.completionTS,
+        phone: phone.device,
         positions: this.positions,
         steps: this.steps,
         distance: this.distance,

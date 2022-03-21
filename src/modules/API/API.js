@@ -105,6 +105,22 @@ export default {
     return resp.data
   },
 
+  // sends an attachment file, returns the file name chosen by the server
+  sendAttachment: async function (studyKey, taskId, fileData) {
+    var config = {
+      method: 'post',
+      url:,
+      headers: {
+        'Authorization': axiosConfig.headers.Authorization,
+        'Content-Type': 'application/octet-stream'
+      },
+      data: fileData
+    }
+
+    const resp = await axios(config)
+    return resp.data
+  },
+
   // send answers to server
   sendAnswers: async function (answers) {
     return axios.post(BASE_URL + '/answers', answers, axiosConfig)

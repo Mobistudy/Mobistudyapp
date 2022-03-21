@@ -72,6 +72,7 @@ import db from 'modules/db'
 import userinfo from 'modules/userinfo'
 import API from 'modules/API/API'
 import moment from 'moment'
+import phone from 'modules/phone/phone'
 
 // a bunch of colors that nicely fit together on a multi-line or bar chart
 // if there are more than 10 colors, we are in trouble
@@ -447,6 +448,7 @@ export default {
           taskId: taskId,
           createdTS: new Date(),
           device: this.deviceInfo,
+          phone: phone.device,
           miband3Data: storedData
         })
         await db.setTaskCompletion(studyKey, taskId, new Date())

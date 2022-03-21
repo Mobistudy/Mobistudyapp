@@ -6,7 +6,10 @@
     <div class="text-center q-mt-lg">
       <div v-show="!isMeasuring && !(testErrors > maxErrors) && completedTests==0">
         <div>
-          <img src="instructions/peakflow_3.svg" style="max-width: 50%">
+          <img
+            src="instructions/peakflow_3.svg"
+            style="max-width: 50%"
+          >
         </div>
         <p>
           {{ $t('studies.tasks.peakflow.measurementStart') }}
@@ -14,13 +17,17 @@
       </div>
       <div v-show="isMeasuring">
         <div>
-          <img src="instructions/peakflow_4.svg" style="max-width: 50%">
+          <img
+            src="instructions/peakflow_4.svg"
+            style="max-width: 50%"
+          >
         </div>
         <p>
           {{ $t('studies.tasks.peakflow.measurementInstructions') }}
         </p>
       </div>
-      <div class="text-center text-h6 q-mt-lg"
+      <div
+        class="text-center text-h6 q-mt-lg"
         v-show="!isMeasuring && (completedTests>0) && !(testErrors > maxErrors)"
         style="min-height: 236px"
       >
@@ -41,7 +48,10 @@
       <p v-show="!isMeasuring && !(testErrors > maxErrors) && completedTests==3">
         {{ $t('studies.tasks.peakflow.measurementCompleted3') }}
       </p>
-      <p v-show="testErrors > maxErrors" class="text-weight-bold text-negative q-pa-md">
+      <p
+        v-show="testErrors > maxErrors"
+        class="text-weight-bold text-negative q-pa-md"
+      >
         {{ $t('studies.tasks.peakflow.measurementErrorMaxRetries') }}
       </p>
     </div>
@@ -71,6 +81,7 @@
 </template>
 
 <script>
+import phone from 'modules/phone/phone'
 import peakflow from 'modules/peakflow/peakflow'
 import userinfo from 'modules/userinfo'
 
@@ -124,6 +135,7 @@ export default {
         studyKey: studyKey,
         taskId: taskId,
         createdTS: new Date(),
+        phone: phone.device,
         PEFs: this.PEFs,
         pefMax: Math.max(...this.PEFs)
       }

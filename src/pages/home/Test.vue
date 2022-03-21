@@ -92,11 +92,11 @@ export default {
     },
     async saveFile () {
       console.log('saving file')
-      await files.save('test.text', { test: 'hello' })
+      await files.save('test.text', 'shared', { test: 'hello' })
       console.log('file saved')
-      let obj = await files.load('test.text')
-      this.fileOutput = 'File content: ' + JSON.stringify(obj)
-      console.log(obj)
+      let txt = await files.load('test.text', 'shared', 'text')
+      this.fileOutput = 'File content: ' + txt
+      console.log(txt)
     }
   }
 }
