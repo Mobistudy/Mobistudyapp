@@ -164,5 +164,10 @@ export default {
   // send data of phone movement
   sendHoldPhoneData: async function (data) {
     return axios.post(BASE_URL + '/holdPhone', data, axiosConfig)
+  },
+
+  // send data from voice recording
+  sendVocalizationData: async function (data) {
+    return axios.post(BASE_URL + '/vocalization', data, axiosConfig)
   }
 }

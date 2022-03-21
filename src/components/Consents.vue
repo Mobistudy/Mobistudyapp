@@ -145,6 +145,10 @@ export default {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.holdPhone.OSpermissioniOS')
         } else return true
+      } else if (taskType === 'vocalization') {
+        if (this.$q.platform.is.ios) {
+          this.permissionMessage = this.$t('studies.tasks.vocalization.OSpermissioniOS')
+        } else return true
       } else return true
       this.permissionDialog = true
       return new Promise((resolve, reject) => {
@@ -208,6 +212,10 @@ export default {
             }
             if (await phone.motion.isAvailable()) {
               await phone.motion.requestPermission()
+            }
+          } else if (taskType === 'vocalization') {
+            if (await phone.audioRecorder.isAvailable()) {
+              await phone.audioRecorder.requestPermission()
             }
           }
 

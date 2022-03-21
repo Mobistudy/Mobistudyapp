@@ -8,6 +8,7 @@ import peakflowTask from './tasks/peakflow'
 import fingerTappingTask from './tasks/tapping'
 import tugtTask from './tasks/tugt'
 import holdphoneTask from './tasks/holdphone'
+import vocalizationTask from './tasks/vocalization'
 
 let studies = {
   studies: {
@@ -101,5 +102,6 @@ studies.studies.tasks.peakflow = peakflowTask
 studies.studies.tasks.fingerTapping = fingerTappingTask
 studies.studies.tasks.tugt = tugtTask
 studies.studies.tasks.holdPhone = holdphoneTask
+studies.studies.tasks.vocalization = vocalizationTask
 
 export default studies
