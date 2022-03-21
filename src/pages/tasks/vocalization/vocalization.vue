@@ -76,7 +76,7 @@ export default {
         if (await phone.audioRecorder.isAvailable()) {
           await phone.audioRecorder.requestPermission()
           console.log('Audio recorder is available')
-          phone.audioRecorder.startRecording({ folder: 'shared', filename: 'iii_test.wav' }, null, (err) => { console.error(err) })
+          phone.audioRecorder.startRecording({ folder: 'shared', fileName: 'iii_test.wav' }, null, (err) => { console.error(err) })
         }
       } catch (err) {
         console.error('Issues getting audio', err)
