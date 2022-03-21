@@ -9,6 +9,7 @@ let orientation = {
       gamma: event.gamma
     }
     if (event.webkitCompassHeading) simplifiedEvent.heading = event.webkitCompassHeading
+    if (event.webkitCompassAccuracy) simplifiedEvent.acc = event.webkitCompassAccuracy
     this.callback(simplifiedEvent)
   },
   async isAvailable () {
