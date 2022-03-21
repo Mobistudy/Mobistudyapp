@@ -32,7 +32,7 @@
 </style>
 
 <script>
-import phone from 'modules/phone/phone.mock'
+import phone from 'modules/phone/phone'
 import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'
 
@@ -76,7 +76,7 @@ export default {
         if (await phone.audioRecorder.isAvailable()) {
           await phone.audioRecorder.requestPermission()
           console.log('Audio recorder is available')
-          phone.audioRecorder.startRecording({ options: 'shared' })
+          phone.audioRecorder.startRecording({ folder: 'shared', filename: 'iii_test.wav' }, null, (err) => { console.error(err) })
         }
       } catch (err) {
         console.error('Issues getting audio', err)
@@ -104,7 +104,6 @@ export default {
       this.completionTS = new Date()
       this.stopTimer()
       phone.audioRecorder.stopRecording()
-      phone.motion.stopNotifications()
       phone.screen.allowSleep()
 
       this.isCompleted = true
