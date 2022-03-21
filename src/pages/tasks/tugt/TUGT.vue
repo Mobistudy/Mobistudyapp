@@ -83,6 +83,10 @@ export default {
       this.startTimer()
       phone.screen.forbidSleep()
 
+      // clean the buffers
+      orientations = []
+      motions = []
+
       try {
         if (await phone.orientation.isAvailable()) {
           await phone.orientation.requestPermission()
@@ -172,6 +176,9 @@ export default {
   },
 
   beforeDestroy: function () {
+    orientations = []
+    motions = []
+
     this.stopTimer()
     phone.screen.allowSleep()
     phone.orientation.stopNotifications()
