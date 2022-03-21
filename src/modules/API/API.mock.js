@@ -248,6 +248,11 @@ export default {
     }
   },
 
+  async sendAttachment (studyKey, taskId, fileData) {
+    console.log('API - sending attachment', fileData)
+    return new Date().getTime() + '.json'
+  },
+
   async sendAnswers (answers) {
     console.log('API - sending answers', answers)
     this.setTaskDone(answers.studyKey, answers.taskId, answers.createdTS)
