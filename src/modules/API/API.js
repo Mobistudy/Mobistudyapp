@@ -106,10 +106,11 @@ export default {
   },
 
   // sends an attachment file, returns the file name chosen by the server
-  sendAttachment: async function (studyKey, taskId, fileData) {
+  sendAttachment: async function (studyKey, taskId, filename, fileData) {
     var config = {
       method: 'post',
-      url:,
+      url: BASE_URL + '/attachments/' + studyKey + '/' + taskId,
+      params: { filename: filename },
       headers: {
         'Authorization': axiosConfig.headers.Authorization,
         'Content-Type': 'application/octet-stream'

@@ -248,7 +248,7 @@ export default {
     }
   },
 
-  async sendAttachment (studyKey, taskId, fileData) {
+  async sendAttachment (studyKey, taskId, filename, fileData) {
     console.log('API - sending attachment', fileData)
     return new Date().getTime() + '.json'
   },
