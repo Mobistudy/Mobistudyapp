@@ -57,34 +57,6 @@
     </div>
   </q-page>
 </template>
-<!--<template>-->
-<!--  <q-page padding>-->
-<!--    <div class="text-center text-h5 q-mt-lg">-->
-<!--      {{ $t('studies.tasks.holdPhone.title') }}-->
-<!--    </div>-->
-<!--    <div-->
-<!--      ref="map"-->
-<!--      style="width: 100%; height: 50vh;"-->
-<!--      class="row justify-center items-center"-->
-<!--    >-->
-<!--      <WalkingMan></WalkingMan>-->
-<!--    </div>-->
-<!--    <div class="row justify-center q-mt-lg">-->
-<!--      <q-btn-->
-<!--        @click="startTest"-->
-<!--        v-show="!isStarted"-->
-<!--        color="primary"-->
-<!--        :label="$t('common.start')"-->
-<!--      />-->
-<!--      <q-btn-->
-<!--        @click="completeTest"-->
-<!--        v-show="isStarted"-->
-<!--        color="secondary"-->
-<!--        :label="$t('common.complete')"-->
-<!--      />-->
-<!--    </div>-->
-<!--  </q-page>-->
-<!--</template>-->
 
 <script>
 import phone from 'modules/phone/phone'
@@ -138,11 +110,10 @@ export default {
       this.startedTS = new Date()
       phone.screen.forbidSleep()
       if (this.testPhase % 2 !== 0) {
+        // clean the buffers
         orientations = []
         motions = []
       }
-
-      console.log(this.testPhase)
 
       if (this.testPhase === 1) {
         const studyKey = this.studyKey
