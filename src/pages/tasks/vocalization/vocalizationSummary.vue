@@ -2,12 +2,12 @@
   <q-page padding>
     <div class="text-center">
       <div class="text-h5">{{ $t('studies.tasks.capTestComplete') }}</div>
-      <img
-        class="q-mt-md"
-        alt="Finish flag"
-        src="~assets/goalflags.svg"
-        style="width: 50%; margin: 0px auto;"
-      >
+<!--      <img-->
+<!--        class="q-mt-md"-->
+<!--        alt="Finish flag"-->
+<!--        src="~assets/goalflags.svg"-->
+<!--        style="width: 50%; margin: 0px auto;"-->
+<!--      >-->
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
       <table class="decoratedTable">
         <tr>
@@ -49,7 +49,7 @@
 <script>
 import API from 'modules/API/API'
 import DB from 'modules/db'
-import fileSystem from 'modules/files'
+// import fileSystem from 'modules/files'
 import { format as Qformat } from 'quasar'
 
 export default {
@@ -67,16 +67,16 @@ export default {
       this.sending = true
 
       // Only for testing purposes! Please remove before deploying app.
-      try {
-        let filename = 'audiorec_' + new Date().getTime() + '.json'
-        await fileSystem.save(filename, this.report)
-      } catch (err) {
-        console.error('Cannot save to file', err)
-      }
+      // try {
+      //   let filename = 'audiorec_' + new Date().getTime() + '.json'
+      //   await fileSystem.save(filename, this.report)
+      // } catch (err) {
+      //   console.error('Cannot save to file', err)
+      // }
 
       // Save the data to server
       try {
-        await API.sendTUGTData(this.report)
+        await API.sendVocalizationData(this.report)
         await DB.setTaskCompletion(this.report.studyKey, this.report.taskId, new Date())
         this.$router.push('/home')
       } catch (error) {
@@ -91,11 +91,10 @@ export default {
     },
     async discard () {
       this.sending = true
-      this.report.motion = 'discarded'
-      this.report.orientation = 'discarded'
+      this.report.vocalization = 'discarded'
 
       try {
-        await API.sendTUGTData(this.report)
+        await API.sendVocalizationData(this.report)
         await DB.setTaskCompletion(
           this.report.studyKey,
           this.report.taskId,

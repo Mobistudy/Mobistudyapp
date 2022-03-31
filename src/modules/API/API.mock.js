@@ -333,8 +333,8 @@ export default {
   },
 
   async sendVocalizationData (data) {
-    console.log('API - sending phone movement data', data)
-    this.setTaskDone(data.studyKey, data.taskId, data.createdTs)
+    console.log('API - sending vocalization data', data)
+    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
   }
 }

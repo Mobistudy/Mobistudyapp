@@ -17,5 +17,11 @@ export default {
       description: 'task description.'
     }
   ],
+  instructions: {
+    AAA: 'Please say AAAAH for as long as you can.',
+    III: 'Please say IIIIH for as long as you can.',
+    UUU: 'Please say UUUUH for as long as you can.'
+  },
+  completed: 'Task completed',
   time: 'Time'
 }

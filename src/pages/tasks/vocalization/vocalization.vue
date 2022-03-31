@@ -10,9 +10,42 @@
         color="primary"
         :label="$t('common.start')"
       />
+      <div
+        class="text-center text-h5 q-mt-lg"
+        v-show="testPhase === 0 || testPhase === 1"
+      >
+        {{ $t('studies.tasks.vocalization.instructions.AAA') }}
+      </div>
+      <div
+        class="text-center text-h5 q-mt-lg"
+        v-show="testPhase === 2 || testPhase === 3"
+      >
+        {{ $t('studies.tasks.vocalization.instructions.III') }}
+      </div>
+      <div
+        class="text-center text-h5 q-mt-lg"
+        v-show="testPhase === 4 || testPhase === 5"
+      >
+        {{ $t('studies.tasks.vocalization.instructions.UUU') }}
+      </div>
+
+      <q-btn
+        @click="completePhase"
+        v-show="isStarted && testPhase != 5"
+        color="secondary"
+        :label="$t('common.next')"
+      />
+
+      <q-btn
+        @click="redoTest"
+        v-show="isStarted"
+        color="secondary"
+        :label="$t('common.redo')"
+      />
+
       <q-btn
         @click="completeTest"
-        v-show="isStarted"
+        v-show="testPhase == 5"
         color="secondary"
         :label="$t('common.complete')"
       />
@@ -34,11 +67,10 @@
 <script>
 import phone from 'modules/phone/phone'
 import userinfo from 'modules/userinfo'
+import sweeper from '../../../modules/sweeper'
 import { format as Qformat } from 'quasar'
 
-const TEST_DURATION = 10 // 3 minutes
-
-// let audiofilename = ''
+const TEST_DURATION = 10
 
 export default {
   name: 'VocalizationPage',
@@ -49,29 +81,56 @@ export default {
 
   data: function () {
     return {
-      isSignalCheck: true,
       isStarted: false,
       isCompleted: false,
       timer: undefined,
       totalTime: TEST_DURATION,
       startedTS: undefined,
-      completionTS: undefined
-      // audiofilename: 'filename.wav'
+      completionTS: undefined,
+      report: {
+        userKey: this.userKey,
+        studyKey: this.studyKey,
+        taskId: this.taskId
+      },
+      testPhase: 0
     }
   },
 
   mounted: async function () {
-
+    sweeper.init()
   },
 
   methods: {
 
     async startTest () {
+      this.testPhase++
       this.isStarted = true
       this.startedTS = new Date()
-      this.startTimer()
       phone.screen.forbidSleep()
+      sweeper.sweep(10, 10000, 2, 'sine', 1)
 
+      if (this.testPhase === 1) {
+        const studyKey = this.studyKey
+        const taskId = parseInt(this.taskId)
+        const userKey = userinfo.user._key
+        this.report.studyKey = studyKey
+        this.report.taskId = taskId
+        this.report.userKey = userKey
+
+        this.report.createdTS = new Date()
+        this.report.startedTS = new Date()
+        this.report.aaa = {
+          startedTS: new Date()
+        }
+      } else if (this.testPhase === 3) {
+        this.report.iii = {
+          startedTS: new Date()
+        }
+      } else if (this.testPhase === 5) {
+        this.report.uuu = {
+          startedTS: new Date()
+        }
+      }
       try {
         if (await phone.audioRecorder.isAvailable()) {
           await phone.audioRecorder.requestPermission()
@@ -81,12 +140,11 @@ export default {
       } catch (err) {
         console.error('Issues getting audio', err)
       }
-    },
 
-    startTimer () {
       this.totalTime = TEST_DURATION
       this.timer = setInterval(() => this.countDown(), 1000)
     },
+
     stopTimer () {
       clearInterval(this.timer)
     },
@@ -95,34 +153,43 @@ export default {
       if (this.totalTime >= 1) {
         this.totalTime--
       } else {
+        this.completePhase()
+      }
+    },
+
+    redoTest () {
+      phone.audioRecorder.stopRecording()
+      this.testPhase--
+      this.startTest()
+    },
+
+    completePhase () {
+      this.stopTimer()
+      this.completionTS = new Date()
+      phone.audioRecorder.stopRecording()
+      phone.screen.allowSleep()
+      this.isCompleted = true
+      this.isStarted = false
+
+      console.log(this.report)
+
+      if (this.testPhase === 1) {
+        this.report.aaa.completionTS = new Date()
+      } else if (this.testPhase === 3) {
+        this.report.iii.completionTS = new Date()
+      } else if (this.testPhase === 5) {
+        this.report.uuu.completionTS = new Date()
+      }
+
+      this.testPhase++
+
+      if (this.testPhase === 7) {
         this.completeTest()
       }
     },
 
     completeTest () {
-      this.isStarted = false
-      this.completionTS = new Date()
-      this.stopTimer()
-      phone.audioRecorder.stopRecording()
-      phone.screen.allowSleep()
-
-      this.isCompleted = true
-
-      // package the vocalization report
-      const studyKey = this.studyKey
-      const taskId = parseInt(this.taskId)
-      const userKey = userinfo.user._key
-      let report = {
-        userKey: userKey,
-        studyKey: studyKey,
-        taskId: taskId,
-        createdTS: new Date(),
-        startedTS: this.startedTS,
-        completionTS: this.completionTS
-        // audiofilename: this.audiofilename
-      }
-
-      this.$router.push({ name: 'vocalizationSummary', params: { report: report } })
+      this.$router.push({ name: 'vocalizationSummary', params: { report: this.report } })
     }
   },
 
@@ -138,8 +205,7 @@ export default {
   beforeDestroy: function () {
     this.stopTimer()
     phone.screen.allowSleep()
-    phone.orientation.stopNotifications()
-    phone.motion.stopNotifications()
+    phone.audioRecorder.stopRecording()
   }
 }
 </script>
