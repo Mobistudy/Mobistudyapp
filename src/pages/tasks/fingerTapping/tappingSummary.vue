@@ -26,6 +26,7 @@
 <script>
 import API from 'modules/API/API'
 import DB from 'modules/db'
+import fileSystem from 'modules/files'
 
 export default {
   name: 'TappingSummaryPage',
@@ -40,23 +41,32 @@ export default {
   methods: {
     async send () {
       this.sending = true
+
+      // Only for testing purposes! Please remove before deploying app.
       try {
-        await API.sendFingerTappingData(this.report)
-        await DB.setTaskCompletion(
-          this.report.studyKey,
-          this.report.taskId,
-          new Date()
-        )
-        this.$router.push({ name: 'home' })
-      } catch (error) {
-        this.sending = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
+        let filename = 'tappingdata_' + new Date().getTime() + '.json'
+        await fileSystem.save(filename, 'shared', this.report)
+      } catch (err) {
+        console.error('Cannot save to file', err)
       }
+
+      // try {
+      //   await API.sendFingerTappingData(this.report)
+      //   await DB.setTaskCompletion(
+      //     this.report.studyKey,
+      //     this.report.taskId,
+      //     new Date()
+      //   )
+      //   this.$router.push({ name: 'home' })
+      // } catch (error) {
+      //   this.sending = false
+      //   console.error(error)
+      //   this.$q.notify({
+      //     color: 'negative',
+      //     message: this.$t('errors.connectionError') + ' ' + error.message,
+      //     icon: 'report_problem'
+      //   })
+      // }
     },
     async discard () {
       this.sending = true

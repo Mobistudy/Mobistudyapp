@@ -77,19 +77,19 @@ export default {
 
       this.report.phone = phone.device
       // Save the data to server
-      try {
-        await API.sendHoldPhoneData(this.report)
-        await DB.setTaskCompletion(this.report.studyKey, this.report.taskId, new Date())
-        this.$router.push('/home')
-      } catch (error) {
-        this.sending = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
-      }
+      // try {
+      //   await API.sendHoldPhoneData(this.report)
+      //   await DB.setTaskCompletion(this.report.studyKey, this.report.taskId, new Date())
+      //   this.$router.push('/home')
+      // } catch (error) {
+      //   this.sending = false
+      //   console.error(error)
+      //   this.$q.notify({
+      //     color: 'negative',
+      //     message: this.$t('errors.connectionError') + ' ' + error.message,
+      //     icon: 'report_problem'
+      //   })
+      // }
     },
     async discard () {
       this.sending = true
