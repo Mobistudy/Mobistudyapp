@@ -25,7 +25,18 @@ export async function getItem (key) {
       })
     }
     return Promise.resolve(mockPEFs)
-  }
+  } /* else if (key === 'session') {
+    let user = {
+      name: 'Jameson',
+      surname: 'Lee',
+      dob: '1970-11-10',
+      weight: 67,
+      height: 172,
+      sex: 'male',
+      language: 'en'
+    }
+    return Promise.resolve(user)
+  } */
   if (memStorage[key]) return Promise.resolve(JSON.parse(memStorage[key]))
   else return Promise.resolve()
 }
