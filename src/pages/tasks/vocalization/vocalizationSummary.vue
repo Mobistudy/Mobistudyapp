@@ -49,8 +49,10 @@
 <script>
 import API from 'modules/API/API'
 import DB from 'modules/db'
-// import fileSystem from 'modules/files'
+import files from 'modules/files'
 import { format as Qformat } from 'quasar'
+
+const FOLDER = 'shared'
 
 export default {
   name: 'SMWTSummaryPage',
@@ -76,6 +78,12 @@ export default {
 
       // Save the data to server
       try {
+        for (let i = 0; i < this.report.attachments.length; i++) {
+          let filename = this.report.attachments[i]
+          let wavefile = await files.load(filename, FOLDER, 'blob')
+          await API.sendAttachment(this.report.studyKey, this.report.taskId, filename, wavefile)
+        }
+
         await API.sendVocalizationData(this.report)
         await DB.setTaskCompletion(this.report.studyKey, this.report.taskId, new Date())
         this.$router.push('/home')
@@ -94,6 +102,7 @@ export default {
       this.report.vocalization = 'discarded'
 
       try {
+        await API.sendAttachment(this.report.studyKey, this.report.taskId, this.filename, this.wavefile)
         await API.sendVocalizationData(this.report)
         await DB.setTaskCompletion(
           this.report.studyKey,

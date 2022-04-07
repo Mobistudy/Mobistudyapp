@@ -44,7 +44,7 @@
       />
 
       <q-btn
-        @click="completeTest"
+        @click="completePhase"
         v-show="testPhase == 5"
         color="secondary"
         :label="$t('common.complete')"
@@ -67,10 +67,11 @@
 <script>
 import phone from 'modules/phone/phone'
 import userinfo from 'modules/userinfo'
-import sweeper from '../../../modules/sweeper'
-import { format as Qformat } from 'quasar'
+import sweeper from 'modules/sweeper'
+// import files from 'modules/files'
 
 const TEST_DURATION = 10
+const FOLDER = 'shared'
 
 export default {
   name: 'VocalizationPage',
@@ -84,13 +85,16 @@ export default {
       isStarted: false,
       isCompleted: false,
       timer: undefined,
-      totalTime: TEST_DURATION,
-      startedTS: undefined,
-      completionTS: undefined,
+      testTS: Date.now(),
+      filename: '',
       report: {
         userKey: this.userKey,
         studyKey: this.studyKey,
-        taskId: this.taskId
+        taskId: this.taskId,
+        summary: {
+          phases: []
+        },
+        attachments: []
       },
       testPhase: 0
     }
@@ -105,9 +109,10 @@ export default {
     async startTest () {
       this.testPhase++
       this.isStarted = true
-      this.startedTS = new Date()
+
       phone.screen.forbidSleep()
-      sweeper.sweep(10, 10000, 2, 'sine', 1)
+
+      this.filename = ((this.testPhase - 1) / 2).toFixed(0) + '_' + this.testTS + '.wav'
 
       if (this.testPhase === 1) {
         const studyKey = this.studyKey
@@ -119,54 +124,60 @@ export default {
 
         this.report.createdTS = new Date()
         this.report.startedTS = new Date()
-        this.report.aaa = {
-          startedTS: new Date()
+        this.report.summary.phases[0] = {
+          vocal: 'a',
+          startedTS: new Date(),
+          filename: this.filename
         }
       } else if (this.testPhase === 3) {
-        this.report.iii = {
-          startedTS: new Date()
+        this.report.summary.phases[1] = {
+          vocal: 'i',
+          startedTS: new Date(),
+          filename: this.filename
         }
       } else if (this.testPhase === 5) {
-        this.report.uuu = {
-          startedTS: new Date()
+        this.report.summary.phases[2] = {
+          vocal: 'u',
+          startedTS: new Date(),
+          filename: this.filename
         }
       }
       try {
         if (await phone.audioRecorder.isAvailable()) {
           await phone.audioRecorder.requestPermission()
           console.log('Audio recorder is available')
-          phone.audioRecorder.startRecording({ folder: 'shared', fileName: 'iii_test.wav' }, null, (err) => { console.error(err) })
+          phone.audioRecorder.startRecording({ folder: FOLDER, fileName: this.filename }, null, (err) => { console.error(err) })
+          this.report.attachments.push(this.filename)
+          this.startTimer()
+          sweeper.sweep(10, 10000, 2, 'sine', 1)
         }
       } catch (err) {
         console.error('Issues getting audio', err)
       }
 
-      this.totalTime = TEST_DURATION
-      this.timer = setInterval(() => this.countDown(), 1000)
+      // this.totalTime = TEST_DURATION
+      // this.timer = setInterval(() => this.countDown(), 1000)
     },
 
+    startTimer () {
+      this.timer = setTimeout(() => this.completePhase(), TEST_DURATION * 1000)
+    },
     stopTimer () {
-      clearInterval(this.timer)
+      clearTimeout(this.timer)
     },
 
-    countDown () {
-      if (this.totalTime >= 1) {
-        this.totalTime--
-      } else {
-        this.completePhase()
-      }
-    },
-
-    redoTest () {
+    async redoTest () {
+      this.stopTimer()
       phone.audioRecorder.stopRecording()
+      // TODO: uncomment when delete is ready
+      // await files.delete(this.filename, FOLDER)
+      this.report.attachments.pop()
       this.testPhase--
       this.startTest()
     },
 
     completePhase () {
       this.stopTimer()
-      this.completionTS = new Date()
-      phone.audioRecorder.stopRecording()
       phone.screen.allowSleep()
       this.isCompleted = true
       this.isStarted = false
@@ -174,31 +185,21 @@ export default {
       console.log(this.report)
 
       if (this.testPhase === 1) {
-        this.report.aaa.completionTS = new Date()
+        this.report.summary.phases[0].completionTS = new Date()
+        phone.audioRecorder.stopRecording()
       } else if (this.testPhase === 3) {
-        this.report.iii.completionTS = new Date()
+        this.report.summary.phases[1].completionTS = new Date()
+        phone.audioRecorder.stopRecording()
       } else if (this.testPhase === 5) {
-        this.report.uuu.completionTS = new Date()
+        this.report.summary.phases[2].completionTS = new Date()
+        phone.audioRecorder.stopRecording()
       }
 
       this.testPhase++
 
-      if (this.testPhase === 7) {
-        this.completeTest()
+      if (this.testPhase === 6) {
+        this.$router.push({ name: 'vocalizationSummary', params: { report: this.report } })
       }
-    },
-
-    completeTest () {
-      this.$router.push({ name: 'vocalizationSummary', params: { report: this.report } })
-    }
-  },
-
-  computed: {
-    minutes () {
-      return Qformat.pad(Math.floor(this.totalTime / 60))
-    },
-    seconds () {
-      return Qformat.pad(this.totalTime - (this.minutes * 60))
     }
   },
 
