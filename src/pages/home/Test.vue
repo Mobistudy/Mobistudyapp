@@ -42,6 +42,22 @@
         />
       </div>
       <p>{{fileOutput}}</p>
+      <div class="q-mt-md">
+        <q-btn
+          color="white"
+          text-color="black"
+          label="Login"
+          @click="login"
+        />
+      </div>
+      <div class="q-mt-md">
+        <q-btn
+          color="white"
+          text-color="black"
+          label="Send File"
+          @click="sendFile"
+        />
+      </div>
     </q-page>
   </q-layout>
 </template>
@@ -49,6 +65,7 @@
 <script>
 import phone from 'modules/phone/phone'
 import files from 'modules/files'
+import API from 'modules/API/API'
 
 export default {
   name: 'TestPage',
@@ -97,6 +114,17 @@ export default {
       let txt = await files.load('test.text', 'shared', 'text')
       this.fileOutput = 'File content: ' + txt
       console.log(txt)
+    },
+    async login () {
+      let user = await API.login('dariosalvi78@gmail.com', 'Buggym78Buggy')
+      API.setToken(user.token)
+      console.log('logged in', user)
+    },
+    async sendFile () {
+      var enc = new TextEncoder()
+      let blob = enc.encode('test raw data')
+      let reply = await API.sendAttachment('1978', 9, 'test.txt', blob)
+      console.log('file saved as', reply)
     }
   }
 }

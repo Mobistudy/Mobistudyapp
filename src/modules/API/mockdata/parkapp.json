@@ -1,0 +1,96 @@
+{
+  "_key": "2222",
+  "teamKey": "1608",
+  "invitationCode": "555666",
+  "invitational": true,
+  "numberOfParticipants": 40,
+  "createdTS": "2021-02-08T14: 25: 00.741Z",
+  "updatedTS": "2021-02-11T16: 47: 58.945Z",
+  "publishedTS": "2021-02-11T16: 47: 58.863Z",
+  "generalities": {
+    "languages": [
+      "en",
+      "sv"
+    ],
+    "title": {
+      "en": "ParkApp research study",
+      "sv": ""
+    },
+    "shortDescription": {
+      "en": "",
+      "sv": ""
+    },
+    "longDescription": {
+      "en": "",
+      "sv": ""
+    },
+    "startDate": "2022-04-28",
+    "endDate": "2023-04-28",
+    "principalInvestigators": [
+      {
+        "name": "Per Svenningsson",
+        "contact": "Per",
+        "institution": "Karolinska"
+      }
+    ],
+    "institutions": [
+      {
+        "name": "Karolinska",
+        "contact": "",
+        "dataAccess": "full",
+        "reasonForDataAccess": {
+          "en": "",
+          "sv": ""
+        }
+      }
+    ]
+  },
+  "inclusionCriteria": {
+    "minAge": 30,
+    "maxAge": 100,
+    "sex": [
+      "male",
+      "female",
+      "other"
+    ],
+    "diseases": [],
+    "medications": []
+  },
+  "tasks": [
+    {
+      "id": 1,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      },
+      "formKey": "9898",
+      "formName": {
+        "en": "NMSQuest",
+        "sv": "NMSQuest"
+      }
+    }
+  ],
+  "consent": {
+    "invitation": {
+      "en": "Invite",
+      "sv": ""
+    },
+    "privacyPolicy": {
+      "en": "",
+      "sv": ""
+    },
+    "taskItems": [
+      {
+        "description": {
+          "en": "I agree to answer the sample questionnaire, every day.",
+          "sv": "Jag accepterar att besvara Exempel formulär, varje dag."
+        },
+        "taskId": 1
+      }
+    ],
+    "extraItems": []
+  }
+}

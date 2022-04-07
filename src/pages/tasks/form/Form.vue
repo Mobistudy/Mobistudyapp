@@ -10,11 +10,14 @@
           v-show="slideName != ''"
           key=""
         >
-          <div class="text-center text-subtitle1">
+          <div class="text-center text-subtitle1 q-mt-lg">
             <div v-html="currentQuestion.text[$i18n.locale]"></div>
           </div>
           <div class="text-center text-subtitle2 q-mb-md">
-            <div v-html="currentQuestion.helper[$i18n.locale]"></div>
+            <div
+              v-if="currentQuestion.helper"
+              v-html="currentQuestion.helper[$i18n.locale]"
+            ></div>
           </div>
 
           <q-input

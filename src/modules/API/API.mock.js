@@ -7,6 +7,9 @@ import studyPainApp from './mockdata/studyPainApp'
 import formPainAppReminder from './mockdata/formPainApp1'
 import formPainAppVAS from './mockdata/formPainApp2'
 
+import parkAppStudy from './mockdata/parkapp'
+import NMSQuest from './mockdata/NMSQuest'
+
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
 
@@ -178,6 +181,10 @@ export default {
         setTimeout(function () {
           resolve(studyPainApp)
         }, 1000)
+      } else if (studyKey === parkAppStudy._key) {
+        setTimeout(function () {
+          resolve(parkAppStudy)
+        }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study ' + studyKey + ' not found'))
@@ -205,6 +212,8 @@ export default {
     return new Promise((resolve, reject) => {
       if (invitationalCode === studyPainApp.invitationCode) {
         resolve(studyPainApp)
+      } else if (invitationalCode === parkAppStudy.invitationCode) {
+        resolve(parkAppStudy)
       } else {
         let err = new Error('Cannot retrieve invitational study based on code.')
         err.response = { status: 400 }
@@ -228,6 +237,10 @@ export default {
         setTimeout(function () {
           resolve(formPainAppVAS)
         }, Math.floor(1000))
+      } else if (key === NMSQuest._key) {
+        setTimeout(function () {
+          resolve(NMSQuest)
+        }, Math.floor(1000))
       } else {
         reject(new Error('Questionnaire not found ' + key))
       }
@@ -248,7 +261,7 @@ export default {
     }
   },
 
-  async sendAttachment (studyKey, taskId, fileData) {
+  async sendAttachment (studyKey, taskId, filename, fileData) {
     console.log('API - sending attachment', fileData)
     return new Date().getTime() + '.json'
   },
