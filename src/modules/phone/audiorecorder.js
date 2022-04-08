@@ -95,6 +95,7 @@ let audioRecorderMock = {
     })
   },
   startRecording (options, cbk, error) {
+    window.localStorage.setItem(options.folder + '_' + options.fileName, 'aaaaaa')
     return true
   },
   async stopRecording () {
