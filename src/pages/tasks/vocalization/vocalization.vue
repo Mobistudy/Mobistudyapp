@@ -1,33 +1,39 @@
 <template>
-  <q-page padding>
+  <q-page
+    padding
+    class="text-center"
+  >
     <div class="text-center text-h5 q-mt-lg">
       {{ $t('studies.tasks.vocalization.title') }}
     </div>
-    <div class="row justify-center q-mt-lg">
+
+      <p
+        class="text-center text-subtitle1 q-mt-lg"
+        v-show="testPhase === 0 || testPhase === 1"
+      >
+        {{ $t('studies.tasks.vocalization.instructions.AAA') }}
+      </p>
+      <p
+        class="text-center text-subtitle1 q-mt-lg"
+        v-show="testPhase === 2 || testPhase === 3"
+      >
+        {{ $t('studies.tasks.vocalization.instructions.III') }}
+      </p>
+      <p
+        class="text-center text-subtitle1 q-mt-lg"
+        v-show="testPhase === 4 || testPhase === 5"
+      >
+        {{ $t('studies.tasks.vocalization.instructions.UUU') }}
+      </p>
+
+    <div class="row justify-around">
+
       <q-btn
         @click="startTest"
         v-show="!isStarted"
         color="primary"
         :label="$t('common.start')"
       />
-      <div
-        class="text-center text-h5 q-mt-lg"
-        v-show="testPhase === 0 || testPhase === 1"
-      >
-        {{ $t('studies.tasks.vocalization.instructions.AAA') }}
-      </div>
-      <div
-        class="text-center text-h5 q-mt-lg"
-        v-show="testPhase === 2 || testPhase === 3"
-      >
-        {{ $t('studies.tasks.vocalization.instructions.III') }}
-      </div>
-      <div
-        class="text-center text-h5 q-mt-lg"
-        v-show="testPhase === 4 || testPhase === 5"
-      >
-        {{ $t('studies.tasks.vocalization.instructions.UUU') }}
-      </div>
 
       <q-btn
         @click="completePhase"
@@ -60,7 +66,7 @@
 }
 
 .text-subtitle1 {
-  line-height: 4.25;
+  line-height: 2;
 }
 </style>
 

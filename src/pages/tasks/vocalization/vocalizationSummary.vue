@@ -2,20 +2,14 @@
   <q-page padding>
     <div class="text-center">
       <div class="text-h5">{{ $t('studies.tasks.capTestComplete') }}</div>
-<!--      <img-->
-<!--        class="q-mt-md"-->
-<!--        alt="Finish flag"-->
-<!--        src="~assets/goalflags.svg"-->
-<!--        style="width: 50%; margin: 0px auto;"-->
-<!--      >-->
+      <img
+        class="q-mt-md"
+        alt="Finish flag"
+        src="~assets/goalflags.svg"
+        style="width: 50%; margin: 0px auto;"
+      >
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
-      <table class="decoratedTable">
-        <tr>
-          <td>{{ $t('studies.tasks.vocalization.time') }}</td>
-          <td> {{ minutes }}:{{ seconds }}</td>
-        </tr>
-      </table>
-
+      &nbsp;
       <div class="row justify-around">
         <q-btn
           color="secondary"
