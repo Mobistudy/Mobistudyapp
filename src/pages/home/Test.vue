@@ -64,7 +64,7 @@
 
 <script>
 import phone from 'modules/phone/phone'
-import files from 'modules/files'
+import files from 'modules/files/files'
 import API from 'modules/API/API'
 
 export default {

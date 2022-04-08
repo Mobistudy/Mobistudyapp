@@ -108,6 +108,7 @@ module.exports = function (ctx) {
         if (config.STORAGE.toLowerCase() === 'local') cfg.resolve.alias['modules/storage/storage'] = 'modules/storage/storage.local'
         if (config.STORAGE.toLowerCase() === 'mock') cfg.resolve.alias['modules/storage/storage'] = 'modules/storage/storage.mock'
         if (config.STORAGE.toLowerCase() === 'encrypted') cfg.resolve.alias['modules/storage/storage'] = 'modules/storage/storage.encrypted'
+        if (config.FILES.toLowerCase() === 'mock') cfg.resolve.alias['modules/files/files'] = 'modules/files/files.mock'
       }
     },
 

@@ -50,7 +50,7 @@
 import phone from 'modules/phone/phone'
 import API from 'modules/API/API'
 import DB from 'modules/db'
-import fileSystem from 'modules/files'
+import fileSystem from 'modules/files/files'
 import { format as Qformat } from 'quasar'
 export default {
   name: 'SMWTSummaryPage',

@@ -13,6 +13,9 @@ module.exports = {
   // use 'MOCK' for mock, 'local' for browser localStorage or 'encrypted' for encrypted native
   STORAGE: 'encrypted',
 
+  // use 'MOCK' for mock healthstore or 'cordova' for the cordova health plugin
+  FILES: 'cordova',
+
   // use 'MOCK' for mocked phone functionalities or 'cordova' otherwise
   PHONE: 'cordova',
 
