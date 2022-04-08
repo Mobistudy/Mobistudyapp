@@ -15,6 +15,10 @@ Universidad de Malmö y financiado por: \
 <br>
 Las personas a continuación han contribuido al proyecto con códigos, diseños o ideas:
 <ul>
+<li><a href="https://github.com/dariosalvi78/">Dario Salvi</a></li>
+<li><a href="https://github.com/arvgo">Rishi Arvin Goburdhun</a></li>
+<li><a href="https://www.velardo.org/">Carmelo Velardo</a></li>
+<li><a href="https://mau.se/en/persons/carl.magnus.olsson/">Carl Magnus Olsson</a></li>
 <li><a href="https://github.com/assimilate">Daniel Abella</a></li>
 <li><a href="https://github.com/jamtholee">Jameson Lee</a></li>
 <li><a href="https://github.com/lencz">Lennart Czienskowski</a></li>
@@ -27,6 +31,9 @@ Las personas a continuación han contribuido al proyecto con códigos, diseños 
 <li><a href="https://github.com/af9593">Moustafa Allouhaibi</a></li>
 <li><a href="https://github.com/JohnHakansson">John Håkansson</a></li>
 <li><a href="https://www.behance.net/matildasvensson1"> Matilda Thorwaldsson</a></li>
+<li><a href="https://github.com/kevinchtsang"> Kevin Tsang</a></li>
+<li><a href="https://ranashreyas.github.io/">Shreyas Rana</a></li>
+<li><a href="https://mau.se/en/persons/gent.ymeri/">Gent Ymeri</a></li>
 </ul>
 <br>
 Esta app fue desarrollada gracias a los siguientes proyectos de código abierto:
@@ -34,7 +41,6 @@ Esta app fue desarrollada gracias a los siguientes proyectos de código abierto:
 <li><a href="https://cordova.apache.org/">Apache Cordova</a></li>
 <li><a href="https://vuejs.org/">Vue JS</a></li>
 <li><a href="https://quasar.dev/">Quasar</a></li>
-<li><a href="https://www.npmjs.com/package/cordova-plugin-badge">cordova-plugin-badge</a></li>
 <li><a href="https://www.npmjs.com/package/cordova-plugin-device">cordova-plugin-device</a></li>
 <li><a href="https://www.npmjs.com/package/cordova-plugin-ble-central">cordova-plugin-ble-central</a></li>
 <li><a href="https://www.npmjs.com/package/cordova-plugin-file">cordova-plugin-file</a></li>
@@ -47,6 +53,9 @@ Esta app fue desarrollada gracias a los siguientes proyectos de código abierto:
 <li><a href="https://github.com/mibrito707/cordova-plugin-secure-storage-echo/">cordova-plugin-cordova-plugin-secure-storage-echo</a></li>
 <li><a href="https://www.npmjs.com/package/cordova-plugin-splashscreen">cordova-plugin-splashscreen</a></li>
 <li><a href="https://www.npmjs.com/package/cordova-plugin-whitelist">cordova-plugin-whitelist</a></li>
+<li><a href="https://www.npmjs.com/package/cordova-plugin-vibration">cordova-plugin-vibration</a></li>
+<li><a href="https://www.npmjs.com/package/cordova-plugin-audioinput">cordova-plugin-audioinput</a></li>
+<li><a href="https://github.com/kevinchtsang/cordova-plugin-spf">cordova-plugin-spf</a></li>
 </ul>
 <br>
 Los iconos de Mobistudy e ilustraciones fueron diseñados por <a href="https://www.behance.net/matildasvensson1">Matilda Thorwaldsson</a>.
