@@ -10,6 +10,6 @@ export default {
     about: ABsv
   },
   es: {
-    ABes
+    about: ABes
   }
 }

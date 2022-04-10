@@ -1,5 +1,5 @@
 export default {
-  about: 'Sobre',
+  about: 'Info',
   introduction: 'Introducción',
   privacyPolicy: 'Política de privacidad',
   acknowledgements: 'Agradecimientos',

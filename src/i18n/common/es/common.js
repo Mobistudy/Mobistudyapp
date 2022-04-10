@@ -39,7 +39,7 @@ export default {
     registration: 'Registar',
     task: 'Tarea',
     close: 'Cerrar',
-    about: 'Sobre',
+    about: 'Info',
     homeMenu: {
       dailyTasks: 'Tareas',
       dailyTasksAction: 'Ver próximas tareas',
@@ -47,7 +47,7 @@ export default {
       profileAction: 'Cambia tu perfil',
       studies: 'Estudios',
       studiesAction: 'Añade o cancela estudios',
-      about: 'Sobre',
+      about: 'Info',
       aboutAction: 'Sobre Mobistudy'
     }
   },
