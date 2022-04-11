@@ -18,8 +18,10 @@
 - reduced the number of retries when peak flow cannot be measured
 - updated privacy policy
 
-0.2.10
+0.2.10 (under development)
 
+- added task for Timed-up-and-go test, Vocalization test and Hold-the-phone test
+- added support for tasks scheduled depending on other tasks
 - improved text and translations
-- added support for tasks scheduled when other tasks are executed
-- minor bugfixes
+- updated privacy policy with information about new tasks
+- updated dependencies and bugfixes
