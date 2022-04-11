@@ -157,10 +157,10 @@ Setup `project.config.js` to use cordova plugins and the official API endpoint.
 Generate the compiled code.
 
 ```bash
-quasar build -m ios
+quasar build -m ios --ide
 ```
 
-Sign the app with a provisioning profile prepared for distribution on the App Store.
+Open Xcode to compile the project and sign the app with a provisioning profile prepared for distribution on the App Store.
 
 ### Android
 
@@ -176,8 +176,7 @@ To sign the APK for the Play store: create a keystore (only once! not for every 
 keytool -genkey -v -keystore mobistudy-release.keystore -alias upload -keyalg RSA -keysize 2048 -validity 10000
 ```
 
-Write down the password you set for the keystore and the certificate. Let's say
-it's "pwdpwd"
+Write down the password you set for the keystore and the certificate. Let's say it's "pwdpwd"
 
 Then, inside src-cordova do:
 
