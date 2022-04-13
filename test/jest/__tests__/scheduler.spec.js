@@ -1,6 +1,8 @@
-import { isTaskIntervalDue, generateTasker } from '../../../src/modules/scheduler.js'
+import { isTaskIntervalDue, generateTasker, scheduleNotificationsSingleStudy } from '../../../src/modules/scheduler.js'
+import notifications from '../../../src/modules/notifications/notifications.js'
 
 jest.mock('quasar')
+jest.mock('modules/notifications/notifications')
 
 describe('When testing the scheduler', () => {
   test('an always on task is due when between start and end time', () => {
@@ -793,5 +795,47 @@ describe('When testing the scheduler', () => {
 
     expect(tasks.missed.length).toBe(0)
     expect(tasks.alwaysOn.length).toBe(0)
+  })
+
+  test('a daily task due multiple times a day sends notifications when the task is due', async () => {
+    let h1 = new Date(new Date().getTime() - 1000 * 60 * 60 * 1).getHours() // hour in the past
+    let h2 = new Date(new Date().getTime() + 1000 * 60 * 60 * 2).getHours() // 2 hours in the future
+    let studyDescr = {
+      _key: '1234',
+      generalities: {
+        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10), // 2 months ago
+        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30).toISOString().substring(0, 10) // in a month
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          startEvent: 'consent',
+          intervalType: 'd',
+          interval: 1,
+          untilSecs: 60 * 60 * 24, // 24 hours
+          hours: [h1, h2]
+        }
+      }]
+    }
+
+    let today = new Date()
+    today.setHours(0, 1, 1) // remove minutes and seconds
+    let studiesPart = {
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: today.toISOString(), // accepted today
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 30).toISOString() // 30 minutes ago
+      }]
+    }
+
+    await scheduleNotificationsSingleStudy(studyDescr, studiesPart)
+
+    expect(notifications.schedule.mock.calls.length).toBe(1)
+    expect(notifications.schedule.mock.calls[0][0].length).toBe(1)
+    expect(notifications.schedule.mock.calls[0][0][0].trigger.at.getHours()).toBe(h2)
   })
 })

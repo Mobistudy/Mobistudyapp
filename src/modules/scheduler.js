@@ -1,6 +1,4 @@
-'use strict'
 import { i18n } from '../boot/i18n.js'
-import * as moment from 'moment'
 import { RRule } from 'rrule'
 import notifications from 'modules/notifications/notifications'
 import { Platform } from 'quasar'
@@ -247,9 +245,9 @@ export function generateRRule (scheduling, studyPart, studyEnd) {
     startEventDate = new Date(startEventDate.getTime() + (1000 * scheduling.startDelaySecs)) // Add seconds
   }
 
-  let endDate = studyEnd
+  let endDate = new Date(studyEnd)
   if (scheduling.untilSecs) {
-    let untilTime = new Date(startEventDate.getTime() + 1000 * scheduling.untilSecs)
+    let untilTime = new Date(startEventDate.getTime() + (1000 * scheduling.untilSecs))
     if (untilTime < endDate) endDate = new Date(untilTime)
   }
   // Frequency
@@ -308,7 +306,7 @@ export function generateRRule (scheduling, studyPart, studyEnd) {
   if (scheduling.months && scheduling.months.length) rruleObj.bymonth = scheduling.months
   if (scheduling.monthDays && scheduling.monthDays.length) rruleObj.bymonthday = scheduling.monthDays
   if (byweekday && byweekday.length) rruleObj.byweekday = byweekday
-  if (scheduling.hours && scheduling.hours.length) rruleObj.byhour = scheduling.hours
+  if (scheduling.hours && scheduling.hours.length) rruleObj.byhour = scheduling.hours // .map(h => toUTCHours(h))
   if (scheduling.occurrences) rruleObj.count = scheduling.occurrences
 
   try {
@@ -362,15 +360,22 @@ export async function scheduleNotificationsSingleStudy (studyDescr, studyPart) {
     let rrule = generateRRule(task.scheduling, studyPart, studyDescr.generalities.endDate)
     if (!rrule) continue
 
-    let taskTimesUTC = rrule.between(toUTC(new Date()), toUTC(new Date(studyDescr.generalities.endDate)), true)
+    // RRrule will not show any instances.between if today's date is the same as end date. By adding one day this problem is solved.
+    let studyEndDate = new Date(new Date(studyDescr.generalities.endDate).getTime() + 1000 * 60 * 60 * 24)
+    let now = new Date()
+    let taskTimesUTC = rrule.between(toUTC(now), toUTC(studyEndDate))
+
     for (let scheduleI = 0; scheduleI < taskTimesUTC.length && scheduleI < MAX_NOTIFICATIONS; scheduleI++) {
       let taskTime = fromUTC(taskTimesUTC[scheduleI])
-      let executionDate = moment(taskTime).startOf('minute').toDate()
-      // we could use the unix timestamp of the execution date as id, but we
+
+      // remove seconds from schedule
+      taskTime.setSeconds(0)
+      taskTime.setMilliseconds(0)
+
+      // as for the schedule id, we could use the unix timestamp of the execution date as id, but we
       // don't know how internally the ids are stored, so it's better to keep
       // their length to less than 9 digits
       // we generate the id by combining the study id, the task id and the single schedule
-
       let id = ''
       // study ids can be quite long, let's use only the final 4 digits
       // hoping that a participant doesn't have 2 active studies with the same final 4 digits
@@ -381,27 +386,15 @@ export async function scheduleNotificationsSingleStudy (studyDescr, studyPart) {
       id += task.id // tasks will rarely be more than 2 decimals
       id += scheduleI // this is capped anyway
 
-      // Check if tasks was completed within the last day:
-      let lastCompletionTS
-      if (consentedTask && consentedTask.lastExecuted) {
-      // Task has been completed before
-        lastCompletionTS = moment(new Date(consentedTask.lastExecuted))
-      }
-
-      let taskCompletedWithinDay = false
-      // Checks if the task was completed before and the notification to be scheduled is today
-      if (lastCompletionTS && moment(executionDate).isBetween(moment().startOf('day'), moment().endOf('day')) && lastCompletionTS.isBetween(moment().startOf('day'), moment(executionDate))) {
-        taskCompletedWithinDay = true
-      }
-
-      if (timeStack.indexOf(moment(executionDate).unix()) === -1 && !taskCompletedWithinDay) {
-        timeStack.push(moment(executionDate).unix())
+      // avoid pushing notifications exaclty at the same second
+      if (timeStack.indexOf(taskTime.getTime()) === -1) {
+        timeStack.push(taskTime.getTime())
         notificationStack.push({
           id: parseInt(id),
           title: i18n.t('studies.scheduling.due'),
           text: i18n.t('studies.scheduling.start'),
           foreground: true,
-          trigger: { at: executionDate }
+          trigger: { at: taskTime }
         })
       }
     }
