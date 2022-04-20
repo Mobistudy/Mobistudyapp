@@ -4,21 +4,21 @@
       {{ $t('studies.tasks.fingerTapping.completed') }}
     </div>
     <p class="text-center q-mt-lg text-center">
-      {{ $t('studies.tasks.fingerTapping.summary', { count: report.tappingCount, sec: 20} ) }}
+      {{ $t('studies.tasks.fingerTapping.summary', { count: report.summary.tappingCount, sec: 20} ) }}
     </p>
     <div class="row justify-around q-mt-lg">
-        <q-btn
-          color="secondary"
-          :loading="sending"
-          :label="$t('common.discard')"
-          @click="discard()"
-        />
-        <q-btn
-          color="primary"
-          :loading="sending"
-          :label="$t('common.send')"
-          @click="send()"
-        />
+      <q-btn
+        color="secondary"
+        :loading="sending"
+        :label="$t('common.discard')"
+        @click="discard()"
+      />
+      <q-btn
+        color="primary"
+        :loading="sending"
+        :label="$t('common.send')"
+        @click="send()"
+      />
     </div>
   </q-page>
 </template>
@@ -41,7 +41,7 @@ export default {
     async send () {
       this.sending = true
       try {
-        await API.sendFingerTappingData(this.report)
+        await API.sendTasksResults(this.report)
         await DB.setTaskCompletion(
           this.report.studyKey,
           this.report.taskId,

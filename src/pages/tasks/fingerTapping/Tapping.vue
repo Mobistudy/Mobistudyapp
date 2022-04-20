@@ -103,18 +103,20 @@ export default {
       let completionTS = new Date()
       const studyKey = this.studyKey
 
-      const taskId = parseInt(this.taskId)
-      const userKey = userinfo.user._key
       let report = {
-        userKey: userKey,
+        userKey: userinfo.user._key,
+        participantKey: userinfo.user.participantKey,
         studyKey: studyKey,
-        taskId: taskId,
+        taskId: parseInt(this.taskId),
+        taskType: 'fingerTapping',
         createdTS: new Date(),
-        startedTS: this.startedTS,
-        completionTS: completionTS,
         phone: phone.device,
-        tappingCount: this.tappingData.length,
-        tappingData: this.tappingData
+        summary: {
+          startedTS: this.startedTS,
+          completedTS: completionTS,
+          tappingCount: this.tappingData.length
+        },
+        data: this.tappingData
       }
 
       this.$router.push({ name: 'fingerTappingSummary', params: { report: report } })

@@ -327,20 +327,8 @@ export default {
     return Promise.resolve()
   },
 
-  async sendFingerTappingData (data) {
-    console.log('API - sending tapping data', data)
-    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
-    return Promise.resolve()
-  },
-
-  async sendTUGTData (data) {
-    console.log('API - sending TUGT data', data)
-    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
-    return Promise.resolve()
-  },
-
-  async sendHoldPhoneData (data) {
-    console.log('API - sending phone movement data', data)
+  async sendTasksResults (data) {
+    console.log('API - sending tasks results', data)
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
   }

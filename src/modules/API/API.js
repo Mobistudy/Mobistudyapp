@@ -169,18 +169,9 @@ export default {
     return axios.post(BASE_URL + '/peakFlow', data, axiosConfig)
   },
 
-  // send data from finger tapping data
-  sendFingerTappingData: async function (data) {
-    return axios.post(BASE_URL + '/fingerTapping', data, axiosConfig)
-  },
-
-  // send data from TUG test
-  sendTUGTData: async function (data) {
-    return axios.post(BASE_URL + '/TUGTData', data, axiosConfig)
-  },
-
-  // send data of phone movement
-  sendHoldPhoneData: async function (data) {
-    return axios.post(BASE_URL + '/holdPhone', data, axiosConfig)
+  // send tasks results data
+  sendTasksResults: async function (data) {
+    return axios.post(BASE_URL + '/tasksResults', data, axiosConfig)
   }
+
 }
