@@ -201,6 +201,15 @@ export default {
         startEvent: 'consent',
         untilSecs: 60 * 60 * 24 * 7 // 1 week
       }
+    },
+    {
+      id: 14,
+      type: 'drawSpiral',
+      scheduling: {
+        alwaysOn: true,
+        startEvent: 'taskExecution',
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
+      }
     }
   ],
   consent: {
@@ -447,6 +456,14 @@ export default {
           es: 'Acepto realizar la prueba "Sostén el teléfono".'
         },
         taskId: 12
+      },
+      {
+        description: {
+          en: 'I agree to perform "drawing" test.',
+          sv: 'Jag går med på att utföra "teckning"-testet.',
+          es: 'Acepto realizar la prueba de "dibujo".'
+        },
+        taskId: 14
       }
     ],
     extraItems: []
