@@ -133,10 +133,6 @@ export default {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissioniOS')
         } else this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissionAndroid')
-      } else if (taskType === 'fingerTapping') {
-        if (this.$q.platform.is.ios) {
-          this.permissionMessage = this.$t('studies.tasks.fingerTapping.OSpermissioniOS')
-        } else this.permissionMessage = this.$t('studies.tasks.fingerTapping.OSpermissionAndroid')
       } else if (taskType === 'tugt') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.tugt.OSpermissioniOS')
@@ -178,10 +174,6 @@ export default {
               await phone.pedometer.requestPermission()
             }
           } else if (taskType === 'qcst') {
-            if (await phone.pedometer.isAvailable()) {
-              await phone.pedometer.requestPermission()
-            }
-          } else if (taskType === 'tapping') {
             if (await phone.pedometer.isAvailable()) {
               await phone.pedometer.requestPermission()
             }
