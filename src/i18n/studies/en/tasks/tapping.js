@@ -16,7 +16,7 @@ export default {
       Keep tapping for 20 seconds and try to be as regular as possible.`
     }
   ],
-  instructions: 'Press start to begin the exercise. Once started, tap with the index and middle fingers on the two buttons at the botton of the screen as fast as you can.',
+  instructions: 'Press start to begin the exercise. Once started, tap with the index and middle fingers on the two buttons at the bottom of the screen as fast as you can.',
   completed: 'Task completed',
   summary: 'You tapped {count} times in {sec} seconds.'
 }
