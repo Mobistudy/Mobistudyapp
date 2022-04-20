@@ -22,6 +22,7 @@ export default {
     return DB.setUserSession(this.user)
   },
   async setProfile (profile) {
+    this.user.participantKey = profile._key
     this.user.name = profile.name
     this.user.surname = profile.surname
     this.user.dob = profile.dateOfBirth

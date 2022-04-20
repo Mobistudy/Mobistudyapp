@@ -52,7 +52,8 @@ export default {
 
   // Create the participant profile
   createProfile: async function (profile) {
-    return axios.post(BASE_URL + '/participants', profile, axiosConfig)
+    const resp = axios.post(BASE_URL + '/participants', profile, axiosConfig)
+    return resp.data
   },
 
   // Get the participant profile

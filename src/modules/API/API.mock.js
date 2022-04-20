@@ -1,4 +1,3 @@
-'use strict'
 // MOCK API implementation
 import studyTest from './mockdata/studyTest'
 import formTest from './mockdata/formTest'
@@ -120,7 +119,8 @@ export default {
   // Create the participant profile
   async createProfile (profile) {
     console.log('API - Profile created', profile)
-    return true
+    profile._key = '098765'
+    return profile
   },
 
   // Get the participant profile

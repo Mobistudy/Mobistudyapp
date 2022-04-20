@@ -64,7 +64,8 @@ export default {
         profile.userKey = userinfo.user._key
         profile.updatedTS = new Date()
         profile.createdTS = new Date()
-        await API.createProfile(profile)
+        let newprofile = await API.createProfile(profile)
+        if (newprofile) profile = newprofile
         await userinfo.setProfile(profile)
 
         this.$router.push({ name: 'tasker' })
