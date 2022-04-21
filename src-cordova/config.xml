@@ -77,7 +77,7 @@
 
         <!-- access Microphone in peak flow -->
         <edit-config file="*-Info.plist" mode="merge" target="NSMicrophoneUsageDescription">
-            <string>Mobistudy needs to measure peak flow with Smart Peak Flow Meter</string>
+            <string>Microphone is needed for the vocalization test and to read the peak flow meter</string>
         </edit-config>
 
         <!-- Allow audio and bluetooth access if app is in background -->
