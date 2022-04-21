@@ -13,7 +13,7 @@
   "author": "Mobistudy team",
   "license": "MIT",
   "devDependencies": {
-    "cordova-android": "^9.1.0",
+    "cordova-android": "^10.1.1",
     "cordova-ios": "^6.2.0",
     "cordova-plugin-audioinput": "git+https://github.com/edimuj/cordova-plugin-audioinput.git",
     "cordova-plugin-badge": "^0.8.8",
@@ -59,8 +59,8 @@
       "cordova-plugin-audioinput": {}
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   },
   "dependencies": {
