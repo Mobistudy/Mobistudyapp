@@ -47,13 +47,12 @@
 </style>
 
 <script>
-import phone from 'modules/phone/phone'
 import API from 'modules/API/API'
 import DB from 'modules/db'
 import fileSystem from 'modules/files/files'
 import { format as Qformat } from 'quasar'
 export default {
-  name: 'SMWTSummaryPage',
+  name: 'HoldThePhoneSummaryPage',
   props: {
     report: Object
   },
@@ -64,22 +63,12 @@ export default {
     }
   },
   methods: {
-    async send () {
-      this.sending = true
-
-      // Only for testing purposes! Please remove before deploying app.
-      try {
-        let filename = 'holdPhone_' + new Date().getTime() + '.json'
-        await fileSystem.save(filename, 'shared', this.report)
-      } catch (err) {
-        console.error('Cannot save to file', err)
-      }
-
-      this.report.phone = phone.device
+    async saveDataAndLeave () {
       // Save the data to server
       try {
-        await API.sendHoldPhoneData(this.report)
+        await API.sendTasksResults(this.report)
         await DB.setTaskCompletion(this.report.studyKey, this.report.taskId, new Date())
+        this.sending = false
         this.$router.push('/home')
       } catch (error) {
         this.sending = false
@@ -91,33 +80,35 @@ export default {
         })
       }
     },
+    async send () {
+      this.sending = true
+
+      this.report.discarded = false
+
+      // Only for testing purposes! Please remove before deploying app.
+      // try {
+      //   let filename = 'holdPhone_' + new Date().getTime() + '.json'
+      //   await fileSystem.save(filename, 'shared', this.report)
+      // } catch (err) {
+      //   console.error('Cannot save to file', err)
+      // }
+
+      return this.saveDataAndLeave()
+    },
     async discard () {
       this.sending = true
-      this.report.orientation = 'discarded'
-      this.report.motion = 'discarded'
-      // this.report.borgScale = 'discarded'
-      try {
-        await API.sendHoldPhoneData(this.report)
-        await DB.setTaskCompletion(
-          this.report.studyKey,
-          this.report.taskId,
-          new Date()
-        )
-        this.$router.push({ name: 'home' })
-      } catch (error) {
-        this.sending = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
-      }
+
+      // delete data and set flag
+      this.report.discarded = true
+      delete this.report.summary
+      delete this.report.data
+
+      return this.saveDataAndLeave()
     }
   },
   computed: {
     totalTime () {
-      return Math.floor((this.report.completionTS - this.report.startedTS) / 1000)
+      return Math.floor((this.report.summary.completedTS - this.report.summary.startedTS) / 1000)
     },
     minutes () {
       return Qformat.pad(Math.floor(this.totalTime / 60), 2)

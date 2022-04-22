@@ -64,11 +64,12 @@ import userinfo from 'modules/userinfo'
 
 const TEST_DURATION = 10 // 10 sec
 
+// buffers that hold orientation and motion data
 let orientations = []
 let motions = []
 
 export default {
-  name: 'TUGTPage',
+  name: 'HoldThePhonePage',
   props: {
     studyKey: String,
     taskId: Number
@@ -76,12 +77,16 @@ export default {
   data: function () {
     return {
       timer: undefined,
-      totalTime: TEST_DURATION,
-      completionTS: undefined,
       report: {
-        userKey: this.userKey,
+        userKey: userinfo.user._key,
+        participantKey: userinfo.user.participantKey,
         studyKey: this.studyKey,
-        taskId: this.taskId
+        taskId: parseInt(this.taskId),
+        taskType: 'holdPhone',
+        createdTS: new Date(),
+        phone: phone.device,
+        summary: {},
+        data: {}
       },
       // 0 = resting left PRE
       // 1 = resting left
@@ -99,16 +104,12 @@ export default {
     }
   },
 
-  mounted: async function () {
-
-  },
-
   methods: {
 
     async startTest () {
       this.testPhase++
-      this.startedTS = new Date()
       phone.screen.forbidSleep()
+
       if (this.testPhase % 2 !== 0) {
         // clean the buffers
         orientations = []
@@ -116,42 +117,34 @@ export default {
       }
 
       if (this.testPhase === 1) {
-        const studyKey = this.studyKey
-        const taskId = parseInt(this.taskId)
-        const userKey = userinfo.user._key
-        this.report.studyKey = studyKey
-        this.report.taskId = taskId
-        this.report.userKey = userKey
-
-        this.report.createdTS = new Date()
-        this.report.startedTS = new Date()
-        this.report.resting = {
+        this.summary.startedTS = new Date()
+        this.report.data.resting = {
           left: {
             startedTS: new Date()
           }
         }
       } else if (this.testPhase === 3) {
-        this.report.resting.right = {
+        this.report.data.resting.right = {
           startedTS: new Date()
         }
       } else if (this.testPhase === 5) {
-        this.report.postural = {
+        this.report.data.postural = {
           left: {
             startedTS: new Date()
           }
         }
       } else if (this.testPhase === 7) {
-        this.report.postural.right = {
+        this.report.data.postural.right = {
           startedTS: new Date()
         }
       } else if (this.testPhase === 9) {
-        this.report.kinetic = {
+        this.report.data.kinetic = {
           left: {
             startedTS: new Date()
           }
         }
       } else if (this.testPhase === 11) {
-        this.report.kinetic.right = {
+        this.report.data.kinetic.right = {
           startedTS: new Date()
         }
       }
@@ -159,47 +152,34 @@ export default {
       try {
         if (await phone.orientation.isAvailable()) {
           await phone.orientation.requestPermission()
-          console.log('OrientationEvent is available')
           phone.orientation.startNotifications({}, (event) => {
-            console.log('Got orientation events', event)
             orientations.push(event)
           }, (error) => {
             console.error('Error getting orientation event', error)
           })
         }
       } catch (err) {
-        console.error('Issues getting OrientationEvent', err)
+        console.error('Error getting OrientationEvent', err)
       }
 
       try {
         if (await phone.motion.isAvailable()) {
           await phone.motion.requestPermission()
-          console.log('MotionEvent is available')
           phone.motion.startNotifications({}, (event) => {
-            console.log('Got motion events', event)
             motions.push(event)
           }, (error) => {
             console.error('Error getting MotionEvent', error)
           })
         }
       } catch (err) {
-        console.error('Issues getting MotionEvent', err)
+        console.error('Error getting MotionEvent', err)
       }
 
-      this.totalTime = TEST_DURATION
-      this.timer = setInterval(() => this.countDown(), 1000)
+      this.timer = setTimeout(this.completePhase, TEST_DURATION)
     },
 
     stopTimer () {
-      clearInterval(this.timer)
-    },
-
-    countDown () {
-      if (this.totalTime >= 1) {
-        this.totalTime--
-      } else {
-        this.completePhase()
-      }
+      clearTimeout(this.timer)
     },
 
     completePhase () {
@@ -208,47 +188,40 @@ export default {
       phone.motion.stopNotifications()
       phone.screen.allowSleep()
 
-      console.log(this.report)
-
-      if (this.testPhase === 1) {
-        this.report.resting.left.completionTS = new Date()
-        this.report.resting.left.motion = motions
-        this.report.resting.left.orientation = orientations
-      } else if (this.testPhase === 3) {
-        this.report.resting.right.completionTS = new Date()
-        this.report.resting.right.motion = motions
-        this.report.resting.right.orientation = orientations
-      } else if (this.testPhase === 5) {
-        this.report.postural.left.completionTS = new Date()
-        this.report.postural.left.motion = motions
-        this.report.postural.left.orientation = orientations
-      } else if (this.testPhase === 7) {
-        this.report.postural.right.completionTS = new Date()
-        this.report.postural.right.motion = motions
-        this.report.postural.right.orientation = orientations
-      } else if (this.testPhase === 9) {
-        this.report.kinetic.left.completionTS = new Date()
-        this.report.kinetic.left.motion = motions
-        this.report.kinetic.left.orientation = orientations
-      } else if (this.testPhase === 11) {
-        this.report.kinetic.right.completionTS = new Date()
-        this.report.kinetic.right.motion = motions
-        this.report.kinetic.right.orientation = orientations
-        this.report.completionTS = new Date()
-      }
-
-      console.log(this.report)
       phone.vibrate(2000)
 
-      this.testPhase++
+      if (this.testPhase === 1) {
+        this.report.data.resting.left.completedTS = new Date()
+        this.report.data.resting.left.motion = motions
+        this.report.data.resting.left.orientation = orientations
+      } else if (this.testPhase === 3) {
+        this.report.data.resting.right.completedTS = new Date()
+        this.report.data.resting.right.motion = motions
+        this.report.data.resting.right.orientation = orientations
+      } else if (this.testPhase === 5) {
+        this.report.data.postural.left.completedTS = new Date()
+        this.report.data.postural.left.motion = motions
+        this.report.data.postural.left.orientation = orientations
+      } else if (this.testPhase === 7) {
+        this.report.data.postural.right.completedTS = new Date()
+        this.report.data.postural.right.motion = motions
+        this.report.data.postural.right.orientation = orientations
+      } else if (this.testPhase === 9) {
+        this.report.data.kinetic.left.completedTS = new Date()
+        this.report.data.kinetic.left.motion = motions
+        this.report.data.kinetic.left.orientation = orientations
+      } else if (this.testPhase === 11) {
+        this.report.data.kinetic.right.completedTS = new Date()
+        this.report.data.kinetic.right.motion = motions
+        this.report.data.kinetic.right.orientation = orientations
 
-      if (this.testPhase === 12) {
-        this.completeTest()
+        // test is finished!
+        this.report.completedTS = new Date()
+        this.$router.push({ name: 'holdPhoneSummary', params: { report: this.report } })
+        return
       }
-    },
 
-    completeTest () {
-      this.$router.push({ name: 'holdPhoneSummary', params: { report: this.report } })
+      this.testPhase++
     }
   },
 
