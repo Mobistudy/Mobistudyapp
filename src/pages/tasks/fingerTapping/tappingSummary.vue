@@ -28,7 +28,7 @@ import API from 'modules/API/API'
 import DB from 'modules/db'
 
 export default {
-  name: 'TappingSummaryPage',
+  name: 'FingerTappingSummaryPage',
   props: {
     report: Object
   },
@@ -40,6 +40,9 @@ export default {
   methods: {
     async send () {
       this.sending = true
+
+      this.report.discarded = false
+
       try {
         await API.sendTasksResults(this.report)
         await DB.setTaskCompletion(
@@ -60,8 +63,13 @@ export default {
     },
     async discard () {
       this.sending = true
+
+      // delete data and set flag
+      this.report.discarded = true
+      delete this.report.summary
+      delete this.report.data
+
       try {
-        this.report.tappingData = 'discarded'
         await API.sendFingerTappingData(this.report)
         await DB.setTaskCompletion(
           this.report.studyKey,
