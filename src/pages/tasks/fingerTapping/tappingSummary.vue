@@ -38,11 +38,7 @@ export default {
     }
   },
   methods: {
-    async send () {
-      this.sending = true
-
-      this.report.discarded = false
-
+    async saveAndLeave () {
       try {
         await API.sendTasksResults(this.report)
         await DB.setTaskCompletion(
@@ -61,6 +57,13 @@ export default {
         })
       }
     },
+    async send () {
+      this.sending = true
+
+      this.report.discarded = false
+
+      return this.saveDataAndLeave()
+    },
     async discard () {
       this.sending = true
 
@@ -69,23 +72,7 @@ export default {
       delete this.report.summary
       delete this.report.data
 
-      try {
-        await API.sendFingerTappingData(this.report)
-        await DB.setTaskCompletion(
-          this.report.studyKey,
-          this.report.taskId,
-          new Date()
-        )
-        this.$router.push({ name: 'home' })
-      } catch (error) {
-        this.sending = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
-      }
+      return this.saveDataAndLeave()
     }
   }
 }
