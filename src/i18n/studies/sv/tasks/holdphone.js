@@ -1,22 +1,49 @@
 export default {
-  title: 'Hold the Phone Test',
-  shortDescription: 'Hold the phone steadily for 60 seconds.',
-  shortTitle: 'Hold Phone',
+  title: 'Hold the phone test',
+  shortDescription: 'Measure tremor by holding your phone',
+  shortTitle: 'Hold the phone',
   introductionSlides: [
     {
-      title: 'Instruction',
-      img: 'instructions/holdphone.svg',
-      description: 'In this task you will have to keep the phone steady for 60 seconds.'
+      title: 'Introduction',
+      img: 'instructions/HoldYourPhone_task-01.svg',
+      description: 'In this task you will have to keep your phone steady for 10 seconds with each hand. The goal is to measure any tremor in your hands'
     },
     {
-      title: 'Setup',
-      img: 'instructions/holdphone.svg',
-      description: `Make sure you bla bla
-      Then you will hear a sound bla bla
-      the exercise is finished when bla bla.`
+      title: 'Step 1',
+      img: 'instructions/HoldYourPhone_task-02.svg',
+      description: `You will perform the test in 3 ways: 1) Holding your phone in your lap, when seated comfortably.`
+    },
+    {
+      title: 'Step 2',
+      img: 'instructions/HoldYourPhone_task-03.svg',
+      description: `2) Holding your phone with your arm outstretched at shoulder level.`
+    },
+    {
+      title: 'Step 3',
+      img: 'instructions/HoldYourPhone_task-04.svg',
+      description: `3) Holding the phone while you move the arm from outstretched to touching your nose repeatedly.`
+    },
+    {
+      title: 'Important!',
+      img: 'instructions/HoldYourPhone_task-05.svg',
+      description: `When the 10 seconds have passed, your phone will vibrate. You will be asked to repeat the test for both the right and left arm. If you feel like you cannot hold the phone for the whole duration of the test, simply relax your arm.`
     }
   ],
-  instructions: 'Press start to begin the exercise. Once started, hold your phone steady.',
+  instructions: {
+    preRestingLeft: 'Hold your phone with your LEFT hand lying on your lap. Press start to begin.',
+    preRestingRight: 'Hold your phone with your RIGHT hand lying on your lap. Press start to begin.',
+    prePosturalLeft: 'Keep your arm outstretched at shoulder level while holding your phone with your LEFT hand. Press start to begin.',
+    prePosturalRight: 'Keep your arm outstretched at shoulder level while holding your phone with your RIGHT hand. Press start to begin.',
+    preKineticLeft: 'Move your phone from outstretched to touching your nose while holding your phone with your LEFT hand. Press start to begin.',
+    preKineticRight: 'Move your phone from outstretched to touching your nose while holding your phone with your RIGHT hand. Press start to begin.',
+    afterStart: 'Continue holding the phone steadily in your hand.'
+  },
   completed: 'Task completed',
-  summary: 'Summary bla bla'
+  time: 'Time',
+  summaryRestingLeft: 'At rest tremor, left',
+  summaryRestingRight: 'At rest tremor, right',
+  summaryPosturalLeft: 'Postural tremor, left',
+  summaryPosturalRight: 'Postural tremor, right',
+  summaryKineticLeft: 'Kinetic tremor, left',
+  summaryKineticRight: 'Kinetic tremor, right'
 }
