@@ -1,8 +1,9 @@
 let motion = {
   callback: undefined,
+  startTS: 0,
   motionHandler (event) {
     let simplifiedEvent = {
-      timestamp: new Date().getTime(),
+      msFromStart: new Date().getTime() - this.startTS,
       acc: {
         x: event.acceleration.x,
         y: event.acceleration.y,
@@ -33,6 +34,7 @@ let motion = {
   },
   startNotifications (options, cbk, error) {
     this.callback = cbk
+    this.startTS = new Date().getTime()
     this.motionHandler = this.motionHandler.bind(this)
     window.addEventListener('devicemotion', this.motionHandler, false)
   },
@@ -44,6 +46,7 @@ let motion = {
 
 let motionMock = {
   timer: null,
+  startTS: 0,
   async isAvailable () {
     return Promise.resolve(true)
   },
@@ -51,10 +54,11 @@ let motionMock = {
     return Promise.resolve(true)
   },
   startNotifications (options, cbk, error) {
+    this.startTS = new Date().getTime()
     this.timer = setInterval(() => {
       let fakeSmaple = Math.sin((new Date().getTime() / 1000) * 2 * Math.PI)
       cbk({
-        timestamp: new Date().getTime(),
+        msFromStart: new Date().getTime() - this.startTS,
         acc: {
           x: fakeSmaple,
           y: fakeSmaple,

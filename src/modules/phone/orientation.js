@@ -1,8 +1,9 @@
 let orientation = {
   callback: undefined,
+  startTS: 0,
   orientationHandler (event) {
     let simplifiedEvent = {
-      timestamp: new Date().getTime(),
+      msFromStart: new Date().getTime() - this.startTS,
       abs: event.absolute,
       alpha: event.alpha,
       beta: event.beta,
@@ -24,6 +25,7 @@ let orientation = {
   },
   startNotifications (options, cbk, error) {
     this.callback = cbk
+    this.startTS = new Date().getTime()
     this.orientationHandler = this.orientationHandler.bind(this)
     window.addEventListener('deviceorientation', this.orientationHandler, false)
   },
@@ -35,6 +37,7 @@ let orientation = {
 
 let orientationMock = {
   timer: undefined,
+  startTS: 0,
   async isAvailable () {
     return Promise.resolve(true)
   },
@@ -42,10 +45,11 @@ let orientationMock = {
     return Promise.resolve(true)
   },
   startNotifications (options, cbk, error) {
+    this.startTS = new Date().getTime()
     this.timer = setInterval(() => {
       let fakeSmaple = Math.sin((new Date().getTime() / 1000) * 2 * Math.PI)
       cbk({
-        timestamp: new Date().getTime(),
+        msFromStart: new Date().getTime() - this.startTS,
         abs: fakeSmaple,
         alpha: fakeSmaple,
         beta: fakeSmaple,
