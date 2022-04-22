@@ -31,7 +31,7 @@ let geolocation = {
     // Chromium does something strange that is not serialisable as JSON
     let copyPos = {}
     // copyPos.timestamp = new Date().getTime() // use current timestamp because some phones mess up the timestamps
-    copyPos.timestamp = pos.timestamp
+    copyPos.timestamp = new Date(pos.timestamp)
     copyPos.coords = {}
     copyPos.coords.latitude = pos.coords.latitude
     copyPos.coords.longitude = pos.coords.longitude
@@ -90,7 +90,7 @@ let geolocationMock = {
     this.timerid = setInterval(function () {
       counter++
       cbk({
-        timestamp: new Date().getTime(),
+        timestamp: new Date(),
         coords: {
           latitude: startLat + (counter * 2.1055e-6),
           longitude: startLong + (counter * 1.83055e-5),
