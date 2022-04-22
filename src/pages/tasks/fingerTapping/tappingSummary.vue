@@ -3,7 +3,10 @@
     <div class="text-center text-h5 q-mt-lg text-center">
       {{ $t('studies.tasks.fingerTapping.completed') }}
     </div>
-    <p class="text-center q-mt-lg text-center">
+    <p
+      v-if="!report.discarded"
+      class="text-center q-mt-lg text-center"
+    >
       {{ $t('studies.tasks.fingerTapping.summary', { count: report.summary.tappingCount, sec: 20} ) }}
     </p>
     <div class="row justify-around q-mt-lg">
@@ -62,7 +65,7 @@ export default {
 
       this.report.discarded = false
 
-      return this.saveDataAndLeave()
+      return this.saveAndLeave()
     },
     async discard () {
       this.sending = true
@@ -72,7 +75,7 @@ export default {
       delete this.report.summary
       delete this.report.data
 
-      return this.saveDataAndLeave()
+      return this.saveAndLeave()
     }
   }
 }
