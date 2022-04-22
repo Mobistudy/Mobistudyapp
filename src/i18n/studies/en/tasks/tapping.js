@@ -4,7 +4,7 @@ export default {
   shortTitle: 'Finger Tapping',
   introductionSlides: [
     {
-      title: 'Instruction',
+      title: 'Introduction',
       img: 'instructions/fingertapping1.svg',
       description: 'In this task you will have to tap the screen of your phone with your index and middle fingers as fast as you can.'
     },

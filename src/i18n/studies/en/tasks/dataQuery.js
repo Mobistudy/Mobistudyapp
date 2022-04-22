@@ -1,5 +1,3 @@
-'use strict'
-
 export default {
   title: 'Data Query',
   shortDescription: 'Download health and activity data from your phone',

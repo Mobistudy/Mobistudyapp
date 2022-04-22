@@ -4,7 +4,7 @@ export default {
   shortTitle: 'Fingerfärdighet',
   introductionSlides: [
     {
-      title: 'Instruktioner',
+      title: 'Introduktion',
       img: 'instructions/fingertapping_1.png',
       description: 'I denna uppgift växlar du så fort du kan mellan att trycka med pekfingret och långfingret på skärmen av din telefon.'
     },

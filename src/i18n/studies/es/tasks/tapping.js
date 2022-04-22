@@ -4,7 +4,7 @@ export default {
   shortTitle: 'Movimiento de los dedos',
   introductionSlides: [
     {
-      title: 'Instrucciones',
+      title: 'Introdución',
       img: 'instructions/fingertapping1.svg',
       description: 'En esta tarea tendrás que tocar la pantalla de tu teléfono con tus dedos índice y medio tan rápido como puedas.'
     },
