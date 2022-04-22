@@ -4,50 +4,50 @@
       {{ $t('studies.tasks.holdPhone.title') }}
     </div>
     <div
-      class="text-center text-h5 q-mt-lg"
+      class="text-center text-subtitle1 q-mt-xl"
       v-show="testPhase === 0"
     >
       {{ $t('studies.tasks.holdPhone.instructions.preRestingLeft') }}
     </div>
     <div
-      class="text-center text-h5 q-mt-lg"
+      class="text-center text-subtitle1 q-mt-xl"
       v-show="testPhase === 2"
     >
       {{ $t('studies.tasks.holdPhone.instructions.preRestingRight') }}
     </div>
     <div
-      class="text-center text-h5 q-mt-lg"
+      class="text-center text-subtitle1 q-mt-xl"
       v-show="testPhase === 4"
     >
       {{ $t('studies.tasks.holdPhone.instructions.prePosturalLeft') }}
     </div>
     <div
-      class="text-center text-h5 q-mt-lg"
+      class="text-center text-subtitle1 q-mt-xl"
       v-show="testPhase === 6"
     >
       {{ $t('studies.tasks.holdPhone.instructions.prePosturalRight') }}
     </div>
     <div
-      class="text-center text-h5 q-mt-lg"
+      class="text-center text-subtitle1 q-mt-lg"
       v-show="testPhase === 8"
     >
       {{ $t('studies.tasks.holdPhone.instructions.preKineticLeft') }}
     </div>
     <div
-      class="text-center text-h5 q-mt-lg"
+      class="text-center text-subtitle1 q-mt-xl"
       v-show="testPhase === 10"
     >
       {{ $t('studies.tasks.holdPhone.instructions.preKineticRight') }}
     </div>
 
     <div
-      class="text-center text-h5 q-mt-lg"
+      class="text-center text-subtitle1 q-mt-xl"
       v-show="testPhase % 2 != 0"
     >
       {{ $t('studies.tasks.holdPhone.instructions.afterStart') }}
     </div>
 
-    <div class="row justify-center q-mt-lg">
+    <div class="row justify-center q-mt-xl">
       <q-btn
         @click="startTest"
         v-show="testPhase % 2 == 0"
@@ -85,8 +85,36 @@ export default {
         taskType: 'holdPhone',
         createdTS: new Date(),
         phone: phone.device,
-        summary: {},
-        data: {}
+        summary: {
+          startedTS: '',
+          completedTS: '',
+          resting: {
+            left: {},
+            right: {}
+          },
+          postural: {
+            left: {},
+            right: {}
+          },
+          kinetic: {
+            left: {},
+            right: {}
+          }
+        },
+        data: {
+          resting: {
+            left: {},
+            right: {}
+          },
+          postural: {
+            left: {},
+            right: {}
+          },
+          kinetic: {
+            left: {},
+            right: {}
+          }
+        }
       },
       // 0 = resting left PRE
       // 1 = resting left
@@ -116,37 +144,39 @@ export default {
         motions = []
       }
 
+      let now = new Date()
+
       if (this.testPhase === 1) {
-        this.summary.startedTS = new Date()
-        this.report.data.resting = {
-          left: {
-            startedTS: new Date()
-          }
-        }
+        // 1 = resting left
+
+        this.report.summary.startedTS = now
+        this.report.summary.resting.left.startedTS = now
+        this.report.data.resting.left.startedTS = now
       } else if (this.testPhase === 3) {
-        this.report.data.resting.right = {
-          startedTS: new Date()
-        }
+        // 3 = resting right
+
+        this.report.summary.resting.right.startedTS = now
+        this.report.data.resting.right.startedTS = now
       } else if (this.testPhase === 5) {
-        this.report.data.postural = {
-          left: {
-            startedTS: new Date()
-          }
-        }
+        // 5 = postural left
+
+        this.report.summary.postural.left.startedTS = now
+        this.report.data.postural.left.startedTS = now
       } else if (this.testPhase === 7) {
-        this.report.data.postural.right = {
-          startedTS: new Date()
-        }
+        // 7 = postural right
+
+        this.report.summary.postural.right.startedTS = now
+        this.report.data.postural.right.startedTS = now
       } else if (this.testPhase === 9) {
-        this.report.data.kinetic = {
-          left: {
-            startedTS: new Date()
-          }
-        }
+        // 9 = kinetic left
+
+        this.report.summary.kinetic.left.startedTS = now
+        this.report.data.kinetic.left.startedTS = now
       } else if (this.testPhase === 11) {
-        this.report.data.kinetic.right = {
-          startedTS: new Date()
-        }
+        // 11 = kinetic right
+
+        this.report.summary.kinetic.right.startedTS = now
+        this.report.data.kinetic.right.startedTS = now
       }
 
       try {
@@ -175,7 +205,7 @@ export default {
         console.error('Error getting MotionEvent', err)
       }
 
-      this.timer = setTimeout(this.completePhase, TEST_DURATION)
+      this.timer = setTimeout(this.completePhase, TEST_DURATION * 1000)
     },
 
     stopTimer () {
@@ -190,33 +220,52 @@ export default {
 
       phone.vibrate(2000)
 
+      let now = new Date()
       if (this.testPhase === 1) {
-        this.report.data.resting.left.completedTS = new Date()
+        // 1 = resting left
+
+        this.report.data.resting.left.completedTS = now
+        this.report.summary.resting.left.completedTS = now
         this.report.data.resting.left.motion = motions
         this.report.data.resting.left.orientation = orientations
       } else if (this.testPhase === 3) {
-        this.report.data.resting.right.completedTS = new Date()
+        // 3 = resting right
+
+        this.report.data.resting.right.completedTS = now
+        this.report.summary.resting.right.completedTS = now
         this.report.data.resting.right.motion = motions
         this.report.data.resting.right.orientation = orientations
       } else if (this.testPhase === 5) {
-        this.report.data.postural.left.completedTS = new Date()
+        // 5 = postural left
+
+        this.report.data.postural.left.completedTS = now
+        this.report.summary.postural.left.completedTS = now
         this.report.data.postural.left.motion = motions
         this.report.data.postural.left.orientation = orientations
       } else if (this.testPhase === 7) {
-        this.report.data.postural.right.completedTS = new Date()
+        // 7 = postural right
+
+        this.report.data.postural.right.completedTS = now
+        this.report.summary.postural.right.completedTS = now
         this.report.data.postural.right.motion = motions
         this.report.data.postural.right.orientation = orientations
       } else if (this.testPhase === 9) {
-        this.report.data.kinetic.left.completedTS = new Date()
+        // 9 = kinetic left
+
+        this.report.data.kinetic.left.completedTS = now
+        this.report.summary.kinetic.left.completedTS = now
         this.report.data.kinetic.left.motion = motions
         this.report.data.kinetic.left.orientation = orientations
       } else if (this.testPhase === 11) {
-        this.report.data.kinetic.right.completedTS = new Date()
+        // 11 = kinetic right
+
+        this.report.data.kinetic.right.completedTS = now
+        this.report.summary.kinetic.right.completedTS = now
         this.report.data.kinetic.right.motion = motions
         this.report.data.kinetic.right.orientation = orientations
 
         // test is finished!
-        this.report.completedTS = new Date()
+        this.report.summary.completedTS = new Date()
         this.$router.push({ name: 'holdPhoneSummary', params: { report: this.report } })
         return
       }

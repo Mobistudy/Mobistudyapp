@@ -1,22 +1,46 @@
 <template>
   <q-page padding>
     <div class="text-center">
-      <div class="text-h5">{{ $t('studies.tasks.capTestComplete') }}</div>
-      <img
-        class="q-mt-md"
-        alt="Finish flag"
-        src="~assets/goalflags.svg"
-        style="width: 50%; margin: 0px auto;"
-      >
+      <div class="text-h5 q-mt-md">{{ $t('studies.tasks.capTestComplete') }}</div>
+
+      <div class="q-mt-md">
+        <img
+          alt="Finish flag"
+          src="~assets/goalflags.svg"
+          style="width: 50%; margin: 0px auto;"
+        >
+      </div>
+
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
+
       <table class="decoratedTable">
-        <tr>
-          <td>{{ $t('studies.tasks.holdPhone.time') }}</td>
-          <td> {{ minutes }}:{{ seconds }}</td>
+        <tr v-if="report.summary.resting.left">
+          <td>{{ $t('studies.tasks.holdPhone.summaryRestingLeft') }}</td>
+          <td>{{ report.summary.resting.left.accelerationVariance }}</td>
+        </tr>
+        <tr v-if="report.summary.resting.right">
+          <td>{{ $t('studies.tasks.holdPhone.summaryRestingRight') }}</td>
+          <td>{{ report.summary.resting.right.accelerationVariance }}</td>
+        </tr>
+        <tr v-if="report.summary.postural.left">
+          <td>{{ $t('studies.tasks.holdPhone.summaryPosturalLeft') }}</td>
+          <td>{{ report.summary.postural.left.accelerationVariance }}</td>
+        </tr>
+        <tr v-if="report.summary.postural.right">
+          <td>{{ $t('studies.tasks.holdPhone.summaryPosturalRight') }}</td>
+          <td>{{ report.summary.postural.right.accelerationVariance }}</td>
+        </tr>
+        <tr v-if="report.summary.kinetic.left">
+          <td>{{ $t('studies.tasks.holdPhone.summaryKineticLeft') }}</td>
+          <td>{{ report.summary.kinetic.left.accelerationVariance }}</td>
+        </tr>
+        <tr v-if="report.summary.kinetic.right">
+          <td>{{ $t('studies.tasks.holdPhone.summaryKineticRight') }}</td>
+          <td>{{ report.summary.kinetic.right.accelerationVariance }}</td>
         </tr>
       </table>
 
-      <div class="row justify-around">
+      <div class="row justify-around q-mt-lg">
         <q-btn
           color="secondary"
           :loading="sending"
@@ -49,7 +73,7 @@
 <script>
 import API from 'modules/API/API'
 import DB from 'modules/db'
-import fileSystem from 'modules/files/files'
+// import fileSystem from 'modules/files/files'
 import { format as Qformat } from 'quasar'
 export default {
   name: 'HoldThePhoneSummaryPage',
@@ -63,7 +87,7 @@ export default {
     }
   },
   methods: {
-    async saveDataAndLeave () {
+    async saveAndLeave () {
       // Save the data to server
       try {
         await API.sendTasksResults(this.report)
@@ -93,7 +117,7 @@ export default {
       //   console.error('Cannot save to file', err)
       // }
 
-      return this.saveDataAndLeave()
+      return this.saveAndLeave()
     },
     async discard () {
       this.sending = true
@@ -103,7 +127,7 @@ export default {
       delete this.report.summary
       delete this.report.data
 
-      return this.saveDataAndLeave()
+      return this.saveAndLeave()
     }
   },
   computed: {
