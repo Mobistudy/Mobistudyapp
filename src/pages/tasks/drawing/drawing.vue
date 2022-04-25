@@ -5,10 +5,9 @@
     </div>
 
     <p class="text-center text-subtitle1 q-mt-lg">{{ $t('studies.tasks.drawing.instructions.start') }}</p>
-
-    <canvas id="myCanvas" width="350" height="350" style="border:3px solid #386C81" onload="drawSpiral" v-touch-pan.prevent="handlePan">
-
-    </canvas>
+    <div class="row justify-center q-mb-xl fixed-bottom">
+    <canvas id="myCanvas" width="350" height="350" style="border:3px solid #386C81" onload="drawSpiral" v-touch-pan.prevent="handlePan"></canvas>
+    </div>
   </q-page>
 </template>
 
