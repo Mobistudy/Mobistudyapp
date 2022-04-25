@@ -40,10 +40,10 @@ export default {
   },
   completed: 'Task completed',
   time: 'Time',
-  summaryRestingLeft: 'At rest tremor, left',
-  summaryRestingRight: 'At rest tremor, right',
-  summaryPosturalLeft: 'Postural tremor, left',
-  summaryPosturalRight: 'Postural tremor, right',
-  summaryKineticLeft: 'Kinetic tremor, left',
-  summaryKineticRight: 'Kinetic tremor, right'
+  summaryRestingLeft: 'At rest movement, left',
+  summaryRestingRight: 'At rest movement, right',
+  summaryPosturalLeft: 'Postural movement, left',
+  summaryPosturalRight: 'Postural movement, right',
+  summaryKineticLeft: 'Kinetic movement, left',
+  summaryKineticRight: 'Kinetic movement, right'
 }

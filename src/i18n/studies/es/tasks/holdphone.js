@@ -40,10 +40,10 @@ export default {
   },
   completed: 'Tarea completada',
   time: 'Duración',
-  summaryRestingLeft: 'Temblor en reposo, mano izquierda',
-  summaryRestingRight: 'Temblor en reposo, mano derecha',
-  summaryPosturalLeft: 'Temblor postural, mano izquierda',
-  summaryPosturalRight: 'Temblor postural, mano derecha',
-  summaryKineticLeft: 'Temblor cinético, mano izquierda',
-  summaryKineticRight: 'Temblor cinético, mano derecha'
+  summaryRestingLeft: 'Movimiento en reposo, mano izquierda',
+  summaryRestingRight: 'Movimiento en reposo, mano derecha',
+  summaryPosturalLeft: 'Movimiento postural, mano izquierda',
+  summaryPosturalRight: 'Movimiento postural, mano derecha',
+  summaryKineticLeft: 'Movimiento cinético, mano izquierda',
+  summaryKineticRight: 'Movimiento cinético, mano derecha'
 }
