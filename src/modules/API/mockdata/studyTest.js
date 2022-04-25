@@ -204,10 +204,10 @@ export default {
     },
     {
       id: 14,
-      type: 'drawSpiral',
+      type: 'drawing',
       scheduling: {
         alwaysOn: true,
-        startEvent: 'taskExecution',
+        startEvent: 'consent',
         untilSecs: 60 * 60 * 24 * 7 // 1 week
       }
     }
@@ -239,6 +239,7 @@ export default {
       - The time you tap the screen during the finger tapping exercise.
       - The acceleration and orientation of the phone when you perform the Timed Up and Go test.
       - The acceleration and orientation of the phone when you do the "Hold the phone" test.
+      - The coordinates of your drawing on the phone when you perform the "Drawing" test.
 
       These data are not really needed for anything in particular, as this is just an example, but they may be useful for finding bugs and improving Mobistudy.
 

@@ -181,5 +181,10 @@ export default {
   // send data of phone movement
   sendHoldPhoneData: async function (data) {
     return axios.post(BASE_URL + '/holdPhone', data, axiosConfig)
+  },
+
+  // send data from drawing
+  sendDrawingData: async function (data) {
+    return axios.post(BASE_URL + '/drawing', data, axiosConfig)
   }
 }

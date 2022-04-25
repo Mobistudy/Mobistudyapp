@@ -108,8 +108,9 @@ const routes = [
       { path: '/holdPhone', name: 'holdPhone', component: () => import('pages/tasks/holdPhone/holdPhone.vue'), props: true },
       { path: '/holdPhoneSummary', name: 'holdPhoneSummary', component: () => import('pages/tasks/holdPhone/holdPhoneSummary.vue'), props: true },
 
-      { path: '/drawingIntro', name: 'positionIntro', component: () => import('pages/tasks/drawing/drawingIntro.vue'), props: true },
-      { path: '/drawing', name: 'position', component: () => import('pages/tasks/drawing/drawing.vue'), props: true }
+      { path: '/drawingIntro', name: 'drawingIntro', component: () => import('pages/tasks/drawing/drawingIntro.vue'), props: true },
+      { path: '/drawing', name: 'drawing', component: () => import('pages/tasks/drawing/drawing.vue'), props: true },
+      { path: '/drawingSummary', name: 'drawingSummary', component: () => import('pages/tasks/drawing/drawingSummary.vue'), props: true }
     ]
   },
   {

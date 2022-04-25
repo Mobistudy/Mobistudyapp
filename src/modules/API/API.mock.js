@@ -343,5 +343,11 @@ export default {
     console.log('API - sending phone movement data', data)
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
+  },
+
+  async sendDrawingData (data) {
+    console.log('API - sending drawing data', data)
+    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
+    return Promise.resolve()
   }
 }
