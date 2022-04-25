@@ -6,18 +6,8 @@
 
     <p class="text-center text-subtitle1 q-mt-lg">{{ $t('studies.tasks.drawing.instructions.start') }}</p>
 
-    <!-- <q-inner-loading :showing="showConnecting">
-      <div
-        class="text-overline"
-        color="dark-grey"
-      >{{$t('studies.tasks.position.connecting')}}</div>
-      <q-spinner-dots
-        size="40px"
-        color="primary"
-      />
-    </q-inner-loading> -->
     <canvas id="myCanvas" width="350" height="350" style="border:3px solid #386C81" onload="drawSpiral" v-touch-pan.prevent="handlePan">
-      <!-- <img src="imgs/spiral.svg" style="width: 100px height: 100px"> -->
+
     </canvas>
   </q-page>
 </template>
@@ -103,8 +93,6 @@ export default {
       } else if (this.testNumber === 1) {
         this.coords1.push(point)
       }
-      // console.log(this.coords0)
-      // console.log(this.coords1)
       var canvas = document.getElementById('myCanvas')
       var ctx = canvas.getContext('2d')
       ctx.fillStyle = '#459399'
@@ -130,7 +118,7 @@ export default {
       //
       if (newInfo.isFinal === true) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        // Uncomment this if you want to include the next test
+        // next drawing template
         this.testNumber = this.testNumber + 1
         //
         // score calculation cont.

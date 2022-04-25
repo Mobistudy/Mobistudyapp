@@ -3,10 +3,6 @@
     <div class="text-center text-h5 q-mt-lg text-center">
       {{ $t('studies.tasks.drawing.completed') }}
     </div>
-
-    <div>
-      {{this.report}}
-    </div>
     <div class="row justify-around q-mt-lg">
       <q-btn
         color="secondary"
