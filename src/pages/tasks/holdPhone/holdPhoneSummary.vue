@@ -20,27 +20,27 @@
         </tr>
         <tr v-if="report.summary.resting.left">
           <td>{{ $t('studies.tasks.holdPhone.summaryRestingLeft') }}</td>
-          <td>{{ report.summary.resting.left.accelerationVariance }}</td>
+          <td>{{ report.summary.resting.left.accelerationVariance.toFixed(2) }}</td>
         </tr>
         <tr v-if="report.summary.resting.right">
           <td>{{ $t('studies.tasks.holdPhone.summaryRestingRight') }}</td>
-          <td>{{ report.summary.resting.right.accelerationVariance }}</td>
+          <td>{{ report.summary.resting.right.accelerationVariance.toFixed(2) }}</td>
         </tr>
         <tr v-if="report.summary.postural.left">
           <td>{{ $t('studies.tasks.holdPhone.summaryPosturalLeft') }}</td>
-          <td>{{ report.summary.postural.left.accelerationVariance }}</td>
+          <td>{{ report.summary.postural.left.accelerationVariance.toFixed(2) }}</td>
         </tr>
         <tr v-if="report.summary.postural.right">
           <td>{{ $t('studies.tasks.holdPhone.summaryPosturalRight') }}</td>
-          <td>{{ report.summary.postural.right.accelerationVariance }}</td>
+          <td>{{ report.summary.postural.right.accelerationVariance.toFixed(2) }}</td>
         </tr>
         <tr v-if="report.summary.kinetic.left">
           <td>{{ $t('studies.tasks.holdPhone.summaryKineticLeft') }}</td>
-          <td>{{ report.summary.kinetic.left.accelerationVariance }}</td>
+          <td>{{ report.summary.kinetic.left.accelerationVariance.toFixed(2) }}</td>
         </tr>
         <tr v-if="report.summary.kinetic.right">
           <td>{{ $t('studies.tasks.holdPhone.summaryKineticRight') }}</td>
-          <td>{{ report.summary.kinetic.right.accelerationVariance }}</td>
+          <td>{{ report.summary.kinetic.right.accelerationVariance.toFixed(2) }}</td>
         </tr>
       </table>
 
@@ -75,10 +75,15 @@
 </style>
 
 <script>
+import { variance } from 'modules/stats'
 import API from 'modules/API/API'
 import DB from 'modules/db'
 // import fileSystem from 'modules/files/files'
 import { format as Qformat } from 'quasar'
+
+// TODO: compute the energy of the signal (or similar) only in the bad 4 to 10 Hz.
+// see https://www.aafp.org/afp/1999/0315/p1565.html
+
 export default {
   name: 'HoldThePhoneSummaryPage',
   props: {
@@ -89,6 +94,37 @@ export default {
       borgValue: undefined,
       sending: false
     }
+  },
+  created () {
+    let vals = this.report.data.resting.left.motion.map((ev) => {
+      return Math.sqrt((ev.acc.x * ev.acc.x) + (ev.acc.y * ev.acc.y) + (ev.acc.z * ev.acc.z))
+    })
+    this.report.summary.resting.left.accelerationVariance = variance(vals)
+
+    vals = this.report.data.resting.right.motion.map((ev) => {
+      return Math.sqrt((ev.acc.x * ev.acc.x) + (ev.acc.y * ev.acc.y) + (ev.acc.z * ev.acc.z))
+    })
+    this.report.summary.resting.right.accelerationVariance = variance(vals)
+
+    vals = this.report.data.postural.left.motion.map((ev) => {
+      return Math.sqrt((ev.acc.x * ev.acc.x) + (ev.acc.y * ev.acc.y) + (ev.acc.z * ev.acc.z))
+    })
+    this.report.summary.postural.left.accelerationVariance = variance(vals)
+
+    vals = this.report.data.postural.right.motion.map((ev) => {
+      return Math.sqrt((ev.acc.x * ev.acc.x) + (ev.acc.y * ev.acc.y) + (ev.acc.z * ev.acc.z))
+    })
+    this.report.summary.postural.right.accelerationVariance = variance(vals)
+
+    vals = this.report.data.kinetic.left.motion.map((ev) => {
+      return Math.sqrt((ev.acc.x * ev.acc.x) + (ev.acc.y * ev.acc.y) + (ev.acc.z * ev.acc.z))
+    })
+    this.report.summary.kinetic.left.accelerationVariance = variance(vals)
+
+    vals = this.report.data.kinetic.right.motion.map((ev) => {
+      return Math.sqrt((ev.acc.x * ev.acc.x) + (ev.acc.y * ev.acc.y) + (ev.acc.z * ev.acc.z))
+    })
+    this.report.summary.kinetic.right.accelerationVariance = variance(vals)
   },
   methods: {
     async saveAndLeave () {
