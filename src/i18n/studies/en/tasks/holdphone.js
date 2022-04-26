@@ -2,6 +2,8 @@ export default {
   title: 'Hold the phone test',
   shortDescription: 'Measure tremor by holding your phone',
   shortTitle: 'Hold the phone',
+  OSpermissioniOS: 'This task requires the app to access the motion sensors (accelerometer and gyroscope) in your phone. This is needed to measure the amount of tremor in your hands and upper limbs. These data be shared with the research team of the study for analysis. Tap on Next to proceed with the authorization process.',
+  OSpermissionAndroid: 'This task requires the app to access the motion sensors (accelerometer and gyroscope) in your phone. This is needed to measure the amount of tremor in your hands and upper limbs. These data be shared with the research team of the study for analysis. Tap on Next to proceed with the authorization process.',
   introductionSlides: [
     {
       title: 'Introduction',
