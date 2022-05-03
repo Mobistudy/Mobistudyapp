@@ -8,13 +8,23 @@ export default {
   introductionSlides: [
     {
       title: 'Instruction',
-      img: 'instructions/vocalizationtask-01.svg',
-      description: 'task description.'
+      img: 'instructions/vocalization_1.svg',
+      description: 'In this test, we will record your voice during a simple vocalization exercise.'
     },
     {
       title: 'Instruction',
-      img: 'instructions/vocalizationtask-02.svg',
-      description: 'task description.'
+      img: 'instructions/vocalization_2.svg',
+      description: 'Ait up straight, increase the volume of the phone to the maximum and press start when ready.'
+    },
+    {
+      title: 'Instruction',
+      img: 'instructions/vocalization_3.svg',
+      description: 'After hearing the sound from the phone, take a deep breath and pronounce the vocal shown on the screen (first "A", then "I" and "U") for as long and as steadily as possible.'
+    },
+    {
+      title: 'Instruction',
+      img: 'instructions/vocalization_4.svg',
+      description: 'Ait up straight, increase the volume of the phone to the maximum and press start when ready.'
     }
   ],
   instructions: {
