@@ -1,0 +1,690 @@
+{
+  "_key": "7878",
+  "teamKey": "1608",
+  "name": {
+    "en": "Parkinson ́s Disease Sleep Scale 2",
+    "sv": ""
+  },
+  "description": {
+    "en": "<p>The Parkinson’s Disease Sleep Scale 2 assess the profile of nocturnal disturbances in Parkinson’s disease patients.</p><p>Please rate the severity of the following based on your experiences during the past 7 days.</p><br><p><small>The questionnaire is protected by international copyright, with all rights reserved to Claudia Trenkwalder and Ray Chaudhuri. For information on, or permission to use PDSS-2VC, please contact: contact@mapi-trust.org</small></p>",
+    "sv": ""
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "text": {
+        "en": "Overall, did you sleep well during the last week?",
+        "sv": "Totalt sett, har du sovit bra under de senaste 7 dagarna?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q1A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q1A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q1A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q1A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q1A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": {
+        "en": "Did you have difficulty falling asleep each night?",
+        "sv": "Hade du svårt att somna på kvällarna?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q2A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q2A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q2A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q2A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q2A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q3",
+      "text": {
+        "en": "Did you have difficulty staying asleep?",
+        "sv": "Hade du svårt att sova hela natten igenom?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q3A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q3A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q3A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q3A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q3A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q4",
+      "text": {
+        "en": "Did you have restlessness of legs or arms at nights causing disruption of sleep?",
+        "sv": "Upplevde du rastlöshet i ben eller armar under natten som störde din sömn?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q4A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q4A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q4A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q4A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q4A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q5",
+      "text": {
+        "en": "Was your sleep disturbed due to an urge to move your legs or arms?",
+        "sv": "Stördes din sömn av att du kände ett starkt behov av att röra armar eller ben?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q5A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q5A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q5A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q5A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q5A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q6",
+      "text": {
+        "en": "Did you suffer from distressing dreams at night?",
+        "sv": "Besvärades du av oroliga drömmar under natten?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q6A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q6A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q6A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q6A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q6A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q7",
+      "text": {
+        "en": "Did you suffer from distressing hallucinations at night (seeing or hearing things that you are told do not exist)?",
+        "sv": "Besvärades du av oroande hallucinationer under natten (såg eller hörde sådant som du vet inte existerar)?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q7A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q7A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q7A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q7A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q7A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q8",
+      "text": {
+        "en": "Did get up at night to pass urine?",
+        "sv": "Steg du upp under natten för att urinera?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q8A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q8A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q8A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q8A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q8A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q9",
+      "text": {
+        "en": "Did you feel uncomfortable at night because you were unable to turn around in bed or move due to immobility?",
+        "sv": "Kände du dig obekväm under natten därför att du inte kunde vända dig i sängen eller röra dig på grund av orörlighet?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q9A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q9A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q9A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q9A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q9A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q10",
+      "text": {
+        "en": "Did you feel pain in your arms or legs which woke you up from sleep at night?",
+        "sv": "Väcktes du av smärta i armar eller ben under natten?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q10A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q10A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q10A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q10A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q10A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q11",
+      "text": {
+        "en": "Did you have muscle cramps in your arms or legs which woke you up while sleeping at night?",
+        "sv": "Väcktes du av muskelkramper i armar eller ben under natten?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q11A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q11A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q11A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q11A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q11A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q12",
+      "text": {
+        "en": "Did you wake early in the morning with painful posturing of arms and legs?",
+        "sv": "Vaknade du för tidigt på morgonen (tidigare än du normalt vaknar) med armar och ben i en smärtsam ställning?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q12A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q12A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q12A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q12A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q12A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q13",
+      "text": {
+        "en": "On waking, did you experience tremor?",
+        "sv": "Upplevde du tremor (skakningar, darrningar) när du vaknat på morgonen eller under natten?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q13A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q13A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q13A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q13A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q13A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q14",
+      "text": {
+        "en": "Did you feel tried and sleepy after waking in the morning?",
+        "sv": "Kände du dig trött och sömnig under ca 2 till 3 timmar efter att du vaknat på morgonen?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q14A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q14A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q14A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q14A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q14A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q15",
+      "text": {
+        "en": "Did you wake up at night due to snoring and difficulties with breathing?",
+        "sv": "Väcktes du på natten av dina egna snarkningar eller på grund av andningssvårigheter?"
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q15A1",
+          "text": {
+            "en": "Very often (6 to 7 days a week)",
+            "sv": "Mycket ofta (6 till 7 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q15A2",
+          "text": {
+            "en": "Often (4 to 5 days a week)",
+            "sv": "Ofta (4 till 5 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q15A3",
+          "text": {
+            "en": "Sometimes (2 to 3 days a week)",
+            "sv": "Ibland (2 till 3 dagar i veckan)"
+          }
+        },
+        {
+          "id": "Q15A4",
+          "text": {
+            "en": "Occasionally (1 day a week)",
+            "sv": "Vid enstaka tillfällen (1 dag i veckan)"
+          }
+        },
+        {
+          "id": "Q15A5",
+          "text": {
+            "en": "Never",
+            "sv": "Aldrig"
+          }
+        }
+      ]
+    }
+  ],
+  "created": "2021-05-11T13:15:30.637Z"
+}

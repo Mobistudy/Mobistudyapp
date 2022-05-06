@@ -71,24 +71,46 @@
         "en": "NMSQuest",
         "sv": "NMSQuest"
       }
+    },
+    {
+      "id": 2,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      },
+      "formKey": "7878",
+      "formName": {
+        "en": "PDSS-2",
+        "sv": "PDSS-2"
+      }
     }
   ],
   "consent": {
     "invitation": {
       "en": "Invite",
-      "sv": ""
+      "sv": "Invitation"
     },
     "privacyPolicy": {
-      "en": "",
-      "sv": ""
+      "en": "bla bla",
+      "sv": "bla bla"
     },
     "taskItems": [
       {
         "description": {
-          "en": "I agree to answer the sample questionnaire, every day.",
-          "sv": "Jag accepterar att besvara Exempel formulär, varje dag."
+          "en": "I agree to answer the \"Non motor symptoms\" questionnaire, every day.",
+          "sv": "Jag accepterar att besvara \"Non motor symptoms\" formulär, varje dag."
         },
         "taskId": 1
+      },
+      {
+        "description": {
+          "en": "I agree to answer the \"Parkinson ́s Disease Sleep Scale\", every day.",
+          "sv": "Jag accepterar att besvara \"Parkinson ́s Disease Sleep Scale\" formulär, varje dag."
+        },
+        "taskId": 2
       }
     ],
     "extraItems": []

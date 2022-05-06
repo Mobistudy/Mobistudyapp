@@ -8,6 +8,7 @@ import formPainAppVAS from './mockdata/formPainApp2'
 
 import parkAppStudy from './mockdata/parkapp'
 import NMSQuest from './mockdata/NMSQuest'
+import PDSS2 from './mockdata/PDSS2'
 
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
@@ -228,19 +229,23 @@ export default {
       if (key === formTest._key) {
         setTimeout(function () {
           resolve(formTest)
-        }, Math.floor(1000))
+        }, 1000)
       } else if (key === formPainAppReminder._key) {
         setTimeout(function () {
           resolve(formPainAppReminder)
-        }, Math.floor(1000))
+        }, 1000)
       } else if (key === formPainAppVAS._key) {
         setTimeout(function () {
           resolve(formPainAppVAS)
-        }, Math.floor(1000))
+        }, 500)
       } else if (key === NMSQuest._key) {
         setTimeout(function () {
           resolve(NMSQuest)
-        }, Math.floor(1000))
+        }, 500)
+      } else if (key === PDSS2._key) {
+        setTimeout(function () {
+          resolve(PDSS2)
+        }, 500)
       } else {
         reject(new Error('Questionnaire not found ' + key))
       }
