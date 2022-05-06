@@ -103,6 +103,7 @@
         class="row justify-around"
       >
         <q-btn
+          :disabled="!isAnswered"
           no-caps
           flat
           :label="$t('studies.tasks.form.removeAnswer')"

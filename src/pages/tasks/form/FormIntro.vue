@@ -1,22 +1,35 @@
 <template>
   <q-page>
-    <Intro
-      :introductionSlides="introSlides"
-      v-on:start="start()"
-    >
-    </Intro>
+    <div class="q-pa-md">
+      <div
+        class="text-h5 text-center q-pb-sm q-pt-md"
+        v-if="title"
+      >
+        {{title}}
+      </div>
+      <div
+        class="text-justify q-mt-lg"
+        v-html="description"
+      >
+      </div>
+
+      <q-btn
+        color="primary q-mt-xl"
+        class="full-width"
+        @click="start()"
+        replace
+        :label="$t('common.start')"
+      />
+
+    </div>
   </q-page>
 </template>
 <script>
-import Intro from 'components/Intro.vue'
 import API from 'modules/API/API'
 import DB from 'modules/db'
 
 export default {
   name: 'FormIntroPage',
-  components: {
-    Intro
-  },
   props: {
     studyKey: String,
     taskId: Number,
@@ -24,12 +37,8 @@ export default {
   },
   data () {
     return {
-      introSlides: [
-        {
-          title: '',
-          description: ''
-        }
-      ]
+      title: '',
+      description: ''
     }
   },
   methods: {
@@ -53,8 +62,8 @@ export default {
       this.$q.loading.hide()
     }
 
-    this.introSlides[0].title = formDescr.name[this.$i18n.locale]
-    this.introSlides[0].description = formDescr.description[this.$i18n.locale]
+    this.title = formDescr.name[this.$i18n.locale]
+    this.description = formDescr.description[this.$i18n.locale]
   }
 }
 </script>
