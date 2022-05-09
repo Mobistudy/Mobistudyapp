@@ -2,12 +2,12 @@
   "_key": "7878",
   "teamKey": "1608",
   "name": {
-    "en": "Parkinson ́s Disease Sleep Scale 2",
-    "sv": ""
+    "en": "Parkinson's Disease Sleep Scale 2",
+    "sv": "Parkinson's Disease Sleep Scale 2"
   },
   "description": {
-    "en": "<p>The Parkinson’s Disease Sleep Scale 2 assess the profile of nocturnal disturbances in Parkinson’s disease patients.</p><p>Please rate the severity of the following based on your experiences during the past 7 days.</p><br><p><small>The questionnaire is protected by international copyright, with all rights reserved to Claudia Trenkwalder and Ray Chaudhuri. For information on, or permission to use PDSS-2VC, please contact: contact@mapi-trust.org</small></p>",
-    "sv": ""
+    "en": "<p>The Parkinson's Disease Sleep Scale 2 assess the profile of nocturnal disturbances in Parkinson's disease patients.</p><p>Please rate the severity of the following based on your experiences during the past 7 days.</p><br><p><small>The questionnaire is protected by international copyright, with all rights reserved to Claudia Trenkwalder and Ray Chaudhuri. For information on, or permission to use PDSS-2, please contact: contact@mapi-trust.org</small></p>",
+    "sv": "<p>Parkinson's Disease Sleep Scale 2 utvärderar nattliga störningar och sömnprofil för patienter med Parkinsons sjukdom.</p><p>Vänligen betygssätt i vilken grad du upplevt följande aspekter de senaste 7 dagarna.</p><br><p><small>Frågeformuläret skyddas av internationell upphovsrätt, med alla rättigheter förbehållna Claudia Trenkwalder och Ray Chaudhuri. För information om, eller tillåtelse att använda PDSS-2, vänligen kontakta: contact@mapi-trust.org</small></p>"
   },
   "questions": [
     {
