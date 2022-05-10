@@ -3,14 +3,21 @@
     <div class="text-center">
       <div class="text-h5">{{ $t('studies.tasks.capTestComplete') }}</div>
       <img
-        class="q-mt-md"
+        class="q-mx-a q-mt-lg"
         alt="Finish flag"
         src="~assets/goalflags.svg"
-        style="width: 50%; margin: 0px auto;"
+        style="width: 50%;"
       >
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
-      &nbsp;
-      <div class="row justify-around">
+
+      <table class="decoratedTable q-mt-md">
+        <tr>
+          <td>{{ $t('studies.tasks.vocalization.time') }}</td>
+          <td> {{ minutes }}:{{ seconds }}</td>
+        </tr>
+      </table>
+
+      <div class="row justify-around q-mt-xl">
         <q-btn
           color="secondary"
           :loading="sending"
@@ -25,7 +32,6 @@
         />
       </div>
     </div>
-
   </q-page>
 </template>
 
@@ -106,7 +112,7 @@ export default {
   },
   computed: {
     totalTime () {
-      return Math.floor((this.report.completionTS - this.report.startedTS) / 1000)
+      return Math.floor((this.report.summary.completedTS - this.report.summary.startedTS) / 1000)
     },
     minutes () {
       return Qformat.pad(Math.floor(this.totalTime / 60), 2)

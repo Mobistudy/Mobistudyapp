@@ -7,24 +7,24 @@
       {{ $t('studies.tasks.vocalization.title') }}
     </div>
 
-      <p
-        class="text-center text-subtitle1 q-mt-lg"
-        v-show="testPhase === 0 || testPhase === 1"
-      >
-        {{ $t('studies.tasks.vocalization.instructions.AAA') }}
-      </p>
-      <p
-        class="text-center text-subtitle1 q-mt-lg"
-        v-show="testPhase === 2 || testPhase === 3"
-      >
-        {{ $t('studies.tasks.vocalization.instructions.III') }}
-      </p>
-      <p
-        class="text-center text-subtitle1 q-mt-lg"
-        v-show="testPhase === 4 || testPhase === 5"
-      >
-        {{ $t('studies.tasks.vocalization.instructions.UUU') }}
-      </p>
+    <p
+      class="text-center text-subtitle1 q-mt-lg"
+      v-show="testPhase === 0 || testPhase === 1"
+      v-html="$t('studies.tasks.vocalization.instructions.AAA')"
+    >
+    </p>
+    <p
+      class="text-center text-subtitle1 q-mt-lg"
+      v-show="testPhase === 2 || testPhase === 3"
+      v-html="$t('studies.tasks.vocalization.instructions.III')"
+    >
+    </p>
+    <p
+      class="text-center text-subtitle1 q-mt-lg"
+      v-show="testPhase === 4 || testPhase === 5"
+      v-html="$t('studies.tasks.vocalization.instructions.UUU')"
+    >
+    </p>
 
     <div class="row justify-around">
 
@@ -36,23 +36,23 @@
       />
 
       <q-btn
-        @click="completePhase"
-        v-show="isStarted && testPhase != 5"
-        color="secondary"
-        :label="$t('common.next')"
-      />
-
-      <q-btn
         @click="redoTest"
         v-show="isStarted"
-        color="secondary"
+        color="primary"
         :label="$t('common.redo')"
       />
 
       <q-btn
         @click="completePhase"
+        v-show="isStarted && testPhase != 5"
+        color="primary"
+        :label="$t('common.next')"
+      />
+
+      <q-btn
+        @click="completePhase"
         v-show="testPhase == 5"
-        color="secondary"
+        color="primary"
         :label="$t('common.complete')"
       />
     </div>
@@ -60,11 +60,6 @@
 </template>
 
 <style scoped>
-#timer {
-  font-size: 3rem;
-  text-align: center;
-}
-
 .text-subtitle1 {
   line-height: 2;
 }
@@ -74,9 +69,10 @@
 import phone from 'modules/phone/phone'
 import userinfo from 'modules/userinfo'
 import sweeper from 'modules/sweeper'
-// import files from 'modules/files'
+import files from 'modules/files/files'
 
-const TEST_DURATION = 10
+const TEST_MAX_DURATION = 60
+// TODO: cange it to 'cache' to keep it internal
 const FOLDER = 'shared'
 
 export default {
@@ -89,14 +85,10 @@ export default {
   data: function () {
     return {
       isStarted: false,
-      isCompleted: false,
       timer: undefined,
       testTS: Date.now(),
       filename: '',
       report: {
-        userKey: this.userKey,
-        studyKey: this.studyKey,
-        taskId: this.taskId,
         summary: {
           phases: []
         },
@@ -121,15 +113,15 @@ export default {
       this.filename = ((this.testPhase - 1) / 2).toFixed(0) + '_' + this.testTS + '.wav'
 
       if (this.testPhase === 1) {
-        const studyKey = this.studyKey
-        const taskId = parseInt(this.taskId)
-        const userKey = userinfo.user._key
-        this.report.studyKey = studyKey
-        this.report.taskId = taskId
-        this.report.userKey = userKey
+        this.report.userKey = userinfo.user._key
+        this.report.participantKey = userinfo.user.participantKey
+        this.report.studyKey = this.studyKey
+        this.report.taskId = parseInt(this.taskId)
+        this.report.taskType = 'vocalization'
+        this.report.phone = phone.device
 
         this.report.createdTS = new Date()
-        this.report.startedTS = new Date()
+        this.report.summary.startedTS = new Date()
         this.report.summary.phases[0] = {
           vocal: 'a',
           startedTS: new Date(),
@@ -158,15 +150,18 @@ export default {
           sweeper.sweep(10, 10000, 2, 'sine', 1)
         }
       } catch (err) {
+        this.isStarted = false
         console.error('Issues getting audio', err)
+        this.$q.notify({
+          color: 'negative',
+          message: this.$t('studies.tasks.vocalization.audioError') + ' ' + err.message,
+          icon: 'report_problem'
+        })
       }
-
-      // this.totalTime = TEST_DURATION
-      // this.timer = setInterval(() => this.countDown(), 1000)
     },
 
     startTimer () {
-      this.timer = setTimeout(() => this.completePhase(), TEST_DURATION * 1000)
+      this.timer = setTimeout(() => this.completePhase(), TEST_MAX_DURATION * 1000)
     },
     stopTimer () {
       clearTimeout(this.timer)
@@ -175,8 +170,7 @@ export default {
     async redoTest () {
       this.stopTimer()
       phone.audioRecorder.stopRecording()
-      // TODO: uncomment when delete is ready
-      // await files.delete(this.filename, FOLDER)
+      await files.delete(this.filename, FOLDER)
       this.report.attachments.pop()
       this.testPhase--
       this.startTest()
@@ -185,19 +179,17 @@ export default {
     completePhase () {
       this.stopTimer()
       phone.screen.allowSleep()
-      this.isCompleted = true
       this.isStarted = false
 
-      console.log(this.report)
-
       if (this.testPhase === 1) {
-        this.report.summary.phases[0].completionTS = new Date()
+        this.report.summary.phases[0].completedTS = new Date()
         phone.audioRecorder.stopRecording()
       } else if (this.testPhase === 3) {
-        this.report.summary.phases[1].completionTS = new Date()
+        this.report.summary.phases[1].completedTS = new Date()
         phone.audioRecorder.stopRecording()
       } else if (this.testPhase === 5) {
-        this.report.summary.phases[2].completionTS = new Date()
+        this.report.summary.phases[2].completedTS = new Date()
+        this.report.summary.completedTS = new Date()
         phone.audioRecorder.stopRecording()
       }
 
