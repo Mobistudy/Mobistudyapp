@@ -11,12 +11,12 @@ export default {
       description: 'The aim of this test is to walk as far as possible in 6 minutes.'
     },
     {
-      title: 'Instruction',
+      title: 'Instructions',
       img: 'instructions/6mwt_2.jpg',
       description: 'It is important that you try to walk as straight as possible. Try to avoid stairs and walking up or downhill.'
     },
     {
-      title: 'Instruction',
+      title: 'Instructions',
       img: 'instructions/6mwt_3.jpg',
       description: 'If possible, try to avoid areas with many tall buildings or trees close to you as these can affect how the phone localises you.'
     },

@@ -23,13 +23,13 @@ export default {
     {
       title: 'Important!',
       img: 'instructions/vocalization_4.svg',
-      description: 'It is important to  press start when ready.'
+      description: 'It is important to choose a quiet place with as little noise as possible. Press start when ready.'
     }
   ],
   instructions: {
-    AAA: 'Take a deep breath, press start and, after the sweeping sound, <b>please say \'Aaaaah\'</b> for as long as you can. <br>When you are done, press next to continue or redo to repeat the current step. ',
-    III: 'Take a deep breath, press start and after the sweeping sound <b>please say \'Iiiiih\'</b> for as long as you can. <br>When you are done, press next to continue or redo to repeat the current step.',
-    UUU: 'Take a deep breath, press start and after the sweeping sound <b>please say \'Uuuuuh\'</b> for as long as you can. <br>When you are done, press complete to complete or redo to repeat the current step.'
+    AAA: 'Take a deep breath, press start and, after the sweeping sound, <b>please say \'AAAAA\'</b> for as long as you can. <br>When finished, press "next" to continue or "redo" to repeat the current step.',
+    III: 'Take a deep breath, press start and after the sweeping sound <b>please say \'IIIII\'</b> for as long as you can. <br>When finished, press "next" to continue or "redo" to repeat the current step.',
+    UUU: 'Take a deep breath, press start and after the sweeping sound <b>please say \'UUUUU\'</b> for as long as you can. <br>When finished, press "complete" to complete or "redo" to repeat the current step.'
   },
   audioError: 'Could not acquire microphone from the phone.',
   completed: 'Task completed',
