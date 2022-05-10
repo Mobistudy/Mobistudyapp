@@ -23,16 +23,17 @@
 
       <q-btn
         round
-        size="xl"
+        size="30px"
         color="secondary"
         @click="leftTapped"
         class="q-mr-lg"
       >1</q-btn>
       <q-btn
         round
-        size="xl"
+        size="30px"
         color="secondary"
         @click="rightTapped"
+        class="q-ml-lg"
       >2</q-btn>
     </div>
 
