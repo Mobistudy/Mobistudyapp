@@ -143,7 +143,6 @@ export default {
       try {
         if (await phone.audioRecorder.isAvailable()) {
           await phone.audioRecorder.requestPermission()
-          console.log('Audio recorder is available')
           phone.audioRecorder.startRecording({ folder: FOLDER, fileName: this.filename }, null, (err) => { console.error(err) })
           this.report.attachments.push(this.filename)
           this.startTimer()
