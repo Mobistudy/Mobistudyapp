@@ -71,6 +71,7 @@ let audioRecorder = {
    */
   async stopRecording () {
     window.audioinput.stop()
+    console.log('file saved')
   }
 }
 
@@ -99,6 +100,7 @@ let audioRecorderMock = {
     return true
   },
   async stopRecording () {
+    console.log('file saved')
     return Promise.resolve(true)
   }
 }

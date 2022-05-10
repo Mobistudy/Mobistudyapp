@@ -106,7 +106,11 @@ const routes = [
 
       { path: '/holdPhoneIntro', name: 'holdPhoneIntro', component: () => import('pages/tasks/holdPhone/holdPhoneIntro.vue'), props: true },
       { path: '/holdPhone', name: 'holdPhone', component: () => import('pages/tasks/holdPhone/holdPhone.vue'), props: true },
-      { path: '/holdPhoneSummary', name: 'holdPhoneSummary', component: () => import('pages/tasks/holdPhone/holdPhoneSummary.vue'), props: true }
+      { path: '/holdPhoneSummary', name: 'holdPhoneSummary', component: () => import('pages/tasks/holdPhone/holdPhoneSummary.vue'), props: true },
+
+      { path: '/vocalizationIntro', name: 'vocalizationIntro', component: () => import('pages/tasks/vocalization/vocalizationIntro.vue'), props: true },
+      { path: '/vocalization', name: 'vocalization', component: () => import('pages/tasks/vocalization/vocalization.vue'), props: true },
+      { path: '/vocalizationSummary', name: 'vocalizationSummary', component: () => import('pages/tasks/vocalization/vocalizationSummary.vue'), props: true }
     ]
   },
   {

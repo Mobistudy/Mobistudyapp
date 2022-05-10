@@ -1,6 +1,6 @@
 /**
  * Sweep sound generator.
- * Uses the browser auido synthetizer.
+ * Uses the browser audio synthetizer.
  */
 export default {
   init () {

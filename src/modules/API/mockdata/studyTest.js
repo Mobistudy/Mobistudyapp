@@ -201,6 +201,15 @@ export default {
         startEvent: 'consent',
         untilSecs: 60 * 60 * 24 * 7 // 1 week
       }
+    },
+    {
+      id: 13,
+      type: 'vocalization',
+      scheduling: {
+        alwaysOn: true,
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
+      }
     }
   ],
   consent: {
@@ -447,6 +456,14 @@ export default {
           es: 'Acepto realizar la prueba "Sostén el teléfono".'
         },
         taskId: 12
+      },
+      {
+        description: {
+          en: 'I agree to perform vocalization test.',
+          sv: 'Jag går med på att utföra vocalization-testet.',
+          es: 'Acepto realizar la prueba vocalization.'
+        },
+        taskId: 13
       }
     ],
     extraItems: []
