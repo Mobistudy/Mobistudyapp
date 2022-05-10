@@ -43,7 +43,7 @@
 <script>
 import API from 'modules/API/API'
 import DB from 'modules/db'
-import files from 'modules/files'
+import files from 'modules/files/files'
 import { format as Qformat } from 'quasar'
 
 const FOLDER = 'shared'
@@ -59,45 +59,17 @@ export default {
     }
   },
   methods: {
-    async send () {
-      this.sending = true
-
-      // Only for testing purposes! Please remove before deploying app.
-      // try {
-      //   let filename = 'audiorec_' + new Date().getTime() + '.json'
-      //   await fileSystem.save(filename, this.report)
-      // } catch (err) {
-      //   console.error('Cannot save to file', err)
-      // }
-
-      // Save the data to server
+    async saveAndLeave (sendFiles) {
       try {
-        for (let i = 0; i < this.report.attachments.length; i++) {
-          let filename = this.report.attachments[i]
-          let wavefile = await files.load(filename, FOLDER, 'blob')
-          await API.sendAttachment(this.report.studyKey, this.report.taskId, filename, wavefile)
+        if (sendFiles) {
+          for (let i = 0; i < this.report.attachments.length; i++) {
+            let filename = this.report.attachments[i]
+            let wavefile = await files.load(filename, FOLDER, 'blob')
+            await API.sendAttachment(this.report.studyKey, this.report.taskId, filename, wavefile)
+          }
         }
 
-        await API.sendVocalizationData(this.report)
-        await DB.setTaskCompletion(this.report.studyKey, this.report.taskId, new Date())
-        this.$router.push('/home')
-      } catch (error) {
-        this.sending = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
-      }
-    },
-    async discard () {
-      this.sending = true
-      this.report.vocalization = 'discarded'
-
-      try {
-        await API.sendAttachment(this.report.studyKey, this.report.taskId, this.filename, this.wavefile)
-        await API.sendVocalizationData(this.report)
+        await API.sendTasksResults(this.report)
         await DB.setTaskCompletion(
           this.report.studyKey,
           this.report.taskId,
@@ -113,6 +85,23 @@ export default {
           icon: 'report_problem'
         })
       }
+    },
+    async send () {
+      this.sending = true
+
+      this.report.discarded = false
+
+      return this.saveAndLeave(true)
+    },
+    async discard () {
+      this.sending = true
+
+      // delete data and set flag
+      this.report.discarded = true
+      delete this.report.summary
+      delete this.report.attachments
+
+      return this.saveAndLeave(false)
     }
   },
   computed: {
