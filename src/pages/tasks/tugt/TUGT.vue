@@ -66,7 +66,6 @@ export default {
       timer: undefined,
       totalTime: TEST_DURATION,
       startedTS: undefined,
-      completionTS: undefined,
       distance: 0
     }
   },
@@ -90,9 +89,7 @@ export default {
       try {
         if (await phone.orientation.isAvailable()) {
           await phone.orientation.requestPermission()
-          console.log('OrientationEvent is available')
           phone.orientation.startNotifications({}, (event) => {
-            console.log('Got orientation events', event)
             orientations.push(event)
           }, (error) => {
             console.error('Error getting orientation event', error)
@@ -105,9 +102,7 @@ export default {
       try {
         if (await phone.motion.isAvailable()) {
           await phone.motion.requestPermission()
-          console.log('MotionEvent is available')
           phone.motion.startNotifications({}, (event) => {
-            console.log('Got motion events', event)
             motions.push(event)
           }, (error) => {
             console.error('Error getting MotionEvent', error)
@@ -138,7 +133,6 @@ export default {
 
     completeTest () {
       this.isStarted = false
-      this.completionTS = new Date()
       this.stopTimer()
       phone.orientation.stopNotifications()
       phone.motion.stopNotifications()
@@ -147,19 +141,22 @@ export default {
       this.isCompleted = true
 
       // package the tugt report
-      const studyKey = this.studyKey
-      const taskId = parseInt(this.taskId)
-      const userKey = userinfo.user._key
       let report = {
-        userKey: userKey,
-        studyKey: studyKey,
-        taskId: taskId,
+        userKey: userinfo.user._key,
+        participantKey: userinfo.user.participantKey,
+        studyKey: this.studyKey,
+        taskId: parseInt(this.taskId),
+        taskType: 'tugt',
         createdTS: new Date(),
-        startedTS: this.startedTS,
-        completionTS: this.completionTS,
         phone: phone.device,
-        motion: motions,
-        orientation: orientations
+        summary: {
+          startedTS: this.startedTS,
+          completedTS: new Date()
+        },
+        data: {
+          motion: motions,
+          orientation: orientations
+        }
       }
 
       this.$router.push({ name: 'tugtSummary', params: { report: report } })
