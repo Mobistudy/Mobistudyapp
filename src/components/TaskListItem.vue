@@ -122,7 +122,7 @@ export default {
     } else if (this.task.type === 'vocalization') {
       this.title = this.$i18n.t('studies.tasks.vocalization.shortTitle')
       this.main = this.$i18n.t('studies.tasks.vocalization.shortDescription')
-      this.icon = 'speaker_phone'
+      this.icon = 'record_voice_over'
     }
   },
   computed: {
