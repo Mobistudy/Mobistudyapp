@@ -2,12 +2,11 @@ export default {
   title: 'Six Minute Walk Test (6MWT)',
   shortDescription: 'Perform a Six Minute Walk Test',
   shortTitle: '6MWT',
-  description: 'This task is about measuring how far you can walk in 6 minutes (6-minute walk test). Your smartphone will monitor your position while you walk and compute the total walked distance. This distance can provide indications about your exercise capacity and your general health.',
   OSpermissioniOS: 'This task requires the app to access the positioning system of your phone (like the GPS) and the step counter if available. These are needed to compute the distance walked during the test. Both your location and the walked steps will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   OSpermissionAndroid: 'This task requires the app to access the positioning system of your phone (like the GPS) and the step counter if available. These are needed to compute the distance walked during the test. Both your location and the walked steps will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   introductionSlides: [
     {
-      title: 'Instruction',
+      title: 'Introduction',
       img: 'instructions/6mwt_1.jpg',
       description: 'The aim of this test is to walk as far as possible in 6 minutes.'
     },
