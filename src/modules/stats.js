@@ -1,4 +1,3 @@
-
 /**
  * Computes the mean of an array of numbers
  * @param {array} values array of numbers
@@ -22,6 +21,75 @@ export function variance (values, sample = true) {
   return values.reduce(
     (previousValue, currentValue) => previousValue + (currentValue - m) ** 2 / n,
     0)
+}
+
+/**
+ * Computes rollling stats on a window
+ * Source: https://stackoverflow.com/a/45949178/1097607
+ */
+export class WindowedRollingStats {
+  constructor (windowSize) {
+    this.reset()
+    this.windowSize = windowSize
+  }
+
+  /**
+   * Resets statistics
+   */
+  reset () {
+    this.windows = []
+    this.n = 0
+    this.mean = 0
+    this.run_var = 0
+  }
+
+  /**
+   * Adds a value to the statistics
+   * @param {number} x: number
+   */
+  addValue (x) {
+    this.windows.push(x)
+
+    if (this.n < this.windowSize) {
+      this.n += 1
+      let delta = x - this.mean
+      this.mean += delta / this.n
+      this.run_var += delta * (x - this.mean)
+    } else {
+      let xRemoved = this.windows.shift()
+      let oldMean = this.mean
+      this.mean += (x - xRemoved) / this.windowSize
+      this.run_var += (x + xRemoved - oldMean - this.mean) * (x - xRemoved)
+    }
+  }
+
+  /**
+   * Gets the number of samples added
+   * @returns total number of samples
+   */
+  getCount () {
+    return this.n
+  }
+
+  /**
+   * Computes the mean of the samples
+   * @returns the mean
+   */
+  getMean () {
+    if (this.n < 1) return undefined
+    return this.mean
+  }
+
+  /**
+   * Computes the variance of the samples
+   * @param {boolean} sample: if true computes the sample variance, else the population one
+   * @returns
+   */
+  getVariance (sample = true) {
+    if (this.n < 2) return undefined
+    let totalN = sample ? (this.n - 1) : this.n
+    return this.run_var / totalN
+  }
 }
 
 /**
