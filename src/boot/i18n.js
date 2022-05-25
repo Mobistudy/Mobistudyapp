@@ -7,7 +7,7 @@ import commonMessages from 'i18n/common/common'
 Vue.use(VueI18n)
 
 const i18n = new VueI18n({
-  locale: navigator.language.split('-')[0],
+  locale: navigator.language.split('-')[0], // can use this instead: https://quasar.dev/options/app-internationalization#detecting-locale
   fallbackLocale: 'en',
   silentFallbackWarn: true,
   messages: mergeDeep(commonMessages, studiesMessages)
