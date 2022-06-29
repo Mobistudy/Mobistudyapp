@@ -128,7 +128,7 @@ export default {
     } else if (this.task.type === 'drawing') {
       this.title = this.$i18n.t('studies.tasks.drawing.shortTitle')
       this.main = this.$i18n.t('studies.tasks.drawing.shortDescription')
-      this.icon = 'svguse:icons/drawing-icon.svg#drawing-icon'
+      this.icon = 'draw'
     }
   },
   computed: {

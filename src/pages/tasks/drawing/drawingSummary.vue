@@ -35,10 +35,9 @@ export default {
     }
   },
   methods: {
-    async send () {
-      this.sending = true
+    async saveAndLeave () {
       try {
-        await API.sendDrawingData(this.report)
+        await API.sendTasksResults(this.report)
         await DB.setTaskCompletion(
           this.report.studyKey,
           this.report.taskId,
@@ -55,26 +54,23 @@ export default {
         })
       }
     },
+    async send () {
+      this.sending = true
+
+      this.report.summary.borgScale = this.borgValue
+      this.report.discarded = false
+
+      return this.saveAndLeave()
+    },
     async discard () {
       this.sending = true
-      try {
-        this.report.tappingData = 'discarded'
-        await API.sendDrawingData(this.report)
-        await DB.setTaskCompletion(
-          this.report.studyKey,
-          this.report.taskId,
-          new Date()
-        )
-        this.$router.push({ name: 'home' })
-      } catch (error) {
-        this.sending = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
-      }
+
+      // delete data and set flag
+      this.report.discarded = true
+      delete this.report.summary
+      delete this.report.data
+
+      return this.saveAndLeave()
     }
   }
 }

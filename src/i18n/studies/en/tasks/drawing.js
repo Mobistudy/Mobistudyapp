@@ -1,7 +1,7 @@
 export default {
   title: 'Drawing test',
-  shortTitle: 'Drawing test',
-  shortDescription: 'Perform a Drawing Test',
+  shortTitle: 'Draw',
+  shortDescription: 'Draw shapes on your phone',
   description: 'This task is a simple test used to assess a person\'s tremor. ',
   OSpermissioniOS: 'This task requires the app to access the step counter in your phone if available. This is needed to compute how many steps you have done during the test. Detected steps will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   OSpermissionAndroid: 'This task requires the app to access the step counter in your phone if available. This is needed to compute how many steps you have done during the test. Detected steps will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
@@ -14,12 +14,12 @@ export default {
     {
       title: 'Instruction',
       img: 'instructions/Drawing_task-02.svg',
-      description: 'Try to follow the lines of the shape visualized in your phones screen as precisely as you can. The guiding template with temporarily disappear or flash'
+      description: 'Try to follow the lines of the shape visualized in your phones screen as precisely as you can. The guiding template will temporarily disappear or flash.'
     },
     {
       title: 'Instruction',
       img: 'instructions/Drawing_task-03.svg',
-      description: 'You may be asked to draw several shapes.'
+      description: 'You will be asked to draw 2 shapes. Do not lift your finger from the phone until you have completed the shape.'
     }
   ],
   instructions: {

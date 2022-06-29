@@ -481,8 +481,8 @@ export default {
       },
       {
         description: {
-          en: 'I agree to perform "drawing" test.',
-          sv: 'Jag går med på att utföra "teckning"-testet.',
+          en: 'I agree to perform the drawing test.',
+          sv: 'Jag går med på att utföra teckning-testet.',
           es: 'Acepto realizar la prueba de "dibujo".'
         },
         taskId: 14

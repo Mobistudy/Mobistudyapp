@@ -6,13 +6,19 @@
 
     <p class="text-center text-subtitle1 q-mt-lg">{{ $t('studies.tasks.drawing.instructions.start') }}</p>
     <div class="row justify-center q-mb-xl fixed-bottom">
-    <canvas id="myCanvas" width="350" height="350" style="border:3px solid #386C81" onload="drawSpiral" v-touch-pan.prevent="handlePan"></canvas>
+      <canvas
+        id="myCanvas"
+        width="350"
+        height="350"
+        onload="drawSpiral"
+        v-touch-pan.prevent="handlePan"
+      ></canvas>
     </div>
   </q-page>
 </template>
 
 <script>
-// import phone from 'modules/phone'
+import phone from 'modules/phone/phone'
 import userinfo from 'modules/userinfo'
 // import API from 'modules/API/API'
 // import DB from 'modules/db'
@@ -133,20 +139,23 @@ export default {
     completeTest () {
       this.isCompleted = true
       let completionTS = new Date()
-      const studyKey = this.studyKey
 
-      const taskId = parseInt(this.taskId)
-      const userKey = userinfo.user._key
       let report = {
-        userKey: userKey,
-        studyKey: studyKey,
-        taskId: taskId,
+        userKey: userinfo.user._key,
+        participantKey: userinfo.user.participantKey,
+        studyKey: this.studyKey,
+        taskId: parseInt(this.taskId),
+        taskType: 'drawing',
         createdTS: new Date(),
-        startedTS: this.startedTS,
-        completionTS: completionTS,
-        // phone: phone.device,
-        coords0: this.coords0,
-        coords1: this.coords1
+        phone: phone.device,
+        summary: {
+          startedTS: this.startedTS,
+          completedTS: completionTS
+        },
+        data: {
+          square: this.coords0,
+          spiral: this.coords1
+        }
       }
 
       this.$router.push({ name: 'drawingSummary', params: { report: report } })
