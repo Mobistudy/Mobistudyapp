@@ -110,7 +110,11 @@ const routes = [
 
       { path: '/vocalizationIntro', name: 'vocalizationIntro', component: () => import('pages/tasks/vocalization/vocalizationIntro.vue'), props: true },
       { path: '/vocalization', name: 'vocalization', component: () => import('pages/tasks/vocalization/vocalization.vue'), props: true },
-      { path: '/vocalizationSummary', name: 'vocalizationSummary', component: () => import('pages/tasks/vocalization/vocalizationSummary.vue'), props: true }
+      { path: '/vocalizationSummary', name: 'vocalizationSummary', component: () => import('pages/tasks/vocalization/vocalizationSummary.vue'), props: true },
+
+      { path: '/drawingIntro', name: 'drawingIntro', component: () => import('pages/tasks/drawing/drawingIntro.vue'), props: true },
+      { path: '/drawing', name: 'drawing', component: () => import('pages/tasks/drawing/drawing.vue'), props: true },
+      { path: '/drawingSummary', name: 'drawingSummary', component: () => import('pages/tasks/drawing/drawingSummary.vue'), props: true }
     ]
   },
   {

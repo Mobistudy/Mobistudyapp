@@ -69,6 +69,8 @@ export default {
         this.$router.push({ name: 'holdPhoneIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else if (type === 'vocalization') {
         this.$router.push({ name: 'vocalizationIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
+      } else if (type === 'drawing') {
+        this.$router.push({ name: 'drawingIntro', params: { taskId: taskId, studyKey: studyKey }, query: { icon: this.icon, title: this.title } })
       } else {
         throw new Error('Could not changeRoute with task type.')
       }
@@ -123,6 +125,10 @@ export default {
       this.title = this.$i18n.t('studies.tasks.vocalization.shortTitle')
       this.main = this.$i18n.t('studies.tasks.vocalization.shortDescription')
       this.icon = 'record_voice_over'
+    } else if (this.task.type === 'drawing') {
+      this.title = this.$i18n.t('studies.tasks.drawing.shortTitle')
+      this.main = this.$i18n.t('studies.tasks.drawing.shortDescription')
+      this.icon = 'svguse:icons/drawing-icon.svg#drawing-icon'
     }
   },
   computed: {

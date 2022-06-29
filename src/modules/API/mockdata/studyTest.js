@@ -210,6 +210,15 @@ export default {
         startEvent: 'consent',
         untilSecs: 60 * 60 * 24 * 7 // 1 week
       }
+    },
+    {
+      id: 14,
+      type: 'drawing',
+      scheduling: {
+        alwaysOn: true,
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
+      }
     }
   ],
   consent: {
@@ -240,6 +249,7 @@ export default {
       \u2022 The acceleration and orientation of the phone when you perform the Timed Up and Go test.
       \u2022 The acceleration and orientation of the phone when you do the "Hold the phone" test.
       \u2022 Your voice during the vocalization test.
+      \u2022 The position of your finger on the screen when you perform the drawing test.
 
       These data are not really needed for anything in particular, as this is just an example, but they may be useful for finding bugs and improving Mobistudy.
 
@@ -288,6 +298,7 @@ export default {
       \u2022 Telefonens acceleration och orientering när du utför Timed Up and Go-testet.
       \u2022 Telefonens acceleration och orientering när du gör "Håll i telefonen"-testet.
       \u2022 Din röst under vokaliseringstestet.
+      \u2022 Placeringen av ditt finger på skärmen när du utför rittestet.
 
       Dessa data behövs egentligen inte för något särskilt, eftersom detta bara är ett exempel, men de kan vara användbara för att hitta buggar och förbättra Mobistudy.
 
@@ -338,6 +349,7 @@ export default {
       \u2022 La aceleración y orientación del teléfono cuando realizas la prueba "Levanta y anda".
       \u2022 La aceleración y orientación del teléfono cuando haces la prueba "Sostén el teléfono".
       \u2022 Tu voz durante la prueba de vocalización.
+      \u2022 La posición de tu dedo en la pantalla cuando realizas la prueba de dibujo.
 
       Estos datos no son realmente necesarios para nada en particular, ya que esto es solo un ejemplo, pero pueden ser útiles para encontrar errores y mejorar Mobistudy.
       Todos estos datos se almacenarán en el servidor de Mobistudy, gestionado por la Universidad de Malmö en Suecia. Su teléfono solo conservará su perfil y datos sobre los estudios en los que está participando.
@@ -466,6 +478,14 @@ export default {
           es: 'Acepto realizar la prueba de vocalización..'
         },
         taskId: 13
+      },
+      {
+        description: {
+          en: 'I agree to perform "drawing" test.',
+          sv: 'Jag går med på att utföra "teckning"-testet.',
+          es: 'Acepto realizar la prueba de "dibujo".'
+        },
+        taskId: 14
       }
     ],
     extraItems: []
