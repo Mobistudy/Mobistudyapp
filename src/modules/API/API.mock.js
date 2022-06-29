@@ -287,12 +287,6 @@ export default {
     return Promise.resolve()
   },
 
-  async sendSMWTData (report) {
-    console.log('API - sending 6MWT data', report)
-    this.setTaskDone(report.studyKey, report.taskId, report.createdTS)
-    return Promise.resolve()
-  },
-
   async sendQCSTData (report) {
     console.log('API - sending QCST data', report)
     this.setTaskDone(report.studyKey, report.taskId, report.createdTS)

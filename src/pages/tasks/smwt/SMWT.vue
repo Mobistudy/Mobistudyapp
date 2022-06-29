@@ -180,21 +180,25 @@ export default {
       this.distance = distanceAlgo.getDistance()
 
       // package the 6mwt report
-      const studyKey = this.studyKey
-      const taskId = parseInt(this.taskId)
-      const userKey = userinfo.user._key
       let report = {
-        userKey: userKey,
-        studyKey: studyKey,
-        taskId: taskId,
+        userKey: userinfo.user._key,
+        participantKey: userinfo.user.participantKey,
+        studyKey: this.studyKey,
+        taskId: parseInt(this.taskId),
+        taskType: 'smwt',
         createdTS: new Date(),
-        startedTS: this.startedTS,
-        completionTS: this.completionTS,
         phone: phone.device,
-        positions: this.positions,
-        steps: this.steps,
-        distance: this.distance,
-        borgScale: undefined
+        summary: {
+          startedTS: this.startedTS,
+          completedTS: this.completionTS,
+          distance: this.distance,
+          steps: this.steps[this.steps.length - 1].numberOfSteps,
+          borgScale: undefined
+        },
+        data: {
+          positions: this.positions,
+          steps: this.steps
+        }
       }
 
       this.$router.push({ name: 'smwtSummary', params: { report: report } })

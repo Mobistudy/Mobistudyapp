@@ -16,11 +16,11 @@
         </tr>
         <tr>
           <td>{{ $t('studies.tasks.smwt.distance') }}</td>
-          <td>{{ report.distance.toFixed(2) }} m</td>
+          <td>{{ report.summary.distance.toFixed(2) }} m</td>
         </tr>
-        <tr v-if="report.steps.length">
+        <tr v-if="report.summary.steps">
           <td>{{ $t('studies.tasks.smwt.steps') }}</td>
-          <td>{{ report.steps[report.steps.length - 1].numberOfSteps }}</td>
+          <td>{{ report.summary.steps }}</td>
         </tr>
       </table>
 
@@ -263,42 +263,9 @@ export default {
     }
   },
   methods: {
-    async send () {
-      this.sending = true
-      this.report.borgScale = this.borgValue
-
-      // Only for testing purposes! Please remove before deploying app.
-      // try {
-      //   let filename = 'smwt_' + new Date().getTime() + '.json'
-      //   await fileSystem.save(filename, 'shared', this.report)
-      // } catch (err) {
-      //   console.error('Cannot save to file', err)
-      // }
-
-      // Save the data to server
+    async saveAndLeave () {
       try {
-        await API.sendSMWTData(this.report)
-        await DB.setTaskCompletion(this.report.studyKey, this.report.taskId, new Date())
-        this.$router.push('/home')
-      } catch (error) {
-        this.sending = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
-      }
-    },
-    async discard () {
-      this.sending = true
-      this.report.positions = 'discarded'
-      this.report.steps = 'discarded'
-      this.report.distance = 'discarded'
-      this.report.borgScale = 'discarded'
-
-      try {
-        await API.sendSMWTData(this.report)
+        await API.sendTasksResults(this.report)
         await DB.setTaskCompletion(
           this.report.studyKey,
           this.report.taskId,
@@ -314,11 +281,37 @@ export default {
           icon: 'report_problem'
         })
       }
+    },
+    async send () {
+      this.sending = true
+
+      this.report.summary.borgScale = this.borgValue
+      this.report.discarded = false
+
+      // Only for testing purposes! Please remove before deploying app.
+      // try {
+      //   let filename = 'smwt_' + new Date().getTime() + '.json'
+      //   await fileSystem.save(filename, 'shared', this.report)
+      // } catch (err) {
+      //   console.error('Cannot save to file', err)
+      // }
+
+      return this.saveAndLeave()
+    },
+    async discard () {
+      this.sending = true
+
+      // delete data and set flag
+      this.report.discarded = true
+      delete this.report.summary
+      delete this.report.data
+
+      return this.saveAndLeave()
     }
   },
   computed: {
     totalTime () {
-      return Math.floor((this.report.completionTS - this.report.startedTS) / 1000)
+      return Math.floor((this.report.summary.completedTS - this.report.summary.startedTS) / 1000)
     },
     minutes () {
       return Qformat.pad(Math.floor(this.totalTime / 60), 2)
