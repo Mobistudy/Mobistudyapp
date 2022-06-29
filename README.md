@@ -122,6 +122,11 @@ To start the app in development mode (hot-code reloading, error reporting, etc.)
 quasar dev
 ```
 
+or from npm (it's the same):
+```bash
+npm run dev
+```
+
 ### Test in the phone
 
 If you want to run it on a phone (supposing it's an iPhone):

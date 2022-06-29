@@ -81,7 +81,7 @@ import DB from 'modules/db'
 // import fileSystem from 'modules/files/files'
 import { format as Qformat } from 'quasar'
 
-// TODO: compute the energy of the signal (or similar) only in the bad 4 to 10 Hz.
+// TODO: compute the energy of the signal (or similar) only in the band 4 to 10 Hz.
 // see https://www.aafp.org/afp/1999/0315/p1565.html
 
 export default {
