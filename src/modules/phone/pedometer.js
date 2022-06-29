@@ -10,16 +10,19 @@ let pedometer = {
   async requestPermission () {
     return new Promise((resolve, reject) => {
       if (Platform.is.ios) {
+        // on iOS we can use the query of old data,
+        // so no need to wait for actual steps
         window.pedometer.queryData(function (data) {
           resolve()
-        }, function (data) {
+        }, function () {
           reject()
         }, {
+          // query the last 10 seconds
           startDate: new Date(new Date().getTime() - 10000),
           endDate: new Date()
         })
       } else {
-        // to make it more robust, it could stop updates before this
+        // TODO: to make it more robust, it could stop updates before this
         // in case the updates are running (very unlikely)
         window.pedometer.startPedometerUpdates(function (data) {
           resolve()
@@ -37,6 +40,8 @@ let pedometer = {
         this.firstSteps = data.numberOfSteps - 1
       }
       data.numberOfSteps -= this.firstSteps
+      data.startDate = new Date(data.startDate)
+      data.endDate = new Date(data.endDate)
       cbk(data)
     }, error)
   },
@@ -74,8 +79,8 @@ let pedometerMock = {
     this.timer = setInterval(() => {
       this.steps++
       cbk({
-        startDate: new Date().getTime(),
-        endDate: new Date().getTime(),
+        startDate: new Date(),
+        endDate: new Date(),
         numberOfSteps: this.steps
       })
     }, 1000)
