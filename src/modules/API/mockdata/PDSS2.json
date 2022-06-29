@@ -6,8 +6,8 @@
     "sv": "Parkinson's Disease Sleep Scale 2"
   },
   "description": {
-    "en": "<p>The Parkinson's Disease Sleep Scale 2 assess the profile of nocturnal disturbances in Parkinson's disease patients.</p><p>Please rate the severity of the following based on your experiences during the past 7 days.</p><br><p><small>The questionnaire is protected by international copyright, with all rights reserved to Claudia Trenkwalder and Ray Chaudhuri. For information on, or permission to use PDSS-2, please contact: contact@mapi-trust.org</small></p>",
-    "sv": "<p>Parkinson's Disease Sleep Scale 2 utvärderar nattliga störningar och sömnprofil för patienter med Parkinsons sjukdom.</p><p>Vänligen betygssätt i vilken grad du upplevt följande aspekter de senaste 7 dagarna.</p><br><p><small>Frågeformuläret skyddas av internationell upphovsrätt, med alla rättigheter förbehållna Claudia Trenkwalder och Ray Chaudhuri. För information om, eller tillåtelse att använda PDSS-2, vänligen kontakta: contact@mapi-trust.org</small></p>"
+    "en": "<p>The Parkinson's Disease Sleep Scale 2 assess the profile of nocturnal disturbances in Parkinson's disease patients.</p><p>Please rate the severity of the following based on your experiences during the past 7 days.</p><br><p><small>For any information on the use of the PDSS-2, please contact Mapi Research Trust, Lyon, France. Internet: https: //eprovide.mapi-trust.org</small></p>",
+    "sv": "<p>Parkinson's Disease Sleep Scale 2 utvärderar nattliga störningar och sömnprofil för patienter med Parkinsons sjukdom.</p><p>Vänligen betygssätt i vilken grad du upplevt följande aspekter de senaste 7 dagarna.</p><br><p><small>För all information om användningen av PDSS-2, vänligen kontakta Mapi Research Trust, Lyon, Frankrike. Internet: https://eprovide.mapi-trust.org</small></p>"
   },
   "questions": [
     {
@@ -15,6 +15,14 @@
       "text": {
         "en": "Overall, did you sleep well during the last week?",
         "sv": "Totalt sett, har du sovit bra under de senaste 7 dagarna?"
+      },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -61,6 +69,14 @@
         "en": "Did you have difficulty falling asleep each night?",
         "sv": "Hade du svårt att somna på kvällarna?"
       },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
+      },
       "type": "singleChoice",
       "answerChoices": [
         {
@@ -105,6 +121,14 @@
       "text": {
         "en": "Did you have difficulty staying asleep?",
         "sv": "Hade du svårt att sova hela natten igenom?"
+      },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -151,6 +175,14 @@
         "en": "Did you have restlessness of legs or arms at nights causing disruption of sleep?",
         "sv": "Upplevde du rastlöshet i ben eller armar under natten som störde din sömn?"
       },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
+      },
       "type": "singleChoice",
       "answerChoices": [
         {
@@ -195,6 +227,14 @@
       "text": {
         "en": "Was your sleep disturbed due to an urge to move your legs or arms?",
         "sv": "Stördes din sömn av att du kände ett starkt behov av att röra armar eller ben?"
+      },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -241,6 +281,14 @@
         "en": "Did you suffer from distressing dreams at night?",
         "sv": "Besvärades du av oroliga drömmar under natten?"
       },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
+      },
       "type": "singleChoice",
       "answerChoices": [
         {
@@ -285,6 +333,14 @@
       "text": {
         "en": "Did you suffer from distressing hallucinations at night (seeing or hearing things that you are told do not exist)?",
         "sv": "Besvärades du av oroande hallucinationer under natten (såg eller hörde sådant som du vet inte existerar)?"
+      },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -331,6 +387,14 @@
         "en": "Did get up at night to pass urine?",
         "sv": "Steg du upp under natten för att urinera?"
       },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
+      },
       "type": "singleChoice",
       "answerChoices": [
         {
@@ -375,6 +439,14 @@
       "text": {
         "en": "Did you feel uncomfortable at night because you were unable to turn around in bed or move due to immobility?",
         "sv": "Kände du dig obekväm under natten därför att du inte kunde vända dig i sängen eller röra dig på grund av orörlighet?"
+      },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -421,6 +493,14 @@
         "en": "Did you feel pain in your arms or legs which woke you up from sleep at night?",
         "sv": "Väcktes du av smärta i armar eller ben under natten?"
       },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
+      },
       "type": "singleChoice",
       "answerChoices": [
         {
@@ -465,6 +545,14 @@
       "text": {
         "en": "Did you have muscle cramps in your arms or legs which woke you up while sleeping at night?",
         "sv": "Väcktes du av muskelkramper i armar eller ben under natten?"
+      },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -511,6 +599,14 @@
         "en": "Did you wake early in the morning with painful posturing of arms and legs?",
         "sv": "Vaknade du för tidigt på morgonen (tidigare än du normalt vaknar) med armar och ben i en smärtsam ställning?"
       },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
+      },
       "type": "singleChoice",
       "answerChoices": [
         {
@@ -555,6 +651,14 @@
       "text": {
         "en": "On waking, did you experience tremor?",
         "sv": "Upplevde du tremor (skakningar, darrningar) när du vaknat på morgonen eller under natten?"
+      },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -601,6 +705,14 @@
         "en": "Did you feel tried and sleepy after waking in the morning?",
         "sv": "Kände du dig trött och sömnig under ca 2 till 3 timmar efter att du vaknat på morgonen?"
       },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
+      },
       "type": "singleChoice",
       "answerChoices": [
         {
@@ -645,6 +757,14 @@
       "text": {
         "en": "Did you wake up at night due to snoring and difficulties with breathing?",
         "sv": "Väcktes du på natten av dina egna snarkningar eller på grund av andningssvårigheter?"
+      },
+      "helper": {
+        "en": "Please rate the severity of the following based on your experiences during the past week (7 days). Please select one response.",
+        "sv": "Vänligen betygssätt i vilken grad du upplevt följande aspekter under den senaste veckan (7 dagar). Vänligen välj ett svar."
+      },
+      "footer": {
+        "en": "PDSS2: © Claudia Trenkwalder and Ray Chaudhuri. All rights reserved.",
+        "sv": "PDSS2: © Claudia Trenkwalder och Ray Chaudhuri. Alla rättigheter förbehållna."
       },
       "type": "singleChoice",
       "answerChoices": [
