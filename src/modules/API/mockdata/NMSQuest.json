@@ -7,14 +7,14 @@
   },
   "description": {
     "en": "The movement symptoms of Parkinson’s are well known. However, other problems can sometimes occur as part of the condition or its treatment. It is important that the doctor knows about these, particularly if they are troublesome for you. <br> <br> A range of problems is listed below. Please select the ‘Yes’ option if you have experienced it during the past month. If you have not experienced the problem in the past month select the ‘No’ option. You should answer ‘No’ even if you have had the problem in the past but not in the past month.",
-    "sv": ""
+    "sv": "Problem med rörligheten (s k motoriska symptom) är välkända vid Parkinsons sjukdom. Även andra (s k icke-motoriska) problem kan dock förekomma som en konsekvens av sjukdomen eller dess behandling. Det är därför viktigt att få reda på om Du upplever sådana icke-motoriska symtom, särskilt om de är besvärande för Dig. Nedan listas en rad icke-motoriska problem. Markera ”Ja”-rutan om Du har upplevt respektive problem under den senaste månaden. Om Du inte har upplevt problemet under den senaste månaden markerar Du ”Nej”-rutan. Observera att om Du tidigare har upplevt ett problem men inte under den senaste månaden, så markerar Du ”Nej”-rutan."
   },
   "questions": [
     {
       "id": "Q1",
       "text": {
         "en": "In the last month, have you experienced dribbling of saliva during the daytime?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt saliv som rinner från munnen under dagen?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -39,7 +39,7 @@
       "id": "Q2",
       "text": {
         "en": "In the last month, have you experienced loss or change in your ability to taste or smell?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt förlorad eller förändrad förmåga att känna smak eller lukt?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -64,7 +64,7 @@
       "id": "Q3",
       "text": {
         "en": "In the last month, have you experienced difficulty swallowing food or drink or problems with choking?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt svårigheter att svälja mat/dryck, eller problem med att du sätter i halsen?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -89,7 +89,7 @@
       "id": "Q4",
       "text": {
         "en": "In the last month, have you experienced vomiting or feelings of sickness (nausea)?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt illamående eller kräkningar?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -114,7 +114,7 @@
       "id": "Q5",
       "text": {
         "en": "In the last month, have you experienced constipation (less than 3 bowel movements a week) or having to strain to pass a stool (faeces)?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt förstoppning (färre än tre avföringar i veckan) eller upplevt toalettbesöken som ansträngande?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -139,7 +139,7 @@
       "id": "Q6",
       "text": {
         "en": "In the last month, have you experienced bowel (fecal) incontinence?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt ofrivillig avföring (inkontinens)?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -164,7 +164,7 @@
       "id": "Q7",
       "text": {
         "en": "In the last month, have you felt that your bowel emptying is incomplete after having been to the toilet?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt en känsla av att tarmen inte tömts fullständigt då du varit på toaletten?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -189,7 +189,7 @@
       "id": "Q8",
       "text": {
         "en": "In the last month, have you experienced a sense of urgency to pass urine makes you rush to the toilet?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt trängande känsla av att behöva kissa som gör att du måste rusa till toaletten?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -214,7 +214,7 @@
       "id": "Q9",
       "text": {
         "en": "In the last month, have you experienced getting up regularly at night to pass urine?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt regelbundet behövt gå upp och kissa under natten?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -239,7 +239,7 @@
       "id": "Q10",
       "text": {
         "en": "In the last month, have you experienced unexplained pains (not due to known conditions such as arthritis)?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt oförklarliga smärtor (som inte beror på kända orsaker, såsom reumatism)?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -264,7 +264,7 @@
       "id": "Q11",
       "text": {
         "en": "In the last month, have you experienced unexplained change in weight (not due to change in diet)?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt oförklarlig viktnedgång (utan förändrade matvanor)? "
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -289,7 +289,7 @@
       "id": "Q12",
       "text": {
         "en": "In the last month, have you experienced problems remembering things that have happened recently or forgetting to do things?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt problem med att komma ihåg saker som nyligen hänt eller glömmer att göra saker?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -314,7 +314,7 @@
       "id": "Q13",
       "text": {
         "en": "In the last month, have you experienced loss of interest in what is happening around you or doing things?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt förlorat intresset för det som händer runt omkring dig eller för att göra saker?."
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -339,7 +339,7 @@
       "id": "Q14",
       "text": {
         "en": "In the last month, have you seen or heard things that you know or are told are not there?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt sett eller hört saker som du vet inte finns eller som andra inte ser eller hör?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -364,7 +364,7 @@
       "id": "Q15",
       "text": {
         "en": "In the last month, have you experienced difficulty concentrating or staying focussed?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt koncentrationssvårigheter eller svårigheter att vara fokuserad?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -389,7 +389,7 @@
       "id": "Q16",
       "text": {
         "en": "In the last month, have you felt sad, ‘low’ or ‘blue’?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt känt dig nedstämd eller ledsen?."
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -414,7 +414,7 @@
       "id": "Q17",
       "text": {
         "en": "In the last month, have you felt anxious, frightened or panicky?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt känt dig ängslig, orolig, rädd eller panikslagen?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -439,7 +439,7 @@
       "id": "Q18",
       "text": {
         "en": "In the last month, have you felt less interested in sex or more interested in sex?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt känt ett minskat eller ökat intresse för sex?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -464,7 +464,7 @@
       "id": "Q19",
       "text": {
         "en": "In the last month, have you found it difficult to have sex when you try?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt upplevt svårigheter att ha sex när du försökt?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -489,7 +489,7 @@
       "id": "Q20",
       "text": {
         "en": "In the last month, have you felt lightheaded, dizzy or weak standing from sitting or lying?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt snurrighet, yrsel eller svaghetskänsla när du ställer dig upp från sittande eller liggande?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -514,7 +514,7 @@
       "id": "Q21",
       "text": {
         "en": "In the last month, have you experienced falling?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt att du ramlat?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -539,7 +539,7 @@
       "id": "Q22",
       "text": {
         "en": "In the last month, have you found it difficult to stay awake during activities such as working, driving or eating?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt svårigheter att hålla dig vaken under aktiviteter som att äta, arbeta eller köra bil?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -564,7 +564,7 @@
       "id": "Q23",
       "text": {
         "en": "In the last month, have you experienced difficulty getting to sleep at night or staying asleep at night?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt svårigheter att somna på kvällen eller att sova under hela natten?."
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -589,7 +589,7 @@
       "id": "Q24",
       "text": {
         "en": "In the last month, have you experienced intense, vivid dreams or frightening dreams?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt intensiva, livliga eller skrämmande drömmar?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -614,7 +614,7 @@
       "id": "Q25",
       "text": {
         "en": "In the last month, have you talked or moved about in your sleep as if you are ‘acting’ out a dream?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt att du pratar eller rör dig i sömnen, som om att du ”lever ut” en dröm?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -639,7 +639,7 @@
       "id": "Q26",
       "text": {
         "en": "In the last month, have you experienced unpleasant sensations in your legs at night or while resting, and a feeling that you need to move?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt obehagliga känslor i benen på kvällen eller då du vilar dig, och en känsla av att du måste röra dig?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -664,7 +664,7 @@
       "id": "Q27",
       "text": {
         "en": "In the last month, have you experienced swelling of your legs?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt att benen svullnar?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -689,7 +689,7 @@
       "id": "Q28",
       "text": {
         "en": "In the last month, have you experienced excessive sweating?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt kraftiga svettningar?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -714,7 +714,7 @@
       "id": "Q29",
       "text": {
         "en": "In the last month, have you experienced double vision?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du upplevt dubbelseende?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -739,7 +739,7 @@
       "id": "Q30",
       "text": {
         "en": "In the last month, have you believed things are happening to you that other people say are not true?",
-        "sv": ""
+        "sv": "Under den senaste månaden har du trott att saker händer dig som andra människor säger inte har hänt i verkligheten?."
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -763,8 +763,8 @@
     {
       "id": "Q31",
       "text": {
-        "en": "Copyright © 2022 International Parkinson and Movement Disorder Society (MDS). All rights reserved. Adapted and used with permission of MDS. This derivative of the NMSQ has not been validated or tested for reliability",
-        "sv": ""
+        "en": "Copyright © 2022 International Parkinson and Movement Disorder Society (MDS). All rights reserved. Adapted and used with permission of MDS. This derivative of the NMSQ has not been validated or tested for reliability.",
+        "sv": "Copyright © 2022 International Parkinsons and Movement Disorder Society (MDS). Alla rättigheter förbehållna. Anpassad och använd med tillstånd av MDS. Denna derivata av NMSQ har inte validerats eller testats för tillförlitlighet"
       },
       "type": "textOnly",
       "nextDefaultId": "ENDFORM"

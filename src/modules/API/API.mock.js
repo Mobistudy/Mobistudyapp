@@ -6,7 +6,7 @@ import studyPainApp from './mockdata/studyPainApp'
 import formPainAppReminder from './mockdata/formPainApp1'
 import formPainAppVAS from './mockdata/formPainApp2'
 
-import parkAppStudy from './mockdata/parkapp'
+import parkAppStudy from './mockdata/studyParkapp'
 import NMSQuest from './mockdata/NMSQuest'
 import PDSS2 from './mockdata/PDSS2'
 
