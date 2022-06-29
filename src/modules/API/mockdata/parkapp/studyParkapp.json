@@ -14,7 +14,7 @@
     ],
     "title": {
       "en": "ParkApp research study",
-      "sv": ""
+      "sv": "ParkApp forskningsstudie"
     },
     "shortDescription": {
       "en": "",
@@ -29,18 +29,36 @@
     "principalInvestigators": [
       {
         "name": "Per Svenningsson",
-        "contact": "Per",
-        "institution": "Karolinska"
+        "contact": "Karolinska Institutet, Department of Clinical Neuroscience, Tomtebodavägen 18A, 171 77 Stockholm, Phone: 08-123 673 00 / 08-585 800 00, email: per.svenningsson@ki.se",
+        "institution": "Region Stockholm"
       }
     ],
     "institutions": [
       {
-        "name": "Karolinska",
-        "contact": "",
+        "name": "Region Stockholm",
+        "contact": "ASC Torsplan, Solnavägen 1E, 11365 Stockholm",
         "dataAccess": "full",
         "reasonForDataAccess": {
-          "en": "",
-          "sv": ""
+          "en": "Data needed to complete the objectives of the research.",
+          "sv": "Data behövs för att slutföra målen för forskningen."
+        }
+      },
+      {
+        "name": "Malmö Universitet",
+        "contact": "Institutionen för datavetenskap och medieteknik, Nordenskiöldsgatan 1, Malmö",
+        "dataAccess": "full",
+        "reasonForDataAccess": {
+          "en": "Malmö University is responsible for collecting the data through the Mobistudy app and for doing the statistical analysis.",
+          "sv": "Malmö Universitet ansvarar för att samla in data via Mobistudy-appen och för att göra den statistiska analysen."
+        }
+      },
+      {
+        "name": "Karolinska Institutet",
+        "contact": "Department of Clinical Neuroscience, Tomtebodavägen 18A, 171 77 Stockholm",
+        "dataAccess": "full",
+        "reasonForDataAccess": {
+          "en": "Malmö University is responsible for collecting the data through the Mobistudy app and for doing the statistical analysis.",
+          "sv": "Malmö Universitet ansvarar för att samla in data via Mobistudy-appen och för att göra den statistiska analysen."
         }
       }
     ]
