@@ -26,7 +26,7 @@ let studies = {
     noActiveStudies: 'No se encontraron estudios activos',
     previousStudies: 'Estudios previos',
     studyCompletedHeadline: 'Has completado un estudio',
-    studyCompletedText: 'Has completado todas las tareas del {studyname}.<br><br> muchas gracias por todo <br><br>. Ten en cuenta que algunos estudios pueden requerir alguna acción adicional; consulta la descripción del estudio en el menú "Administrar estudios"',
+    studyCompletedText: 'Has completado todas las tareas del {studyname}.<br><br>Muchas gracias por todo !<br><br>Ten en cuenta que algunos estudios pueden requerir alguna acción adicional; consulta la descripción del estudio en el menú "Administrar estudios"',
     principalInvestigators: ' Investigadores Principales',
     investigatorName: 'Nombre',
     institution: 'Institución',
