@@ -61,6 +61,9 @@ let studies = {
       capTestCompleteSubtext: 'You completed the test!',
       taskCompleted: 'The task has been completed and the result has been sent to the server. Thank you!',
       due: 'Due',
+      daysAgo: 'yesterday | {count} days ago',
+      hoursAgo: '1 hour ago | {count} hours ago',
+      minsAgo: '1 minute ago | {count} minutes ago',
       form: {
         title: '{formname} form',
         shortDescription: 'Answer a few questions',

@@ -24,9 +24,6 @@
 </template>
 
 <script>
-
-import moment from 'moment'
-
 export default {
   name: 'TaskListItem',
   props: ['task', 'isMissedTask'],
@@ -147,7 +144,16 @@ export default {
   },
   computed: {
     timeRemaining: function () {
-      return this.$i18n.t('studies.tasks.due') + ' ' + moment(this.task.due).fromNow()
+      let s = this.$i18n.t('studies.tasks.due') + ' '
+      let secs = new Date().getTime() - this.task.due.getTime()
+      if ((secs / (24 * 60 * 60 * 1000)) > 0) {
+        s += this.$i18n.tc('studies.tasks.daysAgo', Math.round(secs / (24 * 60 * 60 * 1000)))
+      } else if ((secs / (60 * 60 * 1000)) > 0) {
+        s += this.$i18n.tc('studies.tasks.hoursAgo', Math.round(secs / (24 * 60 * 60 * 1000)))
+      } else if ((secs / (60 * 1000)) > 0) {
+        s += this.$i18n.tc('studies.tasks.minsAgo', Math.round(secs / (24 * 60 * 60 * 1000)))
+      }
+      return s
     }
   }
 }

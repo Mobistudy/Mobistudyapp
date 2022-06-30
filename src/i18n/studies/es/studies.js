@@ -58,6 +58,9 @@ let studies = {
       capTestCompleteSubtext: '¡Tarea completada!',
       taskCompleted: 'La tarea se completó y el resultado se envió al servidor. ¡Gracias!',
       due: 'Pendiente',
+      daysAgo: 'ayer | hace {count} días',
+      hoursAgo: 'hace 1 hora | hace {count} horas',
+      minsAgo: 'hace 1 minuto | hace {count} minutos',
       form: {
         title: '{formname} Formulario',
         shortDescription: 'Responde algunas preguntas',

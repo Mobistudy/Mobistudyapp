@@ -58,6 +58,9 @@ let studies = {
       capTestCompleteSubtext: 'Du avslutade uppgiften!',
       taskCompleted: 'Uppgiften har nu blivit avslutat och resultatet har blivit skickad till servern. Tack!',
       due: 'Väntad',
+      daysAgo: 'igår | {count} dagar sedan',
+      hoursAgo: '1 timme sedan | {count} timmar sedan',
+      minsAgo: '1 minut sedan | {count} minuter sedan',
       form: {
         title: '{formname} formulär',
         shortDescription: 'Besvara några frågor',
