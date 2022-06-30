@@ -67,24 +67,24 @@ export function generateTasker (studiesParts, studiesDescr) {
           if (Platform.is.android && HealthDataEnum.isIOSOnly(taskDescription.dataType)) continue
         }
         // manage alwaysOn tasks here:
+        let due = isTaskIntervalDue(taskDescription.scheduling, studyPart.acceptedTS, studyPart.taskItemsConsent)
+        if (!due) continue // task outside of time boundaries, do not include
         if (taskDescription.scheduling.alwaysOn) {
-          if (isTaskIntervalDue(taskDescription.scheduling, studyPart.acceptedTS, studyPart.taskItemsConsent)) {
-            studyCompleted = false
-            let task = {
-              type: taskDescription.type,
-              studyKey: studyDescr._key,
-              taskId: taskDescription.id,
-              alwaysOn: true
-            }
-            if (taskDescription.type === 'form') {
-              task.formName = taskDescription.formName
-              task.formKey = taskDescription.formKey
-            }
-            if (taskDescription.customTitle) {
-              task.customTitle = taskDescription.customTitle
-            }
-            taskerItems.alwaysOn.push(task)
+          studyCompleted = false
+          let task = {
+            type: taskDescription.type,
+            studyKey: studyDescr._key,
+            taskId: taskDescription.id,
+            alwaysOn: true
           }
+          if (taskDescription.type === 'form') {
+            task.formName = taskDescription.formName
+            task.formKey = taskDescription.formKey
+          }
+          if (taskDescription.customTitle) {
+            task.customTitle = taskDescription.customTitle
+          }
+          taskerItems.alwaysOn.push(task)
         } else {
           // manage non-always on tasks:
 

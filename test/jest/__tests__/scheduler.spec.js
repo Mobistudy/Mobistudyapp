@@ -69,18 +69,21 @@ describe('When testing the scheduler', () => {
     expect(due).toBe(false)
   })
 
-  test('a task depending on another task and that has expired is not due', () => {
-    let acceptTime = new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString()
+  test('a task depending on another task and that was executed long ago and has expired is not due', () => {
+    let acceptTime = new Date(new Date().getTime() - 4 * 24 * 60 * 60 * 1000).toISOString() // 4 days ago
     let scheduling = {
       startEvent: 'taskExecution',
       eventTaskId: 1,
       startDelaySecs: 0,
-      untilSecs: 3600 // 1 hour
+      untilSecs: 3600,
+      intervalType: 'd',
+      interval: 1,
+      occurrences: 1
     }
     let due = isTaskIntervalDue(scheduling, acceptTime, [{
       taskId: 1,
       consented: true,
-      lastExecuted: new Date(new Date().getTime() - 5 * 60 * 60 * 1000).toISOString() // 5 h ago
+      lastExecuted: new Date(new Date().getTime() - 3 * 24 * 60 * 60 * 1000).toISOString() // 3 days ago
     }])
 
     expect(due).toBe(false)
