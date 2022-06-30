@@ -247,6 +247,10 @@ export default {
         setTimeout(function () {
           resolve(PDSS2)
         }, 500)
+      } else if (key === BDI2._key) {
+        setTimeout(function () {
+          resolve(BDI2)
+        }, 500)
       } else {
         reject(new Error('Questionnaire not found ' + key))
       }
