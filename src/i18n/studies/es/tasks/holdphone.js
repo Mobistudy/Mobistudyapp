@@ -1,49 +1,51 @@
 export default {
-  title: 'Sostén el teléfono',
+  title: 'Hold the phone test',
+  shortTitle: 'Hold the phone',
   shortDescription: 'Measure tremor by holding your phone',
-  shortTitle: 'Mide tu temblor sosteniendo el teléfono',
+  OSpermissioniOS: 'This task requires the app to access the motion sensors in your phone. This is needed to measure the amount of tremor in your hands and upper limbs. These data be shared with the research team of the study for analysis. Tap on Next to proceed with the authorization process.',
+  OSpermissionAndroid: 'This task requires the app to access the motion sensors in your phone. This is needed to measure the amount of tremor in your hands and upper limbs. These data be shared with the research team of the study for analysis. Tap on Next to proceed with the authorization process.',
   introductionSlides: [
     {
-      title: 'Introducción',
+      title: 'Introduction',
       img: 'instructions/HoldYourPhone_task-01.svg',
-      description: 'En esta tarea tendrás que sujetar tu teléfono firme durante 10 segundos con cada mano. El objetivo es medir cualquier temblor en tus manos.'
+      description: 'In this task you will have to keep your phone steady for 10 seconds with each hand. The goal is to measure any tremor in your hands'
     },
     {
-      title: 'Paso 1',
+      title: 'Step 1',
       img: 'instructions/HoldYourPhone_task-02.svg',
-      description: `Realizarás la prueba de 3 maneras: 1) Sosteniendo tu teléfono con la mano apoyada al muslo, estando sentado cómodamente.`
+      description: `You will perform the test in 3 ways: 1) Holding your phone in your lap, when seated comfortably.`
     },
     {
-      title: 'Paso 2',
+      title: 'Step 2',
       img: 'instructions/HoldYourPhone_task-03.svg',
-      description: `2) Sosteniendo tu teléfono con el brazo extendido al nivel del hombro.`
+      description: `2) Holding your phone with your arm outstretched at shoulder level.`
     },
     {
-      title: 'Paso 3',
+      title: 'Step 3',
       img: 'instructions/HoldYourPhone_task-04.svg',
-      description: `3) Sosteniendo el teléfono mientras mueves el brazo desde extendido hasta tocarte la nariz repetidamente.`
+      description: `3) Holding the phone while you move the arm from outstretched to touching your nose repeatedly.`
     },
     {
-      title: 'Importante!',
+      title: 'Important!',
       img: 'instructions/HoldYourPhone_task-05.svg',
-      description: `Cuando hayan pasado 10 segundos el teléfono vibrará. Entonces te pedirá que repitas la prueba tanto para el brazo derecho como para el izquierdo. Si sientes que no puedes sostener el teléfono durante toda la prueba, simplemente relaja el brazo.`
+      description: `When the 10 seconds have passed, your phone will vibrate. You will be asked to repeat the test for both the right and left arm. If you feel like you cannot hold the phone for the whole duration of the test, simply relax your arm.`
     }
   ],
   instructions: {
-    preRestingLeft: 'Sujeta el teléfono con la mano IZQUIERDA sobre el muslo izquierdo. Pulsa inicio para comenzar.',
-    preRestingRight: 'Sujeta el teléfono con la mano DERECHA sobre el muslo derecho. Pulsa inicio para comenzar.',
-    prePosturalLeft: 'Manten el brazo extendido a la altura de los hombros mientras sostienes el teléfono con la mano IZQUIERDA. Presiona inicio para comenzar.',
-    prePosturalRight: 'Manten el brazo extendido a la altura de los hombros mientras sostienes el teléfono con la mano DERECHA. Presiona inicio para comenzar.',
-    preKineticLeft: 'Mueve el teléfono de brazo extendido a tocar la nariz mientras sostienes el teléfono con la mano IZQUIERDA. Presiona inicio para comenzar.',
-    preKineticRight: 'Mueve el teléfono de brazo extendido a tocar la nariz mientras sostienes el teléfono con la mano DERECHA. Presiona inicio para comenzar.',
-    afterStart: 'Susten el teléfono firmemente en la mano.'
+    preRestingLeft: 'Hold your phone with your LEFT hand lying on your lap. Press start to begin.',
+    preRestingRight: 'Hold your phone with your RIGHT hand lying on your lap. Press start to begin.',
+    prePosturalLeft: 'Keep your arm outstretched at shoulder level while holding your phone with your LEFT hand. Press start to begin.',
+    prePosturalRight: 'Keep your arm outstretched at shoulder level while holding your phone with your RIGHT hand. Press start to begin.',
+    preKineticLeft: 'Move your phone from outstretched to touching your nose while holding your phone with your LEFT hand. Press start to begin.',
+    preKineticRight: 'Move your phone from outstretched to touching your nose while holding your phone with your RIGHT hand. Press start to begin.',
+    afterStart: 'Continue holding the phone steadily in your hand.'
   },
-  completed: 'Tarea completada',
-  time: 'Duración',
-  summaryRestingLeft: 'Movimiento en reposo, mano izquierda',
-  summaryRestingRight: 'Movimiento en reposo, mano derecha',
-  summaryPosturalLeft: 'Movimiento postural, mano izquierda',
-  summaryPosturalRight: 'Movimiento postural, mano derecha',
-  summaryKineticLeft: 'Movimiento cinético, mano izquierda',
-  summaryKineticRight: 'Movimiento cinético, mano derecha'
+  completed: 'Task completed',
+  time: 'Time',
+  summaryRestingLeft: 'At rest movement, left',
+  summaryRestingRight: 'At rest movement, right',
+  summaryPosturalLeft: 'Postural movement, left',
+  summaryPosturalRight: 'Postural movement, right',
+  summaryKineticLeft: 'Kinetic movement, left',
+  summaryKineticRight: 'Kinetic movement, right'
 }

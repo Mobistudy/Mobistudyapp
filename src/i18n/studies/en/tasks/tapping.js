@@ -1,7 +1,7 @@
 export default {
-  title: 'Finger Tapping Exercise',
+  title: 'Finger tapping test',
+  shortTitle: 'Finger tapping',
   shortDescription: 'Tap your fingers on the screen',
-  shortTitle: 'Finger Tapping',
   introductionSlides: [
     {
       title: 'Introduction',
