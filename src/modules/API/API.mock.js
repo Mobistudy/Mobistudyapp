@@ -2,9 +2,9 @@
 import studyTest from './mockdata/studyTest'
 import formTest from './mockdata/formTest'
 
-import studyPainApp from './mockdata/studyPainApp'
-import formPainAppReminder from './mockdata/formPainApp1'
-import formPainAppVAS from './mockdata/formPainApp2'
+import studyPainApp1 from './mockdata/studyPainApp1'
+import studyPainApp2 from './mockdata/studyPainApp2'
+import formPainAppVAS from './mockdata/formPainAppVAS'
 
 import parkAppStudy from './mockdata/parkapp/studyParkapp'
 import NMSQuest from './mockdata/parkapp/questNMS'
@@ -179,9 +179,13 @@ export default {
         setTimeout(function () {
           resolve(studyTest)
         }, 2000)
-      } else if (studyKey === studyPainApp._key) {
+      } else if (studyKey === studyPainApp1._key) {
         setTimeout(function () {
-          resolve(studyPainApp)
+          resolve(studyPainApp1)
+        }, 1000)
+      } else if (studyKey === studyPainApp2._key) {
+        setTimeout(function () {
+          resolve(studyPainApp2)
         }, 1000)
       } else if (studyKey === parkAppStudy._key) {
         setTimeout(function () {
@@ -212,8 +216,10 @@ export default {
   async getInvitationalStudy (invitationalCode) {
     console.log('API - getting invitational study')
     return new Promise((resolve, reject) => {
-      if (invitationalCode === studyPainApp.invitationCode) {
-        resolve(studyPainApp)
+      if (invitationalCode === studyPainApp1.invitationCode) {
+        resolve(studyPainApp1)
+      } if (invitationalCode === studyPainApp2.invitationCode) {
+        resolve(studyPainApp2)
       } else if (invitationalCode === parkAppStudy.invitationCode) {
         resolve(parkAppStudy)
       } else {
@@ -230,10 +236,6 @@ export default {
       if (key === formTest._key) {
         setTimeout(function () {
           resolve(formTest)
-        }, 1000)
-      } else if (key === formPainAppReminder._key) {
-        setTimeout(function () {
-          resolve(formPainAppReminder)
         }, 1000)
       } else if (key === formPainAppVAS._key) {
         setTimeout(function () {
