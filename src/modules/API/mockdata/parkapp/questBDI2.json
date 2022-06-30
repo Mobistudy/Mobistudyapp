@@ -1,0 +1,476 @@
+{
+  "_key": "0808",
+  "teamKey": "1608",
+  "name": {
+    "en": "Beck Depression Inventory 2",
+    "sv": "Beck Depression Inventory 2"
+  },
+  "description": {
+    "en": "<p>The Beck Depression Inventory is a brief, self-report inventory designed to measure the severity of depression symptomatology.</p><p>This questionnaire consists of 21 groups of statements. Please read each group of statements carefully. And then pick out the one statement in each group that best describes the way you have been feeling during the past two weeks, including today. Select the number beside the statement you have picked. If several statements in the group seem to apply equally well, circle the highest number for that group. Be sure that you do not choose more than one statement for any group.</p><br><p><small>Copyright © 2009 NCS Pearson, Inc. All rights reserved. Swedish translation copyright © 2017 NCS Pearson, Inc. Adapted and reproduced by Pearson Sweden AB under license from Pearson Inc. All rights reserved.</small></p>",
+    "sv": "<p>Beck Depression Inventory är en kort, självrapporterade inventering utformad för att mäta svårighetsgraden av depressionssymptomatologi.</p><p>På de skärmar som visas kommer grupper av påståenden att presenteras. Läs samtliga påståenden i varje grupp noggrant, och markera ett av dessa, det vill säga det påstående som du tycker bäst beskriver hur du känt dig de senaste två veckorna, inklusive idag. Om du tycker att två eller fler påståenden inom samma grupp passar lika bra, välj det som har den högsta siffran. Var noga med att bara välja ett påstående inom varje grupp.</p><p>Om du vill ändra ett svar, klicka på ”Nästa” vid det påstående du vill välja.</p><br><p><small>Copyright © 2009 NCS Pearson, Inc. All rights reserved. Swedish translation copyright © 2017 NCS Pearson, Inc. Adapted and reproduced by Pearson Sweden AB under license from Pearson Inc. All rights reserved.</small></p>"
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "text": {
+        "en": "Nedstämdhet",
+        "sv": "Sadness"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q1A1",
+          "text": {
+            "en": "0. I do not feel sad",
+            "sv": "0. Jag känner mig varken ledsen eller nedstämd"
+          }
+        },
+        {
+          "id": "Q1A2",
+          "text": {
+            "en": "1. I feel sad much of the time",
+            "sv": "1. Jag känner mig ofta ledsen och nedstämd"
+          }
+        },
+        {
+          "id": "Q1A3",
+          "text": {
+            "en": "2. I am sad all the time",
+            "sv": "2. Jag känner mig ledsen och nedstämd hela tiden"
+          }
+        },
+        {
+          "id": "Q1A4",
+          "text": {
+            "en": "3. I am so sad or unhappy that I can't stand it",
+            "sv": "3. Jag är så ledsen och olycklig att jag inte står ut"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": {
+        "en": "Pessimism",
+        "sv": "Pessimism"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q2A1",
+          "text": {
+            "en": "0. I am not discouraged about my future",
+            "sv": "0. Jag är inte pessimistisk inför min framtid"
+          }
+        },
+        {
+          "id": "Q2A2",
+          "text": {
+            "en": "1. I feel more discouraged about my future than I used to",
+            "sv": "1. Jag känner mig mer pessimistisk inför min framtid än tidigare"
+          }
+        },
+        {
+          "id": "Q2A3",
+          "text": {
+            "en": "2. I do not expect things to work out for me",
+            "sv": "2. Jag tror inte att det kommer att gå bra för mig"
+          }
+        },
+        {
+          "id": "Q2A4",
+          "text": {
+            "en": "3. I feel my future is hopeless and will only get worse",
+            "sv": "3. Jag känner att min framtid är hopplös och att det bara kan bli värre"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q3",
+      "text": {
+        "en": "Past Failure",
+        "sv": "Misslyckander"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q3A1",
+          "text": {
+            "en": "0. I do not feel like a failure",
+            "sv": "0. Jag känner mig inte misslyckad"
+          }
+        },
+        {
+          "id": "Q3A2",
+          "text": {
+            "en": "1. I have failed more than I should have",
+            "sv": "1. Det känns som om jag har misslyckats mer än jag borde"
+          }
+        },
+        {
+          "id": "Q3A3",
+          "text": {
+            "en": "2. As I look back, I see a lot of failures",
+            "sv": "2. När jag tänker tillbaka, ser jag många misslyckanden"
+          }
+        },
+        {
+          "id": "Q3A4",
+          "text": {
+            "en": "3. I feel I am a total failure as a person",
+            "sv": "3. Jag känner mig totalt misslyckad som människa"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q4",
+      "text": {
+        "en": "Loss of Pleasure",
+        "sv": "Förlust av glädje"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q4A1",
+          "text": {
+            "en": "0. I get as much pleasure as I ever did from the things I enjoy",
+            "sv": "0. Jag gläder mig lika mycket som vanligt åt saker jag tycker om"
+          }
+        },
+        {
+          "id": "Q4A2",
+          "text": {
+            "en": "1. I don't enjoy things as much as I used to",
+            "sv": "1. Jag uppskattar inte saker och ting lika mycket som tidigare"
+          }
+        },
+        {
+          "id": "Q4A3",
+          "text": {
+            "en": "2. I get very little pleasure from the things I used to enjoy",
+            "sv": "2. Jag får ut väldigt lite glädje av sådant jag vanligen tycker om"
+          }
+        },
+        {
+          "id": "Q4A4",
+          "text": {
+            "en": "3. I can't get any pleasure from the things I used to enjoy",
+            "sv": "3. Jag kan inte alls glädja mig åt sådant jag vanligen tycker om"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q5",
+      "text": {
+        "en": "Guilty Feelings",
+        "sv": "Skuldkänslor"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q5A1",
+          "text": {
+            "en": "0. I don't feel particularly guilty",
+            "sv": "0. Jag har inte särskilt mycket skuldkänslor"
+          }
+        },
+        {
+          "id": "Q5A2",
+          "text": {
+            "en": "1. I feel guilty over many things I have done or should have done",
+            "sv": "1. Jag har skuldkänslor inför många saker jag gjort eller borde ha gjort"
+          }
+        },
+        {
+          "id": "Q5A3",
+          "text": {
+            "en": "2. I feel quite guilty most of the time",
+            "sv": "2. Jag har ofta skuldkänslor"
+          }
+        },
+        {
+          "id": "Q5A4",
+          "text": {
+            "en": "3. I feel guilty all of the time",
+            "sv": "3. Jag har ständigt skuldkänslor"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q6",
+      "text": {
+        "en": "Punishment Feelings",
+        "sv": "Känsla av att bli bestraffad"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q6A1",
+          "text": {
+            "en": "0. I don't feel I am being punished",
+            "sv": "0. Jag känner det inte som om jag bestraffas"
+          }
+        },
+        {
+          "id": "Q6A2",
+          "text": {
+            "en": "1. I feel I may be punished",
+            "sv": "1. Jag har en känsla av att jag kan bli bestraffad"
+          }
+        },
+        {
+          "id": "Q6A3",
+          "text": {
+            "en": "2. I expect to be punished",
+            "sv": "2. Jag räknar med att bli bestraffad"
+          }
+        },
+        {
+          "id": "Q6A4",
+          "text": {
+            "en": "3. I dislike myself",
+            "sv": "3. I feel I am being punished"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q7",
+      "text": {
+        "en": "Self-Dislike",
+        "sv": "Självförakt"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q7A1",
+          "text": {
+            "en": "0. I feel the same about myself as ever",
+            "sv": "0. Mitt självförtroende är som tidigare"
+          }
+        },
+        {
+          "id": "Q7A2",
+          "text": {
+            "en": "1. I have lost confidence in myself",
+            "sv": "1. Jag har fått sämre självförtroende"
+          }
+        },
+        {
+          "id": "Q7A3",
+          "text": {
+            "en": "2. I am disappointed in myself",
+            "sv": "2. Jag är besviken på mig själv"
+          }
+        },
+        {
+          "id": "Q7A4",
+          "text": {
+            "en": "3. I dislike myself",
+            "sv": "3. Jag tycker illa om mig själv"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q8",
+      "text": {
+        "en": "Self-Criticalness",
+        "sv": "Självkritik"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q8A1",
+          "text": {
+            "en": "0. I don't criticize or blame myself more than usual",
+            "sv": "0. Jag är inte mer kritisk eller anklagande mot mig själv än vanligt"
+          }
+        },
+        {
+          "id": "Q8A2",
+          "text": {
+            "en": "1. I am more critical of myself than I used to be",
+            "sv": "1. Jag är mer kritisk mot mig själv än jag brukar"
+          }
+        },
+        {
+          "id": "Q8A3",
+          "text": {
+            "en": "2. I criticize myself for all of my faults",
+            "sv": "2. Jag kritiserar mig själv för alla mina fel och brister"
+          }
+        },
+        {
+          "id": "Q8A4",
+          "text": {
+            "en": "3. I blame myself for everything bad that happens",
+            "sv": "3. Jag anklagar mig själv för allt dåligt som händer"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q9",
+      "text": {
+        "en": "Suicidal Thoughts or Wishes",
+        "sv": "Självmordstankar"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q9A1",
+          "text": {
+            "en": "0. I don't have any thoughts of killing myself",
+            "sv": "0. Jag har inga tankar på att ta livet av mig"
+          }
+        },
+        {
+          "id": "Q9A2",
+          "text": {
+            "en": "1. I have thoughts of killing myself, but I would not carry them out",
+            "sv": "1. Jag har tankar på att ta livet av mig, men skulle aldrig göra det"
+          }
+        },
+        {
+          "id": "Q9A3",
+          "text": {
+            "en": "2. I would like to kill myself",
+            "sv": "2. Jag skulle vilja ta mitt liv"
+          }
+        },
+        {
+          "id": "Q9A4",
+          "text": {
+            "en": "3. I would kill myself if I had the chance",
+            "sv": "3. Jag skulle ta mitt liv, om jag fick en möjlighet"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q10",
+      "text": {
+        "en": "Crying",
+        "sv": "Gråt"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q10A1",
+          "text": {
+            "en": "0. I don't cry anymore than I used to",
+            "sv": "0. Jag gråter inte mer än vanligt"
+          }
+        },
+        {
+          "id": "Q10A2",
+          "text": {
+            "en": "1. I cry more than I used to",
+            "sv": "1. Jag gråter mer än tidigare"
+          }
+        },
+        {
+          "id": "Q10A3",
+          "text": {
+            "en": "2. I cry over every little thing",
+            "sv": "2. Jag gråter av minsta anledning"
+          }
+        },
+        {
+          "id": "Q10A4",
+          "text": {
+            "en": "3. I feel like crying, but I can't",
+            "sv": "3. Det känns som om jag vill gråta, men kan inte"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q11",
+      "text": {
+        "en": "Agitation",
+        "sv": "Rastlöshet"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q11A1",
+          "text": {
+            "en": "0. I am no more restless or wound up than usual",
+            "sv": "0. Jag är inte mer rastlös eller orolig än vanligt"
+          }
+        },
+        {
+          "id": "Q11A2",
+          "text": {
+            "en": "1. I feel more restless or wound up than usual",
+            "sv": "1. Jag känner mig mer rastlös eller orolig än vanligt"
+          }
+        },
+        {
+          "id": "Q11A3",
+          "text": {
+            "en": "2. I am so restless or agitated, it's hard to stay still",
+            "sv": "2. Jag är så rastlös eller orolig att det är svårt att vara stilla"
+          }
+        },
+        {
+          "id": "Q11A4",
+          "text": {
+            "en": "3. I am so restless or agitated that I have to keep moving or doing something",
+            "sv": "3. Jag är så rastlös eller orolig att jag måste röra mig eller göra något hela tiden"
+          }
+        }
+      ]
+    }
+  ]
+}
