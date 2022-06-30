@@ -77,6 +77,106 @@
   "tasks": [
     {
       "id": 1,
+      "type": "tugt",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      }
+    },
+    {
+      "id": 2,
+      "type": "tugt",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      }
+    },
+    {
+      "id": 3,
+      "type": "vocalization",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      }
+    },
+    {
+      "id": 4,
+      "type": "vocalization",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      }
+    },
+    {
+      "id": 5,
+      "type": "holdPhone",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      }
+    },
+    {
+      "id": 6,
+      "type": "holdPhone",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      }
+    },
+    {
+      "id": 7,
+      "type": "fingerTapping",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      }
+    },
+    {
+      "id": 8,
+      "type": "fingerTapping",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      }
+    },
+    {
+      "id": 9,
+      "type": "drawing",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      }
+    },
+    {
+      "id": 10,
+      "type": "drawing",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      }
+    },
+    {
+      "id": 11,
       "type": "form",
       "scheduling": {
         "startEvent": "consent",
@@ -84,14 +184,29 @@
         "untilSecs": 5184000,
         "interval": 1
       },
-      "formKey": "9898",
+      "formKey": "0808",
       "formName": {
-        "en": "NMSQuest",
-        "sv": "NMSQuest"
+        "en": "Daily sleep quality",
+        "sv": "Daglig sömnkvalitet"
       }
     },
     {
-      "id": 2,
+      "id": 12,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      },
+      "formKey": "0808",
+      "formName": {
+        "en": "BDI-2",
+        "sv": "BDI-2"
+      }
+    },
+    {
+      "id": 13,
       "type": "form",
       "scheduling": {
         "startEvent": "consent",
@@ -106,7 +221,7 @@
       }
     },
     {
-      "id": 3,
+      "id": 14,
       "type": "form",
       "scheduling": {
         "startEvent": "consent",
@@ -114,10 +229,55 @@
         "untilSecs": 5184000,
         "interval": 1
       },
-      "formKey": "0808",
+      "formKey": "9898",
       "formName": {
-        "en": "BDI-2",
-        "sv": "BDI-2"
+        "en": "NMSQuest",
+        "sv": "NMSQuest"
+      }
+    },
+    {
+      "id": 15,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      },
+      "formKey": "118118",
+      "formName": {
+        "en": "PDQ8",
+        "sv": "PDQ8"
+      }
+    },
+    {
+      "id": 16,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      },
+      "formKey": "118118",
+      "formName": {
+        "en": "uMARS",
+        "sv": "uMARS"
+      }
+    },
+    {
+      "id": 17,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      },
+      "formKey": "118118",
+      "formName": {
+        "en": "TAM",
+        "sv": "TAM"
       }
     }
   ],
@@ -133,26 +293,146 @@
     "taskItems": [
       {
         "description": {
-          "en": "I agree to answer the \"Non motor symptoms\" questionnaire, every day.",
-          "sv": "Jag accepterar att besvara \"Non motor symptoms\" formulär, varje dag."
+          "en": "I agree to perform a \"Timed Up and Go\" test, once a week -before medication-.",
+          "sv": "Jag accepterar att utföra ett \"Timed up and go\" test, en gång i veckan -före medicinering-."
         },
         "taskId": 1
       },
       {
         "description": {
-          "en": "I agree to answer the \"Parkinson ́s Disease Sleep Scale\", every day.",
-          "sv": "Jag accepterar att besvara \"Parkinson ́s Disease Sleep Scale\" formulär, varje dag."
+          "en": "I agree to perform a \"Timed Up and Go\" test, once a week -1 hour after medication-.",
+          "sv": "Jag accepterar att utföra ett \"Timed up and go\" test, en gång i veckan -1 timme efter medicinering-."
         },
         "taskId": 2
       },
       {
         "description": {
-          "en": "I agree to answer the \"Beck Depression Inventory 2\", every day.",
-          "sv": "Jag accepterar att besvara \"Beck Depression Inventory 2\" formulär, varje dag."
+          "en": "I agree to perform a vocalizaiton test, once a week -before medication-.",
+          "sv": "Jag accepterar att utföra ett vokaliseringstest, en gång i veckan -före medicinering-."
         },
         "taskId": 3
+      },
+      {
+        "description": {
+          "en": "I agree to perform a vocalizaiton test, once a week -1 hour after medication-.",
+          "sv": "Jag accepterar att utföra ett vokaliseringstest, en gång i veckan -1 timme efter medicinering-."
+        },
+        "taskId": 4
+      },
+      {
+        "description": {
+          "en": "I agree to perform a \"Hold the phone\" tremor test, once a week -before medication-.",
+          "sv": "Jag accepterar att utföra ett \"Håll telefonen\" tremortest, en gång i veckan -före medicinering-."
+        },
+        "taskId": 5
+      },
+      {
+        "description": {
+          "en": "I agree to perform a \"Hold the phone\" test, once a week -1 hour after medication-.",
+          "sv": "Jag accepterar att utföra ett \"Håll telefonen\" tremortestet, en gång i veckan -1 timme efter medicinering-."
+        },
+        "taskId": 6
+      },
+      {
+        "description": {
+          "en": "I agree to perform a dexterity \"Finger tapping\" test, once a week -before medication-.",
+          "sv": "Jag accepterar att utföra ett fingerfärdighet test, en gång i veckan -före medicinering-."
+        },
+        "taskId": 7
+      },
+      {
+        "description": {
+          "en": "I agree to perform a dexterity \"Finger tapping\" test, once a week -1 hour after medication-.",
+          "sv": "Jag accepterar att utföra ett fingerfärdighet test, en gång i veckan -1 timme efter medicinering-."
+        },
+        "taskId": 8
+      },
+      {
+        "description": {
+          "en": "I agree to perform a drawing test, once a week -before medication-.",
+          "sv": "Jag accepterar att utföra en ritövning \"Figurtestetet\", en gång i veckan -före medicinering-."
+        },
+        "taskId": 9
+      },
+      {
+        "description": {
+          "en": "I agree to perform a drawing test, once a week -1 hour after medication-.",
+          "sv": "Jag accepterar att utföra en ritövning \"Figurtestetet\", en gång i veckan -1 timme efter medicinering-."
+        },
+        "taskId": 10
+      },
+      {
+        "description": {
+          "en": "I agree to answer a daily sleep quality questionnaire, once a day.",
+          "sv": "Jag accepterar att besvara en enkät om när du somnar, vaknar och din sömnkvalitet (Daglig sömnkvalitet formulär), varje dag."
+        },
+        "taskId": 11
+      },
+      {
+        "description": {
+          "en": "I agree to answer a questionnaire that identifies signs of depression (Beck Depression Inventory 2), once every month.",
+          "sv": "Jag accepterar att besvara en enkät som undersöker tecken på depression (Beck’s depression inventory), en gång i månaden."
+        },
+        "taskId": 12
+      },
+      {
+        "description": {
+          "en": "I agree to answer a questionnaire that provides a sleep scale for Parkinson's disease once a week (Parkinson ́s Disease Sleep Scale), once a week.",
+          "sv": "Jag accepterar att besvara en enkät som ger en sömnskala för Parkinsons sjukdom (Parkinson’s disease sleep scale), en gång i veckan."
+        },
+        "taskId": 13
+      },
+      {
+        "description": {
+          "en": "I agree to answer a questionnaire on non-motor symptoms (NMSQuest - Non-Motor Symptoms Questionnaire), once a month.",
+          "sv": "Jag accepterar att besvara en enkät om icke-motoriska symtom (NMSQuest - Non-Motor Symptoms Questionnaire), en gång i månaden."
+        },
+        "taskId": 14
+      },
+      {
+        "description": {
+          "en": "I agree to answer a questionnaire on Parkinson's Disease (PDQ-8 - Parkinson's disease Questionnaire-8), once a month.",
+          "sv": "Jag accepterar att besvara en enkät om Parkinsons sjukdom (PDQ-8 - Parkinson's disease Questionnaire-8), en gång i månaden."
+        },
+        "taskId": 15
+      },
+      {
+        "description": {
+          "en": "I agree to answer a scale that measures the usability of applications on mobile phones (uMARS - user version of the Mobile Application Rating Scale), once, 3 weeks after I have started the study.",
+          "sv": "Jag accepterar att besvara en skala som mäter användbarhet av applikationer på mobiltelefoner (uMARS – user version of the Mobile Application Rating Scale), en gång, 3 veckor efter att jag har påbörjat studien."
+        },
+        "taskId": 16
+      },
+      {
+        "description": {
+          "en": "I agree to answer a questionnaire that measures user acceptance of technology (TAM – Technology Acceptance Model), once, 3 weeks after I have started the study.",
+          "sv": "Jag accepterar att besvara en enkät som mäter acceptans av teknologi (TAM – Technology Acceptance Model), en gång, 3 veckor efter att jag har påbörjat studien."
+        },
+        "taskId": 17
       }
     ],
-    "extraItems": []
+    "extraItems": [
+      {
+        "description": {
+          "en": "I agree to take part in an interview about the use of the app, at the end of the study.",
+          "sv": "Jag går med på att delta i en intervju om användningen av appen, i slutet av studien."
+        },
+        "optional": true
+      },
+      {
+        "description": {
+          "en": "I agree to wear the GENEActiv smart device to measure my activity for 2 months.",
+          "sv": "Jag går med på att bära GENEActiv-smartenheten för att mäta min aktivitet i 2 månader."
+        },
+        "optional": true
+      },
+      {
+        "description": {
+          "en": "I agree to undergo 2 Parkinson's related clinical assessments in 2 months.",
+          "sv": "Jag samtycker till att genomgå 2 Parkinsonsrelaterade kliniska bedömningar inom 2 månader."
+        },
+        "optional": false
+      }
+    ]
   }
 }
