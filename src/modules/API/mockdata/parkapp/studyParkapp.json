@@ -83,16 +83,27 @@
         "intervalType": "d",
         "untilSecs": 5184000,
         "interval": 1
+      },
+      "customTitle": {
+        "en": "TU&G before medication",
+        "sv": "TU&G före medicin"
       }
     },
     {
       "id": 2,
       "type": "tugt",
       "scheduling": {
-        "startEvent": "consent",
+        "startEvent": "taskExecution",
+        "eventTaskId": 1,
+        "startDelaySecs": 3600,
+        "untilSecs": 43200,
         "intervalType": "d",
-        "untilSecs": 5184000,
-        "interval": 1
+        "interval": 1,
+        "occurrences": 1
+      },
+      "customTitle": {
+        "en": "TU&G 1h after medication",
+        "sv": "TU&G 1t efter medicin"
       }
     },
     {
@@ -103,16 +114,27 @@
         "intervalType": "d",
         "untilSecs": 5184000,
         "interval": 1
+      },
+      "customTitle": {
+        "en": "Voice test before medication",
+        "sv": "Vokalisering före medicin"
       }
     },
     {
       "id": 4,
       "type": "vocalization",
       "scheduling": {
-        "startEvent": "consent",
+        "startEvent": "taskExecution",
+        "eventTaskId": 3,
+        "startDelaySecs": 3600,
+        "untilSecs": 43200,
         "intervalType": "d",
-        "untilSecs": 5184000,
-        "interval": 1
+        "interval": 1,
+        "occurrences": 1
+      },
+      "customTitle": {
+        "en": "Voice test 1h after medication",
+        "sv": "Vokalisering 1t efter medicin"
       }
     },
     {
@@ -123,16 +145,27 @@
         "intervalType": "d",
         "untilSecs": 5184000,
         "interval": 1
+      },
+      "customTitle": {
+        "en": "Hold-the-phone before medication",
+        "sv": "Hålla telefonen före medicin"
       }
     },
     {
       "id": 6,
       "type": "holdPhone",
       "scheduling": {
-        "startEvent": "consent",
+        "startEvent": "taskExecution",
+        "eventTaskId": 5,
+        "startDelaySecs": 3600,
+        "untilSecs": 43200,
         "intervalType": "d",
-        "untilSecs": 5184000,
-        "interval": 1
+        "interval": 1,
+        "occurrences": 1
+      },
+      "customTitle": {
+        "en": "Hold-the-phone 1h after medication",
+        "sv": "Hålla telefonen 1t efter medicin"
       }
     },
     {
@@ -143,16 +176,27 @@
         "intervalType": "d",
         "untilSecs": 5184000,
         "interval": 1
+      },
+      "customTitle": {
+        "en": "Finger tapping before medication",
+        "sv": "Fingerfärdighet före medicin"
       }
     },
     {
       "id": 8,
       "type": "fingerTapping",
       "scheduling": {
-        "startEvent": "consent",
+        "startEvent": "taskExecution",
+        "eventTaskId": 7,
+        "startDelaySecs": 3600,
+        "untilSecs": 43200,
         "intervalType": "d",
-        "untilSecs": 5184000,
-        "interval": 1
+        "interval": 1,
+        "occurrences": 1
+      },
+      "customTitle": {
+        "en": "Finger tapping 1h after medication",
+        "sv": "Fingerfärdighet 1t efter medicin"
       }
     },
     {
@@ -163,16 +207,27 @@
         "intervalType": "d",
         "untilSecs": 5184000,
         "interval": 1
+      },
+      "customTitle": {
+        "en": "Drawing test before medication",
+        "sv": "Figurtestetet före medicin"
       }
     },
     {
       "id": 10,
       "type": "drawing",
       "scheduling": {
-        "startEvent": "consent",
+        "startEvent": "taskExecution",
+        "eventTaskId": 9,
+        "startDelaySecs": 3600,
+        "untilSecs": 43200,
         "intervalType": "d",
-        "untilSecs": 5184000,
-        "interval": 1
+        "interval": 1,
+        "occurrences": 1
+      },
+      "customTitle": {
+        "en": "Drawing test 1h after medication",
+        "sv": "Figurtestetet 1t efter medicin"
       }
     },
     {
