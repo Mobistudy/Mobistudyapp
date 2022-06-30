@@ -80,6 +80,9 @@ export function generateTasker (studiesParts, studiesDescr) {
               task.formName = taskDescription.formName
               task.formKey = taskDescription.formKey
             }
+            if (taskDescription.customTitle) {
+              task.customTitle = taskDescription.customTitle
+            }
             taskerItems.alwaysOn.push(task)
           }
         } else {
@@ -152,6 +155,9 @@ export function generateTasker (studiesParts, studiesDescr) {
           if (taskDescription.type === 'form') {
             templateObj.formName = taskDescription.formName
             templateObj.formKey = taskDescription.formKey
+          }
+          if (taskDescription.customTitle) {
+            templateObj.customTitle = taskDescription.customTitle
           }
           if (upcoming !== null) {
             // upcoming executions of the task go into the upcoming array
