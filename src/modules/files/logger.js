@@ -66,7 +66,7 @@ export class Logger {
   }
 
   /**
-  * Deletes a temporary logfile.
+  * Deletes the temporary logfile.
   */
   async delete () {
     return this.files.delete(this.filename, this.folder)

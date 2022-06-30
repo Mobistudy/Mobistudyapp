@@ -1,30 +1,28 @@
-import moment from 'moment'
-
 // Mock of the notifications, uses the browser notifcations API
 export default {
   timeoutIDs: [],
   async hasPermission () {
     let isgranted = Notification.permission === 'granted'
-    console.log('permission for notifications?', isgranted)
+    console.log('NOTIFICATIONS - permission for notifications?', isgranted)
     return isgranted
   },
   async requestPermission () {
     return new Promise((resolve, reject) => {
       Notification.requestPermission(function (permission) {
         let isgranted = (permission === 'granted')
-        console.log('requesting permission for notifications, granted?', isgranted)
+        console.log('NOTIFICATIONS - requesting permission for notifications, granted?', isgranted)
         resolve(isgranted)
       })
     })
   },
   async schedule (obj) {
     for (let not of obj) {
-      let millis = moment(not.trigger.at).diff(moment())
+      let millis = not.trigger.at.getTime() - Date.now()
       if (millis < 0) {
         // discard the notification, it's in the past
         continue
       }
-      console.log('notification scheduled ' + not.trigger.at + ' in ' + millis, not)
+      console.log('NOTIFICATIONS - scheduled ' + not.trigger.at + ' in ' + millis, not)
       if (millis <= 2147483647) {
         let timeoutID = setTimeout(function () {
           if (Notification && Notification.permission === 'granted') {
@@ -43,6 +41,6 @@ export default {
     for (let timeoutID of this.timeoutIDs) {
       clearTimeout(timeoutID)
     }
-    console.log('all notifications cancelled')
+    console.log('NOTIFICATIONS - all notifications cancelled')
   }
 }

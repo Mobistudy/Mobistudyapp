@@ -40,7 +40,7 @@ export default {
       return new Promise((resolve, reject) => {
         if (window.cordova && window.cordova.plugins.PinCheck) {
           window.cordova.plugins.PinCheck.isPinSetup(
-            (success) => {
+            () => {
               resolve()
             },
             (failure) => {
