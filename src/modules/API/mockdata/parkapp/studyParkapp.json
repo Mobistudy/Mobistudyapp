@@ -104,6 +104,21 @@
         "en": "PDSS-2",
         "sv": "PDSS-2"
       }
+    },
+    {
+      "id": 3,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 5184000,
+        "interval": 1
+      },
+      "formKey": "0808",
+      "formName": {
+        "en": "BDI-2",
+        "sv": "BDI-2"
+      }
     }
   ],
   "consent": {
@@ -129,6 +144,13 @@
           "sv": "Jag accepterar att besvara \"Parkinson ́s Disease Sleep Scale\" formulär, varje dag."
         },
         "taskId": 2
+      },
+      {
+        "description": {
+          "en": "I agree to answer the \"Beck Depression Inventory 2\", every day.",
+          "sv": "Jag accepterar att besvara \"Beck Depression Inventory 2\" formulär, varje dag."
+        },
+        "taskId": 3
       }
     ],
     "extraItems": []

@@ -471,6 +471,468 @@
           }
         }
       ]
+    },
+    {
+      "id": "Q12",
+      "text": {
+        "en": "Loss of Interest",
+        "sv": "Förlust av intresse"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q12A1",
+          "text": {
+            "en": "0. I have not lost interest in other people or activities",
+            "sv": "0. Jag har inte tappat intresset för andra människor eller aktiviteter"
+          }
+        },
+        {
+          "id": "Q12A2",
+          "text": {
+            "en": "1. I am less interested in other people or things than before",
+            "sv": "1. Jag är mindre intresserad av andra människor eller aktiviteter än tidigare"
+          }
+        },
+        {
+          "id": "Q12A3",
+          "text": {
+            "en": "2. I have lost most of my interest in other people or things",
+            "sv": "2. Jag har förlorat det mesta av mitt intresse för människor eller aktiviteter"
+          }
+        },
+        {
+          "id": "Q12A4",
+          "text": {
+            "en": "3. It's hard to get interested in anything",
+            "sv": "3. Det är svårt att bli intresserad av något över huvud taget"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q13",
+      "text": {
+        "en": "Indecisiveness",
+        "sv": "Obeslutsamhet"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q13A1",
+          "text": {
+            "en": "0. I make decisions about as well as ever",
+            "sv": "0. Jag har lika lätt att fatta beslut som tidigare"
+          }
+        },
+        {
+          "id": "Q13A2",
+          "text": {
+            "en": "1. I find it more difficult to make decisions than usual",
+            "sv": "1. Jag tycker att det är svårare att fatta beslut än vanligt"
+          }
+        },
+        {
+          "id": "Q13A3",
+          "text": {
+            "en": "2. I have much greater difficulty in making decisions than I used to",
+            "sv": "2. Jag har mycket svårare att fatta beslut än jag brukar"
+          }
+        },
+        {
+          "id": "Q13A4",
+          "text": {
+            "en": "3. I have trouble making any decisions",
+            "sv": "3. Jag har svårt att fatta några beslut över huvud taget"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q14",
+      "text": {
+        "en": "Worthlessness",
+        "sv": "Värdelöshet"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q14A1",
+          "text": {
+            "en": "0. I do not feel I am worthless",
+            "sv": "0. Jag känner mig inte värdelös"
+          }
+        },
+        {
+          "id": "Q14A2",
+          "text": {
+            "en": "1. I don't consider myself as worthwhile and useful as I used to",
+            "sv": "1. Jag upplever inte att jag är lika värdefull och till nytta som jag brukar"
+          }
+        },
+        {
+          "id": "Q14A3",
+          "text": {
+            "en": "2. I feel more worthless as compared to others",
+            "sv": "2. Jag känner mig mer värdelös än andra människor"
+          }
+        },
+        {
+          "id": "Q14A4",
+          "text": {
+            "en": "3. I feel utterly worthless",
+            "sv": "3. Jag känner mig fullständigt värdelös"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q15",
+      "text": {
+        "en": "Loss of Energy",
+        "sv": "Förlust av energi"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q15A1",
+          "text": {
+            "en": "0. I have as much energy as ever",
+            "sv": "0. Jag har lika mycket energi som tidigare"
+          }
+        },
+        {
+          "id": "Q15A2",
+          "text": {
+            "en": "1. I have less energy than I used to have",
+            "sv": "1. Jag har mindre energi än jag brukar"
+          }
+        },
+        {
+          "id": "Q15A3",
+          "text": {
+            "en": "2. I don't have enough energy to do very much",
+            "sv": "2. Jag har inte tillräckligt med energi att göra särskilt mycket"
+          }
+        },
+        {
+          "id": "Q15A4",
+          "text": {
+            "en": "3. I don't have enough energy to do anything",
+            "sv": "3. Jag har inte tillräckligt med energi att göra något över huvud taget"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q16",
+      "text": {
+        "en": "Changes in Sleeping Pattern",
+        "sv": "Förändringar i sömnmönster"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q16A1",
+          "text": {
+            "en": "0. I have not experienced any change in my sleeping",
+            "sv": "0. Mitt sömnmönster har inte förändrats"
+          }
+        },
+        {
+          "id": "Q16A2",
+          "text": {
+            "en": "1a. I sleep somewhat more than usual",
+            "sv": "1a. Jag sover lite mer än vanligt"
+          }
+        },
+        {
+          "id": "Q16A3",
+          "text": {
+            "en": "1b. I sleep somewhat less than usual",
+            "sv": "1b. Jag sover lite mindre än vanligt"
+          }
+        },
+        {
+          "id": "Q16A4",
+          "text": {
+            "en": "2a. I sleep a lot more than usual",
+            "sv": "2a. Jag sover mycket mer än vanligt"
+          }
+        },
+        {
+          "id": "Q16A5",
+          "text": {
+            "en": "2b. I sleep a lot less than usual",
+            "sv": "2b. Jag sover mycket mindre än vanligt"
+          }
+        },
+        {
+          "id": "Q16A6",
+          "text": {
+            "en": "3a. I sleep most of the day",
+            "sv": "3a. Jag sover större delen av dygnet"
+          }
+        },
+        {
+          "id": "Q16A7",
+          "text": {
+            "en": "3b I wake up 1-2 hours early and can't get back to sleep",
+            "sv": "3b. Jag vaknar 1-2 timmar för tidigt och kan inte somna om"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q17",
+      "text": {
+        "en": "Irritability",
+        "sv": "Irritabilitet"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q17A1",
+          "text": {
+            "en": "0. I am not more irritable than usual",
+            "sv": "0. Jag blir inte lättare irriterad än vanligt"
+          }
+        },
+        {
+          "id": "Q17A2",
+          "text": {
+            "en": "1. I am more irritable than usual",
+            "sv": "1. Jag blir lättare irriterad än vanligt"
+          }
+        },
+        {
+          "id": "Q17A3",
+          "text": {
+            "en": "2. I am much more irritable than usual",
+            "sv": "2. Jag blir mycket lättare irriterad än vanligt"
+          }
+        },
+        {
+          "id": "Q17A4",
+          "text": {
+            "en": "3. I am irritable all the time",
+            "sv": "3. Jag blir irriterad hela tiden"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q18",
+      "text": {
+        "en": "Changes in Appetite",
+        "sv": "Förändringar i aptit"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q18A1",
+          "text": {
+            "en": "0. I have not experienced any change in my appetite",
+            "sv": "0. Min aptit har inte förändrats"
+          }
+        },
+        {
+          "id": "Q18A2",
+          "text": {
+            "en": "1a. My appetite is somewhat less than usual",
+            "sv": "1a. Min aptit är något mindre än vanligt"
+          }
+        },
+        {
+          "id": "Q18A3",
+          "text": {
+            "en": "1b. My appetite is somewhat greater than usual",
+            "sv": "1b. Min aptit är något större än vanligt"
+          }
+        },
+        {
+          "id": "Q18A4",
+          "text": {
+            "en": "2a. My appetite is much less than before",
+            "sv": "2a. Min aptit är mycket mindre än vanligt"
+          }
+        },
+        {
+          "id": "Q18A5",
+          "text": {
+            "en": "2b. My appetite is much greater than usual",
+            "sv": "2b. Min aptit är mycket större än vanligt"
+          }
+        },
+        {
+          "id": "Q18A6",
+          "text": {
+            "en": "3a. I have no appetite at all",
+            "sv": "3a. Jag har ingen aptit över huvud taget"
+          }
+        },
+        {
+          "id": "Q18A7",
+          "text": {
+            "en": "3b. I crave food all the time",
+            "sv": "3b. Jag känner behov av att äta hela tiden"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q19",
+      "text": {
+        "en": "Concentration Difficulty",
+        "sv": "Koncentrationssvårigheter"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q19A1",
+          "text": {
+            "en": "0. I can concentrate as well as ever",
+            "sv": "0. Jag kan koncentrera mig lika bra som tidigare"
+          }
+        },
+        {
+          "id": "Q19A2",
+          "text": {
+            "en": "1. I can't concentrate as well as usual",
+            "sv": "1. Jag kan inte koncentrera mig lika bra som vanligt"
+          }
+        },
+        {
+          "id": "Q19A3",
+          "text": {
+            "en": "2. It's hard to keep my mind on anything for very long",
+            "sv": "2. Jag har svårt att koncentrera mig på något särskilt länge"
+          }
+        },
+        {
+          "id": "Q19A4",
+          "text": {
+            "en": "3. I find I can't concentrate on anything",
+            "sv": "3. Jag kan inte koncentrera mig på något över huvud taget"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q20",
+      "text": {
+        "en": "Tiredness or Fatigue",
+        "sv": "Trötthet eller utmattning"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q20A1",
+          "text": {
+            "en": "0. I am no more tired or fatigued than usual",
+            "sv": "0. Jag är inte mer trött eller utmattad nu än tidigare"
+          }
+        },
+        {
+          "id": "Q20A2",
+          "text": {
+            "en": "1. I get more tired or fatigued more easily than usual",
+            "sv": "1. Jag blir mer trött eller lättare utmattad nu än tidigare"
+          }
+        },
+        {
+          "id": "Q20A3",
+          "text": {
+            "en": "2. I am too tired or fatigued to do a lot of the things I used to do",
+            "sv": "2. Jag är för trött eller utmattad för att göra en hel del av det som jag brukar"
+          }
+        },
+        {
+          "id": "Q20A4",
+          "text": {
+            "en": "3. I am too tired or fatigued to do most of the things I used to do",
+            "sv": "3. Jag är för trött eller utmattad för att göra det mesta som jag brukar"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q21",
+      "text": {
+        "en": "Loss of Interest in Sex",
+        "sv": "Förlust av sexuellt intresse"
+      },
+      "helper": {
+        "en": "Select the statement in each group that you think best describes how you felt during the past two weeks, including today.",
+        "sv": "Markera det påstående i varje grupp som du tycker bäst beskriver hur du känt dig under de senaste två veckorna, inklusive idag."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q21A1",
+          "text": {
+            "en": "0. I have not noticed any recent change in my interest in sex",
+            "sv": "0. Jag har inte märkt någon förändring i mitt intresse för sex"
+          }
+        },
+        {
+          "id": "Q21A2",
+          "text": {
+            "en": "1. I am less interested in sex than I used to be",
+            "sv": "1. Jag är mindre intresserad av sex nu än tidigare"
+          }
+        },
+        {
+          "id": "Q21A3",
+          "text": {
+            "en": "2. I am much less interested in sex now",
+            "sv": "2. Jag är mycket mindre intresserad av sex nu för tiden"
+          }
+        },
+        {
+          "id": "Q21A4",
+          "text": {
+            "en": "3. I have lost interest in sex completely",
+            "sv": "3. Jag har helt förlorat intresset för sex"
+          }
+        }
+      ]
     }
   ]
 }
