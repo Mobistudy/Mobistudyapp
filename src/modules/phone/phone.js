@@ -26,7 +26,8 @@ export default {
     },
     manufacturer: window?.device?.manufacturer,
     model: window?.device?.model,
-    OSversion: window?.device?.version
+    OSversion: window?.device?.version,
+    appVersion: process.env.APP_VERSION
   },
   screen: screen,
   geolocation: geolocation,
