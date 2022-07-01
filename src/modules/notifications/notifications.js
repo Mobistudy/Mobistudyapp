@@ -20,5 +20,11 @@ export default {
     return new Promise((resolve, reject) => {
       cordova.plugins.notification.local.cancelAll(resolve)
     })
+  },
+  registerNotificationsListener (event, callback, scope) {
+    cordova.plugins.notification.local.on(event, callback, scope)
+  },
+  unregisterNotificationsListener (event, callback, scope) {
+    cordova.plugins.notification.local.un(event, callback, scope)
   }
 }

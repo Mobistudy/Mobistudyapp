@@ -1,6 +1,7 @@
-// Mock of the notifications, uses the browser notifcations API
+// Browser notifcations API
 export default {
   timeoutIDs: [],
+  clickListener: undefined,
   async hasPermission () {
     let isgranted = Notification.permission === 'granted'
     console.log('NOTIFICATIONS - permission for notifications?', isgranted)
@@ -26,8 +27,10 @@ export default {
       if (millis <= 2147483647) {
         let timeoutID = setTimeout(function () {
           if (Notification && Notification.permission === 'granted') {
-            Notification('Mobistudy', {
+            new Notification('Mobistudy', {
               body: not.text
+            }).addEventListener('click', () => {
+              this.clickListener()
             })
           }
         }, millis) // time difference in millis from trigger.at and now
@@ -42,5 +45,14 @@ export default {
       clearTimeout(timeoutID)
     }
     console.log('NOTIFICATIONS - all notifications cancelled')
+  },
+  registerNotificationsListener (event, callback, scope) {
+    if (event === 'click') {
+      this.clickListener = callback
+      this.clickListener.bind(scope)
+    }
+  },
+  unregisterNotificationsListener (event, callback, scope) {
+    if (event === 'click') this.clickListener = undefined
   }
 }

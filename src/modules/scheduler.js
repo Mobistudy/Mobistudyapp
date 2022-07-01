@@ -406,4 +406,14 @@ export async function scheduleNotificationsSingleStudy (studyDescr, studyPart) {
     }
   }
   await notifications.schedule(notificationStack)
+
+  // use this to test notifications registration
+  // notifications.schedule([{
+  //   id: 100,
+  //   text: 'test',
+  //   title: 'testing',
+  //   trigger: {
+  //     at: new Date(Date.now() + 5000)
+  //   }
+  // }])
 }

@@ -4,7 +4,7 @@ import { Dialog } from 'quasar'
 export default {
   timeoutIDs: [],
   isAuthorized: false,
-
+  clickListener: undefined,
   async hasPermission () {
     return this.isAuthorized
   },
@@ -38,14 +38,20 @@ export default {
       }
       if (millis <= 2147483647) {
         console.log('NOTIFICATIONS - scheduling', not)
-        let timeoutID = setTimeout(function () {
+        // time difference in millis from trigger.at and now
+        let timeoutID = setTimeout(() => {
+          console.log('NOTIFICATIONS - trigger!')
           Dialog.create({
             title: 'Notification',
             message: not.text,
             cancel: true,
             persistent: true
+          }).onOk(() => {
+            console.log('accepted', this)
+            console.log(this.clickListener)
+            if (this.clickListener) this.clickListener()
           })
-        }, millis) // time difference in millis from trigger.at and now
+        }, millis)
         this.timeoutIDs.push(timeoutID)
       } else {
         // console.info('Notification too far in the future: ' + (millis / 86400000))
@@ -57,5 +63,15 @@ export default {
       clearTimeout(timeoutID)
     }
     console.log('NOTIFICATIONS - all notifications cancelled')
+  },
+  registerNotificationsListener (event, callback, scope) {
+    if (event === 'click') {
+      this.clickListener = callback
+      this.clickListener.bind(scope)
+      console.log('added click listener', this.me)
+    }
+  },
+  unregisterNotificationsListener (event, callback, scope) {
+    if (event === 'click') this.clickListener = undefined
   }
 }

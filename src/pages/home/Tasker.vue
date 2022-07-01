@@ -184,6 +184,7 @@ import userinfo from 'modules/userinfo'
 import DB from 'modules/db'
 import API from 'modules/API/API'
 import * as scheduler from 'modules/scheduler'
+import notifications from 'modules/notifications/notifications'
 
 export default {
   name: 'TaskerPage',
@@ -207,9 +208,16 @@ export default {
   },
   async created () {
     this.load()
+
+    // auto-reload every 2 hours
     setTimeout(() => {
       this.load(false)
-    }, 1000 * 60 * 60 * 12) // auto-reload every 12 hours
+    }, 1000 * 60 * 60 * 2)
+
+    // re-load if coming from a notification
+    notifications.registerNotificationsListener('click', () => {
+      this.load()
+    }, this)
   },
   methods: {
     refresh (done) {
