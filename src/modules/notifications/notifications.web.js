@@ -46,13 +46,11 @@ export default {
     }
     console.log('NOTIFICATIONS - all notifications cancelled')
   },
-  registerNotificationsListener (event, callback, scope) {
-    if (event === 'click') {
-      this.clickListener = callback
-      this.clickListener.bind(scope)
-    }
+  registerNotificationsListener (callback, scope) {
+    this.clickListener = callback
+    this.clickListener.bind(scope)
   },
-  unregisterNotificationsListener (event, callback, scope) {
-    if (event === 'click') this.clickListener = undefined
+  unregisterNotificationsListener (callback, scope) {
+    this.clickListener = undefined
   }
 }
