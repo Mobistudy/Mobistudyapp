@@ -186,6 +186,9 @@ import API from 'modules/API/API'
 import * as scheduler from 'modules/scheduler'
 import notifications from 'modules/notifications/notifications'
 
+// ms between refreshes of the home (including re-loading of studies, tasks and re-scheduling)
+const REFRESH_INTERVAL = 1000 * 60 * 60 * 2
+
 export default {
   name: 'TaskerPage',
   components: {
@@ -195,6 +198,8 @@ export default {
     return {
       nostudies: false,
       newstudies: false,
+      reloadTimer: undefined,
+      lastReloadTS: undefined,
       tasks: {
         upcoming: [],
         missed: [],
@@ -209,15 +214,28 @@ export default {
   async created () {
     this.load()
 
-    // auto-reload every 2 hours
-    setTimeout(() => {
-      this.load(false)
-    }, 1000 * 60 * 60 * 2)
+    // auto reload when visibility changes
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') {
+        // only refresh if enough time has passed
+        if (Date.now() - this.lastReloadTS > REFRESH_INTERVAL) {
+          this.load()
+        }
+      }
+    })
+
+    // auto-reload
+    this.reloadTimer = setInterval(() => {
+      this.load()
+    }, REFRESH_INTERVAL)
 
     // re-load if coming from a notification
-    notifications.registerNotificationsListener('click', () => {
+    notifications.registerNotificationsListener(() => {
       this.load()
     }, this)
+  },
+  async beforeDestroy () {
+    if (this.reloadTimer) clearInterval(this.reloadTimer)
   },
   methods: {
     refresh (done) {
@@ -231,6 +249,7 @@ export default {
       }
     },
     async load (skipSpinner) {
+      this.lastReloadTS = Date.now()
       if (!skipSpinner) this.$q.loading.show()
       try {
         // let's see if there are any new eligible studies
