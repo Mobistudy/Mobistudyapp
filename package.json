@@ -29,7 +29,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@quasar/app": "^3.3.3",
+    "@quasar/app": "^2.4.1",
     "@quasar/quasar-app-extension-testing": "^1.0.3",
     "@quasar/quasar-app-extension-testing-unit-jest": "^1.1.0-beta.7",
     "@vue/eslint-config-standard": "^4.0.0",
