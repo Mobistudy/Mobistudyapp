@@ -187,7 +187,7 @@ import * as scheduler from 'modules/scheduler'
 import notifications from 'modules/notifications/notifications'
 
 // ms between refreshes of the home (including re-loading of studies, tasks and re-scheduling)
-const REFRESH_INTERVAL = 1000 * 60 * 60 * 2
+const RELOAD_INTERVAL = 1000 * 60 * 60 * 2
 
 export default {
   name: 'TaskerPage',
@@ -214,30 +214,32 @@ export default {
   async created () {
     this.load()
 
-    // auto reload when visibility changes
+    // auto-reload when the app goes from background to foreground
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'visible') {
         // only refresh if enough time has passed
-        if (Date.now() - this.lastReloadTS > REFRESH_INTERVAL) {
+        if (Date.now() - this.lastReloadTS > RELOAD_INTERVAL) {
           this.load()
         }
       }
     })
 
-    // auto-reload
-    this.reloadTimer = setInterval(() => {
-      this.load()
-    }, REFRESH_INTERVAL)
-
-    // re-load if coming from a notification
+    // reload if coming from a notification
     notifications.registerNotificationsListener(() => {
       this.load()
     }, this)
+
+    // periodic auto-reload
+    this.reloadTimer = setInterval(() => {
+      this.load()
+    }, RELOAD_INTERVAL)
   },
   async beforeDestroy () {
     if (this.reloadTimer) clearInterval(this.reloadTimer)
   },
   methods: {
+    // refresh is called when pulling down manually
+    // same as load, but with slightly different UI
     refresh (done) {
       this.load(true).then(done)
     },
@@ -345,6 +347,7 @@ export default {
         })
       }
     },
+    // called when a study has been completed and the user has acknowledged it
     async studyCompleted () {
       let studyPart = this.tasks.completedStudyAlert.studyPart
       // set the study as completed
