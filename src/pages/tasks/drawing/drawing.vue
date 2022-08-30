@@ -32,6 +32,7 @@ export default {
   data: function () {
     return {
       startedTS: undefined,
+      startTS: undefined,
       coords0: [],
       coords1: [],
       testNumber: 0,
@@ -46,6 +47,7 @@ export default {
   methods: {
     executeTest0 () {
       this.startedTS = new Date()
+      this.startTS = new Date().getTime()
       var canvas = document.getElementById('myCanvas')
       var ctx = canvas.getContext('2d')
       ctx.beginPath()
@@ -59,6 +61,7 @@ export default {
       ctx.stroke()
     },
     executeTest1 () {
+      this.startTS = new Date().getTime()
       var canvas = document.getElementById('myCanvas')
       var ctx = canvas.getContext('2d')
       ctx.beginPath()
@@ -93,10 +96,13 @@ export default {
         x: left,
         y: top
       }
+      let ts = new Date().getTime() - this.startTS
       if (this.testNumber === 0) {
         this.coords0.push(point)
+        this.coords0.push(ts)
       } else if (this.testNumber === 1) {
         this.coords1.push(point)
+        this.coords1.push(ts)
       }
       var canvas = document.getElementById('myCanvas')
       var ctx = canvas.getContext('2d')
