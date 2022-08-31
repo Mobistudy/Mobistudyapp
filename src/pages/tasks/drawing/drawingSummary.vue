@@ -53,6 +53,10 @@ export default {
           icon: 'report_problem'
         })
       }
+      console.log(this.report)
+      // add when it ends
+      // shapes [
+      // ]
     },
     async send () {
       this.sending = true

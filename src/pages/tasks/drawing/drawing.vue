@@ -7,11 +7,9 @@
     <p class="text-center text-subtitle1 q-mt-lg">{{ $t('studies.tasks.drawing.instructions.start') }}</p>
     <div class="row justify-center q-mb-xl fixed-bottom">
       <canvas
-        id="myCanvas"
+        ref="drawingCanvas"
         width="350"
         height="350"
-        onload="drawSpiral"
-        v-touch-pan.prevent="handlePan"
       ></canvas>
     </div>
   </q-page>
@@ -23,6 +21,9 @@ import userinfo from 'modules/userinfo'
 // import API from 'modules/API/API'
 // import DB from 'modules/db'
 // import { ref } from 'vue'
+
+let touchTimeout
+
 export default {
   name: 'PositionPage',
   props: {
@@ -43,13 +44,13 @@ export default {
     this.$nextTick(function () {
       this.decideTest()
     })
+    this.$refs.drawingCanvas.addEventListener('touchmove', this.handlePan)
   },
   methods: {
     executeTest0 () {
       this.startedTS = new Date()
       this.startTS = new Date().getTime()
-      var canvas = document.getElementById('myCanvas')
-      var ctx = canvas.getContext('2d')
+      let ctx = this.$refs.drawingCanvas.getContext('2d')
       ctx.beginPath()
       ctx.moveTo(300, 200)
       ctx.lineTo(300, 50)
@@ -62,8 +63,7 @@ export default {
     },
     executeTest1 () {
       this.startTS = new Date().getTime()
-      var canvas = document.getElementById('myCanvas')
-      var ctx = canvas.getContext('2d')
+      let ctx = this.$refs.drawingCanvas.getContext('2d')
       ctx.beginPath()
       ctx.moveTo(300, 200)
       ctx.lineTo(300, 50)
@@ -89,25 +89,48 @@ export default {
         this.completeTest()
       }
     },
-    handlePan ({ evt, ...newInfo }) {
-      var top = newInfo.position.top - 60
-      var left = newInfo.position.left - 10
+
+    handlePan (evt) {
+      evt.preventDefault()
+      let canvas = this.$refs.drawingCanvas
+      let source = evt.touches ? evt.touches[0] : evt
+      const { clientX, clientY } = source
+      const { left, top } = canvas.getBoundingClientRect()
+
+      const x = clientX - left
+      const y = clientY - top
+
+      let ts = new Date().getTime() - this.startTS
       let point = {
         x: left,
-        y: top
+        y: top,
+        ts: ts
       }
-      let ts = new Date().getTime() - this.startTS
       if (this.testNumber === 0) {
         this.coords0.push(point)
-        this.coords0.push(ts)
       } else if (this.testNumber === 1) {
         this.coords1.push(point)
-        this.coords1.push(ts)
       }
-      var canvas = document.getElementById('myCanvas')
-      var ctx = canvas.getContext('2d')
+
+      let ctx = canvas.getContext('2d')
       ctx.fillStyle = '#459399'
-      ctx.fillRect(left, top, 5, 5)
+      ctx.fillRect(x, y, 4, 4)
+
+      if (touchTimeout) clearTimeout(touchTimeout)
+      touchTimeout = setTimeout(() => {
+        // here test has finished
+        // move to the next phase
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        // next drawing template
+        this.testNumber = this.testNumber + 1
+        //
+        // score calculation cont.
+        // this.totalVariability = this.totalVariability / this.coords0.length
+        // console.log(this.totalVariability)
+
+        this.decideTest()
+      }, 3000)
+
       // console.log('distance to box: ' + Math.min(
       //   this.distanceToLine(1, 0, -300, left, -top),
       //   this.distanceToLine(1, 0, -50, left, -top),
@@ -127,16 +150,10 @@ export default {
       // this.totalVariability += distToBox
       //
       //
-      if (newInfo.isFinal === true) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        // next drawing template
-        this.testNumber = this.testNumber + 1
-        //
-        // score calculation cont.
-        // this.totalVariability = this.totalVariability / this.coords0.length
-        // console.log(this.totalVariability)
-        this.decideTest()
-      }
+
+      // setTimeout(function () {
+      //   myFunction()
+      // }, 3000)
     },
     // distanceToLine (a, b, c, x, y) {
     //   return Math.abs(a * x + b * y + c) / (Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)))
