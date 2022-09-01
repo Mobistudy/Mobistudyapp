@@ -22,6 +22,7 @@ export default {
   instructions: {
     start: 'Start drawing the figure you see on the screen by trying to follow the exact same lines.'
   },
+  results: 'Total deviation for the',
   completed: 'Task completed',
   time: 'Time'
 }

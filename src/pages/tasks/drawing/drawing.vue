@@ -110,12 +110,6 @@ export default {
       }
       if (this.testNumber === 0) {
         this.coords0.push(point)
-        // console.log('distance to box: ' + Math.min(
-        //   this.distanceToLine(1, 0, -300, x, -y),
-        //   this.distanceToLine(1, 0, -50, x, -y),
-        //   this.distanceToLine(0, 1, 50, x, -y),
-        //   this.distanceToLine(0, 1, 300, x, -y))
-        // )
         let distToBox = Math.min(
           this.distanceToLine(1, 0, -300, x, -y),
           this.distanceToLine(1, 0, -50, x, -y),
@@ -124,22 +118,10 @@ export default {
         )
         distToBox = Math.pow(distToBox, 2)
         this.totalVariabilitySquare += distToBox
+
+        this.totalVariabilitySquare = this.totalVariabilitySquare / this.coords0.length
       } else if (this.testNumber === 1) {
         this.coords1.push(point)
-        // console.log('distance to box: ' + Math.min(
-        //   this.distanceToLine(1, 0, -300, x, -y),
-        //   this.distanceToLine(1, 0, -50, x, -y),
-        //   this.distanceToLine(1, 0, -250, x, -y),
-        //   this.distanceToLine(1, 0, -100, x, -y),
-        //   this.distanceToLine(1, 0, -200, x, -y),
-        //   this.distanceToLine(1, 0, -150, x, -y),
-        //   this.distanceToLine(0, 1, 150, x, -y),
-        //   this.distanceToLine(0, 1, 200, x, -y),
-        //   this.distanceToLine(0, 1, 100, x, -y),
-        //   this.distanceToLine(0, 1, 250, x, -y),
-        //   this.distanceToLine(0, 1, 50, x, -y),
-        //   this.distanceToLine(0, 1, 300, x, -y))
-        // )
         let distToBox = Math.min(
           this.distanceToLine(1, 0, -300, x, -y),
           this.distanceToLine(1, 0, -50, x, -y),
@@ -156,6 +138,8 @@ export default {
         )
         distToBox = Math.pow(distToBox, 2)
         this.totalVariabilitySpiral += distToBox
+
+        this.totalVariabilitySpiral = this.totalVariabilitySpiral / this.coords1.length
       }
 
       let ctx = canvas.getContext('2d')
@@ -170,8 +154,6 @@ export default {
         // next drawing template
         this.testNumber = this.testNumber + 1
         // score calculation
-        this.totalVariabilitySquare = this.totalVariabilitySquare / this.coords0.length
-        this.totalVariabilitySpiral = this.totalVariabilitySpiral / this.coords1.length
 
         this.decideTest()
       }, 2000)
@@ -195,7 +177,9 @@ export default {
         phone: phone.device,
         summary: {
           startedTS: this.startedTS,
-          completedTS: completionTS
+          completedTS: completionTS,
+          totalVariabilitySquare: this.totalVariabilitySquare,
+          totalVariabilitySpiral: this.totalVariabilitySpiral
         },
         data: {
           square: {

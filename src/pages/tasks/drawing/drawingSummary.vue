@@ -3,6 +3,15 @@
     <div class="text-center text-h5 q-mt-lg text-center">
       {{ $t('studies.tasks.drawing.completed') }}
     </div>
+    <div class="text-center text-h6 q-mt-lg">
+      {{ $t('studies.tasks.peakflow.summary') }}
+    </div>
+    <div class="text-center text-bold q-my-lg">
+      {{ $t('studies.tasks.drawing.results') }} Square: {{this.report.summary.totalVariabilitySquare.toFixed(2)}}
+    </div>
+    <div class="text-center text-bold q-my-lg">
+      {{ $t('studies.tasks.drawing.results') }} Spiral: {{this.report.summary.totalVariabilitySpiral.toFixed(2)}}
+    </div>
     <div class="row justify-around q-mt-lg">
       <q-btn
         color="secondary"
