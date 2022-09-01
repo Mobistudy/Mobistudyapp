@@ -37,7 +37,8 @@ export default {
       coords0: [],
       coords1: [],
       testNumber: 0,
-      totalVariability: 0
+      totalVariabilitySquare: 0,
+      totalVariabilitySpiral: 0
     }
   },
   mounted () {
@@ -80,6 +81,7 @@ export default {
       ctx.lineWidth = 1
       ctx.stroke()
     },
+
     decideTest () {
       if (this.testNumber === 0) {
         this.executeTest0()
@@ -108,8 +110,52 @@ export default {
       }
       if (this.testNumber === 0) {
         this.coords0.push(point)
+        // console.log('distance to box: ' + Math.min(
+        //   this.distanceToLine(1, 0, -300, x, -y),
+        //   this.distanceToLine(1, 0, -50, x, -y),
+        //   this.distanceToLine(0, 1, 50, x, -y),
+        //   this.distanceToLine(0, 1, 300, x, -y))
+        // )
+        let distToBox = Math.min(
+          this.distanceToLine(1, 0, -300, x, -y),
+          this.distanceToLine(1, 0, -50, x, -y),
+          this.distanceToLine(0, 1, 50, x, -y),
+          this.distanceToLine(0, 1, 300, x, -y)
+        )
+        distToBox = Math.pow(distToBox, 2)
+        this.totalVariabilitySquare += distToBox
       } else if (this.testNumber === 1) {
         this.coords1.push(point)
+        // console.log('distance to box: ' + Math.min(
+        //   this.distanceToLine(1, 0, -300, x, -y),
+        //   this.distanceToLine(1, 0, -50, x, -y),
+        //   this.distanceToLine(1, 0, -250, x, -y),
+        //   this.distanceToLine(1, 0, -100, x, -y),
+        //   this.distanceToLine(1, 0, -200, x, -y),
+        //   this.distanceToLine(1, 0, -150, x, -y),
+        //   this.distanceToLine(0, 1, 150, x, -y),
+        //   this.distanceToLine(0, 1, 200, x, -y),
+        //   this.distanceToLine(0, 1, 100, x, -y),
+        //   this.distanceToLine(0, 1, 250, x, -y),
+        //   this.distanceToLine(0, 1, 50, x, -y),
+        //   this.distanceToLine(0, 1, 300, x, -y))
+        // )
+        let distToBox = Math.min(
+          this.distanceToLine(1, 0, -300, x, -y),
+          this.distanceToLine(1, 0, -50, x, -y),
+          this.distanceToLine(1, 0, -250, x, -y),
+          this.distanceToLine(1, 0, -100, x, -y),
+          this.distanceToLine(1, 0, -200, x, -y),
+          this.distanceToLine(1, 0, -150, x, -y),
+          this.distanceToLine(0, 1, 150, x, -y),
+          this.distanceToLine(0, 1, 200, x, -y),
+          this.distanceToLine(0, 1, 100, x, -y),
+          this.distanceToLine(0, 1, 250, x, -y),
+          this.distanceToLine(0, 1, 50, x, -y),
+          this.distanceToLine(0, 1, 300, x, -y)
+        )
+        distToBox = Math.pow(distToBox, 2)
+        this.totalVariabilitySpiral += distToBox
       }
 
       let ctx = canvas.getContext('2d')
@@ -123,35 +169,17 @@ export default {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         // next drawing template
         this.testNumber = this.testNumber + 1
-        //
-        // // score calculation cont.
-        // this.totalVariability = this.totalVariability / this.coords0.length
-        // console.log(this.totalVariability)
+        // score calculation
+        this.totalVariabilitySquare = this.totalVariabilitySquare / this.coords0.length
+        this.totalVariabilitySpiral = this.totalVariabilitySpiral / this.coords1.length
 
         this.decideTest()
       }, 2000)
-
-      // console.log('distance to box: ' + Math.min(
-      //   this.distanceToLine(1, 0, -300, left, -top),
-      //   this.distanceToLine(1, 0, -50, left, -top),
-      //   this.distanceToLine(0, 1, 50, left, -top),
-      //   this.distanceToLine(0, 1, 300, left, -top))
-      // )
-      //
-      // Just an idea for score calculation, can be ommited if needed
-      // var distToBox = Math.min(
-      //   this.distanceToLine(1, 0, -300, left, -top),
-      //   this.distanceToLine(1, 0, -50, left, -top),
-      //   this.distanceToLine(0, 1, 50, left, -top),
-      //   this.distanceToLine(0, 1, 300, left, -top))
-      // distToBox = Math.pow(distToBox, 2)
-      //
-      // score calculation cont.
-      // this.totalVariability += distToBox
     },
-    // distanceToLine (a, b, c, x, y) {
-    //   return Math.abs(a * x + b * y + c) / (Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)))
-    // },
+
+    distanceToLine (a, b, c, x, y) {
+      return Math.abs(a * x + b * y + c) / (Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)))
+    },
 
     completeTest () {
       this.isCompleted = true
