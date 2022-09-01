@@ -102,8 +102,8 @@ export default {
 
       let ts = new Date().getTime() - this.startTS
       let point = {
-        x: left,
-        y: top,
+        x: x,
+        y: y,
         ts: ts
       }
       if (this.testNumber === 0) {
@@ -124,12 +124,12 @@ export default {
         // next drawing template
         this.testNumber = this.testNumber + 1
         //
-        // score calculation cont.
+        // // score calculation cont.
         // this.totalVariability = this.totalVariability / this.coords0.length
         // console.log(this.totalVariability)
 
         this.decideTest()
-      }, 3000)
+      }, 2000)
 
       // console.log('distance to box: ' + Math.min(
       //   this.distanceToLine(1, 0, -300, left, -top),
@@ -145,15 +145,9 @@ export default {
       //   this.distanceToLine(0, 1, 50, left, -top),
       //   this.distanceToLine(0, 1, 300, left, -top))
       // distToBox = Math.pow(distToBox, 2)
-      // //
-      // // score calculation cont.
+      //
+      // score calculation cont.
       // this.totalVariability += distToBox
-      //
-      //
-
-      // setTimeout(function () {
-      //   myFunction()
-      // }, 3000)
     },
     // distanceToLine (a, b, c, x, y) {
     //   return Math.abs(a * x + b * y + c) / (Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)))
@@ -176,11 +170,28 @@ export default {
           completedTS: completionTS
         },
         data: {
-          square: this.coords0,
-          spiral: this.coords1
+          square: {
+            shape: 'square',
+            touchCoordinates: this.coords0,
+            shapeCoordinates: [{ x: 300, y: 200 }, { x: 300, y: 50 }, { x: 50, y: 50 }, { x: 50, y: 300 }, {
+              x: 300,
+              y: 300
+            }, { x: 300, y: 200 }]
+          },
+          spiral: {
+            shape: 'spiral',
+            touchCoordinates: this.coords1,
+            shapeCoordinates: [{ x: 300, y: 200 }, { x: 300, y: 50 }, { x: 50, y: 50 }, { x: 50, y: 300 }, {
+              x: 250,
+              y: 300
+            }, { x: 250, y: 100 },
+            { x: 100, y: 100 }, { x: 100, y: 250 }, { x: 200, y: 250 }, { x: 200, y: 150 }, { x: 150, y: 150 }, {
+              x: 150,
+              y: 200
+            }]
+          }
         }
       }
-
       this.$router.push({ name: 'drawingSummary', params: { report: report } })
     }
   },

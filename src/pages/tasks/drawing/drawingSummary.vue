@@ -60,8 +60,6 @@ export default {
     },
     async send () {
       this.sending = true
-
-      this.report.summary.borgScale = this.borgValue
       this.report.discarded = false
 
       return this.saveAndLeave()
