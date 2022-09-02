@@ -45,7 +45,7 @@ export default {
     this.$nextTick(function () {
       this.decideTest()
     })
-    this.$refs.drawingCanvas.addEventListener('touchmove', this.handlePan)
+    this.$refs.drawingCanvas.addEventListener('touchmove', this.handleMove)
   },
   methods: {
     executeTest0 () {
@@ -92,7 +92,7 @@ export default {
       }
     },
 
-    handlePan (evt) {
+    handleMove (evt) {
       evt.preventDefault()
       let canvas = this.$refs.drawingCanvas
       let source = evt.touches ? evt.touches[0] : evt
