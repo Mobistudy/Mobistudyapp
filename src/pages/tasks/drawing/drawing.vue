@@ -38,7 +38,9 @@ export default {
       coords1: [],
       testNumber: 0,
       totalVariabilitySquare: 0,
-      totalVariabilitySpiral: 0
+      totalVariabilitySpiral: 0,
+      coordsSquare: 0,
+      coordsSpiral: 0
     }
   },
   mounted () {
@@ -118,8 +120,9 @@ export default {
         )
         distToBox = Math.pow(distToBox, 2)
         this.totalVariabilitySquare += distToBox
+        this.coordsSquare = this.coords0.length
 
-        this.totalVariabilitySquare = this.totalVariabilitySquare / this.coords0.length
+        console.log(this.coords0.length)
       } else if (this.testNumber === 1) {
         this.coords1.push(point)
         let distToBox = Math.min(
@@ -138,8 +141,7 @@ export default {
         )
         distToBox = Math.pow(distToBox, 2)
         this.totalVariabilitySpiral += distToBox
-
-        this.totalVariabilitySpiral = this.totalVariabilitySpiral / this.coords1.length
+        this.coordsSpiral = this.coords1.length
       }
 
       let ctx = canvas.getContext('2d')
@@ -178,8 +180,8 @@ export default {
         summary: {
           startedTS: this.startedTS,
           completedTS: completionTS,
-          totalVariabilitySquare: this.totalVariabilitySquare,
-          totalVariabilitySpiral: this.totalVariabilitySpiral
+          totalVariabilitySquare: this.totalVariabilitySquare / this.coordsSquare,
+          totalVariabilitySpiral: this.totalVariabilitySpiral / this.coordsSpiral
         },
         data: {
           square: {
