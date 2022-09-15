@@ -1,37 +1,37 @@
 export default {
   title: 'Vokaliseringstest',
   shortTitle: 'Vokalisering',
-  shortDescription: 'Perform a Vocalization Test',
-  OSpermissioniOS: 'This task requires the app to access the microphone in your phone. This is needed to record your sound during the test. This sound will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
-  OSpermissionAndroid: 'This task requires the app to access the microphone in your phone. This is needed to record your sound during the test. This sound will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
+  shortDescription: 'Testa din röst',
+  OSpermissioniOS: 'Den här uppgiften kräver att appen kommer åt mikrofonen i din telefon. Detta behövs för att spela in ditt ljud under testet. Detta ljud kommer att delas med forskargruppen i denna studie för analys. Klicka på Nästa om du vill fortsätta med auktoriseringsprocessen.',
+  OSpermissionAndroid: 'Den här uppgiften kräver att appen kommer åt mikrofonen i din telefon. Detta behövs för att spela in ditt ljud under testet. Detta ljud kommer att delas med forskargruppen i denna studie för analys. Klicka på Nästa om du vill fortsätta med auktoriseringsprocessen.',
   introductionSlides: [
     {
-      title: 'Introduction',
+      title: 'Introduktion',
       img: 'instructions/vocalization_1.svg',
-      description: 'In this test your voice will be recorded during a simple vocalization exercise.'
+      description: 'I detta test kommer din röst att spelas in under en enkel vokaliseringsövning.'
     },
     {
-      title: 'Setup',
+      title: 'Inställning',
       img: 'instructions/vocalization_2.svg',
-      description: 'Place your phone on a table in front of you. Sit up straight and increase the volume of the phone to the maximum.'
+      description: 'Placera din telefon på ett bord framför dig. Sitt upprätt och höj volymen på telefonen till max.'
     },
     {
-      title: 'Instructions',
+      title: 'Instruktioner',
       img: 'instructions/vocalization_3.svg',
-      description: 'After hearing the sound from the phone, take a deep breath and pronounce the vocal shown on the screen (first "A", then "I" and "U") for as long and as steadily as possible.'
+      description: 'Efter att ha hört ljudet från telefonen, ta ett djupt andetag och uttala sången som visas på skärmen (först "A", sedan "I" och "U") så länge och så stadigt som möjligt.'
     },
     {
       title: 'Important!',
       img: 'instructions/vocalization_4.svg',
-      description: 'It is important to choose a quiet place with as little noise as possible. Press start when ready.'
+      description: 'Det är viktigt att välja en lugn plats med så lite buller som möjligt. Tryck på start när du är klar.'
     }
   ],
   instructions: {
-    AAA: 'Take a deep breath, press start and, after the sweeping sound, <b>please say \'AAAAA\'</b> for as long as you can. <br>When finished, press "next" to continue or "redo" to repeat the current step.',
-    III: 'Take a deep breath, press start and after the sweeping sound <b>please say \'IIIII\'</b> for as long as you can. <br>When finished, press "next" to continue or "redo" to repeat the current step.',
-    UUU: 'Take a deep breath, press start and after the sweeping sound <b>please say \'UUUUU\'</b> for as long as you can. <br>When finished, press "complete" to complete or "redo" to repeat the current step.'
+    AAA: 'Ta ett djupt andetag, tryck på start och efter det svepande ljudet <b>säg \'AAAAA\'</b> så länge du kan. <br>När du är klar trycker du på "nästa" för att fortsätta eller "gör om" för att upprepa det aktuella steget.',
+    III: 'Ta ett djupt andetag, tryck på start och efter det svepande ljudet <b>säg \'IIIII\'</b> så länge du kan. <br>När du är klar trycker du på "nästa" för att fortsätta eller "gör om" för att upprepa det aktuella steget.',
+    UUU: 'Ta ett djupt andetag, tryck på start och efter det svepande ljudet <b>säg \'UUUUU\'</b> så länge du kan. <br>När du är klar trycker du på "nästa" för att fortsätta eller "gör om" för att upprepa det aktuella steget.'
   },
-  audioError: 'Could not acquire microphone from the phone.',
-  completed: 'Task completed',
-  time: 'Time'
+  audioError: 'Det gick inte att hämta mikrofonen från telefonen.',
+  completed: 'Uppgiften slutförd',
+  time: 'Tid'
 }

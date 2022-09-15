@@ -1,7 +1,7 @@
 export default {
   title: 'Vocalization test',
   shortTitle: 'Voice test',
-  shortDescription: 'Perform a Vocalization Test',
+  shortDescription: 'Test your voice',
   OSpermissioniOS: 'This task requires the app to access the microphone in your phone. This is needed to record your sound during the test. This sound will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   OSpermissionAndroid: 'This task requires the app to access the microphone in your phone. This is needed to record your sound during the test. This sound will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   introductionSlides: [
