@@ -4,25 +4,27 @@ export default {
   shortDescription: 'Draw shapes on your phone',
   introductionSlides: [
     {
-      title: 'Instruction',
+      title: 'Introduction',
       img: 'instructions/Drawing_task-01.svg',
-      description: 'In this task you are going to be asked to draw a simple shape on your phone with your index finger from your dominant hand.'
+      description: 'In this task you are going to be asked to draw a simple shape on your phone using the index finger of your dominant hand.'
     },
     {
-      title: 'Instruction',
+      title: 'Instructions',
       img: 'instructions/Drawing_task-02.svg',
-      description: 'Try to follow the lines of the shape visualized in your phones screen as precisely as you can. The guiding template will temporarily disappear or flash.'
+      description: 'Try to follow the lines of the shape shown on the screen as precisely as you can.'
     },
     {
-      title: 'Instruction',
+      title: 'Instructions',
       img: 'instructions/Drawing_task-03.svg',
       description: 'You will be asked to draw 2 shapes. Do not lift your finger from the phone until you have completed the shape.'
     }
   ],
   instructions: {
-    start: 'Start drawing the figure you see on the screen by trying to follow the exact same lines.'
+    start: 'Draw the figure on the screen by moving your finger following the lines.'
   },
-  results: 'Total deviation for the',
+  results: 'Deviation for ',
+  shapeSquare: 'square',
+  shapeSpiral: 'spiral',
   completed: 'Task completed',
   time: 'Time'
 }

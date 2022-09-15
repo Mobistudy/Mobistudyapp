@@ -11,7 +11,7 @@
 <script>
 import Intro from 'components/Intro.vue'
 export default {
-  name: 'SMWTIntroPage',
+  name: 'DrawingIntroPage',
   components: {
     Intro
   },

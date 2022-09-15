@@ -7,10 +7,10 @@
       {{ $t('studies.tasks.peakflow.summary') }}
     </div>
     <div class="text-center text-bold q-my-lg">
-      {{ $t('studies.tasks.drawing.results') }} Square: {{this.report.summary.totalVariabilitySquare.toFixed(2)}}
+      {{ $t('studies.tasks.drawing.results') + $t('studies.tasks.drawing.shapeSquare') }}: {{this.report.summary.totalVariabilitySquare.toFixed(2)}}
     </div>
     <div class="text-center text-bold q-my-lg">
-      {{ $t('studies.tasks.drawing.results') }} Spiral: {{this.report.summary.totalVariabilitySpiral.toFixed(2)}}
+      {{ $t('studies.tasks.drawing.results') + $t('studies.tasks.drawing.shapeSpiral') }}: {{this.report.summary.totalVariabilitySpiral.toFixed(2)}}
     </div>
     <div class="row justify-around q-mt-lg">
       <q-btn
@@ -34,7 +34,7 @@ import API from 'modules/API/API'
 import DB from 'modules/db'
 
 export default {
-  name: 'TappingSummaryPage',
+  name: 'DrawingSummaryPage',
   props: {
     report: Object
   },

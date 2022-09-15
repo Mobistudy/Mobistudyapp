@@ -18,14 +18,11 @@
 <script>
 import phone from 'modules/phone/phone'
 import userinfo from 'modules/userinfo'
-// import API from 'modules/API/API'
-// import DB from 'modules/db'
-// import { ref } from 'vue'
 
 let touchTimeout
 
 export default {
-  name: 'PositionPage',
+  name: 'DrawingPage',
   props: {
     studyKey: String,
     taskId: Number
@@ -51,8 +48,10 @@ export default {
   },
   methods: {
     executeTest0 () {
+      // start of the whole test
       this.startedTS = new Date()
-      this.startTS = new Date().getTime()
+      this.shapeStartTS = new Date().getTime()
+      // draw the square shape
       let ctx = this.$refs.drawingCanvas.getContext('2d')
       ctx.beginPath()
       ctx.moveTo(300, 200)
@@ -65,7 +64,8 @@ export default {
       ctx.stroke()
     },
     executeTest1 () {
-      this.startTS = new Date().getTime()
+      this.shapeStartTS = new Date().getTime()
+      // draw the spiral shape
       let ctx = this.$refs.drawingCanvas.getContext('2d')
       ctx.beginPath()
       ctx.moveTo(300, 200)
@@ -84,7 +84,8 @@ export default {
       ctx.stroke()
     },
 
-    decideTest () {
+    // state machine of the test's phases
+    nextShape () {
       if (this.testNumber === 0) {
         this.executeTest0()
       } else if (this.testNumber === 1) {
@@ -97,13 +98,19 @@ export default {
     handleMove (evt) {
       evt.preventDefault()
       let canvas = this.$refs.drawingCanvas
+      // get the event with the coordinates
       let source = evt.touches ? evt.touches[0] : evt
       const { clientX, clientY } = source
       const { left, top } = canvas.getBoundingClientRect()
-
       const x = clientX - left
       const y = clientY - top
 
+      // draw the dot
+      let ctx = canvas.getContext('2d')
+      ctx.fillStyle = '#459399'
+      ctx.fillRect(x, y, 4, 4)
+
+      // create the coordinates object taht will be stored
       let ts = new Date().getTime() - this.startTS
       let point = {
         x: x,
@@ -112,6 +119,7 @@ export default {
       }
       if (this.testNumber === 0) {
         this.coords0.push(point)
+        // compute the distance from the shape
         let distToBox = Math.min(
           this.distanceToLine(1, 0, -300, x, -y),
           this.distanceToLine(1, 0, -50, x, -y),
@@ -120,9 +128,6 @@ export default {
         )
         distToBox = Math.pow(distToBox, 2)
         this.totalVariabilitySquare += distToBox
-        this.coordsSquare = this.coords0.length
-
-        console.log(this.coords0.length)
       } else if (this.testNumber === 1) {
         this.coords1.push(point)
         let distToBox = Math.min(
@@ -141,12 +146,7 @@ export default {
         )
         distToBox = Math.pow(distToBox, 2)
         this.totalVariabilitySpiral += distToBox
-        this.coordsSpiral = this.coords1.length
       }
-
-      let ctx = canvas.getContext('2d')
-      ctx.fillStyle = '#459399'
-      ctx.fillRect(x, y, 4, 4)
 
       if (touchTimeout) clearTimeout(touchTimeout)
       touchTimeout = setTimeout(() => {
@@ -156,7 +156,6 @@ export default {
         // next drawing template
         this.testNumber = this.testNumber + 1
         // score calculation
-
         this.decideTest()
       }, 2000)
     },
@@ -180,12 +179,11 @@ export default {
         summary: {
           startedTS: this.startedTS,
           completedTS: completionTS,
-          totalVariabilitySquare: this.totalVariabilitySquare / this.coordsSquare,
-          totalVariabilitySpiral: this.totalVariabilitySpiral / this.coordsSpiral
+          totalVariabilitySquare: this.totalVariabilitySquare / this.coords0.length,
+          totalVariabilitySpiral: this.totalVariabilitySpiral / this.coords1.length
         },
         data: {
           square: {
-            shape: 'square',
             touchCoordinates: this.coords0,
             shapeCoordinates: [{ x: 300, y: 200 }, { x: 300, y: 50 }, { x: 50, y: 50 }, { x: 50, y: 300 }, {
               x: 300,
@@ -193,7 +191,6 @@ export default {
             }, { x: 300, y: 200 }]
           },
           spiral: {
-            shape: 'spiral',
             touchCoordinates: this.coords1,
             shapeCoordinates: [{ x: 300, y: 200 }, { x: 300, y: 50 }, { x: 50, y: 50 }, { x: 50, y: 300 }, {
               x: 250,

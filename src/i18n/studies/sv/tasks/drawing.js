@@ -1,27 +1,30 @@
 export default {
-  title: 'Figurtestetet',
-  shortTitle: 'Figurtestetet',
-  shortDescription: 'Draw shapes on your phone',
+  title: 'Ritningsprov',
+  shortTitle: 'Rita',
+  shortDescription: 'Rita former på din telefon',
   introductionSlides: [
     {
-      title: 'Instruction',
+      title: 'Introduktion',
       img: 'instructions/Drawing_task-01.svg',
-      description: 'In this task you are going to be asked to draw a simple shape on your phone with your index finger from your dominant hand.'
+      description: 'I den här uppgiften ska rita en enkel form på din telefon med pekfingret på din dominerande hand.'
     },
     {
-      title: 'Instruction',
+      title: 'Instruktion',
       img: 'instructions/Drawing_task-02.svg',
-      description: 'Try to follow the lines of the shape visualized in your phones screen as precisely as you can. The guiding template will temporarily disappear or flash.'
+      description: 'Försök att följa linjerna i formen som visas på skärmen så exakt som du kan.'
     },
     {
-      title: 'Instruction',
+      title: 'Instruktion',
       img: 'instructions/Drawing_task-03.svg',
-      description: 'You will be asked to draw 2 shapes. Do not lift your finger from the phone until you have completed the shape.'
+      description: 'Du ska rita 2 former. Lyft inte fingret från telefonen förrän du har slutfört formen.'
     }
   ],
   instructions: {
-    start: 'Start drawing the figure you see on the screen by trying to follow the exact same lines.'
+    start: 'Rita figuren på skärmen genom att flytta fingret efter linjerna.'
   },
-  completed: 'Task completed',
-  time: 'Time'
+  results: 'Avvikelse för',
+  shapeSquare: 'fyrkant',
+  shapeSpiral: 'spiral',
+  completed: 'Uppgiften klar',
+  time: 'Tid'
 }
