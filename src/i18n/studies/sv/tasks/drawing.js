@@ -1,6 +1,6 @@
 export default {
   title: 'Figurtestet',
-  shortTitle: 'Rita',
+  shortTitle: 'Figurtestet',
   shortDescription: 'Rita former på din telefon',
   introductionSlides: [
     {

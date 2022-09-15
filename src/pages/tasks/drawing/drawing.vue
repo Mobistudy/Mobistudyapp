@@ -42,7 +42,7 @@ export default {
   },
   mounted () {
     this.$nextTick(function () {
-      this.decideTest()
+      this.nextShape()
     })
     this.$refs.drawingCanvas.addEventListener('touchmove', this.handleMove)
   },
@@ -156,7 +156,7 @@ export default {
         // next drawing template
         this.testNumber = this.testNumber + 1
         // score calculation
-        this.decideTest()
+        this.nextShape()
       }, 2000)
     },
 

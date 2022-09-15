@@ -1,6 +1,6 @@
 export default {
   title: 'Drawing test',
-  shortTitle: 'Draw',
+  shortTitle: 'Drawing test',
   shortDescription: 'Draw shapes on your phone',
   introductionSlides: [
     {
