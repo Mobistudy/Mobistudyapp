@@ -1,36 +1,36 @@
 export default {
-  title: 'Timed Up & Go test',
-  shortTitle: 'TU&G test',
-  shortDescription: 'Stand up and walk',
-  OSpermissioniOS: 'This task requires the app to access the motion sensors in your phone if available. This is needed to compute how long it took to complete the test. The motion data will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
-  OSpermissionAndroid: 'This task requires the app to access the motion sensors in your phone if available. This is needed to compute how long it took to complete the test. The motion data will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
+  title: 'Prueba cronometrada de levántate y anda',
+  shortTitle: 'Levántate y anda',
+  shortDescription: 'Levántate de una silla y anda 3m',
+  OSpermissioniOS: 'Esta tarea requiere que la aplicación acceda a los sensores de movimiento en tu teléfono. Esto es necesario para calcular cuánto tiempo toma completar la prueba. Los datos de movimiento se compartirán con el equipo de investigación de este estudio para su análisis. Toca "Siguiente" si deseas continuar con el proceso de autorización.',
+  OSpermissionAndroid: 'Esta tarea requiere que la aplicación acceda a los sensores de movimiento en tu teléfono. Esto es necesario para calcular cuánto tiempo toma completar la prueba. Los datos de movimiento se compartirán con el equipo de investigación de este estudio para su análisis. Toca "Siguiente" si deseas continuar con el proceso de autorización.',
   introductionSlides: [
     {
-      title: 'Introduction',
+      title: 'Introducción',
       img: 'instructions/TUGtask-01.svg',
-      description: 'In this test you will stand up from a chair, walk 3 meters, come back and seat again.'
+      description: 'En esta prueba se te pide levantarte de una silla, caminar 3 metros, regresar y sentarte de nuevo.'
     },
     {
-      title: 'Setup',
+      title: 'Configuración',
       img: 'instructions/TUGtask-02.svg',
-      description: 'Choose a regular chair and place it in front of a 3-meter long walkable space. Make sure to mark a point at 3 meters from the chair.'
+      description: 'Elije una silla normal y colócaa frente a un espacio transitable largo 3 metros. Asegúrate de marcar un punto a 3 metros de la silla.'
     },
 
     {
-      title: 'Setup',
+      title: 'Configuración',
       img: 'instructions/TUGtask-05.svg',
-      description: 'Make sure you have your phone on you during the test, preferably in a waist band. Use regular footwear and walking aids if needed.'
+      description: 'Asegúrate de tener tu teléfono contigo durante la prueba, preferiblemente en una riñonera. Usa calzado regular y ayudas para caminar si es necesario.'
     },
     {
-      title: 'Instructions',
+      title: 'Instrucciones',
       img: 'instructions/TUGtask-04.svg',
-      description: 'When ready, press the start button, place the phone in the waist band keeping its screen switched on, stand up, walk 3 meters, turn around, come back and sit down.'
+      description: 'Cuando estés listo, presiona el botón de inicio, coloca el teléfono en la riñonera dejando la pantalla encendida, levántate, camina 3 metros, dá la vuelta, regresa y siéntate.'
     },
     {
-      title: 'Instructions',
+      title: 'Instrucciones',
       img: 'instructions/TUGtask-03.svg',
-      description: 'Once you have sat down, extract your phone and press “completed”.'
+      description: 'Una vez que te hayas sentado, extrae tu teléfono y presiona “completado”.'
     }
   ],
-  time: 'Time'
+  time: 'Tiempo'
 }

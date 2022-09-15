@@ -1,51 +1,51 @@
 export default {
-  title: 'Hold the phone test',
-  shortTitle: 'Hold the phone',
-  shortDescription: 'Measure tremor by holding your phone',
-  OSpermissioniOS: 'This task requires the app to access the motion sensors in your phone. This is needed to measure the amount of tremor in your hands and upper limbs. These data be shared with the research team of the study for analysis. Tap on Next to proceed with the authorization process.',
-  OSpermissionAndroid: 'This task requires the app to access the motion sensors in your phone. This is needed to measure the amount of tremor in your hands and upper limbs. These data be shared with the research team of the study for analysis. Tap on Next to proceed with the authorization process.',
+  title: 'Hålla telefonen testet',
+  shortTitle: 'Hålla telefonen',
+  shortDescription: 'Mät tremor genom att hålla i telefonen',
+  OSpermissioniOS: 'Den här uppgiften kräver att appen kommer åt rörelsesensorerna i din telefon. Detta behövs för att mäta mängden tremor i dina händer och övre extremiteter. Dessa data delas med forskargruppen för studien för analys. Tryck på Nästa för att fortsätta med auktoriseringsprocessen.',
+  OSpermissionAndroid: 'Den här uppgiften kräver att appen kommer åt rörelsesensorerna i din telefon. Detta behövs för att mäta mängden tremor i dina händer och övre extremiteter. Dessa data delas med forskargruppen för studien för analys. Tryck på Nästa för att fortsätta med auktoriseringsprocessen.',
   introductionSlides: [
     {
-      title: 'Introduction',
+      title: 'Introduktion',
       img: 'instructions/HoldYourPhone_task-01.svg',
-      description: 'In this task you will have to keep your phone steady for 10 seconds with each hand. The goal is to measure any tremor in your hands'
+      description: 'I den här uppgiften måste du hålla telefonen stadigt i 1 minut med varje hand. Målet är att mäta eventuell tremor i dina händer'
     },
     {
       title: 'Step 1',
       img: 'instructions/HoldYourPhone_task-02.svg',
-      description: `You will perform the test in 3 ways: 1) Holding your phone in your lap, when seated comfortably.`
+      description: `Du kommer att utföra testet på 3 sätt: 1) Håll telefonen i knät när du sitter bekvämt.`
     },
     {
       title: 'Step 2',
       img: 'instructions/HoldYourPhone_task-03.svg',
-      description: `2) Holding your phone with your arm outstretched at shoulder level.`
+      description: `2) Håll telefonen med armen utsträckt i axelhöjd.`
     },
     {
       title: 'Step 3',
       img: 'instructions/HoldYourPhone_task-04.svg',
-      description: `3) Holding the phone while you move the arm from outstretched to touching your nose repeatedly.`
+      description: `3) Håll i telefonen medan du flyttar armen från utsträckt till att röra vid näsan upprepade gånger.`
     },
     {
       title: 'Important!',
       img: 'instructions/HoldYourPhone_task-05.svg',
-      description: `When the 10 seconds have passed, your phone will vibrate. You will be asked to repeat the test for both the right and left arm. If you feel like you cannot hold the phone for the whole duration of the test, simply relax your arm.`
+      description: `När 1 minut har gått vibrerar din telefon. Du kommer att bli ombedd att upprepa testet för både höger och vänster arm. Om du känner att du inte kan hålla telefonen under hela testet, slappna helt enkelt av i armen.`
     }
   ],
   instructions: {
-    preRestingLeft: 'Hold your phone with your LEFT hand lying on your lap. Press start to begin.',
-    preRestingRight: 'Hold your phone with your RIGHT hand lying on your lap. Press start to begin.',
-    prePosturalLeft: 'Keep your arm outstretched at shoulder level while holding your phone with your LEFT hand. Press start to begin.',
-    prePosturalRight: 'Keep your arm outstretched at shoulder level while holding your phone with your RIGHT hand. Press start to begin.',
-    preKineticLeft: 'Move your phone from outstretched to touching your nose while holding your phone with your LEFT hand. Press start to begin.',
-    preKineticRight: 'Move your phone from outstretched to touching your nose while holding your phone with your RIGHT hand. Press start to begin.',
-    afterStart: 'Continue holding the phone steadily in your hand.'
+    preRestingLeft: 'Håll din telefon med din VÄNSTER hand liggande i ditt knä. Tryck på start för att börja.',
+    preRestingRight: 'Håll din telefon med din HÖGER hand liggande i ditt knä. Tryck på start för att börja.',
+    prePosturalLeft: 'Håll armen utsträckt i axelhöjd medan du håller telefonen med VÄNSTER hand. Tryck på start för att börja.',
+    prePosturalRight: 'Håll armen utsträckt i axelhöjd medan du håller telefonen med HÖGER hand. Tryck på start för att börja.',
+    preKineticLeft: 'Flytta din telefon från utsträckt till att röra vid näsan medan du håller telefonen med din VÄNSTER hand. Tryck på start för att börja.',
+    preKineticRight: 'Flytta din telefon från utsträckt till att röra vid näsan medan du håller telefonen med HÖGER hand. Tryck på start för att börja.',
+    afterStart: 'Fortsätt att hålla telefonen stadigt i handen.'
   },
-  completed: 'Task completed',
-  time: 'Time',
-  summaryRestingLeft: 'At rest movement, left',
-  summaryRestingRight: 'At rest movement, right',
-  summaryPosturalLeft: 'Postural movement, left',
-  summaryPosturalRight: 'Postural movement, right',
-  summaryKineticLeft: 'Kinetic movement, left',
-  summaryKineticRight: 'Kinetic movement, right'
+  completed: 'Uppgiften slutförd',
+  time: 'Tid',
+  summaryRestingLeft: 'Tremor i vila, vänster',
+  summaryRestingRight: 'Tremor i vila, högre',
+  summaryPosturalLeft: 'Postural tremor, vänster',
+  summaryPosturalRight: 'Postural tremor, högre',
+  summaryKineticLeft: 'Kinetisk tremor, vänster',
+  summaryKineticRight: 'Kinetisk tremor, högre'
 }

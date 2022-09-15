@@ -8,7 +8,7 @@ export default {
     {
       title: 'Introduction',
       img: 'instructions/HoldYourPhone_task-01.svg',
-      description: 'In this task you will have to keep your phone steady for 10 seconds with each hand. The goal is to measure any tremor in your hands'
+      description: 'In this task you will have to keep your phone steady for 1 minute with each hand. The goal is to measure any tremor in your hands.'
     },
     {
       title: 'Step 1',
@@ -28,7 +28,7 @@ export default {
     {
       title: 'Important!',
       img: 'instructions/HoldYourPhone_task-05.svg',
-      description: `When the 10 seconds have passed, your phone will vibrate. You will be asked to repeat the test for both the right and left arm. If you feel like you cannot hold the phone for the whole duration of the test, simply relax your arm.`
+      description: `When the 1 minute has passed, your phone will vibrate. You will be asked to repeat the test for both the right and left arm. If you feel like you cannot hold the phone for the whole duration of the test, simply relax your arm.`
     }
   ],
   instructions: {
@@ -42,10 +42,10 @@ export default {
   },
   completed: 'Task completed',
   time: 'Time',
-  summaryRestingLeft: 'At rest movement, left',
-  summaryRestingRight: 'At rest movement, right',
-  summaryPosturalLeft: 'Postural movement, left',
-  summaryPosturalRight: 'Postural movement, right',
-  summaryKineticLeft: 'Kinetic movement, left',
-  summaryKineticRight: 'Kinetic movement, right'
+  summaryRestingLeft: 'At rest tremor, left',
+  summaryRestingRight: 'At rest tremor, right',
+  summaryPosturalLeft: 'Postural tremor, left',
+  summaryPosturalRight: 'Postural tremor, right',
+  summaryKineticLeft: 'Kinetic tremor, left',
+  summaryKineticRight: 'Kinetic tremor, right'
 }

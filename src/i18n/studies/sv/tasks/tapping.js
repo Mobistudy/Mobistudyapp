@@ -15,6 +15,6 @@ export default {
     }
   ],
   instructions: 'Tryck på start för att påbörja övningen. När du startat, växla så snabbt du kan mellan att trycka med pekfinger och långfinger på knapparna som visas på skärmen.',
-  completed: 'Uppgiften klar.',
+  completed: 'Uppgiften klar',
   summary: 'Du tryckte {count} gånger under {sec} sekunder.'
 }

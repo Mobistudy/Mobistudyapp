@@ -1,7 +1,7 @@
 export default {
   title: 'Timed Up & Go test',
   shortTitle: 'TU&G test',
-  shortDescription: 'Stand up and walk',
+  shortDescription: 'Stand up from a chair and walk 3m',
   OSpermissioniOS: 'This task requires the app to access the motion sensors in your phone if available. This is needed to compute how long it took to complete the test. The motion data will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   OSpermissionAndroid: 'This task requires the app to access the motion sensors in your phone if available. This is needed to compute how long it took to complete the test. The motion data will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   introductionSlides: [
@@ -19,12 +19,12 @@ export default {
     {
       title: 'Setup',
       img: 'instructions/TUGtask-05.svg',
-      description: 'Make sure you have your phone on you during the test, preferably in a waist band. Use regular footwear and walking aids if needed.'
+      description: 'Make sure you have your phone on you during the test, preferably in a waistband. Use regular footwear and walking aids if needed.'
     },
     {
       title: 'Instructions',
       img: 'instructions/TUGtask-04.svg',
-      description: 'When ready, press the start button, place the phone in the waist band keeping its screen switched on, stand up, walk 3 meters, turn around, come back and sit down.'
+      description: 'When ready, press the start button, place the phone in the waistband keeping its screen switched on, stand up, walk 3 meters, turn around, come back and sit down.'
     },
     {
       title: 'Instructions',

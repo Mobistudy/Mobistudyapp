@@ -1,51 +1,51 @@
 export default {
-  title: 'Hold the phone test',
-  shortTitle: 'Hold the phone',
-  shortDescription: 'Measure tremor by holding your phone',
-  OSpermissioniOS: 'This task requires the app to access the motion sensors in your phone. This is needed to measure the amount of tremor in your hands and upper limbs. These data be shared with the research team of the study for analysis. Tap on Next to proceed with the authorization process.',
-  OSpermissionAndroid: 'This task requires the app to access the motion sensors in your phone. This is needed to measure the amount of tremor in your hands and upper limbs. These data be shared with the research team of the study for analysis. Tap on Next to proceed with the authorization process.',
+  title: 'Prueba de sostener el teléfono',
+  shortTitle: 'Sosten el teléfono',
+  shortDescription: 'Mide tu temblor sosteniendo el teléfono',
+  OSpermissioniOS: 'Esta tarea requiere que la aplicación acceda a los sensores de movimiento en su teléfono. Esto es necesario para medir la cantidad de temblor en las manos y las extremidades superiores. Estos datos serán compartidos con el equipo de investigación del estudio para su análisis. Pulsa "Siguiente" para continuar con el proceso de autorización.',
+  OSpermissionAndroid: 'Esta tarea requiere que la aplicación acceda a los sensores de movimiento en su teléfono. Esto es necesario para medir la cantidad de temblor en las manos y las extremidades superiores. Estos datos serán compartidos con el equipo de investigación del estudio para su análisis. Pulsa "Siguiente" para continuar con el proceso de autorización.',
   introductionSlides: [
     {
-      title: 'Introduction',
+      title: 'Introducción',
       img: 'instructions/HoldYourPhone_task-01.svg',
-      description: 'In this task you will have to keep your phone steady for 10 seconds with each hand. The goal is to measure any tremor in your hands'
+      description: 'En esta tarea tendrás que mantener firme tu teléfono durante un minuto con cada mano. El objetivo es medir cualquier temblor en tus manos.'
     },
     {
-      title: 'Step 1',
+      title: 'Paso 1',
       img: 'instructions/HoldYourPhone_task-02.svg',
-      description: `You will perform the test in 3 ways: 1) Holding your phone in your lap, when seated comfortably.`
+      description: `Realizarás la prueba de 3 maneras: 1) Sosteniendo tu teléfono en su regazo, estando sentado cómodamente.`
     },
     {
-      title: 'Step 2',
+      title: 'Paso 2',
       img: 'instructions/HoldYourPhone_task-03.svg',
-      description: `2) Holding your phone with your arm outstretched at shoulder level.`
+      description: `2) Sosteniendo tu teléfono con el brazo extendido al nivel del hombro.`
     },
     {
-      title: 'Step 3',
+      title: 'Paso 3',
       img: 'instructions/HoldYourPhone_task-04.svg',
-      description: `3) Holding the phone while you move the arm from outstretched to touching your nose repeatedly.`
+      description: `3) Sosteniendo el teléfono mientras mueves el brazo desde extendido hasta tocarte la nariz repetidamente.`
     },
     {
-      title: 'Important!',
+      title: 'Importante!',
       img: 'instructions/HoldYourPhone_task-05.svg',
-      description: `When the 10 seconds have passed, your phone will vibrate. You will be asked to repeat the test for both the right and left arm. If you feel like you cannot hold the phone for the whole duration of the test, simply relax your arm.`
+      description: `Cuando haya pasado el minuto 1, tu teléfono vibrará. Se te pedirá que repitas la prueba tanto para el brazo derecho como para el izquierdo. Si sientes que no puedes sostener el teléfono durante toda la prueba, simplemente relaja el brazo.`
     }
   ],
   instructions: {
-    preRestingLeft: 'Hold your phone with your LEFT hand lying on your lap. Press start to begin.',
-    preRestingRight: 'Hold your phone with your RIGHT hand lying on your lap. Press start to begin.',
-    prePosturalLeft: 'Keep your arm outstretched at shoulder level while holding your phone with your LEFT hand. Press start to begin.',
-    prePosturalRight: 'Keep your arm outstretched at shoulder level while holding your phone with your RIGHT hand. Press start to begin.',
-    preKineticLeft: 'Move your phone from outstretched to touching your nose while holding your phone with your LEFT hand. Press start to begin.',
-    preKineticRight: 'Move your phone from outstretched to touching your nose while holding your phone with your RIGHT hand. Press start to begin.',
-    afterStart: 'Continue holding the phone steadily in your hand.'
+    preRestingLeft: 'Sosten tu teléfono con la mano IZQUIERDA sobre el regazo. Presiona inicio para comenzar.',
+    preRestingRight: 'Sosten tu teléfono con la mano DERECHA sobre su regazo. Presiona inicio para comenzar.',
+    prePosturalLeft: 'Manten el brazo extendido a la altura de los hombros mientras sostienes el teléfono con la mano IZQUIERDA. Presiona inicio para comenzar.',
+    prePosturalRight: 'Manten el brazo extendido a la altura de los hombros mientras sostienes el teléfono con la mano DERECHA. Presiona inicio para comenzar.',
+    preKineticLeft: 'Mueve tu teléfono de extendido a tocar la nariz mientras sostienes el teléfono con la mano IZQUIERDA. Presiona inicio para comenzar.',
+    preKineticRight: 'Mueve tu teléfono de extendido a tocar la nariz mientras sostienes el teléfono con la mano DERECHA. Presiona inicio para comenzar.',
+    afterStart: 'Continua sosteniendo el teléfono firmemente en la mano.'
   },
-  completed: 'Task completed',
-  time: 'Time',
-  summaryRestingLeft: 'At rest movement, left',
-  summaryRestingRight: 'At rest movement, right',
-  summaryPosturalLeft: 'Postural movement, left',
-  summaryPosturalRight: 'Postural movement, right',
-  summaryKineticLeft: 'Kinetic movement, left',
-  summaryKineticRight: 'Kinetic movement, right'
+  completed: 'Tarea completada',
+  time: 'Tiempo',
+  summaryRestingLeft: 'Temblor en reposo, izquierda',
+  summaryRestingRight: 'Temblor en reposo, derecha',
+  summaryPosturalLeft: 'Temblor postural, izquierda',
+  summaryPosturalRight: 'Temblor postural, derecha',
+  summaryKineticLeft: 'Temblor cinético, izquierda',
+  summaryKineticRight: 'Temblor cinético, derecha'
 }

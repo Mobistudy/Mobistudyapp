@@ -1,36 +1,36 @@
 export default {
-  title: 'Timed Up & Go test',
-  shortTitle: 'TU&G test',
-  shortDescription: 'Stand up and walk',
-  OSpermissioniOS: 'This task requires the app to access the motion sensors in your phone if available. This is needed to compute how long it took to complete the test. The motion data will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
-  OSpermissionAndroid: 'This task requires the app to access the motion sensors in your phone if available. This is needed to compute how long it took to complete the test. The motion data will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
+  title: 'Timed Up and Go testet',
+  shortTitle: 'TU&G testet',
+  shortDescription: 'Stiga upp från en stol och gå 3m',
+  OSpermissioniOS: 'Den här uppgiften kräver att appen kommer åt rörelsesensorerna i din telefon om de är tillgängliga. Detta behövs för att beräkna hur lång tid det tog att slutföra testet. Rörelsedata kommer att delas med forskargruppen i denna studie för analys. Klicka på Nästa om du vill fortsätta med auktoriseringsprocessen.',
+  OSpermissionAndroid: 'Den här uppgiften kräver att appen kommer åt rörelsesensorerna i din telefon om de är tillgängliga. Detta behövs för att beräkna hur lång tid det tog att slutföra testet. Rörelsedata kommer att delas med forskargruppen i denna studie för analys. Klicka på Nästa om du vill fortsätta med auktoriseringsprocessen.',
   introductionSlides: [
     {
-      title: 'Introduction',
+      title: 'Introduktion',
       img: 'instructions/TUGtask-01.svg',
-      description: 'In this test you will stand up from a chair, walk 3 meters, come back and seat again.'
+      description: 'I detta test kommer du att stiger upp från en stol, gå 3 meter, komma tillbaka och sätta dig igen.'
     },
     {
-      title: 'Setup',
+      title: 'Inställning',
       img: 'instructions/TUGtask-02.svg',
-      description: 'Choose a regular chair and place it in front of a 3-meter long walkable space. Make sure to mark a point at 3 meters from the chair.'
+      description: 'Välj en vanlig stol och placera den framför ett 3 meter långt gångbart utrymme. Se till att markera en punkt på 3 meter från stolen.'
     },
 
     {
-      title: 'Setup',
+      title: 'Inställning',
       img: 'instructions/TUGtask-05.svg',
-      description: 'Make sure you have your phone on you during the test, preferably in a waist band. Use regular footwear and walking aids if needed.'
+      description: 'Se till att ha telefonen på dig under testet, gärna i ett midjeband. Använd vanliga skor och gånghjälpmedel vid behov.'
     },
     {
-      title: 'Instructions',
+      title: 'Instruktioner',
       img: 'instructions/TUGtask-04.svg',
-      description: 'When ready, press the start button, place the phone in the waist band keeping its screen switched on, stand up, walk 3 meters, turn around, come back and sit down.'
+      description: 'När du är redo, tryck på startknappen, placera telefonen i midjebandet med skärmen påslagen, ställ dig upp, gå 3 meter, vänd dig om, kom tillbaka och sätt dig ner.'
     },
     {
-      title: 'Instructions',
+      title: 'Instruktioner',
       img: 'instructions/TUGtask-03.svg',
-      description: 'Once you have sat down, extract your phone and press “completed”.'
+      description: 'När du har satt dig ner, extrahera din telefon och tryck på "slutfört".'
     }
   ],
-  time: 'Time'
+  time: 'Tid'
 }

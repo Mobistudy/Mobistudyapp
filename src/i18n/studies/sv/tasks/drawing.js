@@ -1,5 +1,5 @@
 export default {
-  title: 'Ritningsprov',
+  title: 'Figurtestet',
   shortTitle: 'Rita',
   shortDescription: 'Rita former på din telefon',
   introductionSlides: [

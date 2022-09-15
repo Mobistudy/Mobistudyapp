@@ -6,7 +6,10 @@ import po60Task from './tasks/po60'
 import positionTask from './tasks/position'
 import peakflowTask from './tasks/peakflow'
 import fingerTappingTask from './tasks/tapping'
+import tugtTask from './tasks/tugt'
 import holdphoneTask from './tasks/holdphone'
+import vocalizationTask from './tasks/vocalization'
+import drawingTask from './tasks/drawing'
 
 let studies = {
   studies: {
@@ -101,6 +104,9 @@ studies.studies.tasks.po60 = po60Task
 studies.studies.tasks.position = positionTask
 studies.studies.tasks.peakflow = peakflowTask
 studies.studies.tasks.fingerTapping = fingerTappingTask
+studies.studies.tasks.tugt = tugtTask
 studies.studies.tasks.holdPhone = holdphoneTask
+studies.studies.tasks.vocalization = vocalizationTask
+studies.studies.tasks.drawing = drawingTask
 
 export default studies
