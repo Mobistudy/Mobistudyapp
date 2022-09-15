@@ -7,41 +7,36 @@ export default {
   introductionSlides: [
     {
       title: 'Introduction',
-      img: 'instructions/6mwt_1.jpg',
+      img: 'instructions/6mwt1.svg',
       description: 'The aim of this test is to walk as far as possible in 6 minutes.'
     },
     {
       title: 'Instructions',
-      img: 'instructions/6mwt_2.jpg',
-      description: 'It is important that you try to walk as straight as possible. Try to avoid stairs and walking up or downhill.'
-    },
-    {
-      title: 'Instructions',
-      img: 'instructions/6mwt_3.jpg',
-      description: 'If possible, try to avoid areas with many tall buildings or trees close to you as these can affect how the phone localises you.'
+      img: 'instructions/6mwt2.svg',
+      description: 'It is important that you try to walk as straight as possible. Try to avoid stairs and walking up or downhill. If possible, try to avoid areas with many tall buildings or trees close to you.'
     },
     {
       title: 'Important!',
-      img: 'instructions/6mwt_4.jpg',
+      img: 'instructions/6mwt3.svg',
       description: 'You may slow down and stop if necessary. Stop immediately if you have any chest pain or dizziness.'
     },
     {
-      img: 'instructions/6mwt_1.jpg',
-      description: 'The test will automaticly stop after 6 minutes, and you will be asked to send the collected data. If you need to complete the test earlier, press the "Complete" button.'
+      img: 'instructions/6mwt4.svg',
+      description: 'The test will automaticly stop after 6 minutes. If you need to complete the test earlier, press the "Complete" button.'
     },
     {
       title: 'Setup',
-      img: 'instructions/6mwt_6.jpg',
+      img: 'instructions/6mwt5.svg',
       description: 'Make sure the positioning (GPS) on your phone is turned ON before starting the test.'
     },
     {
       title: 'Setup',
-      img: 'instructions/6mwt_7.jpg',
+      img: 'instructions/6mwt6.svg',
       description: 'Hold your phone still in one hand, and try to avoid shaking or twisting it until the test is finished.'
     },
     {
       title: 'Setup',
-      img: 'instructions/6mwt_8.jpg',
+      img: 'instructions/6mwt7.svg',
       description: 'You can place your phone in a pocket or use an armband if needed, but do not switch off the screen!'
     }
   ],

@@ -8,41 +8,36 @@ export default {
   introductionSlides: [
     {
       title: 'Instrucciones',
-      img: 'instructions/6mwt_1.jpg',
-      description: 'El objetivo de esta prueba es caminar lo más lejos posible en 6 minutos'
+      img: 'instructions/6mwt1.svg',
+      description: 'El objetivo de esta prueba es caminar lo más lejos posible en 6 minutos.'
     },
     {
       title: 'Instrucciones',
-      img: 'instructions/6mwt_2.jpg',
-      description: 'Es importante que intentes caminar lo más recto posible. Trata de evitar las escaleras y caminar cuesta arriba o cuesta abajo'
-    },
-    {
-      title: 'Instrucciones',
-      img: 'instructions/6mwt_3.jpg',
-      description: 'Si es posible, trata de evitar áreas con muchos edificios altos o árboles cerca de usted, ya que pueden afectar la forma en que el teléfono te localiza'
+      img: 'instructions/6mwt2.svg',
+      description: 'Es importante que intentes caminar lo más recto posible. Trata de evitar las escaleras y caminar cuesta arriba o cuesta abajo. Si es posible, trata de evitar áreas con muchos edificios altos o árboles cerca de ti.'
     },
     {
       title: 'Importante!',
-      img: 'instructions/6mwt_4.jpg',
-      description: 'Puedes reducir la velocidad y detenerte si es necesario. Detente inmediatamente si tienes dolor en el pecho o mareos'
+      img: 'instructions/6mwt3.svg',
+      description: 'Puedes reducir la velocidad y detenerte si es necesario. Detente inmediatamente si tienes dolor en el pecho o mareos.'
     },
     {
-      img: 'instructions/6mwt_1.jpg',
-      description: 'La prueba se detendrá automáticamente después de 6 minutos y se te pedirá que envíes los datos recopilados. Si necesitas completar la prueba antes, presiona el botón "Completar"'
-    },
-    {
-      title: 'Configuración',
-      img: 'instructions/6mwt_6.jpg',
-      description: 'Asegúrate de que el posicionamiento (GPS) en tu teléfono está encendido antes de comenzar la prueba'
+      img: 'instructions/6mwt4.svg',
+      description: 'La prueba se detendrá automáticamente después de 6 minutos. Si necesitas completar la prueba antes, presiona el botón "Completar".'
     },
     {
       title: 'Configuración',
-      img: 'instructions/6mwt_7.jpg',
-      description: 'Sostén tu teléfono quieto en una mano e intenta evitar sacudirlo o torcerlo hasta que termine la prueba'
+      img: 'instructions/6mwt5.svg',
+      description: 'Asegúrate de que el posicionamiento (GPS) en tu teléfono está encendido antes de comenzar la prueba.'
     },
     {
       title: 'Configuración',
-      img: 'instructions/6mwt_8.jpg',
+      img: 'instructions/6mwt6.svg',
+      description: 'Sostén tu teléfono quieto en una mano e intenta evitar sacudirlo o torcerlo hasta que termine la prueba.'
+    },
+    {
+      title: 'Configuración',
+      img: 'instructions/6mwt7.svg',
       description: 'Puedes colocar tu teléfono en un bolsillo o usar una banda para el brazo si es necesario, ¡pero no apagues la pantalla!'
     }
   ],
