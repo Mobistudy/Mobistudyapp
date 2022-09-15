@@ -1,6 +1,6 @@
 export default {
-  title: 'Vocalization test',
-  shortTitle: 'Voice test',
+  title: 'Prueba de vocalización',
+  shortTitle: 'Vocalización',
   shortDescription: 'Pon a prueba tu voz',
   OSpermissioniOS: 'Esta tarea requiere que la aplicación acceda al micrófono de su teléfono. Esto es necesario para grabar su sonido durante la prueba. Este sonido se compartirá con el equipo de investigación de este estudio para su análisis. Toque Siguiente si desea continuar con el proceso de autorización.',
   OSpermissionAndroid: 'Esta tarea requiere que la aplicación acceda al micrófono de su teléfono. Esto es necesario para grabar su sonido durante la prueba. Este sonido se compartirá con el equipo de investigación de este estudio para su análisis. Toque Siguiente si desea continuar con el proceso de autorización.',

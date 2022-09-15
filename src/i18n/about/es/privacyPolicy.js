@@ -54,13 +54,13 @@ export default `
       serán recogidos. Es posible que eso incluya peso, altura, número de pasos, frecuencia cardiaca, distancia, actividad, sueño, o nutrición
     </li>
     <li>
-      Frecuencia cardica y pasos serán recogidos durante el test de Queens College Step
+      Frecuencia cardica y pasos serán recogidos durante la prueba de Queen's College Step.
     </li>
     <li>
-      Localización geográfica, distacia y pasos durante el test de 6-minute Walk
+      Localización geográfica, distacia y pasos durante la prueba de caminata de 6 minutos.
     </li>
     <li>
-      Frecuencia cardiaca, nivel de actividad, pasos y actividad física serán recogidos mendiante un monitor de actividad
+      Frecuencia cardiaca, nivel de actividad, pasos y actividad física serán recogidos mendiante un monitor de actividad.
     </li>
     <li>
       Saturación de oxígeno en sangre, frecuencia cardiaca serán medidos por un pulso-oxímetro

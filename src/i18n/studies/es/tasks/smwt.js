@@ -1,6 +1,6 @@
 export default {
-  title: 'Six Minute Walk Test (6MWT)',
-  shortDescription: 'Prueba de caminar de 6 minutos',
+  title: 'Prueba de caminata de 6 minutos (6MWT)',
+  shortDescription: 'Camina por 6 minutos',
   shortTitle: '6MWT',
   description: 'Esta tarea consiste en medir la distancia que puedes caminar en 6 minutos (prueba de caminar de 6 minutos). El teléfono inteligente controlará tu posición mientras caminas y calculará la distancia total caminada. Esta distancia puede proporcionar indicaciones sobre tu capacidad de ejercicio y tu salud en general',
   OSpermissioniOS: 'Esta tarea requiere que la app acceda al sistema de posicionamiento de su teléfono (como el GPS) y al contador de pasos, si está disponible. Estos son necesarios para calcular la distancia recorrida durante la prueba. Tanto tu ubicación como los pasos recorridos se compartirán con el equipo de investigación de este estudio para su análisis. Selecciona "Siguiente" si deseas continuar con el proceso de autorización',
