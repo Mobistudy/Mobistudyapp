@@ -239,7 +239,7 @@
         "untilSecs": 5184000,
         "interval": 1
       },
-      "formKey": "0808",
+      "formKey": "1818",
       "formName": {
         "en": "Daily sleep quality",
         "sv": "Daglig sömnkvalitet"
@@ -314,7 +314,7 @@
         "untilSecs": 5184000,
         "interval": 1
       },
-      "formKey": "118118",
+      "formKey": "2828",
       "formName": {
         "en": "uMARS",
         "sv": "uMARS"
