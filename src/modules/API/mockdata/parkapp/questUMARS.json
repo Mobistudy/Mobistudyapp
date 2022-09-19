@@ -750,27 +750,23 @@
     {
       "id": "Q15",
       "text": {
+        "en": "1. Dull, not fun or entertaining at all",
+        "sv": "",
         "es": "¿Es lógica, clara y correcta la explicación visual de los conceptos- a través de gráficos/ imagines/ videos etc.?"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q15A1",
           "text": {
             "es": "N / A No hay información visual dentro de la App (por ejemplo, solo contiene audio o texto)"
-          },
-          "includeFreeText": false
+          }
         },
         {
           "id": "Q15A2",
           "text": {
-            "es": "1.\tConfusa, poco clara, errónea o ausente de lo necesario"
-          },
-          "includeFreeText": false
+            "es": "1. Confusa, poco clara, errónea o ausente de lo necesario"
+          }
         },
         {
           "id": "Q15A3",
@@ -807,11 +803,7 @@
       "text": {
         "es": "¿La información que contiene la App parece provenir de una fuente fiable)?"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q16A1",
@@ -831,15 +823,13 @@
           "id": "Q16A3",
           "text": {
             "es": "2.\tEl origen de la información carece de suficiente fiabilidad"
-          },
-          "includeFreeText": false
+          }
         },
         {
           "id": "Q16A4",
           "text": {
             "es": "3.\tLa información no es inadecuada pero no se conoce con claridad la fuente de la que proviene"
-          },
-          "includeFreeText": false
+          }
         },
         {
           "id": "Q16A5",
@@ -862,11 +852,7 @@
       "text": {
         "es": "¿Recomendarías esta App a las personas que podrían beneficiarse de ella?"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q17A1",
@@ -910,11 +896,7 @@
       "text": {
         "es": "¿Cuántas veces cree que usarías esta App en los próximos 12 meses si fuera relevante para ti?"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q18A1",
@@ -958,11 +940,7 @@
       "text": {
         "es": "¿Pagarías por esta App?"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q19A1",
@@ -1006,11 +984,7 @@
       "text": {
         "es": "¿Cuál es tu calificación general (con estrellas) de la App?"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q20A1",
@@ -1054,11 +1028,7 @@
       "text": {
         "es": "Esta App ha aumentado mi concienciación sobre la importancia de apuntar y reportar mi nivel de dolor"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q21A1",
@@ -1102,11 +1072,7 @@
       "text": {
         "es": "Mobistudy ha aumentado mi conocimiento / comprensión sobre mi nivel de dolor"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q22A1",
@@ -1150,11 +1116,7 @@
       "text": {
         "es": "La App ha cambiado mis actitudes hacia el apuntar y reportar mi nivel de dolor "
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q23A1",
@@ -1198,11 +1160,7 @@
       "text": {
         "es": "La App ha aumentado mis intenciones / motivación para apuntar y reportar mi nivel de dolo"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q24A1",
@@ -1246,11 +1204,7 @@
       "text": {
         "es": "Esta App me animaría a buscar más ayuda para apuntar y reportar mi nivel de dolor (si la necesito)"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q25A1",
@@ -1294,11 +1248,7 @@
       "text": {
         "es": "El uso de esta App aumentará mi apuntar y reportar mi nivel de dolor"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singlChoice",
       "answerChoices": [
         {
           "id": "Q26A1",
@@ -1342,11 +1292,7 @@
       "text": {
         "es": "27.\tEsta App ha aumentado mi concienciación de la importancia de participar en estudios clínicos "
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singlChoice",
       "answerChoices": [
         {
           "id": "Q27A1",
@@ -1390,11 +1336,7 @@
       "text": {
         "es": "Esta App ha aumentado mi conocimiento / comprensión de participar en estudios clínicos "
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singlChoice",
       "answerChoices": [
         {
           "id": "Q28A1",
@@ -1438,11 +1380,7 @@
       "text": {
         "es": "La App ha cambiado mis actitudes hacia participar en estudios clínicos "
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singlChoice",
       "answerChoices": [
         {
           "id": "Q29A1",
@@ -1486,11 +1424,7 @@
       "text": {
         "es": "La App ha aumentado mis intenciones / motivación para participar en estudios clínicos"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singlChoice",
       "answerChoices": [
         {
           "id": "Q30A1",
@@ -1534,11 +1468,7 @@
       "text": {
         "es": "Esta App me animaría a buscar más ayuda para abordar la participación en estudios clínicos (si lo necesito)"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singlChoice",
       "answerChoices": [
         {
           "id": "Q31A1",
@@ -1582,11 +1512,7 @@
       "text": {
         "es": "El uso de esta App aumentará mi participación en estudios clínicos"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
-      "type": "multiChoice",
+      "type": "singlChoice",
       "answerChoices": [
         {
           "id": "Q32A1",
@@ -1613,15 +1539,13 @@
           "id": "Q32A4",
           "text": {
             "es": "4"
-          },
-          "includeFreeText": false
+          }
         },
         {
           "id": "Q32A5",
           "text": {
             "es": "5.\tTotalmente de acuerdo "
-          },
-          "includeFreeText": false
+          }
         }
       ]
     },
@@ -1630,10 +1554,6 @@
       "text": {
         "es": "Más comentarios sobre la App"
       },
-      "helper": {
-        "es": ""
-      },
-      "footer": {},
       "type": "freetext"
     }
   ]
