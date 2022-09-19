@@ -16,7 +16,7 @@
     "dev:test": "concurrently \"quasar dev\" \"jest --watch\""
   },
   "dependencies": {
-    "@quasar/extras": "^1.15.1",
+    "@quasar/extras": "^1.15.2",
     "axios": "^0.27.2",
     "chart.js": "^2.9.4",
     "moment": "^2.29.4",
@@ -29,7 +29,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@quasar/app": "^2.4.1",
+    "@quasar/app": "^3.3.3",
     "@quasar/quasar-app-extension-testing": "^1.0.3",
     "@quasar/quasar-app-extension-testing-unit-jest": "^1.1.0-beta.7",
     "@vue/eslint-config-standard": "^4.0.0",
