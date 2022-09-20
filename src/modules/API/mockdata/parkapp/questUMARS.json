@@ -689,6 +689,8 @@
     {
       "id": "Q14",
       "text": {
+        "en": "Is the information within the app comprehensive but concise?",
+        "sv": "",
         "es": "¿La información incluida en la App es exhaustiva y concisa?"
       },
       "type": "singleChoice",
@@ -750,8 +752,8 @@
     {
       "id": "Q15",
       "text": {
-        "en": "1. Dull, not fun or entertaining at all",
-        "sv": "",
+        "en": "Is visual explanation of concepts‚ through charts/graphs/images/videos, etc.‚ clear, logical, correct?",
+        "sv": "Visuell information: Är visuella förklaringar av begrepp - genom diagram/grafer/bilder/videor etc. - tydlig, logisk, korrekt?",
         "es": "¿Es lógica, clara y correcta la explicación visual de los conceptos- a través de gráficos/ imagines/ videos etc.?"
       },
       "type": "singleChoice",
@@ -759,40 +761,52 @@
         {
           "id": "Q15A1",
           "text": {
+            "en": "N/A There is no visual information within the app (e.g. it only contains audio, or text)",
+            "sv": "N/A Det finns ingen visuell information i appen (t.ex. den innehåller bara ljud eller text)",
             "es": "N / A No hay información visual dentro de la App (por ejemplo, solo contiene audio o texto)"
           }
         },
         {
           "id": "Q15A2",
           "text": {
+            "en": "1 Completely unclear/confusing/wrong or necessary but missing",
+            "sv": "1 Helt oklart/förvirrande/fel eller nödvändigt men saknas",
             "es": "1. Confusa, poco clara, errónea o ausente de lo necesario"
           }
         },
         {
           "id": "Q15A3",
           "text": {
-            "es": "2.\tPrincipalmente confusa, poco clara, errónea"
+            "en": "2 Mostly unclear/confusing/wrong",
+            "sv": "2 Mestadels oklart/förvirrande/fel",
+            "es": "2.Principalmente confusa, poco clara, errónea"
           },
           "includeFreeText": false
         },
         {
           "id": "Q15A4",
           "text": {
-            "es": "3.\tAceptable, pero confusa, poco clara, errónea con frecuencia"
+            "en": "3 OK but often unclear/confusing/wrong",
+            "sv": "3 OK men ofta oklart/förvirrande/fel",
+            "es": "3.Aceptable, pero confusa, poco clara, errónea con frecuencia"
           },
           "includeFreeText": false
         },
         {
           "id": "Q15A5",
           "text": {
-            "es": "4.\tPrincipalmente clara, lógica y correcta con fallos insignificantes"
+            "en": "4 Mostly clear/logical/correct with negligible issues",
+            "sv": "4 Mestadels tydlig/logisk/korrekt med försumbara problem",
+            "es": "4.Principalmente clara, lógica y correcta con fallos insignificantes"
           },
           "includeFreeText": false
         },
         {
           "id": "Q15A6",
           "text": {
-            "es": "5.\tPerfectamente clara, lógica y correcta"
+            "en": "5 Perfectly clear/logical/correct",
+            "sv": "5 Fullständigt tydlig/logisk/korrekt",
+            "es": "5.Perfectamente clara, lógica y correcta"
           },
           "includeFreeText": false
         }
@@ -801,6 +815,8 @@
     {
       "id": "Q16",
       "text": {
+        "en": "Does the information within the app seem to come from a credible source?",
+        "sv": "Verkar informationen i appen komma från en trovärdig källa?",
         "es": "¿La información que contiene la App parece provenir de una fuente fiable)?"
       },
       "type": "singleChoice",
@@ -808,6 +824,8 @@
         {
           "id": "Q16A1",
           "text": {
+            "en": "N/A There is no information within the app",
+            "sv": "N/A Det finns ingen information i appen",
             "es": "N / A No hay información dentro de la App"
           },
           "includeFreeText": false
@@ -815,6 +833,8 @@
         {
           "id": "Q16A2",
           "text": {
+            "en": "1 Suspicious source\n",
+            "sv": "1 Misstänkt källa",
             "es": "1.\tEl origen de la información no es fiable en absoluto"
           },
           "includeFreeText": false
@@ -822,18 +842,24 @@
         {
           "id": "Q16A3",
           "text": {
+            "en": "2 Lacks credibility",
+            "sv": "2 Saknar trovärdighet\n",
             "es": "2.\tEl origen de la información carece de suficiente fiabilidad"
           }
         },
         {
           "id": "Q16A4",
           "text": {
+            "en": "3 Not suspicious but legitimacy of source is unclear",
+            "sv": "3 Inte misstänkt men källans legitimitet är oklart\n",
             "es": "3.\tLa información no es inadecuada pero no se conoce con claridad la fuente de la que proviene"
           }
         },
         {
           "id": "Q16A5",
           "text": {
+            "en": "4 Possibly comes from a legitimate source",
+            "sv": "4 Kommer möjligen från en legitim källa",
             "es": "4.\tLa información proviene de una fuente que puede ser fiable"
           },
           "includeFreeText": false
@@ -841,6 +867,8 @@
         {
           "id": "Q16A6",
           "text": {
+            "en": "5 Definitely comes from a legitimate/specialised source",
+            "sv": "5 Kommer definitivt från en legitim/specialiserad källa",
             "es": "5.\tLa información, con total seguridad, proviene de una fuente fiable o especializada"
           },
           "includeFreeText": false
@@ -850,6 +878,8 @@
     {
       "id": "Q17",
       "text": {
+        "en": "Would you recommend this app to people who might benefit from it?",
+        "sv": "Skulle du rekommendera den här appen till personer som kan ha nytta av den?",
         "es": "¿Recomendarías esta App a las personas que podrían beneficiarse de ella?"
       },
       "type": "singleChoice",
@@ -857,35 +887,45 @@
         {
           "id": "Q17A1",
           "text": {
-            "es": "1.\tEn absoluto, no recomendaría esta App a nadie"
+            "en": "1 Not at all. I would not recommend this app to anyone",
+            "sv": "1 Inte alls. Jag skulle inte rekommendera den här appen till någon",
+            "es": "1. En absoluto, no recomendaría esta App a nadie"
           },
           "includeFreeText": false
         },
         {
           "id": "Q17A2",
           "text": {
-            "es": "2.\tHay muy pocas personas a las que recomendaría esta App"
+            "en": "2 There are very few people I would recommend this app to",
+            "sv": "2 Det är väldigt få personer jag skulle rekommendera den här appen till",
+            "es": "2. Hay muy pocas personas a las que recomendaría esta App"
           },
           "includeFreeText": false
         },
         {
           "id": "Q17A3",
           "text": {
-            "es": "3.\tQuizás haya varias personas a las que recomendaría esta App"
+            "en": "3 Maybe. There are several people I would recommend this app to",
+            "sv": "3 Kanske. Det finns flera personer som jag skulle rekommendera den här appen till",
+            "es": "3. Quizás haya varias personas a las que recomendaría esta App"
           },
           "includeFreeText": false
         },
         {
           "id": "Q17A4",
           "text": {
-            "es": "4.\tHay muchas personas a las que recomendaría esta App"
+            "en": "4 There are many people I would recommend this app to",
+            "sv": "4 Det finns många människor jag skulle rekommendera den här appen till",
+            "es": "4. Hay muchas personas a las que recomendaría esta App"
           },
           "includeFreeText": false
         },
         {
           "id": "Q17A5",
           "text": {
-            "es": "5.\tDefinitivamente recomendaría esta App a todos"
+            "en": "5 Definitely. I would recommend this app to everyone",
+            "sv": "5 Definitivt. Jag skulle rekommendera den här appen till alla",
+            "es": "5. Definitivamente recomendaría esta App a todos"
           },
           "includeFreeText": false
         }
@@ -894,6 +934,8 @@
     {
       "id": "Q18",
       "text": {
+        "en": "How many times do you think you would use this app in the next 12 months?",
+        "sv": "Hur många gånger tror du att du skulle använda den här appen under de kommande 12 månaderna om det var relevant för dig att göra det?",
         "es": "¿Cuántas veces cree que usarías esta App en los próximos 12 meses si fuera relevante para ti?"
       },
       "type": "singleChoice",
@@ -901,6 +943,8 @@
         {
           "id": "Q18A1",
           "text": {
+            "en": "1. None",
+            "sv": "1. Inga",
             "es": "1.\t Ninguna"
           },
           "includeFreeText": false
@@ -908,28 +952,36 @@
         {
           "id": "Q18A2",
           "text": {
-            "es": "2.\t1-2"
+            "en": "2. 1-2",
+            "sv": "2. 1-2",
+            "es": "2. 1-2"
           },
           "includeFreeText": false
         },
         {
           "id": "Q18A3",
           "text": {
-            "es": "3.\t3-10"
+            "en": "3. 3-10",
+            "sv": "3. 3-10",
+            "es": "3. 3-10"
           },
           "includeFreeText": false
         },
         {
           "id": "Q18A4",
           "text": {
-            "es": "4.\t40-50"
+            "en": "4. 10-50",
+            "sv": "4. 10-50",
+            "es": "4. 40-50"
           },
           "includeFreeText": false
         },
         {
           "id": "Q18A5",
           "text": {
-            "es": "5.\t> 50"
+            "en": "5. >50",
+            "sv": "5. >50",
+            "es": "5. >50"
           },
           "includeFreeText": false
         }
@@ -938,6 +990,8 @@
     {
       "id": "Q19",
       "text": {
+        "en": "What is your overall (star) rating of the app?",
+        "sv": "Vad är ditt totala (stjärn-) betyg för appen?",
         "es": "¿Pagarías por esta App?"
       },
       "type": "singleChoice",
@@ -945,13 +999,17 @@
         {
           "id": "Q19A1",
           "text": {
-            "es": "1.\tDefinitivamente no"
+            "en": "1. 1 star. One of the worst apps I’ve used",
+            "sv": "1 stjärna. En av de sämsta apparna jag har använt",
+            "es": "1. Definitivamente no"
           },
           "includeFreeText": false
         },
         {
           "id": "Q19A2",
           "text": {
+            "en": "2. 2 stars.",
+            "sv": "2 stjärnor.",
             "es": "2"
           },
           "includeFreeText": false
@@ -959,6 +1017,8 @@
         {
           "id": "Q19A3",
           "text": {
+            "en": "3 stars. Average",
+            "sv": "3 stjärnor. Genomsnitt",
             "es": "3"
           },
           "includeFreeText": false
@@ -966,6 +1026,8 @@
         {
           "id": "Q19A4",
           "text": {
+            "en": "4 stars.",
+            "sv": "4 stjärnor.",
             "es": "4"
           },
           "includeFreeText": false
@@ -973,6 +1035,8 @@
         {
           "id": "Q19A5",
           "text": {
+            "en": "5 stars. One of the best apps I've used",
+            "sv": "5 stjärnor. En av de bästa apparna jag har använt",
             "es": "5.\tDefinitivamente sí"
           },
           "includeFreeText": false
@@ -982,6 +1046,8 @@
     {
       "id": "Q20",
       "text": {
+        "en": "This app has increased my awareness of the importance of being monitored.",
+        "sv": "Medvetenhet - Appen har ökat min medvetenhet om vikten av att använda teknologi för att övervaka min hälsa",
         "es": "¿Cuál es tu calificación general (con estrellas) de la App?"
       },
       "type": "singleChoice",
@@ -989,6 +1055,8 @@
         {
           "id": "Q20A1",
           "text": {
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
             "es": "1.\t* Una de las peores App que he usado"
           },
           "includeFreeText": false
@@ -996,6 +1064,8 @@
         {
           "id": "Q20A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2.\t**"
           },
           "includeFreeText": false
@@ -1003,6 +1073,8 @@
         {
           "id": "Q20A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3.\t*** Correcta"
           },
           "includeFreeText": false
@@ -1010,6 +1082,8 @@
         {
           "id": "Q20A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4.\t****"
           },
           "includeFreeText": false
@@ -1017,6 +1091,8 @@
         {
           "id": "Q20A5",
           "text": {
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
             "es": "5.\t***** Una de las mejores App que he usado"
           },
           "includeFreeText": false
@@ -1026,6 +1102,8 @@
     {
       "id": "Q21",
       "text": {
+        "en": "This app has increased my knowledge/understanding about being monitored.",
+        "sv": "Kunskap - Appen har ökat min kunskap/förståelse för hur teknologi kan övervaka min hälsa",
         "es": "Esta App ha aumentado mi concienciación sobre la importancia de apuntar y reportar mi nivel de dolor"
       },
       "type": "singleChoice",
@@ -1033,13 +1111,17 @@
         {
           "id": "Q21A1",
           "text": {
-            "es": "1.\tTotalmente en desacuerdo  "
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
+            "es": "1.\tTotalmente en desacuerdo"
           },
           "includeFreeText": false
         },
         {
           "id": "Q21A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2"
           },
           "includeFreeText": false
@@ -1047,6 +1129,8 @@
         {
           "id": "Q21A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3"
           },
           "includeFreeText": false
@@ -1054,6 +1138,8 @@
         {
           "id": "Q21A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4"
           },
           "includeFreeText": false
@@ -1061,7 +1147,9 @@
         {
           "id": "Q21A5",
           "text": {
-            "es": "1.\tTotalmente en acuerdo"
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
+            "es": "5 Totalmente en acuerdo"
           },
           "includeFreeText": false
         }
@@ -1070,6 +1158,8 @@
     {
       "id": "Q22",
       "text": {
+        "en": "The app has changed my attitudes toward improving how I am monitored.",
+        "sv": "Inställningar - Appen har förändrat mina inställningar till användning av teknologi för att övervaka min hälsa",
         "es": "Mobistudy ha aumentado mi conocimiento / comprensión sobre mi nivel de dolor"
       },
       "type": "singleChoice",
@@ -1077,13 +1167,17 @@
         {
           "id": "Q22A1",
           "text": {
-            "es": "1.\tTotalmente en desacuerdo "
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
+            "es": "1.\tTotalmente en desacuerdo"
           },
           "includeFreeText": false
         },
         {
           "id": "Q22A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2"
           },
           "includeFreeText": false
@@ -1091,6 +1185,8 @@
         {
           "id": "Q22A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3"
           },
           "includeFreeText": false
@@ -1098,6 +1194,8 @@
         {
           "id": "Q22A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4"
           },
           "includeFreeText": false
@@ -1105,7 +1203,9 @@
         {
           "id": "Q22A5",
           "text": {
-            "es": "5.\tTotalmente de acuerdo "
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
+            "es": "5 Totalmente en acuerdo"
           },
           "includeFreeText": false
         }
@@ -1114,6 +1214,8 @@
     {
       "id": "Q23",
       "text": {
+        "en": "The app has increased my intentions/motivation to being monitored. ",
+        "sv": "Förändring - Appen har stärkt mina avsikter/motivation till använding av teknologi som övervakar min hälsa",
         "es": "La App ha cambiado mis actitudes hacia el apuntar y reportar mi nivel de dolor "
       },
       "type": "singleChoice",
@@ -1121,13 +1223,17 @@
         {
           "id": "Q23A1",
           "text": {
-            "es": "1.\tTotalmente en desacuerdo "
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
+            "es": "1.\tTotalmente en desacuerdo"
           },
           "includeFreeText": false
         },
         {
           "id": "Q23A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2"
           },
           "includeFreeText": false
@@ -1135,6 +1241,8 @@
         {
           "id": "Q23A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3"
           },
           "includeFreeText": false
@@ -1142,6 +1250,8 @@
         {
           "id": "Q23A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4"
           },
           "includeFreeText": false
@@ -1149,7 +1259,9 @@
         {
           "id": "Q23A5",
           "text": {
-            "es": "5.\tTotalmente de acuerdo "
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
+            "es": "5 Totalmente en acuerdo"
           },
           "includeFreeText": false
         }
@@ -1158,6 +1270,8 @@
     {
       "id": "Q24",
       "text": {
+        "en": "This app would encourage me to seek further help to address being monitored (if I needed it).",
+        "sv": "Beteendeförändring - Användning av denna app kommer att förbättra/underlätta övervakning av min hälsa",
         "es": "La App ha aumentado mis intenciones / motivación para apuntar y reportar mi nivel de dolo"
       },
       "type": "singleChoice",
@@ -1165,13 +1279,17 @@
         {
           "id": "Q24A1",
           "text": {
-            "es": "1.\tTotalmente en desacuerdo "
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
+            "es": "1.\tTotalmente en desacuerdo"
           },
           "includeFreeText": false
         },
         {
           "id": "Q24A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2"
           },
           "includeFreeText": false
@@ -1179,6 +1297,8 @@
         {
           "id": "Q24A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3"
           },
           "includeFreeText": false
@@ -1186,6 +1306,8 @@
         {
           "id": "Q24A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4"
           },
           "includeFreeText": false
@@ -1193,7 +1315,9 @@
         {
           "id": "Q24A5",
           "text": {
-            "es": "5.\tTotalmente de acuerdo "
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
+            "es": "5 Totalmente en acuerdo"
           },
           "includeFreeText": false
         }
@@ -1202,6 +1326,8 @@
     {
       "id": "Q25",
       "text": {
+        "en": "Use of this app will increase my compliance with the monitoring regime.",
+        "sv": "",
         "es": "Esta App me animaría a buscar más ayuda para apuntar y reportar mi nivel de dolor (si la necesito)"
       },
       "type": "singleChoice",
@@ -1209,13 +1335,17 @@
         {
           "id": "Q25A1",
           "text": {
-            "es": "1.\tTotalmente en desacuerdo "
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
+            "es": "1.\tTotalmente en desacuerdo"
           },
           "includeFreeText": false
         },
         {
           "id": "Q25A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2"
           },
           "includeFreeText": false
@@ -1223,6 +1353,8 @@
         {
           "id": "Q25A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3"
           },
           "includeFreeText": false
@@ -1230,6 +1362,8 @@
         {
           "id": "Q25A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4"
           },
           "includeFreeText": false
@@ -1237,7 +1371,9 @@
         {
           "id": "Q25A5",
           "text": {
-            "es": "5.\tTotalmente de acuerdo "
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
+            "es": "5 Totalmente en acuerdo"
           },
           "includeFreeText": false
         }
@@ -1246,6 +1382,8 @@
     {
       "id": "Q26",
       "text": {
+        "en": "Mobistudy has increased my awareness of the importance of participating in clinical studies.",
+        "sv": "Medvetenhet - Appen har ökat min medvetenhet om vikten av att delta i kliniska studier",
         "es": "El uso de esta App aumentará mi apuntar y reportar mi nivel de dolor"
       },
       "type": "singlChoice",
@@ -1253,13 +1391,17 @@
         {
           "id": "Q26A1",
           "text": {
-            "es": "1.\tTotalmente en desacuerdo "
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
+            "es": "1.\tTotalmente en desacuerdo"
           },
           "includeFreeText": false
         },
         {
           "id": "Q26A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2"
           },
           "includeFreeText": false
@@ -1267,6 +1409,8 @@
         {
           "id": "Q26A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3"
           },
           "includeFreeText": false
@@ -1274,6 +1418,8 @@
         {
           "id": "Q26A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4"
           },
           "includeFreeText": false
@@ -1281,7 +1427,9 @@
         {
           "id": "Q26A5",
           "text": {
-            "es": "5.\tTotalmente de acuerdo "
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
+            "es": "5 Totalmente en acuerdo"
           },
           "includeFreeText": false
         }
@@ -1290,6 +1438,8 @@
     {
       "id": "Q27",
       "text": {
+        "en": "Mobistudy has increased my knowledge / understanding of participating in clinical studies.",
+        "sv": "Kunskap - Appen har ökat min kunskap/förståelse om kliniska studier",
         "es": "27.\tEsta App ha aumentado mi concienciación de la importancia de participar en estudios clínicos "
       },
       "type": "singlChoice",
@@ -1297,13 +1447,17 @@
         {
           "id": "Q27A1",
           "text": {
-            "es": "1.\tTotalmente en desacuerdo "
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
+            "es": "1.\tTotalmente en desacuerdo"
           },
           "includeFreeText": false
         },
         {
           "id": "Q27A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2"
           },
           "includeFreeText": false
@@ -1311,6 +1465,8 @@
         {
           "id": "Q27A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3"
           },
           "includeFreeText": false
@@ -1318,6 +1474,8 @@
         {
           "id": "Q27A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4"
           },
           "includeFreeText": false
@@ -1325,7 +1483,9 @@
         {
           "id": "Q27A5",
           "text": {
-            "es": "5.\tTotalmente de acuerdo "
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
+            "es": "5 Totalmente en acuerdo"
           },
           "includeFreeText": false
         }
@@ -1334,20 +1494,26 @@
     {
       "id": "Q28",
       "text": {
-        "es": "Esta App ha aumentado mi conocimiento / comprensión de participar en estudios clínicos "
+        "en": "Mobistudy has changed my attitude towards participating in clinical trials.",
+        "sv": "Inställningar - Appen har förändrat mina inställningar till deltagande i kliniska studier",
+        "es": "Esta App ha aumentado mi conocimiento / comprensión de participar en estudios clínicos"
       },
-      "type": "singlChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q28A1",
           "text": {
-            "es": "1.\tTotalmente en desacuerdo "
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
+            "es": "1.\tTotalmente en desacuerdo"
           },
           "includeFreeText": false
         },
         {
           "id": "Q28A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2"
           },
           "includeFreeText": false
@@ -1355,6 +1521,8 @@
         {
           "id": "Q28A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3"
           },
           "includeFreeText": false
@@ -1362,6 +1530,8 @@
         {
           "id": "Q28A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4"
           },
           "includeFreeText": false
@@ -1369,7 +1539,9 @@
         {
           "id": "Q28A5",
           "text": {
-            "es": "5.\tTotalmente de acuerdo "
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
+            "es": "5 Totalmente en acuerdo"
           },
           "includeFreeText": false
         }
@@ -1378,20 +1550,26 @@
     {
       "id": "Q29",
       "text": {
+        "en": "Mobistudy has increased my intention / motivation to participate in clinical studies",
+        "sv": "Förändring - Appen har stärkt mina avsikter/motivation till deltagande i kliniska studier",
         "es": "La App ha cambiado mis actitudes hacia participar en estudios clínicos "
       },
-      "type": "singlChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q29A1",
           "text": {
-            "es": "1.\tTotalmente en desacuerdo "
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
+            "es": "1.\tTotalmente en desacuerdo"
           },
           "includeFreeText": false
         },
         {
           "id": "Q29A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2"
           },
           "includeFreeText": false
@@ -1399,6 +1577,8 @@
         {
           "id": "Q29A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3"
           },
           "includeFreeText": false
@@ -1406,6 +1586,8 @@
         {
           "id": "Q29A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4"
           },
           "includeFreeText": false
@@ -1413,7 +1595,9 @@
         {
           "id": "Q29A5",
           "text": {
-            "es": "5.\tTotalmente de acuerdo "
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
+            "es": "5 Totalmente en acuerdo"
           },
           "includeFreeText": false
         }
@@ -1422,6 +1606,8 @@
     {
       "id": "Q30",
       "text": {
+        "en": "Mobistudy would encourage me to seek further help for clinical trial participation (if I need it).",
+        "sv": "Beteendeförändring - Användning av appen kommer att öka mitt deltagande i kliniska studier",
         "es": "La App ha aumentado mis intenciones / motivación para participar en estudios clínicos"
       },
       "type": "singlChoice",
@@ -1429,13 +1615,17 @@
         {
           "id": "Q30A1",
           "text": {
-            "es": "1.\tTotalmente en desacuerdo "
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
+            "es": "1.\tTotalmente en desacuerdo"
           },
           "includeFreeText": false
         },
         {
           "id": "Q30A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2"
           },
           "includeFreeText": false
@@ -1443,6 +1633,8 @@
         {
           "id": "Q30A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3"
           },
           "includeFreeText": false
@@ -1450,6 +1642,8 @@
         {
           "id": "Q30A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4"
           },
           "includeFreeText": false
@@ -1457,7 +1651,9 @@
         {
           "id": "Q30A5",
           "text": {
-            "es": "5.\tTotalmente de acuerdo "
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
+            "es": "5 Totalmente en acuerdo"
           },
           "includeFreeText": false
         }
@@ -1466,20 +1662,25 @@
     {
       "id": "Q31",
       "text": {
+        "en": "Use of Mobistudy will increase my participation in clinical trials.",
         "es": "Esta App me animaría a buscar más ayuda para abordar la participación en estudios clínicos (si lo necesito)"
       },
-      "type": "singlChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q31A1",
           "text": {
-            "es": "1.\tTotalmente en desacuerdo "
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
+            "es": "1.\tTotalmente en desacuerdo"
           },
           "includeFreeText": false
         },
         {
           "id": "Q31A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2"
           },
           "includeFreeText": false
@@ -1487,6 +1688,8 @@
         {
           "id": "Q31A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3"
           },
           "includeFreeText": false
@@ -1494,6 +1697,8 @@
         {
           "id": "Q31A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4"
           },
           "includeFreeText": false
@@ -1501,7 +1706,9 @@
         {
           "id": "Q31A5",
           "text": {
-            "es": "5.\tTotalmente de acuerdo "
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
+            "es": "5 Totalmente en acuerdo"
           },
           "includeFreeText": false
         }
@@ -1510,6 +1717,8 @@
     {
       "id": "Q32",
       "text": {
+        "en": "",
+        "sv": "",
         "es": "El uso de esta App aumentará mi participación en estudios clínicos"
       },
       "type": "singlChoice",
@@ -1517,13 +1726,17 @@
         {
           "id": "Q32A1",
           "text": {
-            "es": "1.\tTotalmente en desacuerdo "
+            "en": "1 Strongly disagree",
+            "sv": "1 Håller inte alls med",
+            "es": "1.\tTotalmente en desacuerdo"
           },
           "includeFreeText": false
         },
         {
           "id": "Q32A2",
           "text": {
+            "en": "2 Somewhat disagree",
+            "sv": "2 Håller delvis inte med",
             "es": "2"
           },
           "includeFreeText": false
@@ -1531,6 +1744,8 @@
         {
           "id": "Q32A3",
           "text": {
+            "en": "3 Neither disagree nor agree",
+            "sv": "3 Neutral",
             "es": "3"
           },
           "includeFreeText": false
@@ -1538,20 +1753,28 @@
         {
           "id": "Q32A4",
           "text": {
+            "en": "4 Somewhat agree",
+            "sv": "4 Håller delvis med",
             "es": "4"
-          }
+          },
+          "includeFreeText": false
         },
         {
           "id": "Q32A5",
           "text": {
-            "es": "5.\tTotalmente de acuerdo "
-          }
+            "en": "5 Strongly Agree",
+            "sv": "5 Håller fullständigt med",
+            "es": "5 Totalmente en acuerdo"
+          },
+          "includeFreeText": false
         }
       ]
     },
     {
       "id": "Q33",
       "text": {
+        "en": "Further comments about the app?",
+        "sv": "Några fler kommentarer om appen?",
         "es": "Más comentarios sobre la App"
       },
       "type": "freetext"
