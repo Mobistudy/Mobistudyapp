@@ -1,4 +1,1096 @@
 {
   "_key": "19689",
-  "teamKey": "1608"
+  "teamKey": "1608",
+  "created": "2022-10-04T10:01:42.865Z",
+  "name": {
+    "en": " Technology Acceptance Model",
+    "sv": "",
+    "es": ""
+  },
+  "description": {
+    "en": "The following questions are used to study the level of acceptance of the Mobistudy app as a tool to participate in clinical studies and report your symptoms. Please select the answer that most accurately reflects your agreement with the statements presented hereby selecting one of the options between 1, “I strongly agree” and 5, “I strongly disagree”. Thanks.",
+    "sv": "",
+    "es": ""
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "text": {
+        "en": "Learning how to use Mobistudy on a day-to-day basis was easy for me",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q1A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q1A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q1A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          },
+          "includeFreeText": false
+        },
+        {
+          "id": "Q1A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q1A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": {
+        "en": "Interacting with Mobistudy is often frustrating",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q2A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q2A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q2A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          },
+          "includeFreeText": false
+        },
+        {
+          "id": "Q2A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q2A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q3",
+      "text": {
+        "en": "It is easy for me to make Mobistudy do what I want it to do",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q3A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q3A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q3A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          },
+          "includeFreeText": false
+        },
+        {
+          "id": "Q3A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q3A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q4",
+      "text": {
+        "en": "It is easy for me to remember how to perform tasks using Mobistudy",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q4A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q4A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q4A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          },
+          "includeFreeText": false
+        },
+        {
+          "id": "Q4A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q4A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q5",
+      "text": {
+        "en": "Interacting with Mobistudy does not require much mental effort",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q5A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q5A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q5A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          },
+          "includeFreeText": false
+        },
+        {
+          "id": "Q5A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q5A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q6",
+      "text": {
+        "en": "Navigating in the Mobistudy app is easy",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q6A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q6A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q6A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          },
+          "includeFreeText": false
+        },
+        {
+          "id": "Q6A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q6A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q7",
+      "text": {
+        "en": "Overall, I find Mobistudy is easy to use",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q7A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q7A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q7A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          },
+          "includeFreeText": false
+        },
+        {
+          "id": "Q7A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q7A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q8",
+      "text": {
+        "en": "Using Mobistudy makes it easier to participate in clinical studies",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q8A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q8A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q8A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q8A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q8A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q9",
+      "text": {
+        "en": "Mobistudy helps me decide if I want to participate in a clinical study",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q9A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q9A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q9A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q9A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q9A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q10",
+      "text": {
+        "en": "Mobistudy helps me control what data I share with researchers",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q10A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q10A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q10A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          },
+          "includeFreeText": false
+        },
+        {
+          "id": "Q10A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q10A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q11",
+      "text": {
+        "en": "Using Mobistudy makes it easier to report my symptoms",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q11A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q11A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q11A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q11A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q11A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q12",
+      "text": {
+        "en": "Overall, I find that Mobistudy is useful",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q12A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q12A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q12A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q12A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q12A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q13",
+      "text": {
+        "en": "The information handled by Mobistudy could be used without my knowledge",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q13A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q13A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q13A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q13A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q13A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q14",
+      "text": {
+        "en": "Mobistudy may misuse the patient data",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q14A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q14A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q14A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q14A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q14A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q15",
+      "text": {
+        "en": "Using Mobistudy would cause me to have difficulty in performing daily activities",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q15A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q15A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q15A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q15A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q15A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q16",
+      "text": {
+        "en": "People around me think it is a good idea for me to use Mobistudy",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q16A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q16A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q16A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q16A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q16A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q17",
+      "text": {
+        "en": "If I use Mobistudy, I can provide better health information to people who take care of me",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q17A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q17A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q17A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q17A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q17A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q18",
+      "text": {
+        "en": "I don’t want Mobistudy to change the way I deal with health-related problems",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q18A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q18A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q18A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q18A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q18A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q19",
+      "text": {
+        "en": "I don’t want Mobistudy to change the way I deal with health-related problems",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q19A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q19A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q19A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q19A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q19A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q20",
+      "text": {
+        "en": "Using Mobistudy will promote me to manage health more actively",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q20A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q20A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q20A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q20A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q20A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q21",
+      "text": {
+        "en": "Using Mobistudy is a good idea",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q21A1",
+          "text": {
+            "en": "1. I strongly agree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q21A2",
+          "text": {
+            "en": "2. I agree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q21A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q21A4",
+          "text": {
+            "en": "4. I disagree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q21A5",
+          "text": {
+            "en": "5. I strongly disagree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    }
+  ]
 }
