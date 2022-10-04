@@ -20,6 +20,7 @@
             ></div>
           </div>
 
+          <!-- freetext -->
           <q-input
             v-show="currentQuestion.type === 'freetext'"
             v-model="freetextAnswer"
@@ -28,6 +29,9 @@
             rows="3"
             outlined
           />
+
+          <!-- number -->
+
           <q-input
             v-show="currentQuestion.type === 'number'"
             v-model.number="numberAnswer"
@@ -41,6 +45,24 @@
             ]"
             outlined
           />
+
+          <!-- time -->
+
+          <div
+            v-if="currentQuestion.type === 'time'"
+            class="row justify-center"
+          >
+            <q-input
+              v-model="timeAnswer"
+              type="time"
+              outlined
+              style="width: 150px;"
+              :rules="timeRules"
+            />
+          </div>
+
+          <!-- slider -->
+
           <div
             v-if="currentQuestion.type === 'slider'"
             class="text-center"
@@ -56,6 +78,9 @@
               />
             </div>
           </div>
+
+          <!-- singleChoice -->
+
           <div
             v-show="currentQuestion.type === 'singleChoice'"
             v-for="(answerChoice, index) in currentQuestion.answerChoices"
@@ -76,6 +101,9 @@
               outlined
             />
           </div>
+
+          <!-- multiChoice -->
+
           <div
             v-show="currentQuestion.type === 'multiChoice'"
             v-for="(answerChoice, index) in currentQuestion.answerChoices"
@@ -180,6 +208,7 @@ import phone from 'modules/phone/phone'
 import API from 'modules/API/API'
 import DB from 'modules/db'
 import userinfo from 'modules/userinfo'
+import { testPattern } from 'quasar/src/utils/patterns'
 
 export default {
   name: 'FormPage',
@@ -195,6 +224,7 @@ export default {
       oldResponses: [],
       freetextAnswer: undefined,
       numberAnswer: undefined,
+      timeAnswer: undefined,
       singleChoiceAnswer: undefined,
       singleChoiceAnswerFreeText: undefined,
       multiChoiceAnswer: [],
@@ -202,7 +232,10 @@ export default {
       finished: false,
       currentQuestion: undefined,
       loading: false,
-      slideName: ''
+      slideName: '',
+      timeRules: [
+        val => !val || testPattern.time(val) || this.$t('studies.tasks.form.timeNotValid')
+      ]
     }
   },
   async created () {
@@ -244,14 +277,17 @@ export default {
         (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
         (this.currentQuestion.type === 'number' && (this.numberAnswer || this.numberAnswer === 0)) ||
         (this.currentQuestion.type === 'slider' && (this.numberAnswer || this.numberAnswer === 0)) ||
+        (this.currentQuestion.type === 'time' && this.timeAnswer) ||
         (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
         (this.currentQuestion.type === 'textOnly')
     },
     isValidAnswer () {
+      console.log(this.timeAnswer)
       return (this.currentQuestion.type === 'singleChoice' && this.singleChoiceAnswer) ||
         (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
         (this.currentQuestion.type === 'number' && (!this.numberAnswer || (
           this.numberAnswer >= this.currentQuestion.min && this.numberAnswer <= this.currentQuestion.max))) ||
+        (this.currentQuestion.type === 'time' && this.timeAnswer) ||
         (this.currentQuestion.type === 'slider' && (this.numberAnswer || this.numberAnswer === 0)) ||
         (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
         (this.currentQuestion.type === 'textOnly')
@@ -273,6 +309,8 @@ export default {
         answer.answer = this.freetextAnswer
       } else if (this.currentQuestion.type === 'number') {
         answer.answer = this.numberAnswer
+      } else if (this.currentQuestion.type === 'time') {
+        answer.answer = this.timeAnswer
       } else if (this.currentQuestion.type === 'slider') {
         answer.answer = this.numberAnswer
       } else if (this.currentQuestion.type === 'singleChoice') {
@@ -319,6 +357,7 @@ export default {
       // reset fields
       this.freetextAnswer = undefined
       this.numberAnswer = undefined
+      this.timeAnswer = undefined
       this.multiChoiceAnswer = []
       this.singleChoiceAnswer = undefined
       this.singleChoiceAnswerFreeText = undefined
@@ -341,6 +380,8 @@ export default {
           const nextQuestion = this.formDescr.questions.find(x => x.id === nextQuestionId)
           if (nextQuestion.type === 'freetext') {
             this.freetextAnswer = this.oldResponses[1].answer
+          } if (nextQuestion.type === 'time') {
+            this.timeAnswer = this.oldResponses[1].answer
           } else if (nextQuestion.type === 'number' || nextQuestion.type === 'slider') {
             this.numberAnswer = this.oldResponses[1].answer
           } else if (nextQuestion.type === 'singleChoice') {
@@ -375,6 +416,7 @@ export default {
       this.slideName = ''
       this.freetextAnswer = undefined
       this.numberAnswer = undefined
+      this.timeAnswer = undefined
       this.multiChoiceAnswer = []
       this.singleChoiceAnswer = undefined
       this.singleChoiceAnswerFreeText = undefined
@@ -389,6 +431,8 @@ export default {
           this.freetextAnswer = lastResponse.answer
         } else if (this.currentQuestion.type === 'number') {
           this.numberAnswer = lastResponse.answer
+        } else if (this.currentQuestion.type === 'time') {
+          this.timeAnswer = lastResponse.answer
         } else if (this.currentQuestion.type === 'slider') {
           this.numberAnswer = lastResponse.answer
         } else if (this.currentQuestion.type === 'singleChoice') {
@@ -420,6 +464,7 @@ export default {
       }
       if (this.currentQuestion.type === 'freetext') this.freetextAnswer = undefined
       if (this.currentQuestion.type === 'number') this.numberAnswer = undefined
+      if (this.currentQuestion.type === 'time') this.timeAnswer = undefined
       if (this.currentQuestion.type === 'slider') this.numberAnswer = undefined
       if (this.currentQuestion.type === 'multiChoice') {
         this.multiChoiceAnswer = []

@@ -71,7 +71,8 @@ let studies = {
         freeTextExplanation: 'Type your answer',
         removeAnswer: 'Remove answer',
         numberTooSmall: 'Too small',
-        numberTooBig: 'Too big'
+        numberTooBig: 'Too big',
+        timeNotValid: 'Must be a valid time'
       }
     },
     consent: {

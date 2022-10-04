@@ -71,7 +71,8 @@ let studies = {
         freeTextExplanation: 'Skriv ditt svar',
         removeAnswer: 'Ta bort svar',
         numberTooSmall: 'För litet',
-        numberTooBig: 'För stort'
+        numberTooBig: 'För stort',
+        timeNotValid: 'Måste vara en giltig tid'
       }
     },
     consent: {

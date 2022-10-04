@@ -181,8 +181,27 @@ export default {
         es: 'Se puede insertar un numero entre 1 y 10.'
       },
       type: 'number',
+      nextDefaultId: 'Q7'
+    },
+
+    {
+      id: 'Q7',
+      text: {
+        en: 'Example of time question.',
+        sv: 'Exempel på timmefråga.',
+        es: 'Ejemplo de pregunta de horario.'
+      },
+      min: 1,
+      max: 10,
+      helper: {
+        en: 'Hour and minutes.',
+        sv: 'Timme och minuter.',
+        es: 'Hora y minutos.'
+      },
+      type: 'time',
       nextDefaultId: 'ENDFORM'
     }
+
   ],
   createdTS: '2018-11-09T10:49:50.473Z'
 }
