@@ -76,7 +76,7 @@ export default {
       if (this.studyDescription.consent.extraItems && this.studyDescription.consent.extraItems.length) {
         for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
           if (!this.studyDescription.consent.extraItems[i].optional) {
-            if (!this.studyParticipation.extraItemsConsent.consented) return false
+            if (!this.studyParticipation.extraItemsConsent[i].consented) return false
           }
         }
       }
