@@ -108,7 +108,9 @@ export default {
       if (taskType === 'dataQuery') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.dataQuery.OSpermissioniOS')
-        } else this.permissionMessage = this.$t('studies.tasks.dataQuery.OSpermissionAndroid')
+        } else {
+          this.permissionMessage = this.$t('studies.tasks.dataQuery.OSpermissionAndroid')
+        }
       } else if (taskType === 'smwt') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.smwt.OSpermissioniOS')
@@ -116,36 +118,59 @@ export default {
       } else if (taskType === 'qcst') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.qcst.OSpermissioniOS')
-        } else this.permissionMessage = this.$t('studies.tasks.qcst.OSpermissionAndroid')
+        } else {
+          this.permissionMessage = this.$t('studies.tasks.qcst.OSpermissionAndroid')
+        }
       } else if (taskType === 'miband3') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.miband3.OSpermissioniOS')
-        } else this.permissionMessage = this.$t('studies.tasks.miband3.OSpermissionAndroid')
+        } else {
+          this.permissionMessage = this.$t('studies.tasks.miband3.OSpermissionAndroid')
+        }
       } else if (taskType === 'po60') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.po60.OSpermissioniOS')
-        } else this.permissionMessage = this.$t('studies.tasks.po60.OSpermissionAndroid')
+        } else {
+          this.permissionMessage = this.$t('studies.tasks.po60.OSpermissionAndroid')
+        }
       } else if (taskType === 'position') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.position.OSpermissioniOS')
-        } else this.permissionMessage = this.$t('studies.tasks.position.OSpermissionAndroid')
+        } else {
+          this.permissionMessage = this.$t('studies.tasks.position.OSpermissionAndroid')
+        }
       } else if (taskType === 'peakFlow') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissioniOS')
-        } else this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissionAndroid')
+        } else {
+          this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissionAndroid')
+        }
       } else if (taskType === 'tugt') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.tugt.OSpermissioniOS')
-        } else return true
+        } else {
+          // permissions for motion and orientation are only really needed on iOS
+          // see https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEvent
+
+          return true
+        }
       } else if (taskType === 'holdPhone') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.holdPhone.OSpermissioniOS')
-        } else return true
+        } else {
+          // permissions for motion and orientation are only really needed on iOS
+          // see https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEvent
+
+          return true
+        }
       } else if (taskType === 'vocalization') {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.vocalization.OSpermissioniOS')
-        } else return true
+        } else {
+          this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissionAndroid')
+        }
       } else return true
+
       this.permissionDialog = true
       return new Promise((resolve, reject) => {
         this.acceptOSWarning = resolve
@@ -192,6 +217,8 @@ export default {
           } else if (taskType === 'peakFlow') {
             await peakflow.requestPermission()
           } else if (taskType === 'tugt') {
+            // permissions for motion and orientation are only really needed on iOS
+            // see https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEvent
             if (await phone.motion.isAvailable()) {
               await phone.motion.requestPermission()
             }
@@ -199,6 +226,8 @@ export default {
               await phone.orientation.requestPermission()
             }
           } else if (taskType === 'holdPhone') {
+            // permissions for motion and orientation are only really needed on iOS
+            // see https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEvent
             if (await phone.orientation.isAvailable()) {
               await phone.orientation.requestPermission()
             }
