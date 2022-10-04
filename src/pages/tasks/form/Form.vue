@@ -181,14 +181,14 @@
       <div class="row justify-around q-ma-lg">
         <q-btn
           color="secondary"
-          :loading="loading"
+          :loading="sending"
           :label="$t('common.discard')"
           @click="discard()"
         />
         <q-btn
           color="primary"
           @click="send()"
-          :loading="loading"
+          :loading="sending"
           :label="$t('common.send')"
         />
       </div>
@@ -233,11 +233,27 @@ export default {
       multiChoiceAnswerFreeText: [],
       finished: false,
       currentQuestion: undefined,
-      loading: false,
+      sending: false,
       slideName: '',
       timeRules: [
         val => !val || testPattern.time(val) || this.$t('studies.tasks.form.timeNotValid')
-      ]
+      ],
+      report: {
+        userKey: userinfo.user._key,
+        participantKey: userinfo.user.participantKey,
+        studyKey: this.studyKey,
+        taskId: parseInt(this.taskId),
+        taskType: 'form',
+        createdTS: new Date(),
+        phone: phone.device,
+        summary: {
+          startedTS: new Date(),
+          completedTS: undefined,
+          asked: undefined,
+          answered: undefined
+        },
+        data: undefined
+      }
     }
   },
   async created () {
@@ -472,25 +488,29 @@ export default {
         this.multiChoiceAnswerFreeText = []
       }
     },
-    async send () {
-      this.loading = true
-      const studyKey = this.studyKey
-      const taskId = Number(this.taskId)
-      let answers = {
-        userKey: userinfo.user._key,
-        studyKey: studyKey,
-        taskId: taskId,
-        createdTS: new Date(),
-        phone: phone.device,
-        responses: this.responses
-      }
+
+    async saveAndLeave () {
+      this.report.summary.completedTS = new Date()
+      this.report.summary.asked = this.responses.length
+      this.report.summary.answered = this.responses.reduce(
+        (prev, current) => prev + (current.answer !== undefined),
+        0
+      )
+      this.report.data = this.responses
+
+      console.log(this.report)
+
       try {
-        await API.sendAnswers(answers)
-        await DB.setTaskCompletion(studyKey, taskId, new Date())
-        this.$router.push('/home')
+        await API.sendTasksResults(this.report)
+        await DB.setTaskCompletion(
+          this.report.studyKey,
+          this.report.taskId,
+          new Date()
+        )
+        this.$router.push({ name: 'home' })
       } catch (error) {
+        this.sending = false
         console.error(error)
-        this.loading = false
         this.$q.notify({
           color: 'negative',
           message: this.$t('errors.connectionError') + ' ' + error.message,
@@ -498,29 +518,22 @@ export default {
         })
       }
     },
+    async send () {
+      this.sending = true
+
+      this.report.discarded = false
+
+      return this.saveAndLeave()
+    },
     async discard () {
-      this.loading = true
-      const studyKey = this.studyKey
-      const taskId = Number(this.taskId)
-      try {
-        await API.sendAnswers({
-          userKey: userinfo.user._key,
-          studyKey: studyKey,
-          taskId: taskId,
-          createdTS: new Date(),
-          responses: 'discarded'
-        })
-        await DB.setTaskCompletion(studyKey, taskId, new Date())
-        this.$router.push({ name: 'home' })
-      } catch (error) {
-        this.loading = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
-      }
+      this.sending = true
+
+      // delete data and set flag
+      this.report.discarded = true
+      delete this.report.summary
+      delete this.report.data
+
+      return this.saveAndLeave()
     }
   }
 }
