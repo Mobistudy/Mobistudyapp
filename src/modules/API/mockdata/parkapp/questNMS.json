@@ -264,7 +264,7 @@
       "id": "Q11",
       "text": {
         "en": "In the last month, have you experienced unexplained change in weight (not due to change in diet)?",
-        "sv": "Under den senaste månaden har du upplevt oförklarlig viktnedgång (utan förändrade matvanor)? "
+        "sv": "Under den senaste månaden har du upplevt oförklarlig viktnedgång (utan förändrade matvanor)?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -314,7 +314,7 @@
       "id": "Q13",
       "text": {
         "en": "In the last month, have you experienced loss of interest in what is happening around you or doing things?",
-        "sv": "Under den senaste månaden har du upplevt förlorat intresset för det som händer runt omkring dig eller för att göra saker?."
+        "sv": "Under den senaste månaden har du upplevt förlorat intresset för det som händer runt omkring dig eller för att göra saker?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -564,7 +564,7 @@
       "id": "Q23",
       "text": {
         "en": "In the last month, have you experienced difficulty getting to sleep at night or staying asleep at night?",
-        "sv": "Under den senaste månaden har du upplevt svårigheter att somna på kvällen eller att sova under hela natten?."
+        "sv": "Under den senaste månaden har du upplevt svårigheter att somna på kvällen eller att sova under hela natten?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -739,7 +739,7 @@
       "id": "Q30",
       "text": {
         "en": "In the last month, have you believed things are happening to you that other people say are not true?",
-        "sv": "Under den senaste månaden har du trott att saker händer dig som andra människor säger inte har hänt i verkligheten?."
+        "sv": "Under den senaste månaden har du trott att saker händer dig som andra människor säger inte har hänt i verkligheten?"
       },
       "type": "singleChoice",
       "answerChoices": [
@@ -764,7 +764,7 @@
       "id": "Q31",
       "text": {
         "en": "Copyright © 2022 International Parkinson and Movement Disorder Society (MDS). All rights reserved. Adapted and used with permission of MDS. This derivative of the NMSQ has not been validated or tested for reliability.",
-        "sv": "Copyright © 2022 International Parkinsons and Movement Disorder Society (MDS). Alla rättigheter förbehållna. Anpassad och använd med tillstånd av MDS. Denna derivata av NMSQ har inte validerats eller testats för tillförlitlighet"
+        "sv": "Copyright © 2022 International Parkinsons and Movement Disorder Society (MDS). Alla rättigheter förbehållna. Anpassad och använd med tillstånd av MDS. Denna derivata av NMSQ har inte validerats eller testats för tillförlitlighet."
       },
       "type": "textOnly",
       "nextDefaultId": "ENDFORM"

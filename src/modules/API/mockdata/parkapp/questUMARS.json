@@ -328,7 +328,7 @@
         "sv": "Hur enkelt är det att lära sig hur man använder appen; hur tydliga är menyetiketter, ikoner och instruktioner?",
         "es": "¿Es fácil aprender a usar la aplicación; las etiquetas/iconos del menú y las instrucciones son claras? "
       },
-      "type": "singlChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q7A1",
@@ -532,7 +532,7 @@
         "sv": "Hur hög är kvaliteten/upplösningen för grafik som används för knappar, ikoner, menyer och innehåll?",
         "es": "¿Cómo es la calidad/ resolución de los gráficos usados como botones/ iconos/ menús/ contenidos?"
       },
-      "type": "singlChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q11A1",
@@ -690,7 +690,7 @@
       "id": "Q14",
       "text": {
         "en": "Is the information within the app comprehensive but concise?",
-        "sv": "",
+        "sv": "Är informationen i appen omfattande men koncis?",
         "es": "¿La información incluida en la App es exhaustiva y concisa?"
       },
       "type": "singleChoice",
@@ -977,41 +977,41 @@
         {
           "id": "Q19A1",
           "text": {
-            "en": "1. 1 star. One of the worst apps I've used",
-            "sv": "1. 1 stjärna. En av de sämsta apparna jag har använt",
-            "es": "1. 1 estrella. Una de las peores App que he usado"
+            "en": "1. ⭐ One of the worst apps I've used",
+            "sv": "1. ⭐ En av de sämsta apparna jag har använt",
+            "es": "1. ⭐ Una de las peores App que he usado"
           }
         },
         {
           "id": "Q19A2",
           "text": {
-            "en": "2. 2 stars",
-            "sv": "2. 2 stjärnor",
-            "es": "2. 2 estrellas"
+            "en": "2. ⭐⭐",
+            "sv": "2. ⭐⭐",
+            "es": "2. ⭐⭐"
           }
         },
         {
           "id": "Q19A3",
           "text": {
-            "en": "3. 3 stars. Average",
-            "sv": "3. 3 stjärnor. Genomsnitt",
-            "es": "3. 3 estrellas. Promedio"
+            "en": "3. ⭐⭐⭐ Average",
+            "sv": "3. ⭐⭐⭐ Genomsnitt",
+            "es": "3. ⭐⭐⭐ Promedio"
           }
         },
         {
           "id": "Q19A4",
           "text": {
-            "en": "4. 4 stars.",
-            "sv": "4. 4 stjärnor",
-            "es": "4. 4 estrellas"
+            "en": "4. ⭐⭐⭐⭐",
+            "sv": "4. ⭐⭐⭐⭐",
+            "es": "4. ⭐⭐⭐⭐"
           }
         },
         {
           "id": "Q19A5",
           "text": {
-            "en": "5. 5 stars. One of the best apps I've used",
-            "sv": "5. 5 stjärnor. En av de bästa apparna jag har använt",
-            "es": "5. 5 starts. Una de las mejores App que he usado"
+            "en": "5. ⭐⭐⭐⭐⭐ One of the best apps I've used",
+            "sv": "5. ⭐⭐⭐⭐⭐ En av de bästa apparna jag har använt",
+            "es": "5. ⭐⭐⭐⭐⭐ Una de las mejores App que he usado"
           }
         }
       ]
@@ -1278,7 +1278,7 @@
         "sv": "Appen har ökat min medvetenhet om vikten av att delta i kliniska studier.",
         "es": "Mobistudy ha aumentado mi conciencia sobre la importancia de participar en estudios clínicos."
       },
-      "type": "singlChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q25A1",
@@ -1329,7 +1329,7 @@
         "sv": "Appen har ökat min kunskap/förståelse om kliniska studier.",
         "es": "Mobistudy ha aumentado mi conocimiento/comprensión sobre la participación en estudios clínicos."
       },
-      "type": "singlChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q26A1",
@@ -1482,7 +1482,7 @@
         "sv": "Användning av appen kommer att öka mitt deltagande i kliniska studier",
         "es": "El uso de esta App aumentará mi participación en estudios clínicos."
       },
-      "type": "singlChoice",
+      "type": "singleChoice",
       "answerChoices": [
         {
           "id": "Q29A1",
