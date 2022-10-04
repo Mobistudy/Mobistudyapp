@@ -478,10 +478,10 @@
     "extraItems": [
       {
         "description": {
-          "en": "I agree to take part in an interview about the use of the app, at the end of the study.",
-          "sv": "Jag går med på att delta i en intervju om användningen av appen, i slutet av studien."
+          "en": "I agree to undergo 2 Parkinson's related clinical assessments in 2 months.",
+          "sv": "Jag samtycker till att genomgå 2 Parkinsonsrelaterade kliniska bedömningar inom 2 månader."
         },
-        "optional": true
+        "optional": false
       },
       {
         "description": {
@@ -492,10 +492,10 @@
       },
       {
         "description": {
-          "en": "I agree to undergo 2 Parkinson's related clinical assessments in 2 months.",
-          "sv": "Jag samtycker till att genomgå 2 Parkinsonsrelaterade kliniska bedömningar inom 2 månader."
+          "en": "I agree to take part in an interview about the use of the app, at the end of the study.",
+          "sv": "Jag går med på att delta i en intervju om användningen av appen, i slutet av studien."
         },
-        "optional": false
+        "optional": true
       }
     ]
   }

@@ -13,6 +13,7 @@ import BDI2 from './mockdata/parkapp/questBDI2'
 import PDQ8 from './mockdata/parkapp/questPDQ8'
 import UMARS from './mockdata/parkapp/questUMARS'
 import TAM from './mockdata/parkapp/questTAM'
+import dailySleep from './mockdata/parkapp/questDailySleep'
 
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
@@ -267,6 +268,10 @@ export default {
       } else if (key === TAM._key) {
         setTimeout(function () {
           resolve(TAM)
+        }, 500)
+      } else if (key === dailySleep._key) {
+        setTimeout(function () {
+          resolve(dailySleep)
         }, 500)
       } else {
         reject(new Error('Questionnaire not found ' + key))
