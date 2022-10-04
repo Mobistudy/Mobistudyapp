@@ -5,12 +5,12 @@ export default {
   introductionSlides: [
     {
       title: 'Introduktion',
-      img: 'instructions/fingertapping_1.png',
+      img: 'instructions/fingertapping1.svg',
       description: 'I denna uppgift växlar du så fort du kan mellan att trycka med pekfingret och långfingret på skärmen av din telefon.'
     },
     {
       title: 'Förberedelser',
-      img: 'instructions/fingertapping_1.png',
+      img: 'instructions/fingertapping2.svg',
       description: `Placera din telefon på ett plant underlag såsom ett bord före testet påbörjas. Så snabbt du kan, växla mellan att trycka på knapparna 1 och 2 med ditt pekfinger och långfinger på din dominanta hand (höger om du är högerhänt, vänster om du är vänsterhänt). Försök hålla samma takt i 20 sekunder.`
     }
   ],
