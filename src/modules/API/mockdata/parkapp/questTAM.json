@@ -1091,6 +1091,669 @@
           }
         }
       ]
+    },
+    {
+      "id": "Q22",
+      "text": {
+        "en": "I plan to use the Mobistudy app in the next 3 months.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q22A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q22A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q22A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q22A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q22A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q23",
+      "text": {
+        "en": "I like the idea of using the Mobistudy app.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q23A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q23A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q23A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q23A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q23A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q24",
+      "text": {
+        "en": "People who influence my behaviour think that I should use the Mobistudy app.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q24A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q24A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q24A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q24A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q24A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q25",
+      "text": {
+        "en": "I have the knowledge necessary to use the Mobistudy app.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q25A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q25A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q25A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q25A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q25A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q26",
+      "text": {
+        "en": "Using the Mobistudy app will make my life more convenient.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q26A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q26A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q26A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q26A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q26A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q27",
+      "text": {
+        "en": "Overall, the Mobistudy app is easy to use.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q27A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q27A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q27A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q27A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q27A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q27",
+      "text": {
+        "en": "Overall, the Mobistudy app is easy to use.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q27A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q27A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q27A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q27A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q27A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q28",
+      "text": {
+        "en": "I am at risk for having a decompensation.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q28A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q28A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q28A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q28A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q28A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q29",
+      "text": {
+        "en": "If I suffered a decompensation, it would be significant.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q29A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q29A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q29A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q29A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q29A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q30",
+      "text": {
+        "en": "The Mobistudy apps works for solving this problem.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q30A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q30A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q30A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q30A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q30A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q31",
+      "text": {
+        "en": "It is easy for me to use the Mobistudy app.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q31A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q31A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q31A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q31A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q31A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q32",
+      "text": {
+        "en": "I have to spend effort on learning how to use the app.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q32A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q32A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q32A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q32A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q32A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q33",
+      "text": {
+        "en": "Using the Mobistudy app will affect my life style.",
+        "sv": "",
+        "es": ""
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q33A1",
+          "text": {
+            "en": "1. I strongly disagree",
+            "sv": "",
+            "es": ""
+          }
+        },
+        {
+          "id": "Q33A2",
+          "text": {
+            "en": "2. I somewhat disagree",
+            "sv": "2. ",
+            "es": "2. "
+          }
+        },
+        {
+          "id": "Q33A3",
+          "text": {
+            "en": "3. I neither agree nor disagree",
+            "sv": "3. ",
+            "es": "3. "
+          }
+        },
+        {
+          "id": "Q33A4",
+          "text": {
+            "en": "4. I somewhat agree",
+            "sv": "4. ",
+            "es": "4. "
+          }
+        },
+        {
+          "id": "Q33A5",
+          "text": {
+            "en": "5. I strongly agree",
+            "sv": "5. ",
+            "es": "5. "
+          }
+        }
+      ]
     }
   ]
 }
