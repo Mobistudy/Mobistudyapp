@@ -5,8 +5,8 @@
     </div>
     <div
       class="q-my-md"
-      style="white-space: pre-line;"
-    >{{studyDescription.consent.privacyPolicy[$i18n.locale]}}</div>
+      v-html="studyDescription.consent.privacyPolicy[$i18n.locale]"
+    ></div>
 
     <div class="q-my-md row justify-around">
       <q-btn
