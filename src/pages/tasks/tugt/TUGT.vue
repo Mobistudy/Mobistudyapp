@@ -151,7 +151,8 @@ export default {
         phone: phone.device,
         summary: {
           startedTS: this.startedTS,
-          completedTS: new Date()
+          completedTS: new Date(),
+          durationMs: new Date().getTime() - this.startedTS.getTime() // TODO: compute the duration of the test using a better algorithm
         },
         data: {
           motion: motions,
