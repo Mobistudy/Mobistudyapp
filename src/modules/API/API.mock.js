@@ -10,6 +10,9 @@ import parkAppStudy from './mockdata/parkapp/studyParkapp'
 import NMSQuest from './mockdata/parkapp/questNMS'
 import PDSS2 from './mockdata/parkapp/questPDSS2'
 import BDI2 from './mockdata/parkapp/questBDI2'
+import PDQ8 from './mockdata/parkapp/PDQ8'
+import UMARS from './mockdata/parkapp/UMARS'
+import TAM from './mockdata/parkapp/TAM'
 
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
@@ -252,6 +255,18 @@ export default {
       } else if (key === BDI2._key) {
         setTimeout(function () {
           resolve(BDI2)
+        }, 500)
+      } else if (key === PDQ8._key) {
+        setTimeout(function () {
+          resolve(PDQ8)
+        }, 500)
+      } else if (key === UMARS._key) {
+        setTimeout(function () {
+          resolve(UMARS)
+        }, 500)
+      } else if (key === TAM._key) {
+        setTimeout(function () {
+          resolve(TAM)
         }, 500)
       } else {
         reject(new Error('Questionnaire not found ' + key))
