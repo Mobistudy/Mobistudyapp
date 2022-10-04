@@ -29,8 +29,8 @@
     {
       "id": "Q3",
       "text": {
-        "en": "Hur upplevde du nattens sömnkvalitet?",
-        "sv": "Vilken tid vaknade du?"
+        "en": "How did you perceive the quality of sleep last night?",
+        "sv": "Hur upplevde du nattens sömnkvalitet?"
       },
       "type": "singleChoice",
       "answerChoices": [
