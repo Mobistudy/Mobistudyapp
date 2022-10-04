@@ -110,8 +110,8 @@ export default {
       ctx.fillStyle = '#459399'
       ctx.fillRect(x, y, 4, 4)
 
-      // create the coordinates object taht will be stored
-      let ts = new Date().getTime() - this.startTS
+      // create the coordinates object that will be stored
+      let ts = new Date().getTime() - this.startedTS
       let point = {
         x: x,
         y: y,
