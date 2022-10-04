@@ -90,6 +90,7 @@
               v-model="singleChoiceAnswer"
               :val="answerChoice.id"
               :label="answerChoice.text[$i18n.locale]"
+              class="q-mt-md"
             />
             <q-input
               v-show="answerChoice.includeFreeText"
@@ -113,6 +114,7 @@
               v-model="multiChoiceAnswer"
               :val="answerChoice.id"
               :label="answerChoice.text[$i18n.locale]"
+              class="q-mt-md"
             />
             <q-input
               v-show="answerChoice.includeFreeText"
@@ -140,7 +142,7 @@
           @click="clearAnswer()"
         />
       </div>
-      <div class="row justify-around q-mb-xl q-mt-md">
+      <div class="row justify-around q-mb-xl q-mt-lg">
         <q-btn
           v-show="!isFirstQuestion"
           icon="arrow_back"
@@ -282,7 +284,6 @@ export default {
         (this.currentQuestion.type === 'textOnly')
     },
     isValidAnswer () {
-      console.log(this.timeAnswer)
       return (this.currentQuestion.type === 'singleChoice' && this.singleChoiceAnswer) ||
         (this.currentQuestion.type === 'freetext' && this.freetextAnswer) ||
         (this.currentQuestion.type === 'number' && (!this.numberAnswer || (
