@@ -53,17 +53,29 @@ export default {
   async created () {
     const formKey = this.formKey
 
-    let formDescr = await DB.getFormDescription(formKey)
-    if (!formDescr) {
-      // we need to retrieve it from the API
-      this.$q.loading.show()
-      formDescr = await API.getForm(formKey)
-      await DB.setFormDescription(formKey, formDescr)
-      this.$q.loading.hide()
+    try {
+      let formDescr = await DB.getFormDescription(formKey)
+      if (!formDescr) {
+        // we need to retrieve it from the API
+        this.$q.loading.show()
+        formDescr = await API.getForm(formKey)
+        await DB.setFormDescription(formKey, formDescr)
+      }
+      this.title = formDescr.name[this.$i18n.locale]
+      this.description = formDescr.description[this.$i18n.locale]
+    } catch (error) {
+      console.error(error)
+      this.$q.notify({
+        color: 'negative',
+        message: 'Cannot retrieve information for form ' + this.formKey + ', ' + error.message,
+        icon: 'report_problem',
+        onDismiss: () => {
+          this.$router.go(-1)
+        }
+      })
     }
-
-    this.title = formDescr.name[this.$i18n.locale]
-    this.description = formDescr.description[this.$i18n.locale]
+    this.$q.loading.hide()
+    this.isRetrieving = false
   }
 }
 </script>

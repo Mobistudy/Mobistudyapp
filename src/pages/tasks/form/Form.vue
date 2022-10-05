@@ -267,7 +267,6 @@ export default {
         this.$q.loading.show()
         formDescr = await API.getForm(formKey)
         await DB.setFormDescription(formKey, formDescr)
-        this.$q.loading.hide()
       }
       this.formDescr = formDescr
       this.currentQuestion = this.formDescr.questions[0]
@@ -283,6 +282,7 @@ export default {
         }
       })
     }
+    this.$q.loading.hide()
     this.isRetrieving = false
   },
   computed: {
@@ -497,8 +497,6 @@ export default {
         0
       )
       this.report.data = this.responses
-
-      console.log(this.report)
 
       try {
         await API.sendTasksResults(this.report)
