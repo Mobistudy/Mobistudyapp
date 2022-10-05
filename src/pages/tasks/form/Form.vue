@@ -175,10 +175,16 @@
     </div>
 
     <div v-if="finished">
-      <div class="text-center text-h6">
+      <div class="text-center text-h6 q-mt-md">
         {{$t('studies.tasks.form.formCompleted')}}
       </div>
-      <div class="row justify-around q-ma-lg">
+      <div class="text-center q-my-md">
+        {{$t('studies.tasks.form.askedQuestions') + asked}}
+      </div>
+      <div class="text-center q-my-md">
+        {{$t('studies.tasks.form.answeredQuestions') + answered}}
+      </div>
+      <div class="row justify-around q-mt-lg">
         <q-btn
           color="secondary"
           :loading="sending"
@@ -308,6 +314,15 @@ export default {
         (this.currentQuestion.type === 'slider' && (this.numberAnswer || this.numberAnswer === 0)) ||
         (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
         (this.currentQuestion.type === 'textOnly')
+    },
+    asked () {
+      return this.responses.length
+    },
+    answered () {
+      return this.responses.reduce(
+        (prev, current) => prev + (current.answer !== undefined),
+        0
+      )
     }
   },
   methods: {
@@ -491,11 +506,8 @@ export default {
 
     async saveAndLeave () {
       this.report.summary.completedTS = new Date()
-      this.report.summary.asked = this.responses.length
-      this.report.summary.answered = this.responses.reduce(
-        (prev, current) => prev + (current.answer !== undefined),
-        0
-      )
+      this.report.summary.asked = this.asked
+      this.report.summary.answered = this.answered
       this.report.data = this.responses
 
       try {

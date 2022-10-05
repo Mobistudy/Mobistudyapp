@@ -68,6 +68,8 @@ let studies = {
         title: '{formname} form',
         shortDescription: 'Answer a few questions',
         formCompleted: 'Form completed. Thank you.',
+        askedQuestions: 'Asked questions:',
+        answeredQuestions: 'Answered questions:',
         freeTextExplanation: 'Type your answer',
         removeAnswer: 'Remove answer',
         numberTooSmall: 'Too small',
