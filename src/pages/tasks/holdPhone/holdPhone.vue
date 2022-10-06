@@ -45,6 +45,8 @@
       v-show="testPhase % 2 != 0"
     >
       {{ $t('studies.tasks.holdPhone.instructions.afterStart') }}
+
+      <CountdownTimer :elapsed="timeElapsed" :limit="timeLimit"/>
     </div>
 
     <div class="row justify-center q-mt-xl">
@@ -61,8 +63,9 @@
 <script>
 import phone from 'modules/phone/phone'
 import userinfo from 'modules/userinfo'
+import CountdownTimer from 'components/CountdownTimer'
 
-const TEST_DURATION = 10 // 10 sec
+const TEST_DURATION = 60 // 10 sec
 
 // buffers that hold orientation and motion data
 let orientations = []
@@ -74,9 +77,20 @@ export default {
     studyKey: String,
     taskId: Number
   },
+  // Start timer immediately
+  // mounted () {
+  //   this.startTimer()
+  // },
+  components: {
+    CountdownTimer
+  },
+
   data: function () {
     return {
       timer: undefined,
+      timeElapsed: 0,
+      timerInterval: undefined,
+      timeLimit: 60,
       report: {
         userKey: userinfo.user._key,
         participantKey: userinfo.user.participantKey,
@@ -134,9 +148,21 @@ export default {
 
   methods: {
 
+    startTimer () {
+      this.timerInterval = setInterval(() => {
+        // Stop counting when there is no more time left
+        if (++this.timeElapsed === this.timeLimit) {
+          clearInterval(this.timerInterval)
+        }
+      }, 1000)
+      // console.log('timeElapse + timeLimit = ', this.timeElapsed, this.timeLimit)
+    },
+
     async startTest () {
       this.testPhase++
       phone.screen.forbidSleep()
+
+      this.startTimer() // to start countdown on the screen
 
       if (this.testPhase % 2 !== 0) {
         // clean the buffers
@@ -217,6 +243,8 @@ export default {
       phone.orientation.stopNotifications()
       phone.motion.stopNotifications()
       phone.screen.allowSleep()
+
+      this.timeElapsed = 0 // reset timeElapsed for timeCounter on the screen
 
       phone.vibrate(2000)
 
