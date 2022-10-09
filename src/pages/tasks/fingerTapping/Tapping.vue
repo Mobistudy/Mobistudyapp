@@ -19,20 +19,22 @@
       />
     </div>
 
-    <div class="row justify-center q-mb-xl fixed-bottom">
-
+    <div
+      class="row justify-center q-mb-xl fixed-bottom"
+      ref="buttons"
+    >
       <q-btn
         round
         size="30px"
         color="secondary"
-        @click="leftTapped"
+        @touchstart="leftTapped"
         class="q-mr-lg"
       >1</q-btn>
       <q-btn
         round
         size="30px"
         color="secondary"
-        @click="rightTapped"
+        @touchstart="rightTapped"
         class="q-ml-lg"
       >2</q-btn>
     </div>
