@@ -4,19 +4,19 @@
       {{ $t('accountMgmt.registration.privacyPolicy') }}
     </div>
     <div
-      class="q-my-md"
+      class="q-my-md mobitxt1"
       v-html="$t('privacyPolicy')"
     ></div>
 
     <div class="q-my-md row justify-around">
       <q-btn
-        class="q-ma-sm"
+        class="q-ma-sm mobibtn"
         :label="$t('common.cancel')"
         color="negative"
         to="login"
       />
       <q-btn
-        class="q-ma-sm"
+        class="q-ma-sm mobibtn"
         :label="$t('common.accept')"
         color="primary"
         to="signup"

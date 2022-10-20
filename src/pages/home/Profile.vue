@@ -26,6 +26,7 @@
         <q-item-label caption>{{$t('accountMgmt.resetPassword.resetPasswordShort')}}</q-item-label>
         <div class="q-my-md">
           <q-btn
+            class="mobibtn"
             color="secondary"
             @click="resetPwd()"
             :label="$t('accountMgmt.resetPassword.resetPassword')"
@@ -48,6 +49,7 @@
         <q-item-label caption>{{$t('accountMgmt.login.logoutShort')}}</q-item-label>
         <div class="q-my-md">
           <q-btn
+            class="mobibtn"
             color="warning"
             :label="$t('accountMgmt.login.logout')"
             @click="logout()"
@@ -70,6 +72,7 @@
         <q-item-label caption>{{$t('accountMgmt.deleteShort')}}</q-item-label>
         <div class="q-my-md">
           <q-btn
+            class="mobibtn"
             color="negative"
             :label="$t('common.delete')"
             @click="deleteUser()"

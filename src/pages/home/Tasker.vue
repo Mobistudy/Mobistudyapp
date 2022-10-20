@@ -13,9 +13,10 @@
         icon="new_releases"
         type="warning"
       >
-        {{ $t('studies.newStudyAvailable') }}!
+        <span class="mobitxt2 text-weight-bold">{{ $t('studies.newStudyAvailable') }}!</span>
         <template v-slot:action>
           <q-btn
+            class="mobibtn"
             color="blue"
             :label="$t('studies.checkNewStusy')"
             to="studies"
@@ -27,7 +28,7 @@
       <!-- Message for when there are not studies -->
       <q-item-label
         v-if="nostudies"
-        class="q-title fixed-center"
+        class="q-title fixed-center mobitxt2"
       >
         {{ $t('studies.noStudies') }}
       </q-item-label>
@@ -38,7 +39,10 @@
         highlight
       >
         <!-- Pending tasks list -->
-        <q-item-label header>
+        <q-item-label
+          header
+          class="mobitxt2"
+        >
           {{ $t('studies.tasks.pendingTasks') }}
         </q-item-label>
         <q-list
@@ -69,14 +73,17 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item-label>{{ $t('studies.tasks.noPendingTasks') }}</q-item-label>
+              <q-item-label class="mobitxt1">{{ $t('studies.tasks.noPendingTasks') }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
         <!-- end of pending tasks list -->
 
         <!-- Missed tasks list -->
-        <q-item-label header>
+        <q-item-label
+          header
+          class="mobitxt2"
+        >
           {{ $t('studies.tasks.missedTasks') }}
         </q-item-label>
         <q-list
@@ -107,7 +114,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item-label>{{ $t('studies.tasks.noMissedTasks') }}</q-item-label>
+              <q-item-label class="mobitxt1">{{ $t('studies.tasks.noMissedTasks') }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -115,7 +122,10 @@
 
         <!-- AlwaysOn tasks list -->
         <div v-if="tasks.alwaysOn.length > 0">
-          <q-item-label header>
+          <q-item-label
+            header
+            class="mobitxt2"
+          >
             {{ $t('studies.tasks.alwaysOnTasks') }}
           </q-item-label>
           <q-list

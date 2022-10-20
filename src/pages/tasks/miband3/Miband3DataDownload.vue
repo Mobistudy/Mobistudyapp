@@ -1,7 +1,7 @@
 <template>
   <q-page id="main">
     <div v-show="!isDownloading">
-      <p class="q-pa-md">{{ $t('studies.tasks.miband3.chartsIntro') }}</p>
+      <p class="q-pa-md mobitxt1">{{ $t('studies.tasks.miband3.chartsIntro') }}</p>
       <div class="text-center text-h6">
         {{ $t('studies.tasks.miband3.lineChart') }}
       </div>
@@ -39,12 +39,14 @@
       <q-separator></q-separator>
       <div class="row justify-around q-my-lg">
         <q-btn
-          color="secondary"
+          class="mobibtn"
+          color="negative"
           :loading="isSending"
           :label="$t('common.discard')"
           @click="discard()"
         />
         <q-btn
+          class="mobibtn"
           color="primary"
           :loading="isSending"
           :label="$t('common.send')"

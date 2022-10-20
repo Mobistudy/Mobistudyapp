@@ -1,5 +1,8 @@
 <template>
-  <q-page padding>
+  <q-page
+    padding
+    class="mobitxt1"
+  >
     <p class="text-h6 text-center q-pt-md">{{$t('about.license')}}</p>
     <p>
       MIT License

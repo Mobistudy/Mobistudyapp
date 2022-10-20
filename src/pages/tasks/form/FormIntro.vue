@@ -8,14 +8,14 @@
         {{title}}
       </div>
       <div
-        class="text-justify q-mt-lg"
+        class="text-justify q-mt-lg mobitxt1"
         v-html="description"
       >
       </div>
 
       <q-btn
         color="primary q-mt-xl"
-        class="full-width"
+        class="full-width mobibtn"
         @click="start()"
         replace
         :label="$t('common.start')"

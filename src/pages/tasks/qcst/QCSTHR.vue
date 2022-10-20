@@ -2,8 +2,8 @@
   <q-page padding>
     <q-item-section id="heartRate">
       <h6>{{ $t("studies.tasks.qcst.enterHR") }}</h6>
-      <p>
-        <i>{{ $t("studies.tasks.qcst.enterHRInstructions") }}</i>
+      <p class="mobitxt1 q-mb-lg">
+        {{ $t("studies.tasks.qcst.enterHRInstructions") }}
       </p>
       <q-input
         outlined
@@ -12,11 +12,11 @@
         type="number"
       />
       <q-btn
+        class="full-width mobibtn q-mt-lg"
         color="primary"
         @click="completeTest()"
         :label="$t('common.next')"
         :disable="!heartRate"
-        class="q-mt-md"
       />
     </q-item-section>
   </q-page>

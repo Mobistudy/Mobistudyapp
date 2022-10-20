@@ -1,1 +1,12 @@
 /* app global css */
+.mobibtn {
+  padding: 5px;
+}
+
+.mobitxt1 {
+  font-size: 1.1em;
+}
+
+.mobitxt2 {
+  font-size: 1.3em;
+}

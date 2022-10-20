@@ -19,6 +19,7 @@
     </q-input>
 
     <q-input
+      padding="md lg"
       :label="$t('accountMgmt.password')"
       type="password"
       @blur.native="$v.account.pw1.$touch"
@@ -32,6 +33,7 @@
     </q-input>
 
     <q-input
+      padding="md lg"
       :label="$t('accountMgmt.confirmPassword')"
       type="password"
       @blur.native="$v.account.pw2.$touch"
@@ -46,11 +48,13 @@
 
     <div class="row fit justify-around q-mt-lg">
       <q-btn
+        class="mobibtn"
         color="negative"
         to="/login"
         :label="$t('common.cancel')"
       />
       <q-btn
+        class="mobibtn"
         color="primary"
         :disable="$v.account.$error"
         @click="register()"

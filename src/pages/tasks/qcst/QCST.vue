@@ -3,27 +3,11 @@
     padding
     class="text-center"
   >
-    <div class="text-center text-h5 q-mt-lg">
+    <div class="text-center text-h5 q-my-lg">
       {{ $t('studies.tasks.qcst.title') }}
     </div>
 
     <p id="timer"> {{ minutes }}:{{ seconds }} </p>
-    <div class="row justify-center q-mt-lg">
-      <q-btn
-        @click="startTest"
-        v-if="!isStarted"
-        color="primary"
-        :label="$t('common.start')"
-        padding="lg"
-      />
-      <q-btn
-        @click="completeTest"
-        v-if="isStarted"
-        color="secondary"
-        :label="$t('common.complete')"
-        padding="lg"
-      />
-    </div>
     <q-btn
       padding="xl"
       color="black"
@@ -32,8 +16,24 @@
       icon="volume_up"
       class="q-mt-xl"
       ref="metronome_indicator"
-      v-if="isStarted"
+      :disabled="!isStarted"
     />
+    <div class="row justify-center q-mt-xl">
+      <q-btn
+        class="full-width mobibtn"
+        @click="startTest"
+        v-if="!isStarted"
+        color="primary"
+        :label="$t('common.start')"
+      />
+      <q-btn
+        class="full-width mobibtn"
+        @click="completeTest"
+        v-if="isStarted"
+        color="negative"
+        :label="$t('common.complete')"
+      />
+    </div>
 
   </q-page>
 </template>

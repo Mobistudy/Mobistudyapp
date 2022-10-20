@@ -34,12 +34,14 @@
     </div>
     <div class="row justify-around q-mt-lg">
       <q-btn
-        color="secondary"
+        class="mobibtn"
+        color="negative"
         :loading="sending"
         :label="$t('common.discard')"
         @click="discard()"
       />
       <q-btn
+        class="mobibtn"
         color="primary"
         :loading="sending"
         :label="$t('common.send')"

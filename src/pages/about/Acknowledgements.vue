@@ -1,7 +1,10 @@
 <template>
   <q-page padding>
     <p class="text-h6 text-center q-pt-md">{{$t('about.acknowledgements')}}</p>
-    <div v-html="$t('acknowledgements')"></div>
+    <div
+      class="mobitxt1"
+      v-html="$t('acknowledgements')"
+    ></div>
   </q-page>
 </template>
 

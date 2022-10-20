@@ -1,7 +1,10 @@
 <template>
   <q-page padding>
     <p class="text-h6 text-center q-pt-md">{{$t('about.contact')}}</p>
-    <div v-html="$t('contactFull')"></div>
+    <div
+      class="mobitxt1"
+      v-html="$t('contactFull')"
+    ></div>
     <div class="row justify-center">
       <img
         src="logos/malmo_logo.png"

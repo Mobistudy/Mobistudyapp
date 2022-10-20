@@ -2,7 +2,7 @@
   <q-page padding>
     <!-- content -->
     <div v-if="chartData">
-      <p>{{explanation}}</p>
+      <p class="mobitxt1">{{explanation}}</p>
       <bar-chart
         v-if="plotBar"
         :chart-data="chartData"
@@ -13,14 +13,16 @@
         :chart-data="chartData"
         :options="chartOptions"
       ></line-chart>
-      <div class="row justify-around">
+      <div class="q-mt-lg row justify-around">
         <q-btn
-          color="secondary"
+          class="mobibtn"
+          color="negative"
           :loading="loading"
           :label="$t('common.discard')"
           @click="discard()"
         />
         <q-btn
+          class="mobibtn"
           color="primary"
           :loading="loading"
           :label="$t('common.send')"

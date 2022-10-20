@@ -10,6 +10,7 @@
         </div>
         <div class="fit row justify-center q-mt-lg">
           <q-input
+            padding="md lg"
             class="col-grow"
             v-model="token"
             type="textarea"
@@ -24,6 +25,7 @@
         </div>
         <div class="fit row justify-center q-mt-lg">
           <q-input
+            padding="md lg"
             class="col-grow"
             :label="$t('accountMgmt.resetPassword.newPassword')"
             v-model="newpw"
@@ -35,6 +37,7 @@
         </div>
         <div class="fit row justify-center q-mt-lg">
           <q-input
+            padding="md lg"
             class="col-grow"
             :label="$t('accountMgmt.resetPassword.confirmPwd')"
             v-model="confpw"
@@ -47,6 +50,7 @@
         <div class="fit row justify-center q-mt-lg">
           <div class="q-ma-sm">
             <q-btn
+              padding="md lg"
               class="float-right"
               :label="$t('common.cancel')"
               color="secondary"
@@ -55,6 +59,7 @@
           </div>
           <div class="q-ma-sm">
             <q-btn
+              padding="md lg"
               class="float-right"
               :label="$t('accountMgmt.resetPassword.changePassword')"
               color="primary"

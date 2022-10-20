@@ -14,7 +14,7 @@
           src="imgs/MobistudyIntroScreens_1.svg"
           style="width: 100%"
         >
-        <div class="q-my-md text-center">
+        <div class="q-my-md text-center mobitxt2">
           {{$t('intro1')}}
         </div>
         <div style="height:50px;"></div>
@@ -26,7 +26,7 @@
           src="imgs/MobistudyIntroScreens_2.svg"
           style="width: 100%"
         >
-        <div class="q-my-md text-center">
+        <div class="q-my-md text-center mobitxt2">
           {{$t('intro2')}}
         </div>
         <div style="height: 50px;"></div>
@@ -36,7 +36,7 @@
           src="imgs/MobistudyIntroScreens_3.svg"
           style="width: 100%"
         >
-        <div class="q-my-md text-center">
+        <div class="q-my-md text-center mobitxt2">
           {{$t('intro3')}}
         </div>
         <div style="height: 50px;"></div>
@@ -46,7 +46,7 @@
           src="imgs/MobistudyIntroScreens_4.svg"
           style="width: 100%"
         >
-        <div class="q-my-md text-center">
+        <div class="q-my-md text-center mobitxt2">
           {{$t('intro4')}}
         </div>
         <div style="height: 50px;"></div>
@@ -54,6 +54,7 @@
     </q-carousel>
     <div class="fixed-bottom q-mb-md row justify-around">
       <q-btn
+        class="mobibtn"
         v-show="slide != 'intro1'"
         icon="chevron_left"
         color="primary"
@@ -65,6 +66,7 @@
         style="width: 100px;"
       />
       <q-btn
+        class="mobibtn"
         :icon-right="slide == 'intro4'? 'arrow_forward' : 'chevron_right'"
         color="primary"
         :label="slide == 'intro4'? $t('common.start') : $t('common.next')"

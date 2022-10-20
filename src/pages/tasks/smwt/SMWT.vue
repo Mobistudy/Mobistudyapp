@@ -20,6 +20,7 @@
     > {{ minutes }}:{{ seconds }} </p>
     <div class="row justify-center q-mt-lg">
       <q-btn
+        class="full-width mobibtn"
         @click="startTest"
         v-show="!isStarted"
         color="primary"
@@ -27,9 +28,10 @@
         :disabled="isSignalCheck"
       />
       <q-btn
+        class="full-width mobibtn"
         @click="completeTest"
         v-show="isStarted"
-        color="secondary"
+        color="negative"
         :label="$t('common.complete')"
       />
     </div>

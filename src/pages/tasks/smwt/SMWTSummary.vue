@@ -25,7 +25,7 @@
       </table>
 
       <div class="q-pa-md">
-        <p>Please rate your level of exertion:</p>
+        <p class="mobitxt2">{{ $t('studies.tasks.smwt.borgScale.intro') }}</p>
         <q-list bordered>
           <q-item
             tag="label"
@@ -38,7 +38,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item>0 {{ $t('studies.tasks.smwt.borgScale.l0') }}</q-item>
+              <q-item class="mobitxt1">0 {{ $t('studies.tasks.smwt.borgScale.l0') }}</q-item>
             </q-item-section>
           </q-item>
           <q-item
@@ -52,7 +52,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item>0.5 {{ $t('studies.tasks.smwt.borgScale.l05') }}</q-item>
+              <q-item class="mobitxt1">0.5 {{ $t('studies.tasks.smwt.borgScale.l05') }}</q-item>
             </q-item-section>
           </q-item>
           <q-item
@@ -69,7 +69,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item>1 {{ $t('studies.tasks.smwt.borgScale.l1') }}</q-item>
+              <q-item class="mobitxt1">1 {{ $t('studies.tasks.smwt.borgScale.l1') }}</q-item>
             </q-item-section>
           </q-item>
           <q-item
@@ -83,7 +83,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item>2 {{ $t('studies.tasks.smwt.borgScale.l2') }}</q-item>
+              <q-item class="mobitxt1">2 {{ $t('studies.tasks.smwt.borgScale.l2') }}</q-item>
             </q-item-section>
           </q-item>
           <q-item
@@ -97,7 +97,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item>3 {{ $t('studies.tasks.smwt.borgScale.l3') }}</q-item>
+              <q-item class="mobitxt1">3 {{ $t('studies.tasks.smwt.borgScale.l3') }}</q-item>
             </q-item-section>
           </q-item>
           <q-item
@@ -114,7 +114,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item>4 {{ $t('studies.tasks.smwt.borgScale.l4') }}</q-item>
+              <q-item class="mobitxt1">4 {{ $t('studies.tasks.smwt.borgScale.l4') }}</q-item>
             </q-item-section>
           </q-item>
           <q-item
@@ -128,7 +128,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item>5 {{ $t('studies.tasks.smwt.borgScale.l5') }}</q-item>
+              <q-item class="mobitxt1">5 {{ $t('studies.tasks.smwt.borgScale.l5') }}</q-item>
             </q-item-section>
           </q-item>
           <q-item
@@ -142,7 +142,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item>6</q-item>
+              <q-item class="mobitxt1">6</q-item>
             </q-item-section>
           </q-item>
           <q-item
@@ -159,7 +159,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item>7 {{ $t('studies.tasks.smwt.borgScale.l7') }}</q-item>
+              <q-item class="mobitxt1">7 {{ $t('studies.tasks.smwt.borgScale.l7') }}</q-item>
             </q-item-section>
           </q-item>
           <q-item
@@ -173,7 +173,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item>8</q-item>
+              <q-item class="mobitxt1">8</q-item>
             </q-item-section>
           </q-item>
           <q-item
@@ -187,7 +187,7 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item>9 {{ $t('studies.tasks.smwt.borgScale.l9') }}</q-item>
+              <q-item class="mobitxt1">9 {{ $t('studies.tasks.smwt.borgScale.l9') }}</q-item>
             </q-item-section>
           </q-item>
           <q-item
@@ -204,24 +204,26 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item>10 {{ $t('studies.tasks.smwt.borgScale.l10') }}</q-item>
+              <q-item class="mobitxt1">10 {{ $t('studies.tasks.smwt.borgScale.l10') }}</q-item>
             </q-item-section>
           </q-item>
         </q-list>
 
         <div class="q-mt-sm">
-          <p>{{ $t('studies.tasks.smwt.borgScale.result') }} <strong>{{ borgValue }}</strong></p>
+          <p class="mobitxt2">{{ $t('studies.tasks.smwt.borgScale.result') }} <strong>{{ borgValue }}</strong></p>
         </div>
       </div>
 
       <div class="row justify-around">
         <q-btn
-          color="secondary"
+          class="mobibtn"
+          color="negative"
           :loading="sending"
           :label="$t('common.discard')"
           @click="discard()"
         />
         <q-btn
+          class="mobibtn"
           color="primary"
           :loading="sending"
           :label="$t('common.send')"

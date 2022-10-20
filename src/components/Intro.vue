@@ -37,7 +37,7 @@
                 class="q-pb-lg q-pl-lg q-pr-lg q-pt-sm"
               >
                 <div
-                  class="text-body1 text-center"
+                  class="mobitxt2 text-center"
                   v-html="slide.description"
                 >
                 </div>
@@ -53,7 +53,7 @@
         >
           <q-btn
             color="primary"
-            class="full-width"
+            class="full-width mobibtn"
             @click="$emit('start')"
             replace
             :label="$t('common.start')"

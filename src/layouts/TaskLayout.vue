@@ -34,7 +34,7 @@
               text-color="white"
               size="lg"
             />
-            <span class="q-ml-sm">{{ $t('studies.tasks.cancelTask') }}</span>
+            <span class="q-ml-sm mobitxt1">{{ $t('studies.tasks.cancelTask') }}</span>
           </q-card-section>
           <q-card-actions align="right">
             <q-btn

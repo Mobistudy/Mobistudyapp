@@ -1,6 +1,9 @@
 <template>
   <q-page padding>
-    <div v-if="devices.length > 1">{{ $t('studies.tasks.po60.moreDevices') }}</div>
+    <div
+      v-if="devices.length > 1"
+      class="mobitxt2"
+    >{{ $t('studies.tasks.po60.moreDevices') }}</div>
     <q-list
       v-if="devices.length > 1"
       bordered
@@ -14,7 +17,7 @@
         :id="device.id"
         @click="connect(device, true)"
       >
-        <q-item-section>{{device.id}}</q-item-section>
+        <q-item-section class="mobitxt1">{{device.id}}</q-item-section>
       </q-item>
     </q-list>
 

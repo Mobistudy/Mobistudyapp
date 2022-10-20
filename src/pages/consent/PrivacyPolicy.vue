@@ -4,7 +4,7 @@
       {{$t('studies.privacyPolicy')}}
     </div>
     <div
-      class="q-my-md"
+      class="q-my-md mobitxt1"
       v-html="studyDescription.consent.privacyPolicy[$i18n.locale]"
     ></div>
 

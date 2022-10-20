@@ -9,7 +9,7 @@
     <div class="text-h5 text-center">
       {{ $t('studies.consent.accepted') }} {{ studyDescription.generalities.title[$i18n.locale] }}!
     </div>
-    <div class="q-my-md text-subtitle1 text-center">
+    <div class="q-my-md mobitxt1 text-center">
       {{ $t('studies.consent.contactReminder') }}
     </div>
 
@@ -55,7 +55,7 @@
 
     <div class="q-my-md flex flex-center">
       <q-btn
-        class="full-width"
+        class="full-width mobibtn"
         :label="$t('common.next')"
         color="primary"
         @click="next()"

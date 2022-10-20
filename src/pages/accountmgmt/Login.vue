@@ -30,14 +30,14 @@
           />
           <div class="row">
             <q-btn
-              class="q-ma-sm full-width"
+              class="q-ma-sm full-width mobibtn"
               :label="$t('accountMgmt.login.login')"
               color="primary"
               @click="login"
               type="submit"
             />
             <q-btn
-              class="q-ma-sm q-mb-lg full-width"
+              class="q-ma-sm q-mb-lg full-width mobibtn"
               :label="$t('accountMgmt.login.lostpw')"
               color="grey"
               flat
@@ -48,13 +48,13 @@
               <q-separator />
               <q-item class="full-width">
                 <q-item-section class="full-width">
-                  <q-item-label class="text-center q-mt-lg q-mb-md">{{ $t('accountMgmt.login.noAcc') }}</q-item-label>
+                  <q-item-label class="text-center q-mt-lg q-mb-md mobitxt1">{{ $t('accountMgmt.login.noAcc') }}</q-item-label>
                 </q-item-section>
               </q-item>
               <q-item class="full-width">
                 <q-item-section class="full-width">
                   <q-btn
-                    class="full-width"
+                    class="full-width mobibtn"
                     :label="$t('accountMgmt.register')"
                     color="secondary"
                     to="register_pp"

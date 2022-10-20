@@ -7,7 +7,10 @@
         style="width: 60%"
       >
     </div>
-    <div v-html="$t('introduction')"></div>
+    <div
+      class="mobitxt1"
+      v-html="$t('introduction')"
+    ></div>
   </q-page>
 </template>
 

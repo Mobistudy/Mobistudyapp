@@ -144,6 +144,7 @@
       </div>
       <div class="row justify-around q-mb-xl q-mt-lg">
         <q-btn
+          class="mobibtn"
           v-show="!isFirstQuestion"
           icon="arrow_back"
           color="secondary"
@@ -151,6 +152,7 @@
           :label="$t('common.back')"
         />
         <q-btn
+          class="mobibtn"
           v-show="isAnswered"
           :disable="!isValidAnswer"
           icon-right="arrow_forward"
@@ -159,6 +161,7 @@
           :label="$t('common.next')"
         />
         <q-btn
+          class="mobibtn"
           v-show="!isAnswered"
           icon-right="arrow_forward"
           color="warning"
@@ -178,20 +181,22 @@
       <div class="text-center text-h6 q-mt-md">
         {{$t('studies.tasks.form.formCompleted')}}
       </div>
-      <div class="text-center q-my-md">
+      <div class="text-center q-my-lg mobitxt2">
         {{$t('studies.tasks.form.askedQuestions') + asked}}
       </div>
-      <div class="text-center q-my-md">
+      <div class="text-center q-my-lg mobitxt2">
         {{$t('studies.tasks.form.answeredQuestions') + answered}}
       </div>
       <div class="row justify-around q-mt-lg">
         <q-btn
-          color="secondary"
+          class="mobibtn"
+          color="negative"
           :loading="sending"
           :label="$t('common.discard')"
           @click="discard()"
         />
         <q-btn
+          class="mobibtn"
           color="primary"
           @click="send()"
           :loading="sending"

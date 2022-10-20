@@ -1,10 +1,13 @@
 <template>
   <div class="q-pa-md">
-    <div v-if="devices.length > 1">{{ $t('studies.tasks.miband3.moreDevices') }}</div>
+    <div
+      v-if="devices.length > 1"
+      class="mobitxt2"
+    >{{ $t('studies.tasks.miband3.moreDevices') }}</div>
     <q-list
       v-if="devices.length > 1"
       bordered
-      class="q-mt-md"
+      class="q-mt-lg"
     >
       <q-item
         v-for="device in devices"
@@ -14,7 +17,7 @@
         :id="device.id"
         @click="connect(device)"
       >
-        <q-item-section>{{device.id}}</q-item-section>
+        <q-item-section class="mobitxt1">{{device.id}}</q-item-section>
       </q-item>
     </q-list>
 

@@ -64,6 +64,7 @@
         >
           <div class="row items-center justify-end q-gutter-sm">
             <q-btn
+              padding="md lg"
               :label="$t('common.close')"
               color="primary"
               flat
@@ -215,12 +216,14 @@
 
     <div class="q-my-md row justify-evenly">
       <q-btn
+        class="mobibtn"
         v-if="buttonCancel"
         :label="buttonCancel"
         color="secondary"
         @click="buttonCancelClick()"
       />
       <q-btn
+        class="mobibtn"
         v-if="buttonOk"
         :label="buttonOk"
         color="primary"

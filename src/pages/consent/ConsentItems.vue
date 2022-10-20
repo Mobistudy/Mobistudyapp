@@ -3,7 +3,7 @@
     <div class="text-h5 text-center">
       {{$t('studies.consent.informedConsent')}}
     </div>
-    <div class="text-body2">
+    <div class="mobitxt1 q-my-md">
       {{$t('studies.consent.consentExplanation')}}
     </div>
     <consents
@@ -12,12 +12,14 @@
     />
     <div class="q-my-md row justify-evenly">
       <q-btn
+        class="mobibtn"
         :label="$t('common.reject')"
         color="negative"
         flat
         @click="deny()"
       ></q-btn>
       <q-btn
+        class="mobibtn"
         :label="$t('studies.consent.joinStudy')"
         color="primary"
         :disabled="!canAccept"

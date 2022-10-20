@@ -51,12 +51,13 @@
 
       <q-card-actions align="around">
         <q-btn
-          flat
+          class="mobibtn"
           color="negative"
           :label="$t('studies.discardStudy')"
           @click="discardStudy(studyIndex)"
         ></q-btn>
         <q-btn
+          class="mobibtn"
           color="primary"
           :label="$t('studies.joinStudy')"
           :disable="!eligible[studyIndex]"
@@ -129,7 +130,7 @@
         @click="showInvitationDialog"
         fab
         icon="add"
-        color="accent"
+        color="primary"
       />
     </q-page-sticky>
   </q-page>
@@ -267,8 +268,8 @@ export default {
           title: this.$i18n.t('studies.newStudy'),
           message: this.$i18n.t('studies.insertInvitationCode'),
           color: 'primary',
-          ok: true,
-          cancel: true,
+          ok: this.$i18n.t('common.next'),
+          cancel: this.$i18n.t('common.cancel'),
           prompt: {
             model: '',
             type: 'text'

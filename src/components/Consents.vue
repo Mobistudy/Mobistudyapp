@@ -6,7 +6,7 @@
         :key="extraIndex"
       >
         <q-item-section>
-          <q-item-label>{{extraItem.description[$i18n.locale]}}</q-item-label>
+          <q-item-label class="q-my-xs mobitxt1">{{extraItem.description[$i18n.locale]}}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
           <q-checkbox v-model="value.extraItemsConsent[extraIndex].consented" />
@@ -20,7 +20,7 @@
         :key="taskIndex"
       >
         <q-item-section>
-          <q-item-label class="q-my-xs">{{taskItem.description[$i18n.locale]}}
+          <q-item-label class="q-my-xs mobitxt1">{{taskItem.description[$i18n.locale]}}
           </q-item-label>
         </q-item-section>
         <q-item-section avatar>
@@ -35,7 +35,7 @@
     <q-list>
       <q-item>
         <q-item-section>
-          <q-item-label class="q-my-xs">
+          <q-item-label class="q-my-xs mobitxt1">
             {{$t('studies.consent.remindersConsent')}}
           </q-item-label>
         </q-item-section>

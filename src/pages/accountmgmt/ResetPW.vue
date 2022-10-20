@@ -18,12 +18,14 @@
           />
           <br>
           <q-btn
+            padding="md lg"
             class="float-left"
             :label="$t('common.cancel')"
             color="secondary"
             @click="$router.push('login')"
           />
           <q-btn
+            padding="md lg"
             class="float-right"
             :label="$t('accountMgmt.resetPassword.resetPassword')"
             color="primary"
