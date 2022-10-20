@@ -2,9 +2,9 @@
 import studyTest from './mockdata/studyTest'
 import formTest from './mockdata/formTest'
 
-import studyPainApp1 from './mockdata/studyPainApp1'
-import studyPainApp2 from './mockdata/studyPainApp2'
-import formPainAppVAS from './mockdata/formPainAppVAS'
+import studyPainApp1 from './mockdata/painapp/studyPainApp1'
+import studyPainApp2 from './mockdata/painapp/studyPainApp2'
+import formPainAppVAS from './mockdata/painapp/formPainAppVAS'
 
 import parkAppStudy from './mockdata/parkapp/studyParkapp'
 import NMSQuest from './mockdata/parkapp/questNMS'
