@@ -10,12 +10,13 @@
 
     <div class="q-my-md row justify-around">
       <q-btn
+        class="mobibtn"
         :label="$t('common.reject')"
-        flat
         color="negative"
         @click="deny()"
       ></q-btn>
       <q-btn
+        class="mobibtn"
         :label="$t('common.accept')"
         color="primary"
         @click="accept()"
