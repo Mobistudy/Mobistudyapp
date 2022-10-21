@@ -12,12 +12,14 @@
     </div>
     <div class="row justify-center q-mt-lg">
       <q-btn
+        class="full-width mobibtn"
         @click="startTest"
         v-show="!isStarted"
         color="primary"
         :label="$t('common.start')"
       />
       <q-btn
+        class="full-width mobibtn"
         @click="completeTest"
         v-show="isStarted"
         color="secondary"

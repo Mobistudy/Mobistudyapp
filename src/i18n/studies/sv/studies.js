@@ -67,7 +67,7 @@ let studies = {
       form: {
         title: '{formname} formulär',
         shortDescription: 'Besvara några frågor',
-        formCompleted: 'Formulär slutförd. Tack.',
+        formCompleted: 'Formulär slutförd.',
         askedQuestions: 'Frågade frågor:',
         answeredQuestions: 'Besvarade frågor:',
         freeTextExplanation: 'Skriv ditt svar',

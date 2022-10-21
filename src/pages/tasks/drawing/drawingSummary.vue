@@ -1,25 +1,28 @@
 <template>
   <q-page padding>
-    <div class="text-center text-h5 q-mt-lg text-center">
+    <div class="text-center text-h5 q-my-lg text-center">
       {{ $t('studies.tasks.drawing.completed') }}
     </div>
-    <div class="text-center text-h6 q-mt-lg">
-      {{ $t('studies.tasks.peakflow.summary') }}
-    </div>
-    <div class="text-center text-bold q-my-lg">
-      {{ $t('studies.tasks.drawing.results') + $t('studies.tasks.drawing.shapeSquare') }}: {{this.report.summary.totalVariabilitySquare.toFixed(2)}}
-    </div>
-    <div class="text-center text-bold q-my-lg">
-      {{ $t('studies.tasks.drawing.results') + $t('studies.tasks.drawing.shapeSpiral') }}: {{this.report.summary.totalVariabilitySpiral.toFixed(2)}}
-    </div>
-    <div class="row justify-around q-mt-lg">
+    <table class="summaryTable q-my-lg">
+      <tr>
+        <td>{{ $t('studies.tasks.drawing.results') + $t('studies.tasks.drawing.shapeSquare') }}</td>
+        <td> {{this.report.summary.totalVariabilitySquare.toFixed(2)}} </td>
+      </tr>
+      <tr>
+        <td>{{ $t('studies.tasks.drawing.results') + $t('studies.tasks.drawing.shapeSpiral') }}</td>
+        <td> {{this.report.summary.totalVariabilitySpiral.toFixed(2)}} </td>
+      </tr>
+    </table>
+    <div class="row justify-around q-mt-xl">
       <q-btn
-        color="secondary"
+        class="mobibtn"
+        color="negative"
         :loading="sending"
         :label="$t('common.discard')"
         @click="discard()"
       />
       <q-btn
+        class="mobibtn"
         color="primary"
         :loading="sending"
         :label="$t('common.send')"

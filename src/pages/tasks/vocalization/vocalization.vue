@@ -26,9 +26,10 @@
     >
     </p>
 
-    <div class="row justify-around">
+    <div class="row justify-around q-mt-xl">
 
       <q-btn
+        class="full-width mobibtn"
         @click="startTest"
         v-show="!isStarted"
         color="primary"
@@ -36,6 +37,7 @@
       />
 
       <q-btn
+        class="mobibtn"
         @click="redoTest"
         v-show="isStarted"
         color="primary"
@@ -43,6 +45,7 @@
       />
 
       <q-btn
+        class="mobibtn"
         @click="completePhase"
         v-show="isStarted && testPhase != 5"
         color="primary"
@@ -50,6 +53,7 @@
       />
 
       <q-btn
+        class="mobibtn"
         @click="completePhase"
         v-show="testPhase == 5"
         color="primary"

@@ -7,11 +7,12 @@
       {{ $t('studies.tasks.fingerTapping.title') }}
     </div>
 
-    <p class="text-center text-subtitle1 q-mt-lg">{{ $t('studies.tasks.fingerTapping.instructions') }}</p>
+    <p class="text-center mobitxt1 q-mt-lg">{{ $t('studies.tasks.fingerTapping.instructions') }}</p>
 
     <p id="timer"> 00:{{ seconds }} </p>
     <div>
       <q-btn
+        class="full-width mobibtn"
         @click="startTest"
         :disable="isStarted"
         color="primary"
@@ -25,14 +26,14 @@
     >
       <q-btn
         round
-        size="30px"
+        size="40px"
         color="secondary"
         @touchstart="leftTapped"
         class="q-mr-lg"
       >1</q-btn>
       <q-btn
         round
-        size="30px"
+        size="40px"
         color="secondary"
         @touchstart="rightTapped"
         class="q-ml-lg"

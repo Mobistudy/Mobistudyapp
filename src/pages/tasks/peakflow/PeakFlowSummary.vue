@@ -1,35 +1,37 @@
 <template>
   <q-page padding>
     <div class="text-center">
-      <div class="text-center text-h6 q-mt-lg">
+      <div class="text-center text-h5 q-mt-lg">
         {{ $t('studies.tasks.peakflow.summary') }}
       </div>
-      <div class="text-center q-my-lg">
-      <p
-        v-for="(reading, index) in PEFs"
-        :data="reading"
-        :key="'pef' + index"
-      >
-        {{index+1}}) {{ reading }} L/min
-      </p>
-    </div>
-      <div class="text-bold q-my-lg">
+      <div class="text-center mobitxt2 q-my-lg">
+        <p
+          v-for="(reading, index) in PEFs"
+          :data="reading"
+          :key="'pef' + index"
+        >
+          {{index+1}}) {{ reading }} L/min
+        </p>
+      </div>
+      <div class="text-bold mobitxt1 q-my-lg">
         {{ $t('studies.tasks.peakflow.todayBest') }} {{pefMax}} L/min
       </div>
     </div>
     <div class="row justify-around q-mt-lg">
-        <q-btn
-          color="secondary"
-          :loading="sending"
-          :label="$t('common.discard')"
-          @click="discard()"
-        />
-        <q-btn
-          color="primary"
-          :loading="sending"
-          :label="$t('common.send')"
-          @click="send()"
-        />
+      <q-btn
+        class="mobibtn"
+        color="negative"
+        :loading="sending"
+        :label="$t('common.discard')"
+        @click="discard()"
+      />
+      <q-btn
+        class="mobibtn"
+        color="primary"
+        :loading="sending"
+        :label="$t('common.send')"
+        @click="send()"
+      />
     </div>
   </q-page>
 </template>

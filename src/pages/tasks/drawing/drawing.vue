@@ -4,7 +4,7 @@
       {{ $t('studies.tasks.drawing.title') }}
     </div>
 
-    <p class="text-center text-subtitle1 q-mt-lg">{{ $t('studies.tasks.drawing.instructions.start') }}</p>
+    <p class="text-center mobitxt2 q-mt-lg">{{ $t('studies.tasks.drawing.instructions.start') }}</p>
     <div class="row justify-center q-mb-xl fixed-bottom">
       <canvas
         ref="drawingCanvas"

@@ -1,9 +1,9 @@
 <template>
   <q-page padding>
-    <div class="text-center text-h6 q-mt-lg">
+    <div class="text-center text-h5 q-mt-lg">
       {{ $t('studies.tasks.peakflow.measurement') }}
     </div>
-    <div class="text-center q-mt-lg">
+    <div class="text-center mobitxt2 q-mt-lg">
       <div v-show="!isMeasuring && !(testErrors > maxErrors) && completedTests==0">
         <div>
           <img
@@ -57,6 +57,7 @@
     </div>
     <div class="row justify-center q-mt-lg">
       <q-btn
+        class="full-width mobibtn"
         @click="startMeasurement"
         v-show="!(testErrors > maxErrors) && (isMeasuring || (completedTests <= totalTestsNumber))"
         color="primary"
@@ -64,15 +65,17 @@
         :label="$t('common.start')"
       />
       <q-btn
+        class="full-width mobibtn"
         @click="completeTest"
         v-show="completedTests > totalTestsNumber && !isMeasuring"
         color="primary"
         :label="$t('common.next')"
       />
       <q-btn
+        class="full-width mobibtn"
         @click="abandonTest"
         v-show="testErrors > maxErrors"
-        color="primary"
+        color="negative"
         :label="$t('common.next')"
       />
     </div>

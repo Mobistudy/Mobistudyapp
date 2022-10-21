@@ -8,7 +8,7 @@
         src="~assets/goalflags.svg"
         style="width: 50%;"
       >
-      <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
+      <div class="text-h6 q-mt-lg">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
 
       <table class="decoratedTable q-mt-md">
         <tr>
@@ -19,12 +19,14 @@
 
       <div class="row justify-around q-mt-xl">
         <q-btn
-          color="secondary"
+          class="mobibtn"
+          color="negative"
           :loading="sending"
           :label="$t('common.discard')"
           @click="discard()"
         />
         <q-btn
+          class="mobibtn"
           color="primary"
           :loading="sending"
           :label="$t('common.send')"

@@ -10,3 +10,12 @@
 .mobitxt2 {
   font-size: 1.3em;
 }
+
+.summaryTable {
+  background: #f8f8f8;
+  padding: 4px;
+  width: 70%;
+  margin: 0px auto;
+  font-size: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}

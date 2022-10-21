@@ -4,32 +4,33 @@
       <div class="text-h5">{{ $t('studies.tasks.peakflow.results') }}</div>
     </div>
     <div class="q-pa-md">
-        <canvas
-          style="margin: 0 auto; padding-right: 2rem;"
-          height="320"
-          ref="lineChart"
+      <canvas
+        style="margin: 0 auto; padding-right: 2rem;"
+        height="320"
+        ref="lineChart"
+      />
+      <div class="row justify-around">
+        <q-btn
+          :label="'-1 ' + $t('studies.tasks.peakflow.weeks')"
+          color="secondary"
+          :disable="disablePlus"
+          @click="lineChartAdd((1))"
         />
-        <div class="row justify-around">
-          <q-btn
-            :label="'-1 ' + $t('studies.tasks.peakflow.weeks')"
-            color="secondary"
-            :disable="disablePlus"
-            @click="lineChartAdd((1))"
-          />
-          <q-btn
-            :label="'+1 ' + $t('studies.tasks.peakflow.weeks')"
-            color="secondary"
-            :disable="disableMinus"
-            @click="lineChartAdd((-1))"
-          />
-        </div>
+        <q-btn
+          :label="'+1 ' + $t('studies.tasks.peakflow.weeks')"
+          color="secondary"
+          :disable="disableMinus"
+          @click="lineChartAdd((-1))"
+        />
+      </div>
     </div>
     <div class="row justify-center q-mt-lg">
       <q-btn
-          @click="completeTest"
-          color="primary"
-          :label="$t('common.complete')"
-        />
+        class="full-width mobibtn"
+        @click="completeTest"
+        color="primary"
+        :label="$t('common.complete')"
+      />
     </div>
   </q-page>
 </template>

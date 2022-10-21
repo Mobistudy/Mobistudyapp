@@ -67,7 +67,7 @@ let studies = {
       form: {
         title: '{formname} Formulario',
         shortDescription: 'Responde algunas preguntas',
-        formCompleted: 'Formulario completado. Gracias',
+        formCompleted: 'Formulario completado.',
         askedQuestions: 'Preguntas solicitadas:',
         answeredQuestions: 'Preguntas respondidas:',
         freeTextExplanation: 'Escribe tu respuesta',

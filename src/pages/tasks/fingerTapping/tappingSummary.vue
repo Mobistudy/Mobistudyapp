@@ -12,18 +12,20 @@
       >
       <p
         v-if="!report.discarded"
-        class="text-center q-mt-lg text-center"
+        class="text-center q-my-lg mobitxt1"
       >
         {{ $t('studies.tasks.fingerTapping.summary', { count: report.summary.tappingCount, sec: 20} ) }}
       </p>
       <div class="row justify-around q-mt-lg">
         <q-btn
-          color="secondary"
+          class="mobibtn"
+          color="negative"
           :loading="sending"
           :label="$t('common.discard')"
           @click="discard()"
         />
         <q-btn
+          class="mobibtn"
           color="primary"
           :loading="sending"
           :label="$t('common.send')"

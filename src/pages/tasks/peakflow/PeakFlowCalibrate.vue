@@ -1,12 +1,18 @@
 <template>
   <q-page padding>
-    <div class="text-center text-h6 q-mt-lg" v-show="!calibrating">
+    <div
+      class="text-center text-h5 q-mt-lg"
+      v-show="!calibrating"
+    >
       {{ $t('studies.tasks.peakflow.calibration') }}
     </div>
 
-    <div class="text-center q-mt-lg">
+    <div class="text-center mobitxt2 q-mt-lg">
       <div v-show="!calibrating">
-          <img src="instructions/peakflow_3.svg" style="max-width: 50%">
+        <img
+          src="instructions/peakflow_3.svg"
+          style="max-width: 50%"
+        >
       </div>
       <p v-show="!calibrationError && !calibrating">
         {{ $t('studies.tasks.peakflow.calibrationStart') }}
@@ -17,6 +23,7 @@
     </div>
     <div class="row justify-center q-mt-lg">
       <q-btn
+        class="full-width mobibtn"
         @click="startCalibration"
         v-show="!calibrating"
         color="primary"

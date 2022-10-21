@@ -18,6 +18,7 @@ export default {
     delete: 'Delete',
     yes: 'Yes',
     no: 'No',
+    ok: 'OK',
     info: 'Info',
     privacy: 'Privacy',
     consent: 'Consent',
@@ -54,11 +55,11 @@ export default {
   },
   pin: {
     pinNotSetTitle: 'Your phone is not protected',
-    pinNotSet: `In order for this app to work correctly, your phone must be protected with a pin code or equivalent. 
+    pinNotSet: `In order for this app to work correctly, your phone must be protected with a pin code or equivalent.
     Please, configure a locking mechanism and restart this app.
     Please be aware that setting the pincode and then removing it may corrupt the app's secure storage and force you to restart it.`,
     dbCorruptedTitle: 'Oops!',
-    dbCorrupted: `Removing the pin protection makes the app's secure storage unusable. 
+    dbCorrupted: `Removing the pin protection makes the app's secure storage unusable.
     Please, set the pin protection back and restart the app.`
   }
 }
