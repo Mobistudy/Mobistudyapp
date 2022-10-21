@@ -1,6 +1,6 @@
 export default {
-  title: 'Hålla telefonen test',
-  shortTitle: 'Hålla telefonen',
+  title: 'Hold your phone test',
+  shortTitle: 'Hold your phone',
   shortDescription: 'Measure tremor by holding your phone',
   OSpermissioniOS: 'This task requires the app to access the motion sensors in your phone. This is needed to measure the amount of tremor in your hands and upper limbs. These data be shared with the research team of the study for analysis. Tap on Next to proceed with the authorization process.',
   OSpermissionAndroid: 'This task requires the app to access the motion sensors in your phone. This is needed to measure the amount of tremor in your hands and upper limbs. These data be shared with the research team of the study for analysis. Tap on Next to proceed with the authorization process.',
