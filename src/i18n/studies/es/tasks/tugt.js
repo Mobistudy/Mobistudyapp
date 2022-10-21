@@ -24,7 +24,7 @@ export default {
     {
       title: 'Instrucciones',
       img: 'instructions/TUGtask-04.svg',
-      description: 'Cuando estés listo, presiona el botón de inicio, coloca el teléfono en la riñonera dejando la pantalla encendida, levántate, camina 3 metros, dá la vuelta, regresa y siéntate.'
+      description: 'Cuando estés listo, presiona el botón de inicio, coloca el teléfono en la riñonera dejando la pantalla encendida y espera el sonido de inicio. Cuando escuches el sonido, levántate, camina 3 metros, dá la vuelta, regresa y siéntate.'
     },
     {
       title: 'Instrucciones',
@@ -32,5 +32,7 @@ export default {
       description: 'Una vez que te hayas sentado, extrae tu teléfono y presiona “completado”.'
     }
   ],
+  prepartion: 'Coloca el teléfono en la riñonera y espera el sonido de inicio.',
+  go: '¡Ve ahora! Ponte de pie, camina 3 metros y vuelve. Presiona "completar" cuando estés sentado y quieto.',
   time: 'Tiempo'
 }

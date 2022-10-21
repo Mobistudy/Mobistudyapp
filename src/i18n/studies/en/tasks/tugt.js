@@ -24,7 +24,7 @@ export default {
     {
       title: 'Instructions',
       img: 'instructions/TUGtask-04.svg',
-      description: 'When ready, press the start button, place the phone in the waistband keeping its screen switched on, stand up, walk 3 meters, turn around, come back and sit down.'
+      description: 'When ready, press the start button, place the phone in the waistband keeping its screen switched on and wait for the start sound. When you hear the sound, stand up, walk 3 meters, turn around, come back and sit down.'
     },
     {
       title: 'Instructions',
@@ -32,5 +32,7 @@ export default {
       description: 'Once you have sat down, extract your phone and press “completed”.'
     }
   ],
+  prepartion: 'Place the phone in the waistband and wait for the start sound.',
+  go: 'Go now! Stand up, walk 3 meters and come back. Press "complete" when you are seated and still.',
   time: 'Time'
 }

@@ -10,6 +10,10 @@
     >
       <WalkingMan></WalkingMan>
     </div>
+    <div class="mobitxt2 text-center q-mb-lg">
+      <span v-show="!isAfterSound">{{ $t('studies.tasks.tugt.prepartion') }}</span>
+      <span v-show="isAfterSound">{{ $t('studies.tasks.tugt.go') }}</span>
+    </div>
     <div class="row justify-center q-mt-lg">
       <q-btn
         class="full-width mobibtn"
@@ -26,6 +30,10 @@
         :label="$t('common.complete')"
       />
     </div>
+    <audio
+      src="sounds/dingbell.wav"
+      ref="dingsound"
+    ></audio>
   </q-page>
 </template>
 
@@ -45,8 +53,9 @@ import phone from 'modules/phone/phone'
 import userinfo from 'modules/userinfo'
 import { format as Qformat } from 'quasar'
 import WalkingMan from 'components/WalkingMan'
+import audio from 'modules/audio'
 
-const TEST_DURATION = 180 // 3 minutes
+const TEST_TIMEOUT = 180 // 3 minutes
 
 let orientations = []
 let motions = []
@@ -62,27 +71,29 @@ export default {
   },
   data: function () {
     return {
-      isSignalCheck: true,
       isStarted: false,
+      isAfterSound: false,
       isCompleted: false,
       timer: undefined,
-      totalTime: TEST_DURATION,
+      totalTime: TEST_TIMEOUT,
       startedTS: undefined,
       distance: 0
     }
   },
 
-  mounted: async function () {
-
-  },
-
   methods: {
 
     async startTest () {
+      setTimeout(() => {
+        audio.media.playSound(this.$refs.dingsound)
+        WalkingMan.methods.play()
+        this.isAfterSound = true
+      }, 5000)
+
       this.isStarted = true
       this.startedTS = new Date()
-      this.startTimer()
       phone.screen.forbidSleep()
+      this.startTimer()
 
       // clean the buffers
       orientations = []
@@ -116,18 +127,16 @@ export default {
     },
 
     startTimer () {
-      this.totalTime = TEST_DURATION
+      this.timerCountDown = TEST_TIMEOUT
       this.timer = setInterval(() => this.countDown(), 1000)
-      WalkingMan.methods.play()
     },
     stopTimer () {
       clearInterval(this.timer)
-      WalkingMan.methods.stop()
     },
 
     countDown () {
-      if (this.totalTime >= 1) {
-        this.totalTime--
+      if (this.timerCountDown >= 1) {
+        this.timerCountDown--
       } else {
         this.completeTest()
       }
@@ -139,6 +148,7 @@ export default {
       phone.orientation.stopNotifications()
       phone.motion.stopNotifications()
       phone.screen.allowSleep()
+      WalkingMan.methods.stop()
 
       this.isCompleted = true
 
@@ -168,10 +178,10 @@ export default {
 
   computed: {
     minutes () {
-      return Qformat.pad(Math.floor(this.totalTime / 60))
+      return Qformat.pad(Math.floor(this.timerCountDown / 60))
     },
     seconds () {
-      return Qformat.pad(this.totalTime - (this.minutes * 60))
+      return Qformat.pad(this.timerCountDown - (this.minutes * 60))
     }
   },
 
@@ -180,6 +190,7 @@ export default {
     motions = []
 
     this.stopTimer()
+    WalkingMan.methods.stop()
     phone.screen.allowSleep()
     phone.orientation.stopNotifications()
     phone.motion.stopNotifications()
