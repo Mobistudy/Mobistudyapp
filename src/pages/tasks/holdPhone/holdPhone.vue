@@ -63,7 +63,7 @@
 import phone from 'modules/phone/phone'
 import userinfo from 'modules/userinfo'
 
-const TEST_DURATION = 10 // 10 sec
+const TEST_DURATION = 60 // 1 minute
 
 // buffers that hold orientation and motion data
 let orientations = []
