@@ -45,6 +45,9 @@
       v-show="testPhase % 2 != 0"
     >
       {{ $t('studies.tasks.holdPhone.instructions.afterStart') }}
+      <p
+        id="timer"
+      > {{ minutes }} : {{ seconds }} </p>
     </div>
 
     <div class="row justify-center q-mt-xl">
@@ -59,9 +62,21 @@
   </q-page>
 </template>
 
+<style scoped>
+#timer {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.text-subtitle1 {
+  line-height: 4.25;
+}
+</style>
+
 <script>
 import phone from 'modules/phone/phone'
 import userinfo from 'modules/userinfo'
+import { format as Qformat } from 'quasar'
 
 const TEST_DURATION = 60 // 1 minute
 
@@ -78,6 +93,7 @@ export default {
   data: function () {
     return {
       timer: undefined,
+      totalTime: TEST_DURATION,
       report: {
         userKey: userinfo.user._key,
         participantKey: userinfo.user.participantKey,
@@ -138,6 +154,7 @@ export default {
     async startTest () {
       this.testPhase++
       phone.screen.forbidSleep()
+      this.startTimer()
 
       if (this.testPhase % 2 !== 0) {
         // clean the buffers
@@ -206,13 +223,22 @@ export default {
         console.error('Error getting MotionEvent', err)
       }
 
-      this.timer = setTimeout(this.completePhase, TEST_DURATION * 1000)
+      // this.timer = setTimeout(this.completePhase, TEST_DURATION * 1000)
     },
-
+    startTimer () {
+      this.totalTime = TEST_DURATION
+      this.timer = setInterval(() => this.countDown(), 1000)
+    },
     stopTimer () {
-      clearTimeout(this.timer)
+      clearInterval(this.timer)
     },
-
+    countDown () {
+      if (this.totalTime >= 1) {
+        this.totalTime--
+      } else {
+        this.completePhase()
+      }
+    },
     completePhase () {
       this.stopTimer()
       phone.orientation.stopNotifications()
@@ -272,6 +298,14 @@ export default {
       }
 
       this.testPhase++
+    }
+  },
+  computed: {
+    minutes () {
+      return Qformat.pad(Math.floor(this.totalTime / 60))
+    },
+    seconds () {
+      return Qformat.pad(this.totalTime - (this.minutes * 60))
     }
   },
 
