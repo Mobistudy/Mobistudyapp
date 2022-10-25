@@ -50,7 +50,7 @@ let orientationMock = {
       let fakeSmaple = Math.sin((new Date().getTime() / 1000) * 2 * Math.PI)
       cbk({
         msFromStart: new Date().getTime() - this.startTS,
-        abs: fakeSmaple,
+        abs: false,
         alpha: fakeSmaple,
         beta: fakeSmaple,
         gamma: fakeSmaple
