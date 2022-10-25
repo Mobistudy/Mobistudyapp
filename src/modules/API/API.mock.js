@@ -298,34 +298,6 @@ export default {
     return new Date().getTime() + '.json'
   },
 
-  async sendAnswers (answers) {
-    console.log('API - sending answers', answers)
-    this.setTaskDone(answers.studyKey, answers.taskId, answers.createdTS)
-    return new Promise(function (resolve, reject) {
-      setTimeout(function () {
-        resolve()
-      }, 1000)
-    })
-  },
-
-  async sendDataQuery (data) {
-    console.log('API - sending query data', data)
-    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
-    return Promise.resolve()
-  },
-
-  async sendQCSTData (report) {
-    console.log('API - sending QCST data', report)
-    this.setTaskDone(report.studyKey, report.taskId, report.createdTS)
-    return Promise.resolve()
-  },
-
-  async sendMiBand3Data (data) {
-    console.log('API - sending miband3 data', data)
-    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
-    return Promise.resolve()
-  },
-
   async sendPO60Data (data) {
     console.log('API - sending po60 data', data)
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)

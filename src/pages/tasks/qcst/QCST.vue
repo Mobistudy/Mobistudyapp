@@ -69,7 +69,6 @@ export default {
       timer: null,
       countDown: TEST_DURATION,
       startedTS: undefined,
-      completionTS: undefined,
       steps: [],
       gender: userinfo.user.gender,
       heartRate: '',
@@ -113,21 +112,26 @@ export default {
     completeTest () {
       audio.textToSpeech.playVoice(this.$i18n.t('studies.tasks.qcst.time'))
       phone.pedometer.stopNotifications()
-      this.completionTS = new Date()
-      const studyKey = this.studyKey
-      const taskId = parseInt(this.taskId)
-      const userKey = userinfo.user._key
       let report = {
-        userKey: userKey,
-        studyKey: studyKey,
-        taskId: taskId,
+        userKey: userinfo.user._key,
+        participantKey: userinfo.user.participantKey,
+        studyKey: this.studyKey,
+        taskId: parseInt(this.taskId),
+        taskType: 'qcst',
         createdTS: new Date(),
-        startedTS: this.startedTS,
-        completionTS: this.completionTS,
         phone: phone.device,
-        steps: this.steps,
-        heartRate: undefined,
-        borgScale: undefined
+        summary: {
+          startedTS: this.startedTS,
+          completedTS: new Date(),
+          dataType: this.taskDescr.dataType,
+          length: this.healthData.length,
+          steps: this.steps[this.steps.length - 1],
+          heartRate: undefined,
+          borgScale: undefined
+        },
+        data: {
+          steps: this.steps
+        }
       }
 
       this.$router.push({ name: 'qcsthr', params: { report: report } })

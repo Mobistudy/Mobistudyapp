@@ -41,14 +41,14 @@
         <q-btn
           class="mobibtn"
           color="negative"
-          :loading="isSending"
+          :loading="sending"
           :label="$t('common.discard')"
           @click="discard()"
         />
         <q-btn
           class="mobibtn"
           color="primary"
-          :loading="isSending"
+          :loading="sending"
           :label="$t('common.send')"
           @click="send()"
         />
@@ -152,13 +152,28 @@ export default {
       currentEndHour: 12,
       disableMinus: true,
       disablePlus: false,
-      isSending: false
+      sending: false,
+      report: {}
     }
   },
 
   methods: {
     async downloadData () {
       this.isDownloading = true
+
+      this.report = {
+        userKey: userinfo.user._key,
+        participantKey: userinfo.user.participantKey,
+        studyKey: this.studyKey,
+        taskId: Number(this.taskId),
+        createdTS: new Date(),
+        taskType: 'miband3',
+        phone: phone.device,
+        summary: {
+          startedTS: new Date(),
+          completedTS: new Date()
+        }
+      }
 
       // reset the charts stuff in case it has been partially filled
       storedData = []
@@ -186,6 +201,11 @@ export default {
 
         this.createPieChart()
         this.renderLineChart(this.currentStartHour, this.currentEndHour)
+
+        this.report.summary.device = this.deviceInfo
+        this.report.summary.length = storedData.length
+        this.report.data = storedData
+
         this.isDownloading = false
       } catch (err) {
         console.error('cannot download data', err)
@@ -414,23 +434,22 @@ export default {
         this.disablePlus = false
       }
     },
-    async discard () {
-      this.isSending = true
-      let studyKey = this.studyKey
-      let taskId = Number(this.taskId)
+
+    async saveAndLeave () {
       try {
+        await API.sendTasksResults(this.report)
         await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
-        await API.sendMiBand3Data({
-          userKey: userinfo.user._key,
-          studyKey: studyKey,
-          taskId: taskId,
-          createdTS: new Date(),
-          miband3Data: 'discarded'
-        })
-        await db.setTaskCompletion(studyKey, taskId, new Date())
+        let newTaskItemConsent = await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
+        await API.updateTaskItemConsent(this.report.studyKey, this.report.taskId, newTaskItemConsent)
+
+        await db.setTaskCompletion(
+          this.report.studyKey,
+          this.report.taskId,
+          new Date()
+        )
         this.$router.push({ name: 'home' })
       } catch (error) {
-        this.isSending = false
+        this.sending = false
         console.error(error)
         this.$q.notify({
           color: 'negative',
@@ -438,37 +457,23 @@ export default {
           icon: 'report_problem'
         })
       }
+      console.log(this.report)
     },
     async send () {
-      this.isSending = true
-      try {
-        let studyKey = this.studyKey
-        let taskId = Number(this.taskId)
-        await API.sendMiBand3Data({
-          userKey: userinfo.user._key,
-          studyKey: studyKey,
-          taskId: taskId,
-          createdTS: new Date(),
-          device: this.deviceInfo,
-          phone: phone.device,
-          miband3Data: storedData
-        })
-        await db.setTaskCompletion(studyKey, taskId, new Date())
-        let newTaskItemConsent = await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
-        await API.updateTaskItemConsent(studyKey, taskId, newTaskItemConsent)
+      this.sending = true
+      this.report.discarded = false
 
-        this.isSending = false
-        // go back to home page
-        this.$router.push({ name: 'home' })
-      } catch (error) {
-        this.isSending = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
-      }
+      return this.saveAndLeave()
+    },
+    async discard () {
+      this.sending = true
+
+      // delete data and set flag
+      this.report.discarded = true
+      delete this.report.summary
+      delete this.report.data
+
+      return this.saveAndLeave()
     }
   },
   async mounted () {

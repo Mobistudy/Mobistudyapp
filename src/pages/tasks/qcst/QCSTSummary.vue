@@ -9,7 +9,7 @@
         style="width: 50%; margin: 0px auto;"
       >
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
-      <table class="decoratedTable">
+      <table class="summaryTable">
         <tr>
           <td>{{ $t('studies.tasks.qcst.time') }}</td>
           <td> {{ minutes }}:{{ seconds }}</td>
@@ -230,17 +230,6 @@
   </q-page>
 </template>
 
-<style>
-.decoratedTable {
-  background: #f8f8f8;
-  padding: 4px;
-  width: 70%;
-  margin: 0px auto;
-  font-size: 1rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-</style>
-
 <script>
 import API from 'modules/API/API'
 import DB from 'modules/db'
@@ -259,9 +248,8 @@ export default {
     }
   },
   methods: {
-    async send () {
-      this.sending = true
-      this.report.borgScale = this.borgValue
+    async saveAndLeave () {
+      this.report.summary.borgScale = this.borgValue
 
       // Only for testing purposes! Please remove before deploying app.
       // try {
@@ -270,35 +258,8 @@ export default {
       // } catch (err) {
       //   console.error('Cannot save to file', err)
       // }
-
-      // Save the data to server
       try {
-        await API.sendQCSTData(this.report)
-        await DB.setTaskCompletion(
-          this.report.studyKey,
-          this.report.taskId,
-          new Date()
-        )
-        this.sending = false
-        this.$router.push('/home')
-      } catch (error) {
-        this.sending = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
-      }
-    },
-    async discard () {
-      this.sending = true
-      this.report.steps = 'discarded'
-      this.report.heartRate = 'discarded'
-      this.report.borgScale = 'discarded'
-
-      try {
-        await API.sendQCSTData(this.report)
+        await API.sendTasksResults(this.report)
         await DB.setTaskCompletion(
           this.report.studyKey,
           this.report.taskId,
@@ -314,6 +275,23 @@ export default {
           icon: 'report_problem'
         })
       }
+      console.log(this.report)
+    },
+    async send () {
+      this.sending = true
+      this.report.discarded = false
+
+      return this.saveAndLeave()
+    },
+    async discard () {
+      this.sending = true
+
+      // delete data and set flag
+      this.report.discarded = true
+      delete this.report.summary
+      delete this.report.data
+
+      return this.saveAndLeave()
     }
   },
   computed: {

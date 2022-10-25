@@ -123,26 +123,6 @@ export default {
     return resp.data
   },
 
-  // send answers to server
-  sendAnswers: async function (answers) {
-    return axios.post(BASE_URL + '/answers', answers, axiosConfig)
-  },
-
-  // send health data from query
-  sendDataQuery: async function (data) {
-    return axios.post(BASE_URL + '/healthStoreData', data, axiosConfig)
-  },
-
-  // send data from QCST
-  sendQCSTData: async function (data) {
-    return axios.post(BASE_URL + '/QCSTData', data, axiosConfig)
-  },
-
-  // send data from miBand3 stored data
-  sendMiBand3Data: async function (data) {
-    return axios.post(BASE_URL + '/miband3Data', data, axiosConfig)
-  },
-
   // send data from po60 stored data
   sendPO60Data: async function (data) {
     return axios.post(BASE_URL + '/po60Data', data, axiosConfig)

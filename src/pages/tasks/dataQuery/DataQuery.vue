@@ -17,16 +17,16 @@
         <q-btn
           class="mobibtn"
           color="negative"
-          :loading="loading"
+          :loading="sending"
           :label="$t('common.discard')"
           @click="discard()"
         />
         <q-btn
           class="mobibtn"
           color="primary"
-          :loading="loading"
+          :loading="sending"
           :label="$t('common.send')"
-          @click="submit()"
+          @click="send()"
         />
       </div>
     </div>
@@ -80,7 +80,8 @@ export default {
       healthData: null,
       plotLine: false,
       plotBar: false,
-      loading: false
+      sending: false,
+      report: {}
     }
   },
   computed: {
@@ -92,10 +93,26 @@ export default {
   async mounted () {
     this.$q.loading.show()
     const studyKey = this.studyKey
-    const taskId = this.taskId
+    const taskId = parseInt(this.taskId)
 
     const studyDescr = await DB.getStudyDescription(studyKey)
-    this.taskDescr = studyDescr.tasks.find(x => x.id === Number(taskId))
+    this.taskDescr = studyDescr.tasks.find(x => x.id === taskId)
+
+    this.report = {
+      userKey: userinfo.user._key,
+      participantKey: userinfo.user.participantKey,
+      studyKey: studyKey,
+      taskId: taskId,
+      taskType: 'dataQuery',
+      createdTS: new Date(),
+      phone: phone.device,
+      summary: {
+        startedTS: new Date(),
+        completedTS: new Date(),
+        dataType: this.taskDescr.dataType
+      },
+      data: []
+    }
 
     let studyParticipation = await DB.getStudyParticipation(studyKey)
     let lastCompleted = studyParticipation.taskItemsConsent.find(x => x.taskId === Number(taskId)).lastExecuted
@@ -115,8 +132,8 @@ export default {
         startDate.subtract(this.taskDescr.scheduling.interval, 'years')
       }
     }
-    console.log(`Retrieving ${this.taskDescr.dataType}, aggregated: ${this.taskDescr.aggregated}, bucket: ${this.taskDescr.bucket}`)
-    console.log('Start Date: ' + startDate.toDate())
+    // console.log(`Retrieving ${this.taskDescr.dataType}, aggregated: ${this.taskDescr.aggregated}, bucket: ${this.taskDescr.bucket}`)
+    // console.log('Start Date: ' + startDate.toDate())
 
     try {
       if (this.taskDescr.aggregated) {
@@ -306,6 +323,12 @@ export default {
         // TODO: not aggregated activity: stepped line with activities instead of numbers on the y axis
       }
 
+      this.report.summary.completedTS = new Date()
+      this.report.summary.length = this.healthData.length
+      this.report.summary.firstDate = this.healthData[0].startDate
+      this.report.summary.lastDate = this.healthData[this.healthData.length - 1].endDate
+      this.report.data = this.healthData
+
       this.chartData = tempData
       this.$q.loading.hide()
     } catch (error) {
@@ -322,52 +345,17 @@ export default {
     }
   },
   methods: {
-    async submit () {
-      this.loading = true
+    async saveAndLeave () {
       try {
-        let studyKey = this.studyKey
-        let taskId = Number(this.taskId)
-        await API.sendDataQuery({
-          userKey: userinfo.user._key,
-          studyKey: studyKey,
-          taskId: taskId,
-          dataType: this.taskDescr.dataType,
-          createdTS: new Date(),
-          phone: phone.device,
-          healthData: this.healthData
-        })
-        await DB.setTaskCompletion(studyKey, taskId, new Date())
-        this.$router.push('/home')
-      } catch (error) {
-        this.loading = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem',
-          onDismiss () {
-            this.$router.push('/home')
-          }
-        })
-      }
-    },
-    async discard () {
-      this.loading = true
-      try {
-        let studyKey = this.studyKey
-        let taskId = Number(this.taskId)
-        await API.sendDataQuery({
-          userKey: userinfo.user._key,
-          studyKey: studyKey,
-          taskId: taskId,
-          dataType: this.taskDescr.dataType,
-          createdTS: new Date(),
-          healthData: 'discarded'
-        })
-        await DB.setTaskCompletion(studyKey, taskId, new Date())
+        await API.sendTasksResults(this.report)
+        await DB.setTaskCompletion(
+          this.report.studyKey,
+          this.report.taskId,
+          new Date()
+        )
         this.$router.push({ name: 'home' })
       } catch (error) {
-        this.loading = false
+        this.sending = false
         console.error(error)
         this.$q.notify({
           color: 'negative',
@@ -375,6 +363,23 @@ export default {
           icon: 'report_problem'
         })
       }
+      console.log(this.report)
+    },
+    async send () {
+      this.sending = true
+      this.report.discarded = false
+
+      return this.saveAndLeave()
+    },
+    async discard () {
+      this.sending = true
+
+      // delete data and set flag
+      this.report.discarded = true
+      delete this.report.summary
+      delete this.report.data
+
+      return this.saveAndLeave()
     }
   }
 }
