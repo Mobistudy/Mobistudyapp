@@ -202,9 +202,11 @@ export default {
         this.createPieChart()
         this.renderLineChart(this.currentStartHour, this.currentEndHour)
 
-        this.report.summary.device = this.deviceInfo
         this.report.summary.length = storedData.length
-        this.report.data = storedData
+        this.report.data = {
+          device: this.deviceInfo,
+          samples: storedData
+        }
 
         this.isDownloading = false
       } catch (err) {
