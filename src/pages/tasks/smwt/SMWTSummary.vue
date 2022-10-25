@@ -9,7 +9,7 @@
         style="width: 50%; margin: 0px auto;"
       >
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
-      <table class="decoratedTable">
+      <table class="summaryTable">
         <tr>
           <td>{{ $t('studies.tasks.smwt.time') }}</td>
           <td> {{ minutes }}:{{ seconds }}</td>
@@ -236,17 +236,6 @@
   </q-page>
 </template>
 
-<style>
-.decoratedTable {
-  background: #f8f8f8;
-  padding: 4px;
-  width: 70%;
-  margin: 0px auto;
-  font-size: 1rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-</style>
-
 <script>
 import API from 'modules/API/API'
 import DB from 'modules/db'
@@ -267,6 +256,7 @@ export default {
   methods: {
     async saveAndLeave () {
       try {
+        console.log(this.report)
         await API.sendTasksResults(this.report)
         await DB.setTaskCompletion(
           this.report.studyKey,
@@ -287,7 +277,7 @@ export default {
     async send () {
       this.sending = true
 
-      this.report.summary.borgScale = this.borgValue
+      this.report.summary.borgScale = Number(this.borgValue)
       this.report.discarded = false
 
       // Only for testing purposes! Please remove before deploying app.
