@@ -84,6 +84,8 @@ export default {
   methods: {
 
     async startTest () {
+      WalkingMan.methods.stop()
+
       setTimeout(() => {
         audio.media.playSound(this.$refs.dingsound)
         WalkingMan.methods.play()
