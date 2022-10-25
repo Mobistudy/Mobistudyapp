@@ -15,7 +15,6 @@
         class="mobibtn"
         :label="$t('common.reject')"
         color="negative"
-        flat
         @click="deny()"
       ></q-btn>
       <q-btn
