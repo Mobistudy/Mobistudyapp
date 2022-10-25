@@ -24,6 +24,7 @@ export default {
     retry: 'Reintento',
     start: 'Comenzar',
     complete: 'Completar',
+    redo: 'Rehacer',
     send: 'Enviar',
     discard: 'Descartar',
     skip: 'Saltar',

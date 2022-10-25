@@ -25,6 +25,7 @@ export default {
     retry: 'Försök igen',
     start: 'Start',
     complete: 'Slutför',
+    redo: 'Göra om',
     send: 'Skicka',
     skip: 'Skippa',
     back: 'Tillbaka',
