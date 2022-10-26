@@ -87,6 +87,7 @@
             :key="'sc' + index"
           >
             <q-radio
+              size="lg"
               v-model="singleChoiceAnswer"
               :val="answerChoice.id"
               :label="answerChoice.text[$i18n.locale]"
@@ -111,6 +112,7 @@
             :key="'mc' + index"
           >
             <q-checkbox
+              size="lg"
               v-model="multiChoiceAnswer"
               :val="answerChoice.id"
               :label="answerChoice.text[$i18n.locale]"
@@ -181,13 +183,17 @@
       <div class="text-center text-h6 q-mt-md">
         {{$t('studies.tasks.form.formCompleted')}}
       </div>
-      <div class="text-center q-my-lg mobitxt2">
-        {{$t('studies.tasks.form.askedQuestions') + asked}}
-      </div>
-      <div class="text-center q-my-lg mobitxt2">
-        {{$t('studies.tasks.form.answeredQuestions') + answered}}
-      </div>
-      <div class="row justify-around q-mt-lg">
+      <table class="summaryTable q-my-lg">
+        <tr>
+          <td>{{ $t('studies.tasks.form.askedQuestions')}}</td>
+          <td> {{asked}} </td>
+        </tr>
+        <tr>
+          <td>{{ $t('studies.tasks.form.answeredQuestions') }}</td>
+          <td> {{answered}} </td>
+        </tr>
+      </table>
+      <div class="row justify-around q-mt-xl">
         <q-btn
           class="mobibtn"
           color="negative"

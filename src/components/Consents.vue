@@ -9,7 +9,10 @@
           <q-item-label class="q-my-xs mobitxt1">{{extraItem.description[$i18n.locale]}}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
-          <q-checkbox v-model="value.extraItemsConsent[extraIndex].consented" />
+          <q-checkbox
+            size="lg"
+            v-model="value.extraItemsConsent[extraIndex].consented"
+          />
         </q-item-section>
       </q-item>
     </q-list>
@@ -25,6 +28,7 @@
         </q-item-section>
         <q-item-section avatar>
           <q-checkbox
+            size="lg"
             :value="value.taskItemsConsent[taskIndex].consented"
             @click.native="!value.taskItemsConsent[taskIndex].consented ? requestPermission(taskIndex) : rejectPermission(taskIndex)"
           />
@@ -41,6 +45,7 @@
         </q-item-section>
         <q-item-section avatar>
           <q-checkbox
+            size="lg"
             :value="value.reminders"
             @click.native="setReminders()"
           />
@@ -167,7 +172,7 @@ export default {
         if (this.$q.platform.is.ios) {
           this.permissionMessage = this.$t('studies.tasks.vocalization.OSpermissioniOS')
         } else {
-          this.permissionMessage = this.$t('studies.tasks.peakflow.OSpermissionAndroid')
+          this.permissionMessage = this.$t('studies.tasks.vocalization.OSpermissionAndroid')
         }
       } else return true
 
