@@ -198,7 +198,7 @@ export default {
         }, 1000)
       } else if (studyKey === parkAppStudy2._key) {
         setTimeout(function () {
-          resolve(parkAppStudy)
+          resolve(parkAppStudy2)
         }, 1000)
       } else {
         setTimeout(function () {
@@ -232,7 +232,7 @@ export default {
       } else if (invitationalCode === parkAppStudy.invitationCode) {
         resolve(parkAppStudy)
       } else if (invitationalCode === parkAppStudy2.invitationCode) {
-        resolve(parkAppStudy)
+        resolve(parkAppStudy2)
       } else {
         let err = new Error('Cannot retrieve invitational study based on code.')
         err.response = { status: 400 }
