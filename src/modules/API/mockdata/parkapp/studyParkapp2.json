@@ -12,8 +12,8 @@
       "sv"
     ],
     "title": {
-      "en": "ParkApp-TEST",
-      "sv": "ParkApp-TEST"
+      "en": "ParkApp",
+      "sv": "ParkApp"
     },
     "shortDescription": {
       "en": "Home monitoring of Parkinson's Disease symptoms",
@@ -107,8 +107,8 @@
         "occurrences": 8
       },
       "customTitle": {
-        "en": "TU&G 1h before medication",
-        "sv": "TU&G 1t before medicin"
+        "en": "TU&G before medication",
+        "sv": "TU&G before medicin"
       }
     },
     {
@@ -409,14 +409,14 @@
       {
         "description": {
           "en": "I agree to answer a questionnaire that identifies signs of depression (Beck's Depression Inventory 2), once every month.",
-          "sv": "Jag accepterar att besvara en enkät som undersöker tecken på depression (Beck Depression Inventering 2), en gång i månaden."
+          "sv": "Jag accepterar att besvara en enkät som undersöker tecken på depression (BDI - Beck Depression Inventering 2), en gång i månaden."
         },
         "taskId": 4
       },
       {
         "description": {
           "en": "I agree to answer a questionnaire that provides a sleep scale for Parkinson's disease once a week (Parkinson 's Disease Sleep Scale), once a week.",
-          "sv": "Jag accepterar att besvara en enkät som ger en sömnskala för Parkinsons sjukdom (Parkinsons sjukdom sömnskala), en gång i veckan."
+          "sv": "Jag accepterar att besvara en enkät som ger en sömnskala för Parkinsons sjukdom (PDSS - Parkinsons sjukdom sömnskala), en gång i veckan."
         },
         "taskId": 5
       },
