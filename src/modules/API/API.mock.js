@@ -7,6 +7,7 @@ import studyPainApp2 from './mockdata/painapp/studyPainApp2'
 import formPainAppVAS from './mockdata/painapp/formPainAppVAS'
 
 import parkAppStudy from './mockdata/parkapp/studyParkapp'
+import parkAppStudy2 from './mockdata/parkapp/studyParkapp2'
 import NMSQuest from './mockdata/parkapp/questNMS'
 import PDSS2 from './mockdata/parkapp/questPDSS2'
 import BDI2 from './mockdata/parkapp/questBDI2'
@@ -195,6 +196,10 @@ export default {
         setTimeout(function () {
           resolve(parkAppStudy)
         }, 1000)
+      } else if (studyKey === parkAppStudy2._key) {
+        setTimeout(function () {
+          resolve(parkAppStudy)
+        }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study ' + studyKey + ' not found'))
@@ -225,6 +230,8 @@ export default {
       } if (invitationalCode === studyPainApp2.invitationCode) {
         resolve(studyPainApp2)
       } else if (invitationalCode === parkAppStudy.invitationCode) {
+        resolve(parkAppStudy)
+      } else if (invitationalCode === parkAppStudy2.invitationCode) {
         resolve(parkAppStudy)
       } else {
         let err = new Error('Cannot retrieve invitational study based on code.')
