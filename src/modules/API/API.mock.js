@@ -305,12 +305,6 @@ export default {
     return new Date().getTime() + '.json'
   },
 
-  async sendPO60Data (data) {
-    console.log('API - sending po60 data', data)
-    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
-    return Promise.resolve()
-  },
-
   async sendPosition (data) {
     console.log('API - sending position', data)
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)

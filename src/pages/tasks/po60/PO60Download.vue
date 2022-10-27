@@ -5,7 +5,7 @@
         <h6>{{ $t('studies.tasks.po60.dataHRTitle') }}</h6>
         <q-circular-progress
           show-value
-          :indeterminate="isDownloading"
+          :indeterminate="downloading"
           :value="storedData !== undefined ? 100 : 0"
           size="80px"
           :thickness="0.2"
@@ -20,7 +20,7 @@
         <h6>{{ $t('studies.tasks.po60.dataSPO2Title') }}</h6>
         <q-circular-progress
           show-value
-          :indeterminate="isDownloading"
+          :indeterminate="downloading"
           :value="storedData !== undefined ? 100 : 0"
           size="80px"
           :thickness="0.2"
@@ -54,7 +54,7 @@
 <script>
 /* eslint-disable no-new */
 import po60 from 'modules/po60/IPulseOxDevice'
-import db from 'modules/db'
+import DB from 'modules/db'
 import userinfo from 'modules/userinfo'
 import API from 'modules/API/API'
 import phone from 'modules/phone/phone'
@@ -66,36 +66,63 @@ export default {
   },
   data () {
     return {
-      isDownloading: false,
-      isSending: false,
+      downloading: false,
+      sending: false,
       storedData: undefined,
       avgHR: '',
       avgSPO2: '',
-      sending: false
+      report: {
+        userKey: userinfo.user._key,
+        participantKey: userinfo.user.participantKey,
+        studyKey: this.studyKey,
+        taskId: parseInt(this.taskId),
+        taskType: 'po60',
+        createdTS: new Date(),
+        phone: phone.device,
+        summary: {
+          startedTS: new Date(),
+          completedTS: undefined,
+          spo2: undefined,
+          hr: undefined
+        },
+        data: undefined
+      }
     }
   },
   watch: {
     storedData: function (val) {
-      this.avgHR = val.hrAvg + ''
-      this.avgSPO2 = val.SPO2Avg + '%'
+      console.log('got data')
+      let latest = val[val.length - 1]
+      this.avgHR = latest.hrAvg + ''
+      this.avgSPO2 = latest.SPO2Avg + '%'
     }
   },
   methods: {
     async downloadData () {
-      this.isDownloading = true
+      this.downloading = true
       try {
-        this.storedData = await po60.getLatestData()
+        this.storedData = await po60.getAllData()
+        console.log(this.storedData)
+
         try {
           await po60.disconnect()
         } catch (err) {
           // doesn't matter if it fails here, but let's print out a message on console
           console.error('cannot disconnect PO60', err)
         }
+
+        this.report.summary.completedTS = new Date()
+        this.report.summary.spo2 = this.avgSPO2
+        this.report.summary.hr = this.avgHR
+        this.report.data = {
+          device: undefined,
+          samples: this.storedData
+        }
       } catch (err) {
         console.error('cannot download data', err)
         this.showErrorDialog()
       }
-      this.isDownloading = false
+      this.downloading = false
     },
 
     showErrorDialog () {
@@ -125,54 +152,17 @@ export default {
       this.$router.push({ name: 'tasker' })
     },
 
-    async send () {
-      this.isSending = true
+    async saveAndLeave () {
       try {
-        let studyKey = this.studyKey
-        let taskId = Number(this.taskId)
-        await API.sendPO60Data({
-          userKey: userinfo.user._key,
-          studyKey: studyKey,
-          taskId: taskId,
-          createdTS: new Date(),
-          device: this.deviceInfo,
-          po60Data: this.storedData
-        })
-        await db.setTaskCompletion(studyKey, taskId, new Date())
-        this.isSending = false
-        // go back to home page
-        this.$router.push('/home')
-      } catch (error) { // TODO: onDismiss doesn't work when there is no server connection!
-        this.isSending = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem',
-          onDismiss () {
-            this.$router.push('/home')
-          }
-        })
-      }
-    },
-
-    async discard () {
-      let studyKey = this.studyKey
-      let taskId = Number(this.taskId)
-      this.isSending = true
-      try {
-        await API.sendPO60Data({
-          userKey: userinfo.user._key,
-          studyKey: studyKey,
-          taskId: taskId,
-          createdTS: new Date(),
-          phone: phone.device,
-          po60Data: 'discarded'
-        })
-        await db.setTaskCompletion(studyKey, taskId, new Date())
+        await API.sendTasksResults(this.report)
+        await DB.setTaskCompletion(
+          this.report.studyKey,
+          this.report.taskId,
+          new Date()
+        )
         this.$router.push({ name: 'home' })
       } catch (error) {
-        this.isSending = false
+        this.sending = false
         console.error(error)
         this.$q.notify({
           color: 'negative',
@@ -180,11 +170,33 @@ export default {
           icon: 'report_problem'
         })
       }
+    },
+
+    async send () {
+      this.sending = true
+
+      this.report.discarded = false
+
+      return this.saveAndLeave()
+    },
+
+    async discard () {
+      this.sending = true
+
+      // delete data and set flag
+      this.report.discarded = true
+      delete this.report.summary
+      delete this.report.data
+
+      return this.saveAndLeave()
     }
   },
+
   async mounted () {
+    console.log('downloading...')
     await this.downloadData()
   },
+
   async beforeDestroy () {
     try {
       await po60.disconnect()
