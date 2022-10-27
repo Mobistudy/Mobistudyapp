@@ -89,7 +89,7 @@
       "scheduling": {
         "alwaysOn": true,
         "startEvent": "consent",
-        "untilSecs": 6480000
+        "untilSecs": 7776000
       },
       "customTitle": {
         "en": "TU&G in clinic",
