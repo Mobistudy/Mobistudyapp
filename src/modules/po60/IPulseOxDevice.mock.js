@@ -41,12 +41,12 @@ export default {
     if (!this.device) return Promise.reject()
     if (NO_DATA_FAIL) return Promise.reject()
     const startTimestamp = new Date()
-    const endTimestamp = new Date(startTimestamp.getTime + 5000)
+    const endTimestamp = new Date(startTimestamp.getTime() + 5000)
     let allData = []
     for (let i = 0; i < AMOUNT_OF_DATA; i++) {
       allData.push({
-        startTimestamp: startTimestamp,
-        endTimestamp: endTimestamp,
+        startTS: startTimestamp,
+        endTS: endTimestamp,
         hrMax: this.randomNum(140, 160),
         hrMin: this.randomNum(50, 80),
         hrAvg: this.randomNum(50, 160),
@@ -64,14 +64,14 @@ export default {
     const startTimestamp = new Date()
     const endTimestamp = new Date(startTimestamp.getTime + 5000)
     let latestData = {
-      startTimestamp: startTimestamp,
-      endTimestamp: endTimestamp,
+      startTS: startTimestamp,
+      endTS: endTimestamp,
       hrMax: this.randomNum(140, 160),
       hrMin: this.randomNum(50, 80),
       hrAvg: this.randomNum(50, 160),
-      SPO2Max: this.randomNum(90, 99),
-      SPO2Min: this.randomNum(50, 95),
-      SPO2Avg: this.randomNum(50, 99)
+      spo2Max: this.randomNum(90, 99),
+      spo2Min: this.randomNum(50, 95),
+      spo2Avg: this.randomNum(50, 99)
     }
     return Promise.resolve(latestData)
   },

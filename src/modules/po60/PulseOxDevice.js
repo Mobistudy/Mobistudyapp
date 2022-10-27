@@ -123,9 +123,9 @@ export default class PulseOxDevice extends BLEDevice {
   }
   getSPO2Values (measurement) {
     let SPO2Values = {
-      SPO2Max: measurement[17],
-      SPO2Min: measurement[18],
-      SPO2Avg: measurement[19]
+      spo2Max: measurement[17],
+      spo2Min: measurement[18],
+      spo2Avg: measurement[19]
     }
     return SPO2Values
   }
@@ -133,8 +133,8 @@ export default class PulseOxDevice extends BLEDevice {
     const startTimestamp = this.getStartTimestamp(measurement)
     const endTimestamp = this.getEndTimestamp(measurement)
     let timestampValues = {
-      startTimestamp: startTimestamp,
-      endTimestamp: endTimestamp
+      startTS: startTimestamp,
+      endTS: endTimestamp
     }
     return timestampValues
   }

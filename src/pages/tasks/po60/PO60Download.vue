@@ -91,7 +91,6 @@ export default {
   },
   watch: {
     storedData: function (val) {
-      console.log('got data')
       let latest = val[val.length - 1]
       this.avgHR = latest.hrAvg + ''
       this.avgSPO2 = latest.SPO2Avg + '%'
@@ -102,7 +101,6 @@ export default {
       this.downloading = true
       try {
         this.storedData = await po60.getAllData()
-        console.log(this.storedData)
 
         try {
           await po60.disconnect()
@@ -111,9 +109,11 @@ export default {
           console.error('cannot disconnect PO60', err)
         }
 
+        let lastValue = this.storedData[this.storedData.length - 1]
+
         this.report.summary.completedTS = new Date()
-        this.report.summary.spo2 = this.avgSPO2
-        this.report.summary.hr = this.avgHR
+        this.report.summary.spo2 = lastValue.SPO2Avg
+        this.report.summary.hr = lastValue.hrAvg
         this.report.data = {
           device: undefined,
           samples: this.storedData
@@ -154,6 +154,7 @@ export default {
 
     async saveAndLeave () {
       try {
+        console.log(this.report)
         await API.sendTasksResults(this.report)
         await DB.setTaskCompletion(
           this.report.studyKey,
@@ -193,7 +194,6 @@ export default {
   },
 
   async mounted () {
-    console.log('downloading...')
     await this.downloadData()
   },
 
