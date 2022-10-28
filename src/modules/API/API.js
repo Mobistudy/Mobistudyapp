@@ -123,11 +123,6 @@ export default {
     return resp.data
   },
 
-  // send position
-  sendPosition: async function (data) {
-    return axios.post(BASE_URL + '/positions', data, axiosConfig)
-  },
-
   // get environment data from position
   getEnvironmentFromPosition: async function (lat, long) {
     const resp = await axios.get(BASE_URL + '/positions/environment?lat=' + lat + '&long=' + long, axiosConfig)

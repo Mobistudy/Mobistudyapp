@@ -15,19 +15,48 @@
       class="mobitxt1 text-center q-ma-lg"
     >
       <div
-        class="mobitxt1"
+        class="mobitxt1 q-my-lg"
         v-if="environment.weather && environment.weather.location"
       > {{ $t('studies.tasks.position.approxLocation') }}: {{ environment.weather.location }}</div>
-      <div v-if="environment.weather && environment.weather.icon"> <img :src="environment.weather.icon"></div>
-      <div v-if="environment.weather && environment.weather.description"> {{ $t('studies.tasks.position.weather') }}: {{ environment.weather.description }}</div>
-      <div v-if="environment.weather && environment.weather.temperature"> {{ $t('studies.tasks.position.temperature') }}: {{ environment.weather.temperature.toFixed(0) }} °C</div>
-      <div v-if="environment.weather && environment.weather.humidity"> {{ $t('studies.tasks.position.humidity') }}: {{ environment.weather.humidity.toFixed(0) }} %</div>
-      <div v-if="environment.weather && environment.weather.clouds"> {{ $t('studies.tasks.position.clouds') }}: {{ environment.weather.clouds }} %</div>
-      <div v-if="environment.weather && environment.weather.wind && environment.weather.speed"> {{ $t('studies.tasks.position.wind') }}: {{ environment.weather.wind.speed }} m/s</div>
-      <div v-if="aqiLevel"> {{ $t('studies.tasks.position.airQuality') }} : {{ aqiLevel }}</div>
-      <div v-if="environment.allergens && environment.allergens.pollen && environment.allergens.pollen.Risk">{{ $t('studies.tasks.position.allergens.riskOfGrass') }}: {{ environment.allergens.pollen.Risk.grass_pollen }}</div>
-      <div v-if="environment.allergens && environment.allergens.pollen && environment.allergens.pollen.Risk">{{ $t('studies.tasks.position.allergens.riskOfTree') }}: {{ environment.allergens.pollen.Risk.tree_pollen }}</div>
-      <div v-if="environment.allergens && environment.allergens.pollen && environment.allergens.pollen.Risk">{{ $t('studies.tasks.position.allergens.riskOfWeed') }}: {{ environment.allergens.pollen.Risk.weed_pollen }}</div>
+
+      <table class="summaryTable q-my-lg">
+        <tr v-if="environment.weather && environment.weather.icon">
+          <td>{{ $t('studies.tasks.position.weather') }}</td>
+          <td><img :src="environment.weather.icon"></td>
+        </tr>
+        <tr v-if="environment.weather && environment.weather.temperature">
+          <td>{{ $t('studies.tasks.position.temperature') }}</td>
+          <td>{{ environment.weather.temperature.toFixed(0) }} °C</td>
+        </tr>
+        <tr v-if="environment.weather && environment.weather.humidity">
+          <td>{{ $t('studies.tasks.position.humidity') }}</td>
+          <td>{{ environment.weather.humidity.toFixed(0) }} %</td>
+        </tr>
+        <tr v-if="environment.weather && environment.weather.clouds">
+          <td>{{ $t('studies.tasks.position.clouds') }}</td>
+          <td>{{ environment.weather.clouds }}</td>
+        </tr>
+        <tr v-if="environment.weather && environment.weather.wind && environment.weather.speed">
+          <td>{{ $t('studies.tasks.position.wind') }}</td>
+          <td>{{ environment.weather.wind.speed }} m/s</td>
+        </tr>
+        <tr v-if="aqiLevel">
+          <td>{{ $t('studies.tasks.position.airQuality') }} </td>
+          <td>{{ aqiLevel }}</td>
+        </tr>
+        <tr v-if="environment.allergens && environment.allergens.pollen && environment.allergens.pollen.Risk && environment.allergens.pollen.Risk.grass_pollen">
+          <td>{{ $t('studies.tasks.position.allergens.riskOfGrass') }} </td>
+          <td>{{ environment.allergens.pollen.Risk.grass_pollen }}</td>
+        </tr>
+        <tr v-if="environment.allergens && environment.allergens.pollen && environment.allergens.pollen.Risk && environment.allergens.pollen.Risk.tree_pollen">
+          <td>{{ $t('studies.tasks.position.allergens.riskOfTree') }} </td>
+          <td>{{ environment.allergens.pollen.Risk.tree_pollen }}</td>
+        </tr>
+        <tr v-if="environment.allergens && environment.allergens.pollen && environment.allergens.pollen.Risk && environment.allergens.pollen.Risk.weed_pollen">
+          <td>{{ $t('studies.tasks.position.allergens.riskOfWeed') }} </td>
+          <td>{{ environment.allergens.pollen.Risk.weed_pollen }}</td>
+        </tr>
+      </table>
     </div>
 
     <div
@@ -69,7 +98,22 @@ export default {
       position: undefined,
       environment: undefined,
       showConnecting: true,
-      sending: false
+      sending: false,
+      report: {
+        userKey: userinfo.user._key,
+        participantKey: userinfo.user.participantKey,
+        studyKey: this.studyKey,
+        taskId: parseInt(this.taskId),
+        taskType: 'position',
+        createdTS: new Date(),
+        phone: phone.device,
+        summary: {
+          startedTS: new Date(),
+          completedTS: undefined,
+          location: undefined
+        },
+        data: undefined
+      }
     }
   },
   mounted: async function () {
@@ -88,6 +132,14 @@ export default {
       this.position = await phone.geolocation.getCurrentPosition()
       try {
         this.environment = await API.getEnvironmentFromPosition(this.position.coords.latitude, this.position.coords.longitude)
+
+        this.report.summary.completedTS = new Date()
+        this.report.summary.location = this.environment.weather.location
+        this.report.summary.weather = this.environment.weather.description
+        this.report.summary.temperature = this.environment.weather.temperature
+        this.report.summary.aqi = this.environment.pollution.aqi
+
+        this.report.data = this.environment
         console.log(this.environment)
       } catch (err) {
         console.error(err)
@@ -105,57 +157,15 @@ export default {
     }
   },
   methods: {
-    async send () {
-      this.sending = true
-
-      // send report
-      const studyKey = this.studyKey
-      const taskId = parseInt(this.taskId)
-      const userKey = userinfo.user._key
-      let report = {
-        userKey: userKey,
-        studyKey: studyKey,
-        taskId: taskId,
-        createdTS: new Date(),
-        position: this.position,
-        environment: this.environment
-      }
-
-      // Save the data to server
+    async saveAndLeave () {
       try {
-        await API.sendPosition(report)
-        await DB.setTaskCompletion(studyKey, taskId, new Date())
-        this.$q.loading.hide()
-        this.$router.push('/home')
-      } catch (error) {
-        this.$q.loading.hide()
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
-        this.sending = false
-      }
-    },
-    async discard () {
-      this.sending = true
-
-      const studyKey = this.studyKey
-      const taskId = parseInt(this.taskId)
-      const userKey = userinfo.user._key
-
-      try {
-        await API.sendPosition({
-          userKey: userKey,
-          studyKey: studyKey,
-          taskId: taskId,
-          createdTS: new Date(),
-          phone: phone.device,
-          position: 'discarded',
-          environment: 'discarded'
-        })
-        await DB.setTaskCompletion(studyKey, taskId, new Date())
+        console.log(this.report)
+        await API.sendTasksResults(this.report)
+        await DB.setTaskCompletion(
+          this.report.studyKey,
+          this.report.taskId,
+          new Date()
+        )
         this.$router.push({ name: 'home' })
       } catch (error) {
         this.sending = false
@@ -166,6 +176,25 @@ export default {
           icon: 'report_problem'
         })
       }
+    },
+
+    async send () {
+      this.sending = true
+
+      this.report.discarded = false
+
+      return this.saveAndLeave()
+    },
+
+    async discard () {
+      this.sending = true
+
+      // delete data and set flag
+      this.report.discarded = true
+      delete this.report.summary
+      delete this.report.data
+
+      return this.saveAndLeave()
     }
   },
   computed: {

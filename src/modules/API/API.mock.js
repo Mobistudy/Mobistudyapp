@@ -305,12 +305,6 @@ export default {
     return new Date().getTime() + '.json'
   },
 
-  async sendPosition (data) {
-    console.log('API - sending position', data)
-    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
-    return Promise.resolve()
-  },
-
   async getEnvironmentFromPosition (lat, long) {
     console.log('API - getting environment', lat, long)
     return new Promise((resolve, reject) => {

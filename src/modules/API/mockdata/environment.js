@@ -38,14 +38,14 @@ export default {
   allergens: {
     pollen: {
       Count: {
-        'grass_pollen': 83,
-        'tree_pollen': 358,
-        'weed_pollen': 14
+        grass_pollen: 83,
+        tree_pollen: 358,
+        weed_pollen: 14
       },
       Risk: {
-        'grass_pollen': 'High',
-        'tree_pollen': 'High',
-        'weed_pollen': 'Low'
+        grass_pollen: 'High',
+        tree_pollen: 'High',
+        weed_pollen: 'Low'
       }
     }
   }
