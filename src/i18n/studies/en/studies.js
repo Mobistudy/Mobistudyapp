@@ -65,6 +65,7 @@ let studies = {
       hoursAgo: '1 hour ago | {count} hours ago',
       minsAgo: '1 minute ago | {count} minutes ago',
       form: {
+        retrieving: 'Retrieving form',
         title: '{formname} form',
         shortDescription: 'Answer a few questions',
         formCompleted: 'Form completed.',

@@ -212,7 +212,7 @@
     </div>
 
     <q-inner-loading :showing="isRetrieving">
-      <div class="text-overline">{{ $t('studies.tasks.miband3.dataSending') }}</div>
+      <div class="mobitxt2">{{ $t('studies.tasks.form.retrieving') }}</div>
       <q-spinner-oval
         size="50px"
         color="primary"

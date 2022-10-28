@@ -65,6 +65,7 @@ let studies = {
       hoursAgo: '1 timme sedan | {count} timmar sedan',
       minsAgo: '1 minut sedan | {count} minuter sedan',
       form: {
+        retrieving: 'Hämtar formulär',
         title: '{formname} formulär',
         shortDescription: 'Besvara några frågor',
         formCompleted: 'Formulär slutförd.',
