@@ -314,12 +314,6 @@ export default {
     })
   },
 
-  async sendPeakFlow (data) {
-    console.log('API - sending peakflow data', data)
-    this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
-    return Promise.resolve()
-  },
-
   async sendTasksResults (data) {
     console.log('API - sending tasks results', data)
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)

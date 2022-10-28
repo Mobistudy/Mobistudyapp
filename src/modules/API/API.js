@@ -129,11 +129,6 @@ export default {
     return resp.data
   },
 
-  // send data from Peak Flow Meter
-  sendPeakFlow: async function (data) {
-    return axios.post(BASE_URL + '/peakFlow', data, axiosConfig)
-  },
-
   // send tasks results data
   sendTasksResults: async function (data) {
     return axios.post(BASE_URL + '/tasksResults', data, axiosConfig)

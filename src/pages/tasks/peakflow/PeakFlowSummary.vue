@@ -46,28 +46,21 @@ export default {
     report: Object
   },
   data: function () {
+    console.log(this.report)
     return {
-      PEFs: this.report.PEFs,
-      pefMax: this.report.pefMax,
+      PEFs: this.report.data.PEFs,
+      pefMax: this.report.summary.pefMax,
       sending: false
     }
   },
   methods: {
-    async send () {
-      this.sending = true
+    async saveAndLeave () {
       // Save the data to server
       try {
-        await API.sendPeakFlow(this.report)
-        await DB.setTaskCompletion(
-          this.report.studyKey,
-          this.report.taskId,
-          new Date()
-        )
-        await DB.addPastPeakFlowMeas({
-          pefMax: this.report.pefMax,
-          createdTS: this.report.createdTS
-        })
-        this.$router.push({ name: 'peakFlowReview', params: { report: this.report } })
+        await API.sendTasksResults(this.report)
+        await DB.setTaskCompletion(this.report.studyKey, this.report.taskId, new Date())
+        this.sending = false
+        this.$router.push('/home')
       } catch (error) {
         this.sending = false
         console.error(error)
@@ -78,27 +71,22 @@ export default {
         })
       }
     },
+    async send () {
+      this.sending = true
+
+      this.report.discarded = false
+
+      return this.saveAndLeave()
+    },
     async discard () {
       this.sending = true
-      try {
-        this.report.PEFs = 'discarded'
-        this.report.pefMax = 'discarded'
-        await API.sendPeakFlow(this.report)
-        await DB.setTaskCompletion(
-          this.report.studyKey,
-          this.report.taskId,
-          new Date()
-        )
-        this.$router.push({ name: 'home' })
-      } catch (error) {
-        this.sending = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
-      }
+
+      // delete data and set flag
+      this.report.discarded = true
+      delete this.report.summary
+      delete this.report.data
+
+      return this.saveAndLeave()
     }
   }
 }

@@ -104,7 +104,24 @@ export default {
       testErrors: 0,
       maxErrors: 4,
       measurement: undefined,
-      PEFs: []
+      PEFs: [],
+      report: {
+        userKey: userinfo.user._key,
+        participantKey: userinfo.user.participantKey,
+        studyKey: this.studyKey,
+        taskId: parseInt(this.taskId),
+        taskType: 'peakFlow',
+        createdTS: new Date(),
+        phone: phone.device,
+        summary: {
+          startedTS: new Date(),
+          completedTS: undefined,
+          pefMax: undefined
+        },
+        data: {
+          PEFs: undefined
+        }
+      }
     }
   },
   methods: {
@@ -130,20 +147,13 @@ export default {
       await peakflow.stopMeasurement()
     },
     completeTest () {
-      const studyKey = this.studyKey
-      const taskId = parseInt(this.taskId)
-      const userKey = userinfo.user._key
-      let report = {
-        userKey: userKey,
-        studyKey: studyKey,
-        taskId: taskId,
-        createdTS: new Date(),
-        phone: phone.device,
-        PEFs: this.PEFs,
-        pefMax: Math.max(...this.PEFs)
+      this.report.summary.completedTS = new Date()
+      this.report.summary.pefMax = Math.max(...this.PEFs)
+      this.report.data = {
+        PEFs: this.PEFs
       }
 
-      this.$router.push({ name: 'peakFlowSummary', params: { report: report } })
+      this.$router.push({ name: 'peakFlowSummary', params: { report: this.report } })
     },
     abandonTest () {
       this.$router.push({ name: 'tasker' })
