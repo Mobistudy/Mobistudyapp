@@ -13,7 +13,7 @@
 
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
 
-      <table class="decoratedTable">
+      <table class="summaryTable q-my-lg">
         <tr>
           <td>{{ $t('studies.tasks.holdPhone.time') }}</td>
           <td> {{ minutes }}:{{ seconds }}</td>
@@ -64,17 +64,6 @@
 
   </q-page>
 </template>
-
-<style>
-.decoratedTable {
-  background: #f8f8f8;
-  padding: 4px;
-  width: 70%;
-  margin: 0px auto;
-  font-size: 1rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-</style>
 
 <script>
 import { variance } from 'modules/stats'
