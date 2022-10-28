@@ -44,7 +44,7 @@
 
     <q-inner-loading :showing="showScanning">
       <div
-        class="text-overline"
+        class="mobitxt2"
         color="dark-grey"
       >{{$t('studies.tasks.po60.scanning')}}</div>
       <q-spinner-dots
@@ -54,7 +54,7 @@
     </q-inner-loading>
     <q-inner-loading :showing="showConnecting">
       <div
-        class="text-overline"
+        class="mobitxt2"
         color="dark-grey"
       >{{$t('studies.tasks.po60.connecting')}}</div>
       <q-spinner-dots

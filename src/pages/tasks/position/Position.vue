@@ -2,7 +2,7 @@
   <q-page padding>
     <q-inner-loading :showing="showConnecting">
       <div
-        class="text-overline"
+        class="mobitxt2"
         color="dark-grey"
       >{{$t('studies.tasks.position.connecting')}}</div>
       <q-spinner-dots

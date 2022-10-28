@@ -47,7 +47,7 @@
 
     <q-inner-loading :showing="showSearching">
       <div
-        class="text-overline"
+        class="mobitxt2"
         color="dark-grey"
       >{{$t('studies.tasks.miband3.searching')}}</div>
       <q-spinner-dots
@@ -57,7 +57,7 @@
     </q-inner-loading>
     <q-inner-loading :showing="showConnecting">
       <div
-        class="text-overline"
+        class="mobitxt2"
         color="dark-grey"
       >{{$t('studies.tasks.miband3.connecting')}}</div>
       <q-spinner-dots
@@ -159,6 +159,7 @@ export default {
         this.showConnecting = false
         // TODO: there should be a third button in case the user has a new miband
         // this cannot be done using the dialog plugin, so a complete dialog should be designed
+
         // Rarely connects on the first attempt, should need at least 3.
         if (this.connectionAttempts < this.maxConnectionAttempts) {
           console.log('Attempting connect again...', this.connectionAttempts)

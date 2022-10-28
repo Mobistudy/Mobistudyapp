@@ -56,7 +56,7 @@
     </div>
 
     <q-inner-loading :showing="isDownloading">
-      <div class="text-overline">{{ $t('studies.tasks.miband3.dataDownload') }}</div>
+      <div class="mobitxt2">{{ $t('studies.tasks.miband3.dataDownload') }}</div>
       <q-spinner-dots
         size="50px"
         color="primary"

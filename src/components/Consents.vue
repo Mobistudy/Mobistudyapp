@@ -80,7 +80,7 @@
     </q-dialog>
 
     <q-inner-loading :showing="permissionSpinner">
-      <div class="text-overline">{{ $t('studies.consent.OSPermissionGivenSeeking') }}</div>
+      <div class="mobitxt2">{{ $t('studies.consent.OSPermissionGivenSeeking') }}</div>
       <q-spinner-dots
         size="50px"
         color="primary"

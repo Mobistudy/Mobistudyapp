@@ -32,7 +32,7 @@
     </div>
     <q-inner-loading :showing="calibrating">
       <div
-        class="text-overline"
+        class="mobitxt2"
         color="dark-grey"
       >{{$t('studies.tasks.peakflow.calibrating')}}</div>
       <q-spinner-dots
