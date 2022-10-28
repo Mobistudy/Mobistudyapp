@@ -205,7 +205,7 @@ export default {
         this.report.summary.length = storedData.length
         this.report.data = {
           device: this.deviceInfo,
-          samples: storedData
+          activity: storedData
         }
 
         this.isDownloading = false

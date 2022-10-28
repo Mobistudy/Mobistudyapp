@@ -116,7 +116,7 @@ export default {
         this.report.summary.hr = lastValue.hrAvg
         this.report.data = {
           device: undefined,
-          samples: this.storedData
+          pulseoximetry: this.storedData
         }
       } catch (err) {
         console.error('cannot download data', err)
