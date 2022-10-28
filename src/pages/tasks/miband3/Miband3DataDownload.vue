@@ -203,6 +203,9 @@ export default {
         this.renderLineChart(this.currentStartHour, this.currentEndHour)
 
         this.report.summary.length = storedData.length
+        this.report.summary.completedTS = new Date()
+        this.report.summary.firstTS = storedData[0].date
+        this.report.summary.lastTS = storedData[storedData.length - 1].date
         this.report.data = {
           device: this.deviceInfo,
           activity: storedData
