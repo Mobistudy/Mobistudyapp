@@ -108,6 +108,10 @@ export default {
       } else {
         if (!resettingpwd) {
           API.setToken(userinfo.user.token)
+          let newToken = await API.renewToken()
+          userinfo.user.token = newToken
+          API.setToken(newToken)
+
           console.log('LOGGED IN, REDIRECTING TO HOME')
           this.$router.replace({ name: 'tasker' })
           this.enableRouting = true

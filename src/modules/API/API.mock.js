@@ -123,6 +123,12 @@ export default {
     })
   },
 
+  // token renewal
+  renewToken: async () => {
+    console.log('API - Token renewal')
+    return 'bababbabababbababababbaba'
+  },
+
   // Create the participant profile
   async createProfile (profile) {
     console.log('API - Profile created', profile)

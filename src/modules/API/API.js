@@ -1,4 +1,3 @@
-'use strict'
 // API implementation
 import axios from 'axios'
 
@@ -18,7 +17,6 @@ export default {
   },
   // Log in
   login: async (email, password) => {
-    console.log('Login BASE:', BASE_URL)
     let resp = await axios.post(BASE_URL + '/login', { email: email, password: password })
     return resp.data
   },
@@ -49,6 +47,12 @@ export default {
   /// ////////////////////////////////////
   // from here on, we need to use tokens
   /// ////////////////////////////////////
+
+  // token renewal
+  renewToken: async () => {
+    const resp = await axios.get(BASE_URL + '/users/renewToken', axiosConfig)
+    return resp.data
+  },
 
   // Create the participant profile
   createProfile: async function (profile) {
