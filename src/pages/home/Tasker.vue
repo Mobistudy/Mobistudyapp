@@ -165,14 +165,17 @@
         class="q-pa-lg text-center"
         style="background-color:white"
       >
-        <div class="text-h4 q-mb-md">{{ $t('studies.studyCompletedHeadline') }}!</div>
+        <div class="mobitxt2 q-mb-md">{{ $t('studies.studyCompletedHeadline') }}!</div>
         <div>
           <img
             src="imgs/confetti.svg"
             style="width:30vw; max-width:150px;"
           >
         </div>
-        <p v-html="$t('studies.studyCompletedText', { studyname: completedStudyTitle })"></p>
+        <p
+          class="mobitxt1"
+          v-html="$t('studies.studyCompletedText', { studyname: completedStudyTitle })"
+        ></p>
         <q-btn
           color="primary"
           @click="studyCompleted()"
