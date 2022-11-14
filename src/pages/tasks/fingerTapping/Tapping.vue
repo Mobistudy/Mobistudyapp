@@ -27,14 +27,16 @@
       <q-btn
         round
         size="40px"
-        color="secondary"
+        color="primary"
+        :disable="!isStarted"
         @touchstart="leftTapped"
         class="q-mr-lg"
       >1</q-btn>
       <q-btn
         round
         size="40px"
-        color="secondary"
+        color="primary"
+        :disable="!isStarted"
         @touchstart="rightTapped"
         class="q-ml-lg"
       >2</q-btn>

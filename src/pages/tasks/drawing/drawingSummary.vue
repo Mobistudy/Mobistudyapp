@@ -65,7 +65,6 @@ export default {
           icon: 'report_problem'
         })
       }
-      console.log(this.report)
     },
     async send () {
       this.sending = true

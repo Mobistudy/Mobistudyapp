@@ -76,70 +76,61 @@ export default {
   },
   created () {
     if (this.task.type === 'dataQuery') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.$i18n.t('studies.tasks.dataQuery.shortTitle')
+      this.title = this.$i18n.t('studies.tasks.dataQuery.shortTitle')
       this.main = this.$i18n.t('studies.tasks.dataQuery.shortDescription')
       this.icon = 'insert_chart_outlined'
     } else if (this.task.type === 'form') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.task.formName[this.$root.$i18n.locale]
+      this.title = this.task.formName[this.$root.$i18n.locale]
       this.main = this.$i18n.t('studies.tasks.form.shortDescription')
       this.icon = 'format_list_bulleted'
     } else if (this.task.type === 'smwt') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.$i18n.t('studies.tasks.smwt.shortTitle')
+      this.title = this.$i18n.t('studies.tasks.smwt.shortTitle')
       this.main = this.$i18n.t('studies.tasks.smwt.shortDescription')
       this.icon = 'directions_walk'
     } else if (this.task.type === 'qcst') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.$i18n.t('studies.tasks.qcst.shortTitle')
+      this.title = this.$i18n.t('studies.tasks.qcst.shortTitle')
       this.main = this.$i18n.t('studies.tasks.qcst.shortDescription')
       this.icon = 'layers'
     } else if (this.task.type === 'miband3') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.$i18n.t('studies.tasks.miband3.shortTitle')
+      this.title = this.$i18n.t('studies.tasks.miband3.shortTitle')
       this.main = this.$i18n.t('studies.tasks.miband3.shortDescription')
       this.icon = 'watch'
     } else if (this.task.type === 'po60') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.$i18n.t('studies.tasks.po60.shortTitle')
+      this.title = this.$i18n.t('studies.tasks.po60.shortTitle')
       this.main = this.$i18n.t('studies.tasks.po60.shortDescription')
       this.icon = 'touch_app'
     } else if (this.task.type === 'position') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.$i18n.t('studies.tasks.position.shortTitle')
+      this.title = this.$i18n.t('studies.tasks.position.shortTitle')
       this.main = this.$i18n.t('studies.tasks.position.shortDescription')
       this.icon = 'place'
     } else if (this.task.type === 'peakFlow') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.$i18n.t('studies.tasks.peakflow.shortTitle')
+      this.title = this.$i18n.t('studies.tasks.peakflow.shortTitle')
       this.main = this.$i18n.t('studies.tasks.peakflow.shortDescription')
       this.icon = 'air'
     } else if (this.task.type === 'fingerTapping') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.$i18n.t('studies.tasks.fingerTapping.shortTitle')
+      this.title = this.$i18n.t('studies.tasks.fingerTapping.shortTitle')
       this.main = this.$i18n.t('studies.tasks.fingerTapping.shortDescription')
       this.icon = 'touch_app'
     } else if (this.task.type === 'tugt') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.$i18n.t('studies.tasks.tugt.shortTitle')
+      this.title = this.$i18n.t('studies.tasks.tugt.shortTitle')
       this.main = this.$i18n.t('studies.tasks.tugt.shortDescription')
       this.icon = 'transfer_within_a_station'
     } else if (this.task.type === 'holdPhone') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.$i18n.t('studies.tasks.holdPhone.shortTitle')
+      this.title = this.$i18n.t('studies.tasks.holdPhone.shortTitle')
       this.main = this.$i18n.t('studies.tasks.holdPhone.shortDescription')
       this.icon = 'svguse:icons/holdphone-icon.svg#holdphone-icon'
     } else if (this.task.type === 'vocalization') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.$i18n.t('studies.tasks.vocalization.shortTitle')
+      this.title = this.$i18n.t('studies.tasks.vocalization.shortTitle')
       this.main = this.$i18n.t('studies.tasks.vocalization.shortDescription')
       this.icon = 'record_voice_over'
     } else if (this.task.type === 'drawing') {
-      if (this.task.customTitle) this.title = this.task.customTitle[this.$i18n.locale]
-      else this.title = this.$i18n.t('studies.tasks.drawing.shortTitle')
+      this.title = this.$i18n.t('studies.tasks.drawing.shortTitle')
       this.main = this.$i18n.t('studies.tasks.drawing.shortDescription')
       this.icon = 'draw'
+    }
+
+    if (this.task.customTitle && this.task.customTitle[this.$i18n.locale]) {
+      this.title = this.task.customTitle[this.$i18n.locale]
     }
   },
   computed: {
