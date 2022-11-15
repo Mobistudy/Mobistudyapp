@@ -200,7 +200,7 @@ import * as scheduler from 'modules/scheduler'
 import notifications from 'modules/notifications/notifications'
 
 // ms between refreshes of the home (including re-loading of studies, tasks and re-scheduling)
-const RELOAD_INTERVAL = 1000 * 60 * 60 * 2
+const RELOAD_INTERVAL = 1000 * 60 * 15
 
 export default {
   name: 'TaskerPage',
