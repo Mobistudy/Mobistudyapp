@@ -26,8 +26,15 @@
 - updated dependencies and bugfixes
 
 
-0.2.11 (under development)
+0.3.0
 
 - added task for Timed-up-and-go test, Vocalization test and drawing test
 - updated privacy policy with information about new tasks
+- improved text and translations
+- improved style for larger screens
 - updated dependencies and bugfixes
+
+
+0.3.1
+
+- bugfixes from previous version

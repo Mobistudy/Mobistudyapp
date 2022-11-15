@@ -68,6 +68,12 @@ development. Try compiling the project and see if it works.
 Open the Mobistudy App-info.plist file located under Resources. Open it as source
 file. Then check that the following flags are set:
 
+For US export compliance:
+```xml
+<key>ITSAppUsesNonExemptEncryption</key>
+<false/>
+```
+
 For accessing HealthKit:
 ```xml
 <key>NSHealthShareUsageDescription</key>
@@ -77,7 +83,7 @@ For accessing HealthKit:
 ```
 
 In order to be able to retrieve files that are stored in the app through iTunes,
-make sure the following also is present:
+make sure the following also is present (needed for testing only):
 ```xml
 <key>UIFileSharingEnabled</key>
 <true/>
@@ -92,7 +98,7 @@ For the pedometer to work properly:
 For the GPS:
 ```xml
 <key>NSLocationWhenInUseUsageDescription</key>
-<string>The app needs to estimate your physical activity</string>
+<string>The app needs your position to estimate activity or the environment</string>
 ```
 
 
