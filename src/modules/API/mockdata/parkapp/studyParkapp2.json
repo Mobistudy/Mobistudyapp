@@ -5,7 +5,7 @@
   "invitational": true,
   "numberOfParticipants": 40,
   "createdTS": "2022-11-09T10:35:39.708Z",
-  "updatedTS": "2022-11-09T10:35:39.708Z",
+  "updatedTS": "2022-11-17T22:59:13.372Z",
   "generalities": {
     "languages": [
       "en",
@@ -80,7 +80,9 @@
       "other"
     ],
     "diseases": [],
-    "medications": []
+    "medications": [],
+    "minBMI": 5,
+    "maxBMI": 210
   },
   "tasks": [
     {
@@ -94,7 +96,8 @@
       "customTitle": {
         "en": "TU&G in clinic",
         "sv": "TU&G på kliniken"
-      }
+      },
+      "useCustomTitle": true
     },
     {
       "id": 2,
@@ -108,8 +111,9 @@
       },
       "customTitle": {
         "en": "TU&G before medication",
-        "sv": "TU&G before medicin"
-      }
+        "sv": "TU&G före medicin"
+      },
+      "useCustomTitle": true
     },
     {
       "id": 3,
@@ -126,7 +130,8 @@
       "customTitle": {
         "en": "TU&G 1h after medication",
         "sv": "TU&G 1t efter medicin"
-      }
+      },
+      "useCustomTitle": true
     },
     {
       "id": 4,
@@ -143,7 +148,8 @@
       "formName": {
         "en": "Beck Depression Inventory",
         "sv": "Beck Depression Inventering"
-      }
+      },
+      "useCustomTitle": false
     },
     {
       "id": 5,
@@ -160,7 +166,8 @@
       "formName": {
         "en": "Parkinson's disease sleep scale",
         "sv": "Parkinsons sjukdom sömnskala"
-      }
+      },
+      "useCustomTitle": false
     },
     {
       "id": 6,
@@ -177,7 +184,8 @@
       "formName": {
         "en": "Non-Motor Symptoms Questionnaire",
         "sv": "Formulär för icke-motoriska symtom"
-      }
+      },
+      "useCustomTitle": false
     },
     {
       "id": 7,
@@ -194,7 +202,8 @@
       "formName": {
         "en": "Parkinson's disease Questionnaire",
         "sv": "Parkinsons sjukdom frågeformulär"
-      }
+      },
+      "useCustomTitle": false
     },
     {
       "id": 8,
@@ -209,7 +218,8 @@
       "customTitle": {
         "en": "Voice test before medication",
         "sv": "Vokalisering före medicin"
-      }
+      },
+      "useCustomTitle": true
     },
     {
       "id": 9,
@@ -226,7 +236,8 @@
       "customTitle": {
         "en": "Voice test 1h after medication",
         "sv": "Vokalisering 1t efter medicin"
-      }
+      },
+      "useCustomTitle": true
     },
     {
       "id": 10,
@@ -241,7 +252,8 @@
       "customTitle": {
         "en": "Hold-the-phone before medication",
         "sv": "Hålla telefonen före medicin"
-      }
+      },
+      "useCustomTitle": true
     },
     {
       "id": 11,
@@ -258,7 +270,8 @@
       "customTitle": {
         "en": "Hold-the-phone 1h after medication",
         "sv": "Hålla telefonen 1t efter medicin"
-      }
+      },
+      "useCustomTitle": true
     },
     {
       "id": 12,
@@ -273,7 +286,8 @@
       "customTitle": {
         "en": "Finger tapping before medication",
         "sv": "Fingerfärdighet före medicin"
-      }
+      },
+      "useCustomTitle": true
     },
     {
       "id": 13,
@@ -290,7 +304,8 @@
       "customTitle": {
         "en": "Finger tapping 1h after medication",
         "sv": "Fingerfärdighet 1t efter medicin"
-      }
+      },
+      "useCustomTitle": true
     },
     {
       "id": 14,
@@ -305,7 +320,8 @@
       "customTitle": {
         "en": "Drawing test before medication",
         "sv": "Figurtestetet före medicin"
-      }
+      },
+      "useCustomTitle": true
     },
     {
       "id": 15,
@@ -322,7 +338,8 @@
       "customTitle": {
         "en": "Drawing test 1h after medication",
         "sv": "Figurtestetet 1t efter medicin"
-      }
+      },
+      "useCustomTitle": true
     },
     {
       "id": 16,
@@ -338,7 +355,8 @@
       "formName": {
         "en": "Daily sleep quality",
         "sv": "Daglig sömnkvalitet"
-      }
+      },
+      "useCustomTitle": false
     },
     {
       "id": 17,
@@ -355,7 +373,8 @@
       "formName": {
         "en": "Mobile Application Rating Scale",
         "sv": "Betygsskala för mobilapplikationer"
-      }
+      },
+      "useCustomTitle": false
     },
     {
       "id": 18,
@@ -372,7 +391,8 @@
       "formName": {
         "en": "Technology Acceptance Questionnaire",
         "sv": "Formulär för teknikacceptans"
-      }
+      },
+      "useCustomTitle": false
     }
   ],
   "consent": {
@@ -436,14 +456,14 @@
       },
       {
         "description": {
-          "en": "I agree to perform a vocalizaiton test, once a week -before medication-.",
+          "en": "I agree to perform a vocalization test, once a week -before medication-.",
           "sv": "Jag accepterar att utföra ett vokaliseringstest, en gång i veckan -före medicinering-."
         },
         "taskId": 8
       },
       {
         "description": {
-          "en": "I agree to perform a vocalizaiton test, once a week -1 hour after medication-.",
+          "en": "I agree to perform a vocalization test, once a week -1 hour after medication-.",
           "sv": "Jag accepterar att utföra ett vokaliseringstest, en gång i veckan -1 timme efter medicinering-."
         },
         "taskId": 9
@@ -535,5 +555,6 @@
         "optional": true
       }
     ]
-  }
+  },
+  "publishedTS": "2022-11-17T22:59:13.325Z"
 }
