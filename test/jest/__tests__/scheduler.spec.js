@@ -217,6 +217,121 @@ describe('When testing the scheduler', () => {
     expect(tasks.upcoming[0].due.getMinutes()).toBe(0)
   })
 
+  test('a weekly task is not available 4 days after being executed', () => {
+    let studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10),
+        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30).toISOString().substring(0, 10)
+      },
+      tasks: [{
+        id: 1,
+        type: 'tugt',
+        scheduling: {
+          startEvent: 'consent',
+          intervalType: 'd',
+          untilSecs: 5184000, // 60 days
+          interval: 7,
+          occurrences: 8
+        }
+      }]
+    }]
+    let studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      // tasks expected to be executed 18 days ago and 11 days ago and 4 days ago
+      acceptedTS: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 18).toISOString(),
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        // 4 days ago
+        lastExecuted: new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 4 - 1000 * 60 * 60)).toISOString()
+      }]
+    }]
+
+    let tasks = generateTasker(studiesPart, studyDescr)
+
+    expect(tasks.upcoming.length).toBe(0)
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
+
+  test('a weekly task is available 7 days after being executed', () => {
+    let studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10),
+        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 120).toISOString().substring(0, 10)
+      },
+      tasks: [{
+        id: 1,
+        type: 'tugt',
+        scheduling: {
+          startEvent: 'consent',
+          intervalType: 'd',
+          untilSecs: 5184000, // 60 days validity
+          interval: 7,
+          occurrences: 8
+        }
+      }]
+    }]
+    let studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      // tasks expected to be executed 14 days (and 1h) ago and 7 days ago and today
+      acceptedTS: new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 14 - 1000 * 60 * 60)).toISOString(), // started 15 days ago
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        // executed 7 days ago, so due today
+        lastExecuted: new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 11)).toISOString()
+      }]
+    }]
+
+    let tasks = generateTasker(studiesPart, studyDescr)
+    expect(tasks.upcoming.length).toBe(1)
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
+
+  test('a daily task is not available after all occurrences have finished', () => {
+    let studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10),
+        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 120).toISOString().substring(0, 10)
+      },
+      tasks: [{
+        id: 1,
+        type: 'tugt',
+        scheduling: {
+          startEvent: 'consent',
+          intervalType: 'd',
+          untilSecs: 5184000, // 60 days validity
+          interval: 7,
+          occurrences: 4 // only 4 occurrences
+        }
+      }]
+    }]
+    let studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      // tasks expected to be executed 32 days (and 1h) ago, then 25, then 18, then 11
+      acceptedTS: new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 32 - 1000 * 60 * 60)).toISOString(), // started 15 days ago
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        // executed 11 days ago, nothing due today
+        lastExecuted: new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 11)).toISOString()
+      }]
+    }]
+
+    let tasks = generateTasker(studiesPart, studyDescr)
+    expect(tasks.upcoming.length).toBe(0)
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
+
   test('a study beyond end date is marked as completed', () => {
     let studyDescr = [{
       _key: '1234',

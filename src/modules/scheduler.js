@@ -308,7 +308,7 @@ export function generateRRule (scheduling, studyPart, studyEnd) {
   rruleObj.dtstart = toUTC(startEventDate) // here needs to be converted to UTC to make things coherent
   rruleObj.until = endDate
   rruleObj.freq = freq
-  if (scheduling.interval && scheduling.interval.length) rruleObj.interval = scheduling.interval
+  if (scheduling.interval && scheduling.interval) rruleObj.interval = scheduling.interval
   if (scheduling.months && scheduling.months.length) rruleObj.bymonth = scheduling.months
   if (scheduling.monthDays && scheduling.monthDays.length) rruleObj.bymonthday = scheduling.monthDays
   if (byweekday && byweekday.length) rruleObj.byweekday = byweekday
