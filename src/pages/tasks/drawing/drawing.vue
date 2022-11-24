@@ -100,7 +100,7 @@ export default {
       let canvas = this.$refs.drawingCanvas
       // get the event with the coordinates
       let source = evt.touches ? evt.touches[0] : evt
-      const { clientX, clientY } = source
+      const { clientX, clientY, radiusX, radiusY, rotationAngle, force } = source
       const { left, top } = canvas.getBoundingClientRect()
       const x = clientX - left
       const y = clientY - top
@@ -115,7 +115,11 @@ export default {
       let point = {
         x: x,
         y: y,
-        ts: ts
+        ts: ts,
+        radX: radiusX,
+        radY: radiusY,
+        rotAngle: rotationAngle,
+        force: force
       }
       if (this.testNumber === 0) {
         this.coords0.push(point)
