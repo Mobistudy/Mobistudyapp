@@ -116,10 +116,12 @@ export default {
         x: x,
         y: y,
         ts: ts,
-        radX: radiusX,
-        radY: radiusY,
-        rotAngle: rotationAngle,
-        force: force
+        touchArea: {
+          radX: radiusX,
+          radY: radiusY,
+          rotAngle: rotationAngle,
+          force: force
+        }
       }
       if (this.testNumber === 0) {
         this.coords0.push(point)
