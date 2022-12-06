@@ -45,6 +45,9 @@ cd src-cordova
 cordova prepare android
 ```
 
+If gradle complains about a compile() directive in the file app-SPF.gradle, open the file and change `compile` to `implementation`. This is a bug in cordova android, which will be hopefully be fixed at some point.
+
+
 ### Setup for iOS
 
 Prepare the Xcode project:
