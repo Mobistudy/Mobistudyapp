@@ -398,6 +398,66 @@
         "sv": "Formulär för teknikacceptans"
       },
       "useCustomTitle": false
+    },
+    {
+      "id": 19,
+      "type": "vocalization",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 14400,
+        "occurrences": 1
+      },
+      "customTitle": {
+        "en": "Voice test DEMO",
+        "sv": "Vokalisering DEMO"
+      },
+      "useCustomTitle": true
+    },
+    {
+      "id": 20,
+      "type": "holdPhone",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 14400,
+        "occurrences": 1
+      },
+      "customTitle": {
+        "en": "Hold-the-phone DEMO",
+        "sv": "Hålla telefonen DEMO"
+      },
+      "useCustomTitle": true
+    },
+    {
+      "id": 21,
+      "type": "fingerTapping",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 14400,
+        "occurrences": 1
+      },
+      "customTitle": {
+        "en": "Finger tapping DEMO",
+        "sv": "Fingerfärdighet DEMO"
+      },
+      "useCustomTitle": true
+    },
+    {
+      "id": 22,
+      "type": "drawing",
+      "scheduling": {
+        "startEvent": "consent",
+        "intervalType": "d",
+        "untilSecs": 14400,
+        "occurrences": 1
+      },
+      "customTitle": {
+        "en": "Drawing test DEMO",
+        "sv": "Figurtestetet DEMO"
+      },
+      "useCustomTitle": true
     }
   ],
   "consent": {
@@ -535,6 +595,34 @@
           "sv": "Jag accepterar att besvara en enkät som mäter acceptans av teknologi (TAM – Formulär för teknikacceptans), en gång, 3 veckor efter att jag har påbörjat studien."
         },
         "taskId": 18
+      },
+      {
+        "description": {
+          "en": "I agree to perform a vocalization test for demonstration purposes.",
+          "sv": "Jag accepterar att utföra ett vokaliseringstest i demonstrationssyfte."
+        },
+        "taskId": 19
+      },
+      {
+        "description": {
+          "en": "I agree to perform a \"Hold the phone\" tremor test for demonstration purposes.",
+          "sv": "Jag accepterar att utföra ett \"Håll telefonen\" tremortest i demonstrationssyfte."
+        },
+        "taskId": 20
+      },
+      {
+        "description": {
+          "en": "I agree to perform a dexterity \"Finger tapping\" test for demonstration purposes.",
+          "sv": "Jag accepterar att utföra ett fingerfärdighet test i demonstrationssyfte."
+        },
+        "taskId": 21
+      },
+      {
+        "description": {
+          "en": "I agree to perform a drawing test for demonstration purposes.",
+          "sv": "Jag accepterar att utföra en ritövning \"Figurtestetet\" i demonstrationssyfte."
+        },
+        "taskId": 22
       }
     ],
     "extraItems": [
