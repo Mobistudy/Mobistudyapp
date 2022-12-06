@@ -104,6 +104,7 @@
       "type": "tugt",
       "scheduling": {
         "startEvent": "consent",
+        "startDelaySecs": 86400,
         "intervalType": "d",
         "untilSecs": 5184000,
         "interval": 7,
@@ -210,6 +211,7 @@
       "type": "vocalization",
       "scheduling": {
         "startEvent": "consent",
+        "startDelaySecs": 86400,
         "intervalType": "d",
         "untilSecs": 5184000,
         "interval": 7,
@@ -244,6 +246,7 @@
       "type": "holdPhone",
       "scheduling": {
         "startEvent": "consent",
+        "startDelaySecs": 86400,
         "intervalType": "d",
         "untilSecs": 5184000,
         "interval": 7,
@@ -278,6 +281,7 @@
       "type": "fingerTapping",
       "scheduling": {
         "startEvent": "consent",
+        "startDelaySecs": 86400,
         "intervalType": "d",
         "untilSecs": 5184000,
         "interval": 7,
@@ -312,6 +316,7 @@
       "type": "drawing",
       "scheduling": {
         "startEvent": "consent",
+        "startDelaySecs": 86400,
         "intervalType": "d",
         "untilSecs": 5184000,
         "interval": 7,
