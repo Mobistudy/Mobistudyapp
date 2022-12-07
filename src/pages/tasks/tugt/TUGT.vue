@@ -55,6 +55,7 @@ import { format as Qformat } from 'quasar'
 import WalkingMan from 'components/WalkingMan'
 import audio from 'modules/audio'
 
+const SOUND_DELAY = 10 // in secs
 const TEST_TIMEOUT = 180 // 3 minutes
 
 let orientations = []
@@ -90,7 +91,7 @@ export default {
         audio.media.playSound(this.$refs.dingsound)
         WalkingMan.methods.play()
         this.isAfterSound = true
-      }, 5000)
+      }, SOUND_DELAY * 1000)
 
       this.isStarted = true
       this.startedTS = new Date()
