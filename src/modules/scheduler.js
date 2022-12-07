@@ -66,9 +66,9 @@ export function generateTasker (studiesParts, studiesDescr) {
           if (Platform.is.ios && HealthDataEnum.isAndroidOnly(taskDescription.dataType)) continue
           if (Platform.is.android && HealthDataEnum.isIOSOnly(taskDescription.dataType)) continue
         }
-        // manage alwaysOn tasks here:
         let due = isTaskIntervalDue(taskDescription.scheduling, studyPart.acceptedTS, studyPart.taskItemsConsent)
         if (!due) continue // task outside of time boundaries, do not include
+        // manage alwaysOn tasks here:
         if (taskDescription.scheduling.alwaysOn) {
           studyCompleted = false
           let task = {
@@ -192,6 +192,7 @@ export function isTaskIntervalDue (scheduling, acceptTime, tasksParticipation) {
   let startTimeD
   if (scheduling.startEvent === 'consent') {
     startTimeD = new Date(acceptTime)
+    startTimeD.setHours(0, 0, 1) // we consider the DAY when it was consented, not the time
   } else if (scheduling.startEvent === 'taskExecution') {
     // find the last time the task was performed
     if (scheduling.eventTaskId === undefined) throw new Error('scheduling with taskExecution event must specify a taskId')
