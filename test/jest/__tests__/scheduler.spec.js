@@ -956,4 +956,82 @@ describe('When testing the scheduler', () => {
     expect(notifications.schedule.mock.calls[0][0].length).toBe(1)
     expect(notifications.schedule.mock.calls[0][0][0].trigger.at.getHours()).toBe(h2)
   })
+
+  test('a daily task delayed 1 day is available next day', async () => {
+    let studyDescrs = [{
+      _key: '1234',
+      generalities: {
+        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10), // 2 months ago
+        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10) // in 2 months
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          startEvent: 'consent',
+          untilSecs: 5184000,
+          startDelaySecs: 86400,
+          intervalType: 'd',
+          interval: 7,
+          occurrences: 8
+        }
+      }]
+    }]
+
+    let yesterday = new Date(new Date().getTime() - 1000 * 60 * 60 * 20) // yesterday, but later than now
+    let studiesParts = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: yesterday.toISOString(), // accepted yesterday
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true
+      }]
+    }]
+
+    let tasks = generateTasker(studiesParts, studyDescrs)
+    expect(tasks.upcoming.length).toBe(1)
+    expect(tasks.upcoming[0].taskId).toBe(1)
+
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
+
+  test('a daily task delayed 1 day is not available the same day', async () => {
+    let studyDescrs = [{
+      _key: '1234',
+      generalities: {
+        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10), // 2 months ago
+        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10) // in 2 months
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          startEvent: 'consent',
+          untilSecs: 5184000,
+          startDelaySecs: 86400,
+          intervalType: 'd',
+          interval: 7,
+          occurrences: 8
+        }
+      }]
+    }]
+
+    let today = new Date(new Date().getTime() - 1000 * 60 * 60 * 1) // 1 hour ago
+    let studiesParts = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: today.toISOString(), // accepted today
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true
+      }]
+    }]
+
+    let tasks = generateTasker(studiesParts, studyDescrs)
+    expect(tasks.upcoming.length).toBe(0)
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
 })

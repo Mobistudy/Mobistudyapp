@@ -45,8 +45,6 @@ cd src-cordova
 cordova prepare android
 ```
 
-If gradle complains about a compile() directive in the file app-SPF.gradle, open the file and change `compile` to `implementation`. This is a bug in cordova android, which will be hopefully be fixed at some point.
-
 
 ### Setup for iOS
 
@@ -107,7 +105,7 @@ For the GPS:
 
 ### Peak Flow Meter plugin
 
-The peak flwo meter requires a plugin that can only be installed manually.
+The peak flow meter requires a plugin that can only be installed manually.
 See https://github.com/kevinchtsang/cordova-plugin-spf for instructions.
 
 

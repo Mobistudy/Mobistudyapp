@@ -37,4 +37,8 @@
 
 0.3.1
 
-- bugfixes from previous version
+- bugfixes and updated dependencies
+- added touch area properties in drawing exercise
+
+0.3.2
+
