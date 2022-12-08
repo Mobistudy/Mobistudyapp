@@ -43,7 +43,7 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
 
-        <!-- access location in 6mwt -->
+        <!-- access location -->
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
             <string>Position is needed to estimate physical activity or the environment</string>
         </edit-config>
@@ -72,7 +72,7 @@
             <false />
         </edit-config>
 
-        <!-- access Microphone in peak flow -->
+        <!-- access Microphone in peak flow or vocalization -->
         <edit-config file="*-Info.plist" mode="merge" target="NSMicrophoneUsageDescription">
             <string>Microphone is needed for the vocalization test and to read the peak flow meter</string>
         </edit-config>
