@@ -100,6 +100,10 @@ For the GPS:
 ```xml
 <key>NSLocationWhenInUseUsageDescription</key>
 <string>The app needs your position to estimate activity or the environment</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>The app needs your position to estimate activity or the environment</string>
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>The app needs your position to estimate activity or the environment</string>
 ```
 
 
