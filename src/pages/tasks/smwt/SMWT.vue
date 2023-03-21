@@ -59,6 +59,9 @@ import WalkingMan from 'components/WalkingMan'
 const TEST_DURATION = 360
 const SIGNAL_CHECK_TIMEOUT = 60000
 
+let orientations = []
+let motions = []
+
 export default {
   name: 'SMWTPage',
   props: {
@@ -124,9 +127,11 @@ export default {
         })
       } else {
         // NO GPS AVAILABLE
+        // TODO: show error and go back
         console.error('No GPS available')
       }
     } catch (error) {
+      // TODO: show error and go back
       console.error('Issues while starting the GPS', error)
     }
   },
@@ -138,11 +143,39 @@ export default {
       phone.screen.forbidSleep()
       distanceAlgo.startTest()
 
-      // start the pedometer
+      // start the inertial sensors
+      orientations = []
+      motions = []
+
+      try {
+        if (await phone.orientation.isAvailable()) {
+          await phone.orientation.requestPermission()
+          phone.orientation.startNotifications({}, (event) => {
+            orientations.push(event)
+          }, (error) => {
+            console.error('Error getting orientation event', error)
+          })
+        }
+      } catch (err) {
+        console.error('Error getting orientation event', err)
+      }
+
+      try {
+        if (await phone.motion.isAvailable()) {
+          await phone.motion.requestPermission()
+          phone.motion.startNotifications({}, (event) => {
+            motions.push(event)
+          }, (error) => {
+            console.error('Error getting MotionEvent', error)
+          })
+        }
+      } catch (err) {
+        console.error('Error getting motion event', err)
+      }
+
       try {
         if (await phone.pedometer.isAvailable()) {
           phone.pedometer.startNotifications({}, (steps) => {
-            console.log('Got steps', steps)
             this.steps.push(steps)
           }, (error) => {
             console.error('Error getting steps', error)
@@ -172,6 +205,8 @@ export default {
       this.isStarted = false
       this.completionTS = new Date()
       this.stopTimer()
+      phone.orientation.stopNotifications()
+      phone.motion.stopNotifications()
       phone.pedometer.stopNotifications()
       phone.geolocation.stopNotifications()
       phone.screen.allowSleep()
@@ -199,7 +234,9 @@ export default {
         },
         data: {
           positions: this.positions,
-          steps: this.steps
+          steps: this.steps,
+          motion: motions,
+          orientation: orientations
         }
       }
 
@@ -217,9 +254,11 @@ export default {
 
   beforeDestroy: function () {
     this.stopTimer()
+    phone.orientation.stopNotifications()
+    phone.motion.stopNotifications()
+    phone.pedometer.stopNotifications()
     phone.screen.allowSleep()
     phone.geolocation.stopNotifications()
-    phone.pedometer.stopNotifications()
   }
 }
 </script>
