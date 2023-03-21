@@ -7,6 +7,7 @@
       <q-icon
         color="grey"
         :name="icon"
+        style="font-size: 2.5em;"
       />
     </q-item-section>
     <q-item-section>
