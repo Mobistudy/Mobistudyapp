@@ -235,8 +235,10 @@ export default {
         data: {
           positions: this.positions,
           steps: this.steps,
-          motion: motions,
-          orientation: orientations
+          inertial: {
+            motion: motions,
+            orientation: orientations
+          }
         }
       }
 
