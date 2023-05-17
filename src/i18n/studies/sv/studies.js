@@ -1,3 +1,4 @@
+import formTask from './tasks/form'
 import smwtTask from './tasks/smwt'
 import qcstTask from './tasks/qcst'
 import miband3Task from './tasks/miband3'
@@ -63,20 +64,7 @@ let studies = {
       due: 'Väntad',
       daysAgo: 'igår | {count} dagar sedan',
       hoursAgo: '1 timme sedan | {count} timmar sedan',
-      minsAgo: '1 minut sedan | {count} minuter sedan',
-      form: {
-        retrieving: 'Hämtar formulär',
-        title: '{formname} formulär',
-        shortDescription: 'Besvara några frågor',
-        formCompleted: 'Formulär slutförd.',
-        askedQuestions: 'Frågade frågor:',
-        answeredQuestions: 'Besvarade frågor:',
-        freeTextExplanation: 'Skriv ditt svar',
-        removeAnswer: 'Ta bort svar',
-        numberTooSmall: 'För litet',
-        numberTooBig: 'För stort',
-        timeNotValid: 'Måste vara en giltig tid'
-      }
+      minsAgo: '1 minut sedan | {count} minuter sedan'
     },
     consent: {
       itemsExplanation: 'Du kan samtycka till dessa villkor när du än vill',
@@ -100,6 +88,7 @@ let studies = {
   }
 }
 
+studies.studies.tasks.form = formTask
 studies.studies.tasks.smwt = smwtTask
 studies.studies.tasks.qcst = qcstTask
 studies.studies.tasks.miband3 = miband3Task
