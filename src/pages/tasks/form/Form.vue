@@ -128,6 +128,39 @@
               outlined
             />
           </div>
+
+          <!-- photo -->
+
+          <div
+            v-show="currentQuestion.type === 'photo'"
+            class="text-center"
+          >
+            <div class="row justify-center">
+              <img
+                ref="photoViewer"
+                class="photoViewer"
+              />
+              <q-btn
+                color="primary"
+                icon="photo_camera"
+                class="photoBtn"
+              >
+                <label class="photoFileLabel">{{$t('studies.tasks.form.takePhoto')}}
+                  <input
+                    type="file"
+                    ref="photoFile"
+                    class="photoFileInput"
+                    capture="user"
+                    accept="image/*"
+                    @change="photoTaken(this)"
+                    multiple
+                  />
+                </label>
+              </q-btn>
+
+            </div>
+          </div>
+
         </div>
       </transition>
       <div
@@ -222,6 +255,25 @@
   </q-page>
 </template>
 
+<style scoped>
+.photoViewer {
+  max-width: 80%;
+}
+.photoBtn {
+  margin: 30px;
+}
+.photoFileInput {
+  display: none;
+}
+
+.photoFileLabel {
+  border: 0px;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+</style>
+
 <script>
 import phone from 'modules/phone/phone'
 import API from 'modules/API/API'
@@ -248,6 +300,8 @@ export default {
       singleChoiceAnswerFreeText: undefined,
       multiChoiceAnswer: [],
       multiChoiceAnswerFreeText: [],
+      photoAnswer: undefined,
+
       finished: false,
       currentQuestion: undefined,
       sending: false,
@@ -314,6 +368,7 @@ export default {
         (this.currentQuestion.type === 'slider' && (this.numberAnswer || this.numberAnswer === 0)) ||
         (this.currentQuestion.type === 'time' && this.timeAnswer) ||
         (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
+        (this.currentQuestion.type === 'photo' && this.photoAnswer) ||
         (this.currentQuestion.type === 'textOnly')
     },
     isValidAnswer () {
@@ -324,6 +379,7 @@ export default {
         (this.currentQuestion.type === 'time' && this.timeAnswer) ||
         (this.currentQuestion.type === 'slider' && (this.numberAnswer || this.numberAnswer === 0)) ||
         (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
+        (this.currentQuestion.type === 'photo') ||
         (this.currentQuestion.type === 'textOnly')
     },
     asked () {
@@ -393,6 +449,8 @@ export default {
             })
           }
         }
+      } else if (this.currentQuestion.type === 'photo') {
+        answer.answer = this.photoAnswer
       }
 
       this.responses.push(answer)
@@ -405,6 +463,8 @@ export default {
       this.singleChoiceAnswer = undefined
       this.singleChoiceAnswerFreeText = undefined
       this.multiChoiceAnswerFreeText = []
+      this.photoAnswer = undefined
+      this.$refs.photoViewer.style.display = 'none'
 
       if (!nextQuestionId) {
         if (this.currentQuestion.id === this.formDescr.questions[(this.formDescr.questions.length - 1)].id) {
@@ -416,7 +476,7 @@ export default {
           nextQuestionId = 'Q' + (index + 2)
         }
       }
-      // check for old responses
+      // check for old responses and prefill the answer
       if (this.oldResponses[1] && this.oldResponses[1].questionId === nextQuestionId) {
         if (this.oldResponses[1].answer) {
           // copy the old answer into the current one
@@ -442,6 +502,10 @@ export default {
                 this.multiChoiceAnswerFreeText[chosenAnswerIndex] = this.oldResponses[1].answer[oldResponseIndex].freetextAnswer
               }
             }
+          } else if (nextQuestion.type === 'photo') {
+            this.photoAnswer = this.oldResponses[1].answer
+            this.$refs.photoViewer.style.display = 'block'
+            this.$refs.photoViewer.src = this.photoAnswer
           }
         }
         this.oldResponses.shift()
@@ -493,6 +557,10 @@ export default {
               this.multiChoiceAnswerFreeText[chosenAnswerIndex] = lastResponse.answer[lastResponseIndex].freetextAnswer
             }
           }
+        } else if (this.currentQuestion.type === 'photo') {
+          this.photoAnswer = lastResponse.answer
+          this.$refs.photoViewer.style.display = 'block'
+          this.$refs.photoViewer.src = lastResponse.answer
         }
       }
 
@@ -500,6 +568,26 @@ export default {
 
       setTimeout(() => { this.slideName = 'slideInLeft' }, 10)
     },
+
+    photoTaken () {
+      var files = this.$refs.photoFile.files
+
+      if (files && files[0]) {
+        var reader = new FileReader()
+
+        reader.onload = (e) => {
+          // let picture = document.createElement('img')
+          // picture.style.maxWidth = '200px'
+          // picture.setAttribute('src', e.target.result)
+          this.photoAnswer = e.target.result
+          this.$refs.photoViewer.style.display = 'block'
+          this.$refs.photoViewer.src = e.target.result
+        }
+
+        reader.readAsDataURL(files[0])
+      }
+    },
+
     clearAnswer () {
       if (this.currentQuestion.type === 'singleChoice') {
         this.singleChoiceAnswer = undefined
@@ -512,6 +600,10 @@ export default {
       if (this.currentQuestion.type === 'multiChoice') {
         this.multiChoiceAnswer = []
         this.multiChoiceAnswerFreeText = []
+      }
+      if (this.currentQuestion.type === 'photo') {
+        this.photoAnswer = undefined
+        this.$refs.photoViewer.style.display = 'none'
       }
     },
 
