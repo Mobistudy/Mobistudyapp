@@ -12,6 +12,8 @@ export default {
     sv: 'Detta är ett exempel på frågeformulär som visar fall Mobsitudy-former.',
     es: 'Este es un ejemplo de formulario que muestra como funcionan los formularios en Mobsitudy.'
   },
+  // function that returns the numeric value of the second answer
+  summaryFunction: 'return { value: answers[1].answer };',
   questions: [
 
     {

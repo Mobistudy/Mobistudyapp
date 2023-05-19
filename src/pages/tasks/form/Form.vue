@@ -514,6 +514,22 @@ export default {
       if (nextQuestionId === 'ENDFORM') {
         // completed !
         this.finished = true
+
+        // compute the summary values
+        if (this.formDescr.summaryFunction && this.formDescr.summaryFunction !== '') {
+          try {
+            // eslint-disable-next-line no-new-func
+            const summaryFun = new Function('answers', '"use strict";' + this.formDescr.summaryFunction)
+
+            let summary = summaryFun(this.responses)
+
+            for (let summaryField in summary) {
+              this.report.summary[summaryField] = summary[summaryField]
+            }
+          } catch (e) {
+            console.error(e)
+          }
+        }
       } else {
         this.currentQuestion = this.formDescr.questions.find(x => x.id === nextQuestionId)
       }
