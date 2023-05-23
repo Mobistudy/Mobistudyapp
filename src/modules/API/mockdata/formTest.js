@@ -238,8 +238,6 @@ export default {
         sv: 'Exempel på timmefråga.',
         es: 'Ejemplo de pregunta de horario.'
       },
-      min: 1,
-      max: 10,
       helper: {
         en: 'Hour and minutes.',
         sv: 'Timme och minuter.',
