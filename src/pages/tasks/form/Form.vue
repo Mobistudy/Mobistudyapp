@@ -315,6 +315,7 @@ export default {
         studyKey: this.studyKey,
         taskId: parseInt(this.taskId),
         taskType: 'form',
+        formKey: this.formKey,
         createdTS: new Date(),
         phone: phone.device,
         summary: {
