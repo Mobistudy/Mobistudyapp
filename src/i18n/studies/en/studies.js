@@ -1,3 +1,4 @@
+import formTask from './tasks/form'
 import smwtTask from './tasks/smwt'
 import qcstTask from './tasks/qcst'
 import miband3Task from './tasks/miband3'
@@ -63,20 +64,7 @@ let studies = {
       due: 'Due',
       daysAgo: 'yesterday | {count} days ago',
       hoursAgo: '1 hour ago | {count} hours ago',
-      minsAgo: '1 minute ago | {count} minutes ago',
-      form: {
-        retrieving: 'Retrieving form',
-        title: '{formname} form',
-        shortDescription: 'Answer a few questions',
-        formCompleted: 'Form completed.',
-        askedQuestions: 'Asked questions:',
-        answeredQuestions: 'Answered questions:',
-        freeTextExplanation: 'Type your answer',
-        removeAnswer: 'Remove answer',
-        numberTooSmall: 'Too small',
-        numberTooBig: 'Too big',
-        timeNotValid: 'Must be a valid time'
-      }
+      minsAgo: '1 minute ago | {count} minutes ago'
     },
     consent: {
       itemsExplanation: 'You can opt-in or opt-out of these items whenever you want',
@@ -99,7 +87,7 @@ let studies = {
     }
   }
 }
-
+studies.studies.tasks.form = formTask
 studies.studies.tasks.smwt = smwtTask
 studies.studies.tasks.qcst = qcstTask
 studies.studies.tasks.miband3 = miband3Task
