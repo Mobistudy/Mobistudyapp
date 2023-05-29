@@ -1,7 +1,7 @@
 /**
  * this module mocks the cordova plugins of phone.js
  * */
-import { audioRecorderMock } from './audioRecorder.js'
+import { audioRecorderMock } from './audiorecorder.js'
 import { geolocationMock } from './geolocation'
 import { motionMock } from './motion.js'
 import { pedometerMock } from './pedometer'
