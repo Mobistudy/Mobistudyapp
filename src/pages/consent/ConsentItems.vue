@@ -71,7 +71,7 @@ export default {
     canAccept () {
       // there must be at least one task accepted
       let consentedTasks = this.studyParticipation.taskItemsConsent.reduce((acc, curr) => acc + curr.consented, 0)
-      if (consentedTasks === 0) return false
+      if (consentedTasks === 0 && this.studyParticipation.taskItemsConsent.length > 0) return false
 
       // all mandatory extra items must have been accepted
       if (this.studyDescription.consent.extraItems && this.studyDescription.consent.extraItems.length) {

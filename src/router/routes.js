@@ -80,7 +80,7 @@ const routes = [
 
       { path: '/miband3Intro', name: 'miband3Intro', component: () => import('pages/tasks/miband3/MiBand3Intro.vue'), props: true },
       { path: '/miband3Connect', name: 'miband3Connect', component: () => import('pages/tasks/miband3/MiBand3Connect.vue'), props: true },
-      { path: '/miband3DataDownload', name: 'miband3DataDownload', component: () => import('pages/tasks/miband3/MiBand3DataDownload.vue'), props: true },
+      // { path: '/miband3DataDownload', name: 'miband3DataDownload', component: () => import('pages/tasks/miband3/MiBand3DataDownload.vue'), props: true },
       { path: '/notEnoughDataPage', name: 'notEnoughDataPage', component: () => import('pages/tasks/miband3/notEnoughDataPage.vue'), props: true },
 
       { path: '/po60Intro', name: 'po60Intro', component: () => import('pages/tasks/po60/PO60Intro.vue'), props: true },
@@ -90,17 +90,17 @@ const routes = [
       { path: '/positionIntro', name: 'positionIntro', component: () => import('pages/tasks/position/PositionIntro.vue'), props: true },
       { path: '/position', name: 'position', component: () => import('pages/tasks/position/Position.vue'), props: true },
 
-      { path: '/peakFlowIntro', name: 'peakFlowIntro', component: () => import('pages/tasks/peakFlow/PeakFlowIntro.vue'), props: true },
-      { path: '/peakFlowCalibrate', name: 'peakFlowCalibrate', component: () => import('pages/tasks/peakFlow/PeakFlowCalibrate.vue'), props: true },
-      { path: '/peakFlow', name: 'peakFlow', component: () => import('pages/tasks/peakFlow/PeakFlow.vue'), props: true },
-      { path: '/peakFlowSummary', name: 'peakFlowSummary', component: () => import('pages/tasks/peakFlow/PeakFlowSummary.vue'), props: true },
-      { path: '/peakFlowReview', name: 'peakFlowReview', component: () => import('pages/tasks/peakFlow/PeakFlowReview.vue'), props: true },
+      { path: '/peakFlowIntro', name: 'peakFlowIntro', component: () => import('pages/tasks/peakflow/PeakFlowIntro.vue'), props: true },
+      { path: '/peakFlowCalibrate', name: 'peakFlowCalibrate', component: () => import('pages/tasks/peakflow/PeakFlowCalibrate.vue'), props: true },
+      { path: '/peakFlow', name: 'peakFlow', component: () => import('pages/tasks/peakflow/PeakFlow.vue'), props: true },
+      { path: '/peakFlowSummary', name: 'peakFlowSummary', component: () => import('pages/tasks/peakflow/PeakFlowSummary.vue'), props: true },
+      { path: '/peakFlowReview', name: 'peakFlowReview', component: () => import('pages/tasks/peakflow/PeakFlowReview.vue'), props: true },
 
-      { path: '/fingerTappingIntro', name: 'fingerTappingIntro', component: () => import('pages/tasks/fingerTapping/tappingIntro.vue'), props: true },
-      { path: '/fingerTapping', name: 'fingerTapping', component: () => import('pages/tasks/fingerTapping/tapping.vue'), props: true },
-      { path: '/fingerTappingSummary', name: 'fingerTappingSummary', component: () => import('pages/tasks/fingerTapping/TappingSummary.vue'), props: true },
+      { path: '/fingerTappingIntro', name: 'fingerTappingIntro', component: () => import('pages/tasks/fingerTapping/TappingIntro.vue'), props: true },
+      { path: '/fingerTapping', name: 'fingerTapping', component: () => import('pages/tasks/fingerTapping/Tapping.vue'), props: true },
+      { path: '/fingerTappingSummary', name: 'fingerTappingSummary', component: () => import('pages/tasks/fingerTapping/tappingSummary.vue'), props: true },
 
-      { path: '/tugtIntro', name: 'tugtIntro', component: () => import('pages/tasks/tugt/tugtIntro.vue'), props: true },
+      { path: '/tugtIntro', name: 'tugtIntro', component: () => import('pages/tasks/tugt/TUGTIntro.vue'), props: true },
       { path: '/tugt', name: 'tugt', component: () => import('pages/tasks/tugt/TUGT.vue'), props: true },
       { path: '/tugtSummary', name: 'tugtSummary', component: () => import('pages/tasks/tugt/TUGTSummary.vue'), props: true },
 

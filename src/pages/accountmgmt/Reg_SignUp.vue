@@ -66,7 +66,7 @@
 
 <script>
 import i18nStrings from 'i18n/accountMgmt/accountMgmt'
-import i18nPwdCheck from 'i18n/passwordCheck/passwordCheck'
+import i18nPwdCheck from 'i18n/passwordcheck/passwordCheck'
 import { mergeDeep } from 'modules/tools.js'
 
 import { checkPwdStrength, pwdCheckError, owaspConfig } from 'modules/passwordChecker'
