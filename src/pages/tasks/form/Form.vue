@@ -286,7 +286,8 @@ export default {
   props: {
     studyKey: String,
     taskId: Number,
-    formKey: String
+    formKey: String,
+    formName: Object
   },
   data: function () {
     return {
@@ -316,6 +317,7 @@ export default {
         taskId: parseInt(this.taskId),
         taskType: 'form',
         formKey: this.formKey,
+        formName: this.formName,
         createdTS: new Date(),
         phone: phone.device,
         summary: {

@@ -38,16 +38,14 @@ export default {
   data () {
     return {
       title: '',
-      description: ''
+      description: '',
+      // form name object here is kept for being passed to the next component
+      formName: {}
     }
   },
   methods: {
     start () {
-      const studyKey = this.studyKey
-      const taskId = this.taskId
-      const formKey = this.formKey
-
-      this.$router.push({ name: 'form', params: { studyKey: studyKey, taskId: taskId, formKey: formKey } })
+      this.$router.push({ name: 'form', params: { studyKey: this.studyKey, taskId: this.taskId, formKey: this.formKey, formName: this.formName } })
     }
   },
   async created () {
@@ -63,6 +61,9 @@ export default {
       }
       this.title = formDescr.name[this.$i18n.locale]
       this.description = formDescr.description[this.$i18n.locale]
+
+      // form name is passed as a parameter to the next components
+      this.formName = formDescr.name
     } catch (error) {
       console.error(error)
       this.$q.notify({
