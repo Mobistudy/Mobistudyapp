@@ -23,11 +23,24 @@
           <q-input
             v-model="password"
             :label="$t('accountMgmt.password')"
-            type="password"
+            :type="showPassword ? 'text' : 'password'"
             @blur.native="$v.password.$touch"
             :error="$v.password.$error"
             :error-message="$t('accountMgmt.passwordRequiredError')"
-          />
+          >
+            <template #append>
+              <q-icon
+                name="visibility"
+                v-if="!showPassword"
+                @click="showPassword = true"
+              />
+              <q-icon
+                name="visibility_off"
+                v-else
+                @click="showPassword = false"
+              />
+            </template>
+          </q-input>
           <div class="row">
             <q-btn
               class="q-ma-sm full-width mobibtn"
@@ -86,7 +99,8 @@ export default {
     return {
       username: '',
       password: '',
-      error: false
+      error: false,
+      showPassword: false
     }
   },
   computed: {

@@ -29,11 +29,24 @@
             class="col-grow"
             :label="$t('accountMgmt.resetPassword.newPassword')"
             v-model="newpw"
-            type="password"
+            :type="showNewPassword ? 'text' : 'password'"
             @blur.native="$v.newpw.$touch"
             :error="$v.newpw.$error"
             :error-message="pwdCheckErrorMsg()"
-          />
+            append>
+            <template #append>
+              <q-icon
+                name="visibility"
+                v-if="!showNewPassword"
+                @click="showNewPassword = true"
+              />
+              <q-icon
+                name="visibility_off"
+                v-else
+                @click="showNewPassword = false"
+              />
+            </template>
+          </q-input>
         </div>
         <div class="fit row justify-center q-mt-lg">
           <q-input
@@ -41,11 +54,24 @@
             class="col-grow"
             :label="$t('accountMgmt.resetPassword.confirmPwd')"
             v-model="confpw"
-            type="password"
+            :type="showConfirmPassword ? 'text' : 'password'"
             @blur.native="$v.confpw.$touch"
             :error="$v.confpw.$error"
             :error-message="$t('accountMgmt.resetPassword.pwdMustMatch')"
-          />
+            append>
+            <template #append>
+              <q-icon
+                name="visibility"
+                v-if="!showConfirmPassword"
+                @click="showConfirmPassword = true"
+              />
+              <q-icon
+                name="visibility_off"
+                v-else
+                @click="showConfirmPassword = false"
+              />
+            </template>
+          </q-input>
         </div>
         <div class="fit row justify-center q-mt-lg">
           <div class="q-ma-sm">
@@ -94,7 +120,9 @@ export default {
       userEmail: this.email,
       token: undefined,
       newpw: undefined,
-      confpw: undefined
+      confpw: undefined,
+      showNewPassword: false,
+      showConfirmPassword: false
     }
   },
   validations () {
