@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button @click="selectAllToggles">Select All</button>
     <q-list v-if="studyDescription.consent.extraItems">
       <q-item
         v-for="(extraItem, extraIndex) in studyDescription.consent.extraItems"
@@ -109,6 +110,18 @@ export default {
     }
   },
   methods: {
+    selectAllToggles () {
+      // Select all extra items toggles
+      this.value.extraItemsConsent.forEach(item => {
+        item.consented = true
+      })
+      // Select all task items toggles
+      this.value.taskItemsConsent.forEach(item => {
+        item.consented = true
+      })
+      // Select reminders toggle
+      this.value.reminders = true
+    },
     async showOSPermissionWarning (taskType) {
       if (taskType === 'dataQuery') {
         if (this.$q.platform.is.ios) {
