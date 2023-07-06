@@ -48,8 +48,12 @@ export default {
 
   // Registration
   async registerUser (email, password) {
-    console.log('API - Registering user')
-    return true
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        console.log('API - Registering user')
+        resolve()
+      }, 2000)
+    })
   },
 
   // Password reset

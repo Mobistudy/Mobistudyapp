@@ -56,6 +56,7 @@
       <q-btn
         class="mobibtn"
         color="primary"
+        :loading="creating"
         :disable="$v.account.$error"
         @click="register()"
         :label="$t('accountMgmt.registration.createAccount')"
@@ -81,6 +82,7 @@ export default {
   },
   data () {
     return {
+      creating: false,
       account: {
         email: '',
         pw1: '',
@@ -108,6 +110,7 @@ export default {
       if (this.$v.account.$error) {
         this.$q.notify(this.$i18n.t('errors.correctFields'))
       } else {
+        this.creating = true
         try {
           await API.registerUser(this.account.email.toLowerCase(), this.account.pw1)
           let user = await API.login(this.account.email.toLowerCase(), this.account.pw1)
@@ -137,6 +140,7 @@ export default {
             })
           }
         }
+        this.creating = false
       }
     }
   }
