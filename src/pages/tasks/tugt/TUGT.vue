@@ -85,6 +85,8 @@ export default {
   methods: {
 
     async startTest () {
+      if (this.isStarted) return
+
       WalkingMan.methods.stop()
 
       setTimeout(() => {
