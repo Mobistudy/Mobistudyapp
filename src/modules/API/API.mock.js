@@ -2,10 +2,6 @@
 import studyTest from './mockdata/studyTest'
 import formTest from './mockdata/formTest'
 
-import studyPainApp1 from './mockdata/painapp/studyPainApp1'
-import studyPainApp2 from './mockdata/painapp/studyPainApp2'
-import formPainAppVAS from './mockdata/painapp/formPainAppVAS'
-
 import parkAppStudy from './mockdata/parkapp/studyParkapp'
 import parkAppStudy2 from './mockdata/parkapp/studyParkapp2'
 import NMSQuest from './mockdata/parkapp/questNMS'
@@ -194,14 +190,6 @@ export default {
         setTimeout(function () {
           resolve(studyTest)
         }, 2000)
-      } else if (studyKey === studyPainApp1._key) {
-        setTimeout(function () {
-          resolve(studyPainApp1)
-        }, 1000)
-      } else if (studyKey === studyPainApp2._key) {
-        setTimeout(function () {
-          resolve(studyPainApp2)
-        }, 1000)
       } else if (studyKey === parkAppStudy._key) {
         setTimeout(function () {
           resolve(parkAppStudy)
@@ -235,11 +223,7 @@ export default {
   async getInvitationalStudy (invitationalCode) {
     console.log('API - getting invitational study')
     return new Promise((resolve, reject) => {
-      if (invitationalCode === studyPainApp1.invitationCode) {
-        resolve(studyPainApp1)
-      } if (invitationalCode === studyPainApp2.invitationCode) {
-        resolve(studyPainApp2)
-      } else if (invitationalCode === parkAppStudy.invitationCode) {
+      if (invitationalCode === parkAppStudy.invitationCode) {
         resolve(parkAppStudy)
       } else if (invitationalCode === parkAppStudy2.invitationCode) {
         resolve(parkAppStudy2)
@@ -258,10 +242,6 @@ export default {
         setTimeout(function () {
           resolve(formTest)
         }, 1000)
-      } else if (key === formPainAppVAS._key) {
-        setTimeout(function () {
-          resolve(formPainAppVAS)
-        }, 500)
       } else if (key === NMSQuest._key) {
         setTimeout(function () {
           resolve(NMSQuest)
