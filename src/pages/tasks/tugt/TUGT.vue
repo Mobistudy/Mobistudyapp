@@ -191,8 +191,8 @@ export default {
   },
 
   beforeDestroy: function () {
-    orientations = []
-    motions = []
+    // orientations = []
+    // motions = []
 
     this.stopTimer()
     WalkingMan.methods.stop()

@@ -310,9 +310,9 @@ export default {
   },
 
   beforeDestroy: function () {
-    motions = []
-    orientations = []
-    this.stopTimer()
+    // motions = []
+    // orientations = []
+    // this.stopTimer()
     phone.screen.allowSleep()
     phone.orientation.stopNotifications()
     phone.motion.stopNotifications()
