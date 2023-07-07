@@ -110,17 +110,29 @@ export default {
     }
   },
   methods: {
-    selectAllToggles () {
+    async selectAllToggles () {
       // Select all extra items toggles
-      this.value.extraItemsConsent.forEach(item => {
+      this.value.extraItemsConsent.forEach((item) => {
         item.consented = true
       })
-      // Select all task items toggles
-      this.value.taskItemsConsent.forEach(item => {
-        item.consented = true
-      })
-      // Select reminders toggle
-      this.value.reminders = true
+
+      // Select all task items toggles and request permission
+      for (let taskIndex = 0; taskIndex < this.value.taskItemsConsent.length; taskIndex++) {
+        const item = this.value.taskItemsConsent[taskIndex]
+        if (!item.consented) {
+          await this.requestPermission(taskIndex)
+        }
+      }
+
+      // Check reminders toggle if consent is given
+      const remindersItem = this.value.taskItemsConsent.find((item) => item.task === 'reminders')
+      if (remindersItem && !remindersItem.consented) {
+        await this.requestPermission('reminders')
+      }
+
+      // Update the reminders property based on the consent status
+      this.value.reminders = remindersItem ? remindersItem.consented : false
+      this.setReminders()
     },
     async showOSPermissionWarning (taskType) {
       if (taskType === 'dataQuery') {
