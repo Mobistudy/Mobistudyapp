@@ -21,7 +21,7 @@
     <q-input
       padding="md lg"
       :label="$t('accountMgmt.password')"
-      type="password"
+      :type="showPassword ? 'text' : 'password'"
       @blur.native="$v.account.pw1.$touch"
       v-model="account.pw1"
       :error="$v.account.pw1.$error"
@@ -30,12 +30,19 @@
       <template v-slot:prepend>
         <q-icon name="vpn_key" />
       </template>
+      <template v-slot:append>
+        <q-icon
+          :name="showPassword ? 'visibility_off' : 'visibility'"
+          @click="showPassword = !showPassword"
+          class="cursor-pointer"
+        />
+      </template>
     </q-input>
 
     <q-input
       padding="md lg"
       :label="$t('accountMgmt.confirmPassword')"
-      type="password"
+      :type="showPassword ? 'text' : 'password'"
       @blur.native="$v.account.pw2.$touch"
       v-model="account.pw2"
       :error="$v.account.pw2.$error"
@@ -43,6 +50,13 @@
     >
       <template v-slot:prepend>
         <q-icon name="vpn_key" />
+      </template>
+      <template v-slot:append>
+        <q-icon
+          :name="showPassword ? 'visibility_off' : 'visibility'"
+          @click="showPassword = !showPassword"
+          class="cursor-pointer"
+        />
       </template>
     </q-input>
 
@@ -87,7 +101,8 @@ export default {
         email: '',
         pw1: '',
         pw2: ''
-      }
+      },
+      showPassword: false
     }
   },
   validations () {
