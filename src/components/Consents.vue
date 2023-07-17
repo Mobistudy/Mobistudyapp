@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button @click="selectAllToggles">Select All</button>
     <q-list v-if="studyDescription.consent.extraItems">
       <q-item
         v-for="(extraItem, extraIndex) in studyDescription.consent.extraItems"
@@ -109,6 +110,30 @@ export default {
     }
   },
   methods: {
+    async selectAllToggles () {
+      // Select all extra items toggles
+      this.value.extraItemsConsent.forEach((item) => {
+        item.consented = true
+      })
+
+      // Select all task items toggles and request permission
+      for (let taskIndex = 0; taskIndex < this.value.taskItemsConsent.length; taskIndex++) {
+        const item = this.value.taskItemsConsent[taskIndex]
+        if (!item.consented) {
+          await this.requestPermission(taskIndex)
+        }
+      }
+
+      // Check reminders toggle if consent is given
+      const remindersItem = this.value.taskItemsConsent.find((item) => item.task === 'reminders')
+      if (remindersItem && !remindersItem.consented) {
+        await this.requestPermission('reminders')
+      }
+
+      // Update the reminders property based on the consent status
+      this.value.reminders = remindersItem ? remindersItem.consented : false
+      this.setReminders()
+    },
     async showOSPermissionWarning (taskType) {
       if (taskType === 'dataQuery') {
         if (this.$q.platform.is.ios) {
