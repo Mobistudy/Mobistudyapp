@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button @click="selectAllToggles">Select All</button>
     <q-list v-if="studyDescription.consent.extraItems">
       <q-item
         v-for="(extraItem, extraIndex) in studyDescription.consent.extraItems"
@@ -53,6 +52,14 @@
         </q-item-section>
       </q-item>
     </q-list>
+
+    <div class="q-my-md row justify-evenly">
+      <q-btn
+        class="mobibtn"
+        color="secondary"
+        :label="$t('studies.consent.consentAll')"
+        @click="selectAllToggles" />
+    </div>
 
     <q-dialog
       v-model="permissionDialog"

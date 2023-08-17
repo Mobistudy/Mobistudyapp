@@ -77,6 +77,7 @@ let studies = {
       giveRemindersOSPermission: 'Allow reminders',
       informedConsent: 'Informed consent',
       consentExplanation: 'Consent to the following items to join the study. You do not have to consent to all of them, however some items may be required to join the study. Some items may require access to the phone\'s functions.',
+      consentAll: 'Consent to all items',
       updateConsent: 'Update consent',
       consentUpdated: 'Consent updated',
       joinStudy: 'Join study',

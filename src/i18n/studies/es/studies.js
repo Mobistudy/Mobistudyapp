@@ -77,6 +77,7 @@ let studies = {
       giveRemindersOSPermission: 'Permitir recordatorios',
       informedConsent: 'Consentimiento informado',
       consentExplanation: 'Consentir las siguientes condiciones para unirse al estudio. No tienes que dar tu consentimiento para todos, sin embargo, es posible que se requieran algunas condiciones para unirse al estudio. Algunas condiciones pueden requerir acceso a las funciones del teléfono',
+      consentAll: 'Consentir todos',
       updateConsent: 'Actualizar consentimiento',
       consentUpdated: 'Consentimiento actualizado',
       joinStudy: 'Unirse al estudio',
