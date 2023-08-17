@@ -42,3 +42,9 @@
 
 0.3.2
 
+- added the possibilty to take pictures in the questionnaire
+- increased size of icons and buttons
+- updated dependencies
+- bugfixes
+
+0.3.3
