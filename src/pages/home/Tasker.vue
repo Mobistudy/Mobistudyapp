@@ -267,6 +267,11 @@ export default {
       this.lastReloadTS = Date.now()
       if (!skipSpinner) this.$q.loading.show()
       try {
+        // renew the login token, otherwise it may expire after some time
+        let newToken = await API.renewToken()
+        userinfo.user.token = newToken
+        API.setToken(newToken)
+
         // let's see if there are any new eligible studies
         try {
           let newStudyIds = await API.getNewStudiesKeys()

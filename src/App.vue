@@ -108,9 +108,6 @@ export default {
       } else {
         if (!resettingpwd) {
           API.setToken(userinfo.user.token)
-          let newToken = await API.renewToken()
-          userinfo.user.token = newToken
-          API.setToken(newToken)
 
           console.log('LOGGED IN, REDIRECTING TO HOME')
           this.$router.replace({ name: 'tasker' })
@@ -145,13 +142,16 @@ export default {
     document.addEventListener('resume', this.onResume, false)
     document.addEventListener('dbcorrupted', this.onDBCorrupted, false)
 
+    phone.device.init()
+
     try {
-      phone.device.init()
       await phone.pin.isPINSet()
-      await this.bootstrap()
     } catch (error) {
       this.showPINPage = true
+      return
     }
+
+    await this.bootstrap()
   }
 }
 </script>
