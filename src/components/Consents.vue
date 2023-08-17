@@ -288,6 +288,10 @@ export default {
           // })
         } catch (error) {
           // we didn't get permission
+          this.permissionSpinner = false
+          // no permission was retrieved
+          this.value.taskItemsConsent[taskIndex].consented = false
+
           console.error('Cannot get OS authorisation for task', error)
           this.$q.notify({
             color: 'negative',
