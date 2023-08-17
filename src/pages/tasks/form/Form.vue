@@ -153,7 +153,6 @@
                     capture="user"
                     accept="image/*"
                     @change="photoTaken(this)"
-                    multiple
                   />
                 </label>
               </q-btn>
