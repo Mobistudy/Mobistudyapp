@@ -9,7 +9,7 @@
 // motion and orientation: https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEvent
 // vibration: https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-vibration/
 
-import { audioRecorder } from './audioRecorder.js'
+import { audioRecorder } from './audiorecorder.js'
 import { geolocation } from './geolocation.js'
 import { pedometer } from './pedometer.js'
 import { screen } from './screen.js'
@@ -41,9 +41,11 @@ export default {
         if (window.cordova && window.cordova.plugins.PinCheck) {
           window.cordova.plugins.PinCheck.isPinSetup(
             () => {
+              // all OK
               resolve()
             },
             (failure) => {
+              // pin is not setup
               reject(new Error(failure))
             })
         } else {
