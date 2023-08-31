@@ -266,26 +266,32 @@ export default {
     async load (skipSpinner) {
       this.lastReloadTS = Date.now()
       if (!skipSpinner) this.$q.loading.show()
+
       try {
         // renew the login token, otherwise it may expire after some time
         let newToken = await API.renewToken()
         userinfo.user.token = newToken
         API.setToken(newToken)
+      } catch (error) {
+        console.error('Cannot renew token, but thats OK', error)
+        // if it fails it's fine
+      }
 
+      try {
         // let's see if there are any new eligible studies
-        try {
-          let newStudyIds = await API.getNewStudiesKeys()
-          if (newStudyIds.length > 0) {
-            // there's a new study in town! warn the user!
-            this.newstudies = true
-          } else {
-            this.newstudies = false
-          }
-        } catch (error) {
-          console.error('Cannot connect to server, but thats OK', error)
-          // if it fails it's fine
+        let newStudyIds = await API.getNewStudiesKeys()
+        if (newStudyIds.length > 0) {
+          // there's a new study in town! warn the user!
+          this.newstudies = true
+        } else {
+          this.newstudies = false
         }
+      } catch (error) {
+        console.error('Cannot get new studies, but thats OK', error)
+        // if it fails it's fine
+      }
 
+      try {
         // the first time we show this component, tasks are re-scheduled
         await scheduler.cancelNotifications()
         try {
@@ -301,7 +307,7 @@ export default {
             await DB.setStudiesParticipation(profile.studies)
           }
         } catch (error) {
-          console.error('Cannot connect to server, but thats OK', error)
+          console.error('Cannot get participant profile, but thats OK', error)
           // if it fails, we just rely on the stored data
         }
 
