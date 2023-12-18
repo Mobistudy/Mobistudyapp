@@ -327,6 +327,7 @@ export default {
       this.report.summary.length = this.healthData.length
       this.report.summary.firstDate = this.healthData[0].startDate
       this.report.summary.lastDate = this.healthData[this.healthData.length - 1].endDate
+      // TODO: add some additional summary information depending on the data type, such as statistics
       this.report.data = {
         dataType: this.taskDescr.dataType,
         samples: this.healthData
