@@ -82,8 +82,8 @@ export default {
   },
 
   // update status of a task item consent
-  updateTaskItemConsent: async function (studyKey, taskId, taskItemConsent) {
-    return axios.patch(BASE_URL + `/participants/studies/${studyKey}/taskItemsConsent/${taskId}`, taskItemConsent, axiosConfig)
+  updateTaskItemConsent: async function (userKey, studyKey, taskId, taskItemConsent) {
+    return axios.patch(BASE_URL + `/participants/byuserkey/${userKey}/studies/${studyKey}/taskItemsConsent/${taskId}`, taskItemConsent, axiosConfig)
   },
 
   // retrieves study descritpion
