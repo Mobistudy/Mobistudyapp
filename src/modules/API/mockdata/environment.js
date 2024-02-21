@@ -31,9 +31,10 @@ export default {
       nh3: 2.63
     }
   },
-  postcode: {
+  location: {
     postcode: 'OX1 4DS',
-    county: 'Oxfordshire'
+    place: 'Oxford',
+    country: 'England'
   },
   allergens: {
     pollen: {
