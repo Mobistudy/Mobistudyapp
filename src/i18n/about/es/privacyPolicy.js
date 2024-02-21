@@ -107,9 +107,10 @@ export default `
   </p>
 
   <p>
-    Tus datos se guardan en el servidor durante el tiempo que decida mantener su perfil en Mobistudy. El estudio de datos específicos
-    se mantendrá durante la duración del estudio, que te especificará cuando te unas a un estudio. La app te permite que se
-    elimine tu cuenta y cualquier dato asociado a ella en cualquier momento, tocando un botón
+    Tus datos se conservan en el servidor mientras decidas mantener tu perfil en Mobistudy. Datos específicos del estudio
+     se conservará durante la duración del estudio, que se especificará cuando te unas a un estudio. La aplicación te permite
+     eliminar tu cuenta y cualquier dato asociado con ella en cualquier momento, tocando un botón; sin embargo, algunos datos pueden ser
+     se conservan porque pueda resultar imposible eliminarlos de manera práctica o legal.
   </p>
 
   <p>

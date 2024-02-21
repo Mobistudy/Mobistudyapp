@@ -115,9 +115,10 @@ export default `
   </p>
 
   <p>
-    Your data are kept on the server for as long as you decide to keep your profile on Mobistudy. Study specific-data
+    Your data are kept on the server for as long as you decide to keep your profile on Mobistudy. Study-specific data
     will be kept for the duration of study, which is going to be specified when you join a study. The app allows you to
-    delete your account and any data associated with it at any time, by tapping a button.
+    delete your account and any data associated with it at any time, by tapping a button, however, some data may be
+    retained because it may be legally or practically impossible to delete them.
   </p>
 
   <p>

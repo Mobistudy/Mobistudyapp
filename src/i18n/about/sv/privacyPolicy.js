@@ -119,7 +119,8 @@ export default `<p>Version 2022-02-24</p>
   <p>
     Din data lagras på server så länge du behåller din profil på Mobistudy. Studie-specifik data kommer att
     lagras så länge studien varar, vilket kommer vara specifierat när du går med i en studie. Appen tillåter
-    att du tar bort ditt konto och all data associerad till dig, när du vill, genom att trycka på en knapp.
+    att du tar bort ditt konto och all data associerad till dig, när du vill, genom att trycka på en knapp, men vissa data kan vara det
+    behålls eftersom det kan vara juridiskt eller praktiskt taget omöjligt att radera dem.
   </p>
   <p>
     Servern kommer att registrera datum och tid när du loggar in och skickar data samt den IP-adress som
