@@ -1,8 +1,9 @@
-export default `<p>Version 2022-02-24</p>
+export default `
+<p>Version 2022-02-24</p>
   <p>
-  Mobistudys app är avsedd att användas av personer som vill bidra till forskningsstudier
-  med hjälp av deras mobiltelefon.
-  För att kunna använda app:en krävs att ett konto skapas på Mobistudys server.
+  Mobistudys plattformen är avsedd att användas av personer som vill bidra till forskningsstudier med
+  hjälp av deras mobiltelefon. Plattformen förvaltas av Malmö Universitet, i Sverige. För att använda
+  appen behöver du skapa ett konto på Mobistudy-plattformen som kommer att delas med Malmö Universitet.
   Den profilen är nödvändig oavsett om man deltar i en studie eller inte. Profilen
   kräver följande information:
   </p>
@@ -43,7 +44,7 @@ export default `<p>Version 2022-02-24</p>
   <p>
     Utöver datan i denna profil kommer appen att dela information om ditt deltagande i
     forskningsstudier med Mobistudys server, såsom datum och tid du gick med eller avbröt ditt
-    deltagande i en studie, samt datum och tid för de aktiviter du utförde inom en studie. Den
+    deltagande i en studie, samt datum och tid för de aktiviteter du utförde inom en studie. Den
     informationen är nödvändig för att kunna följa ditt deltagande i pågående studier, samt för
     att undvika att bjuda in dig till studier du redan deltar i eller inte är lämpliga att delta
     samtidigt i.
@@ -62,10 +63,10 @@ export default `<p>Version 2022-02-24</p>
       studie samlas in. Detta kan inkludera din vikt, längd, stegräkning, puls, avstånd, aktivitet, sömn eller matvanor.
     </li>
     <li>
-      Puls och steg samlade under ett Queens College stegtest.
+      Puls, steg och acceleration samlade under ett Queens College stegtest.
     </li>
     <li>
-      Geografisk position, avstånd och steg under ett 6-minuters gångtest.
+      Geografisk position, avstång, steg och acceleration under ett 6-minuters gångtest.
     </li>
     <li>
       Puls, aktivitetsnivå, steg och aktivitetstyper insamlade av Miband3 aktivitetsband.
@@ -113,34 +114,37 @@ export default `<p>Version 2022-02-24</p>
 
   </p>
   <p>
-    Under inga omständigher andra än de ovan specifierade, kommer din data att delas med andra parter eller
+    Under inga omständigheter, andra än de ovan specifierade, kommer din data att delas med andra parter eller
     individer.
   </p>
   <p>
     Din data lagras på server så länge du behåller din profil på Mobistudy. Studie-specifik data kommer att
-    lagras så länge studien varar, vilket kommer vara specifierat när du går med i en studie. Appen tillåter
-    att du tar bort ditt konto och all data associerad till dig, när du vill, genom att trycka på en knapp, men vissa data kan vara det
+    lagras så länge studien varar, vilket kommer att vara specifierat när du går med i en studie. Appen tillåter
+    att du tar bort ditt konto och all data associerad till dig, när du vill, genom att trycka på en knapp,
+    men vissa data kan vara det
     behålls eftersom det kan vara juridiskt eller praktiskt taget omöjligt att radera dem.
   </p>
   <p>
     Servern kommer att registrera datum och tid när du loggar in och skickar data samt den IP-adress som
     datan kommer från, men inte själva datan som associeras med förfrågan. Dessa tekniska loggar är nödvändiga
-    för att möjliggöra granskning av säkerhet och kommer sparas 1 år i alla fall, även om du tar bort ditt konto.
+    för att möjliggöra granskning av säkerhet och kommer att sparas 1 år i alla fall, även om du tar bort ditt konto.
   </p>
   <p>
     Du kan ladda ner din data i ett maskinläsligt format. Kontakta mobistudy@mau.se om du önskar detta.
   </p>
 
   <p>
-    Malmö Universitet är ansvarig av behandlingen av personlig information vilket sker baserat på ditt
+    Malmö Universitet är ansvarig för behandlingen av personlig information vilket sker baserat på ditt
     samtycke. Detta samtycke kan avbrytas när som helst genom att kontakta mobistudy@mau.se för att allt
     material processat baserat på tidigare samtycke ska tas bort. Samma adress gäller om du vill få svar på
     vad som har registrerats om dig eller om du vill ha felaktigheter korrigerade, information borttagen,
-    eller processande begränsat.
+    eller processande begränsat. Var medveten om att olika villkor kan gälla för data som samlas in inom
+    en forskningsstudie, enligt studiens integritetspolicy.
   </p>
 
   <p>
     Om du har frågor om universitetets processande av personlig information kan du kontakta Dataskyddsombud
     på dataskyddsombud@mau.se och om du har klagomål som inte kan lösas med Malmö Universitet kan du vända
     dig till Integritetsskyddsmyndigheten.
-  </p>`
+  </p>
+  `
