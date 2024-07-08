@@ -45,7 +45,9 @@
 </template>
 
 <script>
-import welcomeIntro from '@i18n/accountMgmt/welcomeIntro'
+import { mergeDeep } from '@shared/tools'
+import commonMessages from '@i18n/common'
+import welcomeIntroMessages from '@i18n/welcomeIntro'
 
 export default {
   name: 'IntroPage',
@@ -55,7 +57,7 @@ export default {
     }
   },
   i18n: {
-    messages: welcomeIntro
+    messages: mergeDeep(commonMessages, welcomeIntroMessages)
   },
   methods: {
     next () {

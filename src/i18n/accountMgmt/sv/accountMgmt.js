@@ -7,6 +7,7 @@ export default {
   passwordRequiredError: 'Lösenordet är inte giltigt',
   confirmPassword: 'Bekräfta lösenordet',
   confirmPasswordError: 'Lösenorden måste matcha',
+  participantOnly: 'Du kan bara logga in som deltagare i denna app!',
   register: 'Registrera',
   deleteAccount: 'Ta bort konto',
   deleteShort: 'Du kan ta bort ditt konto permanent, Mobistudy kommer inte fortsätta samla data om du inte installerar appen igen.',

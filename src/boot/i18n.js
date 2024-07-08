@@ -1,14 +1,10 @@
 import { boot } from 'quasar/wrappers'
 import { createI18n } from 'vue-i18n'
-import { mergeDeep } from '@shared/tools'
-import studiesMessages from '@i18n/studies/studies'
-import commonMessages from '@i18n/common/common'
 
 export const i18n = createI18n({
-  locale: 'en',
+  locale: navigator.language.split('-')[0], // can use this instead: https://quasar.dev/options/app-internationalization#detecting-locale
   fallbackLocale: 'en',
-  globalInjection: true,
-  messages: mergeDeep(commonMessages, studiesMessages)
+  globalInjection: true
 })
 
 export default boot(({ app }) => {

@@ -22,9 +22,11 @@
     </q-layout>
   </div>
   <div v-if="enableRouting">
-    <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
-      <router-view />
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 

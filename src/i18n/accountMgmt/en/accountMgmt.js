@@ -7,6 +7,7 @@ export default {
   passwordRequiredError: 'Password is required',
   confirmPassword: 'Confirm Password',
   confirmPasswordError: 'Passwords must match',
+  participantOnly: 'You can only login as participant in this app!',
   register: 'Register',
   deleteAccount: 'Delete Account',
   deleteShort: "You can permanently delete your account, Mobistudy won't ever collect anymore data unless you create a new account.",
