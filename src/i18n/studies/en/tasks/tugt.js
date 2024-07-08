@@ -1,6 +1,6 @@
 export default {
   title: 'Timed Up & Go test',
-  shortTitle: 'TU&G test',
+  shortTitle: 'TUG test',
   shortDescription: 'Stand up from a chair and walk 3m',
   OSpermissioniOS: 'This task requires the app to access the motion sensors in your phone if available. This is needed to compute how long it took to complete the test. The motion data will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',
   OSpermissionAndroid: 'This task requires the app to access the motion sensors in your phone if available. This is needed to compute how long it took to complete the test. The motion data will be shared with the research team of this study for analysis. Tap on Next if you want to proceed with the authorization process.',

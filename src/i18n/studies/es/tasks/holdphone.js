@@ -13,22 +13,22 @@ export default {
     {
       title: 'Paso 1',
       img: 'instructions/HoldYourPhone_task-02.svg',
-      description: `Realizarás la prueba de 3 maneras: 1) Sosteniendo tu teléfono en su regazo, estando sentado cómodamente.`
+      description: 'Realizarás la prueba de 3 maneras: 1) Sosteniendo tu teléfono en su regazo, estando sentado cómodamente.'
     },
     {
       title: 'Paso 2',
       img: 'instructions/HoldYourPhone_task-03.svg',
-      description: `2) Sosteniendo tu teléfono con el brazo extendido al nivel del hombro.`
+      description: '2) Sosteniendo tu teléfono con el brazo extendido al nivel del hombro.'
     },
     {
       title: 'Paso 3',
       img: 'instructions/HoldYourPhone_task-04.svg',
-      description: `3) Sosteniendo el teléfono mientras mueves el brazo desde extendido hasta tocarte la nariz repetidamente.`
+      description: '3) Sosteniendo el teléfono mientras mueves el brazo desde extendido hasta tocarte la nariz repetidamente.'
     },
     {
       title: 'Importante!',
       img: 'instructions/HoldYourPhone_task-05.svg',
-      description: `Cuando haya pasado el minuto 1, tu teléfono vibrará. Se te pedirá que repitas la prueba tanto para el brazo derecho como para el izquierdo. Si sientes que no puedes sostener el teléfono durante toda la prueba, simplemente relaja el brazo.`
+      description: 'Cuando haya pasado el minuto 1, tu teléfono vibrará. Se te pedirá que repitas la prueba tanto para el brazo derecho como para el izquierdo. Si sientes que no puedes sostener el teléfono durante toda la prueba, simplemente relaja el brazo.'
     }
   ],
   instructions: {

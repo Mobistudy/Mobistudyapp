@@ -12,7 +12,7 @@ import holdphoneTask from './tasks/holdphone'
 import vocalizationTask from './tasks/vocalization'
 import drawingTask from './tasks/drawing'
 
-let studies = {
+const studies = {
   studies: {
     newStudy: 'Nuevo estudio',
     insertInvitationCode: 'Copie el código de invitación aquí',

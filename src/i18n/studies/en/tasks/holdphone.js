@@ -13,22 +13,22 @@ export default {
     {
       title: 'Step 1',
       img: 'instructions/HoldYourPhone_task-02.svg',
-      description: `You will perform the test in 3 ways: 1) Holding your phone in your lap, when seated comfortably.`
+      description: 'You will perform the test in 3 ways: 1) Holding your phone in your lap, when seated comfortably.'
     },
     {
       title: 'Step 2',
       img: 'instructions/HoldYourPhone_task-03.svg',
-      description: `2) Holding your phone with your arm outstretched at shoulder level.`
+      description: '2) Holding your phone with your arm outstretched at shoulder level.'
     },
     {
       title: 'Step 3',
       img: 'instructions/HoldYourPhone_task-04.svg',
-      description: `3) Holding the phone while you move the arm from outstretched to touching your nose repeatedly.`
+      description: '3) Holding the phone while you move the arm from outstretched to touching your nose repeatedly.'
     },
     {
       title: 'Important!',
       img: 'instructions/HoldYourPhone_task-05.svg',
-      description: `When the 1 minute has passed, your phone will vibrate. You will be asked to repeat the test for both the right and left arm. If you feel like you cannot hold the phone for the whole duration of the test, simply relax your arm.`
+      description: 'When the 1 minute has passed, your phone will vibrate. You will be asked to repeat the test for both the right and left arm. If you feel like you cannot hold the phone for the whole duration of the test, simply relax your arm.'
     }
   ],
   instructions: {

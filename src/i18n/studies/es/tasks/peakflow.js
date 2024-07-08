@@ -24,7 +24,7 @@ export default {
     {
       title: 'Preparación',
       img: 'instructions/peakflow_3.svg',
-      description: `El medidor de flujo máximo requiere luz de arriba, como la luz del sol o de una bombilla eléctrica. Asegúrate de no cubrir la parte superior del dispositivo`
+      description: 'El medidor de flujo máximo requiere luz de arriba, como la luz del sol o de una bombilla eléctrica. Asegúrate de no cubrir la parte superior del dispositivo'
     },
     {
       title: 'Instrucciones',
@@ -45,7 +45,7 @@ export default {
   measurementCompleted3: 'Tercera y última medición completada. Selecciona "Siguiente" para continuar',
   measurementError: 'Algo salió mal, vuelve a intentarlo',
   measurementErrorMaxRetries: 'La aplicación no puede medir tu flujo máximo correctamente. Asegúrate de que el dispositivo esté bien conectado al conector de audio y debajo de una fuente de luz. Si el problema persiste, utiliza el adaptador Bluetooth. Sigue las instrucciones proporcionadas con el dispositivo para eso.',
-  todayBest: `El mejor flujo máximo de hoy:`,
+  todayBest: 'El mejor flujo máximo de hoy:',
   results: 'Lecturas de flujo máximo pasadas',
   pef: 'Flujo máximo',
   weeks: 'Semanas'

@@ -5,7 +5,7 @@
   "productName": "Mobistudy App",
   "cordovaId": "org.mobistudy.org",
   "author": "Dario Salvi <dariosalvi78@gmail.com>",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "quasar dev",
     "lint": "eslint --ext .js,.vue src",
@@ -16,31 +16,24 @@
     "dev:test": "concurrently \"quasar dev\" \"jest --watch\""
   },
   "dependencies": {
-    "@quasar/extras": "^1.16.11",
-    "axios": "^1.6.4",
-    "chart.js": "^2.9.4",
-    "moment": "^2.30.1",
-    "owasp-password-strength-test": "^1.3.0",
-    "quasar": "^1.22.10",
-    "rrule": "^2.8.1",
-    "vue-chartjs": "^3.5.1",
-    "vue-i18n": "^8.28.2",
-    "vuelidate": "^0.7.7",
-    "zxcvbn": "^4.4.2"
+    "axios": "^1.2.1",
+    "vue-i18n": "^9.0.0",
+    "@quasar/extras": "^1.16.4",
+    "core-js": "^3.31.1",
+    "quasar": "^2.16.0",
+    "vue": "^3.4.18",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
-    "@quasar/app": "3.3.3",
-    "@quasar/quasar-app-extension-testing": "^1.0.3",
-    "@quasar/quasar-app-extension-testing-unit-jest": "^1.1.0-beta.7",
-    "@types/babel__core": "^7.20.0",
-    "@vue/eslint-config-standard": "^4.0.0",
-    "@vue/test-utils": "^1.3.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^5.10.0",
-    "eslint-loader": "^2.1.1",
-    "eslint-plugin-jest": "^23.8.2",
-    "eslint-plugin-vue": "^5.0.0",
-    "vue-jest": "^3.0.7"
+    "@babel/eslint-parser": "^7.13.14",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "eslint-webpack-plugin": "^3.1.1",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "@quasar/app-webpack": "^3.13.0"
   },
   "browserslist": [
     "last 10 Chrome versions",
@@ -54,7 +47,7 @@
     "last 5 Opera versions"
   ],
   "engines": {
-    "node": ">= 10.18.1",
+    "node": "^20 || ^18 || ^16",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   }

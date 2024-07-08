@@ -1,57 +1,41 @@
 <template>
-  <div id="q-app">
-    <div v-if="showPINPage">
-      <q-layout>
-        <q-page-container>
-          <q-page class="flex flex-center q-pa-md">
-            <div class="text-center">
-              <q-icon
-                v-if="dbCorrupted"
-                name="warning"
-                class="text-negative"
-                style="font-size: 6rem;"
-              />
-              <q-icon
-                v-if="!dbCorrupted"
-                name="screen_lock_landscape"
-                class="text-negative"
-                style="font-size: 6rem;"
-              />
-              <div class="text-body1 q-mt-xl">
-                <div v-if="!dbCorrupted">
-                  <h6>{{ $t('pin.pinNotSetTitle') }}</h6>
-                  <p class="q-mb-lg"> {{ $t('pin.pinNotSet') }}</p>
-                </div>
-                <div v-if="dbCorrupted">
-                  <h6>{{ $t('pin.dbCorruptedTitle') }}</h6>
-                  <p class="q-mb-lg"> {{ $t('pin.dbCorrupted') }}</p>
-                </div>
+  <div v-if="showPINPage">
+    <q-layout>
+      <q-page-container>
+        <q-page class="flex flex-center q-pa-md">
+          <div class="text-center">
+            <q-icon v-if="dbCorrupted" name="warning" class="text-negative" style="font-size: 6rem;" />
+            <q-icon v-if="!dbCorrupted" name="screen_lock_landscape" class="text-negative" style="font-size: 6rem;" />
+            <div class="text-body1 q-mt-xl">
+              <div v-if="!dbCorrupted">
+                <h6>{{ $t('pin.pinNotSetTitle') }}</h6>
+                <p class="q-mb-lg"> {{ $t('pin.pinNotSet') }}</p>
+              </div>
+              <div v-if="dbCorrupted">
+                <h6>{{ $t('pin.dbCorruptedTitle') }}</h6>
+                <p class="q-mb-lg"> {{ $t('pin.dbCorrupted') }}</p>
               </div>
             </div>
-          </q-page>
-        </q-page-container>
-      </q-layout>
-    </div>
-
-    <div v-if="enableRouting">
-      <transition
-        appear
-        enter-active-class="animated fadeIn"
-        leave-active-class="animated fadeOut"
-        mode="out-in"
-      >
-        <router-view />
-      </transition>
-    </div>
+          </div>
+        </q-page>
+      </q-page-container>
+    </q-layout>
+  </div>
+  <div v-if="enableRouting">
+    <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 
 <script>
-import userinfo from 'modules/userinfo'
-import DB from 'modules/db'
-import API from 'modules/API/API'
-import phone from 'modules/phone/phone'
-export default {
+import { defineComponent } from 'vue'
+import userinfo from '@shared/userinfo'
+import phone from '@shared/phone/phone'
+import DB from '@shared/db'
+import API from '@shared/API/API'
+
+export default defineComponent({
   name: 'MobistudyApp',
   data () {
     return {
@@ -98,7 +82,7 @@ export default {
         return
       }
       // check if already logged in, otherwise go to intro
-      let resettingpwd =
+      const resettingpwd =
         this.$route.path === '/resetpw' || this.$route.path === '/changepw'
       if ((!userinfo.user.loggedin || !userinfo.user.name) && !resettingpwd) {
         this.$router.replace({
@@ -153,5 +137,5 @@ export default {
 
     await this.bootstrap()
   }
-}
+})
 </script>

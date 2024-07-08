@@ -1,11 +1,11 @@
 .DS_Store
 .thumbs.db
 node_modules
-project.config.js
 
 # Quasar core related directories
 .quasar
 /dist
+/quasar.config.*.temporary.compiled*
 
 # Cordova related directories and files
 /src-cordova/node_modules
@@ -28,8 +28,10 @@ yarn-error.log*
 
 # Editor directories and files
 .idea
-.vscode
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
+
+# local .env files
+.env.local*

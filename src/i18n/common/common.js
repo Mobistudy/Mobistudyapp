@@ -2,7 +2,7 @@ import en from './en/common'
 import sv from './sv/common'
 import es from './es/common'
 
-let messages = {
+const messages = {
   en,
   sv,
   es

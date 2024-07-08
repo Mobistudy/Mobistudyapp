@@ -2,11 +2,11 @@ export default {
   title: 'Smart toppflödesmätning',
   shortTitle: 'Toppflöde',
   shortDescription: 'Mät toppflöde på din utandning med den smarta PEF-mätaren',
-  OSpermissioniOS: `Denna uppgift kräver att appen har behörighet att använda mikrofonen på din telefon. 
+  OSpermissioniOS: `Denna uppgift kräver att appen har behörighet att använda mikrofonen på din telefon.
   Detta behövs för att kunna mäta toppflödet med den smarta PEF-mätaren.
   För analys delas insamlad data med forskningsgruppen för denna studie.
   Klicka på Nästa om du vill fortsätta med behörighetsprocessen.`,
-  OSpermissionAndroid: `Denna uppgift kräver att appen har behörighet att använda mikrofonen på din telefon. 
+  OSpermissionAndroid: `Denna uppgift kräver att appen har behörighet att använda mikrofonen på din telefon.
   Detta behövs för att kunna mäta toppflödet med den smarta PEF-mätaren.
   För analys delas insamlad data med forskningsgruppen för denna studie.
   Klicka på Nästa om du vill fortsätta med behörighetsprocessen.`,
@@ -24,7 +24,7 @@ export default {
     {
       title: 'Förberedelser',
       img: 'instructions/peakflow_3.svg',
-      description: `Toppflödesmätaren behöver ljus uppifrån, såsom solljus eller från en lampa. Försäkra dig om att du inte täcker för ovansidan av toppflödesmätaren.`
+      description: 'Toppflödesmätaren behöver ljus uppifrån, såsom solljus eller från en lampa. Försäkra dig om att du inte täcker för ovansidan av toppflödesmätaren.'
     },
     {
       title: 'Instruktioner',
@@ -45,7 +45,7 @@ export default {
   measurementCompleted3: 'Tredje och sista mätningen är klar. Tryck på Nästa för att fortsätta.',
   measurementError: 'Något gick fel, försök igen.',
   measurementErrorMaxRetries: 'Appen kan inte mäta ditt toppflöde korrekt. Se till att enheten är ordentligt ansluten till ljuduttaget och under en ljuskälla. Om problemet kvarstår, använd Bluetooth-adaptern. Följ instruktionerna som medföljer enheten för detta.',
-  todayBest: `Dagens bästa toppflödesmätning:`,
+  todayBest: 'Dagens bästa toppflödesmätning:',
   results: 'Tidigare toppflödesmätningar',
   pef: 'Toppflöde',
   weeks: 'Veckor'

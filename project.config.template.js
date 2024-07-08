@@ -1,4 +1,3 @@
-
 // USE THESE TO TWEAK THE COMPILATION OPTIONS
 module.exports = {
   // use 'MOCK' for mock api, '/api' for local server, 'https://app.mobistudy.org/api' for real server

@@ -13,22 +13,22 @@ export default {
     {
       title: 'Step 1',
       img: 'instructions/HoldYourPhone_task-02.svg',
-      description: `Du kommer att utföra testet på 3 sätt: 1) Håll telefonen i knät när du sitter bekvämt.`
+      description: 'Du kommer att utföra testet på 3 sätt: 1) Håll telefonen i knät när du sitter bekvämt.'
     },
     {
       title: 'Step 2',
       img: 'instructions/HoldYourPhone_task-03.svg',
-      description: `2) Håll telefonen med armen utsträckt i axelhöjd.`
+      description: '2) Håll telefonen med armen utsträckt i axelhöjd.'
     },
     {
       title: 'Step 3',
       img: 'instructions/HoldYourPhone_task-04.svg',
-      description: `3) Håll i telefonen medan du flyttar armen från utsträckt till att röra vid näsan upprepade gånger.`
+      description: '3) Håll i telefonen medan du flyttar armen från utsträckt till att röra vid näsan upprepade gånger.'
     },
     {
       title: 'Important!',
       img: 'instructions/HoldYourPhone_task-05.svg',
-      description: `När 1 minut har gått vibrerar din telefon. Du kommer att bli ombedd att upprepa testet för både höger och vänster arm. Om du känner att du inte kan hålla telefonen under hela testet, slappna helt enkelt av i armen.`
+      description: 'När 1 minut har gått vibrerar din telefon. Du kommer att bli ombedd att upprepa testet för både höger och vänster arm. Om du känner att du inte kan hålla telefonen under hela testet, slappna helt enkelt av i armen.'
     }
   ],
   instructions: {

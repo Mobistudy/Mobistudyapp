@@ -1,6 +1,6 @@
 export default {
-  title: 'Timed Up and Go testet',
-  shortTitle: 'TU&G testet',
+  title: 'Stå-upp-och-gå-testet (TUG)',
+  shortTitle: 'TUG test',
   shortDescription: 'Stiga upp från en stol och gå 3m',
   OSpermissioniOS: 'Den här uppgiften kräver att appen kommer åt rörelsesensorerna i din telefon om de är tillgängliga. Detta behövs för att beräkna hur lång tid det tog att slutföra testet. Rörelsedata kommer att delas med forskargruppen i denna studie för analys. Klicka på Nästa om du vill fortsätta med auktoriseringsprocessen.',
   OSpermissionAndroid: 'Den här uppgiften kräver att appen kommer åt rörelsesensorerna i din telefon om de är tillgängliga. Detta behövs för att beräkna hur lång tid det tog att slutföra testet. Rörelsedata kommer att delas med forskargruppen i denna studie för analys. Klicka på Nästa om du vill fortsätta med auktoriseringsprocessen.',
