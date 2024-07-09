@@ -4,12 +4,12 @@ import MGMTes from './es/accountMgmt'
 
 export default {
   en: {
-    accountMgmt: MGMTen
+    userMgmt: MGMTen
   },
   sv: {
-    accountMgmt: MGMTsv
+    userMgmt: MGMTsv
   },
   es: {
-    accountMgmt: MGMTes
+    userMgmt: MGMTes
   }
 }

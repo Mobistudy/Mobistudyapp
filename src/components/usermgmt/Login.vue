@@ -8,35 +8,35 @@
         </div>
         <q-form ref="loginForm">
           <div style="width: 90vw">
-            <q-input v-model="username" :label="$t('accountMgmt.email')" :rules="emailRules" />
+            <q-input v-model="username" :label="$t('userMgmt.email')" :rules="emailRules" />
 
-            <q-input v-model="password" :label="$t('accountMgmt.password')" :type="showPassword ? 'text' : 'password'"
-              :rules="[val => !!val || $t('accountMgmt.passwordRequiredError')]">
+            <q-input v-model="password" :label="$t('userMgmt.password')" :type="showPassword ? 'text' : 'password'"
+              :rules="[val => !!val || $t('userMgmt.passwordRequiredError')]">
               <template #append>
                 <q-icon name="visibility" v-if="!showPassword" @click="showPassword = true" />
                 <q-icon name="visibility_off" v-else @click="showPassword = false" />
               </template>
             </q-input>
 
-            <q-select v-model="server" :options="serverOptions" emit-value map-options :label="$t('accountMgmt.server')"
-              :rules="[val => !!val || $t('accountMgmt.serverRequiredError')]" />
+            <q-select v-model="server" :options="serverOptions" emit-value map-options :label="$t('userMgmt.server')"
+              :rules="[val => !!val || $t('userMgmt.serverRequiredError')]" />
 
             <div class="row">
-              <q-btn class="q-ma-sm full-width mobibtn" :label="$t('accountMgmt.login.login')" color="primary"
+              <q-btn class="q-ma-sm full-width mobibtn" :label="$t('userMgmt.login.login')" color="primary"
                 @click="login" type="submit" />
-              <q-btn class="q-ma-sm q-mb-lg full-width mobibtn" :label="$t('accountMgmt.login.lostpw')" color="grey"
-                flat outline to="resetpw" />
+              <q-btn class="q-ma-sm q-mb-lg full-width mobibtn" :label="$t('userMgmt.login.lostpw')" color="grey" flat
+                outline to="resetpw" />
               <q-list class="full-width">
                 <q-separator />
                 <q-item class="full-width">
                   <q-item-section class="full-width">
-                    <q-item-label class="text-center q-mt-lg q-mb-md mobitxt1">{{ $t('accountMgmt.login.noAcc')
+                    <q-item-label class="text-center q-mt-lg q-mb-md mobitxt1">{{ $t('userMgmt.login.noAcc')
                       }}</q-item-label>
                   </q-item-section>
                 </q-item>
                 <q-item class="full-width">
                   <q-item-section class="full-width">
-                    <q-btn class="full-width mobibtn" :label="$t('accountMgmt.register')" color="secondary"
+                    <q-btn class="full-width mobibtn" :label="$t('userMgmt.register')" color="secondary"
                       to="register_pp" />
                   </q-item-section>
                 </q-item>
@@ -52,7 +52,7 @@
 <script>
 import { mergeDeep } from '@shared/tools'
 import commonMessages from '@i18n/common'
-import accountMgmtMessages from '@i18n/accountMgmt'
+import userMgmtMessages from '@i18n/userMgmt'
 import DB from '@shared/db'
 import API from '@shared/API/API'
 import userinfo from '@shared/userinfo'
@@ -64,7 +64,7 @@ const { testPattern } = patterns
 export default {
   name: 'LoginPage',
   i18n: {
-    messages: mergeDeep(commonMessages, accountMgmtMessages)
+    messages: mergeDeep(commonMessages, userMgmtMessages)
   },
   data () {
     return {
@@ -75,8 +75,8 @@ export default {
       error: false,
       showPassword: false,
       emailRules: [
-        val => !!val || this.$t('accountMgmt.emailRequiredError'),
-        val => testPattern.email(val) || this.$t('accountMgmt.emailRequiredError')
+        val => !!val || this.$t('userMgmt.emailRequiredError'),
+        val => testPattern.email(val) || this.$t('userMgmt.emailRequiredError')
       ]
     }
   },
@@ -112,7 +112,7 @@ export default {
           if (user.role !== 'participant') {
             this.$q.notify({
               color: 'negative',
-              message: this.$t('accountMgmt.participantOnly'),
+              message: this.$t('userMgmt.participantOnly'),
               icon: 'report_problem'
             })
             return
@@ -127,13 +127,13 @@ export default {
           if (error.response && error.response.status && error.response.status === 401) {
             this.$q.notify({
               color: 'negative',
-              message: this.$i18n.t('accountMgmt.login.loginErrorCredentials'),
+              message: this.$i18n.t('userMgmt.login.loginErrorCredentials'),
               icon: 'report_problem'
             })
           } else {
             this.$q.notify({
               color: 'negative',
-              message: this.$i18n.t('accountMgmt.login.loginError') + ': ' + error.message,
+              message: this.$i18n.t('userMgmt.login.loginError') + ': ' + error.message,
               icon: 'report_problem'
             })
           }
