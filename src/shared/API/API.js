@@ -5,6 +5,22 @@ const BASE_URL = process.env.API_ENDPOINT
 let axiosConfig = {}
 
 export default {
+  getServersList: () => {
+    return [
+      {
+        en: 'Malmo University',
+        sv: 'Malmö Universitet',
+        es: 'Universidad de Malmo',
+        it: 'Università di Malmo'
+      },
+      {
+        en: 'Campus Bio Medico University of Rome',
+        sv: 'Campus Bio Medico universitetet i Rom',
+        es: 'Universidad Campus Bio-Medico de Roma',
+        it: 'Università Campus Bio-Medico di Roma'
+      }
+    ]
+  },
   setToken: (newtoken) => {
     axiosConfig = {
       headers: {

@@ -2,11 +2,13 @@
 
 export default {
   email: 'Email',
-  emailRequiredError: 'Un email válido es requerido.',
+  emailRequiredError: 'Un email válido es requerido',
   password: 'Contraseña',
   passwordRequiredError: 'Contrseña válida es requerido',
   confirmPassword: 'Confirmar Contraseña',
   confirmPasswordError: 'La contraseña debe coincidir',
+  server: 'Institución',
+  serverRequiredError: 'Una institutciòn debe ser selecionada',
   participantOnly: 'Puedes logearte solo como participante en este app!',
   register: 'Registar',
   deleteAccount: 'Eliminar Cuenta',

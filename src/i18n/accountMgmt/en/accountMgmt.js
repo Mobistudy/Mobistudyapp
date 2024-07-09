@@ -2,11 +2,13 @@
 
 export default {
   email: 'Email',
-  emailRequiredError: 'A valid email address is required.',
+  emailRequiredError: 'A valid email address is required',
   password: 'Password',
   passwordRequiredError: 'Password is required',
   confirmPassword: 'Confirm Password',
   confirmPasswordError: 'Passwords must match',
+  server: 'Institution',
+  serverRequiredError: 'An institution must be specified',
   participantOnly: 'You can only login as participant in this app!',
   register: 'Register',
   deleteAccount: 'Delete Account',

@@ -17,6 +17,23 @@ import environmentmock from './mockdata/environment'
 
 export default {
 
+  getServersList: () => {
+    return [
+      {
+        en: 'Malmo University',
+        sv: 'Malmö Universitet',
+        es: 'Universidad de Malmo',
+        it: 'Università di Malmo'
+      },
+      {
+        en: 'Campus Bio Medico University of Rome',
+        sv: 'Campus Bio Medico universitetet i Rom',
+        es: 'Universidad Campus Bio-Medico de Roma',
+        it: 'Università Campus Bio-Medico di Roma'
+      }
+    ]
+  },
+
   setToken (token) {
     console.log('API - Setting token: ' + token)
   },

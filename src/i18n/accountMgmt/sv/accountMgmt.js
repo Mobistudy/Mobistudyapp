@@ -2,11 +2,13 @@
 
 export default {
   email: 'Email',
-  emailRequiredError: 'Email addressen är inte giltig.',
+  emailRequiredError: 'Email addressen är inte giltig',
   password: 'Lösenord',
   passwordRequiredError: 'Lösenordet är inte giltigt',
   confirmPassword: 'Bekräfta lösenordet',
   confirmPasswordError: 'Lösenorden måste matcha',
+  server: 'Institution',
+  serverRequiredError: 'En institution måste anges',
   participantOnly: 'Du kan bara logga in som deltagare i denna app!',
   register: 'Registrera',
   deleteAccount: 'Ta bort konto',

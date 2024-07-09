@@ -9,6 +9,7 @@
         <q-form ref="loginForm">
           <div style="width: 90vw">
             <q-input v-model="username" :label="$t('accountMgmt.email')" :rules="emailRules" />
+
             <q-input v-model="password" :label="$t('accountMgmt.password')" :type="showPassword ? 'text' : 'password'"
               :rules="[val => !!val || $t('accountMgmt.passwordRequiredError')]">
               <template #append>
@@ -16,6 +17,10 @@
                 <q-icon name="visibility_off" v-else @click="showPassword = false" />
               </template>
             </q-input>
+
+            <q-select v-model="server" :options="serverOptions" clearable :label="$t('accountMgmt.server')"
+              :rules="[val => !!val || $t('accountMgmt.serverRequiredError')]" />
+
             <div class="row">
               <q-btn class="q-ma-sm full-width mobibtn" :label="$t('accountMgmt.login.login')" color="primary"
                 @click="login" type="submit" />
@@ -65,6 +70,8 @@ export default {
     return {
       username: '',
       password: '',
+      server: '',
+      serverOptions: [],
       error: false,
       showPassword: false,
       emailRules: [
@@ -79,6 +86,10 @@ export default {
     }
   },
   async created () {
+    this.serverOptions = API.getServersList().map((opt) => {
+      console.log(opt[this.$root.$i18n.locale])
+      return opt[this.$root.$i18n.locale]
+    })
     notifications.cancelAll()
     try {
       await userinfo.logout() // called twice, also once in Profile -> logout. The DB finds no session and fails because it already executed once before and removed the item from the db.
@@ -90,6 +101,10 @@ export default {
   },
   methods: {
     async login () {
+      if (!this.server) {
+        console.log('specify a server')
+        return
+      }
       const valid = await this.$refs.loginForm.validate(true)
       if (valid) {
         try {
