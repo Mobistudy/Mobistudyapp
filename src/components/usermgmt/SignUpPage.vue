@@ -95,7 +95,6 @@ export default {
   methods: {
     validatePasswordStrength (pwd) {
       const msg = checkPwdStrength(this.email, pwd)
-      console.log(msg)
       if (msg) return this.$t(msg, owaspConfig)
       else return true // return true if succeed, string if error
     },

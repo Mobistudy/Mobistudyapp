@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <q-form ref="profileForm">
     <!-- firstname -->
     <q-input :label="$t('userMgmt.profile.firstName')" :rules="[val => !!val || $t('userMgmt.profile.firstNameError')]"
       v-model="profile.firstName">
@@ -17,15 +17,15 @@
     </q-input>
 
     <!-- date of birth -->
-    <q-input :label="$t('userMgmt.profile.dateOfBirth')" v-model="profile.dateOfBirth" default-view="Years"
-      mask="####-##-##" :rules="['YYYY-MM-DD', val => !!val || $t('userMgmt.profile.dateOfBirthError')]">
+    <q-input :label="$t('userMgmt.profile.dateOfBirth')" v-model="profile.dateOfBirth" mask="####-##-##"
+      :rules="['YYYY/MM/DD', val => !!val || $t('userMgmt.profile.dateOfBirthError')]">
       <template v-slot:before>
         <q-icon name="calendar_today" />
       </template>
-      <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-        <q-date v-model="profile.dateOfBirth" class="cursor-pointer" default-view="Years" mask="YYYY/MM/DD"
-          format="YYYY/MM/DD" default-year-month="1970/11" :title="profile.dateOfBirth"
-          :navigation-max-year-month="calenderRules()" @input="() => $refs.qDateProxy.hide()">
+      <q-popup-proxy ref="qDateProxy" cover transition-show="scale" transition-hide="scale">
+        <q-date minimal v-model="profile.dateOfBirth" class="cursor-pointer" default-view="Years" mask="YYYY/MM/DD"
+          format="YYYY/MM/DD" default-year-month="1970/01" :navigation-max-year-month="maxDoB"
+          @update:model-value="() => $refs.qDateProxy.hide()">
           <div class="row items-center justify-end q-gutter-sm">
             <q-btn padding="md lg" :label="$t('common.close')" color="primary" flat v-close-popup />
           </div>
@@ -34,8 +34,9 @@
     </q-input>
 
     <!-- language -->
-    <q-select v-model="profile.language" :options="languageOptions" emit-value map-options @input="selectLanguage()"
-      :label="$t('userMgmt.profile.language')" :rules="[val => !!val || $t('userMgmt.profile.languageError')]">
+    <q-select v-model="profile.language" :options="languageOptions" emit-value map-options
+      @update:model-value="selectLanguage()" :label="$t('userMgmt.profile.language')"
+      :rules="[val => !!val || $t('userMgmt.profile.languageError')]">
       <template v-slot:before>
         <q-icon name="language" />
       </template>
@@ -66,7 +67,6 @@
     </q-input>
 
     <!-- height -->
-
     <q-input :label="$t('userMgmt.profile.height')" v-model="profile.height"
       :rules="[val => !!val && (val > 50 && val < 250) || $t('userMgmt.profile.heightError')]" type='number'>
       <template v-slot:before>
@@ -75,9 +75,8 @@
     </q-input>
 
     <!-- conditions -->
-    <q-select ref="diseasesSelect" :label="$t('userMgmt.profile.conditions')" v-model="diseasesVue"
-      @input="clearDiseasesFilter" use-input use-chips multiple input-debounce="500" :options="diseaseOptions"
-      @filter="searchDisease">
+    <q-select ref="diseasesSelect" :label="$t('userMgmt.profile.conditions')" v-model="diseasesVue" use-input use-chips
+      multiple input-debounce="500" :options="diseaseOptions" @filter="searchDisease" @add="clearDiseasesFilter">
       <template v-slot:no-option>
         <q-item>
           <q-item-section class="text-grey">
@@ -91,8 +90,8 @@
     </q-select>
 
     <!-- medications -->
-    <q-select ref="medsSelect" v-model="medsVue" @input="clearMedsFilter" use-input use-chips multiple
-      input-debounce="500" :label="$t('userMgmt.profile.medications')" :options="medOptions" @filter="searchMeds">
+    <q-select ref="medsSelect" v-model="medsVue" use-input use-chips multiple input-debounce="500"
+      :label="$t('userMgmt.profile.medications')" :options="medOptions" @filter="searchMeds" @add="clearMedsFilter">
       <template v-slot:no-option>
         <q-item>
           <q-item-section class="text-grey">
@@ -115,25 +114,27 @@
       <q-btn class="mobibtn" v-if="buttonOkText" :label="buttonOkText" color="primary" @click="buttonOkClick()" />
     </div>
 
-  </div>
+  </q-form>
 </template>
 
 <script>
-import i18nString from '@i18n/userMgmt'
+import userMgmtMessages from '@i18n/userMgmt'
+import commonMessages from '@i18n/common'
+import { mergeDeep } from '@shared/tools.js'
 
-// import { required, minValue, maxValue, numeric } from 'vuelidate/lib/validators'
 import API from '@shared/API/API'
 import { date } from 'quasar'
 
 export default {
   name: 'ProfileEditor',
   props: ['modelValue', 'buttonCancelText', 'buttonOkText'],
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'language-changed'],
   i18n: {
-    messages: i18nString
+    messages: mergeDeep(userMgmtMessages, commonMessages)
   },
   data () {
     return {
+      maxDoB: date.formatDate(Date.now(), 'YYYY/MM'),
       sexOptions: [
         {
           label: this.$i18n.t('userMgmt.profile.sexes.male'),
@@ -194,8 +195,8 @@ export default {
     // these are used to map label and value to term and conceptId
     diseasesVue: {
       get: function () {
-        if (this.value.diseases && this.value.diseases.length) {
-          return this.value.diseases.map(x => {
+        if (this.profile.diseases && this.profile.diseases.length) {
+          return this.profile.diseases.map(x => {
             return {
               label: x.term,
               value: x.conceptId,
@@ -205,7 +206,7 @@ export default {
         } else return []
       },
       set: function (diseaseOpts) {
-        this.value.diseases = diseaseOpts.map(x => {
+        this.profile.diseases = diseaseOpts.map(x => {
           return {
             term: x.label,
             conceptId: x.value,
@@ -216,8 +217,8 @@ export default {
     },
     medsVue: {
       get: function () {
-        if (this.value.medications && this.value.medications.length) {
-          return this.value.medications.map(x => {
+        if (this.profile.medications && this.profile.medications.length) {
+          return this.profile.medications.map(x => {
             return {
               label: x.term,
               value: x.conceptId,
@@ -227,7 +228,7 @@ export default {
         } else return []
       },
       set: function (medOptions) {
-        this.value.medications = medOptions.map(x => {
+        this.profile.medications = medOptions.map(x => {
           return {
             term: x.label,
             conceptId: x.value,
@@ -239,11 +240,11 @@ export default {
   },
   methods: {
     selectLanguage () {
-      this.$root.$i18n.locale = this.value.language
-      this.update()
+      this.$root.$i18n.locale = this.profile.language
       this.$emit('language-changed')
     },
     async searchDisease (diseaseDescription, update, abort) {
+      console.log('searching ', diseaseDescription)
       if (diseaseDescription.length < 3) {
         update(() => {
           this.diseaseOptions = []
@@ -252,9 +253,9 @@ export default {
         return
       }
       try {
-        let concepts = await API.searchDiseaseConcept(diseaseDescription, this.value.language)
+        let concepts = await API.searchDiseaseConcept(diseaseDescription, this.profile.language)
         concepts = concepts.filter((concept) => {
-          if (!this.conceptIdExistsInArrayOfObjects(this.value.diseases, concept.conceptId)) {
+          if (!this.conceptIdExistsInArrayOfObjects(this.profile.diseases, concept.conceptId)) {
             return true
           } else return false
         })
@@ -293,9 +294,9 @@ export default {
         return
       }
       try {
-        let concepts = await API.searchMedicationConcept(medDescription, this.value.language)
+        let concepts = await API.searchMedicationConcept(medDescription, this.profile.language)
         concepts = concepts.filter((concept) => {
-          if (!this.conceptIdExistsInArrayOfObjects(this.value.medications, concept.conceptId)) {
+          if (!this.conceptIdExistsInArrayOfObjects(this.profile.medications, concept.conceptId)) {
             return true
           } else return false
         })
@@ -335,33 +336,25 @@ export default {
       }
       return exists
     },
-    calenderRules () {
-      return date.formatDate(Date.now(), 'YYYY/MM')
-    },
-    clearDiseasesFilter () {
+    clearDiseasesFilter (d) {
       if (this.$refs.diseasesSelect !== void 0) {
         this.$refs.diseasesSelect.updateInputValue('')
       }
-      this.update()
     },
     clearMedsFilter () {
       if (this.$refs.medsSelect !== void 0) {
         this.$refs.medsSelect.updateInputValue('')
       }
-      this.update()
-    },
-    update () {
-      this.$emit('input', this.value)
     },
     buttonCancelClick () {
-      this.$emit('buttonCancel', this.value)
+      this.$emit('buttonCancel')
     },
-    buttonOkClick () {
-      this.$v.value.$touch()
-      if (this.$v.value.$error) {
+    async buttonOkClick () {
+      const valid = await this.$refs.profileForm.validate(true)
+      if (!valid) {
         this.$q.notify(this.$i18n.t('errors.correctFields'))
       } else {
-        this.$emit('buttonOk', this.value)
+        this.$emit('buttonOk', this.profile)
       }
     }
   }

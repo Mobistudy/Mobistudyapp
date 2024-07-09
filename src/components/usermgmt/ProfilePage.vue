@@ -2,18 +2,20 @@
   <q-page padding>
     <div class="row fit justify-center">
       <div class="text-h5 text-center q-pt-md">
-        {{ $t('accountMgmt.registration.createProfile') }}
+        {{ $t('userMgmt.registration.createProfile') }}
       </div>
     </div>
 
-    <profile-editor v-model="profile" :buttonOk="$t('common.next')" @buttonOk="saveProfile()"
-      v-on:language-changed="forceRerender" :key="componentKey" />
+    <profile-editor v-model="profile" :buttonOkText="$t('common.next')" @buttonOk="saveProfile()"
+      @language-changed="forceRerender" :key="componentKey" />
 
   </q-page>
 </template>
 
 <script>
-import i18nStrings from '@i18n/userMgmt'
+import i18nMessages from '@i18n/userMgmt'
+import commonMessages from '@i18n/common'
+import { mergeDeep } from '@shared/tools.js'
 
 import ProfileEditor from '@components/userMgmt/ProfileEditor'
 import API from '@shared/API/API'
@@ -23,7 +25,7 @@ export default {
   name: 'RegisterPage',
   components: { ProfileEditor },
   i18n: {
-    messages: i18nStrings
+    messages: mergeDeep(commonMessages, i18nMessages)
   },
   data () {
     return {
@@ -67,7 +69,7 @@ export default {
       } catch (error) {
         this.$q.notify({
           color: 'negative',
-          message: this.$i18n.t('accountMgmt.registration.registrationError') + ': ' + error.message,
+          message: this.$i18n.t('userMgmt.registration.registrationError') + ': ' + error.message,
           icon: 'report_problem'
         })
       }
