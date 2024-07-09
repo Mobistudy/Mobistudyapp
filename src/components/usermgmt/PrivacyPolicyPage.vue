@@ -21,7 +21,7 @@ import { mergeDeep } from '@shared/tools.js'
 export default {
   name: 'PrivacyPolicy',
   i18n: {
-    messages: mergeDeep(commonMessages, i18nString, i18nPP)
+    messages: mergeDeep(i18nString, i18nPP, commonMessages)
   }
 }
 </script>

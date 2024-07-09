@@ -30,7 +30,8 @@ export function checkPwdStrength (email, pwd) {
     return owasp2tokens(result.errors[0])
   } else {
     result = zxcvbn(pwd)
-    if (result.feedback) {
+    if (result.score < 2) {
+      console.log(result)
       let mesg = 'passwordCheck.tooSimple'
       if (result.feedback.warning) mesg = zxcvbn2tokens(result.feedback.warning)
       // uncomment this code to show also suggestions
@@ -38,7 +39,7 @@ export function checkPwdStrength (email, pwd) {
       //   mesg += '.\nSuggestion: ' + result.feedback.suggestions[0]
       // }
       return mesg
-    } else return 'passwordCheck.ok'
+    } else return false
   }
 }
 

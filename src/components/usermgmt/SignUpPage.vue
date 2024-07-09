@@ -5,39 +5,41 @@
         {{ $t('userMgmt.registration.signUp') }}
       </div>
     </div>
-    <q-input :label="$t('userMgmt.email')" type="email" v-model="account.email" :rules="emailRules">
-      <template v-slot:prepend>
-        <q-icon name="mail_outline" />
-      </template>
-    </q-input>
+    <q-form ref="signupForm">
+      <q-input :label="$t('userMgmt.email')" type="email" v-model="account.email" :rules="emailRules">
+        <template v-slot:prepend>
+          <q-icon name="mail_outline" />
+        </template>
+      </q-input>
 
-    <q-input padding="md lg" :label="$t('userMgmt.password')" :type="showPassword ? 'text' : 'password'"
-      v-model="account.pw1" :rules="passwordRules">
-      <template v-slot:prepend>
-        <q-icon name="vpn_key" />
-      </template>
-      <template v-slot:append>
-        <q-icon :name="showPassword ? 'visibility_off' : 'visibility'" @click="showPassword = !showPassword"
-          class="cursor-pointer" />
-      </template>
-    </q-input>
+      <q-input padding="md lg" :label="$t('userMgmt.password')" :type="showPassword ? 'text' : 'password'"
+        v-model="account.pw1" :rules="passwordRules">
+        <template v-slot:prepend>
+          <q-icon name="vpn_key" />
+        </template>
+        <template v-slot:append>
+          <q-icon :name="showPassword ? 'visibility_off' : 'visibility'" @click="showPassword = !showPassword"
+            class="cursor-pointer" />
+        </template>
+      </q-input>
 
-    <q-input padding="md lg" :label="$t('userMgmt.confirmPassword')" :type="showPassword ? 'text' : 'password'"
-      v-model="account.pw2" :rules="password2Rules">
-      <template v-slot:prepend>
-        <q-icon name="vpn_key" />
-      </template>
-      <template v-slot:append>
-        <q-icon :name="showPassword ? 'visibility_off' : 'visibility'" @click="showPassword = !showPassword"
-          class="cursor-pointer" />
-      </template>
-    </q-input>
+      <q-input padding="md lg" :label="$t('userMgmt.confirmPassword')" :type="showPassword ? 'text' : 'password'"
+        v-model="account.pw2" :rules="password2Rules">
+        <template v-slot:prepend>
+          <q-icon name="vpn_key" />
+        </template>
+        <template v-slot:append>
+          <q-icon :name="showPassword ? 'visibility_off' : 'visibility'" @click="showPassword = !showPassword"
+            class="cursor-pointer" />
+        </template>
+      </q-input>
 
-    <div class="row fit justify-around q-mt-lg">
-      <q-btn class="mobibtn" color="negative" to="/login" :label="$t('common.cancel')" />
-      <q-btn class="mobibtn" color="primary" :loading="creating" :disable="$v.account.$error" @click="register()"
-        :label="$t('userMgmt.registration.createAccount')" />
-    </div>
+      <div class="row fit justify-around q-mt-lg">
+        <q-btn class="mobibtn" color="negative" to="/login" :label="$t('common.cancel')" />
+        <q-btn class="mobibtn" color="primary" :loading="creating" @click="register()"
+          :label="$t('userMgmt.registration.createAccount')" />
+      </div>
+    </q-form>
   </q-page>
 </template>
 
@@ -78,7 +80,7 @@ export default {
         this.validatePasswordStrength
       ],
       password2Rules: [
-        val => val === this.password || this.$t('userMgmt.confirmPasswordError')
+        val => val === this.account.pw1 || this.$t('userMgmt.confirmPasswordError')
       ]
     }
   },
@@ -90,24 +92,16 @@ export default {
       }
     })
   },
-  // validations () {
-  //   return {
-  //     account: {
-  //       email: { required, email },
-  //       pw1: { required, pwdStrength: checkPwdStrength(this.account.email) },
-  //       pw2: { sameAsPassword: sameAs('pw1') }
-  //     }
-  //   }
-  // },
   methods: {
     validatePasswordStrength (pwd) {
       const msg = checkPwdStrength(this.email, pwd)
+      console.log(msg)
       if (msg) return this.$t(msg, owaspConfig)
-      else return false
+      else return true // return true if succeed, string if error
     },
     async register () {
-      this.$v.account.$touch()
-      if (this.$v.account.$error) {
+      const valid = await this.$refs.signupForm.validate(true)
+      if (!valid) {
         this.$q.notify(this.$i18n.t('errors.correctFields'))
       } else {
         this.creating = true
