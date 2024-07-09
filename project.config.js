@@ -1,5 +1,5 @@
 module.exports = {
-  API_ENDPOINT: 'MOCK', // 'MOCK', // 'http://localhost:3000/api', // /api for local server
+  API_ENDPOINT: 'MOCK', // 'MOCK' for mock, 'OFFICIAL' or 'http://localhost:3000/api' for local server
   HEALTHSTORE: 'MOCK',
   NOTIFICATIONS: 'MOCK',
   STORAGE: 'MOCK',
@@ -11,7 +11,7 @@ module.exports = {
 }
 
 // module.exports = {
-//   API_ENDPOINT: 'https://app.mobistudy.org/api',
+//   API_ENDPOINT: 'OFFICIAL',
 //   HEALTHSTORE: 'cordova',
 //   NOTIFICATIONS: 'cordova',
 //   STORAGE: 'encrypted',

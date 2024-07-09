@@ -93,6 +93,7 @@ export default defineComponent({
         this.enableRouting = true
       } else {
         if (!resettingpwd) {
+          API.setBaseUrl(userinfo.user.serverUrl)
           API.setToken(userinfo.user.token)
 
           console.log('LOGGED IN, REDIRECTING TO HOME')

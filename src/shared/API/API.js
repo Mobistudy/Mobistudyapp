@@ -1,25 +1,36 @@
 // API implementation
 import axios from 'axios'
 
-const BASE_URL = process.env.API_ENDPOINT
 let axiosConfig = {}
 
 export default {
+  baseURL: '',
   getServersList: () => {
     return [
       {
-        en: 'Malmo University',
-        sv: 'Malmö Universitet',
-        es: 'Universidad de Malmo',
-        it: 'Università di Malmo'
+        id: 'malmo',
+        url: process.env.API_ENDPOINT === 'OFFICIAL' ? 'https://app.mobistudy.org/api' : process.env.API_ENDPOINT,
+        names: {
+          en: 'Malmo University',
+          sv: 'Malmö Universitet',
+          es: 'Universidad de Malmo',
+          it: 'Università di Malmo'
+        }
       },
       {
-        en: 'Campus Bio Medico University of Rome',
-        sv: 'Campus Bio Medico universitetet i Rom',
-        es: 'Universidad Campus Bio-Medico de Roma',
-        it: 'Università Campus Bio-Medico di Roma'
+        id: 'ucbm',
+        url: process.env.API_ENDPOINT === 'OFFICIAL' ? 'https://mobistudy.ucbm.it/api' : process.env.API_ENDPOINT,
+        names: {
+          en: 'Campus Bio Medico University of Rome',
+          sv: 'Campus Bio Medico universitetet i Rom',
+          es: 'Universidad Campus Bio-Medico de Roma',
+          it: 'Università Campus Bio-Medico di Roma'
+        }
       }
     ]
+  },
+  setBaseUrl (url) {
+    this.baseURL = url
   },
   setToken: (newtoken) => {
     axiosConfig = {
@@ -33,12 +44,12 @@ export default {
   },
   // Log in
   login: async (email, password) => {
-    const resp = await axios.post(BASE_URL + '/login', { email, password })
+    const resp = await axios.post(this.baseURL + '/login', { email, password })
     return resp.data
   },
   // Registration
   registerUser: async (email, password) => {
-    return axios.post(BASE_URL + '/users', {
+    return axios.post(this.baseURL + '/users', {
       email,
       password,
       role: 'participant'
@@ -46,18 +57,18 @@ export default {
   },
   // Password reset
   resetPW: async (email) => {
-    return axios.post(BASE_URL + '/sendResetPasswordEmail', { email })
+    return axios.post(this.baseURL + '/sendResetPasswordEmail', { email })
   },
   // Change password
   changePW: async (token, newpw) => {
-    return axios.post(BASE_URL + '/resetPassword', { token, password: newpw })
+    return axios.post(this.baseURL + '/resetPassword', { token, password: newpw })
   },
   searchDiseaseConcept: async (disease, lang) => {
-    const resp = await axios.get(BASE_URL + '/vocabulary/' + lang + '/disorder/search?term=' + disease + '&limit=10')
+    const resp = await axios.get(this.baseURL + '/vocabulary/' + lang + '/disorder/search?term=' + disease + '&limit=10')
     return resp.data
   },
   searchMedicationConcept: async (med, lang) => {
-    const resp = await axios.get(BASE_URL + '/vocabulary/' + lang + '/substance/search?term=' + med + '&limit=10')
+    const resp = await axios.get(this.baseURL + '/vocabulary/' + lang + '/substance/search?term=' + med + '&limit=10')
     return resp.data
   },
   /// ////////////////////////////////////
@@ -66,63 +77,63 @@ export default {
 
   // token renewal
   renewToken: async () => {
-    const resp = await axios.get(BASE_URL + '/users/renewToken', axiosConfig)
+    const resp = await axios.get(this.baseURL + '/users/renewToken', axiosConfig)
     return resp.data
   },
 
   // Create the participant profile
   createProfile: async function (profile) {
-    const resp = axios.post(BASE_URL + '/participants', profile, axiosConfig)
+    const resp = axios.post(this.baseURL + '/participants', profile, axiosConfig)
     return resp.data
   },
 
   // Get the participant profile
   getProfile: async function (userKey) {
-    const resp = await axios.get(BASE_URL + '/participants/byuserkey/' + userKey, axiosConfig)
+    const resp = await axios.get(this.baseURL + '/participants/byuserkey/' + userKey, axiosConfig)
     return resp.data
   },
 
   // Updating details
   updateProfile: async function (profile) {
-    return axios.patch(BASE_URL + '/participants/byuserkey/' + profile.userKey, profile, axiosConfig)
+    return axios.patch(this.baseURL + '/participants/byuserkey/' + profile.userKey, profile, axiosConfig)
   },
 
   // Permanently delete the user
   deleteUser: async function (userKey) {
-    return axios.delete(BASE_URL + '/participants/byuserkey/' + userKey, axiosConfig)
+    return axios.delete(this.baseURL + '/participants/byuserkey/' + userKey, axiosConfig)
   },
 
   // update status of a study
   updateStudyStatus: async function (userKey, studyKey, studyParticipation) {
-    return axios.patch(BASE_URL + `/participants/byuserkey/${userKey}/studies/${studyKey}`, studyParticipation, axiosConfig)
+    return axios.patch(this.baseURL + `/participants/byuserkey/${userKey}/studies/${studyKey}`, studyParticipation, axiosConfig)
   },
 
   // update status of a task item consent
   updateTaskItemConsent: async function (userKey, studyKey, taskId, taskItemConsent) {
-    return axios.patch(BASE_URL + `/participants/byuserkey/${userKey}/studies/${studyKey}/taskItemsConsent/${taskId}`, taskItemConsent, axiosConfig)
+    return axios.patch(this.baseURL + `/participants/byuserkey/${userKey}/studies/${studyKey}/taskItemsConsent/${taskId}`, taskItemConsent, axiosConfig)
   },
 
   // retrieves study descritpion
   getStudyDescription: async function (studyKey) {
-    const resp = await axios.get(BASE_URL + '/studies/' + studyKey, axiosConfig)
+    const resp = await axios.get(this.baseURL + '/studies/' + studyKey, axiosConfig)
     return resp.data
   },
 
   // retrieves the keys of the new studies already filtered out by inclusion criteria
   getNewStudiesKeys: async function () {
-    const resp = await axios.get(BASE_URL + '/studies/newStudies/', axiosConfig)
+    const resp = await axios.get(this.baseURL + '/studies/newStudies/', axiosConfig)
     return resp.data
   },
 
   // retrieves an invitational study based on a code
   getInvitationalStudy: async function (invitationalCode) {
-    const resp = await axios.get(BASE_URL + `/studies/invitational/${invitationalCode}`, axiosConfig)
+    const resp = await axios.get(this.baseURL + `/studies/invitational/${invitationalCode}`, axiosConfig)
     return resp.data
   },
 
   // gets a form given its key
   getForm: async function (formKey) {
-    const resp = await axios.get(BASE_URL + '/forms/' + formKey, axiosConfig)
+    const resp = await axios.get(this.baseURL + '/forms/' + formKey, axiosConfig)
     return resp.data
   },
 
@@ -130,7 +141,7 @@ export default {
   sendAttachment: async function (studyKey, taskId, filename, fileData) {
     const config = {
       method: 'post',
-      url: BASE_URL + '/attachments/' + studyKey + '/' + taskId,
+      url: this.baseURL + '/attachments/' + studyKey + '/' + taskId,
       params: { filename },
       headers: {
         Authorization: axiosConfig.headers.Authorization,
@@ -145,13 +156,13 @@ export default {
 
   // get environment data from position
   getEnvironmentFromPosition: async function (lat, long) {
-    const resp = await axios.get(BASE_URL + '/environment?lat=' + lat + '&long=' + long, axiosConfig)
+    const resp = await axios.get(this.baseURL + '/environment?lat=' + lat + '&long=' + long, axiosConfig)
     return resp.data
   },
 
   // send tasks results data
   sendTasksResults: async function (data) {
-    return axios.post(BASE_URL + '/tasksResults', data, axiosConfig)
+    return axios.post(this.baseURL + '/tasksResults', data, axiosConfig)
   }
 
 }

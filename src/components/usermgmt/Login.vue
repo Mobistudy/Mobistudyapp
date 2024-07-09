@@ -18,7 +18,7 @@
               </template>
             </q-input>
 
-            <q-select v-model="server" :options="serverOptions" clearable :label="$t('accountMgmt.server')"
+            <q-select v-model="server" :options="serverOptions" emit-value map-options :label="$t('accountMgmt.server')"
               :rules="[val => !!val || $t('accountMgmt.serverRequiredError')]" />
 
             <div class="row">
@@ -87,8 +87,10 @@ export default {
   },
   async created () {
     this.serverOptions = API.getServersList().map((opt) => {
-      console.log(opt[this.$root.$i18n.locale])
-      return opt[this.$root.$i18n.locale]
+      return {
+        label: opt.names[this.$root.$i18n.locale],
+        value: opt.url
+      }
     })
     notifications.cancelAll()
     try {
@@ -101,13 +103,11 @@ export default {
   },
   methods: {
     async login () {
-      if (!this.server) {
-        console.log('specify a server')
-        return
-      }
       const valid = await this.$refs.loginForm.validate(true)
       if (valid) {
         try {
+          API.setBaseUrl(this.server)
+
           const user = await API.login(this.username.toLowerCase(), this.password)
           if (user.role !== 'participant') {
             this.$q.notify({
@@ -117,7 +117,8 @@ export default {
             })
             return
           }
-          // user is authenticated, return user object
+          // user is authenticated, save status of session
+          user.serverUrl = this.server
           await userinfo.login(user)
           API.setToken(user.token)
         } catch (error) {
@@ -149,7 +150,8 @@ export default {
           if (profile.studies) await DB.setStudiesParticipation(profile.studies)
           this.$router.replace({ name: 'tasker' })
         } catch (error) {
-          if (error.response.status === 404) {
+          console.error(error)
+          if (error.response && error.response.status === 404) {
             this.$router.replace('/register_profile')
           }
         }

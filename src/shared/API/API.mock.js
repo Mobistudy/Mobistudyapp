@@ -20,18 +20,30 @@ export default {
   getServersList: () => {
     return [
       {
-        en: 'Malmo University',
-        sv: 'Malmö Universitet',
-        es: 'Universidad de Malmo',
-        it: 'Università di Malmo'
+        id: 'malmo',
+        url: 'https://app.mobistudy.org/api',
+        names: {
+          en: 'Malmo University',
+          sv: 'Malmö Universitet',
+          es: 'Universidad de Malmo',
+          it: 'Università di Malmo'
+        }
       },
       {
-        en: 'Campus Bio Medico University of Rome',
-        sv: 'Campus Bio Medico universitetet i Rom',
-        es: 'Universidad Campus Bio-Medico de Roma',
-        it: 'Università Campus Bio-Medico di Roma'
+        id: 'ucbm',
+        url: 'https://mobistudy.ucbm.it/api',
+        names: {
+          en: 'Campus Bio Medico University of Rome',
+          sv: 'Campus Bio Medico universitetet i Rom',
+          es: 'Universidad Campus Bio-Medico de Roma',
+          it: 'Università Campus Bio-Medico di Roma'
+        }
       }
     ]
+  },
+
+  setBaseUrl (url) {
+    console.log('API - Setting base URL: ' + url)
   },
 
   setToken (token) {
