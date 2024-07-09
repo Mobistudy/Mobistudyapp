@@ -2,12 +2,12 @@ const routes = [
   {
     path: '/',
     name: 'intro',
-    component: () => import('@components/Intro.vue')
+    component: () => import('@components/IntroPage.vue')
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('@components/usermgmt/Login.vue')
+    component: () => import('@components/usermgmt/LoginPage.vue')
   },
   {
     path: '/register',
