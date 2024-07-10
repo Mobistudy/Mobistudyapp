@@ -32,23 +32,23 @@ export default {
   setBaseUrl (url) {
     this.baseURL = url
   },
-  setToken: (newtoken) => {
+  setToken (newtoken) {
     axiosConfig = {
       headers: {
         Authorization: 'Bearer ' + newtoken
       }
     }
   },
-  unsetToken: () => {
+  unsetToken () {
     axiosConfig = {}
   },
   // Log in
-  login: async (email, password) => {
+  async login (email, password) {
     const resp = await axios.post(this.baseURL + '/login', { email, password })
     return resp.data
   },
   // Registration
-  registerUser: async (email, password) => {
+  async registerUser (email, password) {
     return axios.post(this.baseURL + '/users', {
       email,
       password,
@@ -56,18 +56,18 @@ export default {
     })
   },
   // Password reset
-  resetPW: async (email) => {
+  async resetPW (email) {
     return axios.post(this.baseURL + '/sendResetPasswordEmail', { email })
   },
   // Change password
-  changePW: async (token, newpw) => {
+  async changePW (token, newpw) {
     return axios.post(this.baseURL + '/resetPassword', { token, password: newpw })
   },
-  searchDiseaseConcept: async (disease, lang) => {
+  async searchDiseaseConcept (disease, lang) {
     const resp = await axios.get(this.baseURL + '/vocabulary/' + lang + '/disorder/search?term=' + disease + '&limit=10')
     return resp.data
   },
-  searchMedicationConcept: async (med, lang) => {
+  async searchMedicationConcept (med, lang) {
     const resp = await axios.get(this.baseURL + '/vocabulary/' + lang + '/substance/search?term=' + med + '&limit=10')
     return resp.data
   },
@@ -76,69 +76,69 @@ export default {
   /// ////////////////////////////////////
 
   // token renewal
-  renewToken: async () => {
+  async renewToken () {
     const resp = await axios.get(this.baseURL + '/users/renewToken', axiosConfig)
     return resp.data
   },
 
   // Create the participant profile
-  createProfile: async function (profile) {
+  async createProfile (profile) {
     const resp = axios.post(this.baseURL + '/participants', profile, axiosConfig)
     return resp.data
   },
 
   // Get the participant profile
-  getProfile: async function (userKey) {
+  async getProfile (userKey) {
     const resp = await axios.get(this.baseURL + '/participants/byuserkey/' + userKey, axiosConfig)
     return resp.data
   },
 
   // Updating details
-  updateProfile: async function (profile) {
+  async updateProfile (profile) {
     return axios.patch(this.baseURL + '/participants/byuserkey/' + profile.userKey, profile, axiosConfig)
   },
 
   // Permanently delete the user
-  deleteUser: async function (userKey) {
+  async deleteUser (userKey) {
     return axios.delete(this.baseURL + '/participants/byuserkey/' + userKey, axiosConfig)
   },
 
   // update status of a study
-  updateStudyStatus: async function (userKey, studyKey, studyParticipation) {
+  async updateStudyStatus (userKey, studyKey, studyParticipation) {
     return axios.patch(this.baseURL + `/participants/byuserkey/${userKey}/studies/${studyKey}`, studyParticipation, axiosConfig)
   },
 
   // update status of a task item consent
-  updateTaskItemConsent: async function (userKey, studyKey, taskId, taskItemConsent) {
+  async updateTaskItemConsent (userKey, studyKey, taskId, taskItemConsent) {
     return axios.patch(this.baseURL + `/participants/byuserkey/${userKey}/studies/${studyKey}/taskItemsConsent/${taskId}`, taskItemConsent, axiosConfig)
   },
 
   // retrieves study descritpion
-  getStudyDescription: async function (studyKey) {
+  async getStudyDescription (studyKey) {
     const resp = await axios.get(this.baseURL + '/studies/' + studyKey, axiosConfig)
     return resp.data
   },
 
   // retrieves the keys of the new studies already filtered out by inclusion criteria
-  getNewStudiesKeys: async function () {
+  async getNewStudiesKeys () {
     const resp = await axios.get(this.baseURL + '/studies/newStudies/', axiosConfig)
     return resp.data
   },
 
   // retrieves an invitational study based on a code
-  getInvitationalStudy: async function (invitationalCode) {
+  async getInvitationalStudy (invitationalCode) {
     const resp = await axios.get(this.baseURL + `/studies/invitational/${invitationalCode}`, axiosConfig)
     return resp.data
   },
 
   // gets a form given its key
-  getForm: async function (formKey) {
+  async getForm (formKey) {
     const resp = await axios.get(this.baseURL + '/forms/' + formKey, axiosConfig)
     return resp.data
   },
 
   // sends an attachment file, returns the file name chosen by the server
-  sendAttachment: async function (studyKey, taskId, filename, fileData) {
+  async sendAttachment (studyKey, taskId, filename, fileData) {
     const config = {
       method: 'post',
       url: this.baseURL + '/attachments/' + studyKey + '/' + taskId,
@@ -155,13 +155,13 @@ export default {
   },
 
   // get environment data from position
-  getEnvironmentFromPosition: async function (lat, long) {
+  async getEnvironmentFromPosition (lat, long) {
     const resp = await axios.get(this.baseURL + '/environment?lat=' + lat + '&long=' + long, axiosConfig)
     return resp.data
   },
 
   // send tasks results data
-  sendTasksResults: async function (data) {
+  async sendTasksResults (data) {
     return axios.post(this.baseURL + '/tasksResults', data, axiosConfig)
   }
 
