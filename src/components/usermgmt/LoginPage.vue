@@ -119,7 +119,9 @@ export default {
           }
           // user is authenticated, save status of session
           user.serverUrl = this.server
+          // save session
           await userinfo.login(user)
+          // keep token for later
           API.setToken(user.token)
         } catch (error) {
           console.error(error)

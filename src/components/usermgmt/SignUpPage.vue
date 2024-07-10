@@ -34,6 +34,13 @@
         </template>
       </q-input>
 
+      <q-select padding="md lg" v-model="serverUrl" :options="serverOptions" emit-value map-options
+        :label="$t('userMgmt.server')" :rules="[val => !!val || $t('userMgmt.serverRequiredError')]">
+        <template v-slot:prepend>
+          <q-icon name="domain" />
+        </template>
+      </q-select>
+
       <div class="row fit justify-around q-mt-lg">
         <q-btn class="mobibtn" color="negative" to="/login" :label="$t('common.cancel')" />
         <q-btn class="mobibtn" color="primary" :loading="creating" @click="register()"
@@ -64,12 +71,12 @@ export default {
   data () {
     return {
       creating: false,
+      serverUrl: '',
+      serverOptions: [],
       account: {
         email: '',
         pw1: '',
-        pw2: '',
-        serverUrl: '',
-        serverOptions: []
+        pw2: ''
       },
       showPassword: false,
       emailRules: [
@@ -105,9 +112,17 @@ export default {
       } else {
         this.creating = true
         try {
+          // set the server URL
+          API.setBaseUrl(this.serverUrl)
+          // register the user
           await API.registerUser(this.account.email.toLowerCase(), this.account.pw1)
+          // if registered, also do login
           const user = await API.login(this.account.email.toLowerCase(), this.account.pw1)
+          // user is authenticated, save status of session
+          user.serverUrl = this.server
+          // save session
           await userinfo.login(user)
+          // keep token for later
           API.setToken(user.token)
 
           this.$router.push('/register_profile')

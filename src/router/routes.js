@@ -18,6 +18,17 @@ const routes = [
       { path: '/signup', name: 'signup', component: () => import('@components/usermgmt/SignUpPage.vue') }
     ]
   },
+  {
+    path: '/resetpw',
+    name: 'resetpw',
+    component: () => import('@components/usermgmt/ResetPasswordPage.vue')
+  },
+  {
+    path: '/changepw/:email',
+    name: 'changepw',
+    props: true,
+    component: () => import('@components/usermgmt/ChangePasswordPage.vue')
+  },
 
   // Always leave this as last one,
   // but you can also remove it

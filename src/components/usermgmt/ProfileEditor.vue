@@ -62,7 +62,7 @@
     <q-input :label="$t('userMgmt.profile.weight')" v-model="profile.weight"
       :rules="[val => !!val && (val > 30 && val < 160) || $t('userMgmt.profile.weightError')]" type='number'>
       <template v-slot:before>
-        <q-icon name="assignment_late" /> <!-- placeholder icon -->
+        <q-icon name="monitor_weight" /> <!-- placeholder icon -->
       </template>
     </q-input>
 
@@ -85,12 +85,12 @@
         </q-item>
       </template>
       <template v-slot:before>
-        <q-icon name="local_hospital" />
+        <q-icon name="medical_information" />
       </template>
     </q-select>
 
     <!-- medications -->
-    <q-select ref="medsSelect" v-model="medsVue" use-input use-chips multiple input-debounce="500"
+    <q-select class="q-my-md" ref="medsSelect" v-model="medsVue" use-input use-chips multiple input-debounce="500"
       :label="$t('userMgmt.profile.medications')" :options="medOptions" @filter="searchMeds" @add="clearMedsFilter">
       <template v-slot:no-option>
         <q-item>
@@ -100,7 +100,7 @@
         </q-item>
       </template>
       <template v-slot:before>
-        <q-icon name="local_pharmacy" />
+        <q-icon name="medication" />
       </template>
     </q-select>
 
