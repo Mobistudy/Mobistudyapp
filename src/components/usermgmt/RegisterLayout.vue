@@ -17,12 +17,12 @@
 </template>
 
 <script>
-import commonMessages from '@i18n/common'
+import i18nCommon from '@i18n/common'
 
 export default {
   name: 'RegLayout',
   i18n: {
-    messages: commonMessages
+    messages: i18nCommon
   },
   methods: {
     goBack () {

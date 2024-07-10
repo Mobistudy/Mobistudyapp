@@ -58,8 +58,8 @@
 
 <script>
 import { mergeDeep } from '@shared/tools'
-import commonMessages from '@i18n/common'
-import userMgmtMessages from '@i18n/userMgmt'
+import i18nCommon from '@i18n/common'
+import i18nUserMgmt from '@i18n/userMgmt'
 
 import ProfileEditor from '@components/userMgmt/ProfileEditor'
 import API from '@shared/API'
@@ -71,7 +71,7 @@ export default {
   name: 'ProfileEditPage',
   components: { ProfileEditor },
   i18n: {
-    messages: mergeDeep(commonMessages, userMgmtMessages)
+    messages: mergeDeep(i18nCommon, i18nUserMgmt)
   },
   data () {
     return {

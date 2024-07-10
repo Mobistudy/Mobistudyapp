@@ -91,7 +91,7 @@ export default `
   <p>
     El propósito y el alcance de la recopilación de datos dentro de cada estudio dependerá del estudio en concreto. Asimismo, una
     política de privacidad específica del estudio se te mostrará claramente antes de unirse al estudio y se te permitirá
-    aceptarlo o rechazarlo
+    aceptarlo o rechazarlo.
   </p>
 
   <p>
@@ -99,11 +99,11 @@ export default `
     Malmö, Suecia. Los datos se encriptan tanto en la app como en el servidor y durante la transmisión. El personal de la universidad de Malmö
     puede acceder al servidor y a sus datos para mantenimiento técnico, pero no procesarán ninguno de estos datos para fines clínicos o de investigación,
     a menos que sean parte de los estudios de investigación en los que haya decidido participar. La Universidad de Malmö puede publicar estadísticas
-    generales sobre el número de usuarios registrados en la plataforma, según su país de residencia y grupo de edad
+    generales sobre el número de usuarios registrados en la plataforma, según su país de residencia y grupo de edad.
   </p>
 
   <p>
-    Bajo ninguna circunstancia distinta a las especificadas anteriormente, tus datos serán compartidos con otras partes o individuos
+    Bajo ninguna circunstancia distinta a las especificadas anteriormente, tus datos serán compartidos con otras partes o individuos.
   </p>
 
   <p>
@@ -116,16 +116,17 @@ export default `
   <p>
     El servidor también registrará registros técnicos que contengan la fecha y hora en que envía o solicita datos y la dirección IP
     de dónde provienen los datos, pero no los datos asociados con la solicitud. Estos registros técnicos son necesarios para
-    auditoría de seguridad y se conservará durante un año en todas las circunstancias, incluso si decides eliminar su cuenta
+    auditoría de seguridad y se conservará durante un año en todas las circunstancias, incluso si decides eliminar su cuenta.
   </p>
 
   <p>
-    Puedes descargar los datos en un formato legible por máquina. Ponte en contacto con mobistudy@mau.se si necesitas hacer esto
+    Puedes descargar los datos en un formato legible por máquina. Ponte en contacto con <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>
+     si necesitas hacer esto.
   </p>
 
   <p>
      La Universidad de Malmö es el controlador del procesamiento de información personal que se realiza en base a su consentimiento.
-     El consentimiento puede ser revocado en cualquier momento contactando mobistudy@mau.se y cualquier material procesado en base a tu
+     El consentimiento puede ser revocado en cualquier momento contactando <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a> y cualquier material procesado en base a tu
      consentimiento previo se borrará. Se aplica el mismo procedimiento si deseas saber qué se ha registrado sobre usted o si deseas que
      se corrijan errores, se borre la información o se restrinja el procesamiento.
   </p>

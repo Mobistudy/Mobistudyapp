@@ -272,11 +272,11 @@ export default {
       <b>What are my rights?</b>
 
       <ul>
-      <li>You can withdraw from this study whenever you want by accessing the “studies” section of this app. The data you have produced so far within the study will be kept, but if you want them to be removed contact mobistudy@mau.se.</li>
-      <li>You can remove your account from Mobistudy by accessing the “profile” section of this app. This will remove all your data collected by Mobistudy except the technical logs, which will be deleted after 1 year. Be aware that data already downloaded by institutions involved in this or past studies may still keep your data after you have removed your account. If you want these data to be deleted, please contact mobistudy@mau.se.</li>
-      <li>You can ask the processing of your data to be stopped or restricted (even without deleting your account). In this case contact mobistudy@mau.se.</li>
-      <li>You can find out what has been registered about you and download the data in a machine-readable format by contacting mobistudy@mau.se.</li>
-      <li>You can ask errors in your data to be corrected. In this case write to mobistudy@mau.se.</li>
+      <li>You can withdraw from this study whenever you want by accessing the “studies” section of this app. The data you have produced so far within the study will be kept, but if you want them to be removed contact <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+      <li>You can remove your account from Mobistudy by accessing the “profile” section of this app. This will remove all your data collected by Mobistudy except the technical logs, which will be deleted after 1 year. Be aware that data already downloaded by institutions involved in this or past studies may still keep your data after you have removed your account. If you want these data to be deleted, please contact <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+      <li>You can ask the processing of your data to be stopped or restricted (even without deleting your account). In this case contact <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+      <li>You can find out what has been registered about you and download the data in a machine-readable format by contacting <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+      <li>You can ask errors in your data to be corrected. In this case write to <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
       <li>If you have complaints that cannot be resolved with Malmö University you may submit these to Datainspektionen.</li>
       </ul>
 
@@ -385,11 +385,11 @@ export default {
 
       <p><b>¿Cuáles son mis derechos?</b></p>
       <ul>
-      <li>Puedes retirarte de este estudio cuando lo desee desde la sección "estudios" de la aplicación. Los datos que hayas producido hasta ahora dentro del estudio se conservarán, pero si deseas que también se eliminen, comuníquese con mobistudy@mau.se.</li>
-      <li>Puedes eliminar tu cuenta de Mobistudy desde la sección "perfil" de la aplicación. Esto eliminará todos tus datos recopilados por Mobistudy, excepto los registros técnicos, que se eliminarán después de 1 año. Ten en cuenta que los datos ya descargados por las instituciones involucradas en este o en estudios anteriores aún pueden conservar sus datos después de haber eliminado tu cuenta. Si deseas que también se eliminen estos datos, póngase en contacto con mobistudy@mau.se.</li>
-      <li>Puedes solicitar que se detenga o restrinja el procesamiento de sus datos (incluso sin eliminar su cuenta). En este caso, pónte en contacto con mobistudy@mau.se.</li>
-      <li>Puedes averiguar qué se ha registrado sobre usted y descargar los datos en un formato legible por ordenadores poniéndose en contacto con mobistudy@mau.se.</li>
-      <li>Puedes solicitar la corrección de errores en tus datos. En este caso, pónte en contacto con mobistudy@mau.se.</li>
+      <li>Puedes retirarte de este estudio cuando lo desee desde la sección "estudios" de la aplicación. Los datos que hayas producido hasta ahora dentro del estudio se conservarán, pero si deseas que también se eliminen, comuníquese con <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+      <li>Puedes eliminar tu cuenta de Mobistudy desde la sección "perfil" de la aplicación. Esto eliminará todos tus datos recopilados por Mobistudy, excepto los registros técnicos, que se eliminarán después de 1 año. Ten en cuenta que los datos ya descargados por las instituciones involucradas en este o en estudios anteriores aún pueden conservar sus datos después de haber eliminado tu cuenta. Si deseas que también se eliminen estos datos, póngase en contacto con <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+      <li>Puedes solicitar que se detenga o restrinja el procesamiento de sus datos (incluso sin eliminar su cuenta). En este caso, pónte en contacto con <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+      <li>Puedes averiguar qué se ha registrado sobre usted y descargar los datos en un formato legible por ordenadores poniéndose en contacto con <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+      <li>Puedes solicitar la corrección de errores en tus datos. En este caso, pónte en contacto con <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
       <li>Si tienes quejas que no se pueden resolver con la Universidad de Malmö, puede enviarlas a Datainspektionen.</li>
       </ul>
 

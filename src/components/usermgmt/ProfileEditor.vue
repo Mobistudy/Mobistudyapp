@@ -118,8 +118,8 @@
 </template>
 
 <script>
-import userMgmtMessages from '@i18n/userMgmt'
-import commonMessages from '@i18n/common'
+import i18nUserMgmt from '@i18n/userMgmt'
+import i18nCommon from '@i18n/common'
 import { mergeDeep } from '@shared/tools.js'
 
 import API from '@shared/API'
@@ -130,7 +130,7 @@ export default {
   props: ['modelValue', 'buttonCancelText', 'buttonOkText'],
   emits: ['update:modelValue', 'language-changed', 'buttonOk'],
   i18n: {
-    messages: mergeDeep(userMgmtMessages, commonMessages)
+    messages: mergeDeep(i18nUserMgmt, i18nCommon)
   },
   data () {
     return {

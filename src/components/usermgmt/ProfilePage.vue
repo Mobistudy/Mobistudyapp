@@ -14,7 +14,7 @@
 
 <script>
 import i18nMessages from '@i18n/userMgmt'
-import commonMessages from '@i18n/common'
+import i18nCommon from '@i18n/common'
 import { mergeDeep } from '@shared/tools.js'
 
 import ProfileEditor from '@components/userMgmt/ProfileEditor'
@@ -25,7 +25,7 @@ export default {
   name: 'RegisterPage',
   components: { ProfileEditor },
   i18n: {
-    messages: mergeDeep(commonMessages, i18nMessages)
+    messages: mergeDeep(i18nCommon, i18nMessages)
   },
   data () {
     return {

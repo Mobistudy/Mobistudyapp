@@ -49,9 +49,9 @@
 
 <script>
 import { mergeDeep } from '@shared/tools'
-import commonMessages from '@i18n/common'
-import userMgmtMessages from '@i18n/userMgmt'
-import pwdCheckMessages from '@i18n/passwordcheck'
+import i18nCommon from '@i18n/common'
+import i18nUserMgmt from '@i18n/userMgmt'
+import i18npwdCheck from '@i18n/passwordcheck'
 
 import { checkPwdStrength, owaspConfig } from '@shared/passwordChecker'
 import userinfo from '@shared/userinfo'
@@ -61,7 +61,7 @@ export default {
   name: 'ChangePasswordPage',
   props: ['email'],
   i18n: {
-    messages: mergeDeep(commonMessages, pwdCheckMessages, userMgmtMessages)
+    messages: mergeDeep(i18nCommon, i18npwdCheck, i18nUserMgmt)
   },
   data () {
     return {

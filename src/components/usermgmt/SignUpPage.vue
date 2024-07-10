@@ -51,9 +51,9 @@
 </template>
 
 <script>
-import commonMessages from '@i18n/common'
-import userMgmtMessages from '@i18n/userMgmt'
-import pwdCheckMessages from '@i18n/passwordcheck'
+import i18nCommon from '@i18n/common'
+import i18nUserMgmt from '@i18n/userMgmt'
+import i18npwdCheck from '@i18n/passwordcheck'
 import { mergeDeep } from '@shared/tools.js'
 
 import { patterns } from 'quasar'
@@ -66,7 +66,7 @@ import userinfo from '@shared/userinfo'
 export default {
   name: 'SignUp',
   i18n: {
-    messages: mergeDeep(commonMessages, userMgmtMessages, pwdCheckMessages)
+    messages: mergeDeep(i18nCommon, i18nUserMgmt, i18npwdCheck)
   },
   data () {
     return {

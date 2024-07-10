@@ -100,8 +100,8 @@
 <style></style>
 
 <script>
-import studiesMessages from '@i18n/studies'
-import commonMessages from '@i18n/common'
+import i18nStudies from '@i18n/studies'
+import i18nCommon from '@i18n/common'
 import { mergeDeep } from '@shared/tools.js'
 
 import taskListItem from '@components/home/TaskListItem.vue'
@@ -120,7 +120,7 @@ export default {
     taskListItem
   },
   i18n: {
-    messages: mergeDeep(commonMessages, studiesMessages)
+    messages: mergeDeep(i18nCommon, i18nStudies)
   },
   data () {
     return {

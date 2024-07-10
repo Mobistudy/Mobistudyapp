@@ -51,8 +51,8 @@
 
 <script>
 import { mergeDeep } from '@shared/tools'
-import commonMessages from '@i18n/common'
-import userMgmtMessages from '@i18n/userMgmt'
+import i18nCommon from '@i18n/common'
+import i18nUserMgmt from '@i18n/userMgmt'
 import DB from '@shared/db'
 import API from '@shared/API'
 import userinfo from '@shared/userinfo'
@@ -64,7 +64,7 @@ const { testPattern } = patterns
 export default {
   name: 'LoginPage',
   i18n: {
-    messages: mergeDeep(commonMessages, userMgmtMessages)
+    messages: mergeDeep(i18nCommon, i18nUserMgmt)
   },
   data () {
     return {
@@ -142,7 +142,6 @@ export default {
           return
         }
         try {
-          console.log('--- >logged in, get profile')
           // retrieve the profile information
           const profile = await API.getProfile(userinfo.user._key)
           if (profile.language) {
@@ -150,7 +149,11 @@ export default {
           }
           // profile exists
           await userinfo.setProfile(profile)
+          console.log('--- >logged in, got profile')
+
           if (profile.studies) await DB.setStudiesParticipation(profile.studies)
+          console.log('--- >logged in, studies set, going to tasker')
+
           this.$router.replace({ name: 'tasker', query: { pathIndex: 1 } })
         } catch (error) {
           console.error(error)

@@ -131,12 +131,14 @@ export default `
   </p>
 
   <p>
-    You can download the data in a machine-readable format. Contact mobistudy@mau.se if you need to do this.
+    You can download the data in a machine-readable format. Contact <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>
+    if you need to do this.
   </p>
 
   <p>
     Malmö University is the Controller of the processing of personal information which is done based on your consent.
-    The consent can be revoked at any time by contacting mobistudy@mau.se and any material processed based on your
+    The consent can be revoked at any time by contacting <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a> and any
+    material processed based on your
     previous consent will be erased. The same address applies if you would like to find out what has been registered
     about you or if you would like to have errors corrected, information erased or processing restricted. Be aware that
     different conditions may apply for data collected within a research study, according to the privacy policy

@@ -13,15 +13,15 @@
 </template>
 
 <script>
-import commonMessages from '@i18n/common'
-import i18nString from '@i18n/userMgmt'
-import i18nPP from '@i18n/privacyPolicy'
+import i18nCommon from '@i18n/common'
+import i18nUserMgmt from '@i18n/userMgmt'
+import i18nPrivacyPolicy from '@i18n/privacyPolicy'
 import { mergeDeep } from '@shared/tools.js'
 
 export default {
   name: 'PrivacyPolicy',
   i18n: {
-    messages: mergeDeep(i18nString, i18nPP, commonMessages)
+    messages: mergeDeep(i18nUserMgmt, i18nPrivacyPolicy, i18nCommon)
   }
 }
 </script>

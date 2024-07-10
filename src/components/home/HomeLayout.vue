@@ -4,7 +4,7 @@
       <q-toolbar>
         <img v-if="!subAbout" square src="logos/mobistudy-white.svg" style="max-width: 130px">
         <q-avatar v-if="subAbout" rounded>
-          <q-btn flat dense icon-right="arrow_back" :to="{ name: 'about', query: { pathIndex: 5 } }" />
+          <q-btn flat dense icon-right="arrow_back" :to="{ name: 'about', query: { pathIndex: 4 } }" />
         </q-avatar>
 
         <q-toolbar-title v-if="subAbout">
@@ -37,7 +37,7 @@
     <q-page-container>
 
       <router-view v-slot="{ Component }">
-        <transition :enter-active-class="'animated ' + this.slideName" mode="out-in">
+        <transition :enter-active-class="slideName" mode="out-in">
           <component :is="Component" />
         </transition>
       </router-view>
@@ -47,12 +47,12 @@
 </template>
 
 <script>
-import commonMessages from '@i18n/common'
+import i18nCommon from '@i18n/common'
 
 export default {
   name: 'HomeLayout',
   i18n: {
-    messages: commonMessages
+    messages: i18nCommon
   },
   data () {
     return {
@@ -82,7 +82,8 @@ export default {
 
       const toDepth = to.query.pathIndex
       const fromDepth = from.query.pathIndex
-      this.slideName = toDepth < fromDepth ? 'slideInLeft' : 'slideInRight'
+      console.log('from ' + fromDepth + ' to ' + toDepth)
+      this.slideName = toDepth < fromDepth ? 'animated slideInLeft' : 'animated slideInRight'
     }
   }
 }

@@ -39,6 +39,18 @@ const routes = [
       { path: '/test', name: 'test', component: () => import('@components/home/TestPage.vue') }
     ]
   },
+  {
+    path: '/about',
+    component: () => import('@components/home/HomeLayout.vue'),
+    children: [
+      { path: '/about', name: 'about', component: () => import('@components/about/AboutPage.vue') },
+      { path: '/about/introduction', name: 'introduction', component: () => import('@components/about/IntroductionPage.vue') },
+      { path: '/about/privacyPolicy', name: 'aboutPrivacyPolicy', component: () => import('@components/about/PrivacyPolicyPage.vue') },
+      { path: '/about/acknowledgements', name: 'acknowledgements', component: () => import('@components/about/AcknowledgementsPage.vue'), props: { pathIndex: 6 } },
+      { path: '/about/contact', name: 'contact', component: () => import('@components/about/ContactPage.vue') },
+      { path: '/about/license', name: 'license', component: () => import('@components/about/LicensePage.vue') }
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it
