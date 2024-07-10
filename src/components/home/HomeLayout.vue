@@ -4,7 +4,7 @@
       <q-toolbar>
         <img v-if="!subAbout" square src="logos/mobistudy-white.svg" style="max-width: 130px">
         <q-avatar v-if="subAbout" rounded>
-          <q-btn flat dense icon-right="arrow_back" :to="{ name: 'about', query: { pathIndex: 4 } }" />
+          <q-btn flat dense icon-right="arrow_back" :to="{ name: 'about' }" />
         </q-avatar>
 
         <q-toolbar-title v-if="subAbout">
@@ -15,21 +15,21 @@
 
     <q-footer bordered class="elevated">
       <q-tabs mobile-arrows narrow-indicator dense active-color="primary" class="bg-white text-grey-7 row">
-        <q-route-tab class="q-px-sm col" :to="{ name: 'tasker', query: { pathIndex: 1 } }" icon="check_box">{{
+        <q-route-tab class="q-px-sm col" :to="{ name: 'tasker' }" icon="check_box">{{
           $t('layouts.homeMenu.dailyTasks') }}
         </q-route-tab>
-        <q-route-tab class="q-px-sm col" :to="{ name: 'profile', query: { pathIndex: 2 } }" icon="account_box">{{
+        <q-route-tab class="q-px-sm col" :to="{ name: 'profile' }" icon="account_box">{{
           $t('layouts.homeMenu.profile') }}
         </q-route-tab>
-        <q-route-tab class="q-px-sm col" :to="{ name: 'studies', query: { pathIndex: 3 } }" icon="local_library">{{
+        <q-route-tab class="q-px-sm col" :to="{ name: 'studies' }" icon="local_library">{{
           $t('layouts.homeMenu.studies') }}
         </q-route-tab>
-        <q-route-tab class="q-px-sm col" :to="{ name: 'about', query: { pathIndex: 4 } }" icon="help">{{
+        <q-route-tab class="q-px-sm col" :to="{ name: 'about' }" icon="help">{{
           $t('layouts.homeMenu.about') }}
         </q-route-tab>
         <!--<q-route-tab
           class="q-px-sm"
-          :to="{ name: 'test', query: { pathIndex: 5 } }"
+          :to="{ name: 'test' }"
           icon="bug_report"
         >TEST</q-route-tab>-->
       </q-tabs>
@@ -49,6 +49,13 @@
 <script>
 import i18nCommon from '@i18n/common'
 
+function pathToIndex (p) {
+  if (p.startsWith('/tasker')) return 1
+  if (p.startsWith('/profile')) return 2
+  if (p.startsWith('/studies')) return 3
+  if (p.startsWith('/about')) return 4
+}
+
 export default {
   name: 'HomeLayout',
   i18n: {
@@ -58,7 +65,7 @@ export default {
     return {
       // tells if we are inside one of the about sections
       subAbout: false,
-      slideName: ''
+      slideName: 'animated slideInRight'
     }
   },
   methods: {
@@ -70,20 +77,22 @@ export default {
   },
   watch: {
     '$route' (to, from) {
+      // detect if we are inside the about section, in a sub section
       if (to.path.startsWith('/about/')) {
         this.subAbout = true
       } else {
         this.subAbout = false
       }
 
-      if (from.path.startsWith('/about/')) {
-        from.query.pathIndex = 6
-      }
+      const toDepth = pathToIndex(to.path)
+      const fromDepth = pathToIndex(from.path)
 
-      const toDepth = to.query.pathIndex
-      const fromDepth = from.query.pathIndex
-      console.log('from ' + fromDepth + ' to ' + toDepth)
-      this.slideName = toDepth < fromDepth ? 'animated slideInLeft' : 'animated slideInRight'
+      // if we are coming from a subsection inside about, always slide in right
+      if (from.path.startsWith('/about/')) {
+        this.slideName = 'animated slideInLeft'
+      } else {
+        this.slideName = toDepth < fromDepth ? 'animated slideInLeft' : 'animated slideInRight'
+      }
     }
   }
 }

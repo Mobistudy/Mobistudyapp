@@ -149,7 +149,7 @@ export default {
         await API.updateProfile(profile)
         await userinfo.setProfile(profile)
 
-        this.$router.push({ name: 'tasker', query: { pathIndex: 1 } })
+        this.$router.push({ name: 'tasker' })
       } catch (error) {
         this.$q.notify({
           color: 'negative',

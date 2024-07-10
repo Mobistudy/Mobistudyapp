@@ -154,7 +154,7 @@ export default {
           if (profile.studies) await DB.setStudiesParticipation(profile.studies)
           console.log('--- >logged in, studies set, going to tasker')
 
-          this.$router.replace({ name: 'tasker', query: { pathIndex: 1 } })
+          this.$router.replace({ name: 'tasker' })
         } catch (error) {
           console.error(error)
           if (error.response && error.response.status === 404) {
