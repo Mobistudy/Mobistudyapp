@@ -79,10 +79,10 @@ module.exports = configure(function (ctx) {
       },
 
       extendWebpack (cfg) {
-        if (config.API_ENDPOINT.toLowerCase() === 'mock') cfg.resolve.alias['@shared/API/API'] = path.resolve(__dirname, './src/shared/API/API.mock')
+        if (config.API_ENDPOINT.toLowerCase() === 'mock') cfg.resolve.alias['@shared/API'] = path.resolve(__dirname, './src/shared/API/API.mock')
         if (config.HEALTHSTORE.toLowerCase() === 'mock') cfg.resolve.alias['@shared/healthstore'] = path.resolve(__dirname, './src/shared/healthstore.mock')
-        if (config.NOTIFICATIONS.toLowerCase() === 'web') cfg.resolve.alias['@shared/notifications/notifications'] = path.resolve(__dirname, './src/shared/notifications/notifications.web')
-        if (config.NOTIFICATIONS.toLowerCase() === 'mock') cfg.resolve.alias['@shared/notifications/notifications'] = path.resolve(__dirname, './src/shared/notifications/notifications.mock')
+        if (config.NOTIFICATIONS.toLowerCase() === 'web') cfg.resolve.alias['@shared/notifications'] = path.resolve(__dirname, './src/shared/notifications/notifications.web')
+        if (config.NOTIFICATIONS.toLowerCase() === 'mock') cfg.resolve.alias['@shared/notifications'] = path.resolve(__dirname, './src/shared/notifications/notifications.mock')
         if (config.PHONE.toLowerCase() === 'mock') cfg.resolve.alias['@shared/phone/phone'] = path.resolve(__dirname, './src/shared/phone/phone.mock')
         if (config.MIBAND3.toLowerCase() === 'mock') cfg.resolve.alias['@shared/miband3/miband3'] = path.resolve(__dirname, './src/shared/miband3/miband3.mock')
         if (config.PO60.toLowerCase() === 'mock') cfg.resolve.alias['@shared/po60/IPulseOxDevice'] = path.resolve(__dirname, './src/shared/po60/IPulseOxDevice.mock')
@@ -150,7 +150,7 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Notify', 'Dialog']
+      plugins: ['Notify', 'Dialog', 'Loading']
     },
 
     // animations: 'all', // --- includes all animations

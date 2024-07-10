@@ -36,7 +36,7 @@ import { mergeDeep } from '@shared/tools'
 import commonMessages from '@i18n/common'
 import userMgmtMessages from '@i18n/userMgmt'
 
-import API from '@shared/API/API'
+import API from '@shared/API'
 
 import { patterns } from 'quasar'
 const { testPattern } = patterns

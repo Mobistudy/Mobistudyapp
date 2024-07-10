@@ -2,7 +2,7 @@
   <q-form ref="profileForm">
     <!-- firstname -->
     <q-input :label="$t('userMgmt.profile.firstName')" :rules="[val => !!val || $t('userMgmt.profile.firstNameError')]"
-      v-model="profile.firstName">
+      v-model="profile.name">
       <template v-slot:before>
         <q-icon name="face" />
       </template>
@@ -17,14 +17,14 @@
     </q-input>
 
     <!-- date of birth -->
-    <q-input :label="$t('userMgmt.profile.dateOfBirth')" v-model="profile.dateOfBirth" mask="####-##-##"
-      :rules="['YYYY/MM/DD', val => !!val || $t('userMgmt.profile.dateOfBirthError')]">
+    <q-input :label="$t('userMgmt.profile.dateOfBirth')" v-model="profile.dateOfBirth"
+      :rules="[val => !!val || $t('userMgmt.profile.dateOfBirthError')]">
       <template v-slot:before>
         <q-icon name="calendar_today" />
       </template>
       <q-popup-proxy ref="qDateProxy" cover transition-show="scale" transition-hide="scale">
-        <q-date minimal v-model="profile.dateOfBirth" class="cursor-pointer" default-view="Years" mask="YYYY/MM/DD"
-          format="YYYY/MM/DD" default-year-month="1970/01" :navigation-max-year-month="maxDoB"
+        <q-date minimal v-model="profile.dateOfBirth" class="cursor-pointer" default-view="Years" mask="YYYY-MM-DD"
+          format="YYYY-MM-DD" default-year-month="1970/01" :navigation-max-year-month="maxDoB"
           @update:model-value="() => $refs.qDateProxy.hide()">
           <div class="row items-center justify-end q-gutter-sm">
             <q-btn padding="md lg" :label="$t('common.close')" color="primary" flat v-close-popup />
@@ -122,13 +122,13 @@ import userMgmtMessages from '@i18n/userMgmt'
 import commonMessages from '@i18n/common'
 import { mergeDeep } from '@shared/tools.js'
 
-import API from '@shared/API/API'
+import API from '@shared/API'
 import { date } from 'quasar'
 
 export default {
   name: 'ProfileEditor',
   props: ['modelValue', 'buttonCancelText', 'buttonOkText'],
-  emits: ['update:modelValue', 'language-changed'],
+  emits: ['update:modelValue', 'language-changed', 'buttonOk'],
   i18n: {
     messages: mergeDeep(userMgmtMessages, commonMessages)
   },

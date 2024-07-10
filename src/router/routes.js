@@ -29,6 +29,16 @@ const routes = [
     props: true,
     component: () => import('@components/usermgmt/ChangePasswordPage.vue')
   },
+  {
+    path: '/home',
+    component: () => import('@components/home/HomeLayout.vue'),
+    children: [
+      { path: '/', name: 'home', component: () => import('@components/home/Tasker.vue'), props: true },
+      { path: '/tasker', name: 'tasker', component: () => import('@components/home/Tasker.vue'), props: true },
+      { path: '/profile', name: 'profile', component: () => import('@components/home/ProfileEditPage.vue') },
+      { path: '/test', name: 'test', component: () => import('@components/home/TestPage.vue') }
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it

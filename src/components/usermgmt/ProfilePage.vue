@@ -18,7 +18,7 @@ import commonMessages from '@i18n/common'
 import { mergeDeep } from '@shared/tools.js'
 
 import ProfileEditor from '@components/userMgmt/ProfileEditor'
-import API from '@shared/API/API'
+import API from '@shared/API'
 import userinfo from '@shared/userinfo'
 
 export default {
@@ -65,7 +65,7 @@ export default {
         if (newprofile) profile = newprofile
         await userinfo.setProfile(profile)
 
-        this.$router.push({ name: 'tasker' })
+        this.$router.push({ name: 'tasker', query: { pathIndex: 1 } })
       } catch (error) {
         this.$q.notify({
           color: 'negative',

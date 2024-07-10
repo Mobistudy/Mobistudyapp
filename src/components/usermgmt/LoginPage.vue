@@ -54,9 +54,9 @@ import { mergeDeep } from '@shared/tools'
 import commonMessages from '@i18n/common'
 import userMgmtMessages from '@i18n/userMgmt'
 import DB from '@shared/db'
-import API from '@shared/API/API'
+import API from '@shared/API'
 import userinfo from '@shared/userinfo'
-import notifications from '@shared/notifications/notifications'
+import notifications from '@shared/notifications'
 
 import { patterns } from 'quasar'
 const { testPattern } = patterns
@@ -142,6 +142,7 @@ export default {
           return
         }
         try {
+          console.log('--- >logged in, get profile')
           // retrieve the profile information
           const profile = await API.getProfile(userinfo.user._key)
           if (profile.language) {
@@ -150,7 +151,7 @@ export default {
           // profile exists
           await userinfo.setProfile(profile)
           if (profile.studies) await DB.setStudiesParticipation(profile.studies)
-          this.$router.replace({ name: 'tasker' })
+          this.$router.replace({ name: 'tasker', query: { pathIndex: 1 } })
         } catch (error) {
           console.error(error)
           if (error.response && error.response.status === 404) {

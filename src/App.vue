@@ -35,7 +35,7 @@ import { defineComponent } from 'vue'
 import userinfo from '@shared/userinfo'
 import phone from '@shared/phone/phone'
 import DB from '@shared/db'
-import API from '@shared/API/API'
+import API from '@shared/API'
 
 export default defineComponent({
   name: 'MobistudyApp',
@@ -97,7 +97,7 @@ export default defineComponent({
           API.setToken(userinfo.user.token)
 
           console.log('LOGGED IN, REDIRECTING TO HOME')
-          this.$router.replace({ name: 'tasker' })
+          this.$router.replace({ name: 'tasker', query: { pathIndex: 1 } })
           this.enableRouting = true
         }
       }

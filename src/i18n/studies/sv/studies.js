@@ -1,17 +1,3 @@
-import formTask from './tasks/form'
-import smwtTask from './tasks/smwt'
-import qcstTask from './tasks/qcst'
-import miband3Task from './tasks/miband3'
-import dataQueryTask from './tasks/dataQuery'
-import po60Task from './tasks/po60'
-import positionTask from './tasks/position'
-import peakflowTask from './tasks/peakflow'
-import fingerTappingTask from './tasks/tapping'
-import tugtTask from './tasks/tugt'
-import holdphoneTask from './tasks/holdphone'
-import vocalizationTask from './tasks/vocalization'
-import drawingTask from './tasks/drawing'
-
 const studies = {
   studies: {
     newStudy: 'Ny studie',
@@ -88,19 +74,5 @@ const studies = {
     }
   }
 }
-
-studies.studies.tasks.form = formTask
-studies.studies.tasks.smwt = smwtTask
-studies.studies.tasks.qcst = qcstTask
-studies.studies.tasks.miband3 = miband3Task
-studies.studies.tasks.dataQuery = dataQueryTask
-studies.studies.tasks.po60 = po60Task
-studies.studies.tasks.position = positionTask
-studies.studies.tasks.peakflow = peakflowTask
-studies.studies.tasks.fingerTapping = fingerTappingTask
-studies.studies.tasks.tugt = tugtTask
-studies.studies.tasks.holdPhone = holdphoneTask
-studies.studies.tasks.vocalization = vocalizationTask
-studies.studies.tasks.drawing = drawingTask
 
 export default studies

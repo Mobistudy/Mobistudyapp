@@ -60,7 +60,7 @@ import { patterns } from 'quasar'
 const { testPattern } = patterns
 
 import { checkPwdStrength, owaspConfig } from '@shared/passwordChecker'
-import API from '@shared/API/API'
+import API from '@shared/API'
 import userinfo from '@shared/userinfo'
 
 export default {

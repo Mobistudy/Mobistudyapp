@@ -55,7 +55,7 @@ import pwdCheckMessages from '@i18n/passwordcheck'
 
 import { checkPwdStrength, owaspConfig } from '@shared/passwordChecker'
 import userinfo from '@shared/userinfo'
-import API from '@shared/API/API'
+import API from '@shared/API'
 
 export default {
   name: 'ChangePasswordPage',
