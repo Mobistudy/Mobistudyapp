@@ -131,13 +131,13 @@ export default `
   </p>
 
   <p>
-    You can download the data in a machine-readable format. Contact <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>
+    You can download the data in a machine-readable format. Contact <a href="mailto:mobistudy{'@'}mau.se">mobistudy{'@'}mau.se</a>
      if you need to do this.
   </p>
 
   <p>
     Malmö University is the Controller of the processing of personal information which is done based on your consent.
-    The consent can be revoked at any time by contacting <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a> and
+    The consent can be revoked at any time by contacting <a href="mailto:mobistudy{'@'}mau.se">mobistudy{'@'}mau.se</a> and
     any material processed based on your
     previous consent will be erased. The same address applies if you would like to find out what has been registered
     about you or if you would like to have errors corrected, information erased or processing restricted. Be aware that
@@ -147,7 +147,7 @@ export default `
 
   <p>
     If you have questions about the university's processing of personal information you may contact the Data Protection
-    Officer at dataskyddsombud@mau.se and if you have complaints that cannot be resolved with Malmö university you may
+    Officer at dataskyddsombud{'@'}mau.se and if you have complaints that cannot be resolved with Malmö university you may
     submit these to Integritetsskyddsmyndigheten.
   </p>
   `

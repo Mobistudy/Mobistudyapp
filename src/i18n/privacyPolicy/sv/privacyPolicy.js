@@ -130,12 +130,12 @@ export default `
     för att möjliggöra granskning av säkerhet och kommer att sparas 1 år i alla fall, även om du tar bort ditt konto.
   </p>
   <p>
-    Du kan ladda ner din data i ett maskinläsligt format. Kontakta mobistudy@mau.se om du önskar detta.
+    Du kan ladda ner din data i ett maskinläsligt format. Kontakta mobistudy{'@'}mau.se om du önskar detta.
   </p>
 
   <p>
     Malmö Universitet är ansvarig för behandlingen av personlig information vilket sker baserat på ditt
-    samtycke. Detta samtycke kan avbrytas när som helst genom att kontakta mobistudy@mau.se för att allt
+    samtycke. Detta samtycke kan avbrytas när som helst genom att kontakta mobistudy{'@'}mau.se för att allt
     material processat baserat på tidigare samtycke ska tas bort. Samma adress gäller om du vill få svar på
     vad som har registrerats om dig eller om du vill ha felaktigheter korrigerade, information borttagen,
     eller processande begränsat. Var medveten om att olika villkor kan gälla för data som samlas in inom
@@ -144,7 +144,7 @@ export default `
 
   <p>
     Om du har frågor om universitetets processande av personlig information kan du kontakta Dataskyddsombud
-    på dataskyddsombud@mau.se och om du har klagomål som inte kan lösas med Malmö Universitet kan du vända
+    på dataskyddsombud{'@'}mau.se och om du har klagomål som inte kan lösas med Malmö Universitet kan du vända
     dig till Integritetsskyddsmyndigheten.
   </p>
   `

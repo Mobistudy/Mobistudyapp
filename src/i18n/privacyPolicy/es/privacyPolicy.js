@@ -120,20 +120,20 @@ export default `
   </p>
 
   <p>
-    Puedes descargar los datos en un formato legible por máquina. Ponte en contacto con <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>
+    Puedes descargar los datos en un formato legible por máquina. Ponte en contacto con <a href="mailto:mobistudy{'@'}mau.se">mobistudy{'@'}mau.se</a>
      si necesitas hacer esto.
   </p>
 
   <p>
      La Universidad de Malmö es el controlador del procesamiento de información personal que se realiza en base a su consentimiento.
-     El consentimiento puede ser revocado en cualquier momento contactando <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a> y cualquier material procesado en base a tu
+     El consentimiento puede ser revocado en cualquier momento contactando <a href="mailto:mobistudy{'@'}mau.se">mobistudy{'@'}mau.se</a> y cualquier material procesado en base a tu
      consentimiento previo se borrará. Se aplica el mismo procedimiento si deseas saber qué se ha registrado sobre usted o si deseas que
      se corrijan errores, se borre la información o se restrinja el procesamiento.
   </p>
 
   <p>
     Si tienes preguntas sobre el procesamiento de información personal por parte de la universidad, puedes comunicarte con el Departamento de Protección de Datos
-    Oficial en dataskyddsombud@mau.se y si tienes quejas que no se pueden resolver con la Universidad de Malmö, puedes
+    Oficial en dataskyddsombud{'@'}mau.se y si tienes quejas que no se pueden resolver con la Universidad de Malmö, puedes
     enviarlo a Integritetsskyddsmyndigheten.
   </p>
 `
