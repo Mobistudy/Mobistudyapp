@@ -22,7 +22,7 @@
               <q-btn class="mobibtn" :label="$t('common.cancel')" color="secondary" @click="$router.push('login')" />
 
               <q-btn class="mobibtn" :label="$t('userMgmt.resetPassword.resetPassword')" color="primary" type="submit"
-                @click="submit" />
+                @click="submit" :loading="resetting" />
             </div>
           </div>
         </q-form>
@@ -48,6 +48,7 @@ export default {
   },
   data () {
     return {
+      resetting: false,
       email: null,
       emailRules: [
         val => !!val || this.$t('userMgmt.emailRequiredError'),
@@ -58,6 +59,7 @@ export default {
     }
   },
   async created () {
+    this.resetting = false
     this.serverOptions = API.getServersList().map((opt) => {
       return {
         label: opt.names[this.$root.$i18n.locale],
@@ -70,11 +72,13 @@ export default {
       const valid = await this.$refs.resetPWForm.validate(true)
       if (valid) {
         try {
+          this.resetting = true
           // set the server URL
           API.setBaseUrl(this.server)
           // send request for pw reset
           await API.resetPW(this.email.toLowerCase())
           this.$router.push({ name: 'changepw', params: { email: this.email } })
+          this.resetting = false
         } catch (error) {
           this.$q.notify({
             color: 'negative',
