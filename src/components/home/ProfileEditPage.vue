@@ -109,10 +109,10 @@ export default {
   methods: {
     async logout () {
       this.$q.dialog({
-        title: this.$i18n.t('accountMgmt.login.logout'),
-        message: this.$i18n.t('accountMgmt.login.logoutConfirmation'),
+        title: this.$i18n.t('userMgmt.login.logout'),
+        message: this.$i18n.t('userMgmt.login.logoutConfirmation'),
         ok: {
-          label: this.$i18n.t('accountMgmt.login.logout'),
+          label: this.$i18n.t('userMgmt.login.logout'),
           color: 'warning'
         },
         cancel: {
@@ -181,7 +181,7 @@ export default {
     async deleteUser () {
       this.$q.dialog({
         title: this.$i18n.t('common.warning'),
-        message: this.$i18n.t('accountMgmt.deleteWarning'),
+        message: this.$i18n.t('userMgmt.deleteWarning'),
         ok: {
           label: this.$i18n.t('common.delete'),
           color: 'negative'
