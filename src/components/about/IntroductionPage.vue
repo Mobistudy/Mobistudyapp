@@ -11,12 +11,12 @@
 <script>
 import { mergeDeep } from '@shared/tools'
 import i18nAbout from '@i18n/about'
-import Intro from '@i18n/about/introduction'
+import i18nIntro from '@i18n/about/introduction'
 
 export default {
   name: 'IntroductionPage',
   i18n: {
-    messages: mergeDeep(i18nAbout, Intro)
+    messages: mergeDeep(i18nAbout, i18nIntro)
   }
 }
 </script>

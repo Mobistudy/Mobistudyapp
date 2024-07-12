@@ -149,7 +149,6 @@ export default {
           }
           // profile exists
           await userinfo.setProfile(profile)
-          console.log('--- >logged in, got profile')
 
           if (profile.studies) await DB.setStudiesParticipation(profile.studies)
           console.log('--- >logged in, studies set, going to tasker')
