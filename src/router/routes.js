@@ -51,6 +51,14 @@ const routes = [
       { path: '/about/license', name: 'license', component: () => import('@components/about/LicensePage.vue') }
     ]
   },
+  {
+    path: '/studies',
+    component: () => import('@components/home/HomeLayout.vue'),
+    children: [
+      { path: '/studies', name: 'studies', component: () => import('@components/home/StudiesPage.vue') },
+      { path: '/studies/studyConfig', name: 'studyConfig', component: () => import('@components/home/StudyConfigPage.vue'), props: true }
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it
