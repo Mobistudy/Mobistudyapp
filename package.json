@@ -22,7 +22,7 @@
     "owasp-password-strength-test": "^1.3.0",
     "quasar": "^2.16.0",
     "rrule": "^2.8.1",
-    "vue": "^3.4.18",
+    "vue": "^3.4.30",
     "vue-i18n": "^9.0.0",
     "vue-router": "^4.0.12",
     "zxcvbn": "^4.4.2"
