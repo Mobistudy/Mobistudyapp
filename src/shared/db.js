@@ -28,7 +28,7 @@ export default {
     return storage.setItem('app_version', version)
   },
 
-  /* AUTHENTICATION */
+  /* AUTHENTICATION AND SESSIONS */
   async getUserSession () {
     return storage.getItem('session')
   },

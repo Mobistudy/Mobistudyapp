@@ -49,7 +49,7 @@ import i18nStudies from '@i18n/studies'
 
 import ConsentForm from '@components/studies/ConsentForm.vue'
 import StudyInfo from '@components/studies/StudyInfo'
-import userinfo from '@shared/userinfo'
+import session from '@shared/session'
 import DB from '@shared/db'
 import API from '@shared/API'
 
@@ -84,7 +84,9 @@ export default {
   methods: {
     async updateConsent () {
       // call the API
-      await API.updateStudyStatus(userinfo.user._key, this.studyParticipation.studyKey, this.studyParticipation)
+      const userSession = session.getUserSession()
+
+      await API.updateStudyStatus(userSession.user.userKey, this.studyParticipation.studyKey, this.studyParticipation)
       await DB.setStudyParticipation(this.studyParticipation)
       this.$q.notify({
         color: 'primary',
@@ -116,7 +118,9 @@ export default {
         this.studyParticipation.withdrawalTS = new Date()
         this.studyParticipation.withdrawalReason = withdrawalReason
         try {
-          await API.updateStudyStatus(userinfo.user._key, this.studyParticipation.studyKey, this.studyParticipation)
+          const userSession = session.getUserSession()
+
+          await API.updateStudyStatus(userSession.user.userKey, this.studyParticipation.studyKey, this.studyParticipation)
           delete this.studyParticipation.extraItemsConsent
           delete this.studyParticipation.taskItemsConsent
           await DB.setStudyParticipation(this.studyParticipation)

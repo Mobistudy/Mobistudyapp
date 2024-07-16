@@ -13,13 +13,18 @@
 </template>
 
 <script>
-import userinfo from '@shared/userinfo'
+import i18nCommon from '@i18n/common'
+
+import session from '@shared/session'
 import DB from '@shared/db'
 import API from '@shared/API'
 
 export default {
   name: 'PrivacyPolicyPage',
   props: ['studyDescription'],
+  i18n: {
+    messages: i18nCommon
+  },
   methods: {
     accept () {
       this.$router.push({ name: 'consentItems', params: { studyDescription: this.studyDescription } })
@@ -39,7 +44,8 @@ export default {
         }
         try {
           // call the API
-          await API.updateStudyStatus(userinfo.user._key, this.studyDescription._key, studyParticipation)
+          const userSession = session.getUserSession()
+          await API.updateStudyStatus(userSession.user.userKey, this.studyDescription._key, studyParticipation)
           // call the DB
           let studies = await DB.getStudiesParticipation()
           if (!studies) studies = []

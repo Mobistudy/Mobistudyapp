@@ -18,8 +18,12 @@
 </template>
 
 <script>
+import i18nCommon from '@i18n/common'
 export default {
   name: 'TaskLayout',
+  i18n: {
+    messages: i18nCommon
+  },
   methods: {
     cancel () {
       this.$router.push({ name: 'studies' })

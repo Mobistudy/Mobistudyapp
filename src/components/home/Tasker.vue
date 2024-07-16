@@ -105,7 +105,7 @@ import i18nCommon from '@i18n/common'
 import { mergeDeep } from '@shared/tools.js'
 
 import taskListItem from '@components/home/TaskListItem.vue'
-import userinfo from '@shared/userinfo'
+import session from '@shared/session'
 import DB from '@shared/db'
 import API from '@shared/API'
 import * as scheduler from '@shared/scheduler'
@@ -185,7 +185,9 @@ export default {
       try {
         // renew the login token, otherwise it may expire after some time
         const newToken = await API.renewToken()
-        userinfo.user.token = newToken
+        const userSession = session.getUserSession()
+        userSession.server.token = newToken
+        await DB.setUserSession(userSession)
         API.setToken(newToken)
       } catch (error) {
         console.error('Cannot renew token, but thats OK', error)
@@ -211,7 +213,8 @@ export default {
         await scheduler.cancelNotifications()
         try {
           // let's retrieve the studies from the API, just in case
-          const profile = await API.getProfile(userinfo.user._key)
+          const userSession = session.getUserSession()
+          const profile = await API.getProfile(userSession.user.userKey)
           if (!profile.studies || profile.studies.length === 0) {
             await DB.setStudiesParticipation([])
             // this user has no studies !
@@ -293,7 +296,8 @@ export default {
       studyPart.currentStatus = 'completed'
       studyPart.completedTS = new Date()
       try {
-        await API.updateStudyStatus(userinfo.user._key, studyPart.studyKey, studyPart)
+        const userSession = session.getUserSession()
+        await API.updateStudyStatus(userSession.user.userKey, studyPart.studyKey, studyPart)
         delete studyPart.extraItemsConsent
         delete studyPart.taskItemsConsent
         await DB.setStudyParticipation(studyPart)

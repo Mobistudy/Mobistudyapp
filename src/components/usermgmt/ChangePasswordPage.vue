@@ -54,7 +54,7 @@ import i18nUserMgmt from '@i18n/userMgmt'
 import i18npwdCheck from '@i18n/passwordcheck'
 
 import { checkPwdStrength, owaspConfig } from '@shared/passwordChecker'
-import userinfo from '@shared/userinfo'
+import session from '@shared/session'
 import API from '@shared/API'
 
 export default {
@@ -75,7 +75,9 @@ export default {
   },
   async created () {
     // at this point we must be logged out
-    await userinfo.logout()
+    API.setBaseUrl(null)
+    API.unsetToken()
+    session.removeUserSession()
   },
   methods: {
     validatePasswordStrength (pwd) {

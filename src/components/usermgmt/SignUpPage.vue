@@ -61,7 +61,8 @@ const { testPattern } = patterns
 
 import { checkPwdStrength, owaspConfig } from '@shared/passwordChecker'
 import API from '@shared/API'
-import userinfo from '@shared/userinfo'
+import session from '@shared/session'
+import DB from '@shared/db'
 
 export default {
   name: 'SignUp',
@@ -119,9 +120,19 @@ export default {
           // if registered, also do login
           const user = await API.login(this.account.email.toLowerCase(), this.account.pw1)
           // user is authenticated, save status of session
-          user.serverUrl = this.server
-          // save session
-          await userinfo.login(user)
+          const userSession = {
+            user: {
+              email: user.email,
+              userKey: user._key
+            },
+            server: {
+              serverUrl: this.serverUrl,
+              token: user.token
+            }
+          }
+          session.setUserSession(userSession)
+          await DB.setUserSession(userSession)
+
           // keep token for later
           API.setToken(user.token)
 

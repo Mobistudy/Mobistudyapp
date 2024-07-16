@@ -31,14 +31,19 @@
 </template>
 
 <script>
+import i18nCommon from '@i18n/common'
+
 import { defineComponent } from 'vue'
-import userinfo from '@shared/userinfo'
+import session from '@shared/session'
 import phone from '@shared/phone/phone'
 import DB from '@shared/db'
 import API from '@shared/API'
 
 export default defineComponent({
   name: 'MobistudyApp',
+  i18n: {
+    messages: i18nCommon
+  },
   data () {
     return {
       enableRouting: false,
@@ -64,15 +69,26 @@ export default defineComponent({
       this.showPINPage = true
     },
     async bootstrap () {
+      // session
+      let userSession
       try {
         console.info('Starting Mobistudy app version', process.env.APP_VERSION)
         await DB.init()
         await DB.getCurrentAppVersion()
         await DB.setCurrentAppVersion(process.env.APP_VERSION)
-        await userinfo.init()
-        if (userinfo.user.language) {
-          console.log('Setting locale to', userinfo.user.language)
-          this.$root.$i18n.locale = userinfo.user.language
+
+        // load the user and server sessions
+        userSession = session.getUserSession()
+        if (!userSession) {
+          // load it from database
+          userSession = await DB.getUserSession()
+          if (userSession) session.setUserSession(userSession)
+        }
+
+        // set language
+        if (userSession?.user?.language) {
+          console.log('Setting locale to', userSession.user.language)
+          this.$root.$i18n.locale = userSession.user.language
         }
 
         // here we are sure that the database works fine
@@ -86,15 +102,15 @@ export default defineComponent({
       // check if already logged in, otherwise go to intro
       const resettingpwd =
         this.$route.path === '/resetpw' || this.$route.path === '/changepw'
-      if ((!userinfo.user.loggedin || !userinfo.user.name) && !resettingpwd) {
+      if (!userSession?.server?.token && !resettingpwd) {
         this.$router.replace({
           name: 'intro'
         })
         this.enableRouting = true
       } else {
         if (!resettingpwd) {
-          API.setBaseUrl(userinfo.user.serverUrl)
-          API.setToken(userinfo.user.token)
+          API.setBaseUrl(userSession.server.serverUrl)
+          API.setToken(userSession.server.token)
 
           console.log('LOGGED IN, REDIRECTING TO HOME')
           this.$router.replace({ name: 'tasker' })
@@ -114,8 +130,9 @@ export default defineComponent({
             error.response.status === 401 &&
             !error.config.url.includes('login')
           ) {
-            console.log('Got disconnected !')
-            await userinfo.logout()
+            console.log('Lost authorization !')
+            session.removeUserSession()
+            await DB.removeUserSession()
             window.location = '#/login'
           }
           throw error

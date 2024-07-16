@@ -71,7 +71,7 @@
       </q-item>
     </q-list>
     <q-page-sticky v-if="pageLoaded" position="bottom-right" :offset="[18, 18]">
-      <q-btn @click="showInvitationDialog" fab icon="add" color="primary" />
+      <q-btn class="mobibtn" @click="showInvitationDialog" fab icon="add" color="primary" />
     </q-page-sticky>
   </q-page>
 </template>
@@ -81,7 +81,7 @@ import { mergeDeep } from '@shared/tools'
 import i18nCommon from '@i18n/common'
 import i18nStudies from '@i18n/studies'
 
-import userinfo from '@shared/userinfo'
+import session from '@shared/session'
 import DB from '@shared/db'
 import API from '@shared/API'
 import { date } from 'quasar'
@@ -186,7 +186,8 @@ export default {
         }
         try {
           // call the API
-          await API.updateStudyStatus(userinfo.user._key, study._key, studyParticipation)
+          const userSession = session.getUserSession()
+          await API.updateStudyStatus(userSession.user.userKey, study._key, studyParticipation)
           // call the DB
           let studies = await DB.getStudiesParticipation()
           if (!studies) studies = []
@@ -207,7 +208,7 @@ export default {
     },
     async joinStudy (index) {
       const study = this.newStudies[index]
-      this.$router.push({ name: 'invitation', params: { studyDescription: study } })
+      this.$router.push({ name: 'invitation', state: { studyDescription: study } })
     },
     async showInvitationDialog () {
       try {

@@ -55,7 +55,7 @@ import i18nCommon from '@i18n/common'
 import i18nUserMgmt from '@i18n/userMgmt'
 import DB from '@shared/db'
 import API from '@shared/API'
-import userinfo from '@shared/userinfo'
+import session from '@shared/session'
 import notifications from '@shared/notifications'
 
 import { patterns } from 'quasar'
@@ -94,7 +94,11 @@ export default {
     })
     notifications.cancelAll()
     try {
-      await userinfo.logout() // called twice, also once in Profile -> logout. The DB finds no session and fails because it already executed once before and removed the item from the db.
+      // make sure we are logged out
+      API.setBaseUrl(null)
+      API.setToken(null)
+      session.removeUserSession()
+      await DB.removeUserSession()
     } catch (error) {
       console.error(error)
     }
@@ -105,6 +109,7 @@ export default {
     async login () {
       const valid = await this.$refs.loginForm.validate(true)
       if (valid) {
+        let userSession
         try {
           API.setBaseUrl(this.server)
 
@@ -118,9 +123,19 @@ export default {
             return
           }
           // user is authenticated, save status of session
-          user.serverUrl = this.server
-          // save session
-          await userinfo.login(user)
+          userSession = {
+            user: {
+              email: user.email,
+              userKey: user._key
+            },
+            server: {
+              serverUrl: this.server,
+              token: user.token
+            }
+          }
+          session.setUserSession(userSession)
+          await DB.setUserSession(userSession)
+
           // keep token for later
           API.setToken(user.token)
         } catch (error) {
@@ -143,12 +158,14 @@ export default {
         }
         try {
           // retrieve the profile information
-          const profile = await API.getProfile(userinfo.user._key)
+          const profile = await API.getProfile(userSession.user.userKey)
           if (profile.language) {
             this.$root.$i18n.locale = profile.language
+            // set language also in session
+            userSession.user.language = profile.language
+            session.setUserSession(userSession)
+            await DB.setUserSession(userSession)
           }
-          // profile exists
-          await userinfo.setProfile(profile)
 
           if (profile.studies) await DB.setStudiesParticipation(profile.studies)
           console.log('--- >logged in, studies set, going to tasker')

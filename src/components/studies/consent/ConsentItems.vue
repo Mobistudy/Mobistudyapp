@@ -17,7 +17,7 @@
 
 <script>
 import ConsentForm from '@components/studies/ConsentForm.vue'
-import userinfo from '@shared/userinfo'
+import session from '@shared/session'
 import DB from '@shared/db'
 import API from '@shared/API'
 
@@ -79,7 +79,8 @@ export default {
         this.studyParticipation.acceptedTS = new Date()
 
         // call the API
-        await API.updateStudyStatus(userinfo.user._key, this.studyDescription._key, this.studyParticipation)
+        const userSession = session.getUserSession()
+        await API.updateStudyStatus(userSession.user.userKey, this.studyDescription._key, this.studyParticipation)
         // call the DB
         let studies = await DB.getStudiesParticipation()
         if (!studies) studies = []
@@ -109,7 +110,8 @@ export default {
 
         try {
           // call the API
-          await API.updateStudyStatus(userinfo.user._key, this.studyDescription._key, this.studyParticipation)
+          const userSession = session.getUserSession()
+          await API.updateStudyStatus(userSession.user.userKey, this.studyDescription._key, this.studyParticipation)
           // call the DB
           let studies = await DB.getStudiesParticipation()
           if (!studies) studies = []

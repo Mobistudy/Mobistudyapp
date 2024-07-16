@@ -7,7 +7,7 @@
     </div>
 
     <profile-editor v-model="profile" :buttonOkText="$t('common.next')" @buttonOk="saveProfile()"
-      @language-changed="forceRerender" :key="componentKey" />
+      @language-changed="languageChanged" :key="componentKey" />
 
   </q-page>
 </template>
@@ -19,7 +19,8 @@ import { mergeDeep } from '@shared/tools.js'
 
 import ProfileEditor from '@components/userMgmt/ProfileEditor'
 import API from '@shared/API'
-import userinfo from '@shared/userinfo'
+import session from '@shared/session'
+import DB from '@shared/db'
 
 export default {
   name: 'RegisterPage',
@@ -56,14 +57,21 @@ export default {
           dobTemp = this.profile.dateOfBirth
           console.error(this.profile.dateOfBirth + ' cannot be cut to date only')
         }
-        let profile = this.profile
+        const userSession = session.getUserSession()
+
+        // cloned object where we can change some properties
+        let profile = structuredClone(this.profile)
         profile.dateOfBirth = dobTemp
-        profile.userKey = userinfo.user._key
+        profile.userKey = userSession.user.userKey
         profile.updatedTS = new Date()
-        profile.createdTS = new Date()
         const newprofile = await API.createProfile(profile)
         if (newprofile) profile = newprofile
-        await userinfo.setProfile(profile)
+
+        // language may have changed:
+        // set language also in session
+        userSession.user.language = profile.language
+        session.setUserSession(userSession)
+        await DB.setUserSession(userSession)
 
         this.$router.push({ name: 'tasker' })
       } catch (error) {
@@ -74,7 +82,8 @@ export default {
         })
       }
     },
-    forceRerender () {
+    languageChanged () {
+      // force re-render
       this.componentKey += 1
     }
   }

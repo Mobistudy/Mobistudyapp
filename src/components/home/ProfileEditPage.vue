@@ -63,9 +63,9 @@ import i18nUserMgmt from '@i18n/userMgmt'
 
 import ProfileEditor from '@components/userMgmt/ProfileEditor'
 import API from '@shared/API'
+import session from '@shared/session'
 import DB from '@shared/db'
 import notifications from '@shared/notifications'
-import userinfo from '@shared/userinfo'
 
 export default {
   name: 'ProfileEditPage',
@@ -75,6 +75,7 @@ export default {
   },
   data () {
     return {
+      userSession: {},
       profile: {
         name: '',
         surname: '',
@@ -93,9 +94,10 @@ export default {
   },
   async created () {
     this.$q.loading.show()
+    this.userSession = session.getUserSession()
+    const userKey = this.userSession.user.userKey
     try {
-      this.profile = await API.getProfile(userinfo.user._key)
-      await userinfo.setProfile(this.profile)
+      this.profile = await API.getProfile(userKey)
       this.$q.loading.hide()
     } catch (error) {
       this.$q.notify({
@@ -121,12 +123,15 @@ export default {
           flat: true
         }
       }).onOk(async () => {
+        // log out
         try {
-          await userinfo.logout()
+          API.setBaseUrl(null)
+          API.unsetToken()
+          session.removeUserSession()
+          await DB.emptyUserData()
         } catch (error) {
           console.log(error)
         }
-        API.setToken('')
         this.$router.push('/login')
       })
     },
@@ -144,10 +149,15 @@ export default {
         }
         const profile = this.profile
         profile.dateOfBirth = dobTemp
-        profile.userKey = userinfo.user._key
+        profile.userKey = this.userSession.user.userKey
         profile.updatedTS = new Date()
         await API.updateProfile(profile)
-        await userinfo.setProfile(profile)
+
+        // language may have changed:
+        // set language also in session
+        this.userSession.user.language = profile.language
+        session.setUserSession(this.userSession)
+        await DB.setUserSession(this.userSession)
 
         this.$router.push({ name: 'tasker' })
       } catch (error) {
@@ -161,15 +171,22 @@ export default {
     async resetPwd () {
       // get the token and go to the change password screen
       try {
-        await API.resetPW(userinfo.user.email.toLowerCase())
+        const userEmail = this.userSession.user.email
+        await API.resetPW(userEmail)
         // keep a copy of the email before it's deleted by logout
-        const email = userinfo.user.email
         notifications.cancelAll()
 
-        await userinfo.logout()
-        API.unsetToken()
-        await DB.emptyUserData()
-        this.$router.push({ name: 'changepw', params: { email } })
+        // logout
+        try {
+          API.setBaseUrl(null)
+          API.unsetToken()
+          session.removeUserSession()
+          await DB.emptyUserData()
+        } catch (error) {
+          console.log(error)
+        }
+
+        this.$router.push({ name: 'changepw', params: { userEmail } })
       } catch (error) {
         this.$q.notify({
           color: 'negative',
@@ -193,7 +210,20 @@ export default {
         }
       }).onOk(async () => {
         try {
-          await API.deleteUser(userinfo.user.user._key)
+          const userKey = this.userSession.user.userKey
+          await API.deleteUser(userKey)
+
+          // logout
+          // logout
+          try {
+            API.setBaseUrl(null)
+            API.unsetToken()
+            session.removeUserSession()
+            await DB.emptyUserData()
+          } catch (error) {
+            console.log(error)
+          }
+
           this.$router.push('/login')
         } catch (error) {
           this.$q.notify({
