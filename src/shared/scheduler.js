@@ -398,8 +398,8 @@ export async function scheduleNotificationsSingleStudy (studyDescr, studyPart) {
         timeStack.push(taskTime.getTime())
         notificationStack.push({
           id: parseInt(id),
-          title: i18n.t('studies.scheduling.due'),
-          text: i18n.t('studies.scheduling.start'),
+          title: i18n.global.t('studies.scheduling.due'),
+          text: i18n.global.t('studies.scheduling.start'),
           foreground: true,
           trigger: { at: taskTime }
         })

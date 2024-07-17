@@ -96,14 +96,12 @@ export default {
     try {
       // make sure we are logged out
       API.setBaseUrl(null)
-      API.setToken(null)
+      API.unsetToken()
       session.removeUserSession()
       await DB.removeUserSession()
     } catch (error) {
       console.error(error)
     }
-    API.unsetToken()
-    await DB.emptyUserData()
   },
   methods: {
     async login () {
