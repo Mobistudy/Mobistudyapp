@@ -6,7 +6,7 @@
     <div class="mobitxt1 q-my-md">
       {{ $t('studies.consent.consentExplanation') }}
     </div>
-    <consent-form :studyDescription="studyDescription" v-model="studyParticipation" />
+    <consent-form v-if="studyDescription" :studyDescription="studyDescription" v-model="studyParticipation" />
     <div class="q-my-md row justify-evenly">
       <q-btn class="mobibtn" :label="$t('common.reject')" color="negative" @click="deny()"></q-btn>
       <q-btn class="mobibtn" :label="$t('studies.consent.joinStudy')" color="primary" :disabled="!canAccept"
@@ -16,6 +16,10 @@
 </template>
 
 <script>
+import { mergeDeep } from '@shared/tools'
+import i18nCommon from '@i18n/common'
+import i18nStudies from '@i18n/studies'
+
 import ConsentForm from '@components/studies/ConsentForm.vue'
 import session from '@shared/session'
 import DB from '@shared/db'
@@ -23,14 +27,17 @@ import API from '@shared/API'
 
 export default {
   name: 'ConsentItemsPage',
-  props: ['studyDescription'],
+  i18n: {
+    messages: mergeDeep(i18nCommon, i18nStudies)
+  },
   components: {
     ConsentForm
   },
   data () {
     return {
+      studyDescription: false,
       studyParticipation: {
-        studyKey: this.studyDescription._key,
+        studyKey: undefined,
         currentStatus: undefined,
         acceptedTS: undefined,
         reminders: false,
@@ -40,6 +47,13 @@ export default {
     }
   },
   async created () {
+    const sd = session.getStudyDescription()
+    if (!sd) {
+      this.$router.push({ name: 'tasker' })
+    } else {
+      this.studyDescription = sd
+      this.studyParticipation.studyKey = sd._key
+    }
     if (this.studyDescription.consent.extraItems && this.studyDescription.consent.extraItems.length) {
       for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
         this.studyParticipation.extraItemsConsent.push({
@@ -95,7 +109,7 @@ export default {
           icon: 'report_problem'
         })
       }
-      this.$router.push({ name: 'accepted', params: { studyDescription: this.studyDescription } })
+      this.$router.push({ name: 'accepted' })
     },
     async deny () {
       this.$q.dialog({

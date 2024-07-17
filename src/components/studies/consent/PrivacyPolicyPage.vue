@@ -13,7 +13,9 @@
 </template>
 
 <script>
+import { mergeDeep } from '@shared/tools'
 import i18nCommon from '@i18n/common'
+import i18nStudies from '@i18n/studies'
 
 import session from '@shared/session'
 import DB from '@shared/db'
@@ -21,13 +23,25 @@ import API from '@shared/API'
 
 export default {
   name: 'PrivacyPolicyPage',
-  props: ['studyDescription'],
   i18n: {
-    messages: i18nCommon
+    messages: mergeDeep(i18nCommon, i18nStudies)
+  },
+  data () {
+    return {
+      studyDescription: {}
+    }
+  },
+  created () {
+    const sd = session.getStudyDescription()
+    if (!sd) {
+      this.$router.push({ name: 'tasker' })
+    } else {
+      this.studyDescription = sd
+    }
   },
   methods: {
     accept () {
-      this.$router.push({ name: 'consentItems', params: { studyDescription: this.studyDescription } })
+      this.$router.push({ name: 'consentItems' })
     },
     async deny () {
       this.$q.dialog({

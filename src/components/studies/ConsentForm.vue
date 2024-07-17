@@ -6,7 +6,7 @@
           <q-item-label class="q-my-xs mobitxt1">{{ extraItem.description[$i18n.locale] }}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
-          <q-checkbox size="lg" v-model="value.extraItemsConsent[extraIndex].consented" />
+          <q-checkbox size="lg" v-model="participation.extraItemsConsent[extraIndex].consented" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -18,8 +18,7 @@
           </q-item-label>
         </q-item-section>
         <q-item-section avatar>
-          <q-checkbox size="lg" :value="value.taskItemsConsent[taskIndex].consented"
-            @click="!value.taskItemsConsent[taskIndex].consented ? requestPermission(taskIndex) : rejectPermission(taskIndex)" />
+          <q-checkbox size="lg" v-model="participation.taskItemsConsent[taskIndex].consented" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -32,7 +31,7 @@
           </q-item-label>
         </q-item-section>
         <q-item-section avatar>
-          <q-checkbox size="lg" :value="value.reminders" @click="setReminders()" />
+          <q-checkbox size="lg" :model-value="participation.reminders" @update:model-value="setReminders()" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -41,23 +40,6 @@
       <q-btn class="mobibtn" color="secondary" :label="$t('studies.consent.consentAll')" @click="selectAllToggles" />
     </div>
 
-    <q-dialog v-model="permissionDialog" persistent>
-      <q-card>
-        <q-card-section class="row items-center">
-          <span class="q-ml-sm">{{ permissionMessage }}</span>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn flat :label="$t('common.cancel')" color="negative" v-close-popup />
-          <q-btn :label="$t('common.next')" color="primary" v-close-popup @click="acceptOSWarning" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-
-    <q-inner-loading :showing="permissionSpinner">
-      <div class="mobitxt2">{{ $t('studies.consent.OSPermissionGivenSeeking') }}</div>
-      <q-spinner-dots size="50px" color="primary" />
-    </q-inner-loading>
   </div>
 </template>
 
@@ -77,13 +59,6 @@ export default {
     'studyDescription',
     'modelValue'
   ],
-  data () {
-    return {
-      permissionMessage: '',
-      permissionDialog: false,
-      permissionSpinner: false
-    }
-  },
   computed: {
     participation: {
       get () {
@@ -96,28 +71,19 @@ export default {
   },
   methods: {
     async selectAllToggles () {
-      // Select all extra items toggles
       this.participation.extraItemsConsent.forEach((item) => {
         item.consented = true
       })
 
-      // Select all task items toggles and request permission
-      for (let taskIndex = 0; taskIndex < this.participation.taskItemsConsent.length; taskIndex++) {
-        const item = this.participation.taskItemsConsent[taskIndex]
-        if (!item.consented) {
-          await this.requestPermission(taskIndex)
-        }
+      this.participation.taskItemsConsent.forEach((item) => {
+        item.consented = true
+      })
+
+      if (!this.participation.reminders) {
+        await this.setReminders()
       }
 
-      // Check reminders toggle if consent is given
-      const remindersItem = this.participation.taskItemsConsent.find((item) => item.task === 'reminders')
-      if (remindersItem && !remindersItem.consented) {
-        await this.requestPermission('reminders')
-      }
-
-      // Update the reminders property based on the consent status
-      this.participation.reminders = remindersItem ? remindersItem.consented : false
-      this.setReminders()
+      this.$emit('update:modelValue', this.participation)
     },
 
     async setReminders () {
@@ -141,10 +107,7 @@ export default {
           }
         }
       }
-    },
-
-    async rejectPermission (taskIndex) {
-      this.participation.taskItemsConsent[taskIndex].consented = false
+      this.$emit('update:modelValue', this.participation)
     }
   }
 }

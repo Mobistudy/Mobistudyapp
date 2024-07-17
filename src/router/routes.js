@@ -59,6 +59,17 @@ const routes = [
       { path: '/studies/studyConfig', name: 'studyConfig', component: () => import('@components/home/StudyConfigPage.vue'), props: true }
     ]
   },
+  {
+    path: '/consent',
+    component: () => import('@components/studies/consent/ConsentLayout.vue'),
+    children: [
+      { path: '/invitation', name: 'invitation', component: () => import('@components/studies/consent/InvitationPage.vue') },
+      { path: '/studyDetails', name: 'studyDetails', component: () => import('@components/studies/consent/StudyDetailsPage.vue') },
+      { path: '/privacyPolicy', name: 'privacyPolicy', component: () => import('@components/studies/consent/PrivacyPolicyPage.vue') },
+      { path: '/consentItems', name: 'consentItems', component: () => import('@components/studies/consent/ConsentPage.vue') },
+      { path: '/accepted', name: 'accepted', component: () => import('@components/studies/consent/AcceptedPage.vue') }
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it

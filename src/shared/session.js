@@ -37,7 +37,7 @@ export default {
 
   /**
    * Gets the current user session
-   * @param {UserSession} key
+   * @returns {UserSession}
    */
   getUserSession () {
     return JSON.parse(sessionStorage.getItem('userSession'))
@@ -48,5 +48,29 @@ export default {
    */
   removeUserSession () {
     return sessionStorage.removeItem('userSession')
+  },
+
+  /**
+   * Stores the current study description,
+   * this is needed during the consent phase, as the router doesn't allow to pass objects
+   * @param {Object} studyDescription - the current study description
+   */
+  setStudyDescription (studyDecription) {
+    sessionStorage.setItem('studyDecription', JSON.stringify(studyDecription))
+  },
+
+  /**
+   * Gets the current user session
+   * @returns {Object}
+   */
+  getStudyDescription () {
+    return JSON.parse(sessionStorage.getItem('studyDecription'))
+  },
+
+  /**
+   * Deletes the current user session
+   */
+  removeStudyDescription () {
+    return sessionStorage.removeItem('studyDecription')
   }
 }

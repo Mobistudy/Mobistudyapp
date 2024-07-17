@@ -14,20 +14,29 @@ import { mergeDeep } from '@shared/tools'
 import i18nCommon from '@i18n/common'
 import i18nStudies from '@i18n/studies'
 
+import session from '@shared/session'
+
 export default {
   name: 'InvitationPage',
-  // props: ['studyDescription'],
   i18n: {
     messages: mergeDeep(i18nCommon, i18nStudies)
   },
   data () {
     return {
-      studyDescription: history.state.studyDescription
+      studyDescription: {}
+    }
+  },
+  created () {
+    const sd = session.getStudyDescription()
+    if (!sd) {
+      this.$router.push({ name: 'tasker' })
+    } else {
+      this.studyDescription = sd
     }
   },
   methods: {
     next () {
-      this.$router.push({ name: 'studyDetails', params: { studyDescription: this.studyDescription } })
+      this.$router.push({ name: 'studyDetails' })
     }
   }
 }

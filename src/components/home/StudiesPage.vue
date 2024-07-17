@@ -208,7 +208,9 @@ export default {
     },
     async joinStudy (index) {
       const study = this.newStudies[index]
-      this.$router.push({ name: 'invitation', state: { studyDescription: study } })
+      // keep the study in session so to pass it along
+      session.setStudyDescription(study)
+      this.$router.push({ name: 'invitation' })
     },
     async showInvitationDialog () {
       try {
