@@ -215,8 +215,7 @@ export default {
 
     const userSession = session.getUserSession()
     this.report.userKey = userSession.user.userKey
-
-    // participantKey
+    this.report.participantKey = userSession.user.participantKey
 
     try {
       let formDescr = await DB.getFormDescription(formKey)
