@@ -68,8 +68,9 @@ export default {
         if (newprofile) profile = newprofile
 
         // language may have changed:
-        // set language also in session
+        // set language and participant key also in session
         userSession.user.language = profile.language
+        userSession.user.participantKey = profile._key
         session.setUserSession(userSession)
         await DB.setUserSession(userSession)
 

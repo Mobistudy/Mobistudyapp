@@ -123,7 +123,8 @@ export default {
           const userSession = {
             user: {
               email: user.email,
-              userKey: user._key
+              userKey: user._key,
+              participantKey: null
             },
             server: {
               serverUrl: this.serverUrl,

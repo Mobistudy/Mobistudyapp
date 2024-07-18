@@ -124,7 +124,8 @@ export default {
           userSession = {
             user: {
               email: user.email,
-              userKey: user._key
+              userKey: user._key,
+              participantKey: null
             },
             server: {
               serverUrl: this.server,
@@ -159,8 +160,9 @@ export default {
           const profile = await API.getProfile(userSession.user.userKey)
           if (profile.language) {
             this.$root.$i18n.locale = profile.language
-            // set language also in session
+            // set language and participant Key also in session
             userSession.user.language = profile.language
+            userSession.user.participantKey = profile._key
             session.setUserSession(userSession)
             await DB.setUserSession(userSession)
           }

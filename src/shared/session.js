@@ -16,6 +16,7 @@ export default {
    * Session store for server connection.
    * @typedef {Object} UserInfo
    * @property {string} userKey - key of the user
+   * @property {string} participantKey - key of the participant
    * @property {string} email - email address of the user
    * @property {string} language - language of the user
    */
