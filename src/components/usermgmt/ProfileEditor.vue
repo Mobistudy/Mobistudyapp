@@ -1,5 +1,5 @@
 <template>
-  <q-form ref="profileForm">
+  <q-form ref="profileForm" @submit.prevent="">
     <!-- firstname -->
     <q-input :label="$t('userMgmt.profile.firstName')" :rules="[val => !!val || $t('userMgmt.profile.firstNameError')]"
       v-model="profile.name">

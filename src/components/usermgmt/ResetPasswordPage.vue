@@ -3,7 +3,7 @@
     <q-page-container>
       <q-page padding class="flex flex-center">
         <div class="text-h4">{{ $t('userMgmt.resetPassword.resetPassword') }}</div>
-        <q-form ref="resetPWForm">
+        <q-form ref="resetPWForm" @submit.prevent="">
           <div style="width: 90vw">
             <q-input v-model="email" type="email" :label="$t('userMgmt.email')" autocomplete="on" :rules="emailRules">
               <template v-slot:prepend>

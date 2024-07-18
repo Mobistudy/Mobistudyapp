@@ -5,7 +5,7 @@
         {{ $t('userMgmt.registration.signUp') }}
       </div>
     </div>
-    <q-form ref="signupForm">
+    <q-form ref="signupForm" @submit.prevent="">
       <q-input :label="$t('userMgmt.email')" type="email" v-model="account.email" :rules="emailRules">
         <template v-slot:prepend>
           <q-icon name="mail_outline" />

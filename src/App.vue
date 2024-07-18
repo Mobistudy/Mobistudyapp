@@ -46,7 +46,7 @@ export default defineComponent({
   },
   data () {
     return {
-      enableRouting: false,
+      enableRouting: true,
       showPINPage: false,
       dbCorrupted: false,
       bootstrapped: false
@@ -113,7 +113,7 @@ export default defineComponent({
           API.setToken(userSession.server.token)
 
           console.log('LOGGED IN, REDIRECTING TO HOME')
-          this.$router.replace({ name: 'tasker' })
+          // this.$router.replace({ name: 'tasker' })
           this.enableRouting = true
         }
       }

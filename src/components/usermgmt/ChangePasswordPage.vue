@@ -8,7 +8,7 @@
         <div class="fit row justify-center q-mt-lg">
           <p class="col">{{ $t('userMgmt.resetPassword.newPasswordExplanation') }}</p>
         </div>
-        <q-form ref="changePWForm">
+        <q-form ref="changePWForm" @submit.prevent="">
           <div class="fit row justify-center q-mt-lg">
             <q-input padding="md lg" class="col-grow" v-model="token" type="textarea" autogrow clearable
               :label="$t('userMgmt.resetPassword.token')" :hint="$t('userMgmt.resetPassword.tokenHint')"

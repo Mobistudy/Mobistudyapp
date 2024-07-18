@@ -6,7 +6,7 @@
           <img src="logos/logo.svg" style="width:30vw; max-width:150px;">
           <div class="q-title text-h5 text-center">Mobistudy v {{ appVersion }}</div>
         </div>
-        <q-form ref="loginForm">
+        <q-form ref="loginForm" @submit.prevent="">
           <div style="width: 90vw">
             <q-input v-model="username" :label="$t('userMgmt.email')" :rules="emailRules" />
 
