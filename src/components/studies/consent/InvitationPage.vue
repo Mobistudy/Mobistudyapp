@@ -29,14 +29,14 @@ export default {
   created () {
     const sd = session.getStudyDescription()
     if (!sd) {
-      this.$router.push({ name: 'tasker' })
+      this.$router.go(-1)
     } else {
       this.studyDescription = sd
     }
   },
   methods: {
     next () {
-      this.$router.push({ name: 'studyDetails' })
+      this.$router.replace({ name: 'studyDetails' })
     }
   }
 }

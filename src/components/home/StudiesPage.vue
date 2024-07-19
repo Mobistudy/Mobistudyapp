@@ -43,7 +43,7 @@
     <q-list separator bordered>
       <q-item-label header>{{ $t('studies.activeStudies') }}</q-item-label>
       <q-item clickable v-ripple v-for="(study, index) in activeStudies" :key="'as' + index"
-        @click="showDetails(study)">
+        @click="showDetails(study._key)">
         <q-item-section avatar>
           <q-icon color="primary" name="settings" />
         </q-item-section>
@@ -61,7 +61,7 @@
 
       <q-item-label header v-if="previousStudies.length !== 0">{{ $t('studies.previousStudies') }}</q-item-label>
       <q-item clickable v-ripple v-for="(study, index) in previousStudies" :key="'ps' + index"
-        @click="showDetails(study)">
+        @click="showDetails(study._key)">
         <q-item-section avatar>
           <q-icon color="primary" name="settings" />
         </q-item-section>
@@ -117,13 +117,14 @@ export default {
         for (const studyPart of studiesParts) {
           if (studyPart.currentStatus === 'accepted') {
             const s = await DB.getStudyDescription(studyPart.studyKey)
-            this.activeStudies.push(s)
+            if (s) this.activeStudies.push(s)
           } else if (studyPart.currentStatus === 'withdrawn' || studyPart.currentStatus === 'completed') {
             const s = await DB.getStudyDescription(studyPart.studyKey)
-            this.previousStudies.push(s)
+            if (s) this.previousStudies.push(s)
           }
         }
       }
+
     } catch (error) {
       console.error('Cannot connect to server', error)
       this.$q.notify({
@@ -159,8 +160,8 @@ export default {
     nicerDate (d) {
       return date.formatDate(d, 'YYYY/MM/DD')
     },
-    showDetails (study) {
-      this.$router.push({ name: 'studyConfig', params: { studyDescription: study } })
+    showDetails (studyKey) {
+      this.$router.replace({ name: 'studyConfig', params: { studyKey } })
     },
     async discardStudy (index) {
       this.$q.dialog({
@@ -195,7 +196,7 @@ export default {
           await DB.setStudiesParticipation(studies)
           this.newStudies.splice(index, 1)
           this.newStudiesCustomAnswers.splice(index, 1)
-          this.$router.push({ name: 'tasker' })
+          this.$router.replace({ name: 'tasker' })
         } catch (error) {
           console.error('Cannot connect to server', error)
           this.$q.notify({

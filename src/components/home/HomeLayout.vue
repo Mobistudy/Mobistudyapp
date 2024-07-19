@@ -15,16 +15,16 @@
 
     <q-footer bordered class="elevated">
       <q-tabs mobile-arrows narrow-indicator dense active-color="primary" class="bg-white text-grey-7 row">
-        <q-route-tab class="q-px-sm col" :to="{ name: 'tasker' }" icon="check_box">{{
+        <q-route-tab class="q-px-sm col" :to="{ name: 'tasker' }" replace icon="check_box">{{
           $t('layouts.homeMenu.dailyTasks') }}
         </q-route-tab>
-        <q-route-tab class="q-px-sm col" :to="{ name: 'profile' }" icon="account_box">{{
+        <q-route-tab class="q-px-sm col" :to="{ name: 'profile' }" replace icon="account_box">{{
           $t('layouts.homeMenu.profile') }}
         </q-route-tab>
-        <q-route-tab class="q-px-sm col" :to="{ name: 'studies' }" icon="local_library">{{
+        <q-route-tab class="q-px-sm col" :to="{ name: 'studies' }" replace icon="local_library">{{
           $t('layouts.homeMenu.studies') }}
         </q-route-tab>
-        <q-route-tab class="q-px-sm col" :to="{ name: 'about' }" icon="help">{{
+        <q-route-tab class="q-px-sm col" :to="{ name: 'about' }" replace icon="help">{{
           $t('layouts.homeMenu.about') }}
         </q-route-tab>
         <!--<q-route-tab

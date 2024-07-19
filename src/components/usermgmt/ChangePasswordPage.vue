@@ -5,7 +5,7 @@
         <div class="fit row justify-center">
           <div class="text-h4">{{ $t('userMgmt.resetPassword.newPassword') }}</div>
         </div>
-        <div class="fit row justify-center q-mt-lg">
+        <div class="fit row justify-center q-ma-lg">
           <p class="col">{{ $t('userMgmt.resetPassword.newPasswordExplanation') }}</p>
         </div>
         <q-form ref="changePWForm" @submit.prevent="">
@@ -36,7 +36,7 @@
             </q-input>
           </div>
           <div class="fit row justify-around q-mt-lg">
-            <q-btn class="mobibtn" :label="$t('common.cancel')" color="secondary" to="/login" />
+            <q-btn class="mobibtn" :label="$t('common.cancel')" color="secondary" @click="$router.go(-1)" />
 
             <q-btn class="mobibtn" :label="$t('userMgmt.resetPassword.changePassword')" color="primary" type="submit"
               @click="resetUserPassword" />
@@ -97,7 +97,7 @@ export default {
             cancel: false,
             preventClose: true
           }).onOk(() => {
-            this.$router.push('/login')
+            this.$router.go(-1)
           })
         } catch (error) {
           this.$q.notify({

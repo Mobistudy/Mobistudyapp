@@ -6,7 +6,7 @@
         type="warning">
         <span class="mobitxt2 text-weight-bold">{{ $t('studies.newStudyAvailable') }}!</span>
         <template v-slot:action>
-          <q-btn class="mobibtn" color="blue" :label="$t('studies.checkNewStusy')" to="studies" />
+          <q-btn class="mobibtn" color="blue" :label="$t('studies.checkNewStusy')" to="studies" replace />
         </template>
       </q-banner>
       <!-- end of banner -->
@@ -179,13 +179,19 @@ export default {
       }
     },
     async load (skipSpinner) {
+      // get user session, if not available we're probably logged out
+      const userSession = session.getUserSession()
+      if (!userSession) {
+        console.error('Cannot retrieve user session, needs login')
+        this.$router.replace({ name: 'login' })
+      }
+
       this.lastReloadTS = Date.now()
       if (!skipSpinner) this.$q.loading.show()
 
       try {
         // renew the login token, otherwise it may expire after some time
         const newToken = await API.renewToken()
-        const userSession = session.getUserSession()
         userSession.server.token = newToken
         await DB.setUserSession(userSession)
         API.setToken(newToken)
@@ -213,7 +219,6 @@ export default {
         await scheduler.cancelNotifications()
         try {
           // let's retrieve the studies from the API, just in case
-          const userSession = session.getUserSession()
           const profile = await API.getProfile(userSession.user.userKey)
           if (!profile.studies || profile.studies.length === 0) {
             await DB.setStudiesParticipation([])

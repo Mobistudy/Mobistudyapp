@@ -524,7 +524,7 @@ export default {
           this.report.taskId,
           new Date()
         )
-        this.$router.push({ name: 'home' })
+        this.$router.go(-1)
       } catch (error) {
         this.sending = false
         console.error(error)

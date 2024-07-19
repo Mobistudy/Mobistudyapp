@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     start () {
-      this.$router.push({ name: 'form', params: { studyKey: this.studyKey, taskId: this.taskId, formKey: this.formKey } })
+      this.$router.replace({ name: 'form', params: { studyKey: this.studyKey, taskId: this.taskId, formKey: this.formKey } })
     }
   },
   async created () {

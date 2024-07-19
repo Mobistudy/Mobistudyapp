@@ -132,7 +132,7 @@ export default {
         } catch (error) {
           console.log(error)
         }
-        this.$router.push('/login')
+        this.$router.replace('/login')
       })
     },
     async saveProfile () {
@@ -159,7 +159,7 @@ export default {
         session.setUserSession(this.userSession)
         await DB.setUserSession(this.userSession)
 
-        this.$router.push({ name: 'tasker' })
+        this.$router.replace({ name: 'tasker' })
       } catch (error) {
         this.$q.notify({
           color: 'negative',
@@ -186,7 +186,7 @@ export default {
           console.log(error)
         }
 
-        this.$router.push({ name: 'changepw', params: { userEmail } })
+        this.$router.replace({ name: 'changepw', params: { userEmail } })
       } catch (error) {
         this.$q.notify({
           color: 'negative',
@@ -224,7 +224,7 @@ export default {
             console.log(error)
           }
 
-          this.$router.push('/login')
+          this.$router.replace('/login')
         } catch (error) {
           this.$q.notify({
             color: 'negative',

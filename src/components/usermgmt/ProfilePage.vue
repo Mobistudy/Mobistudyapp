@@ -23,7 +23,7 @@ import session from '@shared/session'
 import DB from '@shared/db'
 
 export default {
-  name: 'RegisterPage',
+  name: 'ProfilePage',
   components: { ProfileEditor },
   i18n: {
     messages: mergeDeep(i18nCommon, i18nMessages)
@@ -74,7 +74,7 @@ export default {
         session.setUserSession(userSession)
         await DB.setUserSession(userSession)
 
-        this.$router.push({ name: 'tasker' })
+        this.$router.replace({ name: 'tasker' })
       } catch (error) {
         this.$q.notify({
           color: 'negative',

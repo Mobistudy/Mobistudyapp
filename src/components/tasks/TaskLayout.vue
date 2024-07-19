@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     goBack () {
-      this.$router.push({ name: 'tasker' })
+      this.$router.go(-1)
     },
     update (transition) {
       setTimeout(() => {

@@ -19,7 +19,7 @@
             </q-select>
 
             <div class="row fit justify-around q-mt-lg">
-              <q-btn class="mobibtn" :label="$t('common.cancel')" color="secondary" @click="$router.push('login')" />
+              <q-btn class="mobibtn" :label="$t('common.cancel')" color="secondary" @click="$router.go(-1)" />
 
               <q-btn class="mobibtn" :label="$t('userMgmt.resetPassword.resetPassword')" color="primary" type="submit"
                 @click="submit" :loading="resetting" />
@@ -77,7 +77,7 @@ export default {
           API.setBaseUrl(this.server)
           // send request for pw reset
           await API.resetPW(this.email.toLowerCase())
-          this.$router.push({ name: 'changepw', params: { email: this.email } })
+          this.$router.replace({ name: 'changepw', params: { email: this.email } })
           this.resetting = false
         } catch (error) {
           this.$q.notify({

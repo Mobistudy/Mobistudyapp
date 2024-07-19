@@ -58,7 +58,7 @@ export default {
   i18n: {
     messages: mergeDeep(i18nCommon, i18nStudies)
   },
-  props: ['studyDescription'],
+  props: ['studyKey'],
   components: { StudyInfo, ConsentForm },
   data () {
     return {
@@ -67,6 +67,7 @@ export default {
     }
   },
   async created () {
+    this.studyDescription = await DB.getStudyDescription(this.studyKey)
     this.studyParticipation = await DB.getStudyParticipation(this.studyDescription._key)
   },
   computed: {
@@ -124,7 +125,7 @@ export default {
           delete this.studyParticipation.extraItemsConsent
           delete this.studyParticipation.taskItemsConsent
           await DB.setStudyParticipation(this.studyParticipation)
-          this.$router.push({ name: 'studies' })
+          this.$router.replace({ name: 'studies' })
         } catch (error) {
           console.error('Cannot connect to server', error)
           this.$q.notify({

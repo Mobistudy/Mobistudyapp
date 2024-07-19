@@ -33,7 +33,7 @@ export default {
   created () {
     const sd = session.getStudyDescription()
     if (!sd) {
-      this.$router.push({ name: 'tasker' })
+      this.$router.go(-1)
     } else {
       this.studyDescription = sd
     }
@@ -41,7 +41,7 @@ export default {
   components: { StudyInfo },
   methods: {
     next () {
-      this.$router.push({ name: 'privacyPolicy' })
+      this.$router.replace({ name: 'privacyPolicy' })
     }
   }
 }

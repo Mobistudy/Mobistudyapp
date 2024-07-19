@@ -56,7 +56,7 @@ const routes = [
     component: () => import('@components/home/HomeLayout.vue'),
     children: [
       { path: '/studies', name: 'studies', component: () => import('@components/home/StudiesPage.vue') },
-      { path: '/studies/studyConfig', name: 'studyConfig', component: () => import('@components/home/StudyConfigPage.vue'), props: true }
+      { path: '/studies/studyConfig/:studyKey', name: 'studyConfig', component: () => import('@components/home/StudyConfigPage.vue'), props: true }
     ]
   },
   {

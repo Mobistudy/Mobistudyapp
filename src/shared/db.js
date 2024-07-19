@@ -92,7 +92,7 @@ export default {
   async setStudyDescription (studyKey, config) {
     return storage.setItem('study_' + studyKey, config)
   },
-  async removeStudy (studyKey) {
+  async removeStudyDescription (studyKey) {
     return storage.removeItem('study_' + studyKey)
   },
   async getTaskDescription (studyKey, taskId) {

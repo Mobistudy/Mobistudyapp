@@ -49,7 +49,7 @@ export default {
   async created () {
     const sd = session.getStudyDescription()
     if (!sd) {
-      this.$router.push({ name: 'tasker' })
+      this.$router.go(-1)
     } else {
       this.studyDescription = sd
       this.studyParticipation.studyKey = sd._key
@@ -88,6 +88,9 @@ export default {
   methods: {
     async accept () {
       try {
+        // save the study descr on the database
+        await DB.setStudyDescription(this.studyDescription._key, this.studyDescription)
+
         // set the study as accepted
         this.studyParticipation.currentStatus = 'accepted'
         this.studyParticipation.acceptedTS = new Date()
@@ -100,7 +103,6 @@ export default {
         if (!studies) studies = []
         studies.push(this.studyParticipation)
         await DB.setStudiesParticipation(studies)
-        this.$router.push({ name: 'studies' })
       } catch (error) {
         console.error('Cannot join study', error)
         this.$q.notify({
@@ -109,7 +111,7 @@ export default {
           icon: 'report_problem'
         })
       }
-      this.$router.push({ name: 'accepted' })
+      this.$router.replace({ name: 'accepted' })
     },
     async deny () {
       this.$q.dialog({
@@ -132,7 +134,7 @@ export default {
           studies.push(this.studyParticipation)
           await DB.setStudiesParticipation(studies)
 
-          this.$router.push({ name: 'studies' })
+          this.$router.replace({ name: 'studies' })
         } catch (error) {
           console.error('Cannot connect to server', error)
           this.$q.notify({

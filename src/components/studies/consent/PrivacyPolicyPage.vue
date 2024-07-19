@@ -34,14 +34,14 @@ export default {
   created () {
     const sd = session.getStudyDescription()
     if (!sd) {
-      this.$router.push({ name: 'tasker' })
+      this.$router.go(-1)
     } else {
       this.studyDescription = sd
     }
   },
   methods: {
     accept () {
-      this.$router.push({ name: 'consentItems' })
+      this.$router.replace({ name: 'consentItems' })
     },
     async deny () {
       this.$q.dialog({
@@ -66,7 +66,7 @@ export default {
           studies.push(studyParticipation)
           await DB.setStudiesParticipation(studies)
 
-          this.$router.push({ name: 'studies' })
+          this.$router.replace({ name: 'studies' })
         } catch (error) {
           console.error('Cannot connect to server', error)
           this.$q.notify({

@@ -70,7 +70,7 @@ export default {
   async created () {
     const sd = session.getStudyDescription()
     if (!sd) {
-      this.$router.push({ name: 'tasker' })
+      this.$router.go(-1)
     } else {
       this.studyDescription = sd
     }
@@ -78,7 +78,7 @@ export default {
   methods: {
     next () {
       session.removeStudyDescription()
-      this.$router.push({ name: 'tasker' })
+      this.$router.go(-1)
     }
   }
 }
