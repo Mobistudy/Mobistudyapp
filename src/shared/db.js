@@ -39,51 +39,15 @@ export default {
     return storage.removeItem('session')
   },
 
+  /* PARTICIPANT PROFILE */
+  async setParticipantProfile (profile) {
+    return storage.setItem('profile', profile)
+  },
+  async getParticipantProfile () {
+    return storage.getItem('profile')
+  },
+
   /* STUDY MANAGEMENT */
-  async getStudiesParticipation () {
-    return storage.getItem('studiesParticipation')
-  },
-  async getStudyParticipation (studyKey) {
-    const studies = await storage.getItem('studiesParticipation')
-    return studies.find(sp => sp.studyKey === studyKey)
-  },
-  async getStudyParticipationTaskItemConsent (studyKey, taskId) {
-    if (!studyKey) throw new Error('studyKey must be specified')
-    if (!taskId) throw new Error('taskId must be specified')
-    const studyParticipation = await this.getStudyParticipation(studyKey)
-    return studyParticipation.taskItemsConsent.find(x => x.taskId === Number(taskId))
-  },
-  async setStudyParticipation (studyPart) {
-    const studies = await storage.getItem('studiesParticipation')
-    const studyIndex = studies.findIndex(sp => sp.studyKey === studyPart.studyKey)
-    studies[studyIndex] = studyPart
-    return storage.setItem('studiesParticipation', studies)
-  },
-  async setStudiesParticipation (studies) {
-    return storage.setItem('studiesParticipation', studies)
-  },
-  async setStudyParticipationTaskItemConsent (studyKey, taskId, task) {
-    if (!studyKey) throw new Error('studyKey must be specified')
-    if (!taskId) throw new Error('taskId must be specified')
-    if (!task) throw new Error('task must be specified')
-    const studies = await storage.getItem('studiesParticipation')
-    const sudyInd = studies.findIndex(x => x.studyKey === studyKey)
-    if (!studies[sudyInd].taskItemsConsent) studies[sudyInd].taskItemsConsent = []
-    let taksstatusInd = studies[sudyInd].taskItemsConsent.findIndex(x => x.taskId === taskId)
-    if (taksstatusInd < 0) {
-      // this case shouldn't happen really
-      studies[sudyInd].taskItemsConsent.push(task)
-      taksstatusInd = 0
-    } else {
-      studies[sudyInd].taskItemsConsent[taksstatusInd] = task
-    }
-    return this.setStudiesParticipation(studies)
-  },
-  async setTaskCompletion (studyKey, taskId, timestamp) {
-    const task = await this.getStudyParticipationTaskItemConsent(studyKey, taskId)
-    task.lastExecuted = timestamp
-    return this.setStudyParticipationTaskItemConsent(studyKey, taskId, task)
-  },
   /* Study descriptions */
   async getStudyDescription (studyKey) {
     return storage.getItem('study_' + studyKey)
@@ -99,6 +63,46 @@ export default {
     const studyDes = await this.getStudyDescription(studyKey)
     if (!studyDes) throw new Error('study with key ' + studyKey + ' does not exist')
     return studyDes.tasks.find(x => x.id === Number(taskId))
+  },
+
+  /* Participation */
+  async getStudyParticipation (studyKey) {
+    const profile = await this.getParticipantProfile('profile')
+    return profile.studies.find(sp => sp.studyKey === studyKey)
+  },
+  async getStudyParticipationTaskItemConsent (studyKey, taskId) {
+    if (!studyKey) throw new Error('studyKey must be specified')
+    if (!taskId) throw new Error('taskId must be specified')
+    const studyParticipation = await this.getStudyParticipation(studyKey)
+    return studyParticipation.taskItemsConsent.find(x => x.taskId === Number(taskId))
+  },
+  async setStudyParticipation (studyPart) {
+    const profile = await this.getParticipantProfile('profile')
+    const studyIndex = profile.studies.findIndex(sp => sp.studyKey === studyPart.studyKey)
+    profile.studies[studyIndex] = studyPart
+    return this.setParticipantProfile(profile)
+  },
+  async setStudyParticipationTaskItemConsent (studyKey, taskId, task) {
+    if (!studyKey) throw new Error('studyKey must be specified')
+    if (!taskId) throw new Error('taskId must be specified')
+    if (!task) throw new Error('task must be specified')
+    const profile = await this.getParticipantProfile('profile')
+    const sudyInd = profile.studies.findIndex(x => x.studyKey === studyKey)
+    if (!profile.studies[sudyInd].taskItemsConsent) profile.studies[sudyInd].taskItemsConsent = []
+    let taksstatusInd = profile.studies[sudyInd].taskItemsConsent.findIndex(x => x.taskId === taskId)
+    if (taksstatusInd < 0) {
+      // this case shouldn't happen really
+      profile.studies[sudyInd].taskItemsConsent.push(task)
+      taksstatusInd = 0
+    } else {
+      profile.studies[sudyInd].taskItemsConsent[taksstatusInd] = task
+    }
+    return this.setParticipantProfile(profile)
+  },
+  async setTaskCompletion (studyKey, taskId, timestamp) {
+    const task = await this.getStudyParticipationTaskItemConsent(studyKey, taskId)
+    task.lastExecuted = timestamp
+    return this.setStudyParticipationTaskItemConsent(studyKey, taskId, task)
   },
 
   /* FORMS */

@@ -218,16 +218,14 @@ export default {
         // the first time we show this component, tasks are re-scheduled
         await scheduler.cancelNotifications()
         try {
-          // let's retrieve the studies from the API, just in case
+          // let's retrieve the profile from API
           const profile = await API.getProfile(userSession.user.userKey)
+          await DB.setParticipantProfile(profile)
           if (!profile.studies || profile.studies.length === 0) {
-            await DB.setStudiesParticipation([])
             // this user has no studies !
             this.$q.loading.hide()
             this.nostudies = true
             return
-          } else {
-            await DB.setStudiesParticipation(profile.studies)
           }
         } catch (error) {
           console.error('Cannot get participant profile, but thats OK', error)
