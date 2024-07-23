@@ -511,7 +511,11 @@ export default {
       }
     },
 
-    async saveAndLeave () {
+    async send () {
+      this.sending = true
+
+      this.report.discarded = false
+
       this.report.summary.completedTS = new Date()
       this.report.summary.asked = this.asked
       this.report.summary.answered = this.answered
@@ -524,6 +528,8 @@ export default {
           this.report.taskId,
           new Date()
         )
+        this.sending = false
+
         this.$router.go(-1)
       } catch (error) {
         this.sending = false
@@ -535,22 +541,8 @@ export default {
         })
       }
     },
-    async send () {
-      this.sending = true
-
-      this.report.discarded = false
-
-      return this.saveAndLeave()
-    },
     async discard () {
-      this.sending = true
-
-      // delete data and set flag
-      this.report.discarded = true
-      delete this.report.summary
-      delete this.report.data
-
-      return this.saveAndLeave()
+      this.$router.go(-1)
     }
   }
 }
