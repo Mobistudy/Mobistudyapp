@@ -13,17 +13,17 @@ export default {
   introductionSlides: [
     {
       title: 'Introducción',
-      img: 'instructions/miband3_1.png',
+      img: 'tasks/miband3/miband3_1.png',
       description: 'En esta tarea, se conectará al monitor de actividad y descargará los datos de tu actividad, incluidos los pasos, la frecuencia cardíaca, la actividad y el sueño'
     },
     {
       title: 'Configuración',
-      img: 'instructions/miband3_2.png',
+      img: 'tasks/miband3/miband3_2.png',
       description: 'Para que el teléfono se conecte al monitor de actividad, asegúrate de que el Bluetooth está activado en el teléfono, que el monitor de actividad esté cargado y cerca del teléfono'
     },
     {
       title: '¡Importante!',
-      img: 'instructions/miband3_tap.png',
+      img: 'tasks/miband3/miband3_tap.png',
       description: 'Si es la primera vez que se conecta al monitor de actividad, ésta le pedirá que confirme la conexión con el teléfono tocándolo. Por favor, toca el monitor de actividad cuando sienta la vibración en la muñeca'
     }
   ],
