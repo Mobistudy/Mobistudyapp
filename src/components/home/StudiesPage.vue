@@ -124,7 +124,6 @@ export default {
           }
         }
       }
-
     } catch (error) {
       console.error('Cannot connect to server', error)
       this.$q.notify({

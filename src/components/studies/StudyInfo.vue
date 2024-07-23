@@ -97,6 +97,11 @@ export default {
   i18n: {
     messages: mergeDeep(i18nCommon, i18nStudies)
   },
-  props: ['studyDescription']
+  props: {
+    studyDescription: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>

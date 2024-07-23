@@ -63,16 +63,32 @@ export default {
   data () {
     return {
       studyParticipation: {},
+      studyDescription: {
+        generalities: {
+          title: {
+            en: '',
+            es: '',
+            sv: ''
+          },
+          longDescription: {
+            en: '',
+            es: '',
+            sv: ''
+          },
+          principalInvestigators: [],
+          institutions: []
+        }
+      },
       tab: 'info'
     }
   },
-  async created () {
+  async beforeCreate () {
     this.studyDescription = await DB.getStudyDescription(this.studyKey)
     this.studyParticipation = await DB.getStudyParticipation(this.studyDescription._key)
   },
   computed: {
     canUpdate () {
-      if (this.studyDescription.consent.extraItems && this.studyDescription.consent.extraItems.length) {
+      if (this.studyDescription && this.studyDescription.consent.extraItems && this.studyDescription.consent.extraItems.length) {
         for (let i = 0; i < this.studyDescription.consent.extraItems.length; i++) {
           if (!this.studyDescription.consent.extraItems[i].optional) {
             if (!this.studyParticipation.extraItemsConsent.consented) return false
