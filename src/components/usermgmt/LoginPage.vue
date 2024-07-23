@@ -158,6 +158,8 @@ export default {
         try {
           // retrieve the profile information
           const profile = await API.getProfile(userSession.user.userKey)
+          await DB.setParticipantProfile(profile)
+
           if (profile.language) {
             this.$root.$i18n.locale = profile.language
             // set language and participant Key also in session
@@ -167,7 +169,6 @@ export default {
             await DB.setUserSession(userSession)
           }
 
-          if (profile.studies) await DB.setStudiesParticipation(profile.studies)
           console.log('--- >logged in, studies set, going to tasker')
 
           this.$router.replace({ name: 'tasker' })
