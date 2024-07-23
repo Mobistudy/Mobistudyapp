@@ -1,4 +1,6 @@
 import { i18n } from '../boot/i18n.js'
+import i18nStudies from '@i18n/studies'
+
 import { RRule } from 'rrule'
 import notifications from '@shared/notifications'
 import { Platform } from 'quasar'
@@ -393,13 +395,14 @@ export async function scheduleNotificationsSingleStudy (studyDescr, studyPart) {
       id += task.id // tasks will rarely be more than 2 decimals
       id += scheduleI // this is capped anyway
 
+      const lang = i18n.global.locale
       // avoid pushing notifications exaclty at the same second
       if (timeStack.indexOf(taskTime.getTime()) === -1) {
         timeStack.push(taskTime.getTime())
         notificationStack.push({
           id: parseInt(id),
-          title: i18n.global.t('studies.scheduling.due'),
-          text: i18n.global.t('studies.scheduling.start'),
+          title: i18nStudies[lang].studies.scheduling.due,
+          text: i18nStudies[lang].studies.scheduling.start,
           foreground: true,
           trigger: { at: taskTime }
         })

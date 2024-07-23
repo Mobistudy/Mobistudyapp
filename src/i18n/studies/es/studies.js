@@ -35,6 +35,11 @@ const studies = {
       start: 'Seleccione aquí para comenzar la tarea'
     },
     tasks: {
+      OSpermission: 'Esta tarea requiere que la app acceda a algunas funcionalidades en el teléfono',
+      giveOSPermission: 'Dar permisos',
+      OSPermissionGivenSeeking: 'Obteniendo el permiso',
+      OSPermissionGiven: 'Permiso otorgado',
+      OSPermissionNotGiven: 'No se pudo obtener el permiso',
       cancelTask: 'Esto terminará la tarea actual y será redirigido a la página de inicio. No se guardarán datos. ¿Realmente quieres salir?',
       noPendingTasks: 'No hay tareas pendientes',
       cancelTaskLabel: 'Cancelar',
@@ -54,11 +59,6 @@ const studies = {
     },
     consent: {
       itemsExplanation: 'Puedes optar por aceptar o rechazar estas condiciones cuando lo desee',
-      OSpermission: 'Esta tarea requiere que la app acceda a algunas funcionalidades en el teléfono',
-      giveOSPermission: 'Dar permiso a esta app',
-      OSPermissionGivenSeeking: 'Obteniendo el permiso',
-      OSPermissionGiven: 'Permiso otorgado',
-      OSPermissionNotGiven: 'No se pudo obtener el permiso',
       remindersConsent: 'Quiero recibir recordatorios sobre las tareas de este estudio',
       giveRemindersOSPermission: 'Permitir recordatorios',
       informedConsent: 'Consentimiento informado',

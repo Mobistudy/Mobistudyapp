@@ -2,12 +2,17 @@
   <q-layout view="lHh Lpr lFf">
     <q-header reveal elevated class="bg-primary text-white">
       <q-toolbar>
+        <q-btn flat dense @click="confirm = true" aria-label="Back">
+          <q-icon name="arrow_back" />
+        </q-btn>
+
         <q-avatar>
           <q-icon color="white" :name="this.icon" />
         </q-avatar>
         <q-toolbar-title>{{ this.title }}</q-toolbar-title>
-        <q-btn flat dense @click="confirm = true" icon-right="clear" />
+        <!-- <q-btn flat dense @click="confirm = true" icon-right="clear" /> -->
       </q-toolbar>
+
     </q-header>
     <q-page-container>
       <q-dialog v-model="confirm" persistent>

@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     start () {
-      this.$router.replace({ name: 'miband3Permissions', params: { studyKey: this.studyKey, taskId: this.taskId, taskType: 'miband3', nextRoute: 'miband3Connect' } })
+      this.$router.replace({ name: 'miband3Permissions', params: { studyKey: this.studyKey, taskId: this.taskId } })
     }
   }
 }

@@ -35,6 +35,11 @@ const studies = {
       start: 'Tryck här för att starta uppgiften'
     },
     tasks: {
+      OSpermission: 'Den här tillåtelsen kräver att appen har tillgång till några av din telefons funktionaliteter.',
+      giveOSPermission: 'Ge tillåtelse',
+      OSPermissionGivenSeeking: 'Få Tillåtelse',
+      OSPermissionGiven: 'Tillåtelse given',
+      OSPermissionNotGiven: 'Kan inte få tillåtelse',
       cancelTask: 'Det här kommer att avsluta nuvarande uppgift och du kommer bli omdirigerad till startsidan. Ingen data kommer bli sparad. Är du säker på att du vill avsluta?',
       noPendingTasks: 'Ingen uppgift pågående',
       cancelTaskLabel: 'Avbryt',
@@ -54,11 +59,6 @@ const studies = {
     },
     consent: {
       itemsExplanation: 'Du kan samtycka till dessa villkor när du än vill',
-      OSpermission: 'Den här tillåtelsen kräver att appen har tillgång till några av din telefons funktionaliteter.',
-      giveOSPermission: 'Ge tillåtelse till den gär appen',
-      OSPermissionGivenSeeking: 'Få Tillåtelse',
-      OSPermissionGiven: 'Tillåtelse given',
-      OSPermissionNotGiven: 'Kan inte få tillåtelse',
       remindersConsent: 'Jag vill få påminnelser om den här studiens uppgifter.',
       giveRemindersOSPermission: 'Tillåt påminnelser',
       informedConsent: 'Informerat samtyckte',

@@ -26,12 +26,6 @@
       <div v-show="isFirstSlide()" style="width: 100px;" />
       <q-btn class="mobibtn" icon-right="chevron_right" color="primary" :label="$t('common.next')" @click="next()" />
     </div>
-
-    <!-- <slot name="finishButton">
-      <div style="height: 10vh;" class="fixed-bottom text-center q-pa-md">
-        <q-btn color="primary" class="full-width mobibtn" @click="$emit('start')" replace :label="$t('common.start')" />
-      </div>
-    </slot> -->
   </div>
 </template>
 
@@ -65,7 +59,7 @@ export default {
     },
     next () {
       let crtIdx = this.slideName2Index(this.slide)
-      if (crtIdx >= this.introductionSlides.length) {
+      if (crtIdx === this.introductionSlides.length - 1) {
         this.$emit('start')
       } else {
         crtIdx++

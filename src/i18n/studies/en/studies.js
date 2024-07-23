@@ -35,6 +35,11 @@ const studies = {
       start: 'Tap here to start the task'
     },
     tasks: {
+      OSpermission: 'This item requires the app to access some functionalities on the phone.',
+      giveOSPermission: 'Give permissions',
+      OSPermissionGivenSeeking: 'Seeking permission',
+      OSPermissionGiven: 'Permission given',
+      OSPermissionNotGiven: 'Could not get permission',
       cancelTask: 'This will terminate the current task and you will be redirected to the start page. No data will be saved. Do you really want to quit?',
       noPendingTasks: 'No tasks pending',
       cancelTaskLabel: 'Cancel',
@@ -54,11 +59,6 @@ const studies = {
     },
     consent: {
       itemsExplanation: 'You can opt-in or opt-out of these items whenever you want',
-      OSpermission: 'This item requires the app to access some functionalities on the phone.',
-      giveOSPermission: 'Give permission to this app',
-      OSPermissionGivenSeeking: 'Seeking permission',
-      OSPermissionGiven: 'Permission given',
-      OSPermissionNotGiven: 'Could not get permission',
       remindersConsent: 'I want to receive reminders about the tasks of this study',
       giveRemindersOSPermission: 'Allow reminders',
       informedConsent: 'Informed consent',

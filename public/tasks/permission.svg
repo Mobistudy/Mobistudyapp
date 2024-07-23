@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Lager_1" viewBox="51.52 137.34 259.29 312.69">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-2,
+      .cls-3,
+      .cls-4,
+      .cls-5,
+      .cls-6 {
+        stroke: #191919;
+      }
+
+      .cls-2,
+      .cls-3,
+      .cls-5,
+      .cls-6 {
+        stroke-width: 2.5px;
+      }
+
+      .cls-2,
+      .cls-4 {
+        stroke-linejoin: round;
+      }
+
+      .cls-2,
+      .cls-4,
+      .cls-5,
+      .cls-6 {
+        stroke-linecap: round;
+      }
+
+      .cls-2,
+      .cls-4,
+      .cls-6 {
+        fill: none;
+      }
+
+      .cls-3,
+      .cls-7,
+      .cls-8,
+      .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-3,
+      .cls-5,
+      .cls-6 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-9,
+      .cls-8 {
+        stroke-width: 0px;
+      }
+
+      .cls-9,
+      .cls-10 {
+        fill: #71bbce;
+      }
+
+      .cls-11 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-7 {
+        font-size: 10px;
+      }
+
+      .cls-7,
+      .cls-10 {
+        font-family: CirceRounded-Bold, 'Circe Rounded';
+        font-weight: 700;
+      }
+
+      .cls-12 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-10 {
+        font-size: 8px;
+      }
+
+      .cls-13 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-14 {
+        letter-spacing: 0em;
+      }
+
+      .cls-4 {
+        stroke-width: 5.66px;
+      }
+
+      .cls-15 {
+        letter-spacing: 0em;
+      }
+
+      .cls-16 {
+        letter-spacing: 0em;
+      }
+
+      .cls-17 {
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <path class="cls-2" d="M52.77,357.17v-199.93c0-10.3,8.35-18.65,18.65-18.65h124.37c10.3,0,18.65,8.35,18.65,18.65v199.93"></path>
+  <rect class="cls-4" x="108.26" y="140.86" width="52.39" height="5.38"></rect>
+  <path class="cls-6" d="M62.14,357.17v-170.18c0-1.89,1.55-3.44,3.44-3.44h135.49c1.89,0,3.44,1.55,3.44,3.44v170.18"></path>
+  <path class="cls-5" d="M288.89,335.46s-29.3-15.61-35.52-13.23c-6.22,2.38-9.27,9.84-9.27,9.84"></path>
+  <path class="cls-5" d="M309.56,326.84s-31.22-16.97-38.34-15.95-10.62,11.35-10.62,11.35"></path>
+  <rect class="cls-9" x="73.36" y="243.16" width="119.93" height="63.63" rx="6.69" ry="6.69"></rect>
+  <text class="cls-7" transform="translate(86.3 259.85)" id="permtext">
+    <tspan x="0" y="0">Mobistudy </tspan>
+    <tspan class="cls-16" x="48.77" y="0">w</tspan>
+    <tspan class="cls-17" x="55.81" y="0">ould li</tspan>
+    <tspan class="cls-13" x="83.23" y="0">k</tspan>
+    <tspan x="88.03" y="0">e</tspan>
+    <tspan class="cls-11" x="0" y="12">to</tspan>
+    <tspan x="3.36" y="12">o a</tspan>
+    <tspan class="cls-12" x="15.73" y="12">ccess</tspan>
+    <tspan x="37" y="12" id="permissionDevice">the camera</tspan>
+  </text>
+  <rect class="cls-8" x="82.61" y="283.61" width="46.53" height="15.89" rx="7.94" ry="7.94"></rect>
+  <rect class="cls-8" x="137.09" y="283.61" width="46.53" height="15.89" rx="7.94" ry="7.94"></rect>
+  <text class="cls-10" transform="translate(86.27 293.84)">
+    <tspan class="cls-1" x="0" y="0">D</tspan>
+    <tspan x="5.82" y="0">on’t all</tspan>
+    <tspan class="cls-15" x="29.57" y="0">o</tspan>
+    <tspan class="cls-14" x="33.99" y="0">w</tspan>
+  </text>
+  <text class="cls-10" transform="translate(154.13 293.93)">
+    <tspan x="0" y="0">OK</tspan>
+  </text>
+  <path class="cls-3" d="M257.71,343.06s-73.77-45.04-77.93-49.02c-4.43-4.23-12.71,5.04-5.14,20.96,7.6,15.98,35.8,30.18,39.46,32.48,3.66,2.29,12.74,8.74,12.74,8.74l20.62,26.87,27.34,24.23-3.7,2.47-16.77-3.37s-46-11.33-61.25-4.81c-13.59,5.81-13.68,15.06-12.44,16.26,3.82,3.72,40.94,11.42,40.94,11.42,0,0,31.02,11.84,37.68,14.06,6.66,2.22,19.01,5.43,19.01,5.43"></path>
+  <path class="cls-9" d="M174.71,301.89c1.24,3.01,5.86,6.54,9.07,6.74,3.21.2,5.75-7,5.75-7,0,0-9.42-6.92-11.95-7.68-3.44-1.04-3.79,5.71-2.87,7.94Z"></path>
+  <path class="cls-9" d="M188.1,409.02c3.85-1.43,11.09-.2,14.03,2.6,2.94,2.8-1.54,11.33-1.54,11.33,0,0-14.5-2.77-17.37-4.46-3.91-2.3,2.02-8.41,4.88-9.48Z"></path>
+</svg>
