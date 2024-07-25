@@ -123,7 +123,7 @@ export default {
     if (STOREDDATA_FAIL) return Promise.reject()
     return new Promise((resolve, reject) => {
       let amountPackages = 0
-      let interval = setInterval(() => {
+      const interval = setInterval(() => {
         if (NO_DATA_FAIL) {
           clearInterval(interval)
           resolve()
@@ -131,7 +131,7 @@ export default {
         }
         for (let i = 0; i < 10; i++) {
           ++amountPackages
-          let ran = this.randomNum(3)
+          const ran = this.randomNum(3)
           let activity = 0
           if (ran === 1) activity = 98 // sedentary
           else if (ran === 2) activity = 92 // sedentary

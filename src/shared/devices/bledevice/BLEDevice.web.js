@@ -3,6 +3,7 @@
  * Uses the WEB BLE API.
  */
 export default class BLEDevice {
+  // eslint-disable-next-line space-before-function-paren
   constructor() {
     this.device = null
     this.server = null

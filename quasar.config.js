@@ -80,17 +80,30 @@ module.exports = configure(function (ctx) {
 
       extendWebpack (cfg) {
         if (config.API_ENDPOINT.toLowerCase() === 'mock') cfg.resolve.alias['@shared/API'] = path.resolve(__dirname, './src/shared/API/API.mock')
+
         if (config.HEALTHSTORE.toLowerCase() === 'mock') cfg.resolve.alias['@shared/healthstore'] = path.resolve(__dirname, './src/shared/healthstore.mock')
+
         if (config.NOTIFICATIONS.toLowerCase() === 'web') cfg.resolve.alias['@shared/notifications'] = path.resolve(__dirname, './src/shared/notifications/notifications.web')
         if (config.NOTIFICATIONS.toLowerCase() === 'mock') cfg.resolve.alias['@shared/notifications'] = path.resolve(__dirname, './src/shared/notifications/notifications.mock')
+
         if (config.PHONE.toLowerCase() === 'mock') cfg.resolve.alias['@shared/phone/phone'] = path.resolve(__dirname, './src/shared/phone/phone.mock')
-        if (config.MIBAND3.toLowerCase() === 'mock') cfg.resolve.alias['@shared/miband3/miband3'] = path.resolve(__dirname, './src/shared/miband3/miband3.mock')
-        if (config.PO60.toLowerCase() === 'mock') cfg.resolve.alias['@shared/po60/IPulseOxDevice'] = path.resolve(__dirname, './src/shared/po60/IPulseOxDevice.mock')
+
+        if (config.BLE.toLowerCase() === 'mock') {
+          cfg.resolve.alias['@shared/devices/bledevice'] = path.resolve(__dirname, './src/shared/devices/bledevice/BLEDevice.mock')
+          // all BLE devices are mocked
+          cfg.resolve.alias['@shared/devices/miband3'] = path.resolve(__dirname, './src/shared/devices/miband3/miband3.mock')
+          cfg.resolve.alias['@shared/devices/po60/IPulseOxDevice'] = path.resolve(__dirname, './src/shared/devices/po60/IPulseOxDevice.mock')
+        }
+        if (config.BLE.toLowerCase() === 'web') cfg.resolve.alias['@shared/devices/bledevice'] = path.resolve(__dirname, './src/shared/devices/bledevice/BLEDevice.web')
+
         if (config.PEAKFLOW.toLowerCase() === 'mock') cfg.resolve.alias['@shared/peakflow/peakflow'] = path.resolve(__dirname, './src/shared/peakflow/peakflow.mock')
+
         if (config.STORAGE.toLowerCase() === 'local') cfg.resolve.alias['@shared/storage/storage'] = path.resolve(__dirname, './src/shared/storage/storage.local')
         if (config.STORAGE.toLowerCase() === 'mock') cfg.resolve.alias['@shared/storage/storage'] = path.resolve(__dirname, './src/shared/storage/storage.mock')
         if (config.STORAGE.toLowerCase() === 'encrypted') cfg.resolve.alias['@shared/storage/storage'] = path.resolve(__dirname, './src/shared/storage/storage.encrypted')
+
         if (config.FILES.toLowerCase() === 'mock') cfg.resolve.alias['@shared/files/files'] = path.resolve(__dirname, './src/shared/files/files.mock')
+
         cfg.resolve.alias = {
           ...cfg.resolve.alias,
           '@components': path.resolve(__dirname, './src/components'),
