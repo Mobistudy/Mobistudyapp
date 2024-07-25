@@ -91,6 +91,7 @@ module.exports = configure(function (ctx) {
         if (config.BLE.toLowerCase() === 'mock') {
           cfg.resolve.alias['@shared/devices/bledevice'] = path.resolve(__dirname, './src/shared/devices/bledevice/BLEDevice.mock')
           // all BLE devices are mocked
+          cfg.resolve.alias['@shared/devices/miband3/miband3ActivityTypeEnum.js'] = path.resolve(__dirname, './src/shared/devices/miband3/miband3ActivityTypeEnum.js')
           cfg.resolve.alias['@shared/devices/miband3'] = path.resolve(__dirname, './src/shared/devices/miband3/miband3.mock')
           cfg.resolve.alias['@shared/devices/po60/IPulseOxDevice'] = path.resolve(__dirname, './src/shared/devices/po60/IPulseOxDevice.mock')
         }

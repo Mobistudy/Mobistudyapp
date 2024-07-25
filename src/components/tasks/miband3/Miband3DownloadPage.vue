@@ -36,15 +36,21 @@
 </template>
 
 <script>
-/* eslint-disable no-new */
-import miband3 from '@shared/miband3'
-import Chart from 'chart.js'
-import { getStringIdentifier } from '@shared/miband3/miband3ActivityTypeEnum.js'
+import i18nCommon from '@i18n/common'
+import i18nMiband3 from '@i18n/tasks/miband3'
+import { mergeDeep } from '@shared/tools'
+
+import miband3 from '@shared/devices/miband3'
+import Chart from 'chart.js/auto'
+import 'chartjs-adapter-luxon'
+
+import { getStringIdentifier } from '@shared/devices/miband3/miband3ActivityTypeEnum.js'
 import db from '@shared/db'
 import session from '@shared/session'
-import API from '@shared/API/API'
-import moment from 'moment'
+import API from '@shared/API'
 import phone from '@shared/phone'
+
+import { DateTime } from 'luxon'
 
 // a bunch of colors that nicely fit together on a multi-line or bar chart
 // if there are more than 10 colors, we are in trouble
@@ -93,7 +99,7 @@ const pieChartConfig = {
 }
 
 // holder of the line chart data
-const lineChart = {
+const lineChartData = {
   hrs: [],
   steps: [],
   intensities: [],
@@ -105,19 +111,20 @@ const lineChart = {
     this.labels = []
   }
 }
+// holder of the chart instance
+let lineChart
 
 export default {
   name: 'MiBand3DownloadPage',
-  props: {
-    studyKey: String,
-    taskId: Number
+  i18n: {
+    messages: mergeDeep(i18nCommon, i18nMiband3)
   },
+  props: ['studyKey', 'taskId'],
   data () {
     return {
       startDate: new Date(),
       deviceInfo: {},
       isDownloading: false,
-      lineChart: undefined,
       currentStartHour: 0,
       currentEndHour: 12,
       disableMinus: true,
@@ -150,7 +157,7 @@ export default {
       // reset the charts stuff in case it has been partially filled
       storedData = []
       pieChartConfig.reset()
-      lineChart.reset()
+      lineChartData.reset()
 
       this.startDate = await this.getDateToUseForDownload()
       try {
@@ -216,19 +223,19 @@ export default {
           startDate = new Date(lastExecuted)
         } else {
           // use the scheduling information
-          startDate = moment()
+          let dt = DateTime.now()
           const intervalType = taskDescription.scheduling.intervalType
           const interval = taskDescription.scheduling.interval
           if (intervalType === 'd') {
-            startDate.subtract(interval, 'days')
+            dt = dt.minus({ days: interval })
           } else if (intervalType === 'w') {
-            startDate.subtract(interval, 'weeks')
+            dt = dt.minus({ weeks: interval })
           } else if (intervalType === 'm') {
-            startDate.subtract(interval, 'months')
+            dt = dt.minus({ months: interval })
           } else if (intervalType === 'y') {
-            startDate.subtract(interval, 'years')
+            dt = dt.minus({ years: interval })
           }
-          startDate = startDate.toDate()
+          startDate = dt.toJSDate()
         }
       }
       return startDate
@@ -240,7 +247,7 @@ export default {
     * and this will be the indexes of the corresponding samples.
     */
     renderLineChart (startTime, endTime) {
-      lineChart.reset()
+      lineChartData.reset()
       const startIndexInMinutes = startTime * 60
       let endIndexInMinutes = endTime * 60 - 1
       if (endIndexInMinutes >= storedData.length) {
@@ -288,11 +295,11 @@ export default {
     addToLineChart (hr, intensity, steps, date) {
       if (hr > 30 && hr < 210) {
         // filter out unreasonable HR
-        lineChart.hrs.push({ x: date, y: hr })
+        lineChartData.hrs.push({ x: date, y: hr })
       }
-      lineChart.intensities.push({ x: date, y: intensity })
-      lineChart.steps.push({ x: date, y: steps })
-      lineChart.labels.push(date)
+      lineChartData.intensities.push({ x: date, y: intensity })
+      lineChartData.steps.push({ x: date, y: steps })
+      lineChartData.labels.push(date)
     },
 
     createPieChart () {
@@ -314,27 +321,30 @@ export default {
       }
       // create the chart
       const pieCtx = this.$refs.pieChart
+      // eslint-disable-next-line no-new
       new Chart(pieCtx, pieChartConfig)
     },
 
     updateLineChartReferences () {
-      this.lineChart.data.datasets[0].data = lineChart.hrs
-      this.lineChart.data.datasets[1].data = lineChart.intensities
-      this.lineChart.data.datasets[2].data = lineChart.steps
-      this.lineChart.data.labels = lineChart.labels
-      this.lineChart.update()
+      lineChart.data.datasets[0].data = lineChartData.hrs
+      lineChart.data.datasets[1].data = lineChartData.intensities
+      lineChart.data.datasets[2].data = lineChartData.steps
+      lineChart.data.labels = lineChartData.labels
+      lineChart.update()
     },
 
     createActivityLineChart () {
+      // console.log(lineChartData)
+
       const lineCtx = this.$refs.lineChart
-      this.lineChart = new Chart.Scatter(lineCtx, {
+      lineChart = new Chart(lineCtx, {
         type: 'scatter',
         data: {
-          labels: lineChart.labels,
+          labels: lineChartData.labels,
           datasets: [
             {
               label: this.$t('tasks.miband3.hrs'),
-              data: lineChart.hrs,
+              data: lineChartData.hrs,
               backgroundColor: '#C74038',
               borderColor: '#C74038',
               borderWidth: 0,
@@ -344,7 +354,7 @@ export default {
             },
             {
               label: this.$t('tasks.miband3.intensities'),
-              data: lineChart.intensities,
+              data: lineChartData.intensities,
               backgroundColor: '#4038C7',
               borderColor: '#4038C7',
               borderWidth: 0,
@@ -354,7 +364,7 @@ export default {
             },
             {
               label: this.$t('tasks.miband3.steps'),
-              data: lineChart.steps,
+              data: lineChartData.steps,
               backgroundColor: '#38C740',
               borderColor: '#38C740',
               borderWidth: 0,
@@ -370,28 +380,27 @@ export default {
             display: false
           },
           scales: {
-            xAxes: [{
+            x: {
               type: 'time',
               time: {
-                displayFormats: {
-                  quarter: 'HH:MM:SS'
-                }
+                // Luxon format string
+                tooltipFormat: 'HH:mm:ss'
               },
-              scaleLabel: {
+              title: {
                 display: true,
-                lineChartLabelstring: 'Date'
+                text: 'Time'
               }
-            }],
-            yAxes: [{
-              scaleLabel: {
+            },
+            y: {
+              title: {
                 display: true,
-                lineChartLabelstring: 'value'
+                text: 'value'
               }
-            }]
+            }
           }
         }
       })
-      this.lineChart.update()
+      lineChart.update()
     },
     lineChartAdd (amount) {
       this.currentStartHour += amount
@@ -411,8 +420,9 @@ export default {
         this.disablePlus = false
       }
     },
+    async send () {
+      this.sending = true
 
-    async saveAndLeave () {
       try {
         await API.sendTasksResults(this.report)
         await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
@@ -436,21 +446,8 @@ export default {
       }
       console.log(this.report)
     },
-    async send () {
-      this.sending = true
-      this.report.discarded = false
-
-      return this.saveAndLeave()
-    },
     async discard () {
-      this.sending = true
-
-      // delete data and set flag
-      this.report.discarded = true
-      delete this.report.summary
-      delete this.report.data
-
-      return this.saveAndLeave()
+      this.$router.go(-1)
     }
   },
   async mounted () {

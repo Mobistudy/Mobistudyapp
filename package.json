@@ -18,7 +18,10 @@
   "dependencies": {
     "@quasar/extras": "^1.16.4",
     "axios": "^1.2.1",
+    "chart.js": "^4.4.3",
+    "chartjs-adapter-luxon": "^1.3.1",
     "core-js": "^3.31.1",
+    "luxon": "^3.4.4",
     "owasp-password-strength-test": "^1.3.0",
     "quasar": "^2.16.0",
     "rrule": "^2.8.1",

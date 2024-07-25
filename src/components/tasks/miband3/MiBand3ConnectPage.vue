@@ -11,7 +11,7 @@
       no-backdrop-dismiss>
       <q-card>
         <div class="q-pa-sm">
-          <q-img src="instructions/miband3_tap.svg" />
+          <q-img src="tasks/miband3/miband3_tap.svg" />
         </div>
         <q-card-section>
           <div class="
@@ -38,15 +38,19 @@
 </template>
 
 <script>
-import miband3 from '@shared/miband3'
+import i18nCommon from '@i18n/common'
+import i18nMiband3 from '@i18n/tasks/miband3'
+import { mergeDeep } from '@shared/tools'
+
+import miband3 from '@shared/devices/miband3'
 import db from '@shared/db'
 
 export default {
   name: 'Miband3ConnectPage',
-  props: {
-    studyKey: String,
-    taskId: Number
+  i18n: {
+    messages: mergeDeep(i18nCommon, i18nMiband3)
   },
+  props: ['studyKey', 'taskId'],
   data () {
     return {
       devices: [],
@@ -100,7 +104,7 @@ export default {
     // connect to the selected device
     async connect (device) {
       this.showConnecting = true
-      const participant = db.getStudyParticipation()
+      const participant = db.getParticipantProfile()
 
       try {
         if (this.$q.platform.is.ios) {
@@ -113,17 +117,14 @@ export default {
         if (!device.authenticated) this.tapToAuthDialog = true
         await miband3.authenticate(device.authenticated)
         // configure the watch
-        await miband3Driver.setUser(
-          user.height,
-          user.weight,
-          DOB.getFullYear(),
-          DOB.getMonth() + 1,
-          DOB.getDate(),
-          user.sex === 'female' // false for male
-        )
 
+        // user a user configuration like { height: 180, weight: 80, dob: '1974-11-21', sex: 'male', language: 'en' }
         const user = {
-
+          height: participant.height,
+          weight: participant.weight,
+          dob: participant.dateOfBirth,
+          sex: participant.sex,
+          language: participant.language
         }
         const taskDescr = await db.getTaskDescription(this.studyKey, this.taskId)
         await miband3.configure(user, taskDescr.hrInterval) // Maybe do not always configure upon connect?
