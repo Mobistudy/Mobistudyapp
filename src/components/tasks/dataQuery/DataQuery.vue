@@ -139,7 +139,7 @@ export default {
           dataType: HealthDataEnum.toNativeType(taskDescr.dataType)
         })
       }
-      console.log('raw health data', healthData)
+      // console.log('raw health data', healthData)
 
       // now plot the data
       // NEED TO SPLIT CODE HERE DEPENDING ON DATA TYPE AND IF AGGREGATED OR NOT
@@ -268,8 +268,6 @@ export default {
           }
         }
 
-        console.log(chartData)
-        console.log(chartOptions)
         const chartCtx = this.$refs.chart
         // eslint-disable-next-line no-new
         new Chart(chartCtx, {
@@ -296,18 +294,13 @@ export default {
         chartOptions = {
           maintainAspectRatio: true,
           scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }],
-            xAxes: [{
+            y: {
+              beginAtZero: true
+            },
+            x: {
               type: 'time',
               bounds: 'data'
-              // time: {
-              //   unit: unit
-              // }
-            }]
+            }
           }
         }
 
