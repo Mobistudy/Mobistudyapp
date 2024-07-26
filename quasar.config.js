@@ -81,7 +81,7 @@ module.exports = configure(function (ctx) {
       extendWebpack (cfg) {
         if (config.API_ENDPOINT.toLowerCase() === 'mock') cfg.resolve.alias['@shared/API'] = path.resolve(__dirname, './src/shared/API/API.mock')
 
-        if (config.HEALTHSTORE.toLowerCase() === 'mock') cfg.resolve.alias['@shared/healthstore'] = path.resolve(__dirname, './src/shared/healthstore.mock')
+        if (config.HEALTHSTORE.toLowerCase() === 'mock') cfg.resolve.alias['@shared/healthstore'] = path.resolve(__dirname, './src/shared/healthstore/healthstore.mock')
 
         if (config.NOTIFICATIONS.toLowerCase() === 'web') cfg.resolve.alias['@shared/notifications'] = path.resolve(__dirname, './src/shared/notifications/notifications.web')
         if (config.NOTIFICATIONS.toLowerCase() === 'mock') cfg.resolve.alias['@shared/notifications'] = path.resolve(__dirname, './src/shared/notifications/notifications.mock')
