@@ -388,7 +388,7 @@ export default {
               },
               title: {
                 display: true,
-                text: 'Time'
+                text: 'time'
               }
             },
             y: {

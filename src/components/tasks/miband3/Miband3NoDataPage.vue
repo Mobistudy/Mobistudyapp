@@ -9,7 +9,7 @@
 import i18nMiband3 from '@i18n/tasks/miband3'
 
 export default {
-  name: 'Miband3NohataPage',
+  name: 'Miband3NoDataPage',
   i18n: {
     messages: i18nMiband3
   },

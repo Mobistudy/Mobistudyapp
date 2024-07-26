@@ -32,7 +32,7 @@ import BLEDevice from '@shared/devices/bledevice'
 //
 
 export default {
-  name: 'Miband3NohataPage',
+  name: 'Miband3PermissionsPage',
   props: ['studyKey', 'taskId'],
   i18n: {
     messages: mergeDeep(i18nCommon, i18nStudies, i18nMiband3)
@@ -62,9 +62,9 @@ export default {
 
       try {
         await BLEDevice.requestPermission()
-        this.permissionSpinner = true
+        this.permissionSpinner = false
 
-        this.$router.replace({ name: 'miband3Connect' })
+        this.$router.replace({ name: 'miband3Connect', params: { studyKey: this.studyKey, taskId: this.taskId } })
       } catch (error) {
         // we didn't get permission
         this.permissionSpinner = false
@@ -72,12 +72,10 @@ export default {
         console.error('Cannot get OS authorisation for task', error)
         this.$q.notify({
           color: 'negative',
-          message: this.$i18n.t('studies.consent.OSPermissionNotGiven') + ': ' + error,
+          message: this.$i18n.t('studies.tasks.OSPermissionNotGiven') + ': ' + error,
           icon: 'report_problem'
         })
       }
-
-      this.permissionDialog = false
     }
   }
 }
