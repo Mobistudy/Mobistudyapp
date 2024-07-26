@@ -9,22 +9,22 @@ export default {
   introductionSlidesAndroid: [
     {
       title: 'Introducción',
-      img: 'instructions/dataquery1.svg',
+      img: 'tasks/dataQuery/dataquery1.svg',
       description: 'En esta tarea, la app recuperará los datos recopilados por la app Google Fit si la tienes instalada en su teléfono'
     },
     {
-      img: 'instructions/dataquery2.svg',
+      img: 'tasks/dataQuery/dataquery2.svg',
       description: 'La app Mobistudy solo recuperará los datos solicitados para este estudio. Se mostrará un resumen de los datos en forma de gráficos. Después de revisar la información, puedes enviarla o descartarla'
     }
   ],
   introductionSlidesiOS: [
     {
       title: 'Introducción',
-      img: 'instructions/dataquery1.svg',
+      img: 'tasks/dataQuery/dataquery1.svg',
       description: 'En esta tarea, la app recuperará los datos recopilados por la app Salud.'
     },
     {
-      img: 'instructions/dataquery2.svg',
+      img: 'tasks/dataQuery/dataquery2.svg',
       description: 'La app Mobistudy solo recuperará los datos solicitados para este estudio. Se mostrará un resumen de los datos en forma de gráficos. Después de revisar la información, puedes enviarla o descartarla'
     }
   ],

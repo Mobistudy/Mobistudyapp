@@ -9,22 +9,22 @@ export default {
   introductionSlidesAndroid: [
     {
       title: 'Introduktion',
-      img: 'instructions/dataquery1.svg',
+      img: 'tasks/dataQuery/dataquery1.svg',
       description: 'I den här uppgiften kommer appen hämta data från Google Fit om du har det intallerat på din mobil.'
     },
     {
-      img: 'instructions/dataquery2.svg',
+      img: 'tasks/dataQuery/dataquery2.svg',
       description: 'Mobistudy-appen kommer endast hämta data som är efterfrågad av denna studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan du skicka informationen eller kasta bort den.'
     }
   ],
   introductionSlidesiOS: [
     {
       title: 'Introduktion',
-      img: 'instructions/dataquery1.svg',
+      img: 'tasks/dataQuery/dataquery1.svg',
       description: 'I den här uppgiften kommer appen hämta data som har samlats av Health appen.'
     },
     {
-      img: 'instructions/dataquery2.svg',
+      img: 'tasks/dataQuery/dataquery2.svg',
       description: 'Mobistudy-appen kommer endast hämta data som är efterfrågad av denna studien. En sammanfattning av datan kommer visas i form av diagram. Efter att du har granskat informationen så kan du skicka informationen eller kasta bort den.'
     }
   ],
