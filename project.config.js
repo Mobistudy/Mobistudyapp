@@ -2,11 +2,10 @@ module.exports = {
   API_ENDPOINT: 'MOCK', // 'MOCK' for mock, 'OFFICIAL' or 'http://localhost:3000/api' for local server
   HEALTHSTORE: 'MOCK',
   NOTIFICATIONS: 'MOCK',
-  STORAGE: 'MOCK',
+  STORAGE: 'local',
   FILES: 'MOCK',
   PHONE: 'MOCK',
-  MIBAND3: 'MOCK',
-  PO60: 'MOCK',
+  BLE: 'MOCK',
   PEAKFLOW: 'MOCK'
 }
 
@@ -17,7 +16,6 @@ module.exports = {
 //   STORAGE: 'encrypted',
 //   FILES: 'cordova',
 //   PHONE: 'cordova',
-//   MIBAND3: 'cordova',
-//   PO60: 'cordova',
+//   BLE: 'cordova',
 //   PEAKFLOW: 'cordova'
 // }
