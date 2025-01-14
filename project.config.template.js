@@ -1,6 +1,6 @@
 // USE THESE TO TWEAK THE COMPILATION OPTIONS
 module.exports = {
-  // use 'MOCK' for mock api, 'OFFICIAL' for official server, anything else for testing, for example '/api' for local server
+  // use 'MOCK' for mock api, 'OFFICIAL' for official servers, anything else for testing, for example '/api' for local server
   API_ENDPOINT: 'OFFICIAL',
 
   // use 'MOCK' for mock healthstore or 'cordova' for the cordova health plugin

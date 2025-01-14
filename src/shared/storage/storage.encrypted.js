@@ -1,7 +1,5 @@
-'use strict'
-
 let storage
-let namespace = 'DB_VERSION_1.0'
+const namespace = 'DB_VERSION_1.0'
 
 export async function init () {
   return new Promise((resolve, reject) => {

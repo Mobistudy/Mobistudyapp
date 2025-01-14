@@ -1,12 +1,12 @@
 /**
  * this module mocks the cordova plugins of phone.js
  * */
-import { audioRecorderMock } from './audiorecorder.js'
+import { audioRecorderMock } from './audiorecorder'
 import { geolocationMock } from './geolocation'
-import { motionMock } from './motion.js'
+import { motionMock } from './motion'
 import { pedometerMock } from './pedometer'
-import { screenMock } from './screen.js'
-import { orientationMock } from './orientation.js'
+import { screenMock } from './screen'
+import { orientationMock } from './orientation'
 
 const PIN_SET = true
 

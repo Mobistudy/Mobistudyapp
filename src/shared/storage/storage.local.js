@@ -1,4 +1,3 @@
-'use strict'
 const storage = window.localStorage
 
 // use these flags for testing:

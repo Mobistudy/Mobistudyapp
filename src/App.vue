@@ -35,7 +35,7 @@ import i18nCommon from '@i18n/common'
 
 import { defineComponent } from 'vue'
 import session from '@shared/session'
-import phone from '@shared/phone/phone'
+import phone from '@shared/phone'
 import DB from '@shared/db'
 import API from '@shared/API'
 

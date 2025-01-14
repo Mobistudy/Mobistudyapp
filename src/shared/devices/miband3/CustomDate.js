@@ -1,7 +1,8 @@
 // Could be implemented more simply but i wanted to try an iterator.
 
 class CustomDate {
-  constructor (date) {
+  // eslint-disable-next-line space-before-function-paren
+  constructor(date) {
     this.date = date
     this.dateFunctions = [
       this.date.getFullYear(),
@@ -21,7 +22,7 @@ class CustomDate {
 
   getDateStringPacket () {
     let dateStringPacket = ''
-    for (let dateItem of this) {
+    for (const dateItem of this) {
       dateStringPacket += this.dateTimeToHex(dateItem)
     }
     return dateStringPacket
@@ -41,7 +42,8 @@ class CustomDate {
 }
 
 class CustomDateIterator {
-  constructor (customDate) {
+  // eslint-disable-next-line space-before-function-paren
+  constructor(customDate) {
     this.customDate = customDate
     this.dateFunctions = customDate.dateFunctions
     this.startIndex = 0
@@ -49,7 +51,7 @@ class CustomDateIterator {
   }
 
   next () {
-    let length = this.dateFunctions.length
+    const length = this.dateFunctions.length
     if (this.currentIndex < length) {
       return {
         value: this.dateFunctions[this.currentIndex++],

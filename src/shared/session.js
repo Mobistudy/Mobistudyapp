@@ -73,5 +73,29 @@ export default {
    */
   removeStudyDescription () {
     return sessionStorage.removeItem('studyDecription')
+  },
+
+  /**
+   * Stores the current report
+   * this is needed during the execution of some tasks, as the router doesn't allow to pass objects
+   * @param {Object} taskReport - the current study description
+   */
+  setTaskReport (taskReport) {
+    sessionStorage.setItem('taskReport', JSON.stringify(taskReport))
+  },
+
+  /**
+   * Gets the current task report
+   * @returns {Object}
+   */
+  getTaskReport () {
+    return JSON.parse(sessionStorage.getItem('taskReport'))
+  },
+
+  /**
+   * Deletes the current user session
+   */
+  removeTaskReport () {
+    return sessionStorage.removeItem('taskReport')
   }
 }

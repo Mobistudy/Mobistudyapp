@@ -23,7 +23,7 @@ const geolocation = {
         } else {
           reject(err)
         }
-      }, { timeout: 2000 })
+      }, { timeout: 5000 })
     })
   },
   copyPosition (pos) {

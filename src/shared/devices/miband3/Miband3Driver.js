@@ -297,6 +297,7 @@ const Miband3 = {
 
   createEncryptedKey: function (encryptionValue) {
     const keyAsBuffer = Buffer.from(this.authenticationKey, 'hex')
+    // eslint-disable-next-line camelcase
     const cipher = crypto_aes
       .createCipheriv('aes-128-ecb', keyAsBuffer, '')
       .setAutoPadding(false)

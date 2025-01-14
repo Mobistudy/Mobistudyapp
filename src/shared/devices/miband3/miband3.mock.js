@@ -1,6 +1,4 @@
-'use strict'
-
-// this module emulates a Mibadn3 fitness tracker
+// this module emulates a Miband3 fitness tracker
 
 const SEARCH_FAIL = false
 const CONNECT_FAIL = false

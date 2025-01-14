@@ -7,7 +7,6 @@ The app is developed as an Apache Cordova app using the [quasar framework](https
 
 You need to install the following on your system:
 
-- python (because nodejs requires python)
 - nodejs
 - Apache Cordova
 - (optional) the [quasar command line tool](https://quasar.dev/quasar-cli/installation)
