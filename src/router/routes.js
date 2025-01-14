@@ -85,11 +85,16 @@ const routes = [
 
       { path: '/dataQueryIntro/:studyKey/:taskId', name: 'dataQueryIntro', component: () => import('@components/tasks/dataQuery/DataQueryIntroPage'), props: true },
       { path: '/dataQueryPermissions/:studyKey/:taskId', name: 'dataQueryPermissions', component: () => import('@components/tasks/dataQuery/DataQueryPermissionsPage'), props: true },
-      { path: '/dataQuery/:studyKey/:taskId', name: 'dataQuery', component: () => import('@components/tasks/dataQuery/DataQuery'), props: true }
+      { path: '/dataQuery/:studyKey/:taskId', name: 'dataQuery', component: () => import('@components/tasks/dataQuery/DataQuery'), props: true },
 
-      // { path: '/smwtIntro', name: 'smwtIntro', component: () => import('pages/tasks/smwt/SMWTIntro.vue'), props: true },
-      // { path: '/smwt', name: 'smwt', component: () => import('pages/tasks/smwt/SMWT.vue'), props: true },
-      // { path: '/smwtSummary', name: 'smwtSummary', component: () => import('pages/tasks/smwt/SMWTSummary.vue'), props: true },
+      { path: '/smwtIntro:studyKey/:taskId', name: 'smwtIntro', component: () => import('@components/tasks/smwt/SMWTIntroPage.vue'), props: true },
+      { path: '/smwtPermissions:studyKey/:taskId', name: 'smwtIntro', component: () => import('@components/tasks/smwt/SMWTPermissionsPage.vue'), props: true },
+      { path: '/smwt:studyKey/:taskId', name: 'smwt', component: () => import('@components/tasks/smwt/SMWTPage.vue'), props: true },
+      { path: '/smwtSummary', name: 'smwtSummary', component: () => import('@components/tasks/smwt/SMWTSummaryPage.vue') }
+
+      // { path: '/tugtIntro', name: 'tugtIntro', component: () => import('pages/tasks/tugt/TUGTIntro.vue'), props: true },
+      // { path: '/tugt', name: 'tugt', component: () => import('pages/tasks/tugt/TUGT.vue'), props: true },
+      // { path: '/tugtSummary', name: 'tugtSummary', component: () => import('pages/tasks/tugt/TUGTSummary.vue'), props: true },
 
       // { path: '/qcstIntro', name: 'qcstIntro', component: () => import('pages/tasks/qcst/QCSTIntro.vue'), props: true },
       // { path: '/qcst', name: 'qcst', component: () => import('pages/tasks/qcst/QCST.vue'), props: true },
@@ -112,10 +117,6 @@ const routes = [
       // { path: '/fingerTappingIntro', name: 'fingerTappingIntro', component: () => import('pages/tasks/fingerTapping/TappingIntro.vue'), props: true },
       // { path: '/fingerTapping', name: 'fingerTapping', component: () => import('pages/tasks/fingerTapping/Tapping.vue'), props: true },
       // { path: '/fingerTappingSummary', name: 'fingerTappingSummary', component: () => import('pages/tasks/fingerTapping/tappingSummary.vue'), props: true },
-
-      // { path: '/tugtIntro', name: 'tugtIntro', component: () => import('pages/tasks/tugt/TUGTIntro.vue'), props: true },
-      // { path: '/tugt', name: 'tugt', component: () => import('pages/tasks/tugt/TUGT.vue'), props: true },
-      // { path: '/tugtSummary', name: 'tugtSummary', component: () => import('pages/tasks/tugt/TUGTSummary.vue'), props: true },
 
       // { path: '/holdPhoneIntro', name: 'holdPhoneIntro', component: () => import('pages/tasks/holdPhone/holdPhoneIntro.vue'), props: true },
       // { path: '/holdPhone', name: 'holdPhone', component: () => import('pages/tasks/holdPhone/holdPhone.vue'), props: true },

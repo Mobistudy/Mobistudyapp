@@ -1,6 +1,7 @@
 import DQ from './dataQuery'
 import Form from './form'
 import Miband3 from './miband3'
+import smwt from './smwt'
 
 import { mergeDeep } from '@shared/tools.js'
 
@@ -17,6 +18,6 @@ const DQred = trimObject(DQ, 'dataQuery')
 const Formred = trimObject(Form, 'form')
 const Miband3red = trimObject(Miband3, 'miband3')
 
-const allTitles = mergeDeep(DQred, Formred, Miband3red)
+const allTitles = mergeDeep(DQred, Formred, Miband3red, smwt)
 
 export default allTitles
