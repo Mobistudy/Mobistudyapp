@@ -6,8 +6,8 @@
         height="70%"></object>
     </div>
 
-    <div class="mobitxt1 q-pa-md">{{ $q.platform.is.ios ? $t('tasks.miband3.OSpermissioniOS') :
-      $t('tasks.miband3.OSpermissionAndroid') }}</div>
+    <div class="mobitxt1 q-pa-md">{{ $q.platform.is.ios ? $t('tasks.smwt.OSpermissioniOS') :
+      $t('tasks.smwt.OSpermissionAndroid') }}</div>
 
     <div class="row fit justify-around q-mt-lg">
       <q-btn class="mobibtn" :label="$t('common.cancel')" color="secondary" @click="$router.go(-1)" />
@@ -26,7 +26,7 @@
 <script>
 import i18nCommon from '@i18n/common'
 import i18nStudies from '@i18n/studies'
-import i18nMiband3 from '@i18n/tasks/miband3'
+import i18nSMWT from '@i18n/tasks/smwt'
 import { mergeDeep } from '@shared/tools'
 import phone from '@shared/phone'
 
@@ -34,7 +34,7 @@ export default {
   name: 'SmwtPermissionsPage',
   props: ['studyKey', 'taskId'],
   i18n: {
-    messages: mergeDeep(i18nCommon, i18nStudies, i18nMiband3)
+    messages: mergeDeep(i18nCommon, i18nStudies, i18nSMWT)
   },
   data () {
     return {

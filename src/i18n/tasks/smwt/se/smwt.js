@@ -10,36 +10,36 @@ export default {
   introductionSlides: [
     {
       title: 'Instruktion',
-      img: 'instructions/6mwt1.svg',
+      img: 'tasks/smwt/6mwt1.svg',
       description: 'Målet för det här testet är att du ska gå så lång du kan på 6 minuter.'
     },
     {
       title: 'Instruktion',
-      img: 'instructions/6mwt2.svg',
+      img: 'tasks/smwt/6mwt2.svg',
       description: 'Det är viktigt att du försöker gå så rakt så möjligt. Försök att undvika trappor samt backar. Om möjligt, försök att undvika platser med höga byggnare eller träd nära dig.'
     },
     {
       title: 'Viktigt!',
-      img: 'instructions/6mwt3.svg',
+      img: 'tasks/smwt/6mwt3.svg',
       description: 'Du kan givetvis sakta ner och avsluta testet om du vill. Avsluta testet omedelbart om du har bröstsmärtor eller är yr.'
     },
     {
-      img: 'instructions/6mwt4.svg',
+      img: 'tasks/smwt/6mwt4.svg',
       description: 'Testet kommer automatiskt avslutas efter 6 mimuter. Om du behöver avsluta testet tidigare, tryck på "Slutför".'
     },
     {
       title: 'Inställning',
-      img: 'instructions/6mwt5.svg',
+      img: 'tasks/smwt/6mwt5.svg',
       description: 'Var god bekräfta att positionering (GPS) är påslagen på din mobil innan du börjar testet.'
     },
     {
       title: 'Inställning',
-      img: 'instructions/6mwt6.svg',
+      img: 'tasks/smwt/6mwt6.svg',
       description: 'Håll din telefon i ena handen, samt försök att undvika att skaka eller vrida mobilen i din hand tills testet är avslutat.'
     },
     {
       title: 'Inställning',
-      img: 'instructions/6mwt7.svg',
+      img: 'tasks/smwt/6mwt7.svg',
       description: 'Du kan placera mobilen i fickan och använda en telefonhållare på armen om det behövs, men släck inte skärmen!'
     }
   ],

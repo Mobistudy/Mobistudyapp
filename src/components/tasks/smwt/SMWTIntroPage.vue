@@ -24,7 +24,7 @@ export default {
     start () {
       const studyKey = this.studyKey
       const taskId = this.taskId
-      this.$router.replace({ name: 'smwt', params: { studyKey, taskId } })
+      this.$router.replace({ name: 'smwtPermissions', params: { studyKey, taskId } })
     }
   }
 }
