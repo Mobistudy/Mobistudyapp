@@ -18,13 +18,13 @@ export default {
 
     {
       title: 'Inställning',
-      img: 'tasks/tug/TUGtask-05.svg',
-      description: 'Se till att ha telefonen på dig under testet, gärna i ett midjeband. Använd vanliga skor och gånghjälpmedel vid behov.'
+      img: 'tasks/tug/TUGtask-05-hand.svg',
+      description: 'Se till att du har telefonen i handen under testet medan skärmen är påslagen. Använd vanliga skor och gånghjälpmedel vid behov.'
     },
     {
       title: 'Instruktioner',
       img: 'tasks/tug/TUGtask-04.svg',
-      description: 'När du är redo, tryck på startknappen, placera telefonen i midjebandet med skärmen påslagen och vänta på startljudet. När du hör ljudet, ställ dig upp, gå 3 meter, vänd dig om, kom tillbaka och sätt dig ner.'
+      description: 'När du är redo, tryck på startknappen, ställ dig upp, gå 3 meter, vänd dig om, kom tillbaka och sätt dig ner.'
     },
     {
       title: 'Instruktioner',
@@ -32,7 +32,7 @@ export default {
       description: 'När du har satt dig ner, extrahera din telefon och tryck på "slutfört".'
     }
   ],
-  prepartion: 'Placera telefonen i midjebandet och vänta på startljudet.',
+  prepartion: 'Tryck på Start när du är redo.',
   go: 'Gå nu! Stå upp, gå 3 meter och kom tillbaka. Tryck på "slutför" när du sitter och är stilla.',
   time: 'Tid'
 }

@@ -18,13 +18,13 @@ export default {
 
     {
       title: 'Configuración',
-      img: 'tasks/tug/TUGtask-05.svg',
-      description: 'Asegúrate de tener tu teléfono contigo durante la prueba, preferiblemente en una riñonera. Usa calzado regular y ayudas para caminar si es necesario.'
+      img: 'tasks/tug/TUGtask-05-hand.svg',
+      description: 'Asegúrate de tener tu teléfono contigo durante la prueba dejando la pantalla encendida. Usa calzado regular y ayudas para caminar si es necesario.'
     },
     {
       title: 'Instrucciones',
       img: 'tasks/tug/TUGtask-04.svg',
-      description: 'Cuando estés listo, presiona el botón de inicio, coloca el teléfono en la riñonera dejando la pantalla encendida y espera el sonido de inicio. Cuando escuches el sonido, levántate, camina 3 metros, dá la vuelta, regresa y siéntate.'
+      description: 'Cuando estés listo, presiona el botón de inicio, levántate, camina 3 metros, dá la vuelta, regresa y siéntate.'
     },
     {
       title: 'Instrucciones',
@@ -32,7 +32,7 @@ export default {
       description: 'Una vez que te hayas sentado, extrae tu teléfono y presiona “completado”.'
     }
   ],
-  prepartion: 'Coloca el teléfono en la riñonera y espera el sonido de inicio.',
+  prepartion: 'Presiona el botón de inicio cuando estés listo.',
   go: '¡Ve ahora! Ponte de pie, camina 3 metros y vuelve. Presiona "completar" cuando estés sentado y quieto.',
   time: 'Tiempo'
 }

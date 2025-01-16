@@ -7,8 +7,8 @@
       <WalkingMan></WalkingMan>
     </div>
     <div class="mobitxt2 text-center q-mb-lg">
-      <span v-show="!isAfterSound">{{ $t('tasks.tug.prepartion') }}</span>
-      <span v-show="isAfterSound">{{ $t('tasks.tug.go') }}</span>
+      <span v-show="!isStarted">{{ $t('tasks.tug.prepartion') }}</span>
+      <span v-show="isStarted">{{ $t('tasks.tug.go') }}</span>
     </div>
     <div class="row justify-center q-mt-lg">
       <q-btn class="full-width mobibtn" @click="startTest" v-show="!isStarted" color="primary"
@@ -39,10 +39,8 @@ import { mergeDeep } from '@shared/tools'
 import phone from '@shared/phone'
 import { format as Qformat } from 'quasar'
 import WalkingMan from '@components/tasks/smwt/WalkingMan'
-import audio from '@shared/audio'
 import session from '@shared/session'
 
-const SOUND_DELAY = 10 // in secs
 const TEST_TIMEOUT = 180 // 3 minutes
 
 let orientations = []
@@ -60,7 +58,6 @@ export default {
   data: function () {
     return {
       isStarted: false,
-      isAfterSound: false,
       isCompleted: false,
       timer: undefined,
       totalTime: TEST_TIMEOUT,
@@ -74,13 +71,7 @@ export default {
     async startTest () {
       if (this.isStarted) return
 
-      WalkingMan.methods.stop()
-
-      setTimeout(() => {
-        audio.media.playSound(this.$refs.dingsound)
-        WalkingMan.methods.play()
-        this.isAfterSound = true
-      }, SOUND_DELAY * 1000)
+      WalkingMan.methods.play()
 
       this.isStarted = true
       this.startedTS = new Date()
@@ -137,9 +128,11 @@ export default {
     completeTest () {
       this.isStarted = false
       this.stopTimer()
+
       phone.orientation.stopNotifications()
       phone.motion.stopNotifications()
       phone.screen.allowSleep()
+
       WalkingMan.methods.stop()
 
       this.isCompleted = true
