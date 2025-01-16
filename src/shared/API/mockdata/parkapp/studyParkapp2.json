@@ -87,7 +87,7 @@
   "tasks": [
     {
       "id": 1,
-      "type": "tugt",
+      "type": "tug",
       "scheduling": {
         "alwaysOn": true,
         "startEvent": "consent",
@@ -101,7 +101,7 @@
     },
     {
       "id": 2,
-      "type": "tugt",
+      "type": "tug",
       "scheduling": {
         "startEvent": "consent",
         "startDelaySecs": 86400,
@@ -118,7 +118,7 @@
     },
     {
       "id": 3,
-      "type": "tugt",
+      "type": "tug",
       "scheduling": {
         "startEvent": "taskExecution",
         "eventTaskId": 2,

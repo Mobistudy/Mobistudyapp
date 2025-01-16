@@ -1,7 +1,7 @@
 <template>
   <div style="height: 90vh;">
     <q-carousel v-model="slide" ref="carousel" transition-prev="slide-right" transition-next="slide-left" animated
-      swipeable control-color="primary" class="full-height">
+      swipeable control-color="primary" class="full-height q-pb-lg">
       <q-carousel-slide v-for="(slide, idx) in introductionSlides" :name="'slide-' + idx" :key="idx">
         <q-scroll-area class="fit">
           <slot :name="'slide-' + idx">

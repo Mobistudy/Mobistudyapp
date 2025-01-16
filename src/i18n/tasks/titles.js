@@ -17,7 +17,8 @@ function trimObject (obj, task) {
 const DQred = trimObject(DQ, 'dataQuery')
 const Formred = trimObject(Form, 'form')
 const Miband3red = trimObject(Miband3, 'miband3')
+const SMWTred = trimObject(smwt, 'smwt')
 
-const allTitles = mergeDeep(DQred, Formred, Miband3red, smwt)
+const allTitles = mergeDeep(DQred, Formred, Miband3red, SMWTred)
 
 export default allTitles

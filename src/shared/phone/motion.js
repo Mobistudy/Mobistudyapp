@@ -1,3 +1,5 @@
+import { Dialog } from 'quasar'
+
 const motion = {
   callback: undefined,
   startTS: 0,
@@ -51,7 +53,20 @@ const motionMock = {
     return Promise.resolve(true)
   },
   async requestPermission () {
-    return Promise.resolve(true)
+    return new Promise((resolve, reject) => {
+      Dialog.create({
+        title: 'Confirm',
+        message: 'Would you like to give access to motion sensors?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        resolve()
+      }).onCancel(() => {
+        reject()
+      }).onDismiss(() => {
+        reject()
+      })
+    })
   },
   startNotifications (options, cbk, error) {
     this.startTS = new Date().getTime()

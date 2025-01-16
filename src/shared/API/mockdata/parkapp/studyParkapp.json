@@ -87,7 +87,7 @@
   "tasks": [
     {
       "id": 1,
-      "type": "tugt",
+      "type": "tug",
       "scheduling": {
         "startEvent": "consent",
         "untilSecs": 5184000,
@@ -309,7 +309,7 @@
           "sv": "Jag accepterar att utföra ett \"Timed up and go\" test, en gång i veckan -före medicinering-."
         },
         "taskId": 1,
-        "type": "tugt"
+        "type": "tug"
       },
       {
         "description": {

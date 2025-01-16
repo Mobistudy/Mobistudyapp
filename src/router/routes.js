@@ -92,9 +92,10 @@ const routes = [
       { path: '/smwt:studyKey/:taskId', name: 'smwt', component: () => import('@components/tasks/smwt/SMWTPage.vue'), props: true },
       { path: '/smwtSummary', name: 'smwtSummary', component: () => import('@components/tasks/smwt/SMWTSummaryPage.vue') }
 
-      // { path: '/tugtIntro', name: 'tugtIntro', component: () => import('pages/tasks/tugt/TUGTIntro.vue'), props: true },
-      // { path: '/tugt', name: 'tugt', component: () => import('pages/tasks/tugt/TUGT.vue'), props: true },
-      // { path: '/tugtSummary', name: 'tugtSummary', component: () => import('pages/tasks/tugt/TUGTSummary.vue'), props: true },
+      { path: '/tugIntro:studyKey/:taskId', name: 'tugIntro', component: () => import('@components/tasks/tug/TUGIntroPage.vue'), props: true },
+      { path: '/tugPermissions:studyKey/:taskId', name: 'tugPermissions', component: () => import('@components/tasks/tug/TUGPermissionsPage.vue'), props: true },
+      { path: '/tug:studyKey/:taskId', name: 'tug', component: () => import('@components/tasks/tug/TUGPage.vue'), props: true },
+      { path: '/tugSummary', name: 'tugSummary', component: () => import('@components/tasks/tug/TUGSummary.vue'), props: true }
 
       // { path: '/qcstIntro', name: 'qcstIntro', component: () => import('pages/tasks/qcst/QCSTIntro.vue'), props: true },
       // { path: '/qcst', name: 'qcst', component: () => import('pages/tasks/qcst/QCST.vue'), props: true },
