@@ -235,6 +235,54 @@ export default {
       formName: {
         sv: 'Enkät 1'
       }
+    },
+
+    {
+      id: 2,
+      type: 'smwt',
+      scheduling: {
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7, // 1 week
+        intervalType: 'd',
+        interval: 1,
+        occurrences: 1
+      }
+    },
+
+    {
+      id: 3,
+      type: 'smwt',
+      scheduling: {
+        startEvent: 'consent',
+        startDelaySecs: 60 * 60 * 24 * 7, // 1 week after consent
+        untilSecs: 60 * 60 * 24 * 60, // 60 days
+        intervalType: 'd',
+        interval: 7
+      }
+    },
+
+    {
+      id: 4,
+      type: 'tug',
+      scheduling: {
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7, // 1 week
+        intervalType: 'd',
+        interval: 1,
+        occurrences: 1
+      }
+    },
+
+    {
+      id: 5,
+      type: 'tug',
+      scheduling: {
+        startEvent: 'consent',
+        startDelaySecs: 60 * 60 * 24 * 7, // 1 week after consent
+        untilSecs: 60 * 60 * 24 * 60, // 60 days
+        intervalType: 'd',
+        interval: 7
+      }
     }
   ],
   consent: {
@@ -368,9 +416,33 @@ export default {
     taskItems: [
       {
         description: {
-          sv: 'Jag accepterar att besvara formulär 1, en gång.'
+          sv: 'Jag accepterar att besvara formulär 1, en gång i början.'
         },
         taskId: 1
+      },
+      {
+        description: {
+          sv: 'Jag accepterar att utföra en sex minuters promenadtest i början av studie.'
+        },
+        taskId: 2
+      },
+      {
+        description: {
+          sv: 'Jag accepterar att utföra sex minuters promenadtest, en gång i veckan.'
+        },
+        taskId: 3
+      },
+      {
+        description: {
+          sv: 'Jag går med på att utföra ett Stå-upp-och-gå-test i början av studie.'
+        },
+        taskId: 4
+      },
+      {
+        description: {
+          sv: 'Jag går med på att utföra ett Stå-upp-och-gå-test, en gång i veckan..'
+        },
+        taskId: 5
       }
     ],
     extraItems: [
