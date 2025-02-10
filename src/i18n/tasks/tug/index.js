@@ -1,6 +1,6 @@
 import enTUG from './en/tug'
 import esTUG from './es/tug'
-import seTUG from './se/tug'
+import svTUG from './sv/tug'
 
 export default {
   en: {
@@ -8,14 +8,14 @@ export default {
       tug: enTUG
     }
   },
-  se: {
+  sv: {
     tasks: {
-      tug: esTUG
+      tug: svTUG
     }
   },
   es: {
     tasks: {
-      tug: seTUG
+      tug: esTUG
     }
   }
 }

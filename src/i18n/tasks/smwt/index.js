@@ -1,6 +1,6 @@
 import enDQ from './en/smwt'
 import esDQ from './es/smwt'
-import seDQ from './se/smwt'
+import svDQ from './sv/smwt'
 
 export default {
   en: {
@@ -8,9 +8,9 @@ export default {
       smwt: enDQ
     }
   },
-  se: {
+  sv: {
     tasks: {
-      smwt: seDQ
+      smwt: svDQ
     }
   },
   es: {

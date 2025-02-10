@@ -1,5 +1,5 @@
 import en from './en/miband3'
-import se from './se/miband3'
+import sv from './sv/miband3'
 import es from './es/miband3'
 
 export default {
@@ -8,9 +8,9 @@ export default {
       miband3: en
     }
   },
-  se: {
+  sv: {
     tasks: {
-      miband3: se
+      miband3: sv
     }
   },
   es: {

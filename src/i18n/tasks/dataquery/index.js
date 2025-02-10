@@ -1,5 +1,5 @@
 import enDQ from './en/dataQuery'
-import seDQ from './se/dataQuery'
+import svDQ from './sv/dataQuery'
 import esDQ from './es/dataQuery'
 
 export default {
@@ -8,9 +8,9 @@ export default {
       dataQuery: enDQ
     }
   },
-  se: {
+  sv: {
     tasks: {
-      dataQuery: seDQ
+      dataQuery: svDQ
     }
   },
   es: {

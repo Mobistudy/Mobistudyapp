@@ -1,5 +1,3 @@
-'use strict'
-
 export default {
   title: 'Six Minute Walk Test (6MWT)',
   shortDescription: 'Utför ett 6-minuters gångtest',
