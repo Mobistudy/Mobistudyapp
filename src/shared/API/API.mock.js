@@ -2,15 +2,8 @@
 import studyTest from './mockdata/studyTest'
 import formTest from './mockdata/formTest'
 
-import parkAppStudy from './mockdata/parkapp/studyParkapp'
-import parkAppStudy2 from './mockdata/parkapp/studyParkapp2'
-import NMSQuest from './mockdata/parkapp/questNMS'
-import PDSS2 from './mockdata/parkapp/questPDSS2'
-import BDI2 from './mockdata/parkapp/questBDI2'
-import PDQ8 from './mockdata/parkapp/questPDQ8'
-import UMARS from './mockdata/parkapp/questUMARS'
-import TAM from './mockdata/parkapp/questTAM'
-import dailySleep from './mockdata/parkapp/questDailySleep'
+import synergyhgb from './mockdata/synergy/synergyhgb'
+import acceptance1hgb from './mockdata/synergy/acceptance1hgb'
 
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
@@ -219,13 +212,9 @@ export default {
         setTimeout(function () {
           resolve(studyTest)
         }, 2000)
-      } else if (studyKey === parkAppStudy._key) {
+      } else if (studyKey === synergyhgb._key) {
         setTimeout(function () {
-          resolve(parkAppStudy)
-        }, 1000)
-      } else if (studyKey === parkAppStudy2._key) {
-        setTimeout(function () {
-          resolve(parkAppStudy2)
+          resolve(synergyhgb)
         }, 1000)
       } else {
         setTimeout(function () {
@@ -252,10 +241,8 @@ export default {
   async getInvitationalStudy (invitationalCode) {
     console.log('API - getting invitational study')
     return new Promise((resolve, reject) => {
-      if (invitationalCode === parkAppStudy.invitationCode) {
-        resolve(parkAppStudy)
-      } else if (invitationalCode === parkAppStudy2.invitationCode) {
-        resolve(parkAppStudy2)
+      if (invitationalCode === synergyhgb.invitationCode) {
+        resolve(synergyhgb)
       } else {
         const err = new Error('Cannot retrieve invitational study based on code.')
         err.response = { status: 400 }
@@ -271,34 +258,10 @@ export default {
         setTimeout(function () {
           resolve(formTest)
         }, 1000)
-      } else if (key === NMSQuest._key) {
+      } else if (key === acceptance1hgb._key) {
         setTimeout(function () {
-          resolve(NMSQuest)
-        }, 500)
-      } else if (key === PDSS2._key) {
-        setTimeout(function () {
-          resolve(PDSS2)
-        }, 500)
-      } else if (key === BDI2._key) {
-        setTimeout(function () {
-          resolve(BDI2)
-        }, 500)
-      } else if (key === PDQ8._key) {
-        setTimeout(function () {
-          resolve(PDQ8)
-        }, 500)
-      } else if (key === UMARS._key) {
-        setTimeout(function () {
-          resolve(UMARS)
-        }, 500)
-      } else if (key === TAM._key) {
-        setTimeout(function () {
-          resolve(TAM)
-        }, 500)
-      } else if (key === dailySleep._key) {
-        setTimeout(function () {
-          resolve(dailySleep)
-        }, 500)
+          resolve(acceptance1hgb)
+        }, 1000)
       } else {
         reject(new Error('Questionnaire not found ' + key))
       }
