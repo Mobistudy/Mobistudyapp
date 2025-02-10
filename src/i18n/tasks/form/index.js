@@ -1,5 +1,5 @@
 import enForm from './en/form'
-import seForm from './se/form'
+import svForm from './sv/form'
 import esForm from './es/form'
 
 export default {
@@ -8,9 +8,9 @@ export default {
       form: enForm
     }
   },
-  se: {
+  sv: {
     tasks: {
-      form: seForm
+      form: svForm
     }
   },
   es: {
