@@ -121,8 +121,7 @@ export default {
         alwaysOn: true,
         startEvent: 'consent',
         untilSecs: 60 * 60 * 24 * 7 // 1 week
-      },
-      dataType: 'distance'
+      }
     },
     {
       id: 5,
@@ -131,8 +130,7 @@ export default {
         alwaysOn: true,
         startEvent: 'consent',
         untilSecs: 60 * 60 * 24 * 7 // 1 week
-      },
-      dataType: 'steps'
+      }
     },
     {
       id: 6,
@@ -190,8 +188,7 @@ export default {
         alwaysOn: true,
         startEvent: 'consent',
         untilSecs: 60 * 60 * 24 * 7 // 1 week
-      },
-      dataType: 'distance'
+      }
     },
     {
       id: 12,
