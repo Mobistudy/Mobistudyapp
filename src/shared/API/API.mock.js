@@ -4,9 +4,13 @@ import formTest from './mockdata/formTest'
 
 import synergyhgb from './mockdata/synergy/synergyhgb'
 import acceptance1hgb from './mockdata/synergy/acceptance1hgb'
+import acceptance1ouh from './mockdata/synergy/acceptance1ouh'
+import acceptance2hgb from './mockdata/synergy/acceptance2hgb'
+import acceptance3hgb from './mockdata/synergy/acceptance3hgb'
 
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
+import synergyouh from './mockdata/synergy/synergyouh'
 
 export default {
 
@@ -216,6 +220,10 @@ export default {
         setTimeout(function () {
           resolve(synergyhgb)
         }, 1000)
+      } else if (studyKey === synergyouh._key) {
+        setTimeout(function () {
+          resolve(synergyhgb)
+        }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study ' + studyKey + ' not found'))
@@ -243,6 +251,8 @@ export default {
     return new Promise((resolve, reject) => {
       if (invitationalCode === synergyhgb.invitationCode) {
         resolve(synergyhgb)
+      } if (invitationalCode === synergyouh.invitationCode) {
+        resolve(synergyouh)
       } else {
         const err = new Error('Cannot retrieve invitational study based on code.')
         err.response = { status: 400 }
@@ -261,6 +271,18 @@ export default {
       } else if (key === acceptance1hgb._key) {
         setTimeout(function () {
           resolve(acceptance1hgb)
+        }, 1000)
+      } else if (key === acceptance1ouh._key) {
+        setTimeout(function () {
+          resolve(acceptance1ouh)
+        }, 1000)
+      } else if (key === acceptance2hgb._key) {
+        setTimeout(function () {
+          resolve(acceptance2hgb)
+        }, 1000)
+      } else if (key === acceptance3hgb._key) {
+        setTimeout(function () {
+          resolve(acceptance3hgb)
         }, 1000)
       } else {
         reject(new Error('Questionnaire not found ' + key))

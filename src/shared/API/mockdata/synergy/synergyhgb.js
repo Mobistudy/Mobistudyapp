@@ -3,7 +3,7 @@ export default {
   teamKey: '1608',
   invitationCode: '111222',
   invitational: true,
-  numberOfParticipants: 1000,
+  numberOfParticipants: 40,
   createdTS: '2025-02-08T14:25:00.741Z',
   updatedTS: '2025-02-08T16:47:58.945Z',
   publishedTS: '20215-02-08T16:47:58.863Z',
@@ -17,17 +17,6 @@ export default {
     },
     longDescription: {
       sv: `
-      <p>
-      Tack för ditt intresse av vår forskningsstudie. Innan du bestämmer dig för att delta är det
-      viktigt att du förstår varför forskningen görs och vad deltagande betyder för dig. Vänligen ta
-      den tid du behöver för att läsa detta dokument samt diskutera med andra om du så önskar.
-      Om något är oklart, eller du vill ha mer information, vänligen kontakta den forskare från
-      Malmö universitet som anges i slutet av detta dokument.<br>
-      Målsättningen med studien är att förstå relationen mellan fysiska aktiviteter i vardagslivet
-      och kliniska mätningar av mobilitet och fysisk kapacitet. Information från dina dagliga
-      aktiviteter kan vara en reflektion av din allmänhälsa, vilket kan göra det möjligt för doktorer
-      ansvariga för ditt välmående får en bättre bild av hur du mår till vardags.
-      </p>
       <b>Vad är detta för typ av projekt och varför vill vi att du deltar?</b>
       <p>
       Många hälsorelaterade problem, såsom hjärtsjukdomar och svaghet, kan begränsa fysisk
@@ -187,7 +176,7 @@ export default {
         contact: 'Carl Magnus Olsson, 040-665 75 02',
         dataAccess: 'full',
         reasonForDataAccess: {
-          sv: 'Malmö universitet will have access to your personal data collected in this study, this is needed to complete the objectives of the study.'
+          sv: 'Malmö universitet kommer att ha tillgång till dina personuppgifter som samlas in i denna studie, detta behövs för att fullfölja studiens mål.'
         }
       },
       {
@@ -195,7 +184,7 @@ export default {
         contact: 'Daniel Smedberg, 070-841 52 28',
         dataAccess: 'full',
         reasonForDataAccess: {
-          sv: 'Infonomy AB will have partial access to your personal, this is needed to complete the objectives of the study.'
+          sv: 'Infonomy AB kommer att ha delvis tillgång till din personliga, detta behövs för att fullfölja studiens mål.'
         }
       },
       {
@@ -203,7 +192,7 @@ export default {
         contact: 'Felicia Wernebrink, 042-10 40 91',
         dataAccess: 'no',
         reasonForDataAccess: {
-          sv: 'Helsingborg stad helps recruiting participants, they will not have access to your data.'
+          sv: 'Helsingborg stad hjälper till att rekrytera deltagare, de kommer inte ha tillgång till dina uppgifter.'
         }
       }
     ]
@@ -231,7 +220,7 @@ export default {
         interval: 1,
         occurrences: 1
       },
-      formKey: '5588',
+      formKey: '5588', // first questionnaire
       formName: {
         sv: 'Enkät 1'
       }
@@ -241,12 +230,14 @@ export default {
       id: 2,
       type: 'smwt',
       scheduling: {
+        alwaysOn: true,
         startEvent: 'consent',
-        untilSecs: 60 * 60 * 24 * 7, // 1 week
-        intervalType: 'd',
-        interval: 1,
-        occurrences: 1
-      }
+        untilSecs: 6480000 // 75 days
+      },
+      customTitle: {
+        sv: '6-minuters gångtest PÅ TRÄFFPUNKT'
+      },
+      useCustomTitle: true
     },
 
     {
@@ -258,19 +249,25 @@ export default {
         untilSecs: 60 * 60 * 24 * 60, // 60 days
         intervalType: 'd',
         interval: 7
-      }
+      },
+      customTitle: {
+        sv: '6-minuters gångtest HEMMA'
+      },
+      useCustomTitle: true
     },
 
     {
       id: 4,
       type: 'tug',
       scheduling: {
+        alwaysOn: true,
         startEvent: 'consent',
-        untilSecs: 60 * 60 * 24 * 7, // 1 week
-        intervalType: 'd',
-        interval: 1,
-        occurrences: 1
-      }
+        untilSecs: 6480000 // 75 days
+      },
+      customTitle: {
+        sv: 'Stå-upp-och-gå-test PÅ TRÄFFPUNKT'
+      },
+      useCustomTitle: true
     },
 
     {
@@ -282,12 +279,58 @@ export default {
         untilSecs: 60 * 60 * 24 * 60, // 60 days
         intervalType: 'd',
         interval: 7
+      },
+      customTitle: {
+        sv: 'Stå-upp-och-gå-test HEMMA'
+      },
+      useCustomTitle: true
+    },
+
+    {
+      id: 6,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 30, // 30 days
+        intervalType: 'd',
+        interval: 1,
+        occurrences: 1
+      },
+      formKey: '5599', // questionnaire 2
+      formName: {
+        sv: 'Enkät 1'
+      }
+    },
+
+    {
+      id: 7,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 65, // 65 days
+        intervalType: 'd',
+        interval: 1,
+        occurrences: 1
+      },
+      formKey: '5511', // questionnaire 3
+      formName: {
+        sv: 'Enkät 1'
       }
     }
   ],
   consent: {
     invitation: {
-      sv: 'Tack för ditt intresse av vår forskningsstudie. Innan du bestämmer dig för att delta är det viktigt att du förstår varför forskningen görs och vad deltagande betyder för dig. Målsättningen med studien är att förstå relationen mellan fysiska aktiviteter i vardagslivet och kliniska mätningar av mobilitet och fysisk kapacitet. Information från dina dagliga aktiviteter kan vara en reflektion av din allmänhälsa, vilket kan göra det möjligt för doktorer ansvariga för ditt välmående får en bättre bild av hur du mår till vardags.'
+      sv: `
+      Tack för ditt intresse av vår forskningsstudie. Innan du bestämmer dig för att delta är det
+      viktigt att du förstår varför forskningen görs och vad deltagande betyder för dig. Vänligen ta
+      den tid du behöver för att läsa detta dokument samt diskutera med andra om du så önskar.
+      Om något är oklart, eller du vill ha mer information, vänligen kontakta den forskare från
+      Malmö universitet som anges i slutet av detta dokument.<br>
+      Målsättningen med studien är att förstå relationen mellan fysiska aktiviteter i vardagslivet
+      och kliniska mätningar av mobilitet och fysisk kapacitet. Information från dina dagliga
+      aktiviteter kan vara en reflektion av din allmänhälsa, vilket kan göra det möjligt för doktorer
+      ansvariga för ditt välmående får en bättre bild av hur du mår till vardags.
+      `
     },
     privacyPolicy: {
       sv: `<p>För att utföra denna studie behöver vi samla in viss data från dig.</p>
@@ -306,7 +349,7 @@ export default {
       Märke, modell samt operativsystem på din telefon.
       Detta behövs för att studera hur data påverkas beroende på vilken telefon som används.
       </li>
-      <li>T eknisk information om vilka appar som ansluter till vår server.
+      <li>Teknisk information om vilka appar som ansluter till vår server.
       Detta behövs av säkerhetsskäl samt vid inspektion av säkerhet.
       </li>
       <li>Data som samlas in genom sensorer (Miband3, Snubblometer, GWALK) samt
@@ -416,13 +459,13 @@ export default {
     taskItems: [
       {
         description: {
-          sv: 'Jag accepterar att besvara formulär 1, en gång i början.'
+          sv: 'Jag accepterar att besvara formulär 1 i början av studien.'
         },
         taskId: 1
       },
       {
         description: {
-          sv: 'Jag accepterar att utföra en sex minuters promenadtest i början av studie.'
+          sv: 'Jag accepterar att utföra en sex minuters promenadtest i början och slutet av studien på träffpunkt.'
         },
         taskId: 2
       },
@@ -434,15 +477,27 @@ export default {
       },
       {
         description: {
-          sv: 'Jag går med på att utföra ett Stå-upp-och-gå-test i början av studie.'
+          sv: 'Jag går med på att utföra ett Stå-upp-och-gå-test i början och slutet av studie på träffpunkt.'
         },
         taskId: 4
       },
       {
         description: {
-          sv: 'Jag går med på att utföra ett Stå-upp-och-gå-test, en gång i veckan..'
+          sv: 'Jag går med på att utföra ett Stå-upp-och-gå-test, en gång i veckan.'
         },
         taskId: 5
+      },
+      {
+        description: {
+          sv: 'Jag accepterar att besvara formulär 2 mitt i studien.'
+        },
+        taskId: 6
+      },
+      {
+        description: {
+          sv: 'Jag accepterar att besvara formulär 3 i slutet av studien.'
+        },
+        taskId: 6
       }
     ],
     extraItems: [
