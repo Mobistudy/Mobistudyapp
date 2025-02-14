@@ -195,7 +195,7 @@ export default {
   },
 
   // update status of a task item consent
-  updateTaskItemConsent: async function (studyKey, taskId, taskItemConsent) {
+  updateTaskItemConsent: async function (userKey, studyKey, taskId, taskItemConsent) {
     console.log('API - Study task item consent', taskItemConsent)
     const study = participant.studies.find((s) => {
       return s._key === studyKey

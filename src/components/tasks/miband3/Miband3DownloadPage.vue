@@ -427,7 +427,8 @@ export default {
         await API.sendTasksResults(this.report)
         await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
         const newTaskItemConsent = await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
-        await API.updateTaskItemConsent(this.user._key, this.report.studyKey, this.report.taskId, newTaskItemConsent)
+        const userKey = session.getUserSession().user.userKey
+        await API.updateTaskItemConsent(userKey, this.report.studyKey, this.report.taskId, newTaskItemConsent)
 
         await db.setTaskCompletion(
           this.report.studyKey,
