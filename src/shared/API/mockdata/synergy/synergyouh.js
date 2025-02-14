@@ -300,6 +300,18 @@ export default {
         en: 'TUG AT CLINIC'
       },
       useCustomTitle: true
+    },
+
+    {
+      id: 5,
+      type: 'miband3',
+      scheduling: {
+        startEvent: 'consent',
+        startDelaySecs: 0, // at consent to pair the device
+        untilSecs: 60 * 60 * 24 * 60, // 60 days
+        intervalType: 'd',
+        interval: 3 // every 3 days
+      }
     }
   ],
   consent: {
@@ -438,6 +450,12 @@ These are needed for security and auditing.
           en: 'I accept to do 2 TUG tests at the clinic.'
         },
         taskId: 4
+      },
+      {
+        description: {
+          en: 'I accept to use the fitness tracker and to syncronize data with the app every 3 days.'
+        },
+        taskId: 5
       }
     ],
     extraItems: [
