@@ -14,13 +14,15 @@
 </template>
 
 <script>
+import { mergeDeep } from '@shared/tools'
+import i18nStudies from '@i18n/studies'
 import i18nTasksTitles from '@i18n/tasks/titles'
 
 export default {
   name: 'TaskListItem',
   props: ['task', 'isMissedTask'],
   i18n: {
-    messages: i18nTasksTitles
+    messages: mergeDeep(i18nStudies, i18nTasksTitles)
   },
   data () {
     return {
@@ -132,14 +134,14 @@ export default {
   },
   computed: {
     timeRemaining: function () {
-      let s = this.$i18n.t('tasks.due') + ' '
+      let s = this.$i18n.t('studies.tasks.due') + ' '
       const secs = new Date().getTime() - this.task.due.getTime()
       if ((secs / (24 * 60 * 60 * 1000)) > 0) {
-        s += this.$i18n.tc('tasks.daysAgo', Math.round(secs / (24 * 60 * 60 * 1000)))
+        s += this.$i18n.tc('studies.tasks.daysAgo', Math.round(secs / (24 * 60 * 60 * 1000)))
       } else if ((secs / (60 * 60 * 1000)) > 0) {
-        s += this.$i18n.tc('tasks.hoursAgo', Math.round(secs / (24 * 60 * 60 * 1000)))
+        s += this.$i18n.tc('studies.tasks.hoursAgo', Math.round(secs / (24 * 60 * 60 * 1000)))
       } else if ((secs / (60 * 1000)) > 0) {
-        s += this.$i18n.tc('tasks.minsAgo', Math.round(secs / (24 * 60 * 60 * 1000)))
+        s += this.$i18n.tc('studies.tasks.minsAgo', Math.round(secs / (24 * 60 * 60 * 1000)))
       }
       return s
     }
