@@ -77,6 +77,7 @@ export default {
   },
   async getStudyParticipation (studyKey) {
     const profile = await this.getParticipantProfile()
+    if (!profile.studies) return undefined
     return profile.studies.find(sp => sp.studyKey === studyKey)
   },
   async getStudyParticipationTaskItemConsent (studyKey, taskId) {
