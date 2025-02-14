@@ -6,9 +6,9 @@ import * as encryptedStorage from './storage.encrypted'
 
 let StorageImpl = {}
 
-if (process.env.API_ENDPOINT === 'MOCK') {
+if (process.env.STORAGE === 'MOCK') {
   StorageImpl = mockStorage
-} else if (process.env.API_ENDPOINT === 'local') {
+} else if (process.env.STORAGE === 'local') {
   StorageImpl = localStorage
 } else {
   StorageImpl = encryptedStorage

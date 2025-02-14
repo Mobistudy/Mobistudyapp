@@ -5,7 +5,7 @@ import HSMock from './healthstore.mock'
 
 let HSImpl = {}
 
-if (process.env.API_ENDPOINT === 'MOCK') {
+if (process.env.HEALTHSTORE === 'MOCK') {
   HSImpl = HSMock
 } else {
   HSImpl = HS
