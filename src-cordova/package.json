@@ -13,8 +13,8 @@
   "author": "Mobistudy team",
   "license": "MIT",
   "devDependencies": {
-    "cordova-android": "^12.0.0",
-    "cordova-ios": "^6.2.0",
+    "cordova-android": "^13.0.0",
+    "cordova-ios": "^7.1.1",
     "cordova-plugin-audioinput": "git+https://github.com/edimuj/cordova-plugin-audioinput.git",
     "cordova-plugin-badge-fix": "^0.8.10",
     "cordova-plugin-ble-central": "github:Gargamil/cordova-plugin-ble-central",
