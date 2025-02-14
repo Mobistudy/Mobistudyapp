@@ -334,7 +334,7 @@ export default {
         message: error.message,
         icon: 'report_problem',
         onDismiss () {
-          this.$router.push('/home')
+          this.$router.go(-1)
         }
       })
     }

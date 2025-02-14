@@ -180,10 +180,10 @@ export default {
       } catch (err) {
         console.error('cannot disconnect miband3', err)
       }
-      this.$router.push({ name: 'tasker' })
+      this.$router.go(-1)
     },
     moveToDownloadPage () {
-      this.$router.push({ name: 'miband3DataDownload', params: { studyKey: this.studyKey, taskId: this.taskId } })
+      this.$router.replace({ name: 'miband3DataDownload', params: { studyKey: this.studyKey, taskId: this.taskId } })
     }
   },
   async mounted () {
