@@ -191,6 +191,8 @@ export default {
       }
     }
     if (!found) participant.studies.push(studyParticipation)
+
+    console.log('NEW PARTICIPANT', participant)
     return true
   },
 
@@ -222,7 +224,7 @@ export default {
         }, 1000)
       } else if (studyKey === synergyouh._key) {
         setTimeout(function () {
-          resolve(synergyhgb)
+          resolve(synergyouh)
         }, 1000)
       } else {
         setTimeout(function () {
@@ -235,6 +237,8 @@ export default {
   async getNewStudiesKeys () {
     console.log('API - getting new study')
     return new Promise(function (resolve, reject) {
+      // resolve([])
+
       setTimeout(function () {
         const studyPart = participant.studies.find((s) => {
           return s.studyKey === studyTest._key

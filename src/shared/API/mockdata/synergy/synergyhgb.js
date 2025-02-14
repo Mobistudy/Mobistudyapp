@@ -291,14 +291,14 @@ export default {
       type: 'form',
       scheduling: {
         startEvent: 'consent',
-        untilSecs: 60 * 60 * 24 * 30, // 30 days
+        startDelaySecs: 60 * 60 * 24 * 30, // 30 days
         intervalType: 'd',
         interval: 1,
         occurrences: 1
       },
       formKey: '5599', // questionnaire 2
       formName: {
-        sv: 'Enkät 1'
+        sv: 'Enkät 2'
       }
     },
 
@@ -307,14 +307,26 @@ export default {
       type: 'form',
       scheduling: {
         startEvent: 'consent',
-        untilSecs: 60 * 60 * 24 * 65, // 65 days
+        startDelaySecs: 60 * 60 * 24 * 65, // 65 days
         intervalType: 'd',
         interval: 1,
         occurrences: 1
       },
       formKey: '5511', // questionnaire 3
       formName: {
-        sv: 'Enkät 1'
+        sv: 'Enkät 3'
+      }
+    },
+
+    {
+      id: 8,
+      type: 'miband3',
+      scheduling: {
+        startEvent: 'consent',
+        startDelaySecs: 0, // at consent to pair the device
+        untilSecs: 60 * 60 * 24 * 60, // 60 days
+        intervalType: 'd',
+        interval: 3 // every 3 days
       }
     }
   ],
@@ -325,7 +337,7 @@ export default {
       viktigt att du förstår varför forskningen görs och vad deltagande betyder för dig. Vänligen ta
       den tid du behöver för att läsa detta dokument samt diskutera med andra om du så önskar.
       Om något är oklart, eller du vill ha mer information, vänligen kontakta den forskare från
-      Malmö universitet som anges i slutet av detta dokument.<br>
+      Malmö universitet som anges i slutet av detta dokument.
       Målsättningen med studien är att förstå relationen mellan fysiska aktiviteter i vardagslivet
       och kliniska mätningar av mobilitet och fysisk kapacitet. Information från dina dagliga
       aktiviteter kan vara en reflektion av din allmänhälsa, vilket kan göra det möjligt för doktorer
@@ -477,7 +489,7 @@ export default {
       },
       {
         description: {
-          sv: 'Jag går med på att utföra ett Stå-upp-och-gå-test i början och slutet av studie på träffpunkt.'
+          sv: 'Jag går med på att utföra ett stå-upp-och-gå-test i början och slutet av studie på träffpunkt.'
         },
         taskId: 4
       },
@@ -497,7 +509,14 @@ export default {
         description: {
           sv: 'Jag accepterar att besvara formulär 3 i slutet av studien.'
         },
-        taskId: 6
+        taskId: 7
+      },
+
+      {
+        description: {
+          en: 'Jag accepterar att använda armbandet och att synkronisera data med appen var tredje dag.'
+        },
+        taskId: 8
       }
     ],
     extraItems: [
