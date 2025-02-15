@@ -61,6 +61,8 @@ export default {
 
       try {
         await phone.geolocation.requestPermission()
+        await phone.motion.requestPermission()
+        await phone.pedometer.requestPermission()
         this.permissionSpinner = false
 
         this.$router.replace({ name: 'smwt', params: { studyKey: this.studyKey, taskId: this.taskId } })
