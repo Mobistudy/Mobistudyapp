@@ -403,7 +403,7 @@ export async function scheduleNotificationsSingleStudy (studyDescr, studyPart) {
           id: parseInt(id),
           title: i18nStudies[lang].studies.scheduling.due,
           text: i18nStudies[lang].studies.scheduling.start,
-          foreground: true,
+          iOSForeground: true,
           trigger: { at: taskTime }
         })
       }
