@@ -514,7 +514,7 @@ export default {
 
       {
         description: {
-          en: 'Jag accepterar att använda armbandet och att synkronisera data med appen var tredje dag.'
+          sv: 'Jag accepterar att använda armbandet och att synkronisera data med appen var tredje dag.'
         },
         taskId: 8
       }
