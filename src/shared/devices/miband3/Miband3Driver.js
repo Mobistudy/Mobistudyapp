@@ -6,7 +6,7 @@
  */
 
 // Imports
-
+import { Buffer } from 'buffer/index.js'
 // eslint-disable-next-line camelcase
 import crypto_aes from 'browserify-aes'
 import CustomDate from './CustomDate'
