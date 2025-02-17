@@ -6,10 +6,12 @@
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
 
       <table class="decoratedTable q-mt-md">
-        <tr>
-          <td>{{ $t('tasks.tug.time') }}</td>
-          <td> {{ minutes }}:{{ seconds }}</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>{{ $t('tasks.tug.time') }}</td>
+            <td> {{ minutes }}:{{ seconds }}</td>
+          </tr>
+        </tbody>
       </table>
 
       <div class="row justify-around q-mt-xl">

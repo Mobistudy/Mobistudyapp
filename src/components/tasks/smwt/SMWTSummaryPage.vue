@@ -5,18 +5,20 @@
       <img class="q-mt-md" alt="Finish flag" src="~assets/goalflags.svg" style="width: 50%; margin: 0px auto;">
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
       <table class="summaryTable">
-        <tr>
-          <td>{{ $t('tasks.smwt.time') }}</td>
-          <td> {{ minutes }}:{{ seconds }}</td>
-        </tr>
-        <tr>
-          <td>{{ $t('tasks.smwt.distance') }}</td>
-          <td>{{ distance.toFixed(2) }} m</td>
-        </tr>
-        <tr v-if="steps">
-          <td>{{ $t('tasks.smwt.steps') }}</td>
-          <td>{{ steps }}</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>{{ $t('tasks.smwt.time') }}</td>
+            <td> {{ minutes }}:{{ seconds }}</td>
+          </tr>
+          <tr>
+            <td>{{ $t('tasks.smwt.distance') }}</td>
+            <td>{{ distance.toFixed(2) }} m</td>
+          </tr>
+          <tr v-if="steps">
+            <td>{{ $t('tasks.smwt.steps') }}</td>
+            <td>{{ steps }}</td>
+          </tr>
+        </tbody>
       </table>
 
       <div class="q-pa-md">

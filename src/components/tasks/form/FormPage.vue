@@ -100,14 +100,16 @@
         {{ $t('tasks.form.formCompleted') }}
       </div>
       <table class="summaryTable q-my-lg">
-        <tr>
-          <td>{{ $t('tasks.form.askedQuestions') }}</td>
-          <td> {{ asked }} </td>
-        </tr>
-        <tr>
-          <td>{{ $t('tasks.form.answeredQuestions') }}</td>
-          <td> {{ answered }} </td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>{{ $t('tasks.form.askedQuestions') }}</td>
+            <td> {{ asked }} </td>
+          </tr>
+          <tr>
+            <td>{{ $t('tasks.form.answeredQuestions') }}</td>
+            <td> {{ answered }} </td>
+          </tr>
+        </tbody>
       </table>
       <div class="row justify-around q-mt-xl">
         <q-btn class="mobibtn" color="negative" :loading="sending" :label="$t('common.discard')" @click="discard()" />
