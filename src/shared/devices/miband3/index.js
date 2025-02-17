@@ -1,6 +1,6 @@
 // Miband 3 implementations
 
-import Miband from './miband'
+import Miband from './miband3'
 import MibandMock from './miband3.mock'
 
 let MibandImpl = {}
