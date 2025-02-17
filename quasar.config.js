@@ -1,6 +1,7 @@
 /* eslint-env node */
 const config = require('./project.config.js')
 const path = require('node:path')
+const webpack = require('webpack')
 
 /*
  * This file runs in a Node context (it's NOT transpiled by Babel), so use only
@@ -85,6 +86,15 @@ module.exports = configure(function (ctx) {
           '@shared': path.resolve(__dirname, './src/shared'),
           '@i18n': path.resolve(__dirname, './src/i18n')
         }
+
+        cfg.resolve.fallback = {
+          ...cfg.resolve.fallback,
+          buffer: require.resolve('buffer')
+        }
+
+        cfg.plugins.push(new webpack.ProvidePlugin({
+          Buffer: ['buffer', 'Buffer']
+        }))
       },
 
       env: {
