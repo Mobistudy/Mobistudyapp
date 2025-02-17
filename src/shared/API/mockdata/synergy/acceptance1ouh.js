@@ -56,7 +56,7 @@ export default {
     {
       id: 'Q2',
       text: {
-        en: 'I would make efforts to manage my physical health.'
+        en: 'I am making efforts to manage my physical health.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -142,7 +142,7 @@ export default {
     {
       id: 'Q4',
       text: {
-        en: 'I think that measuring my heart activity with the wrist-worn device will likely help in managing my physical health.'
+        en: 'I think that measuring my pulse with the wrist-worn device will likely help in managing my physical health.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -185,7 +185,7 @@ export default {
     {
       id: 'Q5',
       text: {
-        en: 'I think that sharing data collected by the wrist-worn device with my clinician will likely be helpful in managing my physical health.'
+        en: 'I think that 6-minute walk tests with the Mobistudy app will likely help in managing my physical health.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -228,7 +228,7 @@ export default {
     {
       id: 'Q6',
       text: {
-        en: 'I think that doing a 6-minute walk test with the Mobistudy app will likely help in managing my physical health.'
+        en: 'I think that the wrist-worn device will be easy to handle (put on, wear and charge).'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -271,7 +271,7 @@ export default {
     {
       id: 'Q7',
       text: {
-        en: 'I think that the wrist-worn device will be easy to put on, wear and charge.'
+        en: 'I think that it will be easy to do a 6-minute walk test with the Mobistudy app.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -314,7 +314,7 @@ export default {
     {
       id: 'Q8',
       text: {
-        en: 'I think that it will be easy to do a 6-minute walk test with the Mobistudy app.'
+        en: 'I think that it will be easy to connect the Mobistudy app with the wrist-worn device.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -357,7 +357,7 @@ export default {
     {
       id: 'Q9',
       text: {
-        en: 'I think that it will be easy to connect the Mobistudy app with the wrist-worn device.'
+        en: 'I am positive towards collecting data about my physical activity with technology during everyday life.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -400,7 +400,7 @@ export default {
     {
       id: 'Q10',
       text: {
-        en: 'I am positive towards recording my physical activity data with wearable devices.'
+        en: 'I am positive towards collecting data about my pulse with technology during everyday life.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -443,7 +443,7 @@ export default {
     {
       id: 'Q11',
       text: {
-        en: 'I am positive towards recording my heart activity data with wearable devices.'
+        en: 'I am positive towards sharing data about my physical activity for research purposes.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -486,7 +486,7 @@ export default {
     {
       id: 'Q12',
       text: {
-        en: 'I am positive towards sharing my physical activity data for research purposes.'
+        en: 'I am positive towards sharing data about my pulse for research purposes.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -529,7 +529,7 @@ export default {
     {
       id: 'Q13',
       text: {
-        en: 'I am positive towards sharing my heart activity data for research purposes.'
+        en: 'I want myself to be able to review my own data.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -572,7 +572,7 @@ export default {
     {
       id: 'Q14',
       text: {
-        en: 'I want to have access to and review my own data.'
+        en: 'I want my clinician to be able to review my data.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -615,7 +615,7 @@ export default {
     {
       id: 'Q15',
       text: {
-        en: 'I want my clinician to have access to and review my data.'
+        en: 'I want my contact person (such as a family member) to be able to review my data.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -658,7 +658,7 @@ export default {
     {
       id: 'Q16',
       text: {
-        en: 'I want my family (or other close contact) to have access to and review my data.'
+        en: 'I intend to use the wrist-worn device until completion of the study.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -701,7 +701,7 @@ export default {
     {
       id: 'Q17',
       text: {
-        en: 'I intend to use the wrist-worn device until completion of the study.'
+        en: 'I intend to use the Mobistudy app until completion of the study.'
       },
       helper: {
         en: 'Only one choice can be selected.'
@@ -740,49 +740,6 @@ export default {
         }
       ]
     },
-
-    {
-      id: 'Q18',
-      text: {
-        en: 'I intend to use the app until completion of the study.'
-      },
-      helper: {
-        en: 'Only one choice can be selected.'
-      },
-      type: 'singleChoice',
-      answerChoices: [
-        {
-          id: 'Q18A1',
-          text: {
-            en: '1. I strongly agree'
-          }
-        },
-        {
-          id: 'Q18A2',
-          text: {
-            en: '2. I somewhat agree'
-          }
-        },
-        {
-          id: 'Q18A3',
-          text: {
-            en: '3. I neither agree nor disagree'
-          }
-        },
-        {
-          id: 'Q18A4',
-          text: {
-            en: '4. I somewhat disagree'
-          }
-        },
-        {
-          id: 'Q18A5',
-          text: {
-            en: '5. I strongly disagree'
-          }
-        }
-      ]
-    }
 
   ],
   createdTS: '2025-02-08'
