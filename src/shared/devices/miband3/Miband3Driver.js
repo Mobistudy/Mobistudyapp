@@ -188,7 +188,7 @@ const Miband3 = {
             resolve(success)
           },
           failure => {
-            console.log('Failed to disconnect:', failure)
+            console.error('Failed to disconnect:', failure)
             reject(failure)
           }
         )
@@ -362,6 +362,7 @@ const Miband3 = {
     command
   ) {
     this.registerNotification(service, characteristic)
+    console.log('Sending configuration:', packet)
     return new Promise((resolve, reject) => {
       window.ble.startNotification(
         this.deviceId,
@@ -371,10 +372,11 @@ const Miband3 = {
           const response = Buffer.from(dataResponse).toString('hex')
           const responseMessage = this.messages.setup.response
           const okResponse = this.messages.setup.okResponse
+          console.log('Response received: ' + response)
           if (response === responseMessage + command + okResponse) {
             resolve()
           } else {
-            reject() // TODO: Do i reject if if the right command was not received as a response?
+            reject() // TODO: Do i reject if the right command was not received as a response?
           }
           // TODO: check if i can unsubscribe to all notifications once authenticated and configurations are sent.
         },
@@ -392,6 +394,7 @@ const Miband3 = {
    * @param {string} lang the language to be set. The format is: en_US, or fr_FR for example.
    */
   setLanguage: async function (lang) {
+    console.log('Setting language:', lang)
     const command = this.messages.setup.setLanguage
     const packet = this.hexStringToHexBuffer(
       command + this.convertLangAndCountryStringToHex(lang)
@@ -509,7 +512,7 @@ const Miband3 = {
 
   /**
    * Sets the distance metric: meters or feet
-   * Currently only supports meters
+   * Currently only supports meters or feet
    * @param {boolean} meters if true uses meters, else uses feet
    */
   setDistanceType: async function (meters) {
@@ -1167,7 +1170,7 @@ const Miband3 = {
           // })
         },
         failure => {
-          console.log('Failed to start raw HR notifications:', failure)
+          console.error('Failed to start raw HR notifications:', failure)
           reject()
         }
       )
@@ -1360,7 +1363,7 @@ const Miband3 = {
         callback(parseInt(hrValue))
       },
       failure => {
-        console.log('Failed to start HR notifications:', failure)
+        console.error('Failed to start HR notifications:', failure)
       }
     )
   },
@@ -1485,8 +1488,7 @@ const Miband3 = {
           resolve(responseData)
         },
         failure => {
-          console.log(failure)
-          alert('Failed to read characteristic from device.')
+          console.error('Failed to read characteristic from device', failure)
           reject()
         }
       )
@@ -1522,7 +1524,7 @@ const Miband3 = {
         dataInBits.buffer,
         successResponse => {
           if (!successResponse) {
-            resolve() // IOS doesnt send a response for some strange reason.
+            resolve() // IOS doesn't send a response for some strange reason.
             return
           }
           const response = Buffer.from(successResponse).toString('hex')
@@ -1536,7 +1538,7 @@ const Miband3 = {
           }
         },
         failure => {
-          console.log('Failed to send:', failure)
+          console.error('Failed to send:', failure)
           reject()
         }
       )
@@ -1570,7 +1572,7 @@ const Miband3 = {
           resolve()
         },
         failure => {
-          console.log('Failed to stop notifications', failure)
+          console.error('Failed to stop notifications', failure)
           reject()
         }
       )

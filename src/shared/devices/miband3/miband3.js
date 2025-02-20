@@ -97,15 +97,20 @@ export default {
 
     // Default settings
     await miband3Driver.setLanguage('EN_en')
+    console.log('-language set')
 
     await miband3Driver.setDateFormat(true)
+    console.log('-date format set')
 
     await miband3Driver.setDistanceType(false)
+    console.log('-distance type set')
 
     await miband3Driver.setTimeFormat('24h')
+    console.log('-time format set')
 
     // Synch phone time with miband watch time
     await miband3Driver.setCurrentTimeStatus()
+    console.log('-current time set')
 
     // Setting night mode between 22:00 and 8:00
     const dateStartHour = new Date()
@@ -115,17 +120,19 @@ export default {
     dateEndHour.setHours(8)
     dateEndHour.setMinutes(0)
     await miband3Driver.setNightMode(dateStartHour, dateEndHour)
+    console.log('-night mode set')
 
     await miband3Driver.setHRSleepSupport(true)
+    console.log('-hr sleep support set')
 
     // setting screen pages
     const screens = ['heartRate', 'status']
     await miband3Driver.setupScreens(screens)
-    // Maybe we need to expose the HR functionality to a third party?, i'm guessing this may be the case.
-    // Dario: NO, do not expose.
+    console.log('-scren setup set')
 
     // User supplied settings
     await miband3Driver.setHeartRateMeasurementInterval(hrFreq)
+    console.log('-hr measurements interval set')
 
     // make sure thee DOB is a date
     const DOB = new Date(user.dob)

@@ -116,6 +116,8 @@ export default {
         // Authenticate after connect.
         if (!device.authenticated) this.tapToAuthDialog = true
         await miband3.authenticate(device.authenticated)
+        console.log('Miband3 authenticated, configuring  device')
+
         // configure the watch
 
         // user a user configuration like { height: 180, weight: 80, dob: '1974-11-21', sex: 'male', language: 'en' }
@@ -128,6 +130,7 @@ export default {
         }
         const taskDescr = await db.getTaskDescription(this.studyKey, this.taskId)
         await miband3.configure(user, taskDescr.hrInterval) // Maybe do not always configure upon connect?
+        console.log('Miband3 configured')
         this.tapToAuthDialog = false
         this.showConnecting = false
 
