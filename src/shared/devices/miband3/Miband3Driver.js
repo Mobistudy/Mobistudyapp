@@ -6,9 +6,13 @@
  */
 
 // Imports
-import { Buffer } from 'buffer/index.js'
+
+// TODO: remove
 // eslint-disable-next-line camelcase
-import crypto_aes from 'browserify-aes'
+// import crypto_aes from 'browserify-aes'
+
+import CryptoES from 'crypto-es'
+
 import CustomDate from './CustomDate'
 
 const customUUID = x => `0000${x}-0000-3512-2118-0009af100700`
@@ -155,6 +159,7 @@ const Miband3 = {
    */
   connect: async function () {
     return new Promise((resolve, reject) => {
+      console.log('Connecting to device:', this.deviceId)
       window.ble.connect(
         this.deviceId,
         success => {
@@ -211,10 +216,12 @@ const Miband3 = {
   },
 
   fullAuthentication: async function () {
+    console.log('full authentication: sending auth key')
     return this.sendAuthenticationKey()
   },
 
   halfAuthentication: async function () {
+    console.log('half authentication: requesting encyption value')
     return this.requestEncryptionValue()
   },
 
@@ -223,6 +230,7 @@ const Miband3 = {
    * @param {boolean} deviceAuthenticated if true, the device has already been authenticated once
    */
   authenticate: async function (deviceAuthenticated) {
+    console.log('Authenticating device')
     this.registerNotification(
       this.mibandCustomService1,
       this.authenticationCharacteristic
@@ -234,24 +242,29 @@ const Miband3 = {
         this.mibandCustomService1,
         this.authenticationCharacteristic,
         dataResponse => {
+          console.log('Auth response:', dataResponse)
           const value = Buffer.from(dataResponse)
           const command = value.slice(0, 3).toString('hex')
 
           if (command === this.messages.authentication.keySentOK) {
+            console.log('-- Key sent OK')
             // let currentDate = new Date()
             // this.setTimeStatus(currentDate)
             this.requestEncryptionValue()
           } else if (
             command === this.messages.authentication.encryptionValueReceived
           ) {
+            console.log('-- Encryption value received')
             const encryptionValue = value.slice(3)
             const encryptedKey = this.createEncryptedKey(encryptionValue)
             this.sendEncryptedKey(encryptedKey)
           } else if (
             command === this.messages.authentication.notAuthenticated
           ) {
+            console.log('-- Not authenticated')
             reject()
           } else if (command === this.messages.authentication.authenticated) {
+            console.log('-- Authenticated')
             resolve()
             // TODO: Can't currently stop notifications and start another one, issue raised: https://github.com/don/cordova-plugin-ble-central/issues/552
           }
@@ -271,6 +284,7 @@ const Miband3 = {
   },
 
   sendAuthenticationKey: function () {
+    console.log('Sending authentication key')
     const packet = this.hexStringToHexBuffer(
       this.messages.authentication.sendKey +
       this.messages.authentication.authFlag +
@@ -284,6 +298,7 @@ const Miband3 = {
   },
 
   requestEncryptionValue: function () {
+    console.log('Requesting encryption value')
     const packet = this.hexStringToHexBuffer(
       this.messages.authentication.requestEncryptionValue +
       this.messages.authentication.authFlag
@@ -296,19 +311,31 @@ const Miband3 = {
   },
 
   createEncryptedKey: function (encryptionValue) {
+    console.log('Creating encryption key', this.authenticationKey)
+    const keyAsWords = CryptoES.enc.Hex.parse(this.authenticationKey)
+    const valueAsWords = CryptoES.enc.Hex.parse(encryptionValue.toString('hex'))
+
+    const encryptedC = CryptoES.AES.encrypt(valueAsWords, keyAsWords, {
+      mode: CryptoES.mode.ECB,
+      padding: CryptoES.pad.NoPadding
+    })
+
+    const encryptedHex = CryptoES.enc.Hex.stringify(encryptedC.ciphertext)
+    const encryptedBuffer = Buffer.from(encryptedHex, 'hex')
+    /*
     const keyAsBuffer = Buffer.from(this.authenticationKey, 'hex')
     // eslint-disable-next-line camelcase
-    const cipher = crypto_aes
-      .createCipheriv('aes-128-ecb', keyAsBuffer, '')
-      .setAutoPadding(false)
-    const encrypted = Buffer.concat([
-      cipher.update(encryptionValue),
-      cipher.final()
-    ])
-    return encrypted
+    const cipher = crypto_aes.createCipheriv('aes-128-ecb', keyAsBuffer, '')
+    cipher.setAutoPadding(false)
+    const buf1 = cipher.update(encryptionValue)
+    const buf2 = cipher.final()
+    const encrypted = Buffer.concat([buf1, buf2])
+    */
+    return encryptedBuffer
   },
 
   sendEncryptedKey: function (encryptedKey) {
+    console.log('Sending encrypted key')
     const packet = this.hexStringToHexBuffer(
       this.messages.authentication.sendEncryptedKey +
       this.messages.authentication.authFlag +
@@ -1554,6 +1581,7 @@ const Miband3 = {
     let keyArray = new Uint8Array(16)
     keyArray = crypto.getRandomValues(keyArray)
     this.authenticationKey = Buffer.from(keyArray).toString('hex')
+    console.log('random key set', this.authenticationKey)
     return this.authenticationKey
   },
 
