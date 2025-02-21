@@ -1,4 +1,5 @@
 import miband3Driver from './Miband3Driver'
+const DEBUG = true
 
 export default {
   /**
@@ -37,7 +38,7 @@ export default {
           resolve(deviceFound)
         }
       }, (failureResponse) => {
-        console.log('Start scan failed.', failureResponse)
+        console.error('Start scan failed', failureResponse)
         clearTimeout(timeoutId)
         reject()
       })
@@ -47,7 +48,6 @@ export default {
   /**
    * Connects to a MiBand3
    * @param {Object} device a device object as returned by search() + can contain an authentication key
-   * @param {Function} disconnectCallback called if the device is disconnected
    */
   async connect (device) {
     // generate the key if not inside device
@@ -95,22 +95,25 @@ export default {
     // displayOnlift = not [22:00 - 8:00], nightMode = [22:00 - 8:00],
     // screens = [home, HR, status], HRsleep support = YES, timeFormat = 24G
 
+    // TODO: according to language, we should set the language, units the date format
+    // these are now set always to EN, meters and DD/MM/YYYY
+
     // Default settings
     await miband3Driver.setLanguage('EN_en')
-    console.log('-language set')
+    if (DEBUG) console.log('-language set')
 
-    await miband3Driver.setDateFormat(true)
-    console.log('-date format set')
+    await miband3Driver.setDateFormat(true) // DD/MM/YYYY
+    if (DEBUG) console.log('-date format set')
 
-    await miband3Driver.setDistanceType(false)
-    console.log('-distance type set')
+    await miband3Driver.setDistanceType(false) // meters
+    if (DEBUG) console.log('-distance type set')
 
     await miband3Driver.setTimeFormat('24h')
-    console.log('-time format set')
+    if (DEBUG) console.log('-time format set')
 
     // Synch phone time with miband watch time
     await miband3Driver.setCurrentTimeStatus()
-    console.log('-current time set')
+    if (DEBUG) console.log('-current time set')
 
     // Setting night mode between 22:00 and 8:00
     const dateStartHour = new Date()
@@ -120,22 +123,38 @@ export default {
     dateEndHour.setHours(8)
     dateEndHour.setMinutes(0)
     await miband3Driver.setNightMode(dateStartHour, dateEndHour)
-    console.log('-night mode set')
+    if (DEBUG) console.log('-night mode set')
 
-    await miband3Driver.setHRSleepSupport(true)
-    console.log('-hr sleep support set')
+    await miband3Driver.setHRSleepSupport(true) // use HR for sleep detection
+    if (DEBUG) console.log('-hr sleep support set')
 
-    // setting screen pages
+    // setting screen pages, limit to status and heart rate
     const screens = ['heartRate', 'status']
     await miband3Driver.setupScreens(screens)
-    console.log('-scren setup set')
+    if (DEBUG) console.log('-scren setup set')
 
     // User supplied settings
+    if (!Number.isInteger(hrFreq) || hrFreq < 1) {
+      console.error('Heart rate measurement frequency must be an integer and >1', hrFreq)
+      throw new Error('invalid hrFreq')
+    }
     await miband3Driver.setHeartRateMeasurementInterval(hrFreq)
-    console.log('-hr measurements interval set')
+    if (DEBUG) console.log('-hr measurements interval set')
 
     // make sure thee DOB is a date
     const DOB = new Date(user.dob)
+    if (isNaN(DOB)) {
+      console.error('Invalid date of birth', user.dob)
+      throw new Error('invalid date of birth')
+    }
+    if (!Number.isInteger(user.height) || user.height < 0 || user.height > 250) {
+      console.error('Invalid height', user.height)
+      throw new Error('invalid height')
+    }
+    if (!Number.isInteger(user.weight) || user.weight < 0 || user.weight > 250) {
+      console.error('Invalid weight', user.weight)
+      throw new Error('invalid weight')
+    }
     await miband3Driver.setUser(
       user.height,
       user.weight,
@@ -144,7 +163,12 @@ export default {
       DOB.getDate(),
       user.sex === 'female' // false for male
     )
-    return miband3Driver.stopAllNotifications() // TODO: Seems to work here, but not in authenticate(), why?
+    if (DEBUG) console.log('-user set')
+    try {
+      await miband3Driver.stopAllNotifications() // TODO: Seems to work here, but not in authenticate(), why?
+    } catch (error) {
+      console.error('Error stopping notifications', error)
+    }
   },
 
   /**

@@ -5,14 +5,10 @@
  * and work done by José Rebelo and the good folks at https://gadgetbridge.org/
  */
 
+const DEBUG = true
+
 // Imports
-
-// TODO: remove
-// eslint-disable-next-line camelcase
-// import crypto_aes from 'browserify-aes'
-
 import CryptoES from 'crypto-es'
-
 import CustomDate from './CustomDate'
 
 const customUUID = x => `0000${x}-0000-3512-2118-0009af100700`
@@ -159,7 +155,7 @@ const Miband3 = {
    */
   connect: async function () {
     return new Promise((resolve, reject) => {
-      console.log('Connecting to device:', this.deviceId)
+      if (DEBUG) console.log('Connecting to device:', this.deviceId)
       window.ble.connect(
         this.deviceId,
         success => {
@@ -208,7 +204,7 @@ const Miband3 = {
           resolve(true)
         },
         failure => {
-          console.log('Failure is connected', failure)
+          if (DEBUG) console.log('Failure is connected', failure)
           resolve(false)
         }
       )
@@ -216,12 +212,12 @@ const Miband3 = {
   },
 
   fullAuthentication: async function () {
-    console.log('full authentication: sending auth key')
+    if (DEBUG) console.log('full authentication: sending auth key')
     return this.sendAuthenticationKey()
   },
 
   halfAuthentication: async function () {
-    console.log('half authentication: requesting encyption value')
+    if (DEBUG) console.log('half authentication: requesting encyption value')
     return this.requestEncryptionValue()
   },
 
@@ -230,7 +226,7 @@ const Miband3 = {
    * @param {boolean} deviceAuthenticated if true, the device has already been authenticated once
    */
   authenticate: async function (deviceAuthenticated) {
-    console.log('Authenticating device')
+    if (DEBUG) console.log('Authenticating device')
     this.registerNotification(
       this.mibandCustomService1,
       this.authenticationCharacteristic
@@ -242,35 +238,35 @@ const Miband3 = {
         this.mibandCustomService1,
         this.authenticationCharacteristic,
         dataResponse => {
-          console.log('Auth response:', dataResponse)
+          if (DEBUG) console.log('Auth response:', dataResponse)
           const value = Buffer.from(dataResponse)
           const command = value.slice(0, 3).toString('hex')
 
           if (command === this.messages.authentication.keySentOK) {
-            console.log('-- Key sent OK')
+            if (DEBUG) console.log('-- Key sent OK')
             // let currentDate = new Date()
             // this.setTimeStatus(currentDate)
             this.requestEncryptionValue()
           } else if (
             command === this.messages.authentication.encryptionValueReceived
           ) {
-            console.log('-- Encryption value received')
+            if (DEBUG) console.log('-- Encryption value received')
             const encryptionValue = value.slice(3)
             const encryptedKey = this.createEncryptedKey(encryptionValue)
             this.sendEncryptedKey(encryptedKey)
           } else if (
             command === this.messages.authentication.notAuthenticated
           ) {
-            console.log('-- Not authenticated')
+            if (DEBUG) console.log('-- Not authenticated')
             reject()
           } else if (command === this.messages.authentication.authenticated) {
-            console.log('-- Authenticated')
+            if (DEBUG) console.log('-- Authenticated')
             resolve()
             // TODO: Can't currently stop notifications and start another one, issue raised: https://github.com/don/cordova-plugin-ble-central/issues/552
           }
         },
         failure => {
-          console.log('Start auth notification failure:', failure)
+          if (DEBUG) console.log('Start auth notification failure:', failure)
           reject()
         }
       )
@@ -284,7 +280,7 @@ const Miband3 = {
   },
 
   sendAuthenticationKey: function () {
-    console.log('Sending authentication key')
+    if (DEBUG) console.log('Sending authentication key')
     const packet = this.hexStringToHexBuffer(
       this.messages.authentication.sendKey +
       this.messages.authentication.authFlag +
@@ -298,7 +294,7 @@ const Miband3 = {
   },
 
   requestEncryptionValue: function () {
-    console.log('Requesting encryption value')
+    if (DEBUG) console.log('Requesting encryption value')
     const packet = this.hexStringToHexBuffer(
       this.messages.authentication.requestEncryptionValue +
       this.messages.authentication.authFlag
@@ -311,7 +307,7 @@ const Miband3 = {
   },
 
   createEncryptedKey: function (encryptionValue) {
-    console.log('Creating encryption key', this.authenticationKey)
+    if (DEBUG) console.log('Creating encryption key', this.authenticationKey)
     const keyAsWords = CryptoES.enc.Hex.parse(this.authenticationKey)
     const valueAsWords = CryptoES.enc.Hex.parse(encryptionValue.toString('hex'))
 
@@ -335,7 +331,7 @@ const Miband3 = {
   },
 
   sendEncryptedKey: function (encryptedKey) {
-    console.log('Sending encrypted key')
+    if (DEBUG) console.log('Sending encrypted key')
     const packet = this.hexStringToHexBuffer(
       this.messages.authentication.sendEncryptedKey +
       this.messages.authentication.authFlag +
@@ -362,7 +358,7 @@ const Miband3 = {
     command
   ) {
     this.registerNotification(service, characteristic)
-    console.log('Sending configuration:', packet)
+    if (DEBUG) console.log('Sending configuration:', packet)
     return new Promise((resolve, reject) => {
       window.ble.startNotification(
         this.deviceId,
@@ -372,7 +368,7 @@ const Miband3 = {
           const response = Buffer.from(dataResponse).toString('hex')
           const responseMessage = this.messages.setup.response
           const okResponse = this.messages.setup.okResponse
-          console.log('Response received: ' + response)
+          if (DEBUG) console.log('Response received: ' + response)
           if (response === responseMessage + command + okResponse) {
             resolve()
           } else {
@@ -381,7 +377,7 @@ const Miband3 = {
           // TODO: check if i can unsubscribe to all notifications once authenticated and configurations are sent.
         },
         failure => {
-          console.log('Config fail:', failure)
+          if (DEBUG) console.log('Config fail:', failure)
           reject(failure)
         }
       )
@@ -394,7 +390,7 @@ const Miband3 = {
    * @param {string} lang the language to be set. The format is: en_US, or fr_FR for example.
    */
   setLanguage: async function (lang) {
-    console.log('Setting language:', lang)
+    if (DEBUG) console.log('Setting language:', lang)
     const command = this.messages.setup.setLanguage
     const packet = this.hexStringToHexBuffer(
       command + this.convertLangAndCountryStringToHex(lang)
@@ -740,6 +736,7 @@ const Miband3 = {
    * @param {boolean} on
    */
   setHRSleepSupport: async function (on) {
+    if (DEBUG) console.log('Setting HR sleep support:', on)
     let packet = ''
     let message = ''
     if (on) {
@@ -785,6 +782,7 @@ const Miband3 = {
    * @param {number} interval
    */
   setHeartRateMeasurementInterval: async function (interval) {
+    if (DEBUG) console.log('Setting HR measurement interval:', interval)
     // if hrMonitorControlCharacteristic can send notifications, register to them and observe response
     const intervalString = this.createByteStringFromInt(interval)
 
@@ -821,6 +819,8 @@ const Miband3 = {
     birthDay, // number
     sex // boolean, false for male
   ) {
+    if (DEBUG) console.log('Setting user profile', height, weight, birthYear, birthMonth, birthDay, sex)
+
     const heightString = this.paddHexToBytes(
       this.createByteStringFromInt(height),
       4
@@ -906,6 +906,7 @@ const Miband3 = {
    * @param {function} dataCallback callback function with data in it. Example data: { timestamp: date, activityType: 1, intensity: 30, steps: 10, heartRate: 65, buffer: Uint8Array }
    */
   fetchStoredData: async function (startDate, dataCallback) {
+    if (DEBUG) console.log('Fetching stored data')
     let actualStartDate // actual start date as communicated by the watch
     let sampleCounter = 0
     let totalSamples = 0
@@ -937,6 +938,7 @@ const Miband3 = {
               this.mibandCustomService0,
               this.storageDataCharacteristic,
               dataResponse => {
+                if (DEBUG) console.log('Got data from storage', dataResponse)
                 // got data!
                 const buffer = new Uint8Array(dataResponse)
                 const sampleArray = this.createSingleActivitySamplesFromSeveral(
@@ -951,7 +953,10 @@ const Miband3 = {
                 }
                 sampleCounter += Math.floor(buffer.length / 4)
               },
-              reject
+              (err) => {
+                console.error('Error in fetching stored data', err)
+                reject()
+              }
             )
 
             // start fetch sequence
@@ -967,16 +972,21 @@ const Miband3 = {
               actualStartDate = nextStartDate
               this.sendStartDateAndActivity(nextStartDate, 1)
             } else {
+              if (DEBUG) console.log('Fetch completed')
               resolve() // Data was received that was close enough to the current time, and hence we will not ask for more packets. Not sure how else to this issue.
               // If the above if statement is not implemented then the we keep a preamble packet with the same date and will continue to ask for that packet indefinitely.
             }
           }
           if (dataHex === '100204') {
+            if (DEBUG) console.log('No data found')
             // No data was found, can be triggered if a data was already sent recently, or if there is no data left to fetch.
             resolve()
           }
         },
-        reject
+        (err) => {
+          console.error('Error in storage control', err)
+          reject()
+        }
       )
 
       this.sendStartDateAndActivity(startDate, 1).catch(reject)
@@ -1417,7 +1427,7 @@ const Miband3 = {
     return new Date(year, mon, day, hrs, min, sec)
   },
 
-  setCurrentTimeStatus: async function () { // TODO: Convert to UTC
+  setCurrentTimeStatus: async function () {
     const currentDate = new Date()
     return this.setTimeStatus(currentDate)
   },
@@ -1507,7 +1517,7 @@ const Miband3 = {
           resolve(successResponse)
         },
         failure => {
-          console.log('Write without response failed')
+          if (DEBUG) console.log('Write without response failed')
           reject(failure)
         }
       )
@@ -1553,6 +1563,7 @@ const Miband3 = {
   },
 
   stopAllNotifications: async function () {
+    if (DEBUG) console.log('Stopping all notifications')
     while (this.runningNotificationCharacteristics.length > 0) {
       const characteristic = this.runningNotificationCharacteristics.pop()
       const service = this.runningNotifications.get(characteristic)
@@ -1564,6 +1575,7 @@ const Miband3 = {
 
   stopNotification: async function (service, characteristic) {
     return new Promise((resolve, reject) => {
+      if (DEBUG) console.log('Stopping notification for service, characteristic', service, characteristic)
       window.ble.stopNotification(
         this.deviceId,
         service,
@@ -1583,7 +1595,7 @@ const Miband3 = {
     let keyArray = new Uint8Array(16)
     keyArray = crypto.getRandomValues(keyArray)
     this.authenticationKey = Buffer.from(keyArray).toString('hex')
-    console.log('random key set', this.authenticationKey)
+    if (DEBUG) console.log('random key set', this.authenticationKey)
     return this.authenticationKey
   },
 
