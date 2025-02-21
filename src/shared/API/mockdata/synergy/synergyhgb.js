@@ -321,6 +321,7 @@ export default {
     {
       id: 8,
       type: 'miband3',
+      hrInterval: 1,
       scheduling: {
         startEvent: 'consent',
         startDelaySecs: 0, // at consent to pair the device

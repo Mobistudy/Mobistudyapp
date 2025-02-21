@@ -739,7 +739,7 @@ export default {
           }
         }
       ]
-    },
+    }
 
   ],
   createdTS: '2025-02-08'
