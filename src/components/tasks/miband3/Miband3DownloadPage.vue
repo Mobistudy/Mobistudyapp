@@ -45,7 +45,7 @@ import Chart from 'chart.js/auto'
 import 'chartjs-adapter-luxon'
 
 import { getStringIdentifier } from '@shared/devices/miband3/miband3ActivityTypeEnum.js'
-import db from '@shared/db'
+import DB from '@shared/db'
 import session from '@shared/session'
 import API from '@shared/API'
 import phone from '@shared/phone'
@@ -160,47 +160,56 @@ export default {
       lineChartData.reset()
 
       this.startDate = await this.getDateToUseForDownload()
+      let downloadCompleted = false
       try {
         this.deviceInfo = await miband3.getDeviceInfo()
         await miband3.getStoredData(this.startDate, this.dataCallback)
+        console.log('Downloaded data:', storedData)
+        downloadCompleted = true
 
         try {
+          console.log('Data fetch completed, disconnecting miband3')
           await miband3.disconnect()
         } catch (err) {
           // doesn't matter if it fails here, but let's print out a message on console
           console.error('cannot disconnect miband3', err)
         }
-
-        if (storedData.length < minimumDataRequired) { // If less than 30 minutes of data exists, show page which describes to little data is found, wait and come back next time.
-          await this.storeDownloadDate(this.startDate) // by storing this, we make sure to retrieve the data from the time the data was not enough instead of from today - period (which depends on when the user performs the task)
-          // TODO: should we also store that the task is completed?
-          this.$router.replace({ name: 'miband3NoData' })
-          return
-        }
-
-        this.createPieChart()
-        this.renderLineChart(this.currentStartHour, this.currentEndHour)
-
-        this.report.summary.length = storedData.length
-        this.report.summary.completedTS = new Date()
-        this.report.summary.firstTS = storedData[0].date
-        this.report.summary.lastTS = storedData[storedData.length - 1].date
-        this.report.data = {
-          device: this.deviceInfo,
-          activity: storedData
-        }
-
-        this.isDownloading = false
       } catch (err) {
-        console.error('cannot download data', err)
-        this.showErrorDialog() // TODO: Retry if the device is disconnected? The retry won't accomplish anything in this case and is confusing from a user perspective. ?? Retry moves to Connect page, make sure i am disconnected.
+        console.error('Error while downloading data', err)
+        if (!downloadCompleted) { // if data has been retrieved there is no need to show the error dialog
+          this.showErrorDialog()
+          // TODO: Retry if the device is disconnected?
+          // The retry won't accomplish anything in this case and is confusing from a user perspective.
+          // a possibility is to check connection and move to Connect page.
+        }
       }
+
+      if (storedData.length < minimumDataRequired) { // If less than 30 samples exist, show page which describes to little data is found, wait and come back next time.
+        await this.storeDownloadDate(this.startDate) // by storing this, we make sure to retrieve the data from the time the data was not enough instead of from today - period (which depends on when the user performs the task)
+        // TODO: should we also store that the task is completed?
+        this.$router.replace({ name: 'miband3NoData' })
+        return
+      }
+
+      this.createPieChart()
+      this.renderLineChart(this.currentStartHour, this.currentEndHour)
+
+      this.report.summary.length = storedData.length
+      this.report.summary.completedTS = new Date()
+      this.report.summary.firstTS = storedData[0].date
+      this.report.summary.lastTS = storedData[storedData.length - 1].date
+      this.report.data = {
+        device: this.deviceInfo,
+        activity: storedData
+      }
+
+      this.isDownloading = false
     },
     async storeDownloadDate (date) {
       // Update task
-      const consentedTask = await db.getStudyParticipationTaskItemConsent(this.studyKey, this.taskId)
+      const consentedTask = await DB.getStudyParticipationTaskItemConsent(this.studyKey, this.taskId)
       consentedTask.lastMiband3SampleTS = date
-      await db.setStudyParticipationTaskItemConsent(this.studyKey, this.taskId, consentedTask)
+      await DB.setStudyParticipationTaskItemConsent(this.studyKey, this.taskId, consentedTask)
       return consentedTask
     },
     getLatestDownloadedSampleDate () {
@@ -212,12 +221,12 @@ export default {
      */
     async getDateToUseForDownload () {
       let startDate
-      const consentedTask = await db.getStudyParticipationTaskItemConsent(this.studyKey, this.taskId)
+      const consentedTask = await DB.getStudyParticipationTaskItemConsent(this.studyKey, this.taskId)
       const latestSampleTS = consentedTask.lastMiband3SampleTS
       if (latestSampleTS) {
         startDate = new Date(latestSampleTS)
       } else {
-        const taskDescription = await db.getTaskDescription(this.studyKey, this.taskId)
+        const taskDescription = await DB.getTaskDescription(this.studyKey, this.taskId)
         const lastExecuted = taskDescription.lastExecuted
         if (lastExecuted) {
           startDate = new Date(lastExecuted)
@@ -280,6 +289,7 @@ export default {
     async cancelTask () {
       // disconnects and go home
       try {
+        console.log('Task cancelled, disconnecting miband3')
         await miband3.disconnect()
       } catch (err) {
         // doesn't matter if it fails here, but let's print out a message on console
@@ -430,7 +440,7 @@ export default {
         const userKey = session.getUserSession().user.userKey
         await API.updateTaskItemConsent(userKey, this.report.studyKey, this.report.taskId, newTaskItemConsent)
 
-        await db.setTaskCompletion(
+        await DB.setTaskCompletion(
           this.report.studyKey,
           this.report.taskId,
           new Date()
@@ -457,6 +467,7 @@ export default {
   },
   async beforeUnmount () {
     try {
+      console.log('Unmounting component, disconnecting miband3')
       await miband3.disconnect()
     } catch (err) {
       // doesn't matter if it fails here, but let's print out a message on console

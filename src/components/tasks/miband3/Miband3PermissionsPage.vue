@@ -45,6 +45,8 @@ export default {
   mounted () {
     const svgimg = this.$refs.permsvg
 
+    // TODO: does no work on Safari
+    // Blocked a frame with origin "null" from accessing a frame with origin "null". Protocols, domains, and ports must match
     svgimg.addEventListener('load', () => {
       // get the inner DOM of alpha.svg
       const svgDoc = svgimg.contentDocument

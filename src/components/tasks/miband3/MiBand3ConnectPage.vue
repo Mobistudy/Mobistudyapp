@@ -104,7 +104,6 @@ export default {
     // connect to the selected device
     async connect (device) {
       this.showConnecting = true
-      const participant = db.getParticipantProfile()
 
       try {
         if (this.$q.platform.is.ios) {
@@ -113,24 +112,35 @@ export default {
 
         this.connectionAttempts++
         await miband3.connect(device)
+        console.log('Miband3 connected')
+
         // Authenticate after connect.
         if (!device.authenticated) this.tapToAuthDialog = true
         await miband3.authenticate(device.authenticated)
-        console.log('Miband3 authenticated, configuring  device')
+        console.log('Miband3 authenticated')
 
         // configure the watch
+        const profile = await DB.getParticipantProfile()
 
+        const height = parseInt(profile.height)
+        const weight = parseInt(profile.weight)
+        const dob = profile.dateOfBirth
+        const sex = profile.sex
+        const language = profile.language
+        const studyKey = this.studyKey
+        const taskId = parseInt(this.taskId)
         // user a user configuration like { height: 180, weight: 80, dob: '1974-11-21', sex: 'male', language: 'en' }
         const user = {
-          height: participant.height,
-          weight: participant.weight,
-          dob: participant.dateOfBirth,
-          sex: participant.sex,
-          language: participant.language
+          height,
+          weight,
+          dob,
+          sex,
+          language
         }
-        const taskDescr = await db.getTaskDescription(this.studyKey, this.taskId)
+        const taskDescr = await DB.getTaskDescription(studyKey, taskId)
         await miband3.configure(user, taskDescr.hrInterval) // Maybe do not always configure upon connect?
         console.log('Miband3 configured')
+
         this.tapToAuthDialog = false
         this.showConnecting = false
 
@@ -160,9 +170,8 @@ export default {
             try {
               await miband3.disconnect()
             } catch (error) {
-              console.log(error)
+              console.error('problem disconnecting, but OK', error)
             }
-            console.log('Error:', error)
             if (device.authenticated) {
               // if already authenticated once, retry connection
               this.connect(device)
