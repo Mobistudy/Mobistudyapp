@@ -1,40 +1,42 @@
 <template>
-  <div class="q-pa-md">
-    <div v-if="devices.length > 1" class="mobitxt2">{{ $t('tasks.miband3.moreDevices') }}</div>
-    <q-list v-if="devices.length > 1" bordered class="q-mt-lg">
-      <q-item v-for="device in devices" :key="device.id" clickable v-ripple :id="device.id" @click="connect(device)">
-        <q-item-section class="mobitxt1">{{ device.id }}</q-item-section>
-      </q-item>
-    </q-list>
+  <q-page padding>
+    <div class="q-pa-md">
+      <div v-if="devices.length > 1" class="mobitxt2">{{ $t('tasks.miband3.moreDevices') }}</div>
+      <q-list v-if="devices.length > 1" bordered class="q-mt-lg">
+        <q-item v-for="device in devices" :key="device.id" clickable v-ripple :id="device.id" @click="connect(device)">
+          <q-item-section class="mobitxt1">{{ device.id }}</q-item-section>
+        </q-item>
+      </q-list>
 
-    <q-dialog v-model="tapToAuthDialog" transition-show="scale" transition-hide="scale" no-esc-dismiss
-      no-backdrop-dismiss>
-      <q-card>
-        <div class="q-pa-sm">
-          <q-img src="tasks/miband3/miband3_tap.svg" />
-        </div>
-        <q-card-section>
-          <div class="
+      <q-dialog v-model="tapToAuthDialog" transition-show="scale" transition-hide="scale" no-esc-dismiss
+        no-backdrop-dismiss>
+        <q-card>
+          <div class="q-pa-sm">
+            <q-img src="tasks/miband3/miband3_tap.svg" />
+          </div>
+          <q-card-section>
+            <div class="
             row
             no-wrap
             items-center">
-            <div class="col text-h6 ellipsis">
-              {{ $t('tasks.miband3.tap') }}
+              <div class="col text-h6 ellipsis">
+                {{ $t('tasks.miband3.tap') }}
+              </div>
             </div>
-          </div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
 
-    <q-inner-loading :showing="showSearching">
-      <div class="mobitxt2" color="dark-grey">{{ $t('tasks.miband3.searching') }}</div>
-      <q-spinner-dots size="40px" color="primary" />
-    </q-inner-loading>
-    <q-inner-loading :showing="showConnecting">
-      <div class="mobitxt2" color="dark-grey">{{ $t('tasks.miband3.connecting') }}</div>
-      <q-spinner-dots size="40px" color="primary" />
-    </q-inner-loading>
-  </div>
+      <q-inner-loading :showing="showSearching">
+        <div class="mobitxt2" color="dark-grey">{{ $t('tasks.miband3.searching') }}</div>
+        <q-spinner-dots size="40px" color="primary" />
+      </q-inner-loading>
+      <q-inner-loading :showing="showConnecting">
+        <div class="mobitxt2" color="dark-grey">{{ $t('tasks.miband3.connecting') }}</div>
+        <q-spinner-dots size="40px" color="primary" />
+      </q-inner-loading>
+    </div>
+  </q-page>
 </template>
 
 <script>

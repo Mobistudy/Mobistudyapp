@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page padding>
     <Intro :introductionSlides="slides" @start="start()">
     </Intro>
   </q-page>

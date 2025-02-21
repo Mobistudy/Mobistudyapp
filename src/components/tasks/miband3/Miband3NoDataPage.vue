@@ -1,7 +1,7 @@
 <template>
-  <q-page class="q-my-lg">
+  <q-page padding class="q-my-lg">
     <div class="mobitxt2">{{ $t('tasks.miband3.notEnoughData') }}</div>
-    <q-btn @click="cancelTask" class="q-my-lg full-width mobibtn">{{ $t('common.close') }}</q-btn>
+    <q-btn class="full-width mobibtn" color="primary" @click="cancelTask">{{ $t('common.close') }}</q-btn>
   </q-page>
 </template>
 

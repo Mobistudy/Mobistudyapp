@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page padding>
     <div class="q-pa-md">
       <div class="text-h5 text-center q-pb-sm q-pt-md" v-if="title">
         {{ title }}

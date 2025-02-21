@@ -1,5 +1,5 @@
 <template>
-  <q-page id="main">
+  <q-page padding id="main">
     <div v-show="!isDownloading">
       <p class="q-pa-md mobitxt1">{{ $t('tasks.miband3.chartsIntro') }}</p>
       <div class="text-center text-h6">

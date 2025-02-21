@@ -1,6 +1,7 @@
 <template>
-  <Intro :introductionSlides="slides" v-on:start="start()">
-  </Intro>
+  <q-page padding>
+    <Intro :introductionSlides="slides" v-on:start="start()"></Intro>
+  </q-page>
 </template>
 
 <script>
