@@ -37,6 +37,8 @@ export default {
         country: '',
         language: '',
         sex: '',
+        height: undefined,
+        weight: undefined,
         diseases: [],
         medications: [],
         studiesSuggestions: true
@@ -66,6 +68,9 @@ export default {
         profile.updatedTS = new Date()
         const newprofile = await API.createProfile(profile)
         if (newprofile) profile = newprofile
+
+        // save to database
+        await DB.setParticipantProfile(profile)
 
         // language may have changed:
         // set language and participant key also in session
