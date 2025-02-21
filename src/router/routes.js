@@ -81,7 +81,7 @@ const routes = [
       { path: '/miband3Permissions/:studyKey/:taskId', name: 'miband3Permissions', component: () => import('@components/tasks/miband3/Miband3PermissionsPage.vue'), props: true },
       { path: '/miband3Connect/:studyKey/:taskId', name: 'miband3Connect', component: () => import('@components/tasks/miband3/MiBand3ConnectPage.vue'), props: true },
       { path: '/miband3DataDownload/:studyKey/:taskId', name: 'miband3DataDownload', component: () => import('@components/tasks/miband3/MiBand3DownloadPage.vue'), props: true },
-      { path: '/miband3NoData', name: 'notEnoughDataPage', component: () => import('@components/tasks/miband3/MiBand3NoDataPage.vue') },
+      { path: '/miband3NoData', name: 'miband3NoData', component: () => import('@components/tasks/miband3/MiBand3NoDataPage.vue') },
 
       { path: '/dataQueryIntro/:studyKey/:taskId', name: 'dataQueryIntro', component: () => import('@components/tasks/dataQuery/DataQueryIntroPage'), props: true },
       { path: '/dataQueryPermissions/:studyKey/:taskId', name: 'dataQueryPermissions', component: () => import('@components/tasks/dataQuery/DataQueryPermissionsPage'), props: true },
