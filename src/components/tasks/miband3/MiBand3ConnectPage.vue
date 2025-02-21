@@ -43,7 +43,7 @@ import i18nMiband3 from '@i18n/tasks/miband3'
 import { mergeDeep } from '@shared/tools'
 
 import miband3 from '@shared/devices/miband3'
-import db from '@shared/db'
+import DB from '@shared/db'
 
 export default {
   name: 'Miband3ConnectPage',
@@ -136,7 +136,7 @@ export default {
 
         // save the device!
         device.authenticated = true
-        await db.setDeviceMiBand3(device)
+        await DB.setDeviceMiBand3(device)
 
         this.moveToDownloadPage()
       } catch (error) {
@@ -190,7 +190,7 @@ export default {
     }
   },
   async mounted () {
-    const device = await db.getDeviceMiBand3()
+    const device = await DB.getDeviceMiBand3()
     if (device) {
       // a device has been paired in the past!
       this.connect(device)
