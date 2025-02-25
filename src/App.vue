@@ -113,7 +113,7 @@ export default defineComponent({
           API.setToken(userSession.server.token)
 
           console.log('LOGGED IN, REDIRECTING TO HOME')
-          // this.$router.replace({ name: 'tasker' })
+          this.$router.replace({ name: 'tasker' })
           this.enableRouting = true
         }
       }
