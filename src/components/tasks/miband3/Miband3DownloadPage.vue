@@ -209,8 +209,7 @@ export default {
       // Update task
       const consentedTask = await DB.getStudyParticipationTaskItemConsent(this.studyKey, this.taskId)
       consentedTask.lastMiband3SampleTS = date
-      await DB.setStudyParticipationTaskItemConsent(this.studyKey, this.taskId, consentedTask)
-      return consentedTask
+      return DB.setStudyParticipationTaskItemConsent(this.studyKey, this.taskId, consentedTask)
     },
     getLatestDownloadedSampleDate () {
       return storedData[storedData.length - 1].date
@@ -435,10 +434,12 @@ export default {
 
       try {
         await API.sendTasksResults(this.report)
-        await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
-        const newTaskItemConsent = await this.storeDownloadDate(this.getLatestDownloadedSampleDate())
+        // store the last sample date
+        const lastSamplesDate = this.getLatestDownloadedSampleDate()
+        await this.storeDownloadDate(lastSamplesDate)
+        // update it on API too
         const userKey = session.getUserSession().user.userKey
-        await API.updateTaskItemConsent(userKey, this.report.studyKey, this.report.taskId, newTaskItemConsent)
+        await API.updateTaskItemConsent(userKey, this.report.studyKey, this.report.taskId, { lastMiband3SampleTS: lastSamplesDate })
 
         await DB.setTaskCompletion(
           this.report.studyKey,
@@ -455,7 +456,7 @@ export default {
           icon: 'report_problem'
         })
       }
-      console.log(this.report)
+      // console.log(this.report)
     },
     async discard () {
       this.$router.go(-1)
