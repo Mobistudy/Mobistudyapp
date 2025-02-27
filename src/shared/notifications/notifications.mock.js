@@ -67,7 +67,7 @@ export default {
   registerNotificationsListener (callback, scope) {
     this.clickListener = callback
     this.clickListener.bind(scope)
-    console.log('added notification listener', this.me)
+    console.log('added notification listener')
   },
   unregisterNotificationsListener (callback, scope) {
     this.clickListener = undefined

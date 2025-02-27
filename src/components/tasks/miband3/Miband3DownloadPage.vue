@@ -185,7 +185,8 @@ export default {
       }
 
       if (storedData.length < minimumDataRequired) { // If less than 30 samples exist, show page which describes to little data is found, wait and come back next time.
-        await this.storeDownloadDate(this.startDate) // by storing this, we make sure to retrieve the data from the time the data was not enough instead of from today - period (which depends on when the user performs the task)
+        // by storing this, we make sure to retrieve the data from the time the data was not enough instead of from today - period (which depends on when the user performs the task)
+        await this.storeDownloadDate(this.startDate)
         // TODO: should we also store that the task is completed?
         this.$router.replace({ name: 'miband3NoData' })
         return
