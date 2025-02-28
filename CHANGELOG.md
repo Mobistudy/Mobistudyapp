@@ -47,4 +47,9 @@
 - updated dependencies
 - bugfixes
 
-0.3.3
+0.4.0
+
+- added the possibility to use multiple servers
+- new permissions model before the start of each task
+- updated dependencies
+- bugfixes
