@@ -3,6 +3,8 @@ export default {
     error: 'Fel',
     generalError: 'Appen har upptäckt ett oförväntat fel, var god och se till att din internet anslutning är påslagen och försök sedan igen.',
     connectionError: 'Kan inte kontakta servern',
+    gpsError: 'Kan inte få din plats',
+    noGpsError: 'Platstjänsterna är avaktiverade',
     correctFields: 'Var god rätta de indikierade fälten',
     invitationalStudyNotFound: 'Invit-studien kunde inte hittas.',
     invitationalStudyAlreadyAdded: 'Du har redan lagt till den här invit-studien.',

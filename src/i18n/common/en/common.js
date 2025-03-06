@@ -3,6 +3,8 @@ export default {
     error: 'Error',
     generalError: 'The app is experiencing an unexpected error, please make sure that you have an Internet connection and retry.',
     connectionError: 'Cannot contact server',
+    gpsError: 'Cannot get your location',
+    noGpsError: 'Location services are disabled',
     correctFields: 'Please correct the indicated fields',
     invitationalStudyNotFound: 'Study was not found.',
     invitationalStudyAlreadyAdded: 'You have already added this invitational study.',

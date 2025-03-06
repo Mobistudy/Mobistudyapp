@@ -112,10 +112,20 @@ export default {
         // NO GPS AVAILABLE
         // TODO: show error and go back
         console.error('No GPS available')
+        this.$q.notify({
+          color: 'negative',
+          message: this.$t('errors.noGpsError'),
+          icon: 'report_problem'
+        })
       }
     } catch (error) {
       // TODO: show error and go back
       console.error('Issues while starting the GPS', error)
+      this.$q.notify({
+        color: 'negative',
+        message: this.$t('errors.gpsError') + ' ' + error.message,
+        icon: 'report_problem'
+      })
     }
   },
   methods: {

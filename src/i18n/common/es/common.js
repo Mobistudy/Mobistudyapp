@@ -3,6 +3,8 @@ export default {
     error: 'Error',
     generalError: 'La aplicación está experimentando un error inesperado, asegúrate de tener una conexión a Internet y vuelve a intentarlo',
     connectionError: 'No se puede contactar con el servidor',
+    gpsError: 'No se puede obtener tu localización',
+    noGpsError: 'Los servicios de localización están desactivados',
     correctFields: 'Por favor, corrije los siguientes campos',
     invitationalStudyNotFound: 'No se encontró el estudio',
     invitationalStudyAlreadyAdded: 'Ya agregaste este estudio',
