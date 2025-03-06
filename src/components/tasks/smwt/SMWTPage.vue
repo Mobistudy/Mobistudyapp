@@ -58,7 +58,6 @@ export default {
     return {
       isSignalCheck: true,
       isStarted: false,
-      isCompleted: false,
       timer: undefined,
       totalTime: TEST_DURATION,
       startedTS: undefined,
@@ -87,7 +86,7 @@ export default {
             // we are receiving the first position
 
             // timeout of the signal check
-            setTimeout(function () {
+            setTimeout(() => {
               this.isSignalCheck = false
             }, SIGNAL_CHECK_TIMEOUT)
           }
@@ -204,12 +203,13 @@ export default {
       phone.geolocation.stopNotifications()
       phone.screen.allowSleep()
 
-      this.isCompleted = true
       distanceAlgo.stopTest()
 
       this.distance = distanceAlgo.getDistance()
 
       const userSession = session.getUserSession()
+
+      const totSteps = this.steps.length > 0 ? this.steps[this.steps.length - 1].numberOfSteps : undefined
 
       // package the 6mwt report
       const report = {
@@ -224,7 +224,7 @@ export default {
           startedTS: this.startedTS,
           completedTS: this.completionTS,
           distance: this.distance,
-          steps: this.steps[this.steps.length - 1].numberOfSteps,
+          steps: totSteps,
           borgScale: undefined
         },
         data: {
