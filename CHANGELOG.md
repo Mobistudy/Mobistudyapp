@@ -53,3 +53,7 @@
 - new permissions model before the start of each task
 - updated dependencies
 - bugfixes
+
+0.4.1
+
+- bug fixes
