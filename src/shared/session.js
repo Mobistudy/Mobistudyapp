@@ -6,6 +6,14 @@
 export default {
 
   /**
+   * Task reports can be pretty big, the session storage may run out of quota (usually 5MB).
+   * As the task report is only transferred between the task and the report page, we can use a
+   * temporary variable to store it.
+   * @type {Object}
+   */
+  taskReport: null,
+
+  /**
    * Session store for server connection.
    * @typedef {Object} ServerInfo
    * @property {string} token - JWT token
@@ -81,7 +89,7 @@ export default {
    * @param {Object} taskReport - the current study description
    */
   setTaskReport (taskReport) {
-    sessionStorage.setItem('taskReport', JSON.stringify(taskReport))
+    this.taskReport = taskReport
   },
 
   /**
@@ -89,13 +97,14 @@ export default {
    * @returns {Object}
    */
   getTaskReport () {
-    return JSON.parse(sessionStorage.getItem('taskReport'))
+    return this.taskReport
   },
 
   /**
-   * Deletes the current user session
+   * Deletes the current task report
    */
   removeTaskReport () {
-    return sessionStorage.removeItem('taskReport')
+    this.taskReport = null
+    return true
   }
 }
