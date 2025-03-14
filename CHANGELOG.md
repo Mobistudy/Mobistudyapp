@@ -57,3 +57,7 @@
 0.4.1
 
 - bug fixes
+
+0.4.2
+
+- fixed bug in the 6MWT
