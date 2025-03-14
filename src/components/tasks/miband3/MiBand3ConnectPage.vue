@@ -164,23 +164,38 @@ export default {
           console.log('Attempting connect again...', this.connectionAttempts)
           this.connect(device)
         } else {
-          this.$q.dialog({
+          const dialogOpts = {
             title: this.$t('errors.error'),
             message: this.$t('tasks.miband3.connectionFail'),
             cancel: this.$t('common.cancel'),
             ok: this.$t('common.retry'),
             persistent: true
-          }).onOk(async () => {
+          }
+          if (device.authenticated) {
+            dialogOpts.options = {
+              type: 'toggle',
+              model: [],
+              // inline: true,
+              items: [
+                { label: 'Forget current device', value: 'forget', color: 'secondary' }
+              ]
+            }
+          }
+          this.$q.dialog(dialogOpts).onOk(async (options) => {
             try {
               await miband3.disconnect()
             } catch (error) {
               console.error('problem disconnecting, but OK', error)
             }
+            if (options && options.includes('forget')) {
+              device.authenticated = false
+              await DB.removeDeviceMiBand3()
+            }
             if (device.authenticated) {
               // if already authenticated once, retry connection
               this.connect(device)
             } else {
-              // probably the wrong device was chosen, start from search
+              // device cannot be connected, start from search
               this.search()
             }
           }).onCancel(() => {
