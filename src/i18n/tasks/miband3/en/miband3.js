@@ -36,6 +36,7 @@ export default {
   moreDevices: 'More than one MiBand device was found. The nearest in proximity is the first device in the list. Tap on the device in the list you wish to connect to.',
   tap: 'Tap the activity tracker.',
   connectionFail: 'Cannot connect to the device. Would you like to retry?',
+  connectionRepair: 'Forget current device and connect again',
   connecting: 'Connecting to the Miband',
   activityTypes: {
     walk: 'Walking',

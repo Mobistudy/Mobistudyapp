@@ -36,6 +36,7 @@ export default {
   moreDevices: 'Se encontró más de un monitor de actividad. El más cercano en proximidad es el primer dispositivo de la lista. Selecciona el dispositivo en la lista a la que deseas conectarte',
   tap: '¡Pulse el botón!',
   connectionFail: 'No se puede conectar al dispositivo. ¿Quieres volver a intentarlo?',
+  connectionRepair: 'Olvidar el dispositivo actual y volver a conectar',
   connecting: 'Conentando a al monitor de actividad',
   activityTypes: {
     walk: 'Caminando',

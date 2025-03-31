@@ -1,0 +1,116 @@
+{
+  "_key": "222222",
+  "teamKey": "78383208",
+  "createdTS": "2025-03-18",
+  "name": {
+    "sv": "Frågeformulär om smärta, baslinje",
+    "en": "Pain questionnaire, baseline"
+  },
+  "description": {
+    "sv": "Detta frågeformulär är till för att kvantifiera din smärta i ansiktsområdet.",
+    "en": "This questionnaire is to quantify your pain in the orofacial area."
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "text": {
+        "sv": "Vad är ditt nuvarande tillstånd?",
+        "en": "What is your current condition?"
+      },
+      "helper": {
+        "sv": "Välj ett alternativ.",
+        "en": "Choose one option."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q1A1",
+          "text": {
+            "sv": "Avslappnade käkmuskler (ingen tandkontakt)",
+            "en": "Relaxed jaw muscles (no tooth contact)"
+          }
+        },
+        {
+          "id": "Q1A2",
+          "text": {
+            "sv": "Spänd käke (ingen tandkontakt)",
+            "en": "Tense jaw (no tooth contact)"
+          }
+        },
+        {
+          "id": "Q1A3",
+          "text": {
+            "sv": "Tandkontakt (lätt tandkontakt)",
+            "en": "Tooth contact (light tooth contact)"
+          }
+        },
+        {
+          "id": "Q1A4",
+          "text": {
+            "sv": "Tandpressning (hård tandkontakt)",
+            "en": "Tooth clenching (hard tooth contact)"
+          }
+        },
+        {
+          "id": "Q1A5",
+          "text": {
+            "sv": "Tandgnissling",
+            "en": "Tooth grinding"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": {
+        "sv": "Har du för närvarande smärta i något av de rödmarkerade områdena?",
+        "en": "Do you currently have pain in any of the red-marked areas?"
+      },
+      "helper": {
+        "sv": "Välj ett alternativ.",
+        "en": "Choose one option."
+      },
+      "type": "singleChoice",
+      "answerChoices": [
+        {
+          "id": "Q2A1",
+          "text": {
+            "sv": "Ja",
+            "en": "Yes"
+          },
+          "nextQuestionId": "Q3"
+        },
+        {
+          "id": "Q2A2",
+          "text": {
+            "sv": "Nej",
+            "en": "No"
+          },
+          "nextQuestionId": "Q4"
+        }
+      ]
+    },
+    {
+      "id": "Q3",
+      "type": "number",
+      "text": {
+        "en": "Rate your pain in the red-marked areas from 0 (no pain) to 10 (worst imaginable pain)",
+        "sv": "Gradera din smärta i de rödmarkerade områdena från 0 (ingen smärta) till 10 (värsta tänkbara smärta)"
+      },
+      "min": 0,
+      "max": 10,
+      "helper": {
+        "en": "A number between 1 and 10 must be inserted.",
+        "sv": "Ett tal mellan 1 och 10 måste infogas."
+      }
+    },
+    {
+      "id": "Q4",
+      "type": "textOnly",
+      "text": {
+        "en": "Thanks, await next notification.",
+        "sv": "Tack, invänta nästa notis."
+      }
+    }
+  ]
+}

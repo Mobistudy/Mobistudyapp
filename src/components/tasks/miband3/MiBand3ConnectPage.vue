@@ -177,7 +177,7 @@ export default {
               model: [],
               // inline: true,
               items: [
-                { label: 'Forget current device', value: 'forget', color: 'secondary' }
+                { label: this.$t('tasks.miband3.connectionRepair'), value: 'forget', color: 'secondary' }
               ]
             }
           }

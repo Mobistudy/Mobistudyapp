@@ -36,6 +36,7 @@ export default {
   moreDevices: 'Sono stati trovati più dispositivi MiBand. Il più vicino è il primo della lista. Tocca il dispositivo nell’elenco a cui desideri connetterti.',
   tap: 'Tocca il tracker di attività.',
   connectionFail: 'Impossibile connettersi al dispositivo. Vuoi riprovare?',
+  connectionRepair: 'Dimentica il dispositivo attuale e connettiti nuovamente',
   connecting: 'Connessione al MiBand in corso',
   activityTypes: {
     walk: 'Camminata',

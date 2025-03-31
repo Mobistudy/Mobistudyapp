@@ -30,6 +30,7 @@ export default {
   moreDevices: 'Fler än en MiBand hittades. Det närmaste armbandet hittar du längst upp i listan. Välj den enhet från listan du vill ansluta till.',
   tap: 'Tryck på aktivitetsarmbandet.',
   connectionFail: 'Kan inte ansluta till armbandet. Vill du försöka igen?',
+  connectionRepair: 'Glöm den nuvarande enheten och anslut igen',
   connecting: 'Ansluter till MiBand:et',
   activityTypes: {
     walk: 'Promenerar',
