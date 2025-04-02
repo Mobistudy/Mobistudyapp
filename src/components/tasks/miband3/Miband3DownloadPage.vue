@@ -178,9 +178,7 @@ export default {
         console.error('Error while downloading data', err)
         if (!downloadCompleted) { // if data has been retrieved there is no need to show the error dialog
           this.showErrorDialog()
-          // TODO: Retry if the device is disconnected?
-          // The retry won't accomplish anything in this case and is confusing from a user perspective.
-          // a possibility is to check connection and move to Connect page.
+          return
         }
       }
 
@@ -276,10 +274,30 @@ export default {
         message: this.$t('tasks.miband3.dataDownloadError'),
         cancel: this.$t('common.cancel'),
         ok: this.$t('common.retry'),
-        persistent: true
-      }).onOk(() => {
-        // retry
-        this.downloadData()
+        persistent: true,
+        options: {
+          type: 'toggle',
+          model: [],
+          // inline: true,
+          items: [
+            { label: this.$t('tasks.miband3.connectionRepair'), value: 'forget', color: 'secondary' }
+          ]
+        }
+      }).onOk(async (options) => {
+        if (options && options.includes('forget')) {
+          // repair requested, remove the device from DB and go back to connect page
+          try {
+            console.log('Repairing requested, disconnecting miband3')
+            await miband3.disconnect()
+          } catch (err) {
+            console.error('Cannot disconnect but OK', err)
+          }
+          await DB.removeDeviceMiBand3()
+          this.$router.replace({ name: 'miband3Connect', params: { studyKey: this.studyKey, taskId: this.taskId } })
+          this.isDownloading = false
+        } else {
+          this.downloadData()
+        }
       }).onCancel(() => {
         // cancel and go home
         this.cancelTask()

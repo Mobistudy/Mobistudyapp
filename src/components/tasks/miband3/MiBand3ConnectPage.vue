@@ -185,7 +185,7 @@ export default {
             try {
               await miband3.disconnect()
             } catch (error) {
-              console.error('problem disconnecting, but OK', error)
+              console.error('Problem disconnecting, but OK', error)
             }
             if (options && options.includes('forget')) {
               device.authenticated = false
