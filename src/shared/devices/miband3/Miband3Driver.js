@@ -913,30 +913,43 @@ const Miband3 = {
     let backoffMultiplier = 1 // used to increase search time if no data is found
     let sampleCounter = 0
     let totalSamples = 0
+    let fetchCompleted = false
+
     // register to storage control
     this.registerNotification(
       this.mibandCustomService0,
       this.storageControlCharacteristic
     )
     return new Promise((resolve, reject) => {
+      let fetchWatchdogId = null
+      const restartWatchdog = function () {
+        clearTimeout(fetchWatchdogId)
+        fetchWatchdogId = setTimeout(() => {
+          console.error('Timeout fetching stored data')
+          reject()
+        }, 5000)
+      }
+
       window.ble.startNotification(
         this.deviceId,
         this.mibandCustomService0,
         this.storageControlCharacteristic,
         responseData => {
+          restartWatchdog()
+
           const dataHex = Buffer.from(responseData).toString('hex')
           if (dataHex.substring(0, 6) === '100101') {
             const datafetchStartDate = this.createDateFromHexString(
               dataHex.substring(14, 26)
             )
-            if (DEBUG) console.log('Data fetch start date:', datafetchStartDate)
+            if (DEBUG) console.log('Data fetch available from:' + datafetchStartDate)
 
-            if (actualStartDate && actualStartDate.getTime() === datafetchStartDate.getTime()) {
+            if (actualStartDate && this.sameDateTime(actualStartDate, datafetchStartDate)) {
               // we have already received a start date, this means that this is trying to fix a gap in the data
               // if the start date is the same as the one we have now, we have already fetched this data
               // ignore these data and move on to the next date:
               backoffMultiplier = backoffMultiplier * 2
-              const nextStartDate = new Date(actualStartDate.getTime() + (backoffMultiplier * fifteenMinutes))
+              const nextStartDate = new Date(datafetchStartDate.getTime() + (backoffMultiplier * fifteenMinutes))
               if (nextStartDate.getTime() >= new Date().getTime()) {
                 // we have reached the current time, we stop searching for a valid start date
                 if (DEBUG) console.log('Search date reached current time, stopping fetching')
@@ -946,7 +959,8 @@ const Miband3 = {
                 this.sendStartDateAndActivity(nextStartDate, 1)
               }
             } else {
-              // we have not received a start date yet, or it's an older one, so we set the start date to the one we just received
+              // new data, haven't seen before
+              fetchCompleted = false
               actualStartDate = datafetchStartDate
 
               totalSamples = this.getTotalSamplesFromBuffer(Buffer.from(responseData))
@@ -963,6 +977,8 @@ const Miband3 = {
                 this.storageDataCharacteristic,
                 dataResponse => {
                   // got data!
+                  restartWatchdog()
+
                   const buffer = new Uint8Array(dataResponse)
                   const sampleArray = this.createSingleActivitySamplesFromSeveral(
                     actualStartDate,
@@ -976,6 +992,27 @@ const Miband3 = {
                   }
                   sampleCounter += Math.floor(buffer.length / 4)
                   if (DEBUG) console.log('Got data from storage, sample N ' + sampleCounter, dataResponse)
+
+                  if (sampleCounter >= totalSamples) {
+                    // downloaded all available samples so far, maybe we need to fetch more
+                    setTimeout(() => {
+                      if (!fetchCompleted) {
+                        // haven't receive the fetch complete message yet, so we keep fetching
+                        const lastDateReceived = sampleArray[sampleArray.length - 1].date
+                        if (DEBUG) console.log('All samples downloaded for this date! Last date: ' + lastDateReceived)
+
+                        if (this.differenceInMinutes(lastDateReceived, new Date()) > 15) {
+                          // gap in the data! keep fetching
+                          const nextStartDate = new Date(lastDateReceived.getTime() + fifteenMinutes)
+                          if (DEBUG) console.log('Last sample date is older than 15 min, there may be more data, fetching from: ' + nextStartDate)
+                          this.sendStartDateAndActivity(nextStartDate, 1)
+                        } else {
+                          if (DEBUG) console.log('Fetch completed')
+                          resolve() // Data was received that was close enough to the current time, and hence we will not ask for more packets.
+                        }
+                      }
+                    }, 1000)
+                  }
                 },
                 (err) => {
                   console.error('Error in fetching stored data', err)
@@ -987,6 +1024,7 @@ const Miband3 = {
               this.sendFetchCommand().catch(reject)
             }
             if (dataHex === '100201') {
+              fetchCompleted = true
               // Fetch completed
               const lastDateReceived = new Date(actualStartDate.getTime() + totalSamples * 1000 * 60)
               const currentDate = new Date()
@@ -994,13 +1032,12 @@ const Miband3 = {
               if (DEBUG) console.log('Data fetching completed, last date: ' + lastDateReceived)
               if (this.differenceInMinutes(lastDateReceived, currentDate) > 15) {
                 const nextStartDate = new Date(lastDateReceived.getTime() + fifteenMinutes)
-                // actualStartDate = nextStartDate
                 if (DEBUG) console.log('Last sample date is older than 15 min, there may be more data, fetching from: ' + nextStartDate)
                 this.sendStartDateAndActivity(nextStartDate, 1)
               } else {
                 if (DEBUG) console.log('Fetch completed')
                 resolve() // Data was received that was close enough to the current time, and hence we will not ask for more packets. Not sure how else to this issue.
-                // If the above if statement is not implemented then the we keep a preamble packet with the same date and will continue to ask for that packet indefinitely.
+                // If the above "if statement" is not implemented then the we keep a preamble packet with the same date and will continue to ask for that packet indefinitely.
               }
             }
             if (dataHex === '100204') {
@@ -1015,6 +1052,7 @@ const Miband3 = {
           reject()
         }
       )
+      restartWatchdog()
 
       this.sendStartDateAndActivity(startDate, 1).catch(reject)
     })
@@ -1059,6 +1097,21 @@ const Miband3 = {
     return Math.round(diff)
   },
 
+  /**
+   * Tells if dates and times are the same, rounded to the nearest second
+   * @param {Date} date1 - date to compare
+   * @param {Date} date2 - date to compare
+   * @returns true if the same, false if not
+   */
+  sameDateTime (date1, date2) {
+    return (date1.getTime() / 1000).toFixed(0) === (date2.getTime() / 1000).toFixed(0)
+  },
+
+  /**
+   * Transforms a hex string to a JS Date
+   * @param {string} hexString - hex string to convert
+   * @returns {Date} converted date
+   */
   createDateFromHexString: function (hexString) {
     const year = parseInt(
       hexString.substring(2, 4) + hexString.substring(0, 2),
