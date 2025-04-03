@@ -913,29 +913,51 @@ const Miband3 = {
     let backoffMultiplier = 1 // used to increase search time if no data is found
     let sampleCounter = 0
     let totalSamples = 0
-    let fetchCompleted = false
+    // let fetchCompleted = false
 
-    // register to storage control
+    /**
+     * Utility function to generate some sort of watchdog, or communication timeout
+     */
+    const createWatchDog = function (callback, timeout) {
+      return {
+        watchdogId: null,
+        start () {
+          this.watchdogId = setTimeout(() => {
+            console.error('Communication timeout, watchdog id ' + this.watchdogId)
+            callback()
+          }, timeout)
+          if (DEBUG) console.log('Starting watchdog id: ' + this.watchdogId)
+        },
+        reset () {
+          // if (DEBUG) console.log('Resetting watchdog')
+          clearTimeout(this.watchdogId)
+          this.watchdogId = setTimeout(() => {
+            console.error('Communication timeout, watchdog id ' + this.watchdogId)
+            callback()
+          }, timeout)
+          if (DEBUG) console.log('Resetting watchdog, new id: ' + this.watchdogId)
+        },
+        stop () {
+          if (DEBUG) console.log('Stopping watchdog id: ' + this.watchdogId)
+          clearTimeout(this.watchdogId)
+        }
+      }
+    }
+
+    // register to "storage control" channel
     this.registerNotification(
       this.mibandCustomService0,
       this.storageControlCharacteristic
     )
     return new Promise((resolve, reject) => {
-      let fetchWatchdogId = null
-      const restartWatchdog = function () {
-        clearTimeout(fetchWatchdogId)
-        fetchWatchdogId = setTimeout(() => {
-          console.error('Timeout fetching stored data')
-          reject()
-        }, 5000)
-      }
+      const watchdog = createWatchDog(reject, 2000)
 
       window.ble.startNotification(
         this.deviceId,
         this.mibandCustomService0,
         this.storageControlCharacteristic,
         responseData => {
-          restartWatchdog()
+          watchdog.reset()
 
           const dataHex = Buffer.from(responseData).toString('hex')
           if (dataHex.substring(0, 6) === '100101') {
@@ -953,6 +975,7 @@ const Miband3 = {
               if (nextStartDate.getTime() >= new Date().getTime()) {
                 // we have reached the current time, we stop searching for a valid start date
                 if (DEBUG) console.log('Search date reached current time, stopping fetching')
+                watchdog.stop()
                 resolve()
               } else {
                 if (DEBUG) console.log('We have already received this date! Re-fetching from: ' + nextStartDate)
@@ -960,13 +983,14 @@ const Miband3 = {
               }
             } else {
               // new data, haven't seen before
-              fetchCompleted = false
+              // fetchCompleted = false
               actualStartDate = datafetchStartDate
 
               totalSamples = this.getTotalSamplesFromBuffer(Buffer.from(responseData))
               sampleCounter = 0
               if (DEBUG) console.log('Data vailable from date: ' + actualStartDate + ', total samples: ' + totalSamples)
               // here we know we should receive data, so we register for the characteristic
+              // register to "storage data" channel
               this.registerNotification(
                 this.mibandCustomService0,
                 this.storageDataCharacteristic
@@ -977,10 +1001,10 @@ const Miband3 = {
                 this.storageDataCharacteristic,
                 dataResponse => {
                   // got data!
-                  restartWatchdog()
+                  watchdog.reset()
 
                   const buffer = new Uint8Array(dataResponse)
-                  const sampleArray = this.createSingleActivitySamplesFromSeveral(
+                  const sampleArray = this.createSingleActivitySamplesFromBuffer(
                     actualStartDate,
                     sampleCounter,
                     buffer
@@ -991,8 +1015,11 @@ const Miband3 = {
                     )
                   }
                   sampleCounter += Math.floor(buffer.length / 4)
-                  if (DEBUG) console.log('Got data from storage, sample N ' + sampleCounter, dataResponse)
+                  if (DEBUG) console.log('Got data from storage, sample N ' + sampleCounter, sampleArray)
 
+                  /*
+                  // block used in case the device does not send a '100201'
+                  // we assume that the device is able to send more data
                   if (sampleCounter >= totalSamples) {
                     // downloaded all available samples so far, maybe we need to fetch more
                     setTimeout(() => {
@@ -1008,14 +1035,17 @@ const Miband3 = {
                           this.sendStartDateAndActivity(nextStartDate, 1)
                         } else {
                           if (DEBUG) console.log('Fetch completed')
+                          watchdog.stop()
                           resolve() // Data was received that was close enough to the current time, and hence we will not ask for more packets.
                         }
                       }
                     }, 1000)
                   }
+                    */
                 },
                 (err) => {
                   console.error('Error in fetching stored data', err)
+                  watchdog.stop()
                   reject()
                 }
               )
@@ -1024,7 +1054,7 @@ const Miband3 = {
               this.sendFetchCommand().catch(reject)
             }
             if (dataHex === '100201') {
-              fetchCompleted = true
+              // fetchCompleted = true
               // Fetch completed
               const lastDateReceived = new Date(actualStartDate.getTime() + totalSamples * 1000 * 60)
               const currentDate = new Date()
@@ -1035,25 +1065,28 @@ const Miband3 = {
                 if (DEBUG) console.log('Last sample date is older than 15 min, there may be more data, fetching from: ' + nextStartDate)
                 this.sendStartDateAndActivity(nextStartDate, 1)
               } else {
-                if (DEBUG) console.log('Fetch completed')
+                if (DEBUG) console.log('All fetching completed')
+                watchdog.stop()
                 resolve() // Data was received that was close enough to the current time, and hence we will not ask for more packets. Not sure how else to this issue.
                 // If the above "if statement" is not implemented then the we keep a preamble packet with the same date and will continue to ask for that packet indefinitely.
               }
             }
             if (dataHex === '100204') {
               if (DEBUG) console.log('No data found')
+              watchdog.stop()
               // No data was found, can be triggered if a data was already sent recently, or if there is no data left to fetch.
               resolve()
             }
           }
         },
         (err) => {
-          console.error('Error in storage control', err)
+          console.error('Error fetching data', err)
+          watchdog.stop()
           reject()
         }
       )
-      restartWatchdog()
 
+      watchdog.start()
       this.sendStartDateAndActivity(startDate, 1).catch(reject)
     })
   },
@@ -1064,12 +1097,12 @@ const Miband3 = {
   },
 
   /**
- * Creates an array of sample objects, TODO: add buffer to sample
+ * Creates an array of sample objects
  * @param {Date} actualStartDate The date the first sample was recorded
  * @param {number} amountOfSamples The amount of samples that have been recorded
  * @param {Buffer} samples Contains 1-4 samples of recorded activity
  */
-  createSingleActivitySamplesFromSeveral (
+  createSingleActivitySamplesFromBuffer (
     actualStartDate,
     amountOfSamples,
     samples
