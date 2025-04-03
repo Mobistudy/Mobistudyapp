@@ -170,13 +170,15 @@ export default {
           await miband3.disconnect()
         } catch (err) {
           // doesn't matter if it fails here, but let's print out a message on console
-          console.error('cannot disconnect miband3', err)
+          console.error('Cannot disconnect miband3 but OK', err)
         }
       } catch (err) {
-        console.error('Error while downloading data', err)
         if (!downloadCompleted) { // if data has been retrieved there is no need to show the error dialog
+          console.error('Error while downloading data', err)
           this.showErrorDialog()
           return
+        } else {
+          console.error('Error while downloading data, but OK', err)
         }
       }
 
