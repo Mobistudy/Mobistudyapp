@@ -50,6 +50,8 @@ import session from '@shared/session'
 import API from '@shared/API'
 import phone from '@shared/phone'
 
+import { DateTime } from 'luxon'
+
 // a bunch of colors that nicely fit together on a multi-line or bar chart
 // if there are more than 10 colors, we are in trouble
 const chartColors = [
@@ -224,8 +226,28 @@ export default {
       if (latestSampleTS) {
         startDate = new Date(latestSampleTS)
       } else {
-        startDate = new Date()
+        const taskDescription = await DB.getTaskDescription(this.studyKey, this.taskId)
+        const lastExecuted = taskDescription.lastExecuted
+        if (lastExecuted) {
+          startDate = new Date(lastExecuted)
+        } else {
+          // use the scheduling information
+          let dt = DateTime.now()
+          const intervalType = taskDescription.scheduling.intervalType
+          const interval = taskDescription.scheduling.interval
+          if (intervalType === 'd') {
+            dt = dt.minus({ days: interval })
+          } else if (intervalType === 'w') {
+            dt = dt.minus({ weeks: interval })
+          } else if (intervalType === 'm') {
+            dt = dt.minus({ months: interval })
+          } else if (intervalType === 'y') {
+            dt = dt.minus({ years: interval })
+          }
+          startDate = dt.toJSDate()
+        }
       }
+
       return startDate
     },
     /**
