@@ -12,6 +12,7 @@ import weeaseit from './mockdata/weeaseit/weeaseit'
 import formPain from './mockdata/weeaseit/form_painlevel'
 import formTreatment from './mockdata/weeaseit/form_treatments'
 import formWeight from './mockdata/weeaseit/form_weight'
+import formLifestyle from './mockdata/weeaseit/form_lifestyle'
 
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
@@ -310,6 +311,10 @@ export default {
       } else if (key === formWeight._key) {
         setTimeout(function () {
           resolve(formWeight)
+        }, 1000)
+      } else if (key === formLifestyle._key) {
+        setTimeout(function () {
+          resolve(formLifestyle)
         }, 1000)
       } else {
         reject(new Error('Questionnaire not found ' + key))

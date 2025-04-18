@@ -106,6 +106,21 @@ export default {
       formName: {
         it: 'Peso'
       }
+    },
+
+    {
+      id: 4,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 60, // 2 months
+        intervalType: 'w',
+        interval: 1
+      },
+      formKey: '0004', // treatments
+      formName: {
+        it: 'Stile di vita'
+      }
     }
   ],
   consent: {
@@ -142,6 +157,13 @@ export default {
           it: 'Accetto di comunicare il mio peso ogni giorno.'
         },
         taskId: 3
+      },
+
+      {
+        description: {
+          it: 'Accetto di rispondere al questionario sullo stile di vita ogni settimana.'
+        },
+        taskId: 4
       }
     ],
     extraItems: [
