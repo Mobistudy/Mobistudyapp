@@ -8,6 +8,11 @@ import acceptance1ouh from './mockdata/synergy/acceptance1ouh'
 import acceptance2hgb from './mockdata/synergy/acceptance2hgb'
 import acceptance3hgb from './mockdata/synergy/acceptance3hgb'
 
+import weeaseit from './mockdata/weeaseit/weeaseit'
+import formPain from './mockdata/weeaseit/form_painlevel'
+import formTreatment from './mockdata/weeaseit/form_treatments'
+import formWeight from './mockdata/weeaseit/form_weight'
+
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
 import synergyouh from './mockdata/synergy/synergyouh'
@@ -226,6 +231,10 @@ export default {
         setTimeout(function () {
           resolve(synergyouh)
         }, 1000)
+      } else if (studyKey === weeaseit._key) {
+        setTimeout(function () {
+          resolve(weeaseit)
+        }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study ' + studyKey + ' not found'))
@@ -257,6 +266,8 @@ export default {
         resolve(synergyhgb)
       } if (invitationalCode === synergyouh.invitationCode) {
         resolve(synergyouh)
+      } if (invitationalCode === weeaseit.invitationCode) {
+        resolve(weeaseit)
       } else {
         const err = new Error('Cannot retrieve invitational study based on code.')
         err.response = { status: 400 }
@@ -287,6 +298,18 @@ export default {
       } else if (key === acceptance3hgb._key) {
         setTimeout(function () {
           resolve(acceptance3hgb)
+        }, 1000)
+      } else if (key === formPain._key) {
+        setTimeout(function () {
+          resolve(formPain)
+        }, 1000)
+      } else if (key === formTreatment._key) {
+        setTimeout(function () {
+          resolve(formTreatment)
+        }, 1000)
+      } else if (key === formWeight._key) {
+        setTimeout(function () {
+          resolve(formWeight)
         }, 1000)
       } else {
         reject(new Error('Questionnaire not found ' + key))
