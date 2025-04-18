@@ -54,17 +54,18 @@ import { DateTime } from 'luxon'
 
 // a bunch of colors that nicely fit together on a multi-line or bar chart
 // if there are more than 10 colors, we are in trouble
+// palette from: https://www.nceas.ucsb.edu/sites/default/files/2022-06/Colorblind%20Safe%20Color%20Schemes.pdf
 const chartColors = [
-  '#800000',
-  '#778000',
-  '#118000',
-  '#008080',
-  '#003780',
-  '#080080',
-  '#440080',
-  '#790080',
-  '#800046',
-  '#800046'
+  '#dddddd',
+  '#2f2585',
+  '#337539',
+  '#5da899',
+  '#94caec',
+  '#dcce7d',
+  '#c26a77',
+  '#9f4a97',
+  '#532954',
+  '#2e2585'
 ]
 
 // holder of all the stored data, this is kept outside of Vue for efficiency
