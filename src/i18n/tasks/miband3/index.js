@@ -1,6 +1,7 @@
 import en from './en/miband3'
 import sv from './sv/miband3'
 import es from './es/miband3'
+import it from './it/miband3'
 
 export default {
   en: {
@@ -16,6 +17,11 @@ export default {
   es: {
     tasks: {
       miband3: es
+    }
+  },
+  it: {
+    tasks: {
+      miband3: it
     }
   }
 }

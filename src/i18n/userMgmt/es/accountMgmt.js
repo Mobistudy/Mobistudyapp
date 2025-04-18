@@ -59,14 +59,16 @@ export default {
     languages: {
       en: 'Ingles',
       sv: 'Sueco',
-      es: 'Español'
+      es: 'Español',
+      it: 'Italiano'
     },
     country: 'País',
     countryError: 'Se requiere el país',
     countries: {
       gb: 'Reino Unido',
       se: 'Suecia',
-      es: 'España'
+      es: 'España',
+      it: 'Italia'
     },
     sex: 'Género',
     sexes: {

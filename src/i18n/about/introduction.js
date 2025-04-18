@@ -1,6 +1,7 @@
 import INen from './en/introduction'
 import INsv from './sv/introduction'
 import INes from './es/introduction'
+import INit from './it/introduction'
 
 export default {
   en: {
@@ -11,5 +12,8 @@ export default {
   },
   es: {
     introduction: INes
+  },
+  it: {
+    introduction: INit
   }
 }

@@ -1,5 +1,3 @@
-'use strict'
-
 export default {
   email: 'Email',
   emailRequiredError: 'È richiesto un indirizzo email valido',
@@ -12,7 +10,7 @@ export default {
   participantOnly: 'Puoi accedere a questa app solo come partecipante!',
   register: 'Registrati',
   deleteAccount: 'Elimina Account',
-  deleteShort: "Puoi eliminare definitivamente il tuo account. Mobistudy non raccoglierà più alcun dato a meno che tu non crei un nuovo account.",
+  deleteShort: 'Puoi eliminare definitivamente il tuo account. Mobistudy non raccoglierà più alcun dato a meno che tu non crei un nuovo account.',
   deleteWarning: 'Eliminando il tuo account, tutti i dati verranno eliminati definitivamente per tutti gli studi. Sei sicuro di voler continuare?',
   login: {
     login: 'Accedi',
@@ -28,7 +26,7 @@ export default {
     resetPassword: 'Reimposta Password',
     resetPasswordError: 'Impossibile reimpostare la password',
     newPassword: 'Nuova password',
-    resetPasswordShort: "Per cambiare la tua password riceverai una mail con un codice di verifica. Inserisci il codice nella schermata successiva e scegli una nuova password. Attenzione! Questo ti farà uscire dall’app.",
+    resetPasswordShort: 'Per cambiare la tua password riceverai una mail con un codice di verifica. Inserisci il codice nella schermata successiva e scegli una nuova password. Attenzione! Questo ti farà uscire dall’app.',
     newPasswordExplanation: 'Se sei registrato nel sistema, riceverai a breve una mail. Copia e incolla il codice ricevuto nella mail su questo modulo. Se cambi la password sulla pagina web di Mobistudy, premi annulla e accedi con la nuova password.',
     token: 'Codice',
     tokenHint: 'Come ricevuto via email.',
@@ -60,14 +58,16 @@ export default {
     languages: {
       en: 'Inglese',
       sv: 'Svedese',
-      es: 'Spagnolo'
+      es: 'Spagnolo',
+      it: 'Italiano'
     },
     country: 'Paese',
     countryError: 'Il paese è obbligatorio.',
     countries: {
       gb: 'Regno Unito',
       se: 'Svezia',
-      es: 'Spagna'
+      es: 'Spagna',
+      it: 'Italia'
     },
     sex: 'Sesso',
     sexes: {

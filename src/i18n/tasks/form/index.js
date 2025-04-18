@@ -1,6 +1,7 @@
 import enForm from './en/form'
 import svForm from './sv/form'
 import esForm from './es/form'
+import itForm from './it/form'
 
 export default {
   en: {
@@ -16,6 +17,11 @@ export default {
   es: {
     tasks: {
       form: esForm
+    }
+  },
+  it: {
+    tasks: {
+      form: itForm
     }
   }
 }

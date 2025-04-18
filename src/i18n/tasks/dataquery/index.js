@@ -1,6 +1,7 @@
 import enDQ from './en/dataQuery'
 import svDQ from './sv/dataQuery'
 import esDQ from './es/dataQuery'
+import itDQ from './it/dataQuery'
 
 export default {
   en: {
@@ -16,6 +17,11 @@ export default {
   es: {
     tasks: {
       dataQuery: esDQ
+    }
+  },
+  it: {
+    tasks: {
+      dataQuery: itDQ
     }
   }
 }

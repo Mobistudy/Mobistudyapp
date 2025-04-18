@@ -161,6 +161,10 @@ export default {
         {
           label: this.$i18n.t('userMgmt.profile.languages.es'),
           value: 'es'
+        },
+        {
+          label: this.$i18n.t('userMgmt.profile.languages.it'),
+          value: 'it'
         }
       ],
       countryOptions: [
@@ -175,6 +179,10 @@ export default {
         {
           label: this.$i18n.t('userMgmt.profile.countries.es'),
           value: 'es'
+        },
+        {
+          label: this.$i18n.t('userMgmt.profile.countries.it'),
+          value: 'it'
         }
       ],
       diseaseOptions: [],

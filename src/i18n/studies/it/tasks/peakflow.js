@@ -25,7 +25,7 @@ export default {
     {
       title: 'Configurazione',
       img: 'instructions/peakflow_3.svg',
-      description: `Il peak flow meter necessita di luce dall’alto, come la luce del sole o una lampadina. Assicurati di non coprire la parte superiore del dispositivo.`
+      description: 'Il peak flow meter necessita di luce dall’alto, come la luce del sole o una lampadina. Assicurati di non coprire la parte superiore del dispositivo.'
     },
     {
       title: 'Istruzioni',
@@ -46,7 +46,7 @@ export default {
   measurementCompleted3: 'Terza e ultima misurazione completata. Premi "Avanti" per continuare.',
   measurementError: 'Qualcosa è andato storto, riprova',
   measurementErrorMaxRetries: 'L’app non riesce a misurare correttamente il tuo peak flow. Assicurati che il dispositivo sia ben collegato al jack audio e posizionato sotto una fonte di luce. Se il problema persiste, utilizza l’adattatore Bluetooth. Segui le istruzioni fornite con il dispositivo.',
-  todayBest: `Miglior Peak Flow di oggi:`,
+  todayBest: 'Miglior Peak Flow di oggi:',
   results: 'Letture precedenti di Peak Flow',
   pef: 'Peak Flow',
   weeks: 'Settimane'
