@@ -14,12 +14,15 @@ import formTreatment from './mockdata/weeaseit/form_treatments'
 import formWeight from './mockdata/weeaseit/form_weight'
 import formLifestyle from './mockdata/weeaseit/form_lifestyle'
 
+import epropp from './mockdata/ePROPP/epropp'
+import eproppQ1 from './mockdata/ePROPP/eproppQ1'
+import eproppQ2 from './mockdata/ePROPP/eproppQ2'
+
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
 import synergyouh from './mockdata/synergy/synergyouh'
 
 export default {
-
   getServersList: () => {
     return [
       {
@@ -203,13 +206,18 @@ export default {
   },
 
   // update status of a task item consent
-  updateTaskItemConsent: async function (userKey, studyKey, taskId, taskItemConsent) {
+  updateTaskItemConsent: async function (
+    userKey,
+    studyKey,
+    taskId,
+    taskItemConsent
+  ) {
     console.log('API - Study task item consent', taskItemConsent)
     const study = participant.studies.find((s) => {
       return s._key === studyKey
     })
     if (study) {
-      const taskI = study.taskItemsConsent.findIndex(t => {
+      const taskI = study.taskItemsConsent.findIndex((t) => {
         return t.taskId === taskId
       })
       if (taskI) study.taskItemsConsent[taskI] = taskItemConsent
@@ -236,6 +244,10 @@ export default {
         setTimeout(function () {
           resolve(weeaseit)
         }, 1000)
+      } else if (studyKey === epropp._key) {
+        setTimeout(function () {
+          resolve(epropp)
+        }, 1000)
       } else {
         setTimeout(function () {
           reject(new Error('Study ' + studyKey + ' not found'))
@@ -261,16 +273,20 @@ export default {
 
   // retrieves an invitational study based on a code
   async getInvitationalStudy (invitationalCode) {
-    console.log('API - getting invitational study')
+    console.log('API - getting invitational study from code ' + invitationalCode)
     return new Promise((resolve, reject) => {
       if (invitationalCode === synergyhgb.invitationCode) {
         resolve(synergyhgb)
-      } if (invitationalCode === synergyouh.invitationCode) {
+      } else if (invitationalCode === synergyouh.invitationCode) {
         resolve(synergyouh)
-      } if (invitationalCode === weeaseit.invitationCode) {
+      } else if (invitationalCode === weeaseit.invitationCode) {
         resolve(weeaseit)
+      } else if (invitationalCode === epropp.invitationCode) {
+        resolve(epropp)
       } else {
-        const err = new Error('Cannot retrieve invitational study based on code.')
+        const err = new Error(
+          'Cannot retrieve invitational study based on code.'
+        )
         err.response = { status: 400 }
         reject(err)
       }
@@ -316,6 +332,14 @@ export default {
         setTimeout(function () {
           resolve(formLifestyle)
         }, 1000)
+      } else if (key === eproppQ1._key) {
+        setTimeout(function () {
+          resolve(eproppQ1)
+        }, 1000)
+      } else if (key === eproppQ2._key) {
+        setTimeout(function () {
+          resolve(eproppQ2)
+        }, 1000)
       } else {
         reject(new Error('Questionnaire not found ' + key))
       }
@@ -327,7 +351,9 @@ export default {
       return s.studyKey === studyKey
     })
     if (study) {
-      const taskItem = study.taskItemsConsent.find(ti => ti.taskId === taskId)
+      const taskItem = study.taskItemsConsent.find(
+        (ti) => ti.taskId === taskId
+      )
       if (taskItem) {
         taskItem.lastExecuted = timestamp
       }

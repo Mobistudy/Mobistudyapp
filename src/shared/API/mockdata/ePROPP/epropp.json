@@ -1,5 +1,5 @@
 {
-  "_key": "11111",
+  "_key": "827364",
   "teamKey": "78383208",
   "invitationCode": "241683",
   "invitational": true,
@@ -62,15 +62,23 @@
       "type": "form",
       "scheduling": {
         "startEvent": "consent",
+        "startDelaySecs": 0,
         "untilSecs": 259200,
         "intervalType": "d",
-        "interval": 1,
-        "occurrences": 3
+        "interval": 2,
+        "hours": [
+          7,
+          9,
+          11,
+          14,
+          16,
+          19
+        ]
       },
       "formKey": "222222",
       "formName": {
-        "sv": "Frågeformulär baslinje 3",
-        "en": "Questionnaire baseline 3"
+        "sv": "Frågeformulär 1A",
+        "en": "Questionnaire 1A"
       },
       "useCustomTitle": false
     },
@@ -79,59 +87,135 @@
       "type": "form",
       "scheduling": {
         "startEvent": "consent",
+        "startDelaySecs": 86400,
         "untilSecs": 259200,
         "intervalType": "d",
-        "interval": 1,
-        "occurrences": 1
+        "interval": 2,
+        "hours": [
+          8,
+          11,
+          13,
+          15,
+          18,
+          20
+        ]
       },
       "formKey": "222222",
       "formName": {
-        "sv": "Frågeformulär behandling",
-        "en": "Questionnaire treatment"
+        "sv": "Frågeformulär 1B",
+        "en": "Questionnaire 1B"
       },
       "useCustomTitle": false
     },
     {
-      "id": 2,
+      "id": 3,
       "type": "form",
       "scheduling": {
         "startEvent": "consent",
-        "untilSecs": 259200,
+        "startDelaySecs": 345600,
+        "untilSecs": 864000,
         "intervalType": "d",
-        "interval": 1,
-        "occurrences": 1
+        "interval": 2,
+        "hours": [
+          7,
+          9,
+          11,
+          14,
+          16,
+          19
+        ]
       },
       "formKey": "222222",
       "formName": {
-        "sv": "Frågeformulär behandling",
-        "en": "Questionnaire treatment"
+        "sv": "Frågeformulär 2A",
+        "en": "Questionnaire 2A"
       },
       "useCustomTitle": false
     },
     {
-      "id": 1,
+      "id": 4,
       "type": "form",
       "scheduling": {
         "startEvent": "consent",
-        "untilSecs": 259200,
+        "startDelaySecs": 259200,
+        "untilSecs": 864000,
         "intervalType": "d",
-        "interval": 1,
-        "occurrences": 3
+        "interval": 2,
+        "hours": [
+          8,
+          11,
+          13,
+          15,
+          18,
+          20
+        ]
       },
       "formKey": "222222",
       "formName": {
-        "sv": "Frågeformulär baslinje 3",
-        "en": "Questionnaire baseline 3"
+        "sv": "Frågeformulär 2B",
+        "en": "Questionnaire 2B"
       },
       "useCustomTitle": false
     },
+    {
+      "id": 5,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "startDelaySecs": 2592000,
+        "untilSecs": 3196800,
+        "intervalType": "d",
+        "interval": 2,
+        "hours": [
+          7,
+          9,
+          11,
+          14,
+          16,
+          19
+        ]
+      },
+      "formKey": "222222",
+      "formName": {
+        "sv": "Frågeformulär 3A",
+        "en": "Questionnaire 3A"
+      },
+      "useCustomTitle": false
+    },
+    {
+      "id": 6,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "startDelaySecs": 2678400,
+        "untilSecs": 3196800,
+        "intervalType": "d",
+        "interval": 2,
+        "hours": [
+          8,
+          11,
+          13,
+          15,
+          18,
+          20
+        ]
+      },
+      "formKey": "222222",
+      "formName": {
+        "sv": "Frågeformulär 3B",
+        "en": "Questionnaire 3B"
+      },
+      "useCustomTitle": false
+    }
   ],
   "consent": {
     "invitation": {
-      "sv": "Tack för ditt intresse av vår forskningsstudie. Innan du bestämmer dig för att delta är det viktigt att du förstår varför forskningen görs och vad deltagande betyder för dig. Vänligen ta den tid du behöver för att läsa detta dokument samt diskutera med andra om du så önskar. Om något är oklart, eller du vill ha mer information, vänligen kontakta den forskare från Malmö universitet som anges i slutet av detta dokument. Målsättningen med studien är att förstå relationen mellan fysiska aktiviteter i vardagslivet och kliniska mätningar av mobilitet och fysisk kapacitet. Information från dina dagliga aktiviteter kan vara en reflektion av din allmänhälsa, vilket kan göra det möjligt för doktorer ansvariga för ditt välmående får en bättre bild av hur du mår till vardags."
+      "sv": "Tack för ditt intresse för ePROPP forskningsstudien. Du är inbjuden att använda MobiStudy-appen för att registrera data om käkspänning, käk/ansikts-smärta och tinnings-huvudvärk under dagen. Genom att besvara notiserna och registrera om du har spända käkar och/eller smärta samlas information om dessa besvär och hur de varierar över tid.",
+      "en": "Thank you for your interest in the ePROPP research study. You are invited to use the MobiStudy app to record data on jaw tension, jaw/face pain and temporal headaches during the day. By answering the prompts and recording whether you have jaw tension and/or pain, you will gather information about these complaints and how they vary over time."
     },
     "privacyPolicy": {
-      "sv": "<p>För att utföra denna studie behöver vi samla in viss data från dig.</p> <p><b>Vilken personlig data kommer att samlas in?</b></p> <ul> <li> Din allmänna profil såsom mejladress, för- och efternamn, födelsedatum, kön, land, språk, allmänhälsa, långtidssjukdomar, vikt och längd. Dessa behövs för att identifiera dig och samla in statistik om vem som deltar i studien. </li> <li> Ditt deltagande i studien när du genomfört en uppgift. Detta behövs för att kunna bedöma vilken grad av deltagande du har. </li> <li> Märke, modell samt operativsystem på din telefon. Detta behövs för att studera hur data påverkas beroende på vilken telefon som används. </li> <li>Teknisk information om vilka appar som ansluter till vår server. Detta behövs av säkerhetsskäl samt vid inspektion av säkerhet. </li> <li>Data som samlas in genom sensorer (Miband3, Snubblometer, GWALK) samt Mobistudy-appen, specifikt:</li>   <ul>   <li>Svar på enkäten om acceptans av teknologi.</li>   <li>Din geografiska position, avstånd och rörelse när du gör 6-minuters gångtest.</li>   <li>Avstånd och rörelse när du gör stå-upp-och-gå-testet.</li>   <li>Steg, aktivitet, samt puls insamlat genom armbandet Miband3.</li>   <li>Kroppsposition och data relaterad till din gång genom Snubblometern som sitter på ditt ben.</li>   </ul> </ul> <p> Dessa data behövs för att kunna uppnå målen med denna forskning.</p> <p> Den insamlade datan används för vetenskapliga syften, vilket betyder att laglig grund för hantering av personlig data klassas som legitimt intresse (artikel 5 och 6 av GDPR). </p> <p><b>Var kommer min data lagras?</b></p> <ul>   <li>   En forskare vid Malmö universitet kommer ha din kontaktinformation och   anteckningar såsom ålder, allmänhälsa, och anteckningar på en dator som ägs och   hanteras av Malmö universitet.   </li>   <li>   Data som skickas genom Mobistudy-appen sparas på en server på Malmö universitet i Sverige.   </li>   <li>   Data som skickas genom Snubblometen kommer att lagras på en server som hanteras av Infonomy AB och finns i Tyskland.   </li> </ul> <p><b>Hur länge kommer dessa uppgifter att sparas?</b></p> <p> Efter att datan har analyserats av forskningsgruppen, senast 2028, kommer datan tas bort från forskares datorer och servrar, samt arkiveras. Malmö universitet ansvarar för arkivering i enlighet med universitetets policies och regelverk i Sverige. Arkiverad data lagras minst 10 år. </p> <p> Din profil på Mobistudy sparas så länge du har ett konto på appen. T ekniska loggar tas bort 1 år efter de skapats. </p> <p><b>Vem har tillgång till dessa uppgifter?</b></p> <ul>   <li>   Forskningsgruppen på Malmö universitet samt Infonomy AB. Malmö universitet är   den som har kontroll över din personliga information.   </li>   <li>   Personal från Malmö universitet för tekniskt underhåll och säkerhetsinspektioner.   Malmö universitet är den som behandlar din personliga information.   </li> </ul> <p> Vi planerar att dela en anonymiserad version av den data som samlats in med det vetenskapliga samfundet. Din data kommer då att rensas från all personligen identifierbar information samt publiceras i en vetenskaplig portal. Detta gör det möjligt för fler forskare att ha samhällsmässig nytta av denna studie. Du kan välja att avstå från att inkludera din data om du vill. </p> <p>Notera att din data måste hanteras i enlighet med de lagar som gäller avseende tillgång till dokument som produceras av myndigheter i Sverige.</p> <p><b>Vilka är mina rättigheter?</b></p> <ul> <li> Du kan dra dig ur denna studie när du vill genom att gå till sektionen ‘studier’ i Mobistudy-appen. Data som producerats före detta kommer behållas men kan tas bort genom att kontakta forskningsgruppen. </li> <li> Du kan ta bort ditt konto från Mobistudy genom att gå till sektionen ‘profil’ i appen. Detta kommer ta bort all data insamlad av Mobistudy, förutom tekniska loggar som tas bort 1 år efter de skapats. Var medveten om att data som redan laddats ned av institutioner involverade i denna eller tidigare studier behålls efter du tagit bort ditt konto. Om du vill att denna data ska tas bort, vänligen kontakta forskningsgruppen. </li> <li>Du kan be om att behandlingen av din data stoppas eller begränsas även utan att ta bort ditt konto. Kontakta forskningsgruppen om detta önskas. </li> <li>Du kan få veta vad som registrerats om dig och ladda ned din data i ett maskinläsbart format genom att kontakta forskningsgruppen. </li> <li>Du kan be om att felaktigheter i din data korrigeras. Kontakta forskningsgruppen om detta önskas.</li> <li>Om du har klagomål som inte kan lösas tillsammans med Malmö universitet kan dessa skickas till Integritetsskyddsmyndigheten.</li> </ul> <p>För frågor om hur data behandlas av respektive institution som deltar i denna studie, vänligen kontakta:</p> <ul> <li>Dario Salvi, huvudansvarig forskare vid Malmö University: dario.salvi@mau.se</li> <li>Helmuth Kristen, VD på Infonomy AB: helmuth.kristen@infonomy.com</li> <li>Malmö universitets dataskyddsombud: dataskyddsombud@mau.se</li> </ul>"
+      "sv": "",
+      "en": ""
     },
     "taskItems": [
       {
