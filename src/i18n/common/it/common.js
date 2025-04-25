@@ -43,8 +43,8 @@ export default {
     close: 'Chiudi',
     about: 'Informazioni',
     homeMenu: {
-      dailyTasks: 'Compiti',
-      dailyTasksAction: 'Visualizza i compiti in programma',
+      dailyTasks: 'Attività',
+      dailyTasksAction: 'Visualizza le attività in programma',
       profile: 'Profilo',
       profileAction: 'Modifica il tuo profilo',
       studies: 'Studi',
