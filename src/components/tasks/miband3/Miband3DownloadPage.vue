@@ -161,6 +161,7 @@ export default {
       lineChartData.reset()
 
       this.startDate = await this.getDateToUseForDownload()
+
       let downloadCompleted = false
       try {
         this.deviceInfo = await miband3.getDeviceInfo()

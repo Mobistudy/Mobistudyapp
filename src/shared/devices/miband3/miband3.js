@@ -196,14 +196,58 @@ export default {
    * @param {Date} startDate a JS Date object from which we want to retrieve the data
    * @param {Function} cbk called at every sample of data retrieved
    */
-  async getStoredData (startDate, cbk) {
+  async getStoredData (startDate, cbk, backoffMultiplier = 1, previousFirstSampleDate) {
+    console.log('get stored data for start date', startDate)
+
+    let lastSampleDate, firstSampleDate
+    const fifteenMinutes = 15 * 60 * 1000
+    const thirtyMinutes = 30 * 60 * 1000
+
+    function sameDateTime (date1, date2) {
+      return (date1.getTime() / 1000).toFixed(0) === (date2.getTime() / 1000).toFixed(0)
+    }
+
     function interfaceCallback (data) { // Filters the noisy heart rate values, eg 0 and 255.
+      // invalid heart rate values
       if (data.hr === 0 || data.hr === 255) {
         data.hr = Number.NaN
       }
-      if (data.date.getTime() > startDate.getTime()) cbk(data) // Filter our the dates that are previous to our startDate
+
+      // keep the first sample date
+      if (!firstSampleDate) {
+        firstSampleDate = data.date
+      }
+
+      // check if data is new or already received
+      if (!previousFirstSampleDate || !sameDateTime(firstSampleDate, previousFirstSampleDate)) {
+        // this data should not be ignored, make sure that the backoff multiplier is reset to 1
+        backoffMultiplier = 1
+
+        // filter our the dates that are previous to our startDate (if any)
+        if (data.date.getTime() > startDate.getTime()) {
+          cbk(data)
+        }
+      } else {
+        // receiving same data as before, we should ignore it
+        console.log('Already received this data, ignoring it')
+      }
+
+      lastSampleDate = data.date
     }
-    return miband3Driver.fetchStoredData(startDate, interfaceCallback)
+    await miband3Driver.fetchStoredData(startDate, interfaceCallback)
+
+    if (lastSampleDate && (Date.now() - lastSampleDate.getTime() > thirtyMinutes)) {
+      // if the last sample is older than 30 minutes, we should try to fetch more data
+      console.log('Last sample is older than 30 minutes, trying to fetch more data', lastSampleDate)
+      const newStartDate = new Date(Math.max(lastSampleDate.getTime(), startDate.getTime()) + (backoffMultiplier * fifteenMinutes))
+      if (newStartDate.getTime() >= Date.now()) {
+        // we have reached the current time, we stop searching for a valid start date
+        console.error('Search date reached current time, stopping fetching')
+        return Promise.resolve()
+      } else {
+        return this.getStoredData(newStartDate, cbk, backoffMultiplier * 2, firstSampleDate)
+      }
+    } else return Promise.resolve()
   },
 
   /**

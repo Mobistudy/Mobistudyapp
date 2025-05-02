@@ -927,7 +927,7 @@ const Miband3 = {
             console.error('Communication timeout, watchdog id ' + this.watchdogId)
             callback()
           }, timeout)
-          if (DEBUG) console.log('Starting watchdog id: ' + this.watchdogId)
+          // if (DEBUG) console.log('Starting watchdog id: ' + this.watchdogId)
         },
         reset () {
           // if (DEBUG) console.log('Resetting watchdog')
@@ -936,10 +936,10 @@ const Miband3 = {
             console.error('Communication timeout, watchdog id ' + this.watchdogId)
             callback()
           }, timeout)
-          if (DEBUG) console.log('Resetting watchdog, new id: ' + this.watchdogId)
+          // if (DEBUG) console.log('Resetting watchdog, new id: ' + this.watchdogId)
         },
         stop () {
-          if (DEBUG) console.log('Stopping watchdog id: ' + this.watchdogId)
+          // if (DEBUG) console.log('Stopping watchdog id: ' + this.watchdogId)
           clearTimeout(this.watchdogId)
         }
       }
@@ -1007,32 +1007,6 @@ const Miband3 = {
                       }
                       sampleCounter += Math.floor(buffer.length / 4)
                       if (DEBUG) console.log('Got data from storage, sample N ' + sampleCounter, sampleArray)
-
-                      /*
-                      // block used in case the device does not send a '100201'
-                      // we assume that the device is able to send more data
-                      if (sampleCounter >= totalSamples) {
-                        // downloaded all available samples so far, maybe we need to fetch more
-                        setTimeout(() => {
-                          if (!fetchCompleted) {
-                            // haven't receive the fetch complete message yet, so we keep fetching
-                            const lastDateReceived = sampleArray[sampleArray.length - 1].date
-                            if (DEBUG) console.log('All samples downloaded for this date! Last date: ' + lastDateReceived)
-
-                            if (this.differenceInMinutes(lastDateReceived, new Date()) > 15) {
-                              // gap in the data! keep fetching
-                              const nextStartDate = new Date(lastDateReceived.getTime() + fifteenMinutes)
-                              if (DEBUG) console.log('Last sample date is older than 15 min, there may be more data, fetching from: ' + nextStartDate)
-                              this.sendStartDateAndActivity(nextStartDate, 1)
-                            } else {
-                              if (DEBUG) console.log('Fetch completed')
-                              watchdog.stop()
-                              resolve() // Data was received that was close enough to the current time, and hence we will not ask for more packets.
-                            }
-                          }
-                        }, 1000)
-                      }
-                        */
                     },
                     (err) => {
                       console.error('Error in fetching stored data', err)
@@ -1049,30 +1023,6 @@ const Miband3 = {
                   // TODO: maybe send an ACK?
                   resolve()
                 }
-
-                /*
-                if (actualStartDate && this.sameDateTime(actualStartDate, datafetchStartDate)) {
-                  // we have already received a start date, this means that this is trying to fix a gap in the data
-                  // if the start date is the same as the one we have now, we have already fetched this data
-                  // ignore these data and move on to the next date:
-                  backoffMultiplier = backoffMultiplier * 2
-                  const nextStartDate = new Date(datafetchStartDate.getTime() + (backoffMultiplier * fifteenMinutes))
-                  if (nextStartDate.getTime() >= new Date().getTime()) {
-                    // we have reached the current time, we stop searching for a valid start date
-                    if (DEBUG) console.log('Search date reached current time, stopping fetching')
-                    watchdog.stop()
-                    resolve()
-                  } else {
-                    if (DEBUG) console.log('We have already received this date! Re-fetching from: ' + nextStartDate)
-                    this.sendStartDateAndActivity(nextStartDate, 1)
-                  }
-                } else {
-                  // new data, haven't seen before
-                  // fetchCompleted = false
-
-                  // DO TEH FETCHING
-                }
-                */
               } else { // start date response unsuccessful
                 console.error('Start date response unsuccessful, code: ' + dataHex.substring(4, 6))
                 watchdog.stop()
@@ -1092,30 +1042,6 @@ const Miband3 = {
                 // TODO: maybe resolve()?
                 reject()
               }
-
-              /*
-              if (dataHex.substring(4, 6) === '04') {
-                if (DEBUG) console.log('No data found')
-                watchdog.stop()
-                // No data was found, can be triggered if a data was already sent recently, or if there is no data left to fetch.
-                resolve()
-              } else {
-                const lastDateReceived = new Date(actualStartDate.getTime() + totalSamples * 1000 * 60)
-                const currentDate = new Date()
-
-                if (DEBUG) console.log('Data fetching completed, last date: ' + lastDateReceived)
-                if (this.differenceInMinutes(lastDateReceived, currentDate) > 15) {
-                  const nextStartDate = new Date(lastDateReceived.getTime() + fifteenMinutes)
-                  if (DEBUG) console.log('Last sample date is older than 15 min, there may be more data, fetching from: ' + nextStartDate)
-                  this.sendStartDateAndActivity(nextStartDate, 1)
-                } else {
-                  if (DEBUG) console.log('All fetching completed')
-                  watchdog.stop()
-                  resolve() // Data was received that was close enough to the current time, and hence we will not ask for more packets. Not sure how else to this issue.
-                  // If the above "if statement" is not implemented then the we keep a preamble packet with the same date and will continue to ask for that packet indefinitely.
-                }
-              }
-                */
             } else if (dataHex.substring(2, 4) === '03') { // ACK, fetch completed
               if (DEBUG) console.log('ACK received, fetch completed')
               watchdog.stop()
@@ -1178,16 +1104,6 @@ const Miband3 = {
     let diff = (date2.getTime() - date1.getTime()) / 1000
     diff /= 60
     return Math.round(diff)
-  },
-
-  /**
-   * Tells if dates and times are the same, rounded to the nearest second
-   * @param {Date} date1 - date to compare
-   * @param {Date} date2 - date to compare
-   * @returns true if the same, false if not
-   */
-  sameDateTime (date1, date2) {
-    return (date1.getTime() / 1000).toFixed(0) === (date2.getTime() / 1000).toFixed(0)
   },
 
   /**
@@ -1611,6 +1527,7 @@ const Miband3 = {
   },
 
   setTimeStatus: async function (date) {
+    if (DEBUG) console.log('Setting time:', date)
     const customDate = new CustomDate(date)
     const packetContent = customDate.getDateStringPacket()
     const packet = this.hexStringToHexBuffer(packetContent)

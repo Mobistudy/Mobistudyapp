@@ -108,11 +108,13 @@ export default {
       this.showConnecting = true
 
       try {
+        this.connectionAttempts++
+
+        console.log('Connecting to Miband3', device.id)
         if (this.$q.platform.is.ios) {
           await miband3.searchForId(device.id, 12000)
         }
 
-        this.connectionAttempts++
         await miband3.connect(device)
         console.log('Miband3 connected')
 
