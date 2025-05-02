@@ -188,7 +188,9 @@ export default {
     },
     countDown () {
       if (this.totalTime >= 1) {
-        this.totalTime--
+        // update the time elapsed
+        const elapsed = Date.now() - this.startedTS
+        this.totalTime = Math.floor((TEST_DURATION - (elapsed / 1000)))
       } else {
         this.completeTest()
       }
