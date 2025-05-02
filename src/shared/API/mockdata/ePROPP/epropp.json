@@ -125,7 +125,7 @@
           19
         ]
       },
-      "formKey": "222222",
+      "formKey": "333333",
       "formName": {
         "sv": "Frågeformulär 2A",
         "en": "Questionnaire 2A"
@@ -150,7 +150,7 @@
           20
         ]
       },
-      "formKey": "222222",
+      "formKey": "333333",
       "formName": {
         "sv": "Frågeformulär 2B",
         "en": "Questionnaire 2B"
@@ -175,7 +175,7 @@
           19
         ]
       },
-      "formKey": "222222",
+      "formKey": "333333",
       "formName": {
         "sv": "Frågeformulär 3A",
         "en": "Questionnaire 3A"
@@ -200,10 +200,60 @@
           20
         ]
       },
-      "formKey": "222222",
+      "formKey": "333333",
       "formName": {
         "sv": "Frågeformulär 3B",
         "en": "Questionnaire 3B"
+      },
+      "useCustomTitle": false
+    },
+    {
+      "id": 7,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "startDelaySecs": 7776000,
+        "untilSecs": 8035200,
+        "intervalType": "d",
+        "interval": 2,
+        "hours": [
+          7,
+          9,
+          11,
+          14,
+          16,
+          19
+        ]
+      },
+      "formKey": "222222",
+      "formName": {
+        "sv": "Frågeformulär 4A",
+        "en": "Questionnaire 4A"
+      },
+      "useCustomTitle": false
+    },
+    {
+      "id": 8,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "startDelaySecs": 7862400,
+        "untilSecs": 8035200,
+        "intervalType": "d",
+        "interval": 2,
+        "hours": [
+          8,
+          11,
+          13,
+          15,
+          18,
+          20
+        ]
+      },
+      "formKey": "222222",
+      "formName": {
+        "sv": "Frågeformulär 4B",
+        "en": "Questionnaire 4B"
       },
       "useCustomTitle": false
     }
@@ -220,56 +270,59 @@
     "taskItems": [
       {
         "description": {
-          "sv": "Jag accepterar att besvara enkät 1 i början av studien."
+          "sv": "Jag accepterar att besvara enkät 1A.",
+          "en": "I agree to answer questionnaire 1A."
         },
         "taskId": 1
       },
       {
         "description": {
-          "sv": "Jag accepterar att utföra sex minuters promenadtest, en gång i veckan."
+          "sv": "Jag accepterar att besvara enkät 1B.",
+          "en": "I agree to answer questionnaire 1B."
         },
         "taskId": 2
       },
       {
         "description": {
-          "sv": "Jag går med på att utföra ett Stå-upp-och-gå-test, en gång i veckan."
+          "sv": "Jag accepterar att besvara enkät 2A.",
+          "en": "I agree to answer questionnaire 2A."
         },
         "taskId": 3
       },
       {
         "description": {
-          "sv": "Jag accepterar att besvara enkät 2 mitt i studien."
+          "sv": "Jag accepterar att besvara enkät 2B.",
+          "en": "I agree to answer questionnaire 2B."
         },
         "taskId": 4
       },
       {
         "description": {
-          "sv": "Jag accepterar att besvara enkät 3 i slutet av studien."
+          "sv": "Jag accepterar att besvara enkät 3A.",
+          "en": "I agree to answer questionnaire 3A."
         },
         "taskId": 5
       },
       {
         "description": {
-          "sv": "Jag accepterar att använda armbandet och att synkronisera data med appen var tredje dag."
+          "sv": "Jag accepterar att besvara enkät 3B.",
+          "en": "I agree to answer questionnaire 3B."
         },
         "taskId": 6
-      }
-    ],
-    "extraItems": [
-      {
-        "description": {
-          "sv": "Jag samtycker till att delta i projektet Synergi: relationen mellan vardagsliv och fysisk kapacitet."
-        }
       },
       {
         "description": {
-          "sv": "Jag är medveten om att inga biologiska prover samlas in av projektet, dvs ingen information sparas i någon biobank."
-        }
+          "sv": "Jag accepterar att besvara enkät 4A.",
+          "en": "I agree to answer questionnaire 4A."
+        },
+        "taskId": 7
       },
       {
         "description": {
-          "sv": "Jag är införstådd med att jag utöver detta elektroniska samtycke även behöver läsa studieinformation och lämna ett skriftligt godkännande."
-        }
+          "sv": "Jag accepterar att besvara enkät 4B.",
+          "en": "I agree to answer questionnaire 4B."
+        },
+        "taskId": 8
       }
     ]
   }
