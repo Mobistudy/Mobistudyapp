@@ -11,6 +11,10 @@ export default {
   //   },
   // },
   transform: {
-    '.*\\.js$': 'babel-jest',
+    '.*\\.js$': 'babel-jest'
   },
-};
+  moduleNameMapper: {
+    '^@shared/(.*)$': '<rootDir>/src/shared/$1',
+    '^@i18n/(.*)$': '<rootDir>/src/i18n/$1'
+  }
+}
