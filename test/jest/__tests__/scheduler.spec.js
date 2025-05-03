@@ -332,6 +332,86 @@ describe('When testing the scheduler', () => {
     expect(tasks.alwaysOn.length).toBe(0)
   })
 
+  test('a daily task with validity of 1 h is not missed nor upcoming if more than 1h has passed', () => {
+    const studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: '2020-01-01',
+        endDate: '2022-12-31'
+      },
+      tasks: [{
+        id: 1,
+        type: 'tugt',
+        scheduling: {
+          startEvent: 'consent',
+          intervalType: 'd',
+          untilSecs: 5184000, // 60 days
+          validitySecs: 3600, // 1 hour
+          interval: 1 // daily
+        }
+      }]
+    }]
+    const studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: '2020-01-10T08:00:00.000Z', // study accepted on the 10th at 8AM
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        // executed yesterday at 1AM
+        lastExecuted: '2020-01-20T01:00:00.000Z'
+      }]
+    }]
+    // the current time is 5AM on the 21st, so 4 hours after the validity of the task
+    const now = new Date('2020-01-21T05:00:00.000Z')
+
+    const tasks = generateTasker(studiesPart, studyDescr, now)
+    expect(tasks.upcoming.length).toBe(0)
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+    expect(tasks.completedStudyAlert).toBeFalsy()
+  })
+
+  test.only('a daily task with validity of 1 h is upcoming if less than 1h has passed', () => {
+    const studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: '2020-01-01',
+        endDate: '2022-12-31'
+      },
+      tasks: [{
+        id: 1,
+        type: 'tugt',
+        scheduling: {
+          startEvent: 'consent',
+          intervalType: 'd',
+          untilSecs: 5184000, // 60 days
+          validitySecs: 3600, // 1 hour
+          interval: 1 // daily
+        }
+      }]
+    }]
+    const studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: '2020-01-10T08:00:00.000Z', // study accepted on the 10th at 8AM
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        // executed yesterday
+        lastExecuted: '2020-01-20T00:15:00.000Z'
+      }]
+    }]
+    // the current time is 00:30 on the 21st, so within the validity of the task
+    const now = new Date('2020-01-21T00:30:00.000Z')
+
+    const tasks = generateTasker(studiesPart, studyDescr, now)
+    console.log(tasks)
+    expect(tasks.upcoming.length).toBe(1)
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
+
   test('a study beyond end date is marked as completed', () => {
     const studyDescr = [{
       _key: '1234',
