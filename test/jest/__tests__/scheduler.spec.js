@@ -372,7 +372,7 @@ describe('When testing the scheduler', () => {
     expect(tasks.completedStudyAlert).toBeFalsy()
   })
 
-  test.only('a daily task with validity of 1 h is upcoming if less than 1h has passed', () => {
+  test('a daily task with validity of 1 h is upcoming if less than 1h has passed', () => {
     const studyDescr = [{
       _key: '1234',
       generalities: {
@@ -403,10 +403,9 @@ describe('When testing the scheduler', () => {
       }]
     }]
     // the current time is 00:30 on the 21st, so within the validity of the task
-    const now = new Date('2020-01-21T00:30:00.000Z')
+    const now = new Date('2020-01-21T00:30:00')
 
     const tasks = generateTasker(studiesPart, studyDescr, now)
-    console.log(tasks)
     expect(tasks.upcoming.length).toBe(1)
     expect(tasks.missed.length).toBe(0)
     expect(tasks.alwaysOn.length).toBe(0)
@@ -997,13 +996,13 @@ describe('When testing the scheduler', () => {
   })
 
   test('a daily task due multiple times a day sends notifications when the task is due', async () => {
-    const h1 = new Date(new Date().getTime() - 1000 * 60 * 60 * 1).getHours() // hour in the past
-    const h2 = new Date(new Date().getTime() + 1000 * 60 * 60 * 2).getHours() // 2 hours in the future
+    const h1 = 8 // 8 AM
+    const h2 = 11 // 11 AM
     const studyDescr = {
       _key: '1234',
       generalities: {
-        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10), // 2 months ago
-        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30).toISOString().substring(0, 10) // in a month
+        startDate: '2020-01-01',
+        endDate: '2022-12-31'
       },
       tasks: [{
         id: 1,
@@ -1012,26 +1011,27 @@ describe('When testing the scheduler', () => {
           startEvent: 'consent',
           intervalType: 'd',
           interval: 1,
-          untilSecs: 60 * 60 * 24, // 24 hours
+          untilSecs: 60 * 60 * 24, // only 24 hours
           hours: [h1, h2]
         }
       }]
     }
 
-    const today = new Date()
-    today.setHours(0, 1, 1) // remove minutes and seconds
     const studiesPart = {
       studyKey: '1234',
       currentStatus: 'accepted',
-      acceptedTS: today.toISOString(), // accepted today
+      acceptedTS: '2020-02-01T05:00:00', // accepted today at 5AM
       taskItemsConsent: [{
         taskId: 1,
         consented: true,
-        lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 30).toISOString() // 30 minutes ago
+        lastExecuted: '2020-02-01T08:30:00' // already executed at 8:30
       }]
     }
 
-    await scheduleNotificationsSingleStudy(studyDescr, studiesPart)
+    // schedule tasks at 10AM
+    const now = new Date('2020-02-01T10:00:00') // 10AM the same day
+
+    await scheduleNotificationsSingleStudy(studyDescr, studiesPart, now)
 
     expect(notifications.schedule.mock.calls.length).toBe(1)
     expect(notifications.schedule.mock.calls[0][0].length).toBe(1)
@@ -1042,8 +1042,8 @@ describe('When testing the scheduler', () => {
     const studyDescrs = [{
       _key: '1234',
       generalities: {
-        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10), // 2 months ago
-        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10) // in 2 months
+        startDate: new Date('2020-01-01'),
+        endDate: new Date('2022-12-30')
       },
       tasks: [{
         id: 1,
@@ -1051,7 +1051,7 @@ describe('When testing the scheduler', () => {
         scheduling: {
           startEvent: 'consent',
           untilSecs: 5184000,
-          startDelaySecs: 86400,
+          startDelaySecs: 86400, // 1 day delay
           intervalType: 'd',
           interval: 7,
           occurrences: 8
@@ -1059,18 +1059,19 @@ describe('When testing the scheduler', () => {
       }]
     }]
 
-    const yesterday = new Date(new Date().getTime() - 1000 * 60 * 60 * 20) // yesterday, but later than now
     const studiesParts = [{
       studyKey: '1234',
       currentStatus: 'accepted',
-      acceptedTS: yesterday.toISOString(), // accepted yesterday
+      acceptedTS: '2020-02-01T09:00:00', // accepted at 9AM
       taskItemsConsent: [{
         taskId: 1,
         consented: true
       }]
     }]
 
-    const tasks = generateTasker(studiesParts, studyDescrs)
+    const today = new Date('2020-02-02T10:00:00') // 10AM the next day
+
+    const tasks = generateTasker(studiesParts, studyDescrs, today)
     expect(tasks.upcoming.length).toBe(1)
     expect(tasks.upcoming[0].taskId).toBe(1)
 
