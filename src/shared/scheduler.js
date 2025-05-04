@@ -153,7 +153,7 @@ export function generateTasker (studiesParts, studiesDescr, now = new Date()) {
 
           if (upcoming.length > 0) {
             // convert from UTC to local time
-            upcoming = fromUTC(upcoming[0])
+            upcoming = fromUTC(upcoming[upcoming.length - 1])
             if (taskDescription.scheduling.validitySecs) {
               // check if the task is still valid
               const validUntil = new Date(upcoming.getTime() + (taskDescription.scheduling.validitySecs * 1000))

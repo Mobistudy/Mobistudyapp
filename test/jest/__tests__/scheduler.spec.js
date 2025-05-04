@@ -411,6 +411,46 @@ describe('When testing the scheduler', () => {
     expect(tasks.alwaysOn.length).toBe(0)
   })
 
+  test('a daily task with hourly schedule and validity of 1 h is upcoming if <1h has passed', () => {
+    const studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: '2020-01-01',
+        endDate: '2022-12-31'
+      },
+      tasks: [{
+        id: 1,
+        type: 'tugt',
+        scheduling: {
+          startEvent: 'consent',
+          intervalType: 'd',
+          untilSecs: 5184000, // 60 days
+          validitySecs: 3600, // 1 hour
+          interval: 1, // daily
+          hours: [12, 14] // at 12 and 14
+        }
+      }]
+    }]
+    const studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: '2020-01-10T08:00:00.000Z', // study accepted on the 10th at 8AM
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        // last executed on the 20th at 14:15
+        lastExecuted: '2020-01-20T14:15:00.000Z'
+      }]
+    }]
+    // the current time is 14:10 on the 21st, so within the validity of the task
+    const now = new Date('2020-01-21T14:10:00')
+
+    const tasks = generateTasker(studiesPart, studyDescr, now)
+    expect(tasks.upcoming.length).toBe(1)
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
+
   test('a study beyond end date is marked as completed', () => {
     const studyDescr = [{
       _key: '1234',
