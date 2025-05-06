@@ -3,13 +3,14 @@
   "teamKey": "78383208",
   "createdTS": "2025-03-18",
   "name": {
-    "sv": "Frågeformulär om smärta, registrering",
-    "en": "Pain questionnaire, registration"
+    "sv": "Käkmuskelaktivitet och smärtupplevelse",
+    "en": "Jaw Muscle Activity & Pain Perception"
   },
   "description": {
-    "sv": "Detta frågeformulär är till för att kvantifiera din smärta i ansiktsområdet.",
-    "en": "This questionnaire is to quantify your pain in the orofacial area."
+    "sv": "Detta frågeformulär kvantifierar käkmuskelspänning, tandkontakt och smärtförekomst i det orofaciala området.",
+    "en": "This questionnaire quantifies jaw muscle tension, tooth contact, and pain presence in the orofacial area."
   },
+  "summaryFunction": "return { painLevel: answers[2]? answers[2].answer : null };",
   "questions": [
     {
       "id": "Q1",
