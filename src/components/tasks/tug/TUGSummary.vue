@@ -5,7 +5,7 @@
       <img class="q-mx-a q-mt-lg" alt="Finish flag" src="~assets/goalflags.svg" style="width: 50%;">
       <div class="text-h6 q-mt-md">{{ $t('studies.tasks.capTestCompleteSubtext') }}</div>
 
-      <table class="decoratedTable q-mt-md">
+      <table class="summaryTable q-my-lg">
         <tbody>
           <tr>
             <td>{{ $t('tasks.tug.time') }}</td>
@@ -21,17 +21,6 @@
     </div>
   </q-page>
 </template>
-
-<style>
-.decoratedTable {
-  background: #f8f8f8;
-  padding: 4px;
-  width: 70%;
-  margin: auto;
-  font-size: 1rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-</style>
 
 <script>
 import i18nCommon from '@i18n/common'
