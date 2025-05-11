@@ -15,6 +15,7 @@ export default {
         en: 'Total',
         it: 'Totale'
       },
+      type: 'number',
       description: {
         en: 'Total PHQ-9 score',
         it: 'Punteggio totale PHQ-9'
