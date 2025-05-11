@@ -2,13 +2,13 @@ export default {
   title: 'Test di stabilità del telefono',
   shortTitle: 'Tieni il telefono',
   shortDescription: 'Misura il tremore tenendo in mano il telefono',
-  OSpermissioniOS: 'Questo compito richiede che l’app acceda ai sensori di movimento del tuo telefono. Questo è necessario per misurare l’entità del tremore nelle tue mani e negli arti superiori. Questi dati saranno condivisi con il team di ricerca dello studio per l’analisi. Tocca "Avanti" per procedere con il processo di autorizzazione.',
-  OSpermissionAndroid: 'Questo compito richiede che l’app acceda ai sensori di movimento del tuo telefono. Questo è necessario per misurare l’entità del tremore nelle tue mani e negli arti superiori. Questi dati saranno condivisi con il team di ricerca dello studio per l’analisi. Tocca "Avanti" per procedere con il processo di autorizzazione.',
+  OSpermissioniOS: 'Questa attività richiede che l’app acceda ai sensori di movimento del tuo telefono. Questo è necessario per misurare l’entità del tremore nelle tue mani e negli arti superiori. Questi dati saranno condivisi con il team di ricerca dello studio per l’analisi. Tocca "Avanti" per procedere con il processo di autorizzazione.',
+  OSpermissionAndroid: 'Questa attività richiede che l’app acceda ai sensori di movimento del tuo telefono. Questo è necessario per misurare l’entità del tremore nelle tue mani e negli arti superiori. Questi dati saranno condivisi con il team di ricerca dello studio per l’analisi. Tocca "Avanti" per procedere con il processo di autorizzazione.',
   introductionSlides: [
     {
       title: 'Introduzione',
       img: 'instructions/HoldYourPhone_task-01.svg',
-      description: 'In questo compito dovrai mantenere il telefono fermo per 1 minuto con ciascuna mano. L’obiettivo è misurare eventuali tremori nelle tue mani.'
+      description: 'In questa attività dovrai mantenere il telefono fermo per 1 minuto con ciascuna mano. L’obiettivo è misurare eventuali tremori nelle tue mani.'
     },
     {
       title: 'Fase 1',
@@ -40,7 +40,7 @@ export default {
     preKineticRight: 'Muovi il telefono dal braccio teso fino a toccarti il naso mentre lo tieni con la MANO DESTRA. Premi "Inizia" per cominciare.',
     afterStart: 'Continua a tenere il telefono fermo nella tua mano.'
   },
-  completed: 'Compito completato',
+  completed: 'Attività completata',
   time: 'Tempo',
   summaryRestingLeft: 'Tremore a riposo, sinistra',
   summaryRestingRight: 'Tremore a riposo, destra',

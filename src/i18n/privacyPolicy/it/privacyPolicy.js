@@ -77,10 +77,10 @@ export default `
       Flusso espiratorio di picco misurato tramite lo smart peak flow meter.
     </li>
     <li>
-      Posizione geografica raccolta per il compito di posizionamento.
+      Posizione geografica raccolta per l'attività di posizionamento.
     </li>
     <li>
-      Il momento in cui tocchi lo schermo durante il compito di finger tapping.
+      Il momento in cui tocchi lo schermo durante l'attività di finger tapping.
     </li>
     <li>
       Accelerazione e orientamento del telefono durante il test timed-up-and-go.

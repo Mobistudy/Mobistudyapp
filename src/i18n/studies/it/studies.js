@@ -31,22 +31,22 @@ const studies = {
       reason: 'Motivo dell\'accesso ai dati'
     },
     scheduling: {
-      due: 'Compito Mobistudy in scadenza!',
-      start: 'Tocca qui per iniziare il compito'
+      due: 'Attività Mobistudy in scadenza!',
+      start: 'Tocca qui per iniziare l\'attività'
     },
     tasks: {
-      cancelTask: 'Questa azione terminerà il compito corrente e verrai reindirizzato alla pagina iniziale. Nessun dato verrà salvato. Vuoi davvero uscire?',
-      noPendingTasks: 'Nessun compito in sospeso',
+      cancelTask: 'Questa azione terminerà l\'attività corrente e verrai reindirizzato alla pagina iniziale. Nessun dato verrà salvato. Vuoi davvero uscire?',
+      noPendingTasks: 'Nessun attività in sospeso',
       cancelTaskLabel: 'Annulla',
-      quitTaskLabel: 'Esci dal compito',
+      quitTaskLabel: 'Esci dall\'attività',
       pendingTasks: 'Attività in sospeso per oggi',
       missedTasks: 'Attività mancati',
       alwaysOnTasks: 'Attività sempre disponibili',
-      noMissedTasks: 'Nessun compito mancato',
+      noMissedTasks: 'Nessuna attività mancata',
       instructionsNote: 'Leggi attentamente le istruzioni. L\'accuratezza del test dipende dal rispetto delle indicazioni fornite.',
       capTestComplete: 'Congratulazioni!',
       capTestCompleteSubtext: 'Hai completato il test!',
-      taskCompleted: 'Il compito è stato completato e il risultato è stato inviato al server. Grazie!',
+      taskCompleted: 'L\'attività è stata completata e il risultato è stato inviato al server. Grazie!',
       due: 'Scadenza',
       daysAgo: 'ieri | {count} giorni fa',
       hoursAgo: '1 ora fa | {count} ore fa',

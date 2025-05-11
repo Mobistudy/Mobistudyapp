@@ -2,11 +2,11 @@ export default {
   title: 'Download dal tracker di attività',
   shortTitle: 'Tracker di attività',
   shortDescription: 'Estrai i dati dal tuo tracker di attività',
-  OSpermissioniOS: `Questo compito richiede che l’app acceda al Bluetooth del tuo telefono.
+  OSpermissioniOS: `Questa attività richiede che l’app acceda al Bluetooth del tuo telefono.
   Questo è necessario per connettere l’app al fitness tracker MiBand3 e raccogliere i dati da esso.
   I dati raccolti saranno condivisi con il team di ricerca di questo studio per l’analisi.
   Tocca "Avanti" se desideri procedere con il processo di autorizzazione.`,
-  OSpermissionAndroid: `Questo compito richiede che l’app acceda al Bluetooth del tuo telefono.
+  OSpermissionAndroid: `Questa attività richiede che l’app acceda al Bluetooth del tuo telefono.
   Questo è necessario per connettere l’app al fitness tracker MiBand3 e raccogliere i dati da esso.
   I dati raccolti saranno condivisi con il team di ricerca di questo studio per l’analisi.
   Tocca "Avanti" se desideri procedere con il processo di autorizzazione.`,
@@ -14,7 +14,7 @@ export default {
     {
       title: 'Introduzione',
       img: 'instructions/miband3_1.svg',
-      description: 'In questo compito ti connetterai al tuo braccialetto smart MiBand e scaricherai i dati di attività, inclusi passi, frequenza cardiaca, attività e sonno.'
+      description: 'In questa attività ti connetterai al tuo braccialetto smart MiBand e scaricherai i dati di attività, inclusi passi, frequenza cardiaca, attività e sonno.'
     },
     {
       title: 'Configurazione',
@@ -32,7 +32,7 @@ export default {
   searchFailed: 'Si è verificato un problema durante la ricerca del MiBand, vuoi riprovare?',
   noDeviceTitle: 'Nessun MiBand trovato',
   noDevice: 'Impossibile trovare un MiBand. Assicurati che il Bluetooth sia attivo sul telefono. Vuoi provare a cercare di nuovo?',
-  notEnoughData: 'Non sono stati trovati dati recenti da recuperare dal MiBand. Potrai riprovare la prossima volta che il compito sarà disponibile.',
+  notEnoughData: 'Non sono stati trovati dati recenti da recuperare dal MiBand. Potrai riprovare la prossima volta che l\'attività sarà disponibile.',
   moreDevices: 'Sono stati trovati più dispositivi MiBand. Il più vicino è il primo della lista. Tocca il dispositivo nell’elenco a cui desideri connetterti.',
   tap: 'Tocca il tracker di attività.',
   connectionFail: 'Impossibile connettersi al dispositivo. Vuoi riprovare?',

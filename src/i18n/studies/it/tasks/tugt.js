@@ -2,8 +2,8 @@ export default {
   title: 'Test Timed Up & Go',
   shortTitle: 'Test TU&G',
   shortDescription: 'Alzati da una sedia e cammina per 3 metri',
-  OSpermissioniOS: 'Questo compito richiede che l’app acceda ai sensori di movimento del tuo telefono, se disponibili. Questo è necessario per calcolare quanto tempo hai impiegato a completare il test. I dati di movimento saranno condivisi con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
-  OSpermissionAndroid: 'Questo compito richiede che l’app acceda ai sensori di movimento del tuo telefono, se disponibili. Questo è necessario per calcolare quanto tempo hai impiegato a completare il test. I dati di movimento saranno condivisi con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
+  OSpermissioniOS: 'Questa attività richiede che l’app acceda ai sensori di movimento del tuo telefono, se disponibili. Questo è necessario per calcolare quanto tempo hai impiegato a completare il test. I dati di movimento saranno condivisi con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
+  OSpermissionAndroid: 'Questa attività richiede che l’app acceda ai sensori di movimento del tuo telefono, se disponibili. Questo è necessario per calcolare quanto tempo hai impiegato a completare il test. I dati di movimento saranno condivisi con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
   introductionSlides: [
     {
       title: 'Introduzione',

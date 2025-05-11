@@ -2,13 +2,13 @@ export default {
   title: 'Richiesta Dati',
   shortDescription: 'Scarica i dati sulla salute e l’attività fisica dal tuo telefono',
   shortTitle: 'Richiesta Dati',
-  OSpermissioniOS: 'Questo compito richiede che l’app acceda ad alcuni dei dati raccolti da HealthKit sul tuo telefono. Questi dati sono necessari al team di ricerca per l’analisi.\n Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
-  OSpermissionAndroid: 'Questo compito richiede che l’app acceda ad alcuni dei dati raccolti da Google Fit sul tuo telefono. Questi dati sono necessari al team di ricerca per l’analisi.\n Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
+  OSpermissioniOS: 'Questa attività richiede che l’app acceda ad alcuni dei dati raccolti da HealthKit sul tuo telefono. Questi dati sono necessari al team di ricerca per l’analisi.\n Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
+  OSpermissionAndroid: 'Questa attività richiede che l’app acceda ad alcuni dei dati raccolti da Google Fit sul tuo telefono. Questi dati sono necessari al team di ricerca per l’analisi.\n Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
   introductionSlidesAndroid: [
     {
       title: 'Introduzione',
       img: 'instructions/dataquery1.svg',
-      description: 'In questo compito, l’app recupererà i dati raccolti dall’app Google Fit se è installata sul tuo telefono.'
+      description: 'In questa attività, l’app recupererà i dati raccolti dall’app Google Fit se è installata sul tuo telefono.'
     },
     {
       img: 'instructions/dataquery2.svg',
@@ -19,7 +19,7 @@ export default {
     {
       title: 'Introduzione',
       img: 'instructions/dataquery1.svg',
-      description: 'In questo compito, l’app recupererà i dati raccolti dall’app Salute.'
+      description: 'In questa attività, l’app recupererà i dati raccolti dall’app Salute.'
     },
     {
       img: 'instructions/dataquery2.svg',

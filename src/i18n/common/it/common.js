@@ -39,7 +39,7 @@ export default {
     consent: 'Nuovo studio',
     home: 'Home',
     registration: 'Registrati',
-    task: 'Compito',
+    task: 'Attività',
     close: 'Chiudi',
     about: 'Informazioni',
     homeMenu: {

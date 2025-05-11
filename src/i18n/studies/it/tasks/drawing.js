@@ -6,7 +6,7 @@ export default {
     {
       title: 'Introduzione',
       img: 'instructions/Drawing_task-01.svg',
-      description: 'In questo compito ti verrà chiesto di disegnare una forma semplice sullo schermo del telefono utilizzando l’indice della tua mano dominante.'
+      description: 'In questa attività ti verrà chiesto di disegnare una forma semplice sullo schermo del telefono utilizzando l’indice della tua mano dominante.'
     },
     {
       title: 'Istruzioni',
@@ -25,6 +25,6 @@ export default {
   results: 'Deviazione per ',
   shapeSquare: 'quadrato',
   shapeSpiral: 'spirale',
-  completed: 'Compito completato',
+  completed: 'Attività completata',
   time: 'Tempo'
 }

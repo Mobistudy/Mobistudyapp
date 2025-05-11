@@ -2,8 +2,8 @@ export default {
   title: 'Test di vocalizzazione',
   shortTitle: 'Test vocale',
   shortDescription: 'Metti alla prova la tua voce',
-  OSpermissioniOS: 'Questo compito richiede che l’app acceda al microfono del tuo telefono. È necessario per registrare la tua voce durante il test. La registrazione sarà condivisa con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
-  OSpermissionAndroid: 'Questo compito richiede che l’app acceda al microfono del tuo telefono. È necessario per registrare la tua voce durante il test. La registrazione sarà condivisa con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
+  OSpermissioniOS: 'Questa attività richiede che l’app acceda al microfono del tuo telefono. È necessario per registrare la tua voce durante il test. La registrazione sarà condivisa con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
+  OSpermissionAndroid: 'Questa attività richiede che l’app acceda al microfono del tuo telefono. È necessario per registrare la tua voce durante il test. La registrazione sarà condivisa con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
   introductionSlides: [
     {
       title: 'Introduzione',
@@ -32,6 +32,6 @@ export default {
     UUU: 'Fai un respiro profondo, premi "Inizia" e, dopo il suono, <b>pronuncia "UUUUU"</b> il più a lungo possibile. <br>Quando hai finito, premi "Completa" per terminare o "Ripeti" per rifare il passaggio corrente.'
   },
   audioError: 'Impossibile accedere al microfono del telefono.',
-  completed: 'Compito completato',
+  completed: 'Attività completata',
   time: 'Tempo'
 }

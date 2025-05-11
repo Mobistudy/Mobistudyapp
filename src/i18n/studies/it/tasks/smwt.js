@@ -2,8 +2,8 @@ export default {
   title: 'Test del Cammino di Sei Minuti (6MWT)',
   shortDescription: 'Esegui il Test del Cammino di Sei Minuti',
   shortTitle: '6MWT',
-  OSpermissioniOS: 'Questo compito richiede che l’app acceda al sistema di localizzazione del tuo telefono (come il GPS) e al contapassi, se disponibile. Queste funzionalità sono necessarie per calcolare la distanza percorsa durante il test. Sia la tua posizione che i passi percorsi saranno condivisi con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
-  OSpermissionAndroid: 'Questo compito richiede che l’app acceda al sistema di localizzazione del tuo telefono (come il GPS) e al contapassi, se disponibile. Queste funzionalità sono necessarie per calcolare la distanza percorsa durante il test. Sia la tua posizione che i passi percorsi saranno condivisi con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
+  OSpermissioniOS: 'Questa attività richiede che l’app acceda al sistema di localizzazione del tuo telefono (come il GPS) e al contapassi, se disponibile. Queste funzionalità sono necessarie per calcolare la distanza percorsa durante il test. Sia la tua posizione che i passi percorsi saranno condivisi con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
+  OSpermissionAndroid: 'Questa attività richiede che l’app acceda al sistema di localizzazione del tuo telefono (come il GPS) e al contapassi, se disponibile. Queste funzionalità sono necessarie per calcolare la distanza percorsa durante il test. Sia la tua posizione che i passi percorsi saranno condivisi con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
   introductionSlides: [
     {
       title: 'Introduzione',

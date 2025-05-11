@@ -2,11 +2,11 @@ export default {
   title: 'Misurazione con Smart Peak Flow Meter',
   shortTitle: 'Peak Flow',
   shortDescription: 'Registra il peak flow con lo Smart Peak Flow Meter',
-  OSpermissioniOS: `Questo compito richiede che l’app acceda al microfono del tuo telefono.
+  OSpermissioniOS: `Questa attività richiede che l’app acceda al microfono del tuo telefono.
   Questo è necessario per misurare il peak flow utilizzando lo Smart Peak Flow Meter.
   Il suono registrato non sarà condiviso con il team di ricerca, ma solo i valori di peak flow.
   Tocca "Avanti" se desideri procedere con il processo di autorizzazione.`,
-  OSpermissionAndroid: `Questo compito richiede che l’app acceda al microfono del tuo telefono.
+  OSpermissionAndroid: `Questa attività richiede che l’app acceda al microfono del tuo telefono.
   Questo è necessario per misurare il peak flow utilizzando lo Smart Peak Flow Meter.
   Il suono registrato non sarà condiviso con il team di ricerca, ma solo i valori di peak flow.
   I dati raccolti saranno condivisi con il team di ricerca di questo studio per l’analisi.
@@ -15,12 +15,12 @@ export default {
     {
       // title: 'Requisiti',
       img: 'instructions/peakflow_1.svg',
-      description: 'In questo compito misurerai il tuo peak flow, che indica la velocità con cui riesci a espellere l’aria dai polmoni.'
+      description: 'In questa attività misurerai il tuo peak flow, che indica la velocità con cui riesci a espellere l’aria dai polmoni.'
     },
     {
       title: 'Requisiti',
       img: 'instructions/peakflow_2.svg',
-      description: 'Per questo compito, devi collegare lo Smart Peak Flow meter al jack audio del telefono. Se il tuo telefono non ha un ingresso audio, utilizza l’adattatore Bluetooth.'
+      description: 'Per questa attività, devi collegare lo Smart Peak Flow meter al jack audio del telefono. Se il tuo telefono non ha un ingresso audio, utilizza l’adattatore Bluetooth.'
     },
     {
       title: 'Configurazione',

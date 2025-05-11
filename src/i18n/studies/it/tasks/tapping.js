@@ -6,7 +6,7 @@ export default {
     {
       title: 'Introduzione',
       img: 'instructions/fingertapping1.svg',
-      description: 'In questo compito dovrai toccare lo schermo del telefono con l’indice e il medio il più velocemente possibile.'
+      description: 'In questa attività dovrai toccare lo schermo del telefono con l’indice e il medio il più velocemente possibile.'
     },
     {
       title: 'Configurazione',
@@ -17,6 +17,6 @@ export default {
     }
   ],
   instructions: 'Premi "Inizia" per avviare l’esercizio. Una volta iniziato, tocca il più velocemente possibile i due pulsanti in basso sullo schermo con l’indice e il medio.',
-  completed: 'Compito completato',
+  completed: 'Attività completata',
   summary: 'Hai toccato {count} volte in {sec} secondi.'
 }

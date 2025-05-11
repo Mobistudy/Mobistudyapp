@@ -2,8 +2,8 @@ export default {
   title: 'Queen\'s College Step Test',
   shortTitle: 'QCST',
   shortDescription: 'Esegui il Queen\'s College Step Test',
-  OSpermissioniOS: 'Questo compito richiede che l’app acceda al contapassi del tuo telefono, se disponibile. Questo è necessario per calcolare il numero di passi effettuati durante il test. I passi rilevati saranno condivisi con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
-  OSpermissionAndroid: 'Questo compito richiede che l’app acceda al contapassi del tuo telefono, se disponibile. Questo è necessario per calcolare il numero di passi effettuati durante il test. I passi rilevati saranno condivisi con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
+  OSpermissioniOS: 'Questa attività richiede che l’app acceda al contapassi del tuo telefono, se disponibile. Questo è necessario per calcolare il numero di passi effettuati durante il test. I passi rilevati saranno condivisi con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
+  OSpermissionAndroid: 'Questa attività richiede che l’app acceda al contapassi del tuo telefono, se disponibile. Questo è necessario per calcolare il numero di passi effettuati durante il test. I passi rilevati saranno condivisi con il team di ricerca di questo studio per l’analisi. Tocca "Avanti" se desideri procedere con il processo di autorizzazione.',
   introductionSlides: [
     {
       title: 'Requisiti',
