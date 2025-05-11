@@ -74,8 +74,9 @@ const routes = [
     path: '/tasks',
     component: () => import('@components/tasks/TaskLayout.vue'),
     children: [
-      { path: '/form/:studyKey/:taskId/:formKey', name: 'form', component: () => import('@components/tasks/form/FormPage.vue'), props: true },
       { path: '/formIntro/:studyKey/:taskId/:formKey', name: 'formIntro', component: () => import('@components/tasks/form/FormIntroPage.vue'), props: true },
+      { path: '/form/:studyKey/:taskId/:formKey', name: 'form', component: () => import('@components/tasks/form/FormPage.vue'), props: true },
+      { path: '/formSummary', name: 'formSummary', component: () => import('@components/tasks/form/FormSummaryPage.vue') },
 
       { path: '/miband3Intro/:studyKey/:taskId', name: 'miband3Intro', component: () => import('@components/tasks/miband3/MiBand3IntroPage.vue'), props: true },
       { path: '/miband3Permissions/:studyKey/:taskId', name: 'miband3Permissions', component: () => import('@components/tasks/miband3/Miband3PermissionsPage.vue'), props: true },

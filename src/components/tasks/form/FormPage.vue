@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div v-if="!finished && currentQuestion">
+    <div v-if="currentQuestion">
       <transition :enter-active-class="'animated ' + this.slideName" leave-active-class="fadeOut" mode="out-in">
         <div v-show="slideName != ''" key="">
           <div class="text-center text-h6 q-mt-lg">
@@ -95,28 +95,6 @@
       </div>
     </div>
 
-    <div v-if="finished">
-      <div class="text-center text-h6 q-mt-md">
-        {{ $t('tasks.form.formCompleted') }}
-      </div>
-      <table class="summaryTable q-my-lg">
-        <tbody>
-          <tr>
-            <td>{{ $t('tasks.form.askedQuestions') }}</td>
-            <td> {{ asked }} </td>
-          </tr>
-          <tr>
-            <td>{{ $t('tasks.form.answeredQuestions') }}</td>
-            <td> {{ answered }} </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="row justify-around q-mt-xl">
-        <q-btn class="mobibtn" color="negative" :loading="sending" :label="$t('common.discard')" @click="discard()" />
-        <q-btn class="mobibtn" color="primary" @click="send()" :loading="sending" :label="$t('common.send')" />
-      </div>
-    </div>
-
     <q-inner-loading :showing="isRetrieving">
       <div class="mobitxt2">{{ $t('tasks.form.retrieving') }}</div>
       <q-spinner-oval size="50px" color="primary" />
@@ -161,7 +139,6 @@ const { testPattern } = patterns
 
 export default {
   name: 'FormPage',
-
   i18n: {
     messages: mergeDeep(i18nCommon, i18nStudies, i18nForm)
   },
@@ -184,9 +161,7 @@ export default {
       multiChoiceAnswerFreeText: [],
       photoAnswer: undefined,
 
-      finished: false,
       currentQuestion: undefined,
-      sending: false,
       slideName: '',
       timeRules: [
         val => !val || testPattern.time(val) || this.$t('tasks.form.timeNotValid')
@@ -246,6 +221,7 @@ export default {
     this.$q.loading.hide()
     this.isRetrieving = false
   },
+
   computed: {
     isFirstQuestion () {
       if (this.currentQuestion.id === this.formDescr.questions[0].id) return true
@@ -271,15 +247,6 @@ export default {
         (this.currentQuestion.type === 'multiChoice' && this.multiChoiceAnswer.length) ||
         (this.currentQuestion.type === 'photo') ||
         (this.currentQuestion.type === 'textOnly')
-    },
-    asked () {
-      return this.responses.length
-    },
-    answered () {
-      return this.responses.reduce(
-        (prev, current) => prev + (current.answer !== undefined),
-        0
-      )
     }
   },
   methods: {
@@ -403,23 +370,17 @@ export default {
 
       if (nextQuestionId === 'ENDFORM') {
         // completed !
-        this.finished = true
+        this.report.summary.completedTS = new Date()
+        this.report.summary.asked = this.responses.length
+        this.report.summary.answered = this.responses.reduce(
+          (prev, current) => prev + (current.answer !== undefined),
+          0
+        )
+        this.report.data = this.responses
 
-        // compute the summary values
-        if (this.formDescr.summaryFunction && this.formDescr.summaryFunction !== '') {
-          try {
-            // eslint-disable-next-line no-new-func
-            const summaryFun = new Function('answers', '"use strict";' + this.formDescr.summaryFunction)
+        session.setTaskReport(this.report)
 
-            const summary = summaryFun(this.responses)
-
-            for (const summaryField in summary) {
-              this.report.summary[summaryField] = summary[summaryField]
-            }
-          } catch (e) {
-            console.error(e)
-          }
-        }
+        this.$router.replace({ name: 'formSummary' })
       } else {
         this.currentQuestion = this.formDescr.questions.find(x => x.id === nextQuestionId)
       }
@@ -511,40 +472,6 @@ export default {
         this.photoAnswer = undefined
         this.$refs.photoViewer.style.display = 'none'
       }
-    },
-
-    async send () {
-      this.sending = true
-
-      this.report.discarded = false
-
-      this.report.summary.completedTS = new Date()
-      this.report.summary.asked = this.asked
-      this.report.summary.answered = this.answered
-      this.report.data = this.responses
-
-      try {
-        await API.sendTasksResults(this.report)
-        await DB.setTaskCompletion(
-          this.report.studyKey,
-          this.report.taskId,
-          new Date()
-        )
-        this.sending = false
-
-        this.$router.go(-1)
-      } catch (error) {
-        this.sending = false
-        console.error(error)
-        this.$q.notify({
-          color: 'negative',
-          message: this.$t('errors.connectionError') + ' ' + error.message,
-          icon: 'report_problem'
-        })
-      }
-    },
-    async discard () {
-      this.$router.go(-1)
     }
   }
 }
