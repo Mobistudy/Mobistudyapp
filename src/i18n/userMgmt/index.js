@@ -14,6 +14,6 @@ export default {
     userMgmt: MGMTes
   },
   it: {
-    MGMTit
+    userMgmt: MGMTit
   }
 }
