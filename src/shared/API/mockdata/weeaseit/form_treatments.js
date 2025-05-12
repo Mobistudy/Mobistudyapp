@@ -10,7 +10,7 @@ export default {
     it: 'Breve promemoria per i farmaci.',
     en: 'Short reminder for medications.'
   },
-  summaryFunction: 'return { medicationIntake: answers[0].id == "Q1A1"? "yes" : answers[0].id == "Q1A2"? "no" : "unsure" };',
+  summaryFunction: 'return { medicationIntake: answers[0].answer.answerId == "Q1A1"? "yes" : (answers[0].answer.answerId == "Q1A2"? "no" : "unsure") };',
   summaryFunctionDescription: {
     medicationIntake: {
       name: {
