@@ -16,7 +16,7 @@
         </tr>
 
         <tr v-for="(value, key) in summaryFunctionValues" :key="key">
-          <td>{{ key }}</td>
+          <td>{{ key }}:</td>
           <td> {{ value }} </td>
         </tr>
       </tbody>
@@ -72,8 +72,16 @@ export default {
           // translate the summary field
           const fieldNames = formDescr.summaryFunctionDescription[summaryField].name
           const fieldNamesTranslated = fieldNames[this.$i18n.locale]
-          // add it to table
-          this.summaryFunctionValues[fieldNamesTranslated] = summary[summaryField]
+
+          if (formDescr.summaryFunctionDescription[summaryField].type === 'category') {
+            // translate the category
+            const categoryName = formDescr.summaryFunctionDescription[summaryField].categories[summary[summaryField]].name
+            const categoryNameTranslated = categoryName[this.$i18n.locale]
+            this.summaryFunctionValues[fieldNamesTranslated] = categoryNameTranslated
+          } else {
+            // add value as is
+            this.summaryFunctionValues[fieldNamesTranslated] = summary[summaryField]
+          }
         }
       } catch (e) {
         console.error(e)
