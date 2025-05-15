@@ -12,8 +12,8 @@
       "en"
     ],
     "title": {
-      "sv": "ePROPPv4.3",
-      "en": "ePROPPv4.3"
+      "sv": "ePROPPv1.3",
+      "en": "ePROPPv1.3"
     },
     "shortDescription": {
       "sv": "eHälsa för att förebygga och minska orofacial smärta hos befolkningen.",
@@ -108,162 +108,6 @@
         "en": "Jaw Muscle Activity & Pain Perception 1B"
       },
       "useCustomTitle": false
-    },
-    {
-      "id": 3,
-      "type": "form",
-      "scheduling": {
-        "startEvent": "consent",
-        "startDelaySecs": 345600,
-        "untilSecs": 864000,
-        "validitySecs": 1800,
-        "intervalType": "d",
-        "interval": 2,
-        "hours": [
-          7,
-          9,
-          11,
-          14,
-          16,
-          19
-        ]
-      },
-      "formKey": "333333",
-      "formName": {
-        "sv": "Käkmuskelaktivitet och smärtupplevelse 2A",
-        "en": "Jaw Muscle Activity & Pain Perception 2A"
-      },
-      "useCustomTitle": false
-    },
-    {
-      "id": 4,
-      "type": "form",
-      "scheduling": {
-        "startEvent": "consent",
-        "startDelaySecs": 259200,
-        "untilSecs": 864000,
-        "validitySecs": 1800,
-        "intervalType": "d",
-        "interval": 2,
-        "hours": [
-          8,
-          11,
-          13,
-          15,
-          18,
-          20
-        ]
-      },
-      "formKey": "333333",
-      "formName": {
-        "sv": "Käkmuskelaktivitet och smärtupplevelse 2B",
-        "en": "Jaw Muscle Activity & Pain Perception 2B"
-      },
-      "useCustomTitle": false
-    },
-    {
-      "id": 5,
-      "type": "form",
-      "scheduling": {
-        "startEvent": "consent",
-        "startDelaySecs": 2592000,
-        "untilSecs": 3196800,
-        "validitySecs": 1800,
-        "intervalType": "d",
-        "interval": 2,
-        "hours": [
-          7,
-          9,
-          11,
-          14,
-          16,
-          19
-        ]
-      },
-      "formKey": "333333",
-      "formName": {
-        "sv": "Käkmuskelaktivitet och smärtupplevelse 3A",
-        "en": "Jaw Muscle Activity & Pain Perception 3A"
-      },
-      "useCustomTitle": false
-    },
-    {
-      "id": 6,
-      "type": "form",
-      "scheduling": {
-        "startEvent": "consent",
-        "startDelaySecs": 2678400,
-        "untilSecs": 3196800,
-        "validitySecs": 1800,
-        "intervalType": "d",
-        "interval": 2,
-        "hours": [
-          8,
-          11,
-          13,
-          15,
-          18,
-          20
-        ]
-      },
-      "formKey": "333333",
-      "formName": {
-        "sv": "Käkmuskelaktivitet och smärtupplevelse 3B",
-        "en": "Jaw Muscle Activity & Pain Perception 3B"
-      },
-      "useCustomTitle": false
-    },
-    {
-      "id": 7,
-      "type": "form",
-      "scheduling": {
-        "startEvent": "consent",
-        "startDelaySecs": 7776000,
-        "untilSecs": 8035200,
-        "validitySecs": 1800,
-        "intervalType": "d",
-        "interval": 2,
-        "hours": [
-          7,
-          9,
-          11,
-          14,
-          16,
-          19
-        ]
-      },
-      "formKey": "222222",
-      "formName": {
-        "sv": "Käkmuskelaktivitet och smärtupplevelse 4A",
-        "en": "Jaw Muscle Activity & Pain Perception 4A"
-      },
-      "useCustomTitle": false
-    },
-    {
-      "id": 8,
-      "type": "form",
-      "scheduling": {
-        "startEvent": "consent",
-        "startDelaySecs": 7862400,
-        "untilSecs": 8035200,
-        "validitySecs": 1800,
-        "intervalType": "d",
-        "interval": 2,
-        "hours": [
-          8,
-          11,
-          13,
-          15,
-          18,
-          20
-        ]
-      },
-      "formKey": "222222",
-      "formName": {
-        "sv": "Käkmuskelaktivitet och smärtupplevelse 4B",
-        "en": "Jaw Muscle Activity & Pain Perception 4B"
-      },
-      "useCustomTitle": false
     }
   ],
   "consent": {
@@ -289,48 +133,6 @@
           "en": "I agree to answer questionnaire 1B."
         },
         "taskId": 2
-      },
-      {
-        "description": {
-          "sv": "Jag accepterar att besvara enkät 2A.",
-          "en": "I agree to answer questionnaire 2A."
-        },
-        "taskId": 3
-      },
-      {
-        "description": {
-          "sv": "Jag accepterar att besvara enkät 2B.",
-          "en": "I agree to answer questionnaire 2B."
-        },
-        "taskId": 4
-      },
-      {
-        "description": {
-          "sv": "Jag accepterar att besvara enkät 3A.",
-          "en": "I agree to answer questionnaire 3A."
-        },
-        "taskId": 5
-      },
-      {
-        "description": {
-          "sv": "Jag accepterar att besvara enkät 3B.",
-          "en": "I agree to answer questionnaire 3B."
-        },
-        "taskId": 6
-      },
-      {
-        "description": {
-          "sv": "Jag accepterar att besvara enkät 4A.",
-          "en": "I agree to answer questionnaire 4A."
-        },
-        "taskId": 7
-      },
-      {
-        "description": {
-          "sv": "Jag accepterar att besvara enkät 4B.",
-          "en": "I agree to answer questionnaire 4B."
-        },
-        "taskId": 8
       }
     ]
   }

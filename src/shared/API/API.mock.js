@@ -14,7 +14,7 @@ import formTreatment from './mockdata/weeaseit/form_treatments'
 import formWeight from './mockdata/weeaseit/form_weight'
 import formLifestyle from './mockdata/weeaseit/form_lifestyle'
 
-import epropp from './mockdata/ePROPP/epropp'
+import epropp from './mockdata/ePROPP/epropp4.3'
 import eproppQ1 from './mockdata/ePROPP/eproppQ1'
 import eproppQ2 from './mockdata/ePROPP/eproppQ2'
 
