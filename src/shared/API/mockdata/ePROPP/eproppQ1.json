@@ -10,7 +10,20 @@
     "sv": "Detta frågeformulär kvantifierar käkmuskelspänning, tandkontakt och smärtförekomst i det orofaciala området.",
     "en": "This questionnaire quantifies jaw muscle tension, tooth contact, and pain presence in the orofacial area."
   },
-  "summaryFunction": "return { painLevel: answers[2]? answers[2].answer : null };",
+  "summaryFunction": "return { painLevel: answers[2]? answers[2].answer : 0 };",
+  "summaryFunctionDescription": {
+    "painLevel": {
+      "name": {
+        "en": "Pain Level",
+        "sv": "Smärtnivå"
+      },
+      "type": "number",
+      "description": {
+        "en": "Self declared pain level",
+        "sv": "Egna deklarerad smärtnivå"
+      }
+    }
+  },
   "questions": [
     {
       "id": "Q1",
