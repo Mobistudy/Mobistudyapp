@@ -13,6 +13,7 @@ import formPain from './mockdata/weeaseit/form_painlevel'
 import formTreatment from './mockdata/weeaseit/form_treatments'
 import formWeight from './mockdata/weeaseit/form_weight'
 import formLifestyle from './mockdata/weeaseit/form_lifestyle'
+import formProctcae from './mockdata/weeaseit/form_proctcae'
 
 import epropp from './mockdata/ePROPP/epropp4.3'
 import eproppQ1 from './mockdata/ePROPP/eproppQ1'
@@ -331,6 +332,10 @@ export default {
       } else if (key === formLifestyle._key) {
         setTimeout(function () {
           resolve(formLifestyle)
+        }, 1000)
+      } else if (key === formProctcae._key) {
+        setTimeout(function () {
+          resolve(formProctcae)
         }, 1000)
       } else if (key === eproppQ1._key) {
         setTimeout(function () {

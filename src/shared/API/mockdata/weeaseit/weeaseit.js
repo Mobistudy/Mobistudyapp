@@ -121,6 +121,21 @@ export default {
       formName: {
         it: 'Stile di vita'
       }
+    },
+
+    {
+      id: 5,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 60, // 2 months
+        intervalType: 'w',
+        interval: 1
+      },
+      formKey: '0005', // treatments
+      formName: {
+        it: 'Effetti collaterali'
+      }
     }
   ],
   consent: {
@@ -164,6 +179,13 @@ export default {
           it: 'Accetto di rispondere al questionario sullo stile di vita ogni settimana.'
         },
         taskId: 4
+      },
+
+      {
+        description: {
+          it: 'Accetto di rispondere al questionario sugli effetti collaterali ogni settimana.'
+        },
+        taskId: 5
       }
     ],
     extraItems: [
