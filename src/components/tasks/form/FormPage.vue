@@ -313,7 +313,18 @@ export default {
             answer.answer.push({
               answerText: chosenAnswerChoice.text,
               answerId: chosenAnswerChoice.id,
-              nestedAnswers: this.nestedAnswers[chosenAnswerIndex]
+              nestedAnswers: this.nestedAnswers[chosenAnswerIndex].map(nestedAnsId => {
+                console.log('nestedAnsId', nestedAnsId)
+                console.log('nestedQuestions', chosenAnswerChoice.nestedQuestions)
+                // find the nested question text
+                const nestedText = chosenAnswerChoice.nestedQuestions.find(nestQuest =>
+                  nestQuest.answerChoices.some(nestAns => nestAns.id === nestedAnsId)
+                ).answerChoices.find(nestAns => nestAns.id === nestedAnsId).text
+                return {
+                  answerId: nestedAnsId,
+                  answerText: nestedText
+                }
+              })
             })
           } else {
             answer.answer.push({
@@ -372,7 +383,7 @@ export default {
             this.nestedAnswers[iChoice] = []
             if (nextQuestion.answerChoices[iChoice].nestedQuestions) {
               for (let iNested = 0; iNested < nextQuestion.answerChoices[iChoice].nestedQuestions.length; iNested++) {
-                this.nestedAnswers[iChoice][iNested] = []
+                this.nestedAnswers[iChoice][iNested] = ''
               }
             }
           }
@@ -397,11 +408,14 @@ export default {
             } else if (nextQuestion.type === 'multiChoice' && Array.isArray(this.oldResponses[1].answer)) {
               // identify multichoice as array
               this.multiChoiceAnswer = this.oldResponses[1].answer.map(x => x.answerId)
-              if (this.oldResponses[1].answer.some(x => x.includeFreeText)) {
-                for (const answerID of this.multiChoiceAnswer) {
-                  const chosenAnswerIndex = nextQuestion.answerChoices.findIndex(x => x.id === answerID)
-                  const oldResponseIndex = this.oldResponses[1].answer.findIndex(x => x.answerId === answerID)
+              for (const answerID of this.multiChoiceAnswer) {
+                const chosenAnswerIndex = nextQuestion.answerChoices.findIndex(x => x.id === answerID)
+                const oldResponseIndex = this.oldResponses[1].answer.findIndex(x => x.answerId === answerID)
+                if (this.oldResponses[1].answer[oldResponseIndex].includeFreeText) {
                   this.multiChoiceAnswerFreeText[chosenAnswerIndex] = this.oldResponses[1].answer[oldResponseIndex].freetextAnswer
+                }
+                if (this.oldResponses[1].answer[oldResponseIndex].nestedAnswers) {
+                  this.nestedAnswers[chosenAnswerIndex] = this.oldResponses[1].answer[oldResponseIndex].nestedAnswers.map(ans => ans.answerId)
                 }
               }
             } else if (nextQuestion.type === 'photo') {
@@ -447,13 +461,17 @@ export default {
             this.singleChoiceAnswerFreeText = lastResponse.answer.freetextAnswer
           }
         } else if (this.currentQuestion.type === 'multiChoice') {
+          // place all the answer IDs in the multiChoiceAnswer array
           this.multiChoiceAnswer = lastResponse.answer.map(x => x.answerId)
-          // populate multiChoiceAnswerFreeText
-          if (lastResponse.answer.some(x => x.includeFreeText)) {
-            for (const answerID of this.multiChoiceAnswer) {
-              const chosenAnswerIndex = this.currentQuestion.answerChoices.findIndex(x => x.id === answerID)
-              const lastResponseIndex = lastResponse.answer.findIndex(x => x.answerId === answerID)
-              this.multiChoiceAnswerFreeText[chosenAnswerIndex] = lastResponse.answer[lastResponseIndex].freetextAnswer
+          // populate multiChoiceAnswerFreeText and nestedAnswers
+          for (const answerItem of lastResponse.answer) {
+            // find the index among the answerChoices
+            const chosenAnswerIndex = this.currentQuestion.answerChoices.findIndex(x => x.id === answerItem.answerId)
+            if (answerItem.includeFreeText) {
+              this.multiChoiceAnswerFreeText[chosenAnswerIndex] = answerItem.freetextAnswer
+            }
+            if (answerItem.nestedAnswers) {
+              this.nestedAnswers[chosenAnswerIndex] = answerItem.nestedAnswers.map(ans => ans.answerId)
             }
           }
         } else if (this.currentQuestion.type === 'photo') {
