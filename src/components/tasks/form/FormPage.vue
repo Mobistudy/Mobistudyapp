@@ -53,12 +53,22 @@
           <!-- multiChoice -->
 
           <div v-show="currentQuestion.type === 'multiChoice'"
-            v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="'mc' + index">
+            v-for="(answerChoice, answerChoiceIndex) in currentQuestion.answerChoices" :key="'mc' + answerChoiceIndex">
             <q-checkbox size="lg" v-model="multiChoiceAnswer" :val="answerChoice.id"
               :label="answerChoice.text[$i18n.locale]" class="q-mt-md" />
+            <q-card flat bordered v-if="answerChoice.nestedQuestions && multiChoiceAnswer.includes(answerChoice.id)">
+              <!-- nested questions -->
+              <q-card-section v-for="(nestedQuestion, nestedIndex) in answerChoice.nestedQuestions"
+                :key="'nested' + nestedIndex">
+                <p>{{ nestedQuestion.text[$i18n.locale] }}</p>
+                <q-radio v-for="(nestedChoice, nestedChoiceIndex) in nestedQuestion.answerChoices"
+                  :key="'nci' + nestedChoiceIndex" v-model="nestedAnswers[answerChoiceIndex][nestedIndex]"
+                  :val="nestedChoice.id" :label="nestedChoice.text[$i18n.locale]" />
+              </q-card-section>
+            </q-card>
             <q-input v-show="answerChoice.includeFreeText" :disable="!multiChoiceAnswer.includes(answerChoice.id)"
-              v-model="multiChoiceAnswerFreeText[index]" type="textarea" :label="$t('tasks.form.freeTextExplanation')"
-              rows="3" outlined />
+              v-model="multiChoiceAnswerFreeText[answerChoiceIndex]" type="textarea"
+              :label="$t('tasks.form.freeTextExplanation')" rows="3" outlined />
           </div>
 
           <!-- photo -->
@@ -72,7 +82,6 @@
                     @change="photoTaken(this)" />
                 </label>
               </q-btn>
-
             </div>
           </div>
 
@@ -160,6 +169,7 @@ export default {
       multiChoiceAnswer: [],
       multiChoiceAnswerFreeText: [],
       photoAnswer: undefined,
+      nestedAnswers: [],
 
       currentQuestion: undefined,
       slideName: '',
@@ -299,6 +309,12 @@ export default {
               freetextAnswer: this.multiChoiceAnswerFreeText[chosenAnswerIndex],
               includeFreeText: true
             })
+          } else if (chosenAnswerChoice.nestedQuestions) {
+            answer.answer.push({
+              answerText: chosenAnswerChoice.text,
+              answerId: chosenAnswerChoice.id,
+              nestedAnswers: this.nestedAnswers[chosenAnswerIndex]
+            })
           } else {
             answer.answer.push({
               answerText: chosenAnswerChoice.text,
@@ -321,6 +337,7 @@ export default {
       this.singleChoiceAnswerFreeText = undefined
       this.multiChoiceAnswerFreeText = []
       this.photoAnswer = undefined
+      this.nestedAnswers = []
       this.$refs.photoViewer.style.display = 'none'
 
       if (!nextQuestionId) {
@@ -333,41 +350,6 @@ export default {
           nextQuestionId = 'Q' + (index + 2)
         }
       }
-      // check for old responses and prefill the answer
-      if (this.oldResponses[1] && this.oldResponses[1].questionId === nextQuestionId) {
-        if (this.oldResponses[1].answer) {
-          // copy the old answer into the current one
-          const nextQuestion = this.formDescr.questions.find(x => x.id === nextQuestionId)
-          if (nextQuestion.type === 'freetext') {
-            this.freetextAnswer = this.oldResponses[1].answer
-          } if (nextQuestion.type === 'time') {
-            this.timeAnswer = this.oldResponses[1].answer
-          } else if (nextQuestion.type === 'number' || nextQuestion.type === 'slider') {
-            this.numberAnswer = this.oldResponses[1].answer
-          } else if (nextQuestion.type === 'singleChoice') {
-            this.singleChoiceAnswer = this.oldResponses[1].answer.answerId
-            if (this.oldResponses[1].answer.includeFreeText) {
-              this.singleChoiceAnswerFreeText = this.oldResponses[1].answer.freetextAnswer
-            }
-          } else if (nextQuestion.type === 'multiChoice' && Array.isArray(this.oldResponses[1].answer)) {
-            // identify multichoice as array
-            this.multiChoiceAnswer = this.oldResponses[1].answer.map(x => x.answerId)
-            if (this.oldResponses[1].answer.some(x => x.includeFreeText)) {
-              for (const answerID of this.multiChoiceAnswer) {
-                const chosenAnswerIndex = nextQuestion.answerChoices.findIndex(x => x.id === answerID)
-                const oldResponseIndex = this.oldResponses[1].answer.findIndex(x => x.answerId === answerID)
-                this.multiChoiceAnswerFreeText[chosenAnswerIndex] = this.oldResponses[1].answer[oldResponseIndex].freetextAnswer
-              }
-            }
-          } else if (nextQuestion.type === 'photo') {
-            this.photoAnswer = this.oldResponses[1].answer
-            this.$refs.photoViewer.style.display = 'block'
-            this.$refs.photoViewer.src = this.photoAnswer
-          }
-        }
-        this.oldResponses.shift()
-      } else this.oldResponses = []
-
       if (nextQuestionId === 'ENDFORM') {
         // completed !
         this.report.summary.completedTS = new Date()
@@ -382,8 +364,58 @@ export default {
 
         this.$router.replace({ name: 'formSummary' })
       } else {
-        this.currentQuestion = this.formDescr.questions.find(x => x.id === nextQuestionId)
+        const nextQuestion = this.formDescr.questions.find(x => x.id === nextQuestionId)
+
+        // prepare the nestedAnswers array
+        if (nextQuestion.type === 'multiChoice') {
+          for (let iChoice = 0; iChoice < nextQuestion.answerChoices.length; iChoice++) {
+            this.nestedAnswers[iChoice] = []
+            if (nextQuestion.answerChoices[iChoice].nestedQuestions) {
+              for (let iNested = 0; iNested < nextQuestion.answerChoices[iChoice].nestedQuestions.length; iNested++) {
+                this.nestedAnswers[iChoice][iNested] = []
+              }
+            }
+          }
+        }
+
+        // check for old responses and prefill the answer
+        if (this.oldResponses[1] && this.oldResponses[1].questionId === nextQuestionId) {
+          if (this.oldResponses[1].answer) {
+            // copy the old answer into the current one
+            const nextQuestion = this.formDescr.questions.find(x => x.id === nextQuestionId)
+            if (nextQuestion.type === 'freetext') {
+              this.freetextAnswer = this.oldResponses[1].answer
+            } if (nextQuestion.type === 'time') {
+              this.timeAnswer = this.oldResponses[1].answer
+            } else if (nextQuestion.type === 'number' || nextQuestion.type === 'slider') {
+              this.numberAnswer = this.oldResponses[1].answer
+            } else if (nextQuestion.type === 'singleChoice') {
+              this.singleChoiceAnswer = this.oldResponses[1].answer.answerId
+              if (this.oldResponses[1].answer.includeFreeText) {
+                this.singleChoiceAnswerFreeText = this.oldResponses[1].answer.freetextAnswer
+              }
+            } else if (nextQuestion.type === 'multiChoice' && Array.isArray(this.oldResponses[1].answer)) {
+              // identify multichoice as array
+              this.multiChoiceAnswer = this.oldResponses[1].answer.map(x => x.answerId)
+              if (this.oldResponses[1].answer.some(x => x.includeFreeText)) {
+                for (const answerID of this.multiChoiceAnswer) {
+                  const chosenAnswerIndex = nextQuestion.answerChoices.findIndex(x => x.id === answerID)
+                  const oldResponseIndex = this.oldResponses[1].answer.findIndex(x => x.answerId === answerID)
+                  this.multiChoiceAnswerFreeText[chosenAnswerIndex] = this.oldResponses[1].answer[oldResponseIndex].freetextAnswer
+                }
+              }
+            } else if (nextQuestion.type === 'photo') {
+              this.photoAnswer = this.oldResponses[1].answer
+              this.$refs.photoViewer.style.display = 'block'
+              this.$refs.photoViewer.src = this.photoAnswer
+            }
+          }
+          this.oldResponses.shift()
+        } else this.oldResponses = []
+
+        this.currentQuestion = nextQuestion
       }
+
       setTimeout(() => { this.slideName = 'slideInRight' }, 10)
     },
     back () {
