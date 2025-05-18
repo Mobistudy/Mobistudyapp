@@ -15,12 +15,8 @@ export default {
     {
       id: 'Q1',
       text: {
-        it: 'Seleziona uno dei seguenti sintomi se è stato percepito negli ultimi 7 giorni:',
-        en: 'Select any of the following symptoms if it was perceived in the past 7 days:'
-      },
-      helper: {
-        it: 'Seleziona tutti i sintomi percepiti',
-        en: 'Select any that apply'
+        it: 'Seleziona i sintomi percepiti negli ultimi 7 giorni',
+        en: 'Select the symptoms you have experienced in the last 7 days'
       },
       type: 'multiChoice',
       answerChoices: [

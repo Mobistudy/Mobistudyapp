@@ -215,7 +215,10 @@ export default {
       this.formDescr = formDescr
       this.report.formName = formDescr.name
 
-      this.currentQuestion = this.formDescr.questions[0]
+      const nextQuestion = this.formDescr.questions[0]
+      this.prepareNestedAnswers(nextQuestion)
+
+      this.currentQuestion = nextQuestion
       setTimeout(() => { this.slideName = 'fadeInDown' }, 10)
     } catch (error) {
       console.error(error)
@@ -260,6 +263,19 @@ export default {
     }
   },
   methods: {
+    prepareNestedAnswers (nextQuestion) {
+      this.nestedAnswers = []
+      if (nextQuestion.type === 'multiChoice') {
+        for (let iChoice = 0; iChoice < nextQuestion.answerChoices.length; iChoice++) {
+          this.nestedAnswers[iChoice] = []
+          if (nextQuestion.answerChoices[iChoice].nestedQuestions) {
+            for (let iNested = 0; iNested < nextQuestion.answerChoices[iChoice].nestedQuestions.length; iNested++) {
+              this.nestedAnswers[iChoice][iNested] = ''
+            }
+          }
+        }
+      }
+    },
     next () {
       this.slideName = ''
       let nextQuestionId = this.currentQuestion.nextDefaultId
@@ -377,17 +393,7 @@ export default {
       } else {
         const nextQuestion = this.formDescr.questions.find(x => x.id === nextQuestionId)
 
-        // prepare the nestedAnswers array
-        if (nextQuestion.type === 'multiChoice') {
-          for (let iChoice = 0; iChoice < nextQuestion.answerChoices.length; iChoice++) {
-            this.nestedAnswers[iChoice] = []
-            if (nextQuestion.answerChoices[iChoice].nestedQuestions) {
-              for (let iNested = 0; iNested < nextQuestion.answerChoices[iChoice].nestedQuestions.length; iNested++) {
-                this.nestedAnswers[iChoice][iNested] = ''
-              }
-            }
-          }
-        }
+        this.prepareNestedAnswers(nextQuestion)
 
         // check for old responses and prefill the answer
         if (this.oldResponses[1] && this.oldResponses[1].questionId === nextQuestionId) {
