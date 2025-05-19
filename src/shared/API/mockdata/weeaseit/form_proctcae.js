@@ -10,6 +10,20 @@ export default {
     it: 'Quando un individuo è in terapia per un tumore, talvolta può sviluppare diversi sintomi ed effetti collaterali.Per ciascuna domanda, selezionare la risposta (una sola) che meglio corrisponde all’esperienza vissuta negli ultimi sette giorni.',
     en: 'As individuals go through treatment for their cancer they sometimes experience different symptoms and side effects.For each question, please select the one response that best describes your experiences over the past 7 days.'
   },
+  summaryFunction: 'return { symptomsNumber: answers.reduce( (acc, ans) => { return acc + ans.answer.length }, 0 ) };',
+  summaryFunctionDescription: {
+    symptomsNumber: {
+      name: {
+        en: 'Symptoms number',
+        it: 'Numero di sintomi'
+      },
+      type: 'number',
+      description: {
+        en: 'Number of symptoms selected',
+        it: 'Numero di sintomi selezionati'
+      }
+    }
+  },
   questions: [
 
     {
