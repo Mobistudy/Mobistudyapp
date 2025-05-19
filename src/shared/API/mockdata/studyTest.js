@@ -400,36 +400,36 @@ export default {
       Si tiene preguntas sobre cómo procesa los datos cada institución involucrada en el estudio, ponte en comunicación con el esponsable de protección de datos de la Universidad de Malmö en dataskyddsombud@mau.se`,
       it: `Per condurre questo studio, abbiamo bisogno di raccogliere alcuni dati da Lei utilizzando l'applicazione Mobistudy.
       <br>
- <b>Quali dati personali saranno raccolti? </b>
- <ul>
- <li>Le informazioni generali del Suo profilo, come indirizzo e-mail, nome, cognome, data di nascita, sesso, Paese, lingua, principali condizioni di salute, trattamenti a lungo termine, peso e altezza. Questi dati sono necessari per identificarvi e per creare statistiche su coloro che partecipano a questo studio.</li>
- <li>La Sua partecipazione allo studio e le volte che completate un compito. Questi dati sono necessari per valutare il vostro livello di coinvolgimento nello studio.</li>
- <li>Informazioni tecniche sull'accesso al server (come i login). Sono necessarie per la sicurezza e la verifica.
+      <ul>
+      <b>Quali dati personali saranno raccolti? </b>
+      <li>La Sua partecipazione allo studio e le volte che completate un compito. Questi dati sono necessari per valutare il vostro livello di coinvolgimento nello studio.</li>
+      <li>Le informazioni generali del Suo profilo, come indirizzo e-mail, nome, cognome, data di nascita, sesso, Paese, lingua, principali condizioni di salute, trattamenti a lungo termine, peso e altezza. Questi dati sono necessari per identificarvi e per creare statistiche su coloro che partecipano a questo studio.</li>
 
+      <li>Informazioni tecniche sull'accesso al server (come i login). Sono necessarie per la sicurezza e la verifica.
 
       <li>Dati raccolti nell'ambito dei compiti assegnati in questo studio, concretamente:</li>
- <ul>
- <li>Risposte date al questionario esemplificativo.</li>
- <li>Passi misurati dal Suo telefono attraverso Google Fit.</li>
- <li>Frequenza cardiaca e passi raccolti durante il Queens College Step Test. </li>
- <li>La Sua posizione geografica, la distanza e i passi durante il Six-minute Walk Test.</li>
- <li>La Sua frequenza cardiaca, il livello di attività, i passi e il tipo di attività raccolti dal fitness tracker MiBand3.</li>
- <li>La Sua saturazione di ossigeno nel sangue e la frequenza cardiaca misurata da un pulsossimetro.</li>
- <li>La Sua posizione geografica durante il compito di posizionamento. </li>
- <li>Le misurazioni della portata di picco.</li>
- <li>Il tempo in cui si tocca lo schermo durante l'esercizio di battitura delle dita.</li>
- <li>L'accelerazione e l'orientamento del telefono quando si esegue il test Timed Up and Go.</li>
- <li>L'accelerazione e l'orientamento del telefono quando si esegue il test "Reggi il telefono". </li>
- <li>La Sua voce durante il test di vocalizzazione.</li>
- <li>La posizione del vostro dito sullo schermo quando eseguite il test di disegno.</li>
- </ul>
- </ul>
- Questi dati non sono necessari per nulla in particolare, poiché questo è solo un esempio, ma possono essere utili per trovare bug e migliorare Mobistudy.
+      <li>Risposte date al questionario esemplificativo.</li>
+      <ul>
+      <li>Frequenza cardiaca e passi raccolti durante il Queens College Step Test. </li>
+      <li>Passi misurati dal Suo telefono attraverso Google Fit.</li>
+      <li>La Sua frequenza cardiaca, il livello di attività, i passi e il tipo di attività raccolti dal fitness tracker MiBand3.</li>
+      <li>La Sua posizione geografica, la distanza e i passi durante il Six-minute Walk Test.</li>
+      <li>La Sua posizione geografica durante il compito di posizionamento. </li>
+      <li>La Sua saturazione di ossigeno nel sangue e la frequenza cardiaca misurata da un pulsossimetro.</li>
+      <li>Il tempo in cui si tocca lo schermo durante l'esercizio di battitura delle dita.</li>
+      <li>Le misurazioni della portata di picco.</li>
+      <li>L'accelerazione e l'orientamento del telefono quando si esegue il test "Reggi il telefono". </li>
+      <li>L'accelerazione e l'orientamento del telefono quando si esegue il test Timed Up and Go.</li>
+      <li>La posizione del vostro dito sullo schermo quando eseguite il test di disegno.</li>
+      <li>La Sua voce durante il test di vocalizzazione.</li>
+      </ul>
+      </ul>
 
+      Questi dati non sono necessari per nulla in particolare, poiché questo è solo un esempio, ma possono essere utili per trovare bug e migliorare Mobistudy.
       Tutti questi dati saranno memorizzati sui server di Mobistudy, gestiti dall'Università di Malmö in Svezia. Il Suo telefono conserverà solo il Suo profilo e i dati relativi alla Sua partecipazione agli studi.
 
 
-      <b>Per quanto tempo questi dati saranno conservati?
+      <b>Per quanto tempo questi dati saranno conservati?</b>
 
       Il Suo profilo e la Sua partecipazione allo studio saranno conservati per tutto il tempo in cui manterrete un account su Mobistudy.
       I dati raccolti nell'ambito dei compiti assegnati in questo studio saranno conservati sui server di Mobistudy fino alla fine dello studio, il 2030-12-31.
@@ -439,17 +439,17 @@ export default {
 
       Personale dell'Università di Malmö per la manutenzione tecnica e la verifica (l'Università di Malmö è il responsabile del trattamento dei dati personali).
 
-      <Quali sono i miei diritti?
+      <b><Quali sono i miei diritti?/b>
 
       <ul>
- <li>Può ritirarsi da questo studio in qualsiasi momento accedendo alla sezione “studi” di questa applicazione. I dati prodotti finora all'interno dello studio saranno conservati, ma se si desidera rimuoverli contattare <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
- <li>È possibile rimuovere il proprio account da Mobistudy accedendo alla sezione "profilo" di questa applicazione. In questo modo verranno rimossi tutti i dati raccolti da Mobistudy, ad eccezione dei log tecnici, che verranno cancellati dopo 1 anno. Tenga presente che i dati già scaricati dalle istituzioni coinvolte in questo studio o in studi precedenti potrebbero continuare a essere conservati anche dopo la rimozione del vostro account. Se vuole che questi dati vengano cancellati, contattate <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
- <li>Può chiedere che il trattamento dei Suoi dati venga interrotto o limitato (anche senza cancellare il vostro account). In questo caso contatti <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
- <li>Può scoprire cosa è stato registrato su di Lei e scaricare i dati in un formato leggibile a macchina contattando <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
- <li>Può chiedere la correzione di errori nei Suoi dati. In questo caso scrivere a <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
- <li>Se ha reclami che non possono essere risolti con l'Università di Malmö, può sottoporli a Datainspektionen.</li>
- </ul>
+      <li>È possibile rimuovere il proprio account da Mobistudy accedendo alla sezione "profilo" di questa applicazione. In questo modo verranno rimossi tutti i dati raccolti da Mobistudy, ad eccezione dei log tecnici, che verranno cancellati dopo 1 anno. Tenga presente che i dati già scaricati dalle istituzioni coinvolte in questo studio o in studi precedenti potrebbero continuare a essere conservati anche dopo la rimozione del vostro account. Se vuole che questi dati vengano cancellati, contattate <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+      <li>Può ritirarsi da questo studio in qualsiasi momento accedendo alla sezione “studi” di questa applicazione. I dati prodotti finora all'interno dello studio saranno conservati, ma se si desidera rimuoverli contattare <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+      <li>Può scoprire cosa è stato registrato su di Lei e scaricare i dati in un formato leggibile a macchina contattando <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+      <li>Può chiedere che il trattamento dei Suoi dati venga interrotto o limitato (anche senza cancellare il vostro account). In questo caso contatti <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+      <li>Se ha reclami che non possono essere risolti con l'Università di Malmö, può sottoporli a Datainspektionen.</li>
+      <li>Può chiedere la correzione di errori nei Suoi dati. In questo caso scrivere a <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
 
+      </ul>
       Per domande sulle modalità di trattamento dei dati da parte di ciascuna istituzione coinvolta nello studio si prega di contattare:
       Università di Malmö, all'indirizzo: dataskyddsombud@mau.se`
     },
