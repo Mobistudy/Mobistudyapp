@@ -8,21 +8,24 @@ export default {
   updatedTS: '2021-02-11T16:47:58.945Z',
   publishedTS: '2021-02-11T16:47:58.863Z',
   generalities: {
-    languages: ['en', 'sv', 'es'],
+    languages: ['en', 'sv', 'es', 'it'],
     title: {
       en: 'Example research study',
       sv: 'Exempel forskningsstudie',
-      es: 'Estudio de ejemplo'
+      es: 'Estudio de ejemplo',
+      it: 'Studio di esempio'
     },
     shortDescription: {
       en: 'An example research study to showcase Mobistudy\'s functionalities.',
       sv: 'Ett exempel på en forskningsstudie för att visa Mobistudys funktioner.',
-      es: 'Un estudio de ejemplo para mostrar las funcionalidades de Mobistudy'
+      es: 'Un estudio de ejemplo para mostrar las funcionalidades de Mobistudy',
+      it: 'Uno studio di esempio per mostrare le funzionalità di Mobistudy'
     },
     longDescription: {
       en: 'This example study showcases all the functionalities included in the app. It proposes a set of data collection tasks with no particular purpose. The data collected within this study may be used for technical analysis and debugging of the software.',
       sv: 'Denna exempelstudie visar alla funktioner som ingår i appen. Det föreslår en uppsättning uppgifter för datainsamling utan något särskilt syfte. Data som samlas in i denna studie kan användas för teknisk analys och felsökning av programvaran.',
-      es: 'Este estudio muestra todas las funcionalidades incluidas en el app. Propone una serie de tareas de recopilcación de datos para ninguna razón en concreto. Los datos recopilados a traves de este estudio podrían ser usados para análisis técnica y solución de errores en el software.'
+      es: 'Este estudio muestra todas las funcionalidades incluidas en el app. Propone una serie de tareas de recopilcación de datos para ninguna razón en concreto. Los datos recopilados a traves de este estudio podrían ser usados para análisis técnica y solución de errores en el software.',
+      it: 'Questo studio di esempio mostra tutte le funzionalità incluse nell\'app. Propone un insieme di attività di raccolta dati senza uno scopo particolare. I dati raccolti all\'interno di questo studio possono essere utilizzati per analisi tecniche e debug del software.'
     },
     startDate: new Date(new Date().getTime() - 1296000000).toISOString(), // 15 days ago
     endDate: new Date(new Date().getTime() + 5184000000).toISOString(), // 60 days from now
@@ -41,7 +44,8 @@ export default {
         reasonForDataAccess: {
           en: 'Malmö University may use the data for technical analysis and for improving the app.',
           sv: 'Malmö universitet kan använda informationen för teknisk analys och för att förbättra appen.',
-          es: 'La universidad de Malmo podría utilizar estos datos para el análisis tecnica y para mejorar el app.'
+          es: 'La universidad de Malmo podría utilizar estos datos para el análisis tecnica y para mejorar el app.',
+          it: 'L\'Università di Malmö potrebbe utilizzare i dati per analisi tecniche e per migliorare l\'app.'
         }
       }
     ]
@@ -59,7 +63,8 @@ export default {
         title: {
           en: 'Do you satisfy this example inclusion criterium?',
           sv: 'Uppfyller du detta exempel införande kriterium?',
-          es: '¿Cumples con este criterio de inclusión de ejemplo?'
+          es: '¿Cumples con este criterio de inclusión de ejemplo?',
+          it: 'Soddisfi questo criterio di inclusione di esempio?'
         },
         answer: 'yes'
       }
@@ -84,7 +89,8 @@ export default {
       formName: {
         en: 'Example questionnaire',
         sv: 'Exempel formulär',
-        es: 'Formulario de ejemplo'
+        es: 'Formulario de ejemplo',
+        it: 'Questionario di esempio'
       }
     },
     {
@@ -222,7 +228,8 @@ export default {
     invitation: {
       en: 'You have been invited to an example research study! You are probably testing the Mobsitudy app and you want to understand how it works. This study will allow you to see all the app\'s functionalities. Thank you for your interest!',
       sv: 'Du har blivit inbjuden till ett exempel på en forskningsstudie! Du testar förmodligen Mobsitudy-appen och du vill förstå hur den fungerar. Denna studie gör att du kan se alla appens funktioner. Tack för ditt intresse!',
-      es: '¡Has sido invitado a un estudio de investigaciòn de ejemplo! Probablemente estás probando la aplicación Mobsitudy y quieres comprender cómo funciona. Este estudio te permitirá ver todas las funcionalidades de la aplicación. ¡Gracias por tu interés!'
+      es: '¡Has sido invitado a un estudio de investigaciòn de ejemplo! Probablemente estás probando la aplicación Mobsitudy y quieres comprender cómo funciona. Este estudio te permitirá ver todas las funcionalidades de la aplicación. ¡Gracias por tu interés!',
+      it: 'Sei stato invitato a uno studio di ricerca di esempio! Probabilmente stai testando l\'app Mobsitudy e vuoi capire come funziona. Questo studio ti permetterà di vedere tutte le funzionalità dell\'app. Grazie per il tuo interesse!'
     },
     privacyPolicy: {
       en: `To conduct this study, we need to collect some data from you using the Mobistudy app.
@@ -259,7 +266,7 @@ export default {
       <b>For how long will this data be kept?</b>
 
       Your profile and participation in the study will be kept for as long as you will keep an account on Mobistudy.
-      Data collected within the tasks assigned in this study will be kept on the Mobistudy servers until the end of the study, on 2021-12-31.
+      Data collected within the tasks assigned in this study will be kept on the Mobistudy servers until the end of the study, on 2030-12-31.
       Technical logs will be deleted after 1 year they are produced.
 
       <b>Who will have access to this data?</b>
@@ -311,7 +318,7 @@ export default {
 
       <p>
       Din profil och ditt deltagande i studien kommer att behållas så länge du kommer att ha ett konto på Mobistudy.
-      Data som samlas in inom de uppgifter som tilldelats i denna studie kommer att sparas på Mobistudy-servrarna till slutet av studien, 2021-12-31.
+      Data som samlas in inom de uppgifter som tilldelats i denna studie kommer att sparas på Mobistudy-servrarna till slutet av studien, 2030-12-31.
       Tekniska loggar raderas efter det att de har producerats ett år.
       </p>
       <p><b>Vem har tillgång till dessa uppgifter?</b></p>
@@ -370,7 +377,7 @@ export default {
       <p><b>¿Durante cuánto tiempo se conservarán estos datos?</b></p>
       <p>
       Su perfil y participación en un estudio se mantendrán mientras mantenga una cuenta en Mobistudy.
-      Los datos recopilados dentro de las tareas asignadas en este estudio se mantendrán en el servidor de Mobistudy hasta el final del estudio, en 2021-12-31.
+      Los datos recopilados dentro de las tareas asignadas en este estudio se mantendrán en el servidor de Mobistudy hasta el final del estudio, en 2030-12-31.
       Los registros técnicos se eliminarán después de 1 año de su producción.
       </p>
 
@@ -390,14 +397,69 @@ export default {
       <li>Si tienes quejas que no se pueden resolver con la Universidad de Malmö, puede enviarlas a Datainspektionen.</li>
       </ul>
 
-      Si tiene preguntas sobre cómo procesa los datos cada institución involucrada en el estudio, ponte en comunicación con el esponsable de protección de datos de la Universidad de Malmö en dataskyddsombud@mau.se`
+      Si tiene preguntas sobre cómo procesa los datos cada institución involucrada en el estudio, ponte en comunicación con el esponsable de protección de datos de la Universidad de Malmö en dataskyddsombud@mau.se`,
+      it: `Per condurre questo studio, abbiamo bisogno di raccogliere alcuni dati da Lei utilizzando l'applicazione Mobistudy.
+      <br>
+ <b>Quali dati personali saranno raccolti? </b>
+ <ul>
+ <li>Le informazioni generali del Suo profilo, come indirizzo e-mail, nome, cognome, data di nascita, sesso, Paese, lingua, principali condizioni di salute, trattamenti a lungo termine, peso e altezza. Questi dati sono necessari per identificarvi e per creare statistiche su coloro che partecipano a questo studio.</li>
+ <li>La Sua partecipazione allo studio e le volte che completate un compito. Questi dati sono necessari per valutare il vostro livello di coinvolgimento nello studio.</li>
+ <li>Informazioni tecniche sull'accesso al server (come i login). Sono necessarie per la sicurezza e la verifica.
+
+
+      <li>Dati raccolti nell'ambito dei compiti assegnati in questo studio, concretamente:</li>
+ <ul>
+ <li>Risposte date al questionario esemplificativo.</li>
+ <li>Passi misurati dal Suo telefono attraverso Google Fit.</li>
+ <li>Frequenza cardiaca e passi raccolti durante il Queens College Step Test. </li>
+ <li>La Sua posizione geografica, la distanza e i passi durante il Six-minute Walk Test.</li>
+ <li>La Sua frequenza cardiaca, il livello di attività, i passi e il tipo di attività raccolti dal fitness tracker MiBand3.</li>
+ <li>La Sua saturazione di ossigeno nel sangue e la frequenza cardiaca misurata da un pulsossimetro.</li>
+ <li>La Sua posizione geografica durante il compito di posizionamento. </li>
+ <li>Le misurazioni della portata di picco.</li>
+ <li>Il tempo in cui si tocca lo schermo durante l'esercizio di battitura delle dita.</li>
+ <li>L'accelerazione e l'orientamento del telefono quando si esegue il test Timed Up and Go.</li>
+ <li>L'accelerazione e l'orientamento del telefono quando si esegue il test "Reggi il telefono". </li>
+ <li>La Sua voce durante il test di vocalizzazione.</li>
+ <li>La posizione del vostro dito sullo schermo quando eseguite il test di disegno.</li>
+ </ul>
+ </ul>
+ Questi dati non sono necessari per nulla in particolare, poiché questo è solo un esempio, ma possono essere utili per trovare bug e migliorare Mobistudy.
+
+      Tutti questi dati saranno memorizzati sui server di Mobistudy, gestiti dall'Università di Malmö in Svezia. Il Suo telefono conserverà solo il Suo profilo e i dati relativi alla Sua partecipazione agli studi.
+
+
+      <b>Per quanto tempo questi dati saranno conservati?
+
+      Il Suo profilo e la Sua partecipazione allo studio saranno conservati per tutto il tempo in cui manterrete un account su Mobistudy.
+      I dati raccolti nell'ambito dei compiti assegnati in questo studio saranno conservati sui server di Mobistudy fino alla fine dello studio, il 2030-12-31.
+      I log tecnici saranno cancellati dopo 1 anno dalla loro produzione.
+
+      <b>Chi avrà accesso a questi dati? </b>
+
+      Personale dell'Università di Malmö per la manutenzione tecnica e la verifica (l'Università di Malmö è il responsabile del trattamento dei dati personali).
+
+      <Quali sono i miei diritti?
+
+      <ul>
+ <li>Può ritirarsi da questo studio in qualsiasi momento accedendo alla sezione “studi” di questa applicazione. I dati prodotti finora all'interno dello studio saranno conservati, ma se si desidera rimuoverli contattare <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+ <li>È possibile rimuovere il proprio account da Mobistudy accedendo alla sezione "profilo" di questa applicazione. In questo modo verranno rimossi tutti i dati raccolti da Mobistudy, ad eccezione dei log tecnici, che verranno cancellati dopo 1 anno. Tenga presente che i dati già scaricati dalle istituzioni coinvolte in questo studio o in studi precedenti potrebbero continuare a essere conservati anche dopo la rimozione del vostro account. Se vuole che questi dati vengano cancellati, contattate <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+ <li>Può chiedere che il trattamento dei Suoi dati venga interrotto o limitato (anche senza cancellare il vostro account). In questo caso contatti <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+ <li>Può scoprire cosa è stato registrato su di Lei e scaricare i dati in un formato leggibile a macchina contattando <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+ <li>Può chiedere la correzione di errori nei Suoi dati. In questo caso scrivere a <a href="mailto:mobistudy@mau.se">mobistudy@mau.se</a>.</li>
+ <li>Se ha reclami che non possono essere risolti con l'Università di Malmö, può sottoporli a Datainspektionen.</li>
+ </ul>
+
+      Per domande sulle modalità di trattamento dei dati da parte di ciascuna istituzione coinvolta nello studio si prega di contattare:
+      Università di Malmö, all'indirizzo: dataskyddsombud@mau.se`
     },
     taskItems: [
       {
         description: {
           en: 'I agree to answer the sample questionnaire, every day.',
           sv: 'Jag accepterar att besvara Exempel formulär, varje dag.',
-          es: 'Acepto contestar el Formulario de ejemplo, cada día, por una semana.'
+          es: 'Acepto contestar el Formulario de ejemplo, cada día, por una semana.',
+          it: 'Accetto di rispondere al questionario di esempio, ogni giorno.'
         },
         taskId: 1
       },
@@ -405,7 +467,8 @@ export default {
         description: {
           en: 'I agree to send my data about steps, every day for 1 week.',
           sv: 'Jag accepterar att skicka min information om steg varje dag i 1 vecka.',
-          es: 'Acepto enviar datos sobre mis pasos, cada día, por una semana.'
+          es: 'Acepto enviar datos sobre mis pasos, cada día, por una semana.',
+          it: 'Accetto di inviare i miei dati sui passi, ogni giorno per una settimana.'
         },
         taskId: 2
       },
@@ -413,7 +476,8 @@ export default {
         description: {
           en: 'I agree to wear the fitness tracker and share the data it collects every day for 1 week.',
           sv: 'Jag samtycker till att bära fitnessspåraren och dela informationen som samlas varje dag i 1 vecka.',
-          es: 'Acepto llevar una pulsera monitor de actividad y compartir los datos que esa produce cada día por una semana.'
+          es: 'Acepto llevar una pulsera monitor de actividad y compartir los datos que esa produce cada día por una semana.',
+          it: 'Accetto di indossare il fitness tracker e condividere i dati che raccoglie ogni giorno per una settimana.'
         },
         taskId: 3
       },
@@ -421,7 +485,8 @@ export default {
         description: {
           en: 'I agree to perform the six-minute walk test at least once in a week.',
           sv: 'Jag accepterar att utföra sex minuters promenadtest minst en gång i en vecka.',
-          es: 'Acepto hacer el test de caminata de 6 minutos por lo menos una vez en una semana.'
+          es: 'Acepto hacer el test de caminata de 6 minutos por lo menos una vez en una semana.',
+          it: 'Accetto di eseguire il test di camminata di sei minuti almeno una volta alla settimana.'
         },
         taskId: 4
       },
@@ -429,7 +494,8 @@ export default {
         description: {
           en: 'I agree to perform the Queen\'s College Step Test at least once in a week',
           sv: 'Jag accepterar att utföra Queen\'s College Step Test minst en gång i en vecka.',
-          es: 'Acepto hacer el Queen\'s College Step Test por lo menos una vez en una semana.'
+          es: 'Acepto hacer el Queen\'s College Step Test por lo menos una vez en una semana.',
+          it: 'Accetto di eseguire il Queen\'s College Step Test almeno una volta alla settimana.'
         },
         taskId: 5
       },
@@ -437,7 +503,8 @@ export default {
         description: {
           en: 'I agree to measure my blood oxygen saturation at least once in a week.',
           sv: 'Jag går med på att mäta min syremättnad i blodet minst en gång i en vecka.',
-          es: 'Acepto medir la satuarción de oxigeno en mi sangre una vez en una semana.'
+          es: 'Acepto medir la satuarción de oxigeno en mi sangre una vez en una semana.',
+          it: 'Accetto di misurare la mia saturazione di ossigeno nel sangue almeno una volta alla settimana.'
         },
         taskId: 6
       },
@@ -445,7 +512,8 @@ export default {
         description: {
           en: 'I agree to share my location every day for 1 week.',
           sv: 'Jag samtycker till att dela min plats varje dag i en vecka.',
-          es: 'Acepto compartir mi ubicación todos los días durante 1 semana.'
+          es: 'Acepto compartir mi ubicación todos los días durante 1 semana.',
+          it: 'Accetto di condividere la mia posizione ogni giorno per una settimana.'
         },
         taskId: 7
       },
@@ -453,7 +521,8 @@ export default {
         description: {
           en: 'I agree to measure my peak flow rate for 1 week.',
           sv: 'Jag går med på att mäta min toppflöde i 1 vecka.',
-          es: 'Acepto medir mi flujo espiratorio máximo durante 1 semana.'
+          es: 'Acepto medir mi flujo espiratorio máximo durante 1 semana.',
+          it: 'Accetto di misurare il mio flusso espiratorio per una settimana.'
         },
         taskId: 8
       },
@@ -461,7 +530,8 @@ export default {
         description: {
           en: 'I agree to perform a finger tapping exercise per day for 1 week.',
           sv: 'Jag går med på att utföra en fingeravtryckningsövning per dag i en vecka.',
-          es: 'Acepto realizar un ejercicio de golpeteo de la pantalla por día durante 1 semana.'
+          es: 'Acepto realizar un ejercicio de golpeteo de la pantalla por día durante 1 semana.',
+          it: 'Accetto di eseguire un esercizio di battitura con le dita al giorno per una settimana.'
         },
         taskId: 9
       },
@@ -469,7 +539,8 @@ export default {
         description: {
           en: 'I agree to perform a second finger tapping exercise 10 seconds after the first one.',
           sv: 'Jag går med på att utföra en andra fingeravtryckningsövning 10 sekunder efter den första.',
-          es: 'Acepto realizar un segundo ejercicio de golpeteo de la pantalla 10 segundos después del primero.'
+          es: 'Acepto realizar un segundo ejercicio de golpeteo de la pantalla 10 segundos después del primero.',
+          it: 'Accetto di eseguire un secondo esercizio di battitura con le dita 10 secondi dopo il primo.'
         },
         taskId: 10
       },
@@ -477,7 +548,8 @@ export default {
         description: {
           en: 'I agree to perform a timed up and go test at least once in a week',
           sv: 'Jag går med på att utföra ett "Timed Up and Go"-test minst en gång i veckan.',
-          es: 'Acepto realizar una prueba "Levanta y anda" al menos una vez a la semana.'
+          es: 'Acepto realizar una prueba "Levanta y anda" al menos una vez a la semana.',
+          it: 'Accetto di eseguire un test "Timed Up and Go" almeno una volta alla settimana.'
         },
         taskId: 11
       },
@@ -485,7 +557,8 @@ export default {
         description: {
           en: 'I agree to perform "Hold the phone" test.',
           sv: 'Jag går med på att utföra "Håll i telefonen"-testet.',
-          es: 'Acepto realizar la prueba "Sostén el teléfono".'
+          es: 'Acepto realizar la prueba "Sostén el teléfono".',
+          it: 'Accetto di eseguire il test "Reggi il telefono".'
         },
         taskId: 12
       },
@@ -493,7 +566,8 @@ export default {
         description: {
           en: 'I agree to perform vocalization test.',
           sv: 'Jag går med på att utföra vokaliseringstestet.',
-          es: 'Acepto realizar la prueba de vocalización..'
+          es: 'Acepto realizar la prueba de vocalización.',
+          it: 'Accetto di eseguire il test di vocalizzazione.'
         },
         taskId: 13
       },
@@ -501,7 +575,8 @@ export default {
         description: {
           en: 'I agree to perform the drawing test.',
           sv: 'Jag går med på att utföra teckning-testet.',
-          es: 'Acepto realizar la prueba de "dibujo".'
+          es: 'Acepto realizar la prueba de dibujo.',
+          it: 'Accetto di eseguire il test di disegno.'
         },
         taskId: 14
       }
