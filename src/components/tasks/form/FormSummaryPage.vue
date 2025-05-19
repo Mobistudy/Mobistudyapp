@@ -68,8 +68,10 @@ export default {
         const summary = summaryFun(report.data)
 
         for (const summaryField in summary) {
+          // add the field value to the report
           report.summary[summaryField] = summary[summaryField]
-          // translate the summary field
+
+          // translate the summary field for view
           const fieldNames = formDescr.summaryFunctionDescription[summaryField].name
           const fieldNamesTranslated = fieldNames[this.$i18n.locale]
 
@@ -78,6 +80,8 @@ export default {
             const categoryName = formDescr.summaryFunctionDescription[summaryField].categories[summary[summaryField]].name
             const categoryNameTranslated = categoryName[this.$i18n.locale]
             this.summaryFunctionValues[fieldNamesTranslated] = categoryNameTranslated
+          } else if (typeof summary[summaryField] === 'number') {
+            this.summaryFunctionValues[fieldNamesTranslated] = summary[summaryField].toFixed(1)
           } else {
             // add value as is
             this.summaryFunctionValues[fieldNamesTranslated] = summary[summaryField]
