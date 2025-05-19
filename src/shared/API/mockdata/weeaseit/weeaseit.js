@@ -132,7 +132,22 @@ export default {
         intervalType: 'w',
         interval: 1
       },
-      formKey: '0005', // treatments
+      formKey: '0005', // QLQC30
+      formName: {
+        it: 'Qualità della vita'
+      }
+    },
+
+    {
+      id: 6,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 60, // 2 months
+        intervalType: 'w',
+        interval: 1
+      },
+      formKey: '0006', // PROCTCAE
       formName: {
         it: 'Effetti collaterali'
       }
@@ -183,9 +198,16 @@ export default {
 
       {
         description: {
-          it: 'Accetto di rispondere al questionario sugli effetti collaterali ogni settimana.'
+          it: 'Accetto di rispondere al questionario sulla qualità della vita ogni settimana.'
         },
         taskId: 5
+      },
+
+      {
+        description: {
+          it: 'Accetto di rispondere al questionario sugli effetti collaterali ogni settimana.'
+        },
+        taskId: 6
       }
     ],
     extraItems: [
