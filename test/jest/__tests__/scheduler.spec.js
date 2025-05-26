@@ -1156,4 +1156,57 @@ describe('When testing the scheduler', () => {
     expect(tasks.missed.length).toBe(0)
     expect(tasks.alwaysOn.length).toBe(0)
   })
+
+  test('tasks that start sequentially do not overlap the same day', async () => {
+    const studyDescrs = [{
+      _key: '1234',
+      generalities: {
+        startDate: new Date('2025-05-20'),
+        endDate: new Date('2028-05-20')
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          startEvent: 'consent',
+          startDelaySecs: 0,
+          untilSecs: 259200, // 3 days
+          intervalType: 'd',
+          interval: 1
+        }
+      },
+      {
+        id: 2,
+        type: 'tug',
+        scheduling: {
+          startEvent: 'consent',
+          untilSecs: 5184000,
+          startDelaySecs: 259200, // 3 days
+          intervalType: 'd',
+          interval: 1
+        }
+      }]
+    }]
+
+    const startDay = new Date('2025-06-01T09:00:00') // the consent day at 9AM
+    const studiesParts = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: startDay,
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true
+      }, {
+        taskId: 2,
+        consented: true
+      }]
+    }]
+
+    const today = new Date('2025-06-04T11:00:00') // 4 days after, at 11 AM
+    const tasks = generateTasker(studiesParts, studyDescrs, today)
+    expect(tasks.upcoming.length).toBe(1)
+    expect(tasks.upcoming[0].taskId).toBe(2) // the second task, which starts after the first one
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
 })
