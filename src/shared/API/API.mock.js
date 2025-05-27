@@ -15,6 +15,7 @@ import formWeight from './mockdata/weeaseit/form_weight'
 import formLifestyle from './mockdata/weeaseit/form_lifestyle'
 import formQlqC30 from './mockdata/weeaseit/form_qlqC30'
 import formProctcae from './mockdata/weeaseit/form_proctcae'
+import formSideEffects from './mockdata/weeaseit/form_sideeffects'
 
 import epropp from './mockdata/ePROPP/epropp4.3'
 import eproppQ1 from './mockdata/ePROPP/eproppQ1'
@@ -341,6 +342,10 @@ export default {
       } else if (key === formQlqC30._key) {
         setTimeout(function () {
           resolve(formQlqC30)
+        }, 1000)
+      } else if (key === formSideEffects._key) {
+        setTimeout(function () {
+          resolve(formSideEffects)
         }, 1000)
       } else if (key === eproppQ1._key) {
         setTimeout(function () {
