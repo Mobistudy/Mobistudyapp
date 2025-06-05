@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
-    "@quasar/app-webpack": "^3.14.0",
+    "@quasar/app-webpack": "^4.2.0",
     "@quasar/quasar-app-extension-testing-unit-jest": "^3.0.3",
     "eslint": "^8.57.1",
     "eslint-config-standard": "^17.0.0",
