@@ -1,12 +1,11 @@
 export default {
-  _key: '1426',
-  teamKey: '1608',
-  invitationCode: '222111',
+  _key: '81889008',
+  teamKey: '81888868',
+  invitationCode: '424099',
   invitational: true,
   numberOfParticipants: 40,
-  createdTS: '2025-02-08T14:25:00.741Z',
-  updatedTS: '2025-02-08T16:47:58.945Z',
-  publishedTS: '20215-02-08T16:47:58.863Z',
+  createdTS: '2025-06-05T14:25:00.741Z',
+  updatedTS: '2025-06-05T16:47:58.945Z',
   generalities: {
     languages: ['en'],
     title: {
@@ -19,90 +18,59 @@ export default {
       en: `
       <b>What is the purpose of the study?</b>
       <p>
-      The aim of this study is to understand how your everyday physical activity is related to mobility and physical capacity.
-      Information about your daily activity may reflect your general health status and may allow doctors who are responsible
-      for your care to have a more detailed view of how you feel, during your daily life.
+      The aim of this study is to understand how your everyday physical activity is related to mobility and physical capacity. Information about your daily activity may reflect your general health status and may allow doctors who are responsible for your care to have a more detailed view of how you feel, during your daily life.
       <br>
-      Many health issues, like heart diseases and frailty, can limit physical mobility. Doctors often use standard physical
-      tests, like walking for 6 minutes or standing up and walking, to see how healthy someone is overall. Using wearable
-      devices and smartphone can help collect objective measurements about our daily movements, however, these devices
-      haven't been proven to be helpful for doctors yet. Understanding how to connect the data from these devices with
-      the results from the tests doctors trust could help us understand the meaning and relevance of those data for our
-      health. At the same time, we have to consider how usable these technologies are and if people accept using them.
+Many health issues, like heart diseases and frailty, can limit physical mobility. Doctors often use standard physical tests, like walking for 6 minutes or standing up and walking, to see how healthy someone is overall. Using wearable devices and smartphone can help collect objective measurements about our daily movements, however, these devices haven't been proven to be helpful for doctors yet. Understanding how to connect the data from these devices with the results from the tests doctors trust could help us understand the meaning and relevance of those data for our health. At the same time, we have to consider how usable these technologies are and if people accept using them.
+
 
       </p>
 
       <b>Why have I been invited?</b>
       <p>
-      You are asked to participate in this research since, having received a Fontan procedure,
-      you have a partial mobility limitation and therefore you could very well benefit from this technology.
-      We intend to recruit 35 people like you.
+      You are asked to participate in this research since, having received a Fontan procedure, you have a partial mobility limitation and therefore you could very well benefit from this technology. We intend to recruit 30 people like you.
       </p>
 
       <b>Do I have to take part?</b>
       <p>
-      No. Your participation in this study is completely voluntary. You can decline to participate,
-      and you can withdraw from the study at any time without giving a reason. Withdrawal will not affect clinical care.
+      No. Your participation in this study is completely voluntary. You can decline to participate, and you can withdraw from the study at any time without giving a reason. Withdrawal will not affect clinical care.
       </p>
 
       <b>What will happen to me if I decide to take part?</b>
       <p>
-      Participation in this study requires 1 visit with the research team, in which you will be asked to perform
-      two simple physical tests, the six-minute walk test (6MWT) and the Timed Up and Go (TUG) test, while wearing
-      a medical device (G-Walk) to correctly quantify your movement. . The team will give you a fitness tracker
-      and explain you how to use it, and will help you install the Mobistudy app on your smartphone. At the end
-      of the baseline visit you will be encouraged to answer a first questionnaire through the app.
+      Participation in this study requires 1 visit with the research team, in which you will be asked to perform two simple physical tests, the six-minute walk test (6MWT) and the Timed Up and Go (TUG) test, while wearing a medical device (G-Walk) to correctly quantify your movement. The team will give you a fitness tracker and explain you how to use it and will help you install the Mobistudy app on your smartphone. You will be provided with a visual study guide showing how to use the technology. At the end of the baseline visit you will be encouraged to answer a first questionnaire through the app.
       <br>
-      After the first visit, at home and for the duration of 2 months, you will asked to wear a fitness tracker
-      (MiBand 3) for as much time as possible during your daily life and to use the Mobistudy app to synchronise
-      the data from the tracker. Every week, the app will ask you to complete one 6MWT, which you will do outdoor
-      when the weather allows, guided by the phone. The app will remind you when the test is due and will show you
-      instructions about how to do it. During week 5 and 9 after the start of the study you will be asked to answer
-      questionnaires about the use of the app. You may be asked to use a distance measuring wheel (trundle wheel)
-      when doing your 6MWT, so that we can compare its measurement with the one estimated by the app.
-      At the end of the 2 months period, you will return the devices to the researchers and you will also be asked
-      to perform a final supervised 6MWT. In addition, you will be invited to participate in an interview and a group
-      discussion to investigate your opinion about the use of this technology. With your permission, the interview
-      may be recorded and we may use direct quotes from the recordings.
-      You will also receive a short report about your collected data. The report will include the results obtained from
-      the app and the activity data, such as the number of steps and average heart rate values. It is important to state
-      that the provided information is not medical.
+After the first visit, at home and for the duration of 2 months, you will be asked to wear a fitness tracker (MiBand 3) for as much time as possible during your daily life and to use the Mobistudy app to synchronise the data from the tracker. Every week, the app will ask you to complete one 6MWT, which you will do outdoor when the weather allows, guided by the phone. The app will remind you when the test is due and will show you instructions about how to do it. During week 5 after the start of the study, you will be asked to answer a questionnaire about the use of the app. You may be asked to use a distance measuring wheel (trundle wheel) when doing your 6MWT, so that we can compare its measurement with the one estimated by the app.
+<br>
+At the end of the 2 months period, you will answer to a final questionnaire, you will return the devices to the researchers, and you will also be asked to perform a final supervised 6MWT and TUG.
+You will receive a short report about your collected data. The report will include the results obtained from the app and the activity data, such as the number of steps and average heart rate values. It is important to state that the provided information is not medical.
+You may be also invited to participate in an interview and a group discussion to investigate your opinion about the use of this technology. With your permission, the interview may be recorded and we may use direct quotes from the recordings.
+
 
       </p>
 
       <b>What should I consider?</b>
       <p>
-      Your current care and daily life should not be altered by the study. You should not participate in the
-      study if you are aware of being pregnant or if your physical conditions make it impossible or risky
-       to walk for about 6 minutes. Participation in other studies is not a hindrance.
+      Your current care and daily life should not be altered by the study. You should not participate in the study if you are aware of being pregnant or if your physical conditions make it impossible or risky to walk for about 6 minutes. Participation in other studies is not a hindrance.
       </p>
 
       <b>Are there any possible disadvantages or risks from taking part?</b>
       <p>
-      There are no major risks associated with participating in this study, provided that you can walk safely
-      for more than six minutes. If you are not feeling well before or during the test you should stop the test
-      and wait until you are feeling better.
-      By sending the data collected during your weekly tests, the Mobistudy app will produce some additional traffic
-    on your mobile phone which, depending on the type of connection and the mobile Internet contract you have, may
-    generate some additional costs. Nonetheless, we estimate these costs to be much smaller than the ones generated, for example, when using common social networks or watching online videos.
-      When personal and health-related data are stored, there is always the possibility that data is leaked unlawfully.
-      All the systems used in this study employ state-of-the-art security mechanisms such as encryption and strict
-      access control rules, therefore we consider this risk to be very small.
+     There are no major risks associated with participating in this study, provided that you can walk safely for more than six minutes. If you are not feeling well before or during the test you should stop the test and wait until you are feeling better.
+     <br>
+By sending the data collected during your weekly tests, the Mobistudy app will produce some additional traffic on your mobile phone which, depending on the type of connection and the mobile Internet contract you have, may generate some additional costs. Nonetheless, we estimate these costs to be much smaller than the ones generated, for example, when using common social networks or watching online videos.
+<br>
+When personal and health-related data are stored, there is always the possibility that data is leaked unlawfully. All the systems used in this study employ state-of-the-art security mechanisms such as encryption and strict access control rules, therefore we consider this risk to be very small.
+
       </p>
 
       <b>What are the possible benefits of taking part?</b>
       <p>
-      During follow-up visits with your doctor, you can bring and discuss a report of your study data.
-      These discussions are not part of the study and will not be recorded or registered, however, if
-      they bring useful information, they may become the basis for a new research study.
+      During follow-up visits with your doctor, you can bring and discuss a report of your study data. These discussions are not part of the study and will not be recorded or registered, however, if they bring useful information, they may become the basis for a new research study.
       <br>
-      We hope that this research will allow, in the future, patients to share data they collect about their
-      daily activity through smartphones and wearable devices with clinicians so that these data can be used
-      for diagnosis and improving treatments. This is, however, a long-term ambition and you should not expect
-      any immediate consequence from participating in this study.
-      <br>
-      The results of the study will be published in scientific outlets. If interested, you can contact the researchers
-      who will be very happy to share information about these publications with you
+We hope that this research will allow, in the future, patients to share data they collect about their daily activity through smartphones and wearable devices with clinicians so that these data can be used for diagnosis and improving treatments. This is, however, a long-term ambition and you should not expect any immediate consequence from participating in this study.
+<br>
+The results of the study will be published in scientific outlets. If interested, you can contact the researchers who will be very happy to share information about these publications with you.
+
       </p>
 
       <b>Will my General Practitioner/family doctor (GP) be informed of my participation?</b>
@@ -112,28 +80,17 @@ export default {
 
       <b>Will my taking part in the study be kept confidential?</b>
       <p>
-      Your answers and your data will be processed so that unauthorised persons cannot access them.
-      Confidential information collected by the team at the hospital will be stored on a secured
-      computer managed by the researchers. Data collected by the Mobistudy app will be stored on a
-      secure system managed by Malmö University, in Sweden. All collected data will be analysed by
-      researchers at both institutions.
+      Your answers and your data will be processed so that unauthorised persons cannot access them. Confidential information collected by the team at the hospital will be stored on a secured computer managed by the researchers. Data collected by the Mobistudy app will be stored on a secure system managed by Malmö University, in Sweden. All collected data will be analysed by researchers at both institutions.
       <br>
-      In order to allow other researchers to use the collected data and improve the science that it
-      supports, we plan to make the data anonymous and share them on research data websites. The
-      anonymization process will remove any potentially identifiable information such as names, date of
-      birth, geographical information and absolute timestamps. If you wish to opt out from sharing the
-      anonymized data, please inform the research team.
-      Responsible members of the Oxford University Hospitals NHS Foundation Trust may be given access to
-      data for monitoring and/or audit of the study to ensure that the research is complying with
-      applicable regulations.
+In order to allow other researchers to use the collected data and improve the science that it supports, we plan to make the data anonymous and share them on research data websites. The anonymization process will remove any potentially identifiable information such as names, date of birth, geographical information and absolute timestamps. If you wish to opt out from sharing the anonymised data, please inform the research team.
+      <br>
+Responsible members of the Oxford University Hospitals NHS Foundation Trust may be given access to data for monitoring and/or audit of the study to ensure that the research is complying with applicable regulations.
+
       </p>
 
        <b>Will I be reimbursed for taking part?</b>
       <p>
-      You will have to cover expenses to travel to the clinic and parking by yourself for the two in-clinic visits.
-      In addition, you will have to cover costs associated with the transmission of the data using your mobile
-      phone, which should be negligible compared with the amount of data that is commonly transmitted using,
-      for example, social media. Other than the previously mentioned items, the study does not involve any other cost.
+      You will have to cover expenses to travel to the clinic and parking by yourself for the two in-clinic visits. In addition, you will have to cover costs associated with the transmission of the data using your mobile phone, which should be negligible compared with the amount of data that is commonly transmitted using, for example, social media. Other than the previously mentioned items, the study does not involve any other cost.
       </p>
 
       <b>What will happen if I don't want to carry on with the study?</b>
@@ -149,32 +106,121 @@ export default {
       especially if other researchers are already using the dataset.
       </p>
 
+      <b>How will we use information about you?</b>
+      <p>
+      We will need to use information from you for this research project. This information will include:
+      <ul>
+      <li>Your general profile information like email address, name, surname, date of birth, sex, country, language, main health conditions, long-term treatments, weight and height. These are needed to identify you and to create statistics about those who participate in this study.</li>
+      <li>Your participation in the study and the times you complete a task. These are needed to assess your level of involvement in the study.</li>
+      <li>The brand, model and operating system of your phone. These are needed to study how data changes from phone to phone.</li>
+      <li>Technical information related to when the app connects to the server. These are needed for security and auditing.</li>
+      <li>Data collected during the interviews (notes and audio recordings) and during the workshops (notes and materials such as sticky notes/drawings)</li>
+      <li>Data collected through the sensors (Miband3, GWALK) and the Mobistudy app, specifically:
+        <ul>
+          <li>Answers given to the “Technology acceptance” questionnaires.</li>
+          <li>Your geographical position, distance and motion during the 6-minute Walk Test.</li>
+          <li>Distance and motion during the Timed Up and Go Test.</li>
+          <li>Steps, activity and heart rate collected through the Miband 3 device.</li>
+        </ul>
+        People will use this information to do the research and to check your records to make sure that the research is done properly. People who do not need to know who you are will not be able to see your name or contact details. Your data will have a code number instead.
+      </li>
+      </ul>
+
+      We will keep all information about you safe and secure:
+      <ul>
+      <li>Researchers at Oxford University Hospital (OUH) NHS Trust will keep, on a computer at the Trust, your contact information and notes (contact, age, general health conditions, notes and issues) and the data collected by the GWALK sensor during the TUG and the 6MWT tests.</li>
+      <li>Data sent through the Mobistudy app will be stored on a server hosted by Malmö University in Sweden. During processing, the data will be downloaded on computers operated by the research team and secured by both involved institutions.</li>
+      </ul>
+
+      We may share or provide access to data about you outside the UK for research related purposes to allow researchers at Malmö University to analyse your data and develop the proposed research.
+      <br>
+
+    If this happens, we will only share the data that is needed. We will also make sure you can’t be identified from the data that is shared where possible. This may not be possible under certain circumstances - for instance, if you have a rare illness, it may still be possible to identify you. If your data is shared outside the UK, it will be with the following sorts of organisations:
+    <ul>
+    <li>Malmö University, Sweden.</li>
+    </ul>
+
+    We will make sure your data is protected. Anyone who accesses your data outside the UK must do what we tell them so that your data has a similar level of protection as it does under UK law. We will make sure your data is safe outside the UK by doing the following:
+    <ul>
+    <li>The country your data will be shared with have an adequacy decision in place. This means that we know their laws offer a similar level of protection to data protection laws in the UK</li>
+    <li>We use specific contracts approved for use in the UK which give personal data the same level of protection it has in the UK. For further details visit the Information Commissioner’s Office (ICO) website: https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/international-transfers</li>
+    <li>We do not allow those who access your data outside the UK to use it for anything other than what our written contract with them says.</li>
+    <li>We need other organisations to have appropriate security measures to protect your data which are consistent with the data security and confidentiality obligations we have. This includes having appropriate measures to protect your data against accidental loss and unauthorised access, use, changes or sharing.</li>
+    <li>We have procedures in place to deal with any suspected personal data breach. We will tell you and applicable regulators when there has been a breach of your personal data when this is legally required. For further details about UK breach reporting rules visit the Information Commissioner's Office (ICO) website: https://ico.org.uk/for-organisations/report-a-breach</li>
+    </ul>
+      </p>
+
+      <b>Who will have access to my data?</b>
+      <p>
+      The research team at OUH and Malmö University will have access to your data in order to complete the objectives of this research. Personnel from the IT departments at Malmö University and OUH may also access the data for technical maintenance and auditing.
+      <br>
+      Data anonymisation will be performed at the end of the study, once all participants have finished the required activities. Anonymised data will be accessed by other researchers for further investigation. Be aware that your data is subject to the laws governing access to documents produced by public institutions in Sweden.
+      </p>
+
+      <b>How will we use information about you after the study ends?</b>
+      <p>
+      Once we have finished the study, we will keep some of the data so we can check the results. We will write our reports in a way that no-one can work out that you took part in the study. We will keep your study data for the minimum period of time required by UK and Sweden archival rules. Archived data is stored for at least 10 years. The study data will then be fully anonymised and securely archived or destroyed.
+      <br>
+      Your profile on Mobistudy will be kept for as long as you will keep an account on the app. Server logs will be deleted 1 year after they are produced.
+      </p>
+
+      <b>Where can I find out more about how my information is used?</b>
+      <p>
+      Data protection regulation requires that we state the legal basis for processing information about you.  In the case of research, this is ‘a task in the public interest. Oxford University Hospitals NHS Foundation Trust, as sponsor for this study, based in the United Kingdom, is the data controller and is responsible for looking after your information and using it properly. Malmö University acts as joint controller of your personal data.
+      <br>
+      Data protection regulation provides you with control over your personal data and how it is used.  When you agree to your information being used in research, however, some of those rights may be limited in order for the research to be reliable and accurate.
+      <br>
+    You can find out more about how we use your information, including the specific mechanism used by us when transferring your personal data out of the UK:
+    <ul>
+    <li>by visiting our website at https://www.ouh.nhs.uk/privacy/</li>
+    <li>by visiting the HRA website at www.hra.nhs.uk/patientdataandresearch</li>
+    <li>by asking one of the research team</li>
+    <li>by sending an email to elizabeth.orchard@ouh.nhs.uk. or dario.salvi@mau.se </li>
+    </ul>
+      </p>
+
+      <b>What will happen if I don't want to carry on with the study?</b>
+      <p>
+      Your participation in this study is completely voluntary. You can decline to participate and you can withdraw from the study at any time, without giving a reason, but we will keep information about you that we already have. Your withdrawal will have no effect on your care.
+      <br>
+      You can withdraw from the study by accessing the “studies” section of the Mobistudy app. The data you have produced so far within the study will be kept, but if you want them to be removed contact the research team.
+      <br>
+      You can remove your account from Mobistudy by accessing the “profile” section of this app. This will remove all your data collected by Mobistudy except the technical logs, which will be deleted after 1 year.<br>
+      You have the right to ask us to access, remove, change or delete data we hold about you for the purposes of the study. You can also object to our processing of your data. We might not always be able to do this if it means we cannot use your data to do the research. If so, we will tell you why we cannot do this.
+      <br>
+      We are planning to share an anonymised version of the collected data with the research community. Your data will be removed of any personally identifiable information such as names, age and geographical position and will be published on a scientific data repository. This will allow more researchers to make use of this study for the public interest. You can opt out from this if you so desire.
+      <br>
+      Be aware that after the anonymised dataset has been released, we may not be able to remove your data from it, especially if other researchers are already using the dataset.
+      <br>
+      If you agree to take part in this study, you will have the option to take part in future research using your data saved from this study.
+      </p>
+
+
+
+
+
       <b>What will happen to the results of this study?</b>
       <p>
-      We will analyse the collected data and write the results of our analysis on papers and reports to be published on scientific journals or to be presented at scientific conferences.
-      No personal information will be disclosed on those publications.
-      The results may also be used to help students to complete their master or doctoral studies.
-      We will compile a short report about the data you will have collected in this study and send it to you over email.
-      During follow-up visits with your doctor, you can bring and discuss a report of your study data.
-      These discussions are not part of the study.
+      We will analyse the collected data and write the results of our analysis on papers and reports to be published on scientific journals or to be presented at scientific conferences. No personal information will be disclosed on those publications. The results may also be used to help students to complete their master or doctoral studies.
+      <br>
+      We will compile a short report about the data you will have collected in this study and send it to you over email. During follow-up visits with your doctor, you can bring and discuss a report of your study data. These discussions are not part of the study.
+      </p>
+
+      <b>What if we find something unexpected?</b>
+      <p>
+      In the unlikely event that something unexpected emerges from the data collected that requires medical attention, the clinical team will contact you for investigation. This will only be possible during the study, as data will be anonymised at the end of study.
       </p>
 
       <b>What if there is a problem?</b>
       <p>
-      As in healthcare in general, you are covered by the Patient Insurance.
-      Please remember that there are no special compensation arrangements in this study, but the Oxford University
-       Hospitals NHS Foundation Trust will provide indemnity if needed. If you are harmed due to someone's negligence,
-       then you may have grounds for legal action but you may have to pay for it.
-       NHS bodies are legally liable for the negligent acts and omissions of their employees.
-        If you are harmed whilst taking part in a clinical trial as a result of negligence on the part of
-        a member of the study team this liability cover would apply. Non-negligent harm is not covered by the
-        NHS indemnity scheme. The Oxford University Hospitals NHS Foundation Trust, therefore, cannot agree in advance to pay compensation in these circumstances. In exceptional circumstances, an ex-gratia payment may be offered.The Patient Advisory Liaison Service (PALS) is a confidential NHS service that can provide you with support for any complaints or queries you may have regarding the care you receive as an NHS patient. PALS is unable to provide information about this research study.
+      There are no special compensation arrangements in this study, but the Oxford University Hospitals NHS Foundation Trust will provide indemnity if needed. If you are harmed due to someone’s negligence, then you may have grounds for legal action but you may have to pay for it. NHS bodies are legally liable for the negligent acts and omissions of their employees. If you are harmed whilst taking part in a clinical trial as a result of negligence on the part of a member of the study team this liability cover would apply. Non-negligent harm is not covered by the NHS indemnity scheme. The Oxford University Hospitals NHS Foundation Trust, therefore, cannot agree in advance to pay compensation in these circumstances. In exceptional circumstances, an ex-gratia payment may be offered. The Patient Advisory Liaison Service (PALS) is a confidential NHS service that can provide you with support for any complaints or queries you may have regarding the care you receive as an NHS patient. PALS is unable to provide information about this research study.
+      <br>
       If you wish to contact the PALS team please contact Tel: 01865 221473 Email: PALS@ouh.nhs.uk.
       </p>
 
       <b>How have patients and the public been involved in this study?</b>
       <p>
-      Potential participants were involved in reviewing the Participant Information Sheet.
+      Patients with a Fontan circulation have been involved in designing the research. We undertook a Patient engagement questionnaire to understand their exercise requirements.
       </p>
 
       <b>Who is organising and funding the study?</b>
@@ -187,22 +233,19 @@ export default {
 
       <b>Who has reviewed the study?</b>
       <p>
-      The study's ethical issues have been approved by the NHS Research Ethics Committee (record number YYYYY).
-      The principal investigator is Dr. Elizabeth Orchard, consultant cardiologist at Oxford University Hospitals NHS Trust.
+      The project is organised in collaboration with Malmö University in Sweden and Oxford University Hospitals NHS Trust, United Kingdom. The study is sponsored by OUH and is partially funded by the Swedish Knowledge Foundation KK-Stiftelsen within the Synergy project “Intelligent and Trustworthy IoT Systems”.
       </p>
 
       <b>Participation in future research:</b>
       <p>
-      The research team may ask you to keep your contact for possible future research.
-      Your participation in future research is voluntary.
+      The research team may ask you to keep your contact for possible future research. Your participation in future research is voluntary.
       <br>
       You are free to uninstall the Mobistudy app if you do not wish to use it further.
       </p>
-
 `
     },
-    startDate: '2025-02-01',
-    endDate: '2026-02-01',
+    startDate: '2025-06-01',
+    endDate: '2026-12-31',
     principalInvestigators: [
       {
         name: 'Dr Elizabeth Orchard',
@@ -230,7 +273,7 @@ export default {
     ]
   },
   inclusionCriteria: {
-    minAge: 60,
+    minAge: 18,
     maxAge: 100,
     sex: [
       'male',
@@ -252,7 +295,7 @@ export default {
         interval: 1,
         occurrences: 1
       },
-      formKey: '5589', // acceptance 1, OUH
+      formKey: '81889066', // acceptance 1, OUH
       formName: {
         en: 'Questionnaire 1'
       }
@@ -260,41 +303,25 @@ export default {
 
     {
       id: 2,
-      type: 'smwt', // 6mwt in clinic
+      type: 'smwt', // 6mwt at home
       scheduling: {
-        alwaysOn: true,
         startEvent: 'consent',
-        untilSecs: 6480000 // 75 days
-      },
-      customTitle: {
-        en: '6MWT AT CLINIC'
-      },
-      useCustomTitle: true
+        startDelaySecs: 60 * 60 * 24 * 1, // day after consent
+        untilSecs: 60 * 60 * 24 * 60, // 60 days
+        intervalType: 'd',
+        interval: 7
+      }
     },
 
     {
       id: 3,
-      type: 'smwt', // 6mwt at home
-      scheduling: {
-        startEvent: 'consent',
-        startDelaySecs: 60 * 60 * 24 * 7, // 1 week after consent
-        untilSecs: 60 * 60 * 24 * 60, // 60 days
-        intervalType: 'd',
-        interval: 7
-      },
-      customTitle: {
-        en: '6MWT AT HOME'
-      },
-      useCustomTitle: true
-    },
-
-    {
-      id: 4,
       type: 'tug', // TUG in clinic
       scheduling: {
-        alwaysOn: true,
         startEvent: 'consent',
-        untilSecs: 6480000 // 75 days
+        untilSecs: 60 * 60 * 24 * 7, // 1 week
+        intervalType: 'd',
+        interval: 1,
+        occurrences: 1
       },
       customTitle: {
         en: 'TUG AT CLINIC'
@@ -303,7 +330,51 @@ export default {
     },
 
     {
+      id: 4,
+      type: 'tug', // TUG at home
+      scheduling: {
+        startEvent: 'consent',
+        startDelaySecs: 60 * 60 * 24 * 1, // day after consent
+        untilSecs: 60 * 60 * 24 * 60, // 60 days
+        intervalType: 'd',
+        interval: 7
+      }
+    },
+
+    {
       id: 5,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
+        startDelaySecs: 60 * 60 * 24 * 30, // 30 days
+        intervalType: 'd',
+        interval: 1,
+        occurrences: 1
+      },
+      formKey: '81889135', // questionnaire 2
+      formName: {
+        sv: 'Enkät 2'
+      }
+    },
+
+    {
+      id: 6,
+      type: 'form',
+      scheduling: {
+        startEvent: 'consent',
+        startDelaySecs: 60 * 60 * 24 * 65, // 65 days
+        intervalType: 'd',
+        interval: 1,
+        occurrences: 1
+      },
+      formKey: '81889167', // questionnaire 3
+      formName: {
+        sv: 'Enkät 3'
+      }
+    },
+
+    {
+      id: 7,
       type: 'miband3',
       hrInterval: 1,
       scheduling: {
@@ -311,13 +382,13 @@ export default {
         startDelaySecs: 0, // at consent to pair the device
         untilSecs: 60 * 60 * 24 * 60, // 60 days
         intervalType: 'd',
-        interval: 3 // every 3 days
+        interval: 1 // every day
       }
     }
   ],
   consent: {
     invitation: {
-      en: 'We would like to invite you to take part in our research study. Before you decide, it is important that you understand why the research is being done and what it would involve for you. Please take time to read this information and discuss it with others if you wish. If there is anything that is not clear, or if you would like more information, please ask a researcher.'
+      en: 'We would like to invite you to take part in our research study. Before you decide, it is important that you understand why the research is being done and what it would involve for you. Please take time to read the following information and discuss it with others if you wish. If there is anything that is not clear, or if you would like more information, please ask a researcher.'
     },
     privacyPolicy: {
       en: `<p>To conduct this study, we need to collect some data from you.</p>
@@ -362,12 +433,10 @@ These are needed for security and auditing.
         </li>
       </ul>
 
-
-
       <p><b>For how long will this data be kept?</b></p>
 
       <p>
-      After the data has been analysed by the research team, and no later than 2028, the data will be deleted
+      After the data has been analysed by the research team, and no later than December 2026, the data will be deleted
       from the researchers' computers and servers and archived. Archival rules in the UK and Sweden imply that
       the data collected at each site, independently, will be archived at the two institutions. Archived data
       is stored for at least 10 years.
@@ -430,33 +499,45 @@ These are needed for security and auditing.
     taskItems: [
       {
         description: {
-          en: 'I accept to answer Questionnaire 1, once at the beginning of the study.'
+          en: 'I accept to answer Questionnaire 1, at the beginning of the study.'
         },
         taskId: 1
       },
       {
         description: {
-          en: 'I accept to do 2 6MWT at the clinic.'
+          en: 'I accept to do a 6MWT at home, once a week.'
         },
         taskId: 2
       },
       {
         description: {
-          en: 'I accept to do a 6MWT once a week.'
+          en: 'I accept to do a Timed Up and Go Test at the clinic.'
         },
         taskId: 3
       },
       {
         description: {
-          en: 'I accept to do 2 TUG tests at the clinic.'
+          en: 'I accept to do Timed Up and Go tests at home, once a week.'
         },
         taskId: 4
       },
       {
         description: {
-          en: 'I accept to use the fitness tracker and to syncronize data with the app every 3 days.'
+          en: 'I accept to answer Questionnaire 2, in the middle of the study.'
         },
         taskId: 5
+      },
+      {
+        description: {
+          en: 'I accept to answer Questionnaire 2, at the end of the study.'
+        },
+        taskId: 6
+      },
+      {
+        description: {
+          en: 'I accept to use the fitness tracker and to syncronize data with the app every day.'
+        },
+        taskId: 7
       }
     ],
     extraItems: [
