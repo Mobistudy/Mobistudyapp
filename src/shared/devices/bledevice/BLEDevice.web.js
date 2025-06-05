@@ -2,13 +2,35 @@
  * Base class for BLE devices.
  * Uses the WEB BLE API.
  */
-export default class BLEDevice {
+export class BLEDevice {
   // eslint-disable-next-line space-before-function-paren
-  constructor() {
-    this.device = null
+  constructor(device) {
+    this.device = device
     this.server = null
-    this.characteristics = new Map()
     this.GATTcallbacks = new Map()
+  }
+
+  #addNotificationsCallback (serviceUUID, characteristicUUID, callback) {
+    const key = `${serviceUUID}-${characteristicUUID}`
+    this.GATTcallbacks.set(key, callback)
+  }
+
+  #getNotificationsCallback (serviceUUID, characteristicUUID) {
+    const key = `${serviceUUID}-${characteristicUUID}`
+    return this.GATTcallbacks.get(key)
+  }
+
+  #removeNotificationsCallback (serviceUUID, characteristicUUID) {
+    const key = `${serviceUUID}-${characteristicUUID}`
+    this.GATTcallbacks.delete(key)
+  }
+
+  getName () {
+    return this.device.name
+  }
+
+  getId () {
+    return this.device.id
   }
 
   /**
@@ -21,47 +43,28 @@ export default class BLEDevice {
 
   /**
    * Requests permission to access Bluetooth.
-   * Because of how this is implemented in the plugin,
-   * the promise is returned either immediately if permissions are given
-   * and there are BLE devices around (visible in a scan)
-   * or because of a timeout or no devices around
-   * in other words, it's impossible to say if permission was really given or not
+   * This is a no-op in the WEB BLE API, as permissions are requested during device discovery.
    */
   static async requestPermission () {
     return Promise.resolve(true)
   }
 
   /**
-   * Finds BLE devices given a name prefix and a list of service UUIDs.
-   * The user has to select the device, which means that only one device is returned.
+   * Finds BLE a device given a name prefix and a list of service UUIDs.
+   * In WEB BLE, the user has to select the device, which means that only one device will be returned.
    * @param {string} namePrefix - prefix of a name
    * @param {Array<string>} serviceNames - UUIDs
-   * @returns {Promise<Array<BLEDevice>>}
+   * @returns {Promise<BLEDevice>} one BLEDevice
    */
-  static async findDevicesByName (namePrefix, serviceNames) {
-    return navigator.bluetooth.requestDevice({
+  static async findDeviceByName (namePrefix, serviceNames) {
+    const dev = await navigator.bluetooth.requestDevice({
       filters: [
         { namePrefix },
         { services: serviceNames }
       ]
     })
-  }
 
-  /**
-   * Finds a specific BLE device given its ID
-   * @param {string} deviceId - ID of the device
-   * @param {Array<string>} serviceNames - UUIDs
-   * @returns {Promise<BLEDevice>}
-   */
-  static async findDeviceById (deviceId, serviceNames) {
-    const devices = await navigator.bluetooth.requestDevice({
-      acceptAllDevices: true,
-      optionalServices: serviceNames
-    })
-
-    return devices.find((d) => {
-      return (d.id === deviceId)
-    })
+    return new BLEDevice(dev)
   }
 
   /**
@@ -95,9 +98,9 @@ export default class BLEDevice {
   }
 
   /**
-   * Starts nitifications on a given service / characteristic
+   * Starts notifications on a given service / characteristic
    * @param {string} serviceUUID - service UUID
-   * @param {*} characteristicUUID - characteristic UUID
+   * @param {string} characteristicUUID - characteristic UUID
    * @param {Function} dataCallback - called each time new data arrives
    * @returns {Promise}
    */
@@ -105,12 +108,8 @@ export default class BLEDevice {
     const service = await this.server.getPrimaryService(serviceUUID)
     const characteristic = await service.getCharacteristic(characteristicUUID)
 
-    characteristic.addEventListener('characteristicvaluechanged', (event) => {
-      let value = event.target.value
-      // In Chrome 50+, a DataView is returned instead of an ArrayBuffer.
-      value = value.buffer ? value : new DataView(value)
-      dataCallback(value)
-    })
+    this.#addNotificationsCallback(serviceUUID, characteristicUUID, dataCallback)
+    characteristic.addEventListener('characteristicvaluechanged', dataCallback)
 
     return characteristic.startNotifications()
   }
@@ -124,7 +123,11 @@ export default class BLEDevice {
   async stopNotifications (serviceUUID, characteristicUUID) {
     const service = await this.server.getPrimaryService(serviceUUID)
     const characteristic = await service.getCharacteristic(characteristicUUID)
-    return characteristic.stopNotifications()
+    await characteristic.stopNotifications()
+
+    const callback = this.#getNotificationsCallback(serviceUUID, characteristicUUID)
+    characteristic.removeEventListener('characteristicvaluechanged', callback)
+    this.#removeNotificationsCallback(serviceUUID, characteristicUUID)
   }
 
   /**
@@ -137,6 +140,19 @@ export default class BLEDevice {
     const service = await this.server.getPrimaryService(serviceUUID)
     const characteristic = await service.getCharacteristic(characteristicUUID)
     return characteristic.readValue()
+  }
+
+  /**
+   * Writes the characteristic and waits for a response
+   * @param {string} serviceUUID - service identifier
+   * @param {string} characteristicUUID - characteristic identifier
+   * @param {ArrayBuffer} data - contains the data to be sent
+   * @returns {Promise}
+   */
+  async writeCharacteristic (serviceUUID, characteristicUUID, data) {
+    const service = await this.server.getPrimaryService(serviceUUID)
+    const characteristic = await service.getCharacteristic(characteristicUUID)
+    return characteristic.writeValue(data)
   }
 
   /**

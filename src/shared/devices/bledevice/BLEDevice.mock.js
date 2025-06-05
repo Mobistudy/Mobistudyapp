@@ -45,7 +45,7 @@ export default class BLEDevice {
    * @param {number} searchTime - time in seconds
    * @returns {Promise<Array<BLEDevice>>}
    */
-  static async findDevicesByName (namePrefix, serviceNames, searchTime) {
+  static async findAllDevicesByName (namePrefix, serviceNames, searchTime) {
     if (SEARCH_FAIL) {
       return Promise.reject()
     }

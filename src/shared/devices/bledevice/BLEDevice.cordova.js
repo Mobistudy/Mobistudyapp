@@ -13,7 +13,7 @@ export default class BLEDevice {
    * Tells if BLE is available
    * @returns {Promise{boolean}} returns a promise with true if available
    */
-  static async isBLEAvailable () {
+  static async isAvailable () {
     if (!window.ble) return false
     return new Promise((resolve, reject) => {
       window.ble.isEnabled(
@@ -65,7 +65,10 @@ export default class BLEDevice {
    * @param {number} searchTime - time in seconds
    * @returns {Promise<Array<BLEDevice>>}
    */
-  static async findDevicesByName (namePrefix, serviceNames, searchTime) {
+  static async findAllDevicesByName (namePrefix, serviceNames, searchTime) {
+    function deviceExists (devices, device) {
+      return devices.find((d) => d.id === device.id)
+    }
     return new Promise((resolve, reject) => {
       const devices = []
       window.ble.startScan(serviceNames, (deviceFound) => {
@@ -86,9 +89,6 @@ export default class BLEDevice {
         })
       }, searchTime)
     })
-    function deviceExists (devices, device) {
-      return devices.find((d) => d.id === device.id)
-    }
   }
 
   /**
@@ -134,7 +134,7 @@ export default class BLEDevice {
         },
         failureResponse => {
           console.error('Connect failed', failureResponse)
-          this.disconnectCallback()
+          reject(failureResponse)
         }
       )
     })
@@ -148,20 +148,7 @@ export default class BLEDevice {
     if (!this.device === null) {
       return Promise.resolve()
     } else {
-      return new Promise((resolve, reject) => {
-        window.ble.disconnect(
-          this.device.id,
-          success => {
-            this.disconnectCallback = null
-            console.log('Disconnect succeded')
-            resolve(success)
-          },
-          failureResponse => {
-            console.error('Disconnect failed.', failureResponse)
-            reject(failureResponse)
-          }
-        )
-      })
+      return window.ble.withPromises.disconnect(this.device.id)
     }
   }
 
@@ -171,19 +158,7 @@ export default class BLEDevice {
    */
   async isConnected () {
     if (!this.device) return Promise.resolve(false)
-    return new Promise((resolve, reject) => {
-      window.ble.isConnected(
-        this.deviceId,
-        success => {
-          console.log('IsConnected succeeded')
-          resolve(true)
-        },
-        failure => {
-          console.log('IsConnected failed', failure)
-          resolve(false)
-        }
-      )
-    })
+    else return window.ble.withPromises.isConnected(this.deviceId, false)
   }
 
   /**
@@ -224,9 +199,7 @@ export default class BLEDevice {
    * @returns {Promise}
    */
   async stopNotifications (serviceUUID, characteristicUUID) {
-    return new Promise((resolve, reject) => {
-      window.ble.stopNotification(this.device.id, serviceUUID, characteristicUUID, resolve, reject)
-    })
+    return window.ble.withPromises.stopNotification(this.device.id, serviceUUID, characteristicUUID)
   }
 
   /**
@@ -236,12 +209,24 @@ export default class BLEDevice {
    * @returns {Promise<DataView>}
    */
   async readCharacteristic (serviceUUID, characteristicUUID) {
-    return new Promise((resolve, reject) => {
-      window.ble.read(this.device.id, serviceUUID, characteristicUUID, (data) => {
-        const dataView = data.buffer ? data : new DataView(data)
-        resolve(dataView)
-      }, reject)
-    })
+    const data = await window.ble.withPromises.read(this.device.id, serviceUUID, characteristicUUID)
+    const dataView = data.buffer ? data : new DataView(data)
+    return dataView
+  }
+
+  /**
+   * Writes the characteristic and waits for a response
+   * @param {string} serviceUUID - service identifier
+   * @param {string} characteristicUUID - characteristic identifier
+   * @param {ArrayBuffer} data - contains the data to be sent
+   * @returns {Promise}
+   */
+  async writeCharacteristic (serviceUUID, characteristicUUID, data) {
+    return window.ble.withPromises.write(
+      this.device.id,
+      serviceUUID,
+      characteristicUUID,
+      data)
   }
 
   /**
@@ -252,12 +237,10 @@ export default class BLEDevice {
    * @returns {Promise}
    */
   async writeCharacteristicWithoutResponse (serviceUUID, characteristicUUID, data) {
-    return new Promise((resolve, reject) => {
-      window.ble.writeWithoutResponse(
-        this.device.id,
-        serviceUUID,
-        characteristicUUID,
-        data, resolve, reject)
-    })
+    return window.ble.withPromises.writeWithoutResponse(
+      this.device.id,
+      serviceUUID,
+      characteristicUUID,
+      data)
   }
 }
