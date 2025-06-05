@@ -1202,8 +1202,15 @@ describe('When testing the scheduler', () => {
       }]
     }]
 
-    const today = new Date('2025-06-04T11:00:00') // 4 days after, at 11 AM
-    const tasks = generateTasker(studiesParts, studyDescrs, today)
+    let today = new Date('2025-06-03T13:00:00') // 3 days after, at 13
+    let tasks = generateTasker(studiesParts, studyDescrs, today)
+    expect(tasks.upcoming.length).toBe(1)
+    expect(tasks.upcoming[0].taskId).toBe(1) // the first task
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+
+    today = new Date('2025-06-04T11:00:00') // 4 days after, at 11 AM
+    tasks = generateTasker(studiesParts, studyDescrs, today)
     expect(tasks.upcoming.length).toBe(1)
     expect(tasks.upcoming[0].taskId).toBe(2) // the second task, which starts after the first one
     expect(tasks.missed.length).toBe(0)
