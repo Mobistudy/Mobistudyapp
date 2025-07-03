@@ -35,29 +35,18 @@
     </platform>
     <platform name="ios">
         <preference name="SplashMaintainAspectRatio" value="true" />
-
-        <!-- Block access to keychain if no passcode is set -->
         <preference name="KeychainAccessibility" value="WhenPasscodeSetThisDeviceOnly" />
-
-        <!-- Allow playback in all conditions -->
         <preference name="MediaTypesRequiringUserActionForPlayback" value="none" />
         <preference name="AllowInlineMediaPlayback" value="true" />
-
-        <!-- disallow rubber band effect in iOS -->
         <preference name="DisallowOverscroll" value="true" />
-
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
-
-        <!-- access location -->
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
             <string>Position is needed to estimate physical activity or the environment</string>
         </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysUsageDescription">
             <string>Position is needed to estimate physical activity or the environment</string>
         </edit-config>
-
-        <!-- access HealthKit -->
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysAndWhenInUseUsageDescription">
             <string>Position is needed to estimate physical activity or the environment</string>
         </edit-config>
@@ -67,31 +56,15 @@
         <edit-config file="*-Info.plist" mode="merge" target="NSHealthUpdateUsageDescription">
             <string>Mobistudy needs to store health-related data on your phone</string>
         </edit-config>
-
-        <!-- Useful for debugging, could be removed in production -->
         <edit-config file="*-Info.plist" mode="merge" target="UIFileSharingEnabled">
             <true />
         </edit-config>
-
-        <!-- declare exemption for encryption algorithms -->
         <edit-config file="*-Info.plist" mode="merge" target="ITSAppUsesNonExemptEncryption">
             <false />
         </edit-config>
-
-        <!-- access Microphone in peak flow or vocalization -->
         <edit-config file="*-Info.plist" mode="merge" target="NSMicrophoneUsageDescription">
             <string>Microphone is needed for the vocalization test and to read the peak flow meter</string>
         </edit-config>
-
-        <!-- Allow audio and bluetooth access if app is in background -->
-        <!-- <edit-config file="*-Info.plist" mode="merge" target="UIBackgroundModes">
-            <array>
-                <string>audio</string>
-                <string>bluetooth-central</string>
-            </array>
-        </edit-config> -->
-
-        <!-- icons -->
         <edit-config file="*-Info.plist" mode="merge" target="NSMotionUsageDescription">
             <string>Steps are needed to estimate physical activity</string>
         </edit-config>
@@ -120,8 +93,6 @@
         <icon height="88" src="res/ios/icon-44@2x.png" width="88" />
         <icon height="172" src="res/ios/icon-86@2x.png" width="172" />
         <icon height="196" src="res/ios/icon-98@2x.png" width="196" />
-
-        <!-- splash screen -->
         <splash src="res/screen/ios/Default@2x~iphone~anyany.png" />
         <splash src="res/screen/ios/Default@2x~iphone~comany.png" />
         <splash src="res/screen/ios/Default@2x~iphone~comcom.png" />
