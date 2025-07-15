@@ -23,7 +23,7 @@ import eproppQ2 from './mockdata/ePROPP/eproppQ2'
 
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
-import synergyouh from './mockdata/synergy/synergyouh'
+import * as synergyouh from './mockdata/synergy/synergyouh.json'
 
 export default {
   getServersList: () => {
