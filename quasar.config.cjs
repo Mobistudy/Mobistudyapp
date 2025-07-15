@@ -118,13 +118,7 @@ module.exports = configure(function (ctx) {
         type: 'http'
       },
       port: 8080,
-      open: true, // opens browser window automatically
-      proxy: {
-        '/api': { // <- this must be the same as API_ENDPOINT
-          target: 'http://localhost:3000', // WARNING: this address can be changed if testing the app on the phone, but any change should NOT be committed. If this is != loclahost, please change it back to localhost.
-          changeOrigin: true
-        }
-      }
+      open: true // opens browser window automatically
     },
 
     // https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-framework

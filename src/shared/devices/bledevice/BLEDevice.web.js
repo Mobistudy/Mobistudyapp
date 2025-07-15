@@ -2,7 +2,7 @@
  * Base class for BLE devices.
  * Uses the WEB BLE API.
  */
-export class BLEDevice {
+export default class BLEDevice {
   // eslint-disable-next-line space-before-function-paren
   constructor(device) {
     this.device = device

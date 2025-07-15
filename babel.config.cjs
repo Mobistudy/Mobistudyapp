@@ -15,6 +15,7 @@ module.exports = api => {
   }
 
   return {
+    plugins: ['@babel/plugin-transform-private-methods'],
     presets: [['@quasar/babel-preset-app', envOptions]],
   };
 
