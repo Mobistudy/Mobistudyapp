@@ -7,6 +7,9 @@ export default class BLEDevice {
   constructor(nativeDevice) {
     this.device = nativeDevice
     this.disconnectCallback = null
+    this.id = nativeDevice.id
+    this.name = nativeDevice.name || nativeDevice.id // use id if name is not set
+    this.rssi = nativeDevice.rssi || undefined // signal strength, undefined if not available
   }
 
   /**

@@ -137,6 +137,17 @@ export default {
     return storage.removeItem('miband3')
   },
 
+  /* JSYLE */
+  async setJStyle2025ID (id) {
+    return storage.setItem('jstyle2025', id)
+  },
+  async getJStyle2025ID () {
+    return storage.getItem('jstyle2025')
+  },
+  async removeJStyle2025ID () {
+    return storage.removeItem('jstyle2025')
+  },
+
   /* PO60 */
   async setDevicePO60 (device) {
     return storage.setItem('po60', device)

@@ -96,7 +96,12 @@ const routes = [
       { path: '/tugIntro:studyKey/:taskId', name: 'tugIntro', component: () => import('@components/tasks/tug/TUGIntroPage.vue'), props: true },
       { path: '/tugPermissions:studyKey/:taskId', name: 'tugPermissions', component: () => import('@components/tasks/tug/TUGPermissionsPage.vue'), props: true },
       { path: '/tug:studyKey/:taskId', name: 'tug', component: () => import('@components/tasks/tug/TUGPage.vue'), props: true },
-      { path: '/tugSummary', name: 'tugSummary', component: () => import('@components/tasks/tug/TUGSummary.vue'), props: true }
+      { path: '/tugSummary', name: 'tugSummary', component: () => import('@components/tasks/tug/TUGSummary.vue'), props: true },
+
+      { path: '/jstyleIntro/:studyKey/:taskId', name: 'jstyleIntro', component: () => import('@components/tasks/jstyle/JStyleIntroPage.vue'), props: true },
+      { path: '/jstylePermissions/:studyKey/:taskId', name: 'jstylePermissions', component: () => import('@components/tasks/jstyle/JStylePermissionsPage.vue'), props: true },
+      { path: '/jstyleConnect/:studyKey/:taskId', name: 'jstyleConnect', component: () => import('@components/tasks/jstyle/JStyleConnectPage.vue'), props: true },
+      { path: '/jstyleDataDownload/:studyKey/:taskId', name: 'jstyleDataDownload', component: () => import('@components/tasks/jstyle/JStyleDownloadPage.vue'), props: true }
 
       // { path: '/qcstIntro', name: 'qcstIntro', component: () => import('pages/tasks/qcst/QCSTIntro.vue'), props: true },
       // { path: '/qcst', name: 'qcst', component: () => import('pages/tasks/qcst/QCST.vue'), props: true },

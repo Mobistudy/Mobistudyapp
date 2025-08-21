@@ -3,6 +3,7 @@ import Form from './form'
 import Miband3 from './miband3'
 import smwt from './smwt'
 import tug from './tug'
+import jstyle from './jstyle'
 
 import { mergeDeep } from '@shared/tools.js'
 
@@ -20,7 +21,8 @@ const Formred = trimObject(Form, 'form')
 const Miband3red = trimObject(Miband3, 'miband3')
 const SMWTred = trimObject(smwt, 'smwt')
 const TUGred = trimObject(tug, 'tug')
+const JStyleRed = trimObject(jstyle, 'jstyle')
 
-const allTitles = mergeDeep(DQred, Formred, Miband3red, SMWTred, TUGred)
+const allTitles = mergeDeep(DQred, Formred, Miband3red, SMWTred, TUGred, JStyleRed)
 
 export default allTitles

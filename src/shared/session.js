@@ -14,6 +14,13 @@ export default {
   taskReport: null,
 
   /**
+   * A connected device, used to keep track of the device during the task execution
+   * and to avoid having to pass it through the router.
+   * @type {Object}
+   */
+  connectedDevice: null,
+
+  /**
    * Session store for server connection.
    * @typedef {Object} ServerInfo
    * @property {string} token - JWT token
@@ -105,6 +112,32 @@ export default {
    */
   removeTaskReport () {
     this.taskReport = null
+    return true
+  },
+
+  /**
+   * Stores the current connected device
+   * This is used to keep track of the device during the task execution
+   * and to avoid having to pass it through the router.
+   * @param {Object} device - the current connected device
+   */
+  setConnectedDevice (device) {
+    this.connectedDevice = device
+  },
+
+  /**
+   * Gets the current connected device
+   * @returns {Object}
+   */
+  getConnectedDevice () {
+    return this.connectedDevice
+  },
+
+  /**
+   * Deletes the current connected device
+   */
+  removeConnectedDevice () {
+    this.connectedDevice = null
     return true
   }
 }

@@ -68,6 +68,8 @@ export default {
         this.$router.push({ name: 'vocalizationIntro', params: { taskId, studyKey }, query })
       } else if (type === 'drawing') {
         this.$router.push({ name: 'drawingIntro', params: { taskId, studyKey }, query })
+      } else if (type === 'jstyle') {
+        this.$router.push({ name: 'jstyleIntro', params: { taskId, studyKey }, query })
       } else {
         throw new Error('Could not changeRoute with task type.')
       }
@@ -93,7 +95,7 @@ export default {
     } else if (this.task.type === 'miband3') {
       this.title = this.$i18n.t('tasks.miband3.shortTitle')
       this.main = this.$i18n.t('tasks.miband3.shortDescription')
-      this.icon = 'watch'
+      this.icon = 'fitness_tracker'
     } else if (this.task.type === 'po60') {
       this.title = this.$i18n.t('tasks.po60.shortTitle')
       this.main = this.$i18n.t('tasks.po60.shortDescription')
@@ -126,6 +128,10 @@ export default {
       this.title = this.$i18n.t('tasks.drawing.shortTitle')
       this.main = this.$i18n.t('tasks.drawing.shortDescription')
       this.icon = 'draw'
+    } else if (this.task.type === 'jstyle') {
+      this.title = this.$i18n.t('tasks.jstyle.shortTitle')
+      this.main = this.$i18n.t('tasks.jstyle.shortDescription')
+      this.icon = 'watch'
     }
 
     if (this.task.customTitle && this.task.customTitle[this.$i18n.locale]) {

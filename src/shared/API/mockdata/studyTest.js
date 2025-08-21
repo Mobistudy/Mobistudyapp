@@ -222,6 +222,19 @@ export default {
         startEvent: 'consent',
         untilSecs: 60 * 60 * 24 * 7 // 1 week
       }
+    },
+    {
+      id: 15,
+      type: 'jstyle',
+      scheduling: {
+        alwaysOn: true,
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 7 // 1 week
+      },
+      hrInterval: 5, // 5 minutes
+      spo2Interval: 5, // 5 minutes
+      tempInterval: 5, // 5 minutes
+      hrvInterval: 5 // 5 minutes
     }
   ],
   consent: {
@@ -248,6 +261,7 @@ export default {
       <li>Heart rate and steps collected during a Queens College Step Test.</li>
       <li>Your geographical position, distance and steps during the Six-minute Walk Test.</li>
       <li>Your heart rate, activity level, steps and activity type collected by the MiBand3 fitness tracker.</li>
+      <li>Your activity levels, steps, heart rate, stress level, blood pressure, pulseoximetry and temperature collected by the JStyle smartwatch.</li>
       <li>Your blood oxygen saturation and heart rate measured by a pulseoximeter.</li>
       <li>Your geographical location during the positioning task.</li>
       <li>Your peak flow rate measurements.</li>
@@ -299,6 +313,7 @@ export default {
         <li>Hjärtfrekvens och steg som samlats under ett Queens College Step Test.</li>
         <li>Din geografiska position, avstånd och steg under sex minuters promenadtest.</li>
         <li>Din hjärtfrekvens, aktivitetsnivå, steg och aktivitetstyp som samlas in av MiBand3 fitnessspårare</li>
+        <li>Din aktivitetsnivå, steg, hjärtfrekvens, stressnivå, blodtryck, pulsoximetri och temperatur som samlas in av JStyle smartklocka.</li>
         <li>Din blodsyremättnad och hjärtfrekvens mätt med en pulsoximeter.</li>
         <li>Din geografiska plats under positioneringsuppgiften.</li>
         <li>Dina toppflödesmätningar.</li>
@@ -357,6 +372,7 @@ export default {
         <li>Frecuencia cardíaca y pasos recopilados durante el Queens College Step Test</li>
         <li>Tu posición geográfica, distancia y pasos durante el 6-minute Walk Test</li>
         <li>Tu frecuencia cardíaca, nivel de actividad, pasos y tipo de actividad recopilados por el monitor de actividad</li>
+        <li>Tu nivel de actividad, pasos, frecuencia cardíaca, nivel de estrés, presión arterial, pulsoximetría y temperatura recopilados por el reloj inteligente JStyle</li>
         <li>Tu saturación de oxígeno en sangre y frecuencia cardíaca medida por el oxímetro de pulso</li>
         <li>Tu ubicación geográfica durante la tarea de posicionamiento</li>
         <li>Tu flujo espiratorio máximo</li>
@@ -413,6 +429,7 @@ export default {
       <li>Frequenza cardiaca e passi raccolti durante il Queens College Step Test. </li>
       <li>Passi misurati dal Suo telefono attraverso Google Fit.</li>
       <li>La Sua frequenza cardiaca, il livello di attività, i passi e il tipo di attività raccolti dal fitness tracker MiBand3.</li>
+      <li>La Sua frequenza cardiaca, il livello di attività, i passi, il livello di stress, la pressione sanguigna, la pulsoximetria e la temperatura raccolti dallo smartwatch JStyle.</li>
       <li>La Sua posizione geografica, la distanza e i passi durante il Six-minute Walk Test.</li>
       <li>La Sua posizione geografica durante il compito di posizionamento. </li>
       <li>La Sua saturazione di ossigeno nel sangue e la frequenza cardiaca misurata da un pulsossimetro.</li>
@@ -579,6 +596,15 @@ export default {
           it: 'Accetto di eseguire il test di disegno.'
         },
         taskId: 14
+      },
+      {
+        description: {
+          en: 'I agree to use the Jstyle smartwatch.',
+          sv: 'Jag går med på att använda Jstyle smartklocka.',
+          es: 'Acepto usar el reloj inteligente Jstyle.',
+          it: 'Accetto di utilizzare lo smartwatch Jstyle.'
+        },
+        taskId: 15
       }
     ],
     extraItems: []
