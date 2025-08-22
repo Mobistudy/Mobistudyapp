@@ -60,12 +60,10 @@ let lastSampleDate = null
 const lineChartData = {
   hrs: [],
   steps: [],
-  sleepQuality: [],
   temperatures: [],
   reset () {
     this.hrs = []
     this.steps = []
-    this.sleepQuality = []
     this.temperatures = []
   }
 }
@@ -358,13 +356,6 @@ export default {
         }
       }
 
-      for (const item of sleep) {
-        const date = item.date
-        if (date >= this.lineChartStartTS && date <= this.lineChartEndTS) {
-          lineChartData.sleepQuality.push({ x: date, y: item.sleepQuality })
-        }
-      }
-
       this.updateLineChartReferences()
       this.updatePlusMinusButtons() // Could be placed somewhere else but is needed at start in case data size < 12 hours worth
     },
@@ -421,7 +412,6 @@ export default {
       lineChart.data.datasets[0].data = lineChartData.hrs
       lineChart.data.datasets[1].data = lineChartData.steps
       lineChart.data.datasets[2].data = lineChartData.temperatures
-      lineChart.data.datasets[3].data = lineChartData.sleepQuality
       lineChart.update()
     },
 
@@ -456,16 +446,6 @@ export default {
               data: lineChartData.temperatures,
               backgroundColor: '#38C740',
               borderColor: '#38C740',
-              borderWidth: 0,
-              pointRadius: 1,
-              fill: false,
-              lineTension: 0
-            },
-            {
-              label: this.$t('tasks.jstyle.sleepQuality'),
-              data: lineChartData.sleepQuality,
-              backgroundColor: '#a68b07',
-              borderColor: '#a68b07',
               borderWidth: 0,
               pointRadius: 1,
               fill: false,

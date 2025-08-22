@@ -202,11 +202,14 @@ export default class JStyle2025 {
     // produce data every 10 minutes
     let counter = 1
     for (let day = fromDate; day < new Date(); day = new Date(day.getTime() + 10 * 60 * 1000)) {
-      if (day.getHours() > 22 || day.getHours() < 6) {
-        // skip night hours
-        continue
+      let steps = 0
+      let calories = 0.02
+      let distance = 0
+      if (day.getHours() < 22 && day.getHours() > 8) {
+        steps = Math.floor(Math.random() * 100) // random steps for testing
+        distance = Math.round(steps * 0.7)
+        calories = Math.round(steps * 0.04) // random calories for testing
       }
-      const steps = Math.floor(Math.random() * 100) // random steps for testing
       retdata.push({
         recordCount: counter++,
         year: day.getFullYear(),
@@ -216,8 +219,8 @@ export default class JStyle2025 {
         minutes: day.getMinutes(),
         seconds: day.getSeconds(),
         steps,
-        calories: steps * 0.04,
-        distance: Math.round(steps * 0.7) // random distance in meters for testing
+        calories,
+        distance
       })
     }
     return retdata
@@ -272,7 +275,7 @@ export default class JStyle2025 {
         hour: day.getHours(),
         minutes: day.getMinutes(),
         seconds: day.getSeconds(),
-        hr: Math.round(80 + (Math.sin(counter * 6.28 / 10) * 10) + (Math.random() * 4)) // random HR for testing
+        hr: Math.round(80 + (Math.sin(counter * 6.28 / 20) * 20) + (Math.random() * 4)) // random HR for testing
       })
     }
     return retdata
