@@ -14,6 +14,7 @@
   "license": "MIT",
   "devDependencies": {
     "cordova-android": "^14.0.1",
+    "cordova-ios": "^7.1.1",
     "cordova-plugin-audioinput": "github:edimuj/cordova-plugin-audioinput",
     "cordova-plugin-ble-central": "^2.0.0-slim",
     "cordova-plugin-device": "^3.0.0",
@@ -54,7 +55,8 @@
       }
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   },
   "dependencies": {
