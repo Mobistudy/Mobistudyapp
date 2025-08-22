@@ -39,6 +39,8 @@ export default class JStyle2025 extends BLEDevice {
    * @property {number} calories - calories burned
    * @property {number} goal - goal in steps
    * @property {number} activeMinutes - active minutes
+   *
+   * Example: {"recordCount":1,"year":2025,"month":8,"day":21,"steps":6268,"exerciseMinutes":2887,"distance":4.1,"calories":270.76,"goal":62,"activeMinutes":16},
    */
 
   /**
@@ -54,6 +56,8 @@ export default class JStyle2025 extends BLEDevice {
    * @property {number} calories - calories burned
    * @property {number} distance - distance in meters
    * @property {Array<number>} detailSteps - array of step details, each element is the number of steps per minute, 10 elements in total
+   *
+   * Exercise: "recordCount":16,"year":2025,"month":8,"day":21,"hour":20,"minutes":52,"seconds":40,"steps":27,"calories":0.84,"distance":0.01,"detailSteps":[27,0,0,0,0,0,0,0,0,0]
    */
 
   /**
@@ -78,6 +82,8 @@ export default class JStyle2025 extends BLEDevice {
    * @property {number} minutes - minutes (0-59)
    * @property {number} seconds - seconds (0-59)
    * @property {number} hr - heart rate in bpm
+   *
+   * Example: {"recordCount":3,"year":2025,"month":8,"day":22,"hour":10,"minutes":0,"seconds":44,"hr":65}
    */
 
   /**
@@ -95,6 +101,8 @@ export default class JStyle2025 extends BLEDevice {
    * @property {number} stressLevel - stress level
    * @property {number} highBP - high blood pressure
    * @property {number} lowBP - low blood pressure
+   *
+   * Example: {"recordCount":3,"year":2025,"month":8,"day":22,"hour":5,"minutes":42,"seconds":12,"hrv":69,"vascularAge":62,"hr":127,"stressLevel":62,"highBP":125,"lowBP":64}
    */
 
   /**
@@ -107,6 +115,8 @@ export default class JStyle2025 extends BLEDevice {
    * @property {number} minutes - minutes (0-59)
    * @property {number} seconds - seconds (0-59)
    * @property {number} spo2 - blood oxygen saturation in percentage
+   *
+   * Example: {"recordCount":6,"year":2025,"month":8,"day":22,"hour":6,"minutes":40,"seconds":11,"spo2":98}
    */
 
   /**
@@ -119,6 +129,8 @@ export default class JStyle2025 extends BLEDevice {
    * @property {number} minutes - minutes (0-59)
    * @property {number} seconds - seconds (0-59)
    * @property {number} temperature - temperature in Celsius
+   *
+   * Example: {"recordCount":4,"year":2025,"month":8,"day":22,"hour":9,"minutes":50,"seconds":0,"temperature":36.6}
    */
 
   /**
@@ -130,7 +142,9 @@ export default class JStyle2025 extends BLEDevice {
    * @property {number} minutes - minutes (0-59)
    * @property {number} seconds - seconds (0-59)
    * @property {number} sleepQualityDurationMins - sleep quality duration in minutes
-   * @property {number} sleepQuality - sleep quality during that window of time
+   * @property {Array<number>} sleepQuality - sleep quality during that window of time, can be an array where the numbers represent quality for each minute
+   *
+   * Example: {"year":2025,"month":8,"day":22,"hour":5,"minutes":16,"seconds":59,"sleepQualityDurationMins":1,"sleepQuality":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,2,3,3,3,3,2]}
    */
 
   static #DATA_Service_UUID = '0000fff0-0000-1000-8000-00805f9b34fb'

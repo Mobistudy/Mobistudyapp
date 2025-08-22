@@ -154,13 +154,19 @@ export default class JStyle2025 {
     return Promise.resolve()
   }
 
+  //  {"year":2025,"month":8,"day":22,"hour":5,"minutes":16,"seconds":59,"sleepQualityDurationMins":1,"sleepQuality":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,2,3,3,3,3,2]}
+
   async getSleepHistory (fromDate) {
     const retdata = []
-    // produce data every 10 minutes
-    for (let day = fromDate; day < new Date(); day = new Date(day.getTime() + 10 * 60 * 1000)) {
+    // produce data every 60 minutes
+    for (let day = fromDate; day < new Date(); day = new Date(day.getTime() + 60 * 60 * 1000)) {
       if (day.getHours() < 22 && day.getHours() > 6) {
         // skip day hours
         continue
+      }
+      const qualityIndexs = []
+      for (let i = 0; i < 60; i++) {
+        qualityIndexs.push(Math.floor(Math.random() * 5)) // random sleep quality index from 0 to 4
       }
       retdata.push({
         year: day.getFullYear(),
@@ -170,7 +176,7 @@ export default class JStyle2025 {
         minutes: day.getMinutes(),
         seconds: day.getSeconds(),
         sleepQualityDurationMins: 10,
-        sleepQuality: Math.floor(Math.random() * 100) // random sleep quality for testing
+        sleepQuality: qualityIndexs
       })
     }
     return retdata
