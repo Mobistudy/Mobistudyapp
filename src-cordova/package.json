@@ -14,19 +14,15 @@
   "license": "MIT",
   "devDependencies": {
     "cordova-android": "^14.0.1",
-    "cordova-ios": "^7.1.1",
     "cordova-plugin-audioinput": "github:edimuj/cordova-plugin-audioinput",
-    "cordova-plugin-badge-fix": "^0.8.10",
     "cordova-plugin-ble-central": "^2.0.0-slim",
     "cordova-plugin-device": "^3.0.0",
     "cordova-plugin-file": "^8.1.3",
     "cordova-plugin-geolocation": "^5.0.0",
     "cordova-plugin-insomnia": "^4.3.0",
-    "cordova-plugin-local-notification": "^1.2.0",
     "cordova-plugin-pedometer": "github:dariosalvi78/cordova-plugin-pedometer",
     "cordova-plugin-pincheck": "0.0.6",
     "cordova-plugin-secure-storage-echo": "github:mibrito707/cordova-plugin-secure-storage-echo",
-    "cordova-plugin-spf": "file:../../../../cordova-plugin-spf/cordova-plugin-spf",
     "cordova-plugin-splashscreen": "^6.0.2",
     "cordova-plugin-vibration": "^3.1.1"
   },
@@ -44,19 +40,8 @@
         "ANDROIDX_WEBKIT_VERSION": "1.4.0"
       },
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-local-notification-12": {
-        "ANDROID_SUPPORT_V4_VERSION": "26.+",
-        "ANDROIDX_VERSION": "1.2.0",
-        "ANDROIDX_APPCOMPAT_VERSION": "1.3.1"
-      },
       "cordova-plugin-vibration": {},
       "cordova-plugin-audioinput": {},
-      "cordova-plugin-spf": {
-        "MICROPHONE_USAGE_DESCRIPTION": "Microphone is needed for the vocalization test and to read the peak flow meter"
-      },
-      "cordova-plugin-local-notification": {
-        "ANDROIDX_CORE_VERSION": "1.12.0"
-      },
       "cordova-plugin-ble-central": {
         "BLUETOOTH_USAGE_DESCRIPTION": "This app needs to connect to Bluetooth devices",
         "IOS_INIT_ON_LOAD": "false",
@@ -65,12 +50,10 @@
       }
     },
     "platforms": [
-      "ios",
       "android"
     ]
   },
   "dependencies": {
-    "cordova": "^12.0.0",
-    "cordova-plugin-local-notification-12": "^0.1.4"
+    "cordova": "^12.0.0"
   }
 }
