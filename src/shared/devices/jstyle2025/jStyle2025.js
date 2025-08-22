@@ -57,7 +57,7 @@ export default class JStyle2025 extends BLEDevice {
    * @property {number} distance - distance in meters
    * @property {Array<number>} detailSteps - array of step details, each element is the number of steps per minute, 10 elements in total
    *
-   * Exercise: "recordCount":16,"year":2025,"month":8,"day":21,"hour":20,"minutes":52,"seconds":40,"steps":27,"calories":0.84,"distance":0.01,"detailSteps":[27,0,0,0,0,0,0,0,0,0]
+   * Example: "recordCount":16,"year":2025,"month":8,"day":21,"hour":20,"minutes":52,"seconds":40,"steps":27,"calories":0.84,"distance":0.01,"detailSteps":[27,0,0,0,0,0,0,0,0,0]
    */
 
   /**

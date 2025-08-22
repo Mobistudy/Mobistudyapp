@@ -7,12 +7,12 @@ export default {
   introductionSlides: [
     {
       title: 'Introduktion',
-      img: 'tasks/miband3/miband3_1.svg',
+      img: 'tasks/jstyle/jstyle_1.svg',
       description: 'I den här uppgiften kommer du att ansluta till din smartklocka och ladda ner data, inklusive stegräkning, hjärtfrekvens, aktivitet och sömninformation.'
     },
     {
       title: 'Inställning',
-      img: 'tasks/miband3/miband3_2.svg',
+      img: 'imgs/BT.svg',
       description: 'Var god att försäkra dig om att Bluetooth och Positionering (eller Bluetooth-skanning) är aktiverade på telefonen, samt att klockan är laddad och i närheten av mobilen.'
     }
   ],

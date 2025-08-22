@@ -13,12 +13,12 @@ export default {
   introductionSlides: [
     {
       title: 'Introducción',
-      img: 'tasks/miband3/jstyle_1.png',
+      img: 'tasks/jstyle/jstyle_1.png',
       description: 'En esta tarea, se conectará al reloj inteligente y descargará los datos, incluidos los pasos, la frecuencia cardíaca, la actividad, la oximetría, la temperatura y el sueño'
     },
     {
       title: 'Configuración',
-      img: 'tasks/miband3/jstyle_2.png',
+      img: 'imgs/BT.svg',
       description: 'Asegúrate de que el Bluetooth está activado en el teléfono, que el reloj inteligente esté cargado y cerca del teléfono'
     }
   ],

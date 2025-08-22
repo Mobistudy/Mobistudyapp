@@ -13,12 +13,12 @@ export default {
   introductionSlides: [
     {
       title: 'Introduzione',
-      img: 'tasks/miband3/miband3_1.svg',
+      img: 'tasks/jstyle/jstyle_1.svg',
       description: 'In questa attività ti connetterai al tuo smartwatch e scaricherai i dati, inclusi passi, frequenza cardiaca, attività e sonno.'
     },
     {
       title: 'Configurazione',
-      img: 'tasks/miband3/miband3_2.svg',
+      img: 'imgs/BT.svg',
       description: 'Assicurati che Bluetooth e Localizzazione (o la scansione Bluetooth) siano attivati sul telefono, che il MiBand sia carico e vicino al telefono.'
     }
   ],

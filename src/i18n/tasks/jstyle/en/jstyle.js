@@ -18,7 +18,7 @@ export default {
     },
     {
       title: 'Setup',
-      img: 'tasks/jstyle/jstyle_2.svg',
+      img: 'imgs/BT.svg',
       description: 'Make sure that Bluetooth and Location (or Bluetooth scanning) are enabled on the phone, that the JStyle smartwatch is charged, and is near the phone.'
     }
   ],
