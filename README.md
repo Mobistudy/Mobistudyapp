@@ -142,7 +142,13 @@ npm run dev
 If you want to run it on a phone (supposing it's an iPhone):
 
 ```bash
-quasar dev -m ios
+quasar dev -m cordova -T ios
+```
+for automatic reload, but may not always work (needs phone and computer to be on the same network)
+
+Otherwise, for final builds, but with debugging information
+```bash
+quasar build -m cordova -T ios --debug
 ```
 
 Use `android` instead of `ios` for android.
@@ -172,7 +178,7 @@ Setup `project.config.js` to use cordova plugins and the official API endpoint.
 Generate the compiled code.
 
 ```bash
-quasar build -m ios --ide
+quasar build -m cordova -T ios --ide
 ```
 
 Open Xcode to compile the project and sign the app with a provisioning profile prepared for distribution on the App Store.
@@ -182,7 +188,7 @@ Open Xcode to compile the project and sign the app with a provisioning profile p
 Generate the compiled code.
 
 ```bash
-quasar build -m android
+quasar build -m cordova -T android
 ```
 
 To sign the APK for the Play store: create a keystore (only once! not for every release).
