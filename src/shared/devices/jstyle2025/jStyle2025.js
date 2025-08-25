@@ -165,18 +165,20 @@ export default class JStyle2025 extends BLEDevice {
    * Finds all jStyle devices by name prefix
    * @param {string} name - name prefix to search for
    * @param {number} timeout - maximum time in milliseconds to wait for the devices
-   * @returns {Promise<Array<JStyle2025>>}
+   * @returns {Promise<Array<JStyle2025>>} - array of jStyle devices found
    */
   static async findAllJStylesByNamePrefix (name, timeout = 10000) {
     const devices = await BLEDevice.findAllDevicesByName(name, [JStyle2025.#DATA_Service_UUID], timeout)
+    console.log('JStyles found', devices)
     const jstyles = []
-    if (devices.length > 0) {
+    if (devices && devices.length > 0) {
       for (const device of devices) {
         if (device.name.startsWith(name)) {
           jstyles.push(new JStyle2025(device))
         }
       }
     }
+    return jstyles
   }
 
   /**
@@ -243,10 +245,20 @@ export default class JStyle2025 extends BLEDevice {
     return super.writeCharacteristic(JStyle2025.#DATA_Service_UUID, JStyle2025.#TX_Characteristic_UUID, outData)
   }
 
+  /**
+   * Converts a number (integer) given as hex to a number as decimal
+   * @param {string} num - number in hex
+   * @returns {number}
+   */
   #fromNumAsHexToNumAsDec (num) {
     return parseInt(num.toString(16))
   }
 
+  /**
+   * Convert a number (integer) given as decimal to a number as hex
+   * @param {number} num - number in decimal
+   * @returns {string}
+   */
   #fromNumAsDecToNumAsHex (num) {
     return parseInt('' + num, 16)
   }

@@ -77,6 +77,7 @@ export default class BLEDevice {
       window.ble.startScan(serviceNames, (deviceFound) => {
         if (deviceFound.name.startsWith(namePrefix) && !deviceExists(devices, deviceFound)) {
           const dev = new BLEDevice(deviceFound)
+          console.log('Found JSTyle', dev)
           devices.push(dev)
         }
       }, (failureResponse) => {
@@ -85,10 +86,11 @@ export default class BLEDevice {
       })
       setTimeout(() => {
         window.ble.stopScan((success) => {
+          console.log('Scan stopped, identified devices', devices)
           resolve(devices)
         }, (failureResponse) => {
           console.error('Stop scan failed.', failureResponse)
-          resolve()
+          resolve(devices)
         })
       }, searchTime)
     })
