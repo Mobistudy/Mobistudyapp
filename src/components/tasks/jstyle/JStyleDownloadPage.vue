@@ -150,57 +150,36 @@ export default {
 
         // get the activity summary
         activitySummary = await jstyle.getDailyActivitySummaryHistory(startDate)
-        // convert the timestamps to Date objects
-        for (const item of activitySummary) {
-          const date = new Date(item.year, item.month - 1, item.day, item.hour, item.minutes, item.seconds)
-          if (date < startDate) {
-            continue
-          }
-          item.date = date
-          delete item.year
-          delete item.month
-          delete item.day
-          delete item.hour
-          delete item.minutes
-          delete item.seconds
-        }
 
         // get detailed activity data
         activity = await jstyle.getDetailedActivityHistory(startDate)
-        // convert the timestamps to Date objects and find the start and end times
-        activity = this.processSamples(activity, startDate)
 
         // get HR
         hr = await jstyle.getHRHistory(startDate)
-        hr = this.processSamples(hr, startDate)
 
         // get HRV
         hrv = await jstyle.getHRVHistory(startDate)
-        hrv = this.processSamples(hrv, startDate)
 
         // get temperature
         temperature = await jstyle.getTemperatureHistory(startDate)
-        temperature = this.processSamples(temperature, startDate)
 
         // get SPO2
         spo2 = await jstyle.getSPO2History(startDate)
-        spo2 = this.processSamples(spo2, startDate)
 
         // get sleep data
         sleep = await jstyle.getSleepHistory(startDate)
-        sleep = this.processSamples(sleep, startDate)
 
         console.log('Downloaded data', { activitySummary, activity, hr, hrv, temperature, spo2, sleep })
         downloadCompleted = true
 
-        // delete the data now ?
-        // await jstyle.deleteDailyActivitySummaryHistory(startDate)
-        // await jstyle.deleteDetailedActivityHistory(startDate)
-        // await jstyle.deleteHRHistory(startDate)
-        // await jstyle.deleteHRVHistory(startDate)
-        // await jstyle.deleteTemperatureHistory(startDate)
-        // await jstyle.deleteSPO2History(startDate)
-        // await jstyle.deleteSleepHistory(startDate)
+        // delete the data from the watch to avoid downloading it again
+        await jstyle.deleteDailyActivitySummaryHistory(startDate)
+        await jstyle.deleteDetailedActivityHistory(startDate)
+        await jstyle.deleteHRHistory(startDate)
+        await jstyle.deleteHRVHistory(startDate)
+        await jstyle.deleteTemperatureHistory(startDate)
+        await jstyle.deleteSPO2History(startDate)
+        await jstyle.deleteSleepHistory(startDate)
 
         try {
           console.log('Data fetch completed, disconnecting smartwatch')
@@ -219,6 +198,25 @@ export default {
         }
       }
 
+      // convert the timestamps to Date objects and find the start and end times
+      for (const item of activitySummary) {
+        const date = new Date(item.year, item.month - 1, item.day)
+        if (date < startDate) {
+          continue
+        }
+        item.date = date
+        delete item.year
+        delete item.month
+        delete item.day
+      }
+
+      activity = this.processSamples(activity, startDate)
+      hr = this.processSamples(hr, startDate)
+      hrv = this.processSamples(hrv, startDate)
+      temperature = this.processSamples(temperature, startDate)
+      spo2 = this.processSamples(spo2, startDate)
+      sleep = this.processSamples(sleep, startDate)
+
       this.lineChartStartTS = firstSampleDate
       this.lineChartEndTS = new Date(firstSampleDate.getTime() + (12 * 60 * 60 * 1000)) // 12 hours later
 
@@ -229,15 +227,12 @@ export default {
       this.report.summary.completedTS = new Date()
       this.report.summary.firstTS = firstSampleDate
       this.report.summary.lastTS = lastSampleDate
-      this.report.data = {
-        device: this.deviceInfo,
-        activity,
-        hr,
-        hrv,
-        temperature,
-        spo2,
-        sleep
-      }
+      this.report.data.activity = activity
+      this.report.data.hr = hr
+      this.report.data.hrv = hrv
+      this.report.data.temperature = temperature
+      this.report.data.spo2 = spo2
+      this.report.data.sleep = sleep
 
       this.isDownloading = false
     },
@@ -251,11 +246,11 @@ export default {
       for (const item of data) {
         const date = new Date(item.year, item.month - 1, item.day, item.hour, item.minutes, item.seconds)
         if (date < startDate) {
-          console.warn('Skipping old date', item)
+          // console.warn('Skipping old date', item)
           continue
         }
         if (item.hr && (item.hr < 30 || item.hr > 230)) {
-          console.warn('Skipping invalid hr', item)
+          // console.warn('Skipping invalid hr', item)
           continue
         }
         item.date = date
