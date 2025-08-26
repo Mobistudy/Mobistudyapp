@@ -15,7 +15,11 @@ module.exports = api => {
   }
 
   return {
-    plugins: ['@babel/plugin-transform-private-methods'],
+    assumptions: {
+      privateFieldsAsProperties: true,
+      setPublicClassFields: true
+    },
+    plugins: ["@babel/plugin-transform-private-methods"],
     presets: [['@quasar/babel-preset-app', envOptions]],
   };
 
