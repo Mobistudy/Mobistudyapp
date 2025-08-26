@@ -153,7 +153,7 @@ export default {
 
         this.moveToDownloadPage(jstyle)
       } catch (error) {
-        console.error('Connection issue when pairing', error)
+        console.error('Connection issue when connecting', error)
 
         this.showConnecting = false
 

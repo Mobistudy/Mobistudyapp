@@ -2,6 +2,7 @@
  * Base class for BLE devices.
  * Uses the cordova BLE plugin https://github.com/don/cordova-plugin-ble-central
  */
+const DEBUG = true
 export default class BLEDevice {
   // eslint-disable-next-line space-before-function-paren
   constructor(nativeDevice) {
@@ -77,19 +78,19 @@ export default class BLEDevice {
       window.ble.startScan(serviceNames, (deviceFound) => {
         if (deviceFound.name.startsWith(namePrefix) && !deviceExists(devices, deviceFound)) {
           const dev = new BLEDevice(deviceFound)
-          console.log('Found JSTyle', dev)
+          if (DEBUG) console.log('Found JSTyle', dev)
           devices.push(dev)
         }
       }, (failureResponse) => {
-        console.error('Start scan failed.', failureResponse)
+        if (DEBUG) console.error('Start scan failed.', failureResponse)
         reject()
       })
       setTimeout(() => {
         window.ble.stopScan((success) => {
-          console.log('Scan stopped, identified devices', devices)
+          if (DEBUG) console.log('Scan stopped, identified devices', devices)
           resolve(devices)
         }, (failureResponse) => {
-          console.error('Stop scan failed.', failureResponse)
+          if (DEBUG) console.error('Stop scan failed.', failureResponse)
           resolve(devices)
         })
       }, searchTime)
@@ -117,7 +118,7 @@ export default class BLEDevice {
           resolve(deviceFound)
         }
       }, (failureResponse) => {
-        console.error('Start scan failed.', failureResponse)
+        if (DEBUG) console.error('Start scan failed.', failureResponse)
         clearTimeout(timeoutId)
         reject()
       })
@@ -138,7 +139,7 @@ export default class BLEDevice {
           resolve(success)
         },
         failureResponse => {
-          console.error('Connect failed', failureResponse)
+          if (DEBUG) console.error('Connect failed', failureResponse)
           reject(failureResponse)
         }
       )
@@ -153,6 +154,7 @@ export default class BLEDevice {
     if (!this.device === null) {
       return Promise.resolve()
     } else {
+      if (DEBUG) console.log('Disconnecting device')
       return window.ble.withPromises.disconnect(this.device.id)
     }
   }
@@ -167,13 +169,14 @@ export default class BLEDevice {
   }
 
   /**
-   * Starts nitifications on a given service / characteristic
+   * Starts notifications on a given service / characteristic
    * @param {string} serviceUUID - service UUID
    * @param {string} characteristicUUID - characteristic UUID
-   * @param {Function} dataCallback - called each time new data arrives
-   * @returns {Promise}
+   * @param {Function} dataCallback - called each time new data arrives, data is passed as DataView
+   * @returns {Promise} a promise that resolves when notifications are started
    */
   async startNotifications (serviceUUID, characteristicUUID, dataCallback) {
+    if (DEBUG) console.log('Starting notifications for service', serviceUUID, 'characteristic', characteristicUUID)
     return new Promise((resolve, reject) => {
       let okTimer = setTimeout(() => {
         resolve()
@@ -186,10 +189,12 @@ export default class BLEDevice {
           okTimer = false
           resolve()
         }
+        if (DEBUG) console.log('Notification received', data)
+        // In Chrome 50+, a DataView is returned instead of an ArrayBuffer.
         const dataView = data.buffer ? data : new DataView(data)
         dataCallback(dataView)
       }, (err) => {
-        console.error('Cannot start notifications', err)
+        if (DEBUG) console.error('Cannot start notifications', err)
         clearTimeout(okTimer)
         okTimer = false
         reject()
@@ -204,6 +209,7 @@ export default class BLEDevice {
    * @returns {Promise}
    */
   async stopNotifications (serviceUUID, characteristicUUID) {
+    if (DEBUG) console.log('Stopping notifications for service', serviceUUID, 'characteristic', characteristicUUID)
     return window.ble.withPromises.stopNotification(this.device.id, serviceUUID, characteristicUUID)
   }
 
@@ -227,11 +233,12 @@ export default class BLEDevice {
    * @returns {Promise}
    */
   async writeCharacteristic (serviceUUID, characteristicUUID, data) {
+    if (DEBUG) console.log('Writing to service', serviceUUID, 'characteristic', characteristicUUID, 'data', data)
     return window.ble.withPromises.write(
       this.device.id,
       serviceUUID,
       characteristicUUID,
-      data)
+      data.buffer)
   }
 
   /**
@@ -242,10 +249,11 @@ export default class BLEDevice {
    * @returns {Promise}
    */
   async writeCharacteristicWithoutResponse (serviceUUID, characteristicUUID, data) {
+    if (DEBUG) console.log('Writing without response to service', serviceUUID, 'characteristic', characteristicUUID, 'data', data)
     return window.ble.withPromises.writeWithoutResponse(
       this.device.id,
       serviceUUID,
       characteristicUUID,
-      data)
+      data.buffer)
   }
 }

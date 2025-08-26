@@ -200,16 +200,14 @@ export default class JStyle2025 extends BLEDevice {
   async connect (disconnectCallback) {
     await super.connect(disconnectCallback)
 
-    return this.startNotifications(JStyle2025.#DATA_Service_UUID, JStyle2025.#RX_Characteristic_UUID, (event) => {
-      const value = event.target.value
-      console.log('<- Got data', value)
-      // In Chrome 50+, a DataView is returned instead of an ArrayBuffer.
-      const btvalues = value.buffer ? value : new DataView(value)
-      if (btvalues.byteLength > 0) {
-        const cmd = btvalues.getUint8(0)
+    return this.startNotifications(JStyle2025.#DATA_Service_UUID, JStyle2025.#RX_Characteristic_UUID, (response) => {
+      // target.value
+      console.log('<- Got data from RX characteristic', response)
+      if (response.byteLength > 0) {
+        const cmd = response.getUint8(0)
 
         if (this.#replyCallbacks[cmd]) {
-          this.#replyCallbacks[cmd](btvalues)
+          this.#replyCallbacks[cmd](response)
         } else {
           console.error('No callback for command ' + cmd)
         }
@@ -423,6 +421,7 @@ export default class JStyle2025 extends BLEDevice {
     })
     // first we send the command, then we wait
     await this.#sendCommand(CMDS.setTime, dateTimeConfig)
+    console.log('Set time command sent')
     return replyPromise
   }
 
