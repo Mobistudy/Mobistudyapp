@@ -1,6 +1,9 @@
 import BLEDevice from '../bledevice'
 import CMDS from './jStyle2025CMDs.js'
 
+const DEBUG = true
+const COMM_TIMEOUT_MS = 5000 // very generous timeout for communication
+
 /**
  * JStyle 2025 protocol, reverse engineered
  * Compatible with 2025E, 2113E
@@ -169,7 +172,7 @@ export default class JStyle2025 extends BLEDevice {
    */
   static async findAllJStylesByNamePrefix (name, timeout = 10000) {
     const devices = await BLEDevice.findAllDevicesByName(name, [JStyle2025.#DATA_Service_UUID], timeout)
-    console.log('JStyles found', devices)
+    if (DEBUG) console.log('JStyles found', devices)
     const jstyles = []
     if (devices && devices.length > 0) {
       for (const device of devices) {
@@ -202,17 +205,17 @@ export default class JStyle2025 extends BLEDevice {
 
     return this.startNotifications(JStyle2025.#DATA_Service_UUID, JStyle2025.#RX_Characteristic_UUID, (response) => {
       // target.value
-      console.log('<- Got data from RX characteristic', response)
+      if (DEBUG) console.log('<- Got data from RX characteristic', response)
       if (response.byteLength > 0) {
         const cmd = response.getUint8(0)
 
         if (this.#replyCallbacks[cmd]) {
           this.#replyCallbacks[cmd](response)
         } else {
-          console.error('No callback for command ' + cmd)
+          console.warn('No callback for command ' + cmd)
         }
       } else {
-        console.error('Response with no data?')
+        console.warn('Response with no data?')
       }
     })
   }
@@ -224,7 +227,7 @@ export default class JStyle2025 extends BLEDevice {
    * @returns {PromiseLike}
    */
   async #sendCommand (command, data) {
-    console.log('-> Sending command ' + command)
+    if (DEBUG) console.log('-> Sending command ' + command)
     const outData = new Uint8Array(16)
     // copy command
     outData[0] = command & 0xff
@@ -271,9 +274,9 @@ export default class JStyle2025 extends BLEDevice {
       const timeoutId = setTimeout(() => {
         // time out no reply !
         delete this.#replyCallbacks[command]
-        console.error('timeout!')
+        console.error('timeout! command ' + command)
         reject()
-      }, 1000)
+      }, COMM_TIMEOUT_MS)
       this.#replyCallbacks[command] = (btvalues) => {
         // got a reply before timeout
         clearTimeout(timeoutId)
@@ -289,7 +292,7 @@ export default class JStyle2025 extends BLEDevice {
    */
   async getDeviceVersion () {
     const replyPromise = this.#waitForReply(CMDS.getDeviceVersion).then((btvalues) => {
-      console.log('Got device version reply ', btvalues)
+      if (DEBUG) console.log('Got device version reply ', btvalues)
       const ver = btvalues.getUint8(1) + '.' + btvalues.getUint8(2) + '.' + btvalues.getUint8(3) + '.' + btvalues.getUint8(4)
       return ver
     })
@@ -304,7 +307,7 @@ export default class JStyle2025 extends BLEDevice {
    */
   async getBatteryLevel () {
     const replyPromise = this.#waitForReply(CMDS.getBatteryLevel).then((btvalues) => {
-      console.log('Got device battery reply ', btvalues)
+      if (DEBUG) console.log('Got device battery reply ', btvalues)
       const level = btvalues.getUint8(1)
       return level
     })
@@ -319,7 +322,7 @@ export default class JStyle2025 extends BLEDevice {
    */
   async getName () {
     const replyPromise = this.#waitForReply(CMDS.getName).then((btvalues) => {
-      console.log('Got device name reply ', btvalues)
+      if (DEBUG) console.log('Got device name reply ', btvalues)
       const decoder = new TextDecoder('utf8')
       const nameDV = new DataView(btvalues.buffer, 1, 15)
       const name = decoder.decode(nameDV).replace(/\0/g, '') // remove null characters
@@ -336,7 +339,7 @@ export default class JStyle2025 extends BLEDevice {
    */
   async getMACAddress () {
     const replyPromise = this.#waitForReply(CMDS.getMACAddress).then((btvalues) => {
-      console.log('Got device MAC address reply ', btvalues)
+      if (DEBUG) console.log('Got device MAC address reply ', btvalues)
       let macAddress = ''
       for (let i = 1; i < 7; i++) {
         macAddress += ('0' + btvalues.getUint8(i).toString(16)).slice(-2).toUpperCase()
@@ -356,7 +359,7 @@ export default class JStyle2025 extends BLEDevice {
    */
   async getTime () {
     const replyPromise = this.#waitForReply(CMDS.getTime).then((btvalues) => {
-      console.log('Got device time reply ' + btvalues)
+      if (DEBUG) console.log('Got device time reply ' + btvalues)
       /** @type {DeviceTime} */
       const deviceTime = {
         year: 2000 + this.#fromNumAsHexToNumAsDec(btvalues.getUint8(1)),
@@ -417,11 +420,11 @@ export default class JStyle2025 extends BLEDevice {
     dateTimeConfig.setUint8(7, offset)
 
     const replyPromise = this.#waitForReply(CMDS.setTime).then((btvalues) => {
-      console.log('Got device time set OK ' + btvalues)
+      if (DEBUG) console.log('Got device time set OK ' + btvalues)
     })
     // first we send the command, then we wait
     await this.#sendCommand(CMDS.setTime, dateTimeConfig)
-    console.log('Set time command sent')
+    if (DEBUG) console.log('Set time command sent')
     return replyPromise
   }
 
@@ -431,7 +434,7 @@ export default class JStyle2025 extends BLEDevice {
      */
   async getUserProfile () {
     const replyPromise = this.#waitForReply(CMDS.getUserProfile).then((btvalues) => {
-      console.log('Got user profile ' + btvalues)
+      if (DEBUG) console.log('Got user profile ' + btvalues)
       const decoder = new TextDecoder()
       const userDeviceIdDV = new DataView(btvalues.buffer, 6, 5)
       const userDeviceId = decoder.decode(userDeviceIdDV)
@@ -467,7 +470,7 @@ export default class JStyle2025 extends BLEDevice {
     userProfileDV.setUint8(4, profile.strideLength)
 
     const replyPromise = this.#waitForReply(CMDS.setUserProfile).then((btvalues) => {
-      console.log('Got user profile set OK ' + btvalues)
+      if (DEBUG) console.log('Got user profile set OK ' + btvalues)
     })
     // first we send the command, then we wait
     await this.#sendCommand(CMDS.setUserProfile, userProfileDV)
@@ -504,7 +507,7 @@ export default class JStyle2025 extends BLEDevice {
     automodeDV.setUint8(8, type) // type: 1=AutoHeartRate, 2=AutoSpo2, 3=AutoTemp, 4=AutoHrv
 
     const replyPromise = this.#waitForReply(CMDS.setAutoMode).then((btvalues) => {
-      console.log('Got automode set OK ' + btvalues)
+      if (DEBUG) console.log('Got automode set OK ' + btvalues)
     })
     await this.#sendCommand(CMDS.setAutoMode, automodeDV)
     return replyPromise
@@ -521,7 +524,7 @@ export default class JStyle2025 extends BLEDevice {
     }
     const replyPromise = this.#waitForReply(CMDS.getAutoMode).then((btvalues) => {
       if (btvalues.getUint8(0) === CMDS.getAutoMode) {
-        console.log('Got automode reply ' + btvalues)
+        if (DEBUG) console.log('Got automode reply ' + btvalues)
         const enabled = btvalues.getUint8(1)
         const startHour = this.#fromNumAsHexToNumAsDec(btvalues.getUint8(2)) // start hour
         const startMinutes = this.#fromNumAsHexToNumAsDec(btvalues.getUint8(3)) // start minutes
@@ -560,7 +563,7 @@ export default class JStyle2025 extends BLEDevice {
     */
   async clearData () {
     const replyPromise = this.#waitForReply(CMDS.clearData).then((btvalues) => {
-      console.log('Got clear data OK ' + btvalues)
+      if (DEBUG) console.log('Got clear data OK ' + btvalues)
     })
     await this.#sendCommand(CMDS.clearData)
     return replyPromise
@@ -573,8 +576,8 @@ export default class JStyle2025 extends BLEDevice {
     */
   async getDailyActivitySummaryHistory (fromDate) {
     /**
-     * @type {Array<DailyActivitySummary>}
-     */
+       * @type {Array<DailyActivitySummary>}
+       */
     const activityHistory = []
 
     const historyConfigDV = new DataView(new ArrayBuffer(6))
@@ -593,136 +596,152 @@ export default class JStyle2025 extends BLEDevice {
 
     let recordsBurstSent = 0
 
-    const getOneRecord = async (btvalues) => {
-      console.log('Got activity history data')
-      recordsBurstSent++
-      let shouldFinish = false
+    return new Promise((resolve, reject) => {
+      let timeoutId
+      function startCommTimer () {
+        if (timeoutId) {
+          clearTimeout(timeoutId)
+        }
+        timeoutId = setTimeout(() => {
+          // time out no reply !
+          delete this.#replyCallbacks[CMDS.getDailyActivitySummaryHistory]
+          console.error('timeout for daily activity summary history')
+          reject()
+        }, COMM_TIMEOUT_MS)
+      }
 
-      // records take either 26 or 27 bytes
-      // additionally, an "end record" (record with just the end flag) takes only 2 bytes
-      let recordSize = 27
-      const packetLen = btvalues.byteLength
-      if (packetLen >= 26) {
-        if (packetLen % 26 === 0) {
-          recordSize = 26
-        } else if (packetLen % 27 === 0) {
-          recordSize = 27
-        } else {
-          // cases where the packet size is not mulitple of 27 or 26 bytes
-          // the packet may contain an extra "end record"
-          if ((packetLen - 2) % 26 === 0) {
+      // assign callback for this command
+      this.#replyCallbacks[CMDS.getDailyActivitySummaryHistory] = (btvalues) => {
+        // got a reply before timeout
+        clearTimeout(timeoutId)
+
+        if (DEBUG) console.log('Got activity history data')
+        recordsBurstSent++
+        let shouldFinish = false
+
+        // records take either 26 or 27 bytes
+        // additionally, an "end record" (record with just the end flag) takes only 2 bytes
+        let recordSize = 27
+        const packetLen = btvalues.byteLength
+        if (packetLen >= 26) {
+          if (packetLen % 26 === 0) {
             recordSize = 26
-          } else if ((packetLen - 2) % 27 === 0) {
+          } else if (packetLen % 27 === 0) {
             recordSize = 27
           } else {
-            console.warn('Packet size is ' + packetLen + ', strange! Let\'s finish it here')
-            // packet size is strange, let's finish acquisition
-            shouldFinish = true
+            // cases where the packet size is not mulitple of 27 or 26 bytes
+            // the packet may contain an extra "end record"
+            if ((packetLen - 2) % 26 === 0) {
+              recordSize = 26
+            } else if ((packetLen - 2) % 27 === 0) {
+              recordSize = 27
+            } else {
+              console.warn('Packet size is ' + packetLen + ', strange! Let\'s finish it here')
+              // packet size is strange, let's finish acquisition
+              shouldFinish = true
+            }
           }
-        }
-        // get the number of records in this packet
-        const nRecords = Math.floor(packetLen / recordSize)
-        console.log('records in this packet: ' + nRecords, 'record size: ' + recordSize)
-        if (nRecords === 0) {
-          console.warn('No records in this packet, but we got some data, maybe the packet is not well formed?')
-          // no more data is expected to arrive
-          shouldFinish = true
-        } else {
-          for (let i = 0; i < nRecords; i++) {
-            // structure of an activity record:
-            // byte 0 = command
-            // byte 1 = record counter if 0xff = no more records (end record)
-            // byte 2 = year (minus 2000)
-            // byte 3 = month
-            // byte 4 = day of month
-            // bytes 5-8 = step count
-            // bytes 9-12 = exercise minutes
-            // bytes 13-16 = distance (x 100)
-            // bytes 17-20 = calories (x 100)
-            // bytes 21-(22) = goal (only byte 21 if count is 26, else bytes 21-22)
-            // bytes 22-26 (23-26) = active minutes
+          // get the number of records in this packet
+          const nRecords = Math.floor(packetLen / recordSize)
+          if (DEBUG) console.log('records in this packet: ' + nRecords, 'record size: ' + recordSize)
+          if (nRecords === 0) {
+            console.warn('No records in this packet, but we got some data, maybe the packet is not well formed?')
+            // no more data is expected to arrive
+            shouldFinish = true
+          } else {
+            for (let i = 0; i < nRecords; i++) {
+              // structure of an activity record:
+              // byte 0 = command
+              // byte 1 = record counter if 0xff = no more records (end record)
+              // byte 2 = year (minus 2000)
+              // byte 3 = month
+              // byte 4 = day of month
+              // bytes 5-8 = step count
+              // bytes 9-12 = exercise minutes
+              // bytes 13-16 = distance (x 100)
+              // bytes 17-20 = calories (x 100)
+              // bytes 21-(22) = goal (only byte 21 if count is 26, else bytes 21-22)
+              // bytes 22-26 (23-26) = active minutes
 
-            if (btvalues.getUint8(i * recordSize) === CMDS.getDailyActivitySummaryHistory) {
-              const recordCount = btvalues.getUint8(1 + i * recordSize)
+              if (btvalues.getUint8(i * recordSize) === CMDS.getDailyActivitySummaryHistory) {
+                const recordCount = btvalues.getUint8(1 + i * recordSize)
 
-              const flag = 1 + (i + 1) * recordSize
-              if (flag < packetLen && btvalues.getUint8(flag) === 0xff) {
-                console.log('Got end record, will finish acquisition')
-                // no more data
-                shouldFinish = true
-              }
+                const flag = 1 + (i + 1) * recordSize
+                if (flag < packetLen && btvalues.getUint8(flag) === 0xff) {
+                  if (DEBUG) console.log('Got end record, will finish acquisition')
+                  // no more data
+                  shouldFinish = true
+                }
 
-              let goal = 0
-              if (recordSize === 26) {
-                goal = btvalues.getUint8(21 + i * recordSize, true)
-              } else {
-                goal = btvalues.getUint8(21 + i * recordSize) + (btvalues.getUint8(22 + i * recordSize) << 8)
-              }
-              /**
+                let goal = 0
+                if (recordSize === 26) {
+                  goal = btvalues.getUint8(21 + i * recordSize, true)
+                } else {
+                  goal = btvalues.getUint8(21 + i * recordSize) + (btvalues.getUint8(22 + i * recordSize) << 8)
+                }
+                /**
                * @type {DailyActivitySummary}
                */
-              const activityRecord = {
-                recordCount,
-                year: 2000 + this.#fromNumAsHexToNumAsDec(btvalues.getUint8(2 + i * recordSize)),
-                month: this.#fromNumAsHexToNumAsDec(btvalues.getUint8(3 + i * recordSize)),
-                day: this.#fromNumAsHexToNumAsDec(btvalues.getUint8(4 + i * recordSize)),
-                steps: btvalues.getUint32(5 + i * recordSize, true), // 32 bits u integer, little endian
-                exerciseMinutes: btvalues.getUint32(9 + i * recordSize, true),
-                distance: btvalues.getUint32(13 + i * recordSize, true) / 100,
-                calories: btvalues.getUint32(17 + i * recordSize, true) / 100,
-                goal,
-                activeMinutes: btvalues.getUint32((recordSize - 4) + i * recordSize, true) // this may be exercise time, not sure
-              }
-              console.log('activity sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day, activityRecord)
-              activityHistory.push(activityRecord)
-            } else {
-              console.error('Got unexpected command ' + btvalues.getUint8(i * recordSize) + ' in activity history')
-              // shouldn't happen, maybe the recordsize is not well estimated?
-            }
-          }
-          // if there is any record left
-          console.log('Bytes left after records: ' + (packetLen - nRecords * recordSize))
-          if (packetLen >= (nRecords * recordSize) + 2) {
-            // maybe there's the end record?
-            if (btvalues.getUint8(nRecords * recordSize) === CMDS.getDailyActivitySummaryHistory) {
-              console.log('first byte is activity history command, checking for end record')
-              if (btvalues.getUint8((nRecords * recordSize) + 1) === 0xff) {
-                console.log('Second byte is end record, no more activity records')
-                shouldFinish = true
+                const activityRecord = {
+                  recordCount,
+                  year: 2000 + this.#fromNumAsHexToNumAsDec(btvalues.getUint8(2 + i * recordSize)),
+                  month: this.#fromNumAsHexToNumAsDec(btvalues.getUint8(3 + i * recordSize)),
+                  day: this.#fromNumAsHexToNumAsDec(btvalues.getUint8(4 + i * recordSize)),
+                  steps: btvalues.getUint32(5 + i * recordSize, true), // 32 bits u integer, little endian
+                  exerciseMinutes: btvalues.getUint32(9 + i * recordSize, true),
+                  distance: btvalues.getUint32(13 + i * recordSize, true) / 100,
+                  calories: btvalues.getUint32(17 + i * recordSize, true) / 100,
+                  goal,
+                  activeMinutes: btvalues.getUint32((recordSize - 4) + i * recordSize, true) // this may be exercise time, not sure
+                }
+                if (DEBUG) console.log('activity sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day, activityRecord)
+                activityHistory.push(activityRecord)
+              } else {
+                console.error('Got unexpected command ' + btvalues.getUint8(i * recordSize) + ' in activity history')
+                // shouldn't happen, maybe the recordsize is not well estimated?
               }
             }
+            // if there is any record left
+            if (DEBUG) console.log('Bytes left after records: ' + (packetLen - nRecords * recordSize))
+            if (packetLen >= (nRecords * recordSize) + 2) {
+              // maybe there's the end record?
+              if (btvalues.getUint8(nRecords * recordSize) === CMDS.getDailyActivitySummaryHistory) {
+                if (DEBUG) console.log('first byte is activity history command, checking for end record')
+                if (btvalues.getUint8((nRecords * recordSize) + 1) === 0xff) {
+                  if (DEBUG) console.log('Second byte is end record, no more activity records')
+                  shouldFinish = true
+                }
+              }
+            }
+          }
+        } else {
+          if (DEBUG) console.log('Packet length is too short, got ' + packetLen + ', likely an end record?')
+          // not enough data just signal that it's finished
+          shouldFinish = true
+        }
+
+        if (shouldFinish) {
+          if (DEBUG) console.log('No more activity records due, return data')
+          // no need to get more records, return the ones we have so far
+
+          resolve(activityHistory)
+        } else {
+          if (DEBUG) console.log('More activity records due, waiting for next one')
+          startCommTimer()
+
+          if (recordsBurstSent >= 50) {
+            if (DEBUG) console.log('needing to send continue command')
+            recordsBurstSent = 0
+            // send a continue message
+            historyConfigDV.setUint8(0, 2) // mode: 0=start, 2=continue, 0x99=delete
+            this.#sendCommand(CMDS.getDailyActivitySummaryHistory, historyConfigDV).catch(reject)
           }
         }
-      } else {
-        console.log('Packet length is too short, got ' + packetLen + ', likely an end record?')
-        // not enough data just signal that it's finished
-        shouldFinish = true
-      }
+      } // end of callback for this command
 
-      if (shouldFinish) {
-        console.log('No more activity records, return data')
-        // no need to get more records, return the ones we have so far
-        return activityHistory
-      } else {
-        console.log('More activity records, getting next one')
-        // get next record, repeat
-        // wait for the next packet to arrive:
-        const replyPromise = this.#waitForReply(CMDS.getDailyActivitySummaryHistory).then(getOneRecord)
-
-        if (recordsBurstSent >= 50) {
-          recordsBurstSent = 0
-          // send a continue message
-          historyConfigDV.setUint8(0, 2) // mode: 0=start, 2=continue, 0x99=delete
-          this.#sendCommand(CMDS.getDailyActivitySummaryHistory, historyConfigDV)
-        }
-
-        return replyPromise
-      }
-    }
-    const replyPromise = this.#waitForReply(CMDS.getDailyActivitySummaryHistory).then(getOneRecord)
-
-    await this.#sendCommand(CMDS.getDailyActivitySummaryHistory, historyConfigDV)
-    return replyPromise
+      startCommTimer()
+      this.#sendCommand(CMDS.getDailyActivitySummaryHistory, historyConfigDV).catch(reject)
+    })
   }
 
   /**
@@ -732,7 +751,7 @@ export default class JStyle2025 extends BLEDevice {
    */
   async deleteDailyActivitySummaryHistory (fromDate) {
     const replyPromise = this.#waitForReply(CMDS.getDailyActivitySummaryHistory).then((btvalues) => {
-      console.log('Daily activity summary history deleted', btvalues)
+      if (DEBUG) console.log('Daily activity summary history deleted', btvalues)
     })
 
     const historyConfigDV = new DataView(new ArrayBuffer(6))
@@ -799,117 +818,132 @@ export default class JStyle2025 extends BLEDevice {
       return firstDigit * 10 + secondDigit
     }
 
-    const getOneRecord = async (btvalues) => {
-      console.log('Got activity history data')
-      packetsSent++
-      let shouldFinish = (btvalues.getUint8(btvalues.byteLength - 1) === 0xff) && (btvalues.getUint8(btvalues.byteLength - 2) === CMDS.getSleeepHistory)
-
-      if (btvalues.byteLength === 130 || (shouldFinish && length === 132)) {
-        // One minute sleep data
-
-        if (btvalues.getUint8(0) === CMDS.getSleeepHistory) {
-          const sleepLength = btvalues.getUint8(9)
-          const sleepMinutes = []
-          for (let i = 0; i < sleepLength; i++) {
-            sleepMinutes.push(btvalues.getUint8(10 + i))
-          }
-
-          const sleepRecord = {
-            year: 2000 + decodeBCD(btvalues.getUint8(3)),
-            month: decodeBCD(btvalues.getUint8(4)),
-            day: decodeBCD(btvalues.getUint8(5)),
-            hour: decodeBCD(btvalues.getUint8(6)),
-            minutes: decodeBCD(btvalues.getUint8(7)),
-            seconds: decodeBCD(btvalues.getUint8(8)),
-            sleepQualityDurationMins: 1,
-            sleepQuality: sleepMinutes
-          }
-
-          sleepHistory.push(sleepRecord)
-          console.log('Sleep record: ', sleepRecord)
-        } else {
-          console.error('Got unexpected command ' + btvalues.getUint8(0) + ' in sleep history')
-          // maybe finish?
+    return new Promise((resolve, reject) => {
+      let timeoutId
+      function startCommTimer () {
+        if (timeoutId) {
+          clearTimeout(timeoutId)
         }
-      } else {
-        const recordSize = 34
-        const packetLen = btvalues.byteLength
+        timeoutId = setTimeout(() => {
+          // time out no reply !
+          delete this.#replyCallbacks[CMDS.getDailyActivitySummaryHistory]
+          console.error('timeout for daily activity summary history')
+          reject()
+        }, COMM_TIMEOUT_MS)
+      }
 
-        if (packetLen >= 34) {
-          // get the number of records in this packet
-          const nRecords = Math.floor(packetLen / recordSize)
-          console.log('records in this packet: ' + nRecords, 'record size: ' + recordSize)
-          if (nRecords === 0) {
-            console.warn('No records in this packet, but we got some data, maybe the packet is not well formed?')
-            // no more data is expected to arrive
-            shouldFinish = true
-          } else {
-            for (let i = 0; i < nRecords; i++) {
-              // structure of an activity record:
-              // byte 0 =  command
-              // byte 1 =
-              // byte 2 =
-              // byte 3 = year (minus 2000)
-              // byte 4 = month
-              // byte 5 = day of month
-              // byte 6 = hour
-              // byte 7 = minutes
-              // byte 8 = seconds
-              // byte 9 = sleep length in 5 minutes
-              // bytes 10-34 = sleep details, each byte is a 5 minute period
+      // assign callback for this command
+      this.#replyCallbacks[CMDS.getSleeepHistory] = (btvalues) => {
+        // got a reply before timeout
+        clearTimeout(timeoutId)
 
-              const sleepLength = btvalues.getUint8(9 + i * recordSize)
-              const sleep5Minutes = []
-              for (let j = 0; j < sleepLength; j++) {
-                sleep5Minutes.push(btvalues.getUint8(10 + j + i * recordSize))
-              }
+        if (DEBUG) console.log('Got activity history data')
+        packetsSent++
+        let shouldFinish = (btvalues.getUint8(btvalues.byteLength - 1) === 0xff) && (btvalues.getUint8(btvalues.byteLength - 2) === CMDS.getSleeepHistory)
 
-              const sleepRecord = {
-                year: 2000 + decodeBCD(btvalues.getUint8(3 + i * recordSize)),
-                month: decodeBCD(btvalues.getUint8(4 + i * recordSize)),
-                day: decodeBCD(btvalues.getUint8(5 + i * recordSize)),
-                hour: decodeBCD(btvalues.getUint8(6 + i * recordSize)),
-                minutes: decodeBCD(btvalues.getUint8(7 + i * recordSize)),
-                seconds: decodeBCD(btvalues.getUint8(8 + i * recordSize)),
-                sleepQualityDurationMins: 5,
-                sleepQuality: sleep5Minutes
-              }
+        if (btvalues.byteLength === 130 || (shouldFinish && length === 132)) {
+          // One minute sleep data
 
-              sleepHistory.push(sleepRecord)
-              console.log('Sleep record: ', sleepRecord)
+          if (btvalues.getUint8(0) === CMDS.getSleeepHistory) {
+            const sleepLength = btvalues.getUint8(9)
+            const sleepMinutes = []
+            for (let i = 0; i < sleepLength; i++) {
+              sleepMinutes.push(btvalues.getUint8(10 + i))
             }
+
+            const sleepRecord = {
+              year: 2000 + decodeBCD(btvalues.getUint8(3)),
+              month: decodeBCD(btvalues.getUint8(4)),
+              day: decodeBCD(btvalues.getUint8(5)),
+              hour: decodeBCD(btvalues.getUint8(6)),
+              minutes: decodeBCD(btvalues.getUint8(7)),
+              seconds: decodeBCD(btvalues.getUint8(8)),
+              sleepQualityDurationMins: 1,
+              sleepQuality: sleepMinutes
+            }
+
+            sleepHistory.push(sleepRecord)
+            if (DEBUG) console.log('Sleep record: ', sleepRecord)
+          } else {
+            console.error('Got unexpected command ' + btvalues.getUint8(0) + ' in sleep history')
+            // maybe finish?
           }
         } else {
-          console.log('Packet length is too short, got ' + packetLen + ', likely an end record?')
-          // not enough data just signal that it's finished
-          shouldFinish = true
+          const recordSize = 34
+          const packetLen = btvalues.byteLength
+
+          if (packetLen >= 34) {
+            // get the number of records in this packet
+            const nRecords = Math.floor(packetLen / recordSize)
+            if (DEBUG) console.log('records in this packet: ' + nRecords, 'record size: ' + recordSize)
+            if (nRecords === 0) {
+              console.warn('No records in this packet, but we got some data, maybe the packet is not well formed?')
+              // no more data is expected to arrive
+              shouldFinish = true
+            } else {
+              for (let i = 0; i < nRecords; i++) {
+                // structure of an activity record:
+                // byte 0 =  command
+                // byte 1 =
+                // byte 2 =
+                // byte 3 = year (minus 2000)
+                // byte 4 = month
+                // byte 5 = day of month
+                // byte 6 = hour
+                // byte 7 = minutes
+                // byte 8 = seconds
+                // byte 9 = sleep length in 5 minutes
+                // bytes 10-34 = sleep details, each byte is a 5 minute period
+
+                const sleepLength = btvalues.getUint8(9 + i * recordSize)
+                const sleep5Minutes = []
+                for (let j = 0; j < sleepLength; j++) {
+                  sleep5Minutes.push(btvalues.getUint8(10 + j + i * recordSize))
+                }
+
+                const sleepRecord = {
+                  year: 2000 + decodeBCD(btvalues.getUint8(3 + i * recordSize)),
+                  month: decodeBCD(btvalues.getUint8(4 + i * recordSize)),
+                  day: decodeBCD(btvalues.getUint8(5 + i * recordSize)),
+                  hour: decodeBCD(btvalues.getUint8(6 + i * recordSize)),
+                  minutes: decodeBCD(btvalues.getUint8(7 + i * recordSize)),
+                  seconds: decodeBCD(btvalues.getUint8(8 + i * recordSize)),
+                  sleepQualityDurationMins: 5,
+                  sleepQuality: sleep5Minutes
+                }
+
+                sleepHistory.push(sleepRecord)
+                if (DEBUG) console.log('Sleep record: ', sleepRecord)
+              }
+            }
+          } else {
+            if (DEBUG) console.log('Packet length is too short, got ' + packetLen + ', likely an end record?')
+            // not enough data just signal that it's finished
+            shouldFinish = true
+          }
+        }
+
+        if (shouldFinish) {
+          if (DEBUG) console.log('No more sleep records due, return data')
+          // no need to get more records, return the ones we have so far
+          resolve(sleepHistory)
+        } else {
+          if (DEBUG) console.log('More sleep records due, waiting for next one')
+          startCommTimer()
+
+          if (packetsSent >= 50) {
+            if (DEBUG) console.log('needing to send continue command')
+            packetsSent = 0
+            // send a continue message
+            historyConfigDV.setUint8(0, 2) // mode: 0=start, 2=continue, 0x99=delete
+            this.#sendCommand(CMDS.getSleeepHistory, historyConfigDV).catch(reject)
+          }
         }
       }
+      startCommTimer()
 
-      if (shouldFinish) {
-        console.log('No more sleep records, return data')
-        // no need to get more records, return the ones we have so far
-        return sleepHistory
-      } else {
-        console.log('More sleep records, getting next one')
-        // get next record, repeat
-        // wait for the next packet to arrive:
-        const replyPromise = this.#waitForReply(CMDS.getSleeepHistory).then(getOneRecord)
-
-        if (packetsSent >= 50) {
-          packetsSent = 0
-          // send a continue message
-          historyConfigDV.setUint8(0, 2) // mode: 0=start, 2=continue, 0x99=delete
-          this.#sendCommand(CMDS.getSleeepHistory, historyConfigDV)
-        }
-
-        return replyPromise
-      }
-    }
-    const replyPromise = this.#waitForReply(CMDS.getSleeepHistory).then(getOneRecord)
-
-    await this.#sendCommand(CMDS.getSleeepHistory, historyConfigDV)
-    return replyPromise
+      this.#sendCommand(CMDS.getSleeepHistory, historyConfigDV).catch(reject)
+    })
   }
 
   /**
@@ -919,7 +953,7 @@ export default class JStyle2025 extends BLEDevice {
    */
   async deleteSleepHistory (fromDate) {
     const replyPromise = this.#waitForReply(CMDS.getSleeepHistory).then((btvalues) => {
-      console.log('Sleep history deleted', btvalues)
+      if (DEBUG) console.log('Sleep history deleted', btvalues)
     })
 
     const historyConfigDV = new DataView(new ArrayBuffer(9))
@@ -992,73 +1026,86 @@ export default class JStyle2025 extends BLEDevice {
 
     let recordsBurstSent = 0
 
-    const getOneRecord = async (btvalues) => {
-      console.log('Got history data', btvalues)
-      recordsBurstSent++
-      let shouldFinish = false
-
-      const packetLen = btvalues.byteLength
-      if (packetLen && (btvalues.getUint8(0) === command)) {
-        if (btvalues.getUint8(packetLen - 1) === 0xff) {
-          // end of data is signalled by 0xff byte
-          shouldFinish = true
+    return new Promise((resolve, reject) => {
+      let timeoutId
+      function startCommTimer () {
+        if (timeoutId) {
+          clearTimeout(timeoutId)
         }
-        if (packetLen >= recordSize) {
-          // get the number of records in this packet
-          const nRecords = Math.floor(packetLen / recordSize)
-          console.log('records in this packet: ' + nRecords)
-          if (nRecords === 0) {
-            console.warn('No records in this packet, finish acquisition')
-            // no more data is expected to arrive
-            shouldFinish = true
-          } else {
-            for (let i = 0; i < nRecords; i++) {
-              if (btvalues.getUint8(i * recordSize) === command) {
-                const recordDV = new DataView(btvalues.buffer, i * recordSize, recordSize)
-                const parsedRecord = parseOneRecord(recordDV)
+        timeoutId = setTimeout(() => {
+          // time out no reply !
+          delete this.#replyCallbacks[CMDS.getDailyActivitySummaryHistory]
+          console.error('timeout for daily activity summary history')
+          reject()
+        }, COMM_TIMEOUT_MS)
+      }
 
-                history.push(parsedRecord)
-              } else {
-                console.error('Got unexpected command ' + btvalues.getUint8(i * recordSize) + ' when querying for command ' + command)
-                // shouldn't happen, maybe the recordsize is not well estimated?
-                shouldFinish = true
+      this.#replyCallbacks[command] = (btvalues) => {
+        // got a reply before timeout
+        clearTimeout(timeoutId)
+
+        if (DEBUG) console.log('Got history data', btvalues)
+        recordsBurstSent++
+        let shouldFinish = false
+
+        const packetLen = btvalues.byteLength
+        if (packetLen && (btvalues.getUint8(0) === command)) {
+          if (btvalues.getUint8(packetLen - 1) === 0xff) {
+            // end of data is signalled by 0xff byte
+            shouldFinish = true
+          }
+          if (packetLen >= recordSize) {
+            // get the number of records in this packet
+            const nRecords = Math.floor(packetLen / recordSize)
+            if (DEBUG) console.log('records in this packet: ' + nRecords)
+            if (nRecords === 0) {
+              console.warn('No records in this packet, finish acquisition')
+              // no more data is expected to arrive
+              shouldFinish = true
+            } else {
+              for (let i = 0; i < nRecords; i++) {
+                if (btvalues.getUint8(i * recordSize) === command) {
+                  const recordDV = new DataView(btvalues.buffer, i * recordSize, recordSize)
+                  const parsedRecord = parseOneRecord(recordDV)
+
+                  history.push(parsedRecord)
+                } else {
+                  console.error('Got unexpected command ' + btvalues.getUint8(i * recordSize) + ' when querying for command ' + command)
+                  // shouldn't happen, maybe the recordsize is not well estimated?
+                  shouldFinish = true
+                }
               }
             }
+          } else {
+            if (DEBUG) console.log('Packet length is too short, got ' + packetLen + ', likely an end record?')
+            // not enough data just signal that it's finished
+            shouldFinish = true
           }
         } else {
-          console.log('Packet length is too short, got ' + packetLen + ', likely an end record?')
-          // not enough data just signal that it's finished
+          console.error('Got unexpected command ' + btvalues.getUint8(0) + ' when querying for command ' + command)
           shouldFinish = true
         }
-      } else {
-        console.error('Got unexpected command ' + btvalues.getUint8(0) + ' when querying for command ' + command)
-        shouldFinish = true
-      }
 
-      if (shouldFinish) {
-        console.log('No more records, return data')
-        // no need to get more records, return the ones we have so far
-        return history
-      } else {
-        console.log('More records, getting next one')
-        // get next record, repeat
-        // wait for the next packet to arrive:
-        const replyPromise = this.#waitForReply(command).then(getOneRecord)
+        if (shouldFinish) {
+          if (DEBUG) console.log('No more records, return data')
+          // no need to get more records, return the ones we have so far
+          resolve(history)
+        } else {
+          if (DEBUG) console.log('More records due, waiting next one')
+          startCommTimer()
 
-        if (recordsBurstSent >= 50) {
-          recordsBurstSent = 0
-          // send a continue message
-          historyConfigDV.setUint8(0, 2) // mode: 2=continue
-          this.#sendCommand(command, historyConfigDV)
+          if (recordsBurstSent >= 50) {
+            if (DEBUG) console.log('needing to send continue command')
+            recordsBurstSent = 0
+            // send a continue message
+            historyConfigDV.setUint8(0, 2) // mode: 2=continue
+            this.#sendCommand(command, historyConfigDV).catch(reject)
+          }
         }
-
-        return replyPromise
       }
-    }
-    const replyPromise = this.#waitForReply(command).then(getOneRecord)
-
-    await this.#sendCommand(command, historyConfigDV)
-    return replyPromise
+      startCommTimer()
+      this.#sendCommand(command, historyConfigDV).catch(reject)
+    })
   }
 
   /**
@@ -1069,7 +1116,7 @@ export default class JStyle2025 extends BLEDevice {
    */
   async #deleteHistory (command, fromDate) {
     const replyPromise = this.#waitForReply(command).then((btvalues) => {
-      console.log('Detailed activity history deleted', btvalues)
+      if (DEBUG) console.log('Detailed activity history deleted', btvalues)
     })
 
     const historyConfigDV = new DataView(new ArrayBuffer(9))
@@ -1130,8 +1177,8 @@ export default class JStyle2025 extends BLEDevice {
           detailSteps.push(btvalues.getUint8(15 + j))
         }
         /**
-         * @type {DetailedActivity}
-         */
+       * @type {DetailedActivity}
+       */
         const activityRecord = {
           recordCount: btvalues.getUint8(1),
           year: 2000 + this.#fromNumAsHexToNumAsDec(btvalues.getUint8(3)),
@@ -1145,7 +1192,7 @@ export default class JStyle2025 extends BLEDevice {
           distance: btvalues.getUint16(13, true) / 100,
           detailSteps
         }
-        console.log('activity sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day + 'T' + activityRecord.hour + ':' + activityRecord.minutes + ':' + activityRecord.seconds, activityRecord)
+        if (DEBUG) console.log('activity sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day + 'T' + activityRecord.hour + ':' + activityRecord.minutes + ':' + activityRecord.seconds, activityRecord)
         return activityRecord
       })
   }
@@ -1188,8 +1235,8 @@ export default class JStyle2025 extends BLEDevice {
           hrs.push(btvalues.getUint8(9 + j))
         }
         /**
-                 * @type {DetailedHR}
-                 */
+               * @type {DetailedHR}
+               */
         const activityRecord = {
           recordCount: btvalues.getUint8(1),
           year: 2000 + this.#fromNumAsHexToNumAsDec(btvalues.getUint8(3)),
@@ -1200,7 +1247,7 @@ export default class JStyle2025 extends BLEDevice {
           seconds: this.#fromNumAsHexToNumAsDec(btvalues.getUint8(8)),
           hrs
         }
-        console.log('hrs sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day + 'T' + activityRecord.hour + ':' + activityRecord.minutes + ':' + activityRecord.seconds, activityRecord)
+        if (DEBUG) console.log('hrs sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day + 'T' + activityRecord.hour + ':' + activityRecord.minutes + ':' + activityRecord.seconds, activityRecord)
       })
   }
 
@@ -1238,8 +1285,8 @@ export default class JStyle2025 extends BLEDevice {
         // bytes 9 = heart rate
 
         /**
-                 * @type {HR}
-                 */
+               * @type {HR}
+               */
         const activityRecord = {
           recordCount: btvalues.getUint8(1),
           year: 2000 + this.#fromNumAsHexToNumAsDec(btvalues.getUint8(3)),
@@ -1250,7 +1297,7 @@ export default class JStyle2025 extends BLEDevice {
           seconds: this.#fromNumAsHexToNumAsDec(btvalues.getUint8(8)),
           hr: btvalues.getUint8(9)
         }
-        console.log('hrs sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day + 'T' + activityRecord.hour + ':' + activityRecord.minutes + ':' + activityRecord.seconds, activityRecord)
+        if (DEBUG) console.log('hrs sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day + 'T' + activityRecord.hour + ':' + activityRecord.minutes + ':' + activityRecord.seconds, activityRecord)
         return activityRecord
       })
   }
@@ -1293,8 +1340,8 @@ export default class JStyle2025 extends BLEDevice {
         // byte 14 = low BP
 
         /**
-         * @type {HRV}
-         */
+       * @type {HRV}
+       */
         const activityRecord = {
           recordCount: btvalues.getUint8(1),
           year: 2000 + this.#fromNumAsHexToNumAsDec(btvalues.getUint8(3)),
@@ -1310,7 +1357,7 @@ export default class JStyle2025 extends BLEDevice {
           highBP: btvalues.getUint8(13),
           lowBP: btvalues.getUint8(14)
         }
-        console.log('hrv sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day + 'T' + activityRecord.hour + ':' + activityRecord.minutes + ':' + activityRecord.seconds, activityRecord)
+        if (DEBUG) console.log('hrv sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day + 'T' + activityRecord.hour + ':' + activityRecord.minutes + ':' + activityRecord.seconds, activityRecord)
         return activityRecord
       })
   }
@@ -1348,8 +1395,8 @@ export default class JStyle2025 extends BLEDevice {
         // bytes 9-10 = temperature in Celsius * 10, little endian
 
         /**
-         * @type {Temperature}
-         */
+       * @type {Temperature}
+       */
         const activityRecord = {
           recordCount: btvalues.getUint8(1),
           year: 2000 + this.#fromNumAsHexToNumAsDec(btvalues.getUint8(3)),
@@ -1360,7 +1407,7 @@ export default class JStyle2025 extends BLEDevice {
           seconds: this.#fromNumAsHexToNumAsDec(btvalues.getUint8(8)),
           temperature: btvalues.getInt16(9, true) / 10
         }
-        console.log('temperature sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day + 'T' + activityRecord.hour + ':' + activityRecord.minutes + ':' + activityRecord.seconds, activityRecord)
+        if (DEBUG) console.log('temperature sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day + 'T' + activityRecord.hour + ':' + activityRecord.minutes + ':' + activityRecord.seconds, activityRecord)
         return activityRecord
       })
   }
@@ -1398,8 +1445,8 @@ export default class JStyle2025 extends BLEDevice {
         // bytes 9 = SPO2 value
 
         /**
-         * @type {SPO2}
-         */
+       * @type {SPO2}
+       */
         const activityRecord = {
           recordCount: btvalues.getUint8(1),
           year: 2000 + this.#fromNumAsHexToNumAsDec(btvalues.getUint8(3)),
@@ -1410,7 +1457,7 @@ export default class JStyle2025 extends BLEDevice {
           seconds: this.#fromNumAsHexToNumAsDec(btvalues.getUint8(8)),
           spo2: btvalues.getUint8(9)
         }
-        console.log('spo2 sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day + 'T' + activityRecord.hour + ':' + activityRecord.minutes + ':' + activityRecord.seconds, activityRecord)
+        if (DEBUG) console.log('spo2 sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day + 'T' + activityRecord.hour + ':' + activityRecord.minutes + ':' + activityRecord.seconds, activityRecord)
         return activityRecord
       })
   }
