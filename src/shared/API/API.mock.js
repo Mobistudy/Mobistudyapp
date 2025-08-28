@@ -393,6 +393,7 @@ export default {
 
   async sendTasksResults (data) {
     console.log('API - sending tasks results', data)
+    console.log('... data as string', JSON.stringify(data))
     this.setTaskDone(data.studyKey, data.taskId, data.createdTS)
     return Promise.resolve()
   }

@@ -144,7 +144,7 @@ export default {
         await jstyle.setAutoMode(0, 0, 23, 59, tempInterval, 3) // Enable auto temperature every 5 minutes
         await jstyle.setAutoMode(0, 0, 23, 59, hrvInterval, 4) // Enable auto HRV every 5 minutes
 
-        console.log('JStyle configured')
+        console.log('JStyle configured', { hrInterval, spo2Interval, tempInterval, hrvInterval })
 
         this.showConnecting = false
 

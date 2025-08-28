@@ -199,6 +199,7 @@ export default {
       }
 
       // convert the timestamps to Date objects and find the start and end times
+      // TODO: FIX THIS, DOES NOT MODIFY ARRAY
       for (const item of activitySummary) {
         const date = new Date(item.year, item.month - 1, item.day)
         if (date < startDate) {
@@ -223,7 +224,6 @@ export default {
       this.renderLineChart()
 
       if (activitySummary) this.report.summary.activitySummary = activitySummary
-
       this.report.summary.completedTS = new Date()
       this.report.summary.firstTS = firstSampleDate
       this.report.summary.lastTS = lastSampleDate
@@ -340,6 +340,7 @@ export default {
       for (const item of activity) {
         const date = item.date
         if (date >= this.lineChartStartTS && date <= this.lineChartEndTS) {
+          // TODO: steps are over 10 minutes, maybe use the steps array instead? otherwise there can appear very high values
           lineChartData.steps.push({ x: date, y: item.steps })
         }
       }
