@@ -141,10 +141,10 @@ export default {
           version,
           battery: batt,
           config: {
-            autoHR: autoHR.enabled,
-            autoSPO2: autoSPO2.enabled,
-            autoTemp: autoTemp.enabled,
-            autoHRV: autoHRV.enabled
+            autoHR,
+            autoSPO2,
+            autoTemp,
+            autoHRV
           }
         }
 
@@ -199,10 +199,12 @@ export default {
       }
 
       // convert the timestamps to Date objects and find the start and end times
-      // TODO: FIX THIS, DOES NOT MODIFY ARRAY
-      for (const item of activitySummary) {
+      const startDay = new Date(startDate.getTime())
+      startDay.setHours(0, 0, 0, 0)
+      for (let i = 0; i < activitySummary.length; i++) {
+        const item = activitySummary[i]
         const date = new Date(item.year, item.month - 1, item.day)
-        if (date < startDate) {
+        if (date < startDay) {
           continue
         }
         item.date = date
@@ -340,8 +342,15 @@ export default {
       for (const item of activity) {
         const date = item.date
         if (date >= this.lineChartStartTS && date <= this.lineChartEndTS) {
-          // TODO: steps are over 10 minutes, maybe use the steps array instead? otherwise there can appear very high values
-          lineChartData.steps.push({ x: date, y: item.steps })
+          if (item.detailSteps && item.detailSteps.length > 0) {
+            for (let i = 0; i < item.detailSteps.length; i++) {
+              const step = item.detailSteps[i]
+              const date = new Date(item.date + (60000 * i)) // each step record is 1 minute apart
+              lineChartData.steps.push({ x: date, y: step })
+            }
+          } else {
+            lineChartData.steps.push({ x: date, y: item.steps })
+          }
         }
       }
 
