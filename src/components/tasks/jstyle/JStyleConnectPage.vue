@@ -183,7 +183,7 @@ export default {
             } catch (error) {
               console.error('Problem disconnecting, but OK', error)
             }
-            if (dialogOpts.options && dialogOpts.options.includes('forget')) {
+            if (options && options.includes('forget')) {
               await DB.removeJStyle2025ID()
             }
             this.connect(deviceId, jstyle)
