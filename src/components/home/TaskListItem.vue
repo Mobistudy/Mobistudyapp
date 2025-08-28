@@ -60,7 +60,7 @@ export default {
         this.$router.push({ name: 'dataQueryIntro', params: { taskId, studyKey }, query })
       } else if (type === 'fingerTapping') {
         this.$router.push({ name: 'fingerTappingIntro', params: { taskId, studyKey }, query })
-      } else if (type === 'tug') {
+      } else if (type === 'tugt') {
         this.$router.push({ name: 'tugIntro', params: { taskId, studyKey }, query })
       } else if (type === 'holdPhone') {
         this.$router.push({ name: 'holdPhoneIntro', params: { taskId, studyKey }, query })
@@ -112,7 +112,7 @@ export default {
       this.title = this.$i18n.t('tasks.fingerTapping.shortTitle')
       this.main = this.$i18n.t('tasks.fingerTapping.shortDescription')
       this.icon = 'touch_app'
-    } else if (this.task.type === 'tug') {
+    } else if (this.task.type === 'tugt') {
       this.title = this.$i18n.t('tasks.tug.shortTitle')
       this.main = this.$i18n.t('tasks.tug.shortDescription')
       this.icon = 'transfer_within_a_station'
@@ -132,6 +132,8 @@ export default {
       this.title = this.$i18n.t('tasks.jstyle.shortTitle')
       this.main = this.$i18n.t('tasks.jstyle.shortDescription')
       this.icon = 'watch'
+    } else {
+      console.error('Unknown task type:', this.task.type)
     }
 
     if (this.task.customTitle && this.task.customTitle[this.$i18n.locale]) {
