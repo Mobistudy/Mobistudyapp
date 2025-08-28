@@ -35,6 +35,11 @@ const studies = {
       start: 'Tocca qui per iniziare l\'attività'
     },
     tasks: {
+      OSpermission: 'Questa opzione richiede che l\'app acceda ad alcune funzionalità del telefono.',
+      giveOSPermission: 'Concedi i permessi',
+      OSPermissionGivenSeeking: 'Richiesta di permesso in corso',
+      OSPermissionGiven: 'Permesso concesso',
+      OSPermissionNotGiven: 'Impossibile ottenere il permesso',
       cancelTask: 'Questa azione terminerà l\'attività corrente e verrai reindirizzato alla pagina iniziale. Nessun dato verrà salvato. Vuoi davvero uscire?',
       noPendingTasks: 'Nessun attività in sospeso',
       cancelTaskLabel: 'Annulla',
