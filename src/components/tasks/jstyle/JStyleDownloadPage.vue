@@ -204,6 +204,7 @@ export default {
       for (let i = 0; i < activitySummary.length; i++) {
         const item = activitySummary[i]
         const date = new Date(item.year, item.month - 1, item.day)
+        // date.setHours(0,0,0,0)
         if (date < startDay) {
           continue
         }
@@ -345,7 +346,7 @@ export default {
           if (item.detailSteps && item.detailSteps.length > 0) {
             for (let i = 0; i < item.detailSteps.length; i++) {
               const step = item.detailSteps[i]
-              const date = new Date(item.date + (60000 * i)) // each step record is 1 minute apart
+              const date = new Date(item.date - (60000 * i)) // each step record is 1 minute apart
               lineChartData.steps.push({ x: date, y: step })
             }
           } else {
