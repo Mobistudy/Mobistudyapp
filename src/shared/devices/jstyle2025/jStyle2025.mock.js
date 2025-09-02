@@ -205,10 +205,14 @@ export default class JStyle2025 {
       let steps = 0
       let calories = 0.02
       let distance = 0
+      let detailSteps = []
       if (day.getHours() < 22 && day.getHours() > 8) {
-        steps = Math.floor(Math.random() * 100) // random steps for testing
+        steps = Math.floor(Math.random() * 600) // random steps for testing
         distance = Math.round(steps * 0.7)
         calories = Math.round(steps * 0.04) // random calories for testing
+        detailSteps = Array.from({
+          length: 10
+        }, () => Math.floor(Math.random() * 40))
       }
       retdata.push({
         recordCount: counter++,
@@ -220,7 +224,8 @@ export default class JStyle2025 {
         seconds: day.getSeconds(),
         steps,
         calories,
-        distance
+        distance,
+        detailSteps
       })
     }
     return retdata
