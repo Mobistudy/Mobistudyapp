@@ -148,10 +148,12 @@ for automatic reload, but may not always work (needs phone and computer to be on
 
 Otherwise, for final builds, but with debugging information
 ```bash
-quasar build -m cordova -T ios --debug
+quasar build --debug -m cordova -T ios --ide
 ```
 
-Use `android` instead of `ios` for android.
+Use `android` instead of `ios` for android. The ```--ide``` parameter will open the project in the IDE (Android Studio or XCode) so that you can run it from there.
+
+If you want to use your development computer as server, as it needs to be served on https, you can use something like [localtunnel](https://theboroer.github.io/localtunnel-www/) and use the test address in the project.config.js file.
 
 Additional setup may be required if you use cordova plugins instead of mocks. Check the deploy section for details.
 
