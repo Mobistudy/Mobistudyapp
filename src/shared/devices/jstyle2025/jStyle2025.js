@@ -688,11 +688,14 @@ export default class JStyle2025 extends BLEDevice {
                   month: this.#fromNumAsHexToNumAsDec(btvalues.getUint8(3 + i * recordSize)),
                   day: this.#fromNumAsHexToNumAsDec(btvalues.getUint8(4 + i * recordSize)),
                   steps: btvalues.getUint32(5 + i * recordSize, true), // 32 bits u integer, little endian
-                  exerciseMinutes: btvalues.getUint32(9 + i * recordSize, true),
+                  // swapping exercise minutes with active minutes after veryfing experimentally that active minutes
+                  // are less than exercise minutes, which doesn't make sense
+                  activeMinutes: btvalues.getUint32(9 + i * recordSize, true),
                   distance: btvalues.getUint32(13 + i * recordSize, true) / 100,
                   calories: btvalues.getUint32(17 + i * recordSize, true) / 100,
                   goal,
-                  activeMinutes: btvalues.getUint32((recordSize - 4) + i * recordSize, true) // this may be exercise time, not sure
+                  // swapped with activeMinutes
+                  exerciseMinutes: btvalues.getUint32((recordSize - 4) + i * recordSize, true)
                 }
                 if (DEBUG) console.log('activity sample ' + activityRecord.year + '-' + activityRecord.month + '-' + activityRecord.day, activityRecord)
                 activityHistory.push(activityRecord)
