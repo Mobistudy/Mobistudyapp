@@ -203,15 +203,11 @@ export default {
       startDay.setHours(0, 0, 0, 0)
       for (let i = 0; i < activitySummary.length; i++) {
         const item = activitySummary[i]
-        const date = new Date(item.year, item.month - 1, item.day)
-        // date.setHours(0,0,0,0)
-        if (date < startDay) {
-          continue
-        }
+        const date = `${item.year}-${item.month}-${item.day}`
         item.date = date
-        delete item.year
-        delete item.month
-        delete item.day
+        // delete item.year
+        // delete item.month
+        // delete item.day
       }
 
       activity = this.processSamples(activity, startDate)
@@ -257,12 +253,12 @@ export default {
           continue
         }
         item.date = date
-        delete item.year
-        delete item.month
-        delete item.day
-        delete item.hour
-        delete item.minutes
-        delete item.seconds
+        // delete item.year
+        // delete item.month
+        // delete item.day
+        // delete item.hour
+        // delete item.minutes
+        // delete item.seconds
 
         if (!firstSampleDate || date < firstSampleDate) {
           firstSampleDate = date
