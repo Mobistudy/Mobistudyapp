@@ -75,7 +75,7 @@
     </q-input>
 
     <!-- conditions -->
-    <q-select ref="diseasesSelect" :label="$t('userMgmt.profile.conditions')" v-model="diseasesVue" use-input use-chips
+    <!-- <q-select ref="diseasesSelect" :label="$t('userMgmt.profile.conditions')" v-model="diseasesVue" use-input use-chips
       multiple input-debounce="500" :options="diseaseOptions" @filter="searchDisease" @add="clearDiseasesFilter">
       <template v-slot:no-option>
         <q-item>
@@ -87,10 +87,10 @@
       <template v-slot:before>
         <q-icon name="medical_information" />
       </template>
-    </q-select>
+    </q-select> -->
 
     <!-- medications -->
-    <q-select class="q-my-md" ref="medsSelect" v-model="medsVue" use-input use-chips multiple input-debounce="500"
+    <!-- <q-select class="q-my-md" ref="medsSelect" v-model="medsVue" use-input use-chips multiple input-debounce="500"
       :label="$t('userMgmt.profile.medications')" :options="medOptions" @filter="searchMeds" @add="clearMedsFilter">
       <template v-slot:no-option>
         <q-item>
@@ -102,7 +102,7 @@
       <template v-slot:before>
         <q-icon name="medication" />
       </template>
-    </q-select>
+    </q-select> -->
 
     <!-- studies suggestions -->
     <q-toggle class="q-mt-lg q-ma-sm" :label="$t('userMgmt.profile.studiesSuggestions')"
