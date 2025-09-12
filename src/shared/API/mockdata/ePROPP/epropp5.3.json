@@ -1,7 +1,7 @@
 {
-  "_key": "81172083",
+  "_key": "81172231",
   "teamKey": "80520615",
-  "invitationCode": "911822",
+  "invitationCode": "565302",
   "invitational": true,
   "numberOfParticipants": 100,
   "createdTS": "2025-05-16T14:25:00.741Z",
@@ -13,8 +13,8 @@
       "en"
     ],
     "title": {
-      "sv": "ePROPPv1.7",
-      "en": "ePROPPv1.7"
+      "sv": "ePROPPv5.3",
+      "en": "ePROPPv5.3"
     },
     "shortDescription": {
       "sv": "eHälsa för att förebygga och minska orofacial smärta hos befolkningen.",
@@ -64,7 +64,7 @@
       "scheduling": {
         "startEvent": "consent",
         "startDelaySecs": 0,
-        "untilSecs": 604800,
+        "untilSecs": 259200,
         "intervalType": "d",
         "interval": 1,
         "hours": [
@@ -80,6 +80,106 @@
       "formName": {
         "sv": "Käkmuskelaktivitet och smärtupplevelse 1",
         "en": "Jaw Muscle Activity & Pain Perception 1"
+      },
+      "useCustomTitle": false
+    },
+    {
+      "id": 2,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "startDelaySecs": 259200,
+        "untilSecs": 864000,
+        "intervalType": "d",
+        "interval": 1,
+        "hours": [
+          7,
+          9,
+          11,
+          14,
+          16,
+          19
+        ]
+      },
+      "formKey": "81171807",
+      "formName": {
+        "sv": "Käkmuskelaktivitet och smärtupplevelse 2",
+        "en": "Jaw Muscle Activity & Pain Perception 2"
+      },
+      "useCustomTitle": false
+    },
+    {
+      "id": 3,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "startDelaySecs": 2592000,
+        "untilSecs": 3196800,
+        "intervalType": "d",
+        "interval": 1,
+        "hours": [
+          7,
+          9,
+          11,
+          14,
+          16,
+          19
+        ]
+      },
+      "formKey": "81171807",
+      "formName": {
+        "sv": "Käkmuskelaktivitet och smärtupplevelse 3",
+        "en": "Jaw Muscle Activity & Pain Perception 3"
+      },
+      "useCustomTitle": false
+    },
+    {
+      "id": 4,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "startDelaySecs": 7776000,
+        "untilSecs": 8035200,
+        "intervalType": "d",
+        "interval": 1,
+        "hours": [
+          7,
+          9,
+          11,
+          14,
+          16,
+          19
+        ]
+      },
+      "formKey": "81171807",
+      "formName": {
+        "sv": "Käkmuskelaktivitet och smärtupplevelse 4",
+        "en": "Jaw Muscle Activity & Pain Perception 4"
+      },
+      "useCustomTitle": false
+    },
+    {
+      "id": 5,
+      "type": "form",
+      "scheduling": {
+        "startEvent": "consent",
+        "startDelaySecs": 8380800,
+        "untilSecs": 8640000,
+        "intervalType": "d",
+        "interval": 1,
+        "hours": [
+          7,
+          9,
+          11,
+          14,
+          16,
+          19
+        ]
+      },
+      "formKey": "81171775",
+      "formName": {
+        "sv": "Käkmuskelaktivitet och smärtupplevelse 5",
+        "en": "Jaw Muscle Activity & Pain Perception 5"
       },
       "useCustomTitle": false
     }
@@ -100,6 +200,34 @@
           "en": "I agree to answer questionnaire 1."
         },
         "taskId": 1
+      },
+      {
+        "description": {
+          "sv": "Jag accepterar att besvara enkät 2.",
+          "en": "I agree to answer questionnaire 2."
+        },
+        "taskId": 2
+      },
+      {
+        "description": {
+          "sv": "Jag accepterar att besvara enkät 3.",
+          "en": "I agree to answer questionnaire 3."
+        },
+        "taskId": 3
+      },
+      {
+        "description": {
+          "sv": "Jag accepterar att besvara enkät 4.",
+          "en": "I agree to answer questionnaire 4."
+        },
+        "taskId": 4
+      },
+      {
+        "description": {
+          "sv": "Jag accepterar att besvara enkät 5.",
+          "en": "I agree to answer questionnaire 5."
+        },
+        "taskId": 5
       }
     ],
     "extraItems": []
