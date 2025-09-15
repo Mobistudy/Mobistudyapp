@@ -61,3 +61,21 @@
 0.4.2
 
 - fixed bug in the 6MWT
+
+0.4.3
+
+- fixed bug in the 6MWT
+
+0.4.4
+
+- fixed permission problems with BLE on Android
+- fixed issues with hourly schedule
+
+0.4.5
+
+- added computed values in summary tables
+- added nested questions in multiple choice
+- added support for the JStyle 2025 (and compatible) smartwatches
+- improved Italian text
+- removed long term conditions and medications in user profile
+- updated dependencies

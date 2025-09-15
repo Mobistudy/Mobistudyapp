@@ -1,6 +1,6 @@
 {
   "name": "mobistudyapp",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "The participants' app of Mobistudy",
   "productName": "Mobistudy App",
   "cordovaId": "org.mobistudy.org",
