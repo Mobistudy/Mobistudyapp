@@ -64,7 +64,7 @@
 
 0.4.3
 
-- fixed bug in the 6MWT
+- fixed issues with MiBand3 data fetch
 
 0.4.4
 
