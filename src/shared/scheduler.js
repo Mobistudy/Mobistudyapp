@@ -361,7 +361,7 @@ export async function cancelNotifications () {
 
 // Scheduling notifications can be slow, this is the maximum number of notifications that
 // will be scheduled in one go per task
-const MAX_NOTIFICATIONS = 20
+const MAX_NOTIFICATIONS = 30
 
 /**
  * Schedule notifications for a single study
@@ -370,8 +370,30 @@ const MAX_NOTIFICATIONS = 20
  * @param {Date} now - the current date
  */
 export async function scheduleNotificationsSingleStudy (studyDescr, studyPart, now = new Date()) {
-  const notificationStack = []
-  const timeStack = []
+  let notificationStack = []
+
+  // uility functions for sorted insertion
+  function pushSorted (el, arr, comparator, skipduplicate) {
+    let index = arr.length
+    for (let i = 0; i < arr.length; i++) {
+      if (comparator(arr[i], el) > 0) {
+        index = i - 1
+        break
+      }
+      if (skipduplicate && comparator(arr[i], el) === 0) {
+        // element already in array, skip it
+        return arr
+      }
+    }
+    arr.splice(index + 1, 0, el)
+    return arr
+  }
+
+  // used to compare dates
+  function compareScheduleDates (e1, e2) {
+    const diff = e1.trigger.at.getTime() - e2.trigger.at.getTime()
+    return diff
+  }
 
   for (const task of studyDescr.tasks) {
     // find consented task
@@ -395,8 +417,11 @@ export async function scheduleNotificationsSingleStudy (studyDescr, studyPart, n
     const studyEndDate = new Date(new Date(studyDescr.generalities.endDate).getTime() + 1000 * 60 * 60 * 24)
     const taskTimesUTC = rrule.between(toUTC(now), toUTC(studyEndDate))
 
-    for (let scheduleI = 0; scheduleI < taskTimesUTC.length && scheduleI < MAX_NOTIFICATIONS; scheduleI++) {
+    const zeroPad = (num, places) => String(num).padStart(places, '0')
+
+    for (let scheduleI = 0; (scheduleI < taskTimesUTC.length) && (scheduleI < MAX_NOTIFICATIONS); scheduleI++) {
       const taskTime = fromUTC(taskTimesUTC[scheduleI])
+      console.log('Scheduling notification for task', task.id, 'at', taskTime)
 
       // remove seconds from schedule
       taskTime.setSeconds(0)
@@ -413,23 +438,25 @@ export async function scheduleNotificationsSingleStudy (studyDescr, studyPart, n
         const keyStr = studyDescr._key.toString()
         id += keyStr.slice(-4)
       }
-      id += task.id // tasks will rarely be more than 2 decimals
-      id += scheduleI // this is capped anyway
+      id += zeroPad(task.id, 2) // task ids will most likely be 1 or 2 digits
+      id += zeroPad(scheduleI, 2) // this is capped to a max and no longer than 2 digits
 
       const lang = i18n.global.locale
-      // avoid pushing notifications exaclty at the same second
-      if (timeStack.indexOf(taskTime.getTime()) === -1) {
-        timeStack.push(taskTime.getTime())
-        notificationStack.push({
-          id: parseInt(id),
-          title: i18nStudies[lang].studies.scheduling.due,
-          text: i18nStudies[lang].studies.scheduling.start,
-          iOSForeground: true,
-          trigger: { at: taskTime }
-        })
-      }
+      // insert in sorted order and avoid duplicates
+      notificationStack = pushSorted({
+        id: parseInt(id),
+        title: i18nStudies[lang].studies.scheduling.due,
+        text: i18nStudies[lang].studies.scheduling.start,
+        iOSForeground: true,
+        trigger: { at: taskTime }
+      }, notificationStack, compareScheduleDates, true)
     }
   }
+  // limit the number of notifications to MAX_NOTIFICATIONS
+  if (notificationStack.length > MAX_NOTIFICATIONS) {
+    notificationStack = notificationStack.slice(0, MAX_NOTIFICATIONS)
+  }
+
   await notifications.schedule(notificationStack)
 
   // use this to test notifications registration
