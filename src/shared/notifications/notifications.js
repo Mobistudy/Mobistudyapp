@@ -1,3 +1,5 @@
+const DEBUG = process.env.DEBUG
+
 export default {
   async hasPermission () {
     return new Promise((resolve, reject) => {
@@ -6,17 +8,19 @@ export default {
   },
   async requestPermission () {
     return new Promise((resolve, reject) => {
-      // notification.registerPermission(resolve) ???
+      if (DEBUG) console.log('requesting notification permission')
       cordova.plugins.notification.local.requestPermission(resolve)
     })
   },
   async schedule (obj) {
     return new Promise((resolve, reject) => {
+      if (DEBUG) console.log('scheduling', obj)
       cordova.plugins.notification.local.schedule(obj, resolve)
     })
   },
   async cancelAll () {
     return new Promise((resolve, reject) => {
+      if (DEBUG) console.log('canceling all notifications')
       cordova.plugins.notification.local.cancelAll(resolve)
     })
   },

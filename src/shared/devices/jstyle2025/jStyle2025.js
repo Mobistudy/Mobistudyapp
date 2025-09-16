@@ -1,7 +1,7 @@
 import BLEDevice from '../bledevice'
 import CMDS from './jStyle2025CMDs.js'
 
-const DEBUG = false
+const DEBUG = process.env.DEBUG
 const COMM_TIMEOUT_MS = 5000 // very generous timeout for communication
 
 /**

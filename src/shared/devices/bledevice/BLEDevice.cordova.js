@@ -2,7 +2,8 @@
  * Base class for BLE devices.
  * Uses the cordova BLE plugin https://github.com/don/cordova-plugin-ble-central
  */
-const DEBUG = false
+const DEBUG = process.env.DEBUG
+
 export default class BLEDevice {
   // eslint-disable-next-line space-before-function-paren
   constructor(nativeDevice) {

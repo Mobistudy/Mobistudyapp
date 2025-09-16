@@ -99,6 +99,7 @@ module.exports = configure(function (ctx) {
 
       env: {
         // environmental variables passed to the rest of the code
+        DEBUG: true, // set to true to enable debug messages
         APP_VERSION: require('./package.json').version,
         API_ENDPOINT: config.API_ENDPOINT,
         STORAGE: config.STORAGE,

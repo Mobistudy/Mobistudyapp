@@ -1,5 +1,5 @@
 import miband3Driver from './Miband3Driver'
-const DEBUG = true
+const DEBUG = process.env.DEBUG
 
 export default {
   /**

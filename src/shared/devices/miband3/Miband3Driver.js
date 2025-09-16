@@ -5,7 +5,7 @@
  * and work done by José Rebelo and the good folks at https://gadgetbridge.org/
  */
 
-const DEBUG = true
+const DEBUG = process.env.DEBUG
 
 // Imports
 import CryptoES from 'crypto-es'
