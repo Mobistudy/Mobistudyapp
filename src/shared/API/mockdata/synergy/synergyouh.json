@@ -89,7 +89,7 @@
     },
     {
       "id": 3,
-      "type": "tug",
+      "type": "tugt",
       "scheduling": {
         "startEvent": "consent",
         "startDelaySecs": 0,
