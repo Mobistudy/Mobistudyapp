@@ -80,7 +80,7 @@ export default {
           window.speechSynthesis.speak(this.speech)
         }
       } else {
-        console.log('Text-to-speech is not supported on this device')
+        console.error('Text-to-speech is not supported on this device')
       }
     }
   }

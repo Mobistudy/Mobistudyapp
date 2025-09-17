@@ -30,6 +30,8 @@
 </template>
 
 <script>
+const DEBUG = process.env.DEBUG
+
 import phone from '@shared/phone'
 import files from '@shared/files/files'
 import API from '@shared/API'
@@ -59,7 +61,7 @@ export default {
             timeout: 5000,
             enableHighAccuracy: true
           }, async (pos) => {
-            console.log(pos)
+            if (DEBUG) console.log('Got position', pos)
             this.coordsOutput = pos
           }, (err) => {
             this.coordsOutput = err
@@ -75,23 +77,23 @@ export default {
       this.$refs.sound_click.play()
     },
     async saveFile () {
-      console.log('saving file')
+      if (DEBUG) console.log('saving file')
       await files.save('test.text', 'shared', { test: 'hello' })
-      console.log('fsile saved')
+      if (DEBUG) console.log('file saved')
       const txt = await files.load('test.text', 'shared', 'text')
       this.fileOutput = 'File content: ' + txt
-      console.log(txt)
+      if (DEBUG) console.log(txt)
     },
     async login () {
       const user = await API.login('dariosalvi78@gmail.com', 'Buggym78Buggy')
       API.setToken(user.token)
-      console.log('logged in', user)
+      if (DEBUG) console.log('logged in', user)
     },
     async sendFile () {
       const enc = new TextEncoder()
       const blob = enc.encode('test raw data')
       const reply = await API.sendAttachment('1978', 9, 'test.txt', blob)
-      console.log('file saved as', reply)
+      if (DEBUG) console.log('file saved as', reply)
     }
   }
 }

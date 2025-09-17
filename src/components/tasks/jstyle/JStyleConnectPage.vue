@@ -22,6 +22,8 @@
 </template>
 
 <script>
+const DEBUG = process.env.DEBUG
+
 import i18nCommon from '@i18n/common'
 import i18nJStyle from '@i18n/tasks/jstyle'
 import { mergeDeep } from '@shared/tools'
@@ -93,14 +95,14 @@ export default {
       try {
         this.connectionAttempts++
 
-        console.log('Connecting to JStyle', deviceId, jstyle)
+        if (DEBUG) console.log('Connecting to JStyle', deviceId, jstyle)
 
         if (deviceId && !jstyle) {
           jstyle = await JStyle2025.findJStyleById(deviceId, 10000) // first search for the device by id
         }
 
         await jstyle.connect()
-        console.log('JStyle connected')
+        if (DEBUG) console.log('JStyle connected')
 
         // set time
         const now = new Date()
@@ -144,7 +146,7 @@ export default {
         await jstyle.setAutoMode(0, 0, 23, 59, tempInterval, 3) // Enable auto temperature every 5 minutes
         await jstyle.setAutoMode(0, 0, 23, 59, hrvInterval, 4) // Enable auto HRV every 5 minutes
 
-        console.log('JStyle configured', { hrInterval, spo2Interval, tempInterval, hrvInterval })
+        if (DEBUG) console.log('JStyle configured', { hrInterval, spo2Interval, tempInterval, hrvInterval })
 
         this.showConnecting = false
 

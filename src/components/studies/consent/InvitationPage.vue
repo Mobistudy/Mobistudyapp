@@ -28,7 +28,6 @@ export default {
   created () {
     const sd = session.getStudyDescription()
     this.invitationText = sd.consent.invitation[this.$i18n.locale]
-    console.log('!!! it', this.invitationText)
     if (!sd) {
       this.$router.go(-1)
     } else {

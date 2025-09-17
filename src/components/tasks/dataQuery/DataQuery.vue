@@ -327,7 +327,7 @@ export default {
       this.chartData = chartData
       this.$q.loading.hide()
     } catch (error) {
-      console.error(error)
+      console.error('Cannot load data', error)
       this.$q.loading.hide()
       this.$q.notify({
         color: 'negative',
@@ -355,14 +355,13 @@ export default {
         this.$router.go(-1)
       } catch (error) {
         this.sending = false
-        console.error(error)
+        console.error('Error sending tasks results', error)
         this.$q.notify({
           color: 'negative',
           message: this.$t('errors.connectionError') + ' ' + error.message,
           icon: 'report_problem'
         })
       }
-      console.log(this.report)
     },
     async discard () {
       this.$router.go(-1)

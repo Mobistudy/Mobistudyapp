@@ -40,6 +40,8 @@
 </template>
 
 <script>
+const DEBUG = process.env.DEBUG
+
 import i18nCommon from '@i18n/common'
 import i18nMiband3 from '@i18n/tasks/miband3'
 import { mergeDeep } from '@shared/tools'
@@ -110,18 +112,18 @@ export default {
       try {
         this.connectionAttempts++
 
-        console.log('Connecting to Miband3', device.id)
+        if (DEBUG) console.log('Connecting to Miband3', device.id)
         if (this.$q.platform.is.ios) {
           await miband3.searchForId(device.id, 12000)
         }
 
         await miband3.connect(device)
-        console.log('Miband3 connected')
+        if (DEBUG) console.log('Miband3 connected')
 
         // Authenticate after connect.
         if (!device.authenticated) this.tapToAuthDialog = true
         await miband3.authenticate(device.authenticated)
-        console.log('Miband3 authenticated')
+        if (DEBUG) console.log('Miband3 authenticated')
 
         // configure the watch
         const profile = await DB.getParticipantProfile()
@@ -143,7 +145,7 @@ export default {
         }
         const taskDescr = await DB.getTaskDescription(studyKey, taskId)
         await miband3.configure(user, taskDescr.hrInterval) // Maybe do not always configure upon connect?
-        console.log('Miband3 configured')
+        if (DEBUG) console.log('Miband3 configured')
 
         this.tapToAuthDialog = false
         this.showConnecting = false
@@ -163,7 +165,7 @@ export default {
 
         // Rarely connects on the first attempt, should need at least 3.
         if (this.connectionAttempts < this.maxConnectionAttempts) {
-          console.log('Attempting connect again...', this.connectionAttempts)
+          if (DEBUG) console.log('Attempting connect again...', this.connectionAttempts)
           this.connect(device)
         } else {
           const dialogOpts = {

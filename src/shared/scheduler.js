@@ -421,7 +421,6 @@ export async function scheduleNotificationsSingleStudy (studyDescr, studyPart, n
 
     for (let scheduleI = 0; (scheduleI < taskTimesUTC.length) && (scheduleI < MAX_NOTIFICATIONS); scheduleI++) {
       const taskTime = fromUTC(taskTimesUTC[scheduleI])
-      console.log('Scheduling notification for task', task.id, 'at', taskTime)
 
       // remove seconds from schedule
       taskTime.setSeconds(0)

@@ -183,7 +183,6 @@ export default {
       report.discarded = false
 
       try {
-        console.log(report)
         await API.sendTasksResults(report)
         await DB.setTaskCompletion(
           report.studyKey,
@@ -193,7 +192,7 @@ export default {
         this.$router.go(-1)
       } catch (error) {
         this.sending = false
-        console.error(error)
+        console.error('Error sending task results', error)
         this.$q.notify({
           color: 'negative',
           message: this.$t('errors.connectionError') + ' ' + error.message,

@@ -130,7 +130,7 @@ export default {
           session.removeUserSession()
           await DB.emptyUserData()
         } catch (error) {
-          console.log(error)
+          console.error('Cannot logout correctly', error)
         }
         this.$router.replace('/login')
       })
@@ -183,7 +183,7 @@ export default {
           session.removeUserSession()
           await DB.emptyUserData()
         } catch (error) {
-          console.log(error)
+          console.error('Cannot logout correctly', error)
         }
 
         this.$router.replace({ name: 'changepw', params: { userEmail } })
@@ -214,14 +214,13 @@ export default {
           await API.deleteUser(userKey)
 
           // logout
-          // logout
           try {
             API.setBaseUrl(null)
             API.unsetToken()
             session.removeUserSession()
             await DB.emptyUserData()
           } catch (error) {
-            console.log(error)
+            console.error('Cannot logout correctly', error)
           }
 
           this.$router.replace('/login')

@@ -29,6 +29,8 @@
 </style>
 
 <script>
+const DEBUG = process.env.DEBUG
+
 import i18nCommon from '@i18n/common'
 import i18nSMWT from '@i18n/tasks/smwt'
 import { mergeDeep } from '@shared/tools'
@@ -75,13 +77,13 @@ export default {
     const signalCheckStartedTS = new Date()
     try {
       if (await phone.geolocation.isAvailable()) {
-        console.log('GPS is available')
+        if (DEBUG) console.log('GPS is available')
         phone.geolocation.startNotifications({
           maximumAge: 5000,
           timeout: 1000,
           enableHighAccuracy: true
         }, async (position) => {
-          console.log('Got position: ', position)
+          if (DEBUG) console.log('Got position: ', position)
           if (this.positions.length === 0) {
             // we are receiving the first position
 

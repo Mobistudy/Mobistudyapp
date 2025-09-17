@@ -36,6 +36,8 @@
 </template>
 
 <script>
+const DEBUG = process.env.DEBUG
+
 import i18nCommon from '@i18n/common'
 import i18nMiband3 from '@i18n/tasks/miband3'
 import { mergeDeep } from '@shared/tools'
@@ -166,11 +168,11 @@ export default {
       try {
         this.deviceInfo = await miband3.getDeviceInfo()
         await miband3.getStoredData(this.startDate, this.dataCallback)
-        console.log('Downloaded data:', storedData)
+        if (DEBUG) console.log('Downloaded data:', storedData)
         downloadCompleted = true
 
         try {
-          console.log('Data fetch completed, disconnecting miband3')
+          if (DEBUG) console.log('Data fetch completed, disconnecting miband3')
           await miband3.disconnect()
         } catch (err) {
           // doesn't matter if it fails here, but let's print out a message on console
@@ -292,7 +294,7 @@ export default {
         if (options && options.includes('forget')) {
           // repair requested, remove the device from DB and go back to connect page
           try {
-            console.log('Repairing requested, disconnecting miband3')
+            if (DEBUG) console.log('Repairing requested, disconnecting miband3')
             await miband3.disconnect()
           } catch (err) {
             console.error('Cannot disconnect but OK', err)
@@ -312,7 +314,7 @@ export default {
     async cancelTask () {
       // disconnects and go home
       try {
-        console.log('Task cancelled, disconnecting miband3')
+        if (DEBUG) console.log('Task cancelled, disconnecting miband3')
         await miband3.disconnect()
       } catch (err) {
         // doesn't matter if it fails here, but let's print out a message on console
@@ -480,7 +482,7 @@ export default {
           icon: 'report_problem'
         })
       }
-      // console.log(this.report)
+      // if (DEBUG) console.log(this.report)
     },
     async discard () {
       this.$router.go(-1)
@@ -492,7 +494,7 @@ export default {
   },
   async beforeUnmount () {
     try {
-      console.log('Unmounting component, disconnecting miband3')
+      if (DEBUG) console.log('Unmounting component, disconnecting miband3')
       await miband3.disconnect()
     } catch (err) {
       // doesn't matter if it fails here, but let's print out a message on console

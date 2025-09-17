@@ -31,7 +31,6 @@ export function checkPwdStrength (email, pwd) {
   } else {
     result = zxcvbn(pwd)
     if (result.score < 2) {
-      console.log(result)
       let mesg = 'passwordCheck.tooSimple'
       if (result.feedback.warning) mesg = zxcvbn2tokens(result.feedback.warning)
       // uncomment this code to show also suggestions

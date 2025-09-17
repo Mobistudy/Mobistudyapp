@@ -221,7 +221,7 @@ export default {
       this.currentQuestion = nextQuestion
       setTimeout(() => { this.slideName = 'fadeInDown' }, 10)
     } catch (error) {
-      console.error(error)
+      console.error('Error loading form description', error)
       this.$q.notify({
         color: 'negative',
         message: 'Cannot retrieve information about the form: ' + error.message,

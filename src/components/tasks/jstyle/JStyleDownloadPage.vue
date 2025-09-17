@@ -29,6 +29,8 @@
 </template>
 
 <script>
+const DEBUG = process.env.DEBUG
+
 import i18nCommon from '@i18n/common'
 import i18nJStyle from '@i18n/tasks/jstyle'
 import { mergeDeep } from '@shared/tools'
@@ -169,7 +171,7 @@ export default {
         // get sleep data
         sleep = await jstyle.getSleepHistory(startDate)
 
-        console.log('Downloaded data', { activitySummary, activity, hr, hrv, temperature, spo2, sleep })
+        if (DEBUG) console.log('Downloaded data', { activitySummary, activity, hr, hrv, temperature, spo2, sleep })
         downloadCompleted = true
 
         // delete the data from the watch to avoid downloading it again
@@ -182,7 +184,7 @@ export default {
         await jstyle.deleteSleepHistory(startDate)
 
         try {
-          console.log('Data fetch completed, disconnecting smartwatch')
+          if (DEBUG) console.log('Data fetch completed, disconnecting smartwatch')
           await jstyle.disconnect()
         } catch (err) {
           // doesn't matter if it fails here, but let's print out a message on console
@@ -381,7 +383,7 @@ export default {
         if (options && options.includes('forget')) {
           // repair requested, remove the device from DB and go back to connect page
           try {
-            console.log('Repairing requested, disconnecting jstyle')
+            if (DEBUG) console.log('Repairing requested, disconnecting jstyle')
             await jstyle.disconnect()
           } catch (err) {
             console.error('Cannot disconnect but OK', err)
@@ -512,6 +514,7 @@ export default {
       this.sending = true
 
       try {
+        if (DEBUG) console.log(this.report)
         await API.sendTasksResults(this.report)
         // store the last sample date
         await this.storeDownloadDate(lastSampleDate)
@@ -527,14 +530,13 @@ export default {
         this.$router.go(-1)
       } catch (error) {
         this.sending = false
-        console.error(error)
+        console.error('Error sending report', error)
         this.$q.notify({
           color: 'negative',
           message: this.$t('errors.connectionError') + ' ' + error.message,
           icon: 'report_problem'
         })
       }
-      // console.log(this.report)
     },
     async discard () {
       this.$router.go(-1)
@@ -546,7 +548,7 @@ export default {
   },
   async beforeUnmount () {
     try {
-      console.log('Unmounting component, disconnecting jstyle')
+      if (DEBUG) console.log('Unmounting component, disconnecting jstyle')
       await jstyle.disconnect()
     } catch (err) {
       // doesn't matter if it fails here, but let's print out a message on console

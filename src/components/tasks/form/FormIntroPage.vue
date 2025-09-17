@@ -48,7 +48,7 @@ export default {
       this.title = formDescr.name[this.$i18n.locale]
       this.description = formDescr.description[this.$i18n.locale]
     } catch (error) {
-      console.error(error)
+      console.error('Error loading form description', error)
       this.$q.notify({
         color: 'negative',
         message: 'Cannot retrieve information for form ' + this.formKey + ', ' + error.message,
