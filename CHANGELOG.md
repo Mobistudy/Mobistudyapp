@@ -79,3 +79,7 @@
 - improved Italian text
 - removed long term conditions and medications in user profile
 - updated dependencies
+
+0.4.6
+
+- fixed bug related to notifications not firing when too many
