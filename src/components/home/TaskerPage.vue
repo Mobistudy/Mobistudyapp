@@ -139,18 +139,19 @@ export default {
       studiesInfo: []
     }
   },
+  onVisibilityChange () {
+    if (!document.hidden) {
+      // only refresh if enough time has passed
+      if (Date.now() - this.lastReloadTS > RELOAD_INTERVAL) {
+        this.load()
+      }
+    }
+  },
   async created () {
     this.load()
 
     // auto-reload when the app goes from background to foreground
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'visible') {
-        // only refresh if enough time has passed
-        if (Date.now() - this.lastReloadTS > RELOAD_INTERVAL) {
-          this.load()
-        }
-      }
-    })
+    document.addEventListener('visibilitychange', this.onVisibilityChange)
 
     // reload if coming from a notification
     notifications.registerNotificationsListener(() => {
@@ -164,6 +165,8 @@ export default {
   },
   async beforeUnmount () {
     if (this.reloadTimer) clearInterval(this.reloadTimer)
+    document.removeEventListener('visibilitychange', this.onVisibilityChange)
+    notifications.unregisterNotificationsListener(this)
   },
   methods: {
     // refresh is called when pulling down manually
@@ -178,7 +181,7 @@ export default {
         return ''
       }
     },
-    async load (skipSpinner) {
+    async load (skipSpinner = false) {
       // get user session, if not available we're probably logged out
       const userSession = session.getUserSession()
       if (!userSession) {
