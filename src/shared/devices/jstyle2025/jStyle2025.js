@@ -150,9 +150,12 @@ export default class JStyle2025 extends BLEDevice {
    * Example: {"year":2025,"month":8,"day":22,"hour":5,"minutes":16,"seconds":59,"sleepQualityDurationMins":1,"sleepQuality":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,2,3,3,3,3,2]}
    */
 
-  static #DATA_Service_UUID = '0000fff0-0000-1000-8000-00805f9b34fb'
-  static #TX_Characteristic_UUID = '0000fff6-0000-1000-8000-00805f9b34fb'
-  static #RX_Characteristic_UUID = '0000fff7-0000-1000-8000-00805f9b34fb'
+  // static #DATA_Service_UUID = '0000fff0-0000-1000-8000-00805f9b34fb'
+  static #DATA_Service_UUID = 'fff0' // removing base BLE UUID part (0000-1000-8000-00805F9B34FB) seems to work better on iPhone
+  // static #TX_Characteristic_UUID = '0000fff6-0000-1000-8000-00805f9b34fb'
+  static #TX_Characteristic_UUID = 'fff6'
+  // static #RX_Characteristic_UUID = '0000fff7-0000-1000-8000-00805f9b34fb'
+  static #RX_Characteristic_UUID = 'fff7'
 
   #replyCallbacks = {}
 
