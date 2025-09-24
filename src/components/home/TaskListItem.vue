@@ -95,7 +95,7 @@ export default {
     } else if (this.task.type === 'miband3') {
       this.title = this.$i18n.t('tasks.miband3.shortTitle')
       this.main = this.$i18n.t('tasks.miband3.shortDescription')
-      this.icon = 'fitness_tracker'
+      this.icon = 'sym_o_fitness_tracker'
     } else if (this.task.type === 'po60') {
       this.title = this.$i18n.t('tasks.po60.shortTitle')
       this.main = this.$i18n.t('tasks.po60.shortDescription')
