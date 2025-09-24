@@ -344,8 +344,10 @@ export default {
           if (item.detailSteps && item.detailSteps.length > 0) {
             for (let i = 0; i < item.detailSteps.length; i++) {
               const step = item.detailSteps[i]
-              const date = new Date(item.date - (60000 * i)) // each step record is 1 minute apart
-              lineChartData.steps.push({ x: date, y: step })
+              if (step > 0) {
+                const date = new Date(item.date - (60000 * i)) // each step record is 1 minute apart
+                lineChartData.steps.push({ x: date, y: step })
+              }
             }
           } else {
             lineChartData.steps.push({ x: date, y: item.steps })
