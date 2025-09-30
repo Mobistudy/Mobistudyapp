@@ -17,12 +17,12 @@ import { motion } from './motion.js'
 import { orientation } from './orientation.js'
 
 function detectOS () {
-  let userAgent = window.navigator.userAgent,
-    platform = window.navigator.platform,
-    macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
-    windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
-    iosPlatforms = ['iPhone', 'iPad', 'iPod'],
-    os = null
+  const userAgent = window.navigator.userAgent
+  const platform = window.navigator.platform
+  const macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K']
+  const windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE']
+  const iosPlatforms = ['iPhone', 'iPad', 'iPod']
+  let os = null
 
   if (macosPlatforms.indexOf(platform) !== -1) {
     os = 'Mac OS'
