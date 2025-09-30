@@ -16,7 +16,9 @@ export default {
     },
     manufacturer: 'samsung',
     model: 'mock',
-    OSversion: '3.2'
+    OSType: 'Android',
+    OSversion: '3.2',
+    timeZone: 'Europe/Rome'
   },
   screen: screenMock,
   geolocation: geolocationMock,
