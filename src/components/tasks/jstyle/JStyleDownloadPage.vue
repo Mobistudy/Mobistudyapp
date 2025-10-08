@@ -246,11 +246,11 @@ export default {
       for (const item of data) {
         const date = new Date(item.year, item.month - 1, item.day, item.hour, item.minutes, item.seconds)
         if (date < startDate) {
-          // console.warn('Skipping old date', item)
+          if (DEBUG) console.warn('Skipping old date', item)
           continue
         }
         if (item.hr && (item.hr < 30 || item.hr > 230)) {
-          // console.warn('Skipping invalid hr', item)
+          if (DEBUG) console.warn('Skipping invalid hr', item)
           continue
         }
         item.date = date
