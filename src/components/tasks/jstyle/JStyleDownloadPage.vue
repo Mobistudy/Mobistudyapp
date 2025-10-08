@@ -205,8 +205,7 @@ export default {
       startDay.setHours(0, 0, 0, 0)
       for (let i = 0; i < activitySummary.length; i++) {
         const item = activitySummary[i]
-        const date = `${item.year}-${item.month}-${item.day}`
-        item.date = date
+        item.date = new Date(item.year, item.month - 1, item.day)
         // delete item.year
         // delete item.month
         // delete item.day
