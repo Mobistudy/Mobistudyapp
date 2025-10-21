@@ -175,7 +175,7 @@ export default class JStyle2025 {
         hour: day.getHours(),
         minutes: day.getMinutes(),
         seconds: day.getSeconds(),
-        sleepQualityDurationMins: 10,
+        sleepQualityDurationMins: 1,
         sleepQuality: qualityIndexs
       })
     }
