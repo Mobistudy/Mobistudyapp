@@ -33,6 +33,9 @@ function fromUTC (d) {
  * completedStudyAlert: an object like { studyTitle: { en: 'Mystudy' }, studyPart: participation object for that study }
 **/
 export function generateTasker (studiesParts, studiesDescr, now = new Date()) {
+  if (!(now instanceof Date)) {
+    now = new Date(now)
+  }
   const taskerItems = {
     upcoming: [],
     missed: [],
@@ -44,12 +47,16 @@ export function generateTasker (studiesParts, studiesDescr, now = new Date()) {
         return sd._key === studyPart.studyKey
       })
       // if we are beyond end date of the study, study should be marked as completed
-      if (now.toISOString() > studyDescr.generalities.endDate + 'T23:59:59') {
+      if (now.toISOString() > new Date(studyDescr.generalities.endDate)) {
         taskerItems.completedStudyAlert = {
           studyTitle: studyDescr.generalities.title,
           studyPart
         }
         // no need to analyse this study further
+        continue // to the next study
+      }
+      // if the study hasn't started yet, skip it
+      if (now.toISOString() < new Date(studyDescr.generalities.startDate)) {
         continue // to the next study
       }
       const consentedTasks = studyDescr.tasks.filter((tdescr) => {
@@ -69,11 +76,15 @@ export function generateTasker (studiesParts, studiesDescr, now = new Date()) {
           if (Platform.is.ios && HealthDataEnum.isAndroidOnly(taskDescription.dataType)) continue
           if (Platform.is.android && HealthDataEnum.isIOSOnly(taskDescription.dataType)) continue
         }
-        const due = isTaskIntervalDue(taskDescription.scheduling, studyPart.acceptedTS, studyPart.taskItemsConsent, now)
-        if (!due) continue // task outside of time boundaries, do not include
+        const dueInterval = getTaskDueInterval(taskDescription.scheduling, studyPart.acceptedTS, studyPart.taskItemsConsent, now)
+        if (!dueInterval) continue // task not due at all, go to next task
+        if (dueInterval.endDate && now > dueInterval.endDate) continue // task no longer due
+
         // manage alwaysOn tasks here:
         if (taskDescription.scheduling.alwaysOn) {
           studyCompleted = false
+          if (dueInterval.startDate && now < dueInterval.startDate) continue // task not yet due, skip it
+
           const task = {
             type: taskDescription.type,
             studyKey: studyDescr._key,
@@ -198,14 +209,14 @@ export function generateTasker (studiesParts, studiesDescr, now = new Date()) {
 }
 
 /**
- * Tells if the current time is included in the task scheduling interval
+ * Computes the task scheduling interval
  * @param {Object} scheduling - scheudling information from study description
  * @param {String} acceptTime - when the task was accepted
  * @param {Array} tasksParticipation - array containing information about the participation into the tasks, similar to taskItemsConsent
  * example: { taskId: 1, consented: true, lastExecuted: "2019-02-27T12:46:07.294Z" }
- * @param {Date} now - the current date
+ * @returns {startDate: Date, endDate: Date} - the start and end date of the task scheduling interval, or false if the task is not due at all
  */
-export function isTaskIntervalDue (scheduling, acceptTime, tasksParticipation, now = new Date()) {
+export function getTaskDueInterval (scheduling, acceptTime, tasksParticipation, now = new Date()) {
   if (!acceptTime || !scheduling) throw new Error('both arguments must be specified in isAlwaysOnTaskDue')
   let startTimeD
   if (scheduling.startEvent === 'consent') {
@@ -218,6 +229,7 @@ export function isTaskIntervalDue (scheduling, acceptTime, tasksParticipation, n
     if (taskPart && taskPart.consented && taskPart.lastExecuted) {
       startTimeD = new Date(taskPart.lastExecuted)
     } else {
+      // the task should not start because the one it depends on has never been executed
       return false
     }
   } else {
@@ -229,13 +241,11 @@ export function isTaskIntervalDue (scheduling, acceptTime, tasksParticipation, n
   }
   if (scheduling.untilSecs) {
     const untilTimeD = new Date(startTimeD.getTime() + scheduling.untilSecs * 1000)
-    // check if today is between start and until time
-    if (now > startTimeD && now < untilTimeD) return true
+
+    return { startDate: startTimeD, endDate: untilTimeD }
   } else {
-    // only check if today is > start time
-    if (now > startTimeD) return true
+    return { startDate: startTimeD }
   }
-  return false
 }
 
 /**

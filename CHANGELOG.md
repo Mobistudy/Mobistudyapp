@@ -83,3 +83,9 @@
 0.4.6
 
 - fixed bug related to notifications not firing when too many
+- bugfixes and updated dependencies
+
+
+0.4.7
+- record operating system and timezone of each phone
+- bugfixes and updated dependencies

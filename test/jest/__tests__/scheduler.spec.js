@@ -1,111 +1,10 @@
-import { isTaskIntervalDue, generateTasker, scheduleNotificationsSingleStudy } from '../../../src/shared/scheduler.js'
+import { generateTasker, scheduleNotificationsSingleStudy } from '../../../src/shared/scheduler.js'
 import notifications from '../../../src/shared/notifications/index.js'
 
 jest.mock('quasar')
 jest.mock('../../../src/shared/notifications/index.js')
 
 describe('When testing the scheduler', () => {
-  test('an always on task is due when between start and end time', () => {
-    const acceptTime = new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString()
-    const scheduling = {
-      alwaysOn: true,
-      startEvent: 'consent',
-      startDelaySecs: 86400,
-      untilSecs: 100000000
-    }
-    const due = isTaskIntervalDue(scheduling, acceptTime)
-
-    expect(due).toBe(true)
-  })
-
-  test('an always on task is due when after start and no end untilSec is specified', () => {
-    const acceptTime = new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString()
-    const scheduling = {
-      alwaysOn: true,
-      startEvent: 'consent',
-      startDelaySecs: 86400
-    }
-    const due = isTaskIntervalDue(scheduling, acceptTime)
-
-    expect(due).toBe(true)
-  })
-
-  test('an always on task is not due before start', () => {
-    const acceptTime = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000).toISOString()
-    const scheduling = {
-      alwaysOn: true,
-      startEvent: 'consent',
-      startDelaySecs: 86400
-    }
-    const due = isTaskIntervalDue(scheduling, acceptTime)
-
-    expect(due).toBe(false)
-  })
-
-  test('a task depending on another task is not due before the other task', () => {
-    const acceptTime = new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString()
-    const scheduling = {
-      alwaysOn: false,
-      startEvent: 'taskExecution',
-      eventTaskId: 1,
-      startDelaySecs: 0,
-      untilSecs: 3600
-    }
-    const due = isTaskIntervalDue(scheduling, acceptTime, [{ taskId: 1, consented: true }])
-
-    expect(due).toBe(false)
-  })
-
-  test('a task depending on another task is not due if other task is not consented', () => {
-    const acceptTime = new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString()
-    const scheduling = {
-      startEvent: 'taskExecution',
-      eventTaskId: 1,
-      startDelaySecs: 0,
-      untilSecs: 3600
-    }
-    const due = isTaskIntervalDue(scheduling, acceptTime, [{ taskId: 1, consented: false }])
-
-    expect(due).toBe(false)
-  })
-
-  test('a task depending on another task and that was executed long ago and has expired is not due', () => {
-    const acceptTime = new Date(new Date().getTime() - 4 * 24 * 60 * 60 * 1000).toISOString() // 4 days ago
-    const scheduling = {
-      startEvent: 'taskExecution',
-      eventTaskId: 1,
-      startDelaySecs: 0,
-      untilSecs: 3600,
-      intervalType: 'd',
-      interval: 1,
-      occurrences: 1
-    }
-    const due = isTaskIntervalDue(scheduling, acceptTime, [{
-      taskId: 1,
-      consented: true,
-      lastExecuted: new Date(new Date().getTime() - 3 * 24 * 60 * 60 * 1000).toISOString() // 3 days ago
-    }])
-
-    expect(due).toBe(false)
-  })
-
-  test('a task depending on another task and that has not expired is due', () => {
-    const acceptTime = new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000).toISOString()
-    const scheduling = {
-      startEvent: 'taskExecution',
-      eventTaskId: 1,
-      startDelaySecs: 900, // 15 m
-      untilSecs: 7200 // 2 hours
-    }
-    const due = isTaskIntervalDue(scheduling, acceptTime, [{
-      taskId: 1,
-      consented: true,
-      lastExecuted: new Date(new Date().getTime() - 30 * 60 * 1000).toISOString() // 30 m ago
-    }])
-
-    expect(due).toBe(true)
-  })
-
   test('a rejected study is not scheduled', () => {
     const studyDescr = [{
       _key: '1234'
@@ -120,24 +19,27 @@ describe('When testing the scheduler', () => {
     expect(tasks.alwaysOn.length).toBe(0)
   })
 
-  test('an ended study is not scheduled', () => {
-    const studyDescr = [{
+  test('an ended study that is still accepted is marked as completed', () => {
+    const studyDescrs = [{
       _key: '1234',
       generalities: {
-        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10),
-        endDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 10).toISOString().substring(0, 10)
-      }
+        startDate: '2020-01-01',
+        endDate: '2020-12-31',
+        title: { en: 'My Study' }
+      },
+      tasks: []
     }]
     const studiesPart = [{
       studyKey: '1234',
       currentStatus: 'accepted',
       acceptedTS: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 15).toISOString()
     }]
-    const tasks = generateTasker(studiesPart, studyDescr)
-    expect(tasks.upcoming.length).toBe(0)
-    expect(tasks.missed.length).toBe(0)
-    expect(tasks.alwaysOn.length).toBe(0)
-    expect(tasks.completedStudyAlert).not.toBeUndefined()
+    // later than end date
+    const now = new Date('2021-01-05T00:00:00')
+
+    const tasks = generateTasker(studiesPart, studyDescrs, now)
+    expect(tasks.completedStudyAlert).toBeTruthy()
+    expect(tasks.completedStudyAlert.studyTitle.en).toBe('My Study')
   })
 
   test('a non consented task is not scheduled', () => {
@@ -298,8 +200,8 @@ describe('When testing the scheduler', () => {
     const studyDescr = [{
       _key: '1234',
       generalities: {
-        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10),
-        endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 120).toISOString().substring(0, 10)
+        startDate: '2020-01-01',
+        endDate: '2022-12-31'
       },
       tasks: [{
         id: 1,
@@ -309,27 +211,325 @@ describe('When testing the scheduler', () => {
           intervalType: 'd',
           untilSecs: 5184000, // 60 days validity
           interval: 7,
-          occurrences: 4 // only 4 occurrences
+          occurrences: 4 // only 4 occurrences - so last one 21 days after acceptance
+        }
+      }]
+    }]
+    const today = new Date('2021-01-30T10:00:00.000Z')
+    const studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: new Date('2021-01-01T08:00:00.000Z'), // started 30 days ago at 8AM
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        lastExecuted: new Date('2021-01-22T08:00:00.000Z') // executed 8 days ago
+      }]
+    }]
+
+    const tasks = generateTasker(studiesPart, studyDescr, today)
+    expect(tasks.upcoming.length).toBe(0)
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
+
+  test('an always on task is due when between start and end time', () => {
+    const studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: '2020-01-01',
+        endDate: '2022-12-31'
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          alwaysOn: true,
+          startEvent: 'consent',
+          startDelaySecs: 86400, // 1 full day
+          untilSecs: 100000000
         }
       }]
     }]
     const studiesPart = [{
       studyKey: '1234',
       currentStatus: 'accepted',
-      // tasks expected to be executed 32 days (and 1h) ago, then 25, then 18, then 11
-      acceptedTS: new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 32 - 1000 * 60 * 60)).toISOString(), // started 15 days ago
+      acceptedTS: '2020-01-01T10:00:00.000Z',
       taskItemsConsent: [{
         taskId: 1,
         consented: true,
-        // executed 11 days ago, nothing due today
-        lastExecuted: new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 11)).toISOString()
+        lastExecuted: '2020-01-03T10:00:00.000Z'
       }]
     }]
 
-    const tasks = generateTasker(studiesPart, studyDescr)
-    expect(tasks.upcoming.length).toBe(0)
-    expect(tasks.missed.length).toBe(0)
+    const now = new Date('2020-01-05T10:00:00.000Z')
+    const tasks = generateTasker(studiesPart, studyDescr, now)
+
+    expect(tasks.alwaysOn.length).toBe(1)
+    expect(tasks.alwaysOn[0].taskId).toBe(1)
+  })
+
+  test('an always on task is due when after start (and no end untilSec is specified)', () => {
+    const studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: '2020-01-01',
+        endDate: '2022-12-31'
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          alwaysOn: true,
+          startEvent: 'consent',
+          startDelaySecs: 86400 // 1 full day
+        }
+      }]
+    }]
+    const studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: '2020-01-01T10:00:00.000Z',
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true
+      }]
+    }]
+
+    const now = new Date('2020-01-05T10:00:00.000Z')
+    const tasks = generateTasker(studiesPart, studyDescr, now)
+
+    expect(tasks.alwaysOn.length).toBe(1)
+    expect(tasks.alwaysOn[0].taskId).toBe(1)
+  })
+
+  test('an always on task is not due before start', () => {
+    const studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: '2020-01-01',
+        endDate: '2022-12-31'
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          alwaysOn: true,
+          startEvent: 'consent',
+          startDelaySecs: 86400 // 1 full day
+        }
+      }]
+    }]
+    const studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: '2020-01-01T10:00:00.000Z',
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true
+      }]
+    }]
+
+    const now = new Date('2020-01-01T10:00:00.000Z') // before start
+    const tasks = generateTasker(studiesPart, studyDescr, now)
+
     expect(tasks.alwaysOn.length).toBe(0)
+    expect(tasks.upcoming.length).toBe(0)
+  })
+
+  test('a task depending on another task is not due before the other task', () => {
+    const studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: '2020-01-01',
+        endDate: '2022-12-31'
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          alwaysOn: true,
+          startEvent: 'consent',
+          startDelaySecs: 86400, // 1 full day
+          untilSecs: 100000000
+        }
+      }, {
+        id: 2,
+        type: 'smwt',
+        scheduling: {
+          startEvent: 'taskExecution',
+          eventTaskId: 1,
+          startDelaySecs: 0,
+          untilSecs: 3600
+        }
+      }]
+    }]
+    const studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: '2020-01-01T10:00:00.000Z',
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true
+      }, {
+        taskId: 2,
+        consented: true
+      }]
+    }]
+
+    const now = new Date('2020-01-01T10:00:00.000Z')
+    const tasks = generateTasker(studiesPart, studyDescr, now)
+
+    expect(tasks.upcoming.length).toBe(0)
+  })
+
+  test('a task depending on another task is not due if other task is not consented', () => {
+    const studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: '2020-01-01',
+        endDate: '2022-12-31'
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          alwaysOn: true,
+          startEvent: 'consent',
+          startDelaySecs: 86400, // 1 full day
+          untilSecs: 100000000
+        }
+      }, {
+        id: 2,
+        type: 'tugt',
+        scheduling: {
+          startEvent: 'taskExecution',
+          eventTaskId: 1,
+          startDelaySecs: 0,
+          untilSecs: 3600
+        }
+      }]
+    }]
+    const studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: '2020-01-01T10:00:00.000Z',
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: false
+      }, {
+        taskId: 2,
+        consented: true
+      }]
+    }]
+
+    const now = new Date('2020-01-03T10:00:00.000Z')
+    const tasks = generateTasker(studiesPart, studyDescr, now)
+
+    expect(tasks.alwaysOn.length).toBe(0)
+    expect(tasks.upcoming.length).toBe(0)
+  })
+
+  test('a task depending on another task and that was executed long ago and has expired is not due', () => {
+    const now = new Date('2020-01-10T10:00:00.000Z')
+
+    const studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: '2020-01-01',
+        endDate: '2022-12-31'
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          alwaysOn: true,
+          startEvent: 'consent',
+          startDelaySecs: 86400, // 1 full day
+          untilSecs: 100000000
+        }
+      }, {
+        id: 2,
+        type: 'tugt',
+        scheduling: {
+          startEvent: 'taskExecution',
+          eventTaskId: 1,
+          startDelaySecs: 0,
+          untilSecs: 3600, // 1 hour validity
+          intervalType: 'd',
+          interval: 1,
+          occurrences: 1
+        }
+      }]
+    }]
+    const studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: '2020-01-02T10:00:00.000Z',
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        lastExecuted: '2020-01-07T10:00:00.000Z' // 3 days ago
+      }, {
+        taskId: 2,
+        consented: true
+      }]
+    }]
+
+    const tasks = generateTasker(studiesPart, studyDescr, now)
+
+    expect(tasks.upcoming.length).toBe(0)
+  })
+
+  test('a task depending on another task and that has not expired is due', () => {
+    const now = new Date('2020-01-10T10:00:00.000Z')
+
+    const studyDescr = [{
+      _key: '1234',
+      generalities: {
+        startDate: '2020-01-01',
+        endDate: '2022-12-31'
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          alwaysOn: true,
+          startEvent: 'consent',
+          startDelaySecs: 86400, // 1 full day
+          untilSecs: 100000000
+        }
+      }, {
+        id: 2,
+        type: 'tugt',
+        scheduling: {
+          startEvent: 'taskExecution',
+          eventTaskId: 1,
+          startDelaySecs: 0,
+          untilSecs: 3600, // 1 hour validity
+          intervalType: 'd',
+          interval: 1,
+          occurrences: 1
+        }
+      }]
+    }]
+    const studiesPart = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: '2020-01-02T10:00:00.000Z',
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        lastExecuted: '2020-01-10T09:30:00.000Z' // 30 minutes ago
+      }, {
+        taskId: 2,
+        consented: true
+      }]
+    }]
+
+    const tasks = generateTasker(studiesPart, studyDescr, now)
+
+    expect(tasks.upcoming.length).toBe(1)
   })
 
   test('a daily task with validity of 1 h is not missed nor upcoming if more than 1h has passed', () => {
@@ -451,15 +651,16 @@ describe('When testing the scheduler', () => {
     expect(tasks.alwaysOn.length).toBe(0)
   })
 
-  test('a study beyond end date is marked as completed', () => {
+  test('an accepted study beyond end date is marked as completed', () => {
+    const now = new Date('2021-01-10T10:00:00.000Z') // 10 jan 2021
     const studyDescr = [{
       _key: '1234',
       generalities: {
         title: {
           en: 'study'
         },
-        startDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10),
-        endDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 1).toISOString().substring(0, 10)
+        startDate: '2020-01-01',
+        endDate: '2020-12-31'
       },
       tasks: [{
         id: 1,
@@ -474,15 +675,15 @@ describe('When testing the scheduler', () => {
     const studiesPart = [{
       studyKey: '1234',
       currentStatus: 'accepted',
-      acceptedTS: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 15).toISOString(),
+      acceptedTS: '2020-08-01T10:00:00.000Z',
       taskItemsConsent: [{
         taskId: 1,
         consented: true,
-        lastExecuted: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 2).toISOString()
+        lastExecuted: '2020-12-31T10:00:00.000Z'
       }]
     }]
 
-    const tasks = generateTasker(studiesPart, studyDescr)
+    const tasks = generateTasker(studiesPart, studyDescr, now)
     expect(tasks.upcoming.length).toBe(0)
     expect(tasks.missed.length).toBe(0)
     expect(tasks.alwaysOn.length).toBe(0)
@@ -1078,7 +1279,7 @@ describe('When testing the scheduler', () => {
     expect(notifications.schedule.mock.calls[0][0][0].trigger.at.getHours()).toBe(h2)
   })
 
-  test('a daily task delayed 1 day is available next day', async () => {
+  test('a weekly task delayed 1 day is available next day', async () => {
     const studyDescrs = [{
       _key: '1234',
       generalities: {
@@ -1102,16 +1303,17 @@ describe('When testing the scheduler', () => {
     const studiesParts = [{
       studyKey: '1234',
       currentStatus: 'accepted',
-      acceptedTS: '2020-02-01T09:00:00', // accepted at 9AM
+      acceptedTS: '2020-02-01T09:00:00', // accepted at 9AM on the 1st of Feb
       taskItemsConsent: [{
         taskId: 1,
         consented: true
       }]
     }]
 
-    const today = new Date('2020-02-02T10:00:00') // 10AM the next day
+    const now = new Date('2020-02-02T10:00:00') // 10AM the next day
 
-    const tasks = generateTasker(studiesParts, studyDescrs, today)
+    const tasks = generateTasker(studiesParts, studyDescrs, now)
+
     expect(tasks.upcoming.length).toBe(1)
     expect(tasks.upcoming[0].taskId).toBe(1)
 
@@ -1215,5 +1417,59 @@ describe('When testing the scheduler', () => {
     expect(tasks.upcoming[0].taskId).toBe(2) // the second task, which starts after the first one
     expect(tasks.missed.length).toBe(0)
     expect(tasks.alwaysOn.length).toBe(0)
+  })
+
+  test('when a gap is present in the schedule the study is not marked as completed during the gap', async () => {
+    const studyDescrs = [{
+      _key: '1234',
+      generalities: {
+        startDate: new Date('2025-05-20'),
+        endDate: new Date('2028-05-20')
+      },
+      tasks: [{
+        id: 1,
+        type: 'smwt',
+        scheduling: {
+          startEvent: 'consent',
+          startDelaySecs: 0,
+          untilSecs: 259200, // 3 days
+          intervalType: 'd',
+          interval: 1
+        }
+      },
+      {
+        id: 2,
+        type: 'tug',
+        scheduling: {
+          startEvent: 'consent',
+          startDelaySecs: 864000, // 10 days
+          untilSecs: 5184000,
+          intervalType: 'd',
+          interval: 1
+        }
+      }]
+    }]
+
+    const studiesParts = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: '2025-06-01T09:00:00',
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        lastExecuted: '2025-06-03T10:00:00' // 3 days after consent
+      }, {
+        taskId: 2,
+        consented: true
+      }]
+    }]
+
+    const now = new Date('2025-06-06T13:00:00') // 5 days after acceptance, at 1PM
+    const tasks = generateTasker(studiesParts, studyDescrs, now)
+
+    expect(tasks.upcoming.length).toBe(0) // there are no upcoming tasks today
+    expect(tasks.missed.length).toBe(0) // no missed tasks either
+
+    expect(tasks.completedStudyAlert).toBeFalsy() // most importantly, the study is not marked as completed
   })
 })
