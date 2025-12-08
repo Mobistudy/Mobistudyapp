@@ -60,7 +60,7 @@ export default {
         this.$router.push({ name: 'dataQueryIntro', params: { taskId, studyKey }, query })
       } else if (type === 'fingerTapping') {
         this.$router.push({ name: 'fingerTappingIntro', params: { taskId, studyKey }, query })
-      } else if (type === 'tugt') {
+      } else if (type === 'tugt' || type === 'tug') {
         this.$router.push({ name: 'tugIntro', params: { taskId, studyKey }, query })
       } else if (type === 'holdPhone') {
         this.$router.push({ name: 'holdPhoneIntro', params: { taskId, studyKey }, query })
@@ -112,7 +112,7 @@ export default {
       this.title = this.$i18n.t('tasks.fingerTapping.shortTitle')
       this.main = this.$i18n.t('tasks.fingerTapping.shortDescription')
       this.icon = 'touch_app'
-    } else if (this.task.type === 'tugt') {
+    } else if (this.task.type === 'tugt' || this.task.type === 'tug') {
       this.title = this.$i18n.t('tasks.tug.shortTitle')
       this.main = this.$i18n.t('tasks.tug.shortDescription')
       this.icon = 'transfer_within_a_station'
