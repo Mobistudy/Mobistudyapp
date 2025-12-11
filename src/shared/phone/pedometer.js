@@ -17,8 +17,8 @@ const pedometer = {
         }, function () {
           reject()
         }, {
-          // query the last 10 seconds
-          startDate: new Date(new Date().getTime() - 10000),
+          // query the last 24 hours
+          startDate: new Date(new Date().getTime() - 86400000),
           endDate: new Date()
         })
       } else {
