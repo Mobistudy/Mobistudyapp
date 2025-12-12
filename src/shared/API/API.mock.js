@@ -39,13 +39,13 @@ export default {
         }
       },
       {
-        id: 'ucbm',
-        url: 'https://mobistudy.ucbm.it/api',
+        id: 'test',
+        url: 'https://test.mobistudy.org/api',
         names: {
-          en: 'Campus Bio Medico University of Rome',
-          sv: 'Campus Bio Medico universitetet i Rom',
-          es: 'Universidad Campus Bio-Medico de Roma',
-          it: 'Università Campus Bio-Medico di Roma'
+          en: 'Test server',
+          sv: 'Test server',
+          es: 'Servidor de prueba',
+          it: 'Server di prova'
         }
       }
     ]
