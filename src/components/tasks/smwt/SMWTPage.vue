@@ -143,7 +143,7 @@ export default {
 
       try {
         if (await phone.orientation.isAvailable()) {
-          await phone.orientation.requestPermission()
+          // await phone.orientation.requestPermission()
           phone.orientation.startNotifications({}, (event) => {
             orientations.push(event)
           }, (error) => {
@@ -156,7 +156,7 @@ export default {
 
       try {
         if (await phone.motion.isAvailable()) {
-          await phone.motion.requestPermission()
+          // await phone.motion.requestPermission()
           phone.motion.startNotifications({}, (event) => {
             motions.push(event)
           }, (error) => {
