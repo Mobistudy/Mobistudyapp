@@ -169,11 +169,15 @@ export default {
 
       try {
         if (await phone.pedometer.isAvailable()) {
-          phone.pedometer.startNotifications({}, (steps) => {
-            this.steps.push(steps)
-          }, (error) => {
-            console.error('Error getting steps', error)
-          })
+          if (phone.device.manufacturer === 'Apple' && phone.device.model === 'iPhone18,1') {
+            console.warn('Skipping pedometer data collection on iPhone 17 Pro due to OS bug')
+          } else {
+            phone.pedometer.startNotifications({}, (steps) => {
+              this.steps.push(steps)
+            }, (error) => {
+              console.error('Error getting steps', error)
+            })
+          }
         }
       } catch (err) {
         console.error('Cannot instantiate pedometer', err)
@@ -197,14 +201,29 @@ export default {
         this.completeTest()
       }
     },
-    completeTest () {
+    async completeTest () {
       this.isStarted = false
       this.completionTS = new Date()
       this.stopTimer()
-      phone.orientation.stopNotifications()
-      phone.motion.stopNotifications()
-      phone.pedometer.stopNotifications()
-      phone.geolocation.stopNotifications()
+
+      if (await phone.orientation.isAvailable()) {
+        phone.orientation.stopNotifications()
+      }
+      if (await phone.motion.isAvailable()) {
+        phone.motion.stopNotifications()
+      }
+      if (await phone.pedometer.isAvailable()) {
+        if (phone.device.manufacturer === 'Apple' && phone.device.model === 'iPhone18,1') {
+          // iPhone 17 pro has a bug with pedometer that causes a crash
+          console.warn('Skipping pedometer on iPhone 17 Pro due to OS bug')
+        } else {
+          await phone.pedometer.stopNotifications()
+        }
+      }
+      if (await phone.geolocation.isAvailable()) {
+        phone.geolocation.stopNotifications()
+      }
+
       phone.screen.allowSleep()
 
       distanceAlgo.stopTest()

@@ -60,10 +60,23 @@ export default {
       this.permissionSpinner = true
 
       try {
-        await phone.geolocation.requestPermission()
-        await phone.motion.requestPermission()
-        await phone.orientation.requestPermission()
-        await phone.pedometer.requestPermission()
+        if (await phone.geolocation.isAvailable()) {
+          await phone.geolocation.requestPermission()
+        }
+        if (await phone.motion.isAvailable()) {
+          await phone.motion.requestPermission()
+        }
+        if (await phone.orientation.isAvailable()) {
+          await phone.orientation.requestPermission()
+        }
+        if (await phone.pedometer.isAvailable()) {
+          if (phone.device.manufacturer === 'Apple' && phone.device.model === 'iPhone18,1') {
+            // iPhone 17 pro has a bug with pedometer permission request that causes a crash
+            console.warn('Skipping pedometer permission request on iPhone 17 Pro due to OS bug')
+          } else {
+            await phone.pedometer.requestPermission()
+          }
+        }
 
         this.permissionSpinner = false
 
