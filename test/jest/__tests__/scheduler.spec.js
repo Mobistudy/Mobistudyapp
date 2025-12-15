@@ -1472,4 +1472,44 @@ describe('When testing the scheduler', () => {
 
     expect(tasks.completedStudyAlert).toBeFalsy() // most importantly, the study is not marked as completed
   })
+
+  test('when the validity of the task expires, the task is not scheduled', async () => {
+    const studyDescrs = [{
+      _key: '1234',
+      generalities: {
+        startDate: new Date('2025-05-20'),
+        endDate: new Date('2028-05-20')
+      },
+      tasks: [
+        {
+          id: 1,
+          type: 'tug',
+          scheduling: {
+            startEvent: 'consent',
+            startDelaySecs: 864000, // 10 days
+            untilSecs: 5184000, // 60 days
+            intervalType: 'd',
+            interval: 1
+          }
+        }]
+    }]
+
+    const studiesParts = [{
+      studyKey: '1234',
+      currentStatus: 'accepted',
+      acceptedTS: '2025-06-01T09:00:00', // consent at June 1st
+      taskItemsConsent: [{
+        taskId: 1,
+        consented: true,
+        lastExecuted: '2025-07-21T10:00:00' // 50 days after consent
+      }]
+    }]
+
+    const now = new Date('2025-08-10T13:00:00') // 70 days after acceptance, at 1PM
+    const tasks = generateTasker(studiesParts, studyDescrs, now)
+
+    expect(tasks.upcoming.length).toBe(0) // there are no upcoming tasks today
+
+    expect(tasks.completedStudyAlert).toBeTruthy() // the study is marked as completed too, because there are no remaining tasks
+  })
 })

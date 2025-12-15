@@ -46,4 +46,51 @@ describe('When testing the ePropp5.3', () => {
     expect(tasks.missed.length).toBe(0)
     expect(tasks.alwaysOn.length).toBe(0)
   })
+
+  test('task 3 ends after it was completed', () => {
+    const now = new Date('2025-12-15T15:00:00.000Z')
+
+    const studyDescr = [epropp53]
+    const studiesPart = [
+      {
+        studyKey: '81172231',
+        currentStatus: 'accepted',
+        acceptedTS: '2025-11-01T07:44:43.436Z',
+        reminders: true,
+        taskItemsConsent: [
+          {
+            taskId: 1,
+            consented: true,
+            lastExecuted: '2025-11-03T17:47:56.687Z'
+          },
+          {
+            taskId: 2,
+            consented: true,
+            lastExecuted: '2025-11-10T05:00:47.294Z'
+          },
+          {
+            taskId: 3,
+            consented: true,
+            lastExecuted: '2025-12-09T08:45:03.583Z'
+          },
+          {
+            taskId: 4,
+            consented: true
+          },
+          {
+            taskId: 5,
+            consented: true
+          }
+        ],
+        extraItemsConsent: []
+      }
+    ]
+
+    const tasks = generateTasker(studiesPart, studyDescr, now)
+
+    expect(tasks.completedStudyAlert).toBeFalsy()
+    expect(tasks.upcoming.length).toBe(0)
+    expect(tasks.missed.length).toBe(0)
+    expect(tasks.alwaysOn.length).toBe(0)
+  })
 })

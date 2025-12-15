@@ -218,16 +218,16 @@ export function generateTasker (studiesParts, studiesDescr, now = new Date()) {
  */
 export function getTaskDueInterval (scheduling, acceptTime, tasksParticipation, now = new Date()) {
   if (!acceptTime || !scheduling) throw new Error('both arguments must be specified in isAlwaysOnTaskDue')
-  let startTimeD
+  let startEventTimeD
   if (scheduling.startEvent === 'consent') {
-    startTimeD = new Date(acceptTime)
-    startTimeD.setHours(0, 0, 1) // we consider the DAY when it was consented, not the time
+    startEventTimeD = new Date(acceptTime)
+    startEventTimeD.setHours(0, 0, 1) // we consider the DAY when it was consented, not the time
   } else if (scheduling.startEvent === 'taskExecution') {
     // find the last time the task was performed
     if (scheduling.eventTaskId === undefined) throw new Error('scheduling with taskExecution event must specify a taskId')
     const taskPart = tasksParticipation.find(t => t.taskId === scheduling.eventTaskId)
     if (taskPart && taskPart.consented && taskPart.lastExecuted) {
-      startTimeD = new Date(taskPart.lastExecuted)
+      startEventTimeD = new Date(taskPart.lastExecuted)
     } else {
       // the task should not start because the one it depends on has never been executed
       return false
@@ -235,16 +235,18 @@ export function getTaskDueInterval (scheduling, acceptTime, tasksParticipation, 
   } else {
     throw new Error('The only start events recognised are consent and taskExecution')
   }
+  // clone the date
+  let taskStartDate = new Date(startEventTimeD.getTime())
   if (scheduling.startDelaySecs) {
     // add start delay
-    startTimeD = new Date(startTimeD.getTime() + (scheduling.startDelaySecs * 1000)) // Add seconds
+    taskStartDate = new Date(startEventTimeD.getTime() + (scheduling.startDelaySecs * 1000)) // Add seconds
   }
   if (scheduling.untilSecs) {
-    const untilTimeD = new Date(startTimeD.getTime() + scheduling.untilSecs * 1000)
+    const taskStopDate = new Date(startEventTimeD.getTime() + (scheduling.untilSecs * 1000))
 
-    return { startDate: startTimeD, endDate: untilTimeD }
+    return { startDate: taskStartDate, endDate: taskStopDate }
   } else {
-    return { startDate: startTimeD }
+    return { startDate: taskStartDate }
   }
 }
 
