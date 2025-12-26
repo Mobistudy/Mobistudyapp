@@ -44,7 +44,8 @@ export default {
         contact: 'Rosa Sicilia, r.sicilia@unicampus.it',
         dataAccess: 'full',
         reasonForDataAccess: {
-          it: 'Accesso completo ai dati per completare gli obiettivi dello studio.'
+          it: 'Accesso completo ai dati per completare gli obiettivi dello studio.',
+          en: 'Full data access to complete the study objectives.'
         }
       },
       {
@@ -75,7 +76,7 @@ export default {
       type: 'form',
       scheduling: {
         startEvent: 'consent',
-        untilSecs: 60 * 60 * 24 * 60, // 2 months
+        untilSecs: 60 * 24 * 60 * 60, // 2 months
         intervalType: 'd',
         interval: 1
       },
@@ -127,7 +128,7 @@ export default {
         intervalType: 'w',
         interval: 1
       },
-      formKey: '0004', // treatments
+      formKey: '0004', // lifestyle
       formName: {
         it: 'Stile di vita',
         en: 'Lifestyle'
