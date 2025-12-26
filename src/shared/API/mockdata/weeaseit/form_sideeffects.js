@@ -10,7 +10,7 @@ export default {
     it: 'Quando un individuo è in terapia per un tumore, talvolta può sviluppare diversi sintomi ed effetti collaterali. Indica se hai avuto esperienza di sintomi ed effetti collaterali nella giornata di ieri.',
     en: 'When an individual is undergoing cancer treatment, they may experience various symptoms and side effects. Indicate if you experienced any symptoms or side effects yesterday.'
   },
-  summaryFunction: 'return { symptoms: answers[0].answer };',
+  summaryFunction: 'return { symptoms: answers[0].answer.answerId == "Q1A1"? "yes" : "no" };',
   summaryFunctionDescription: {
     symptoms: {
       name: {
