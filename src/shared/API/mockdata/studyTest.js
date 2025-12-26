@@ -16,7 +16,7 @@ export default {
       it: 'Studio di esempio'
     },
     shortDescription: {
-      en: 'An example research study to showcase Mobistudy\'s functionalities.',
+      en: 'An example research study to showcase Mobistudy functionalities.',
       sv: 'Ett exempel på en forskningsstudie för att visa Mobistudys funktioner.',
       es: 'Un estudio de ejemplo para mostrar las funcionalidades de Mobistudy',
       it: 'Uno studio di esempio per mostrare le funzionalità di Mobistudy'
@@ -239,7 +239,7 @@ export default {
   ],
   consent: {
     invitation: {
-      en: 'You have been invited to an example research study! You are probably testing the Mobsitudy app and you want to understand how it works. This study will allow you to see all the app\'s functionalities. Thank you for your interest!',
+      en: 'You have been invited to an example research study! You are probably testing the Mobsitudy app and you want to understand how it works. This study will allow you to see all the app functionalities. Thank you for your interest!',
       sv: 'Du har blivit inbjuden till ett exempel på en forskningsstudie! Du testar förmodligen Mobsitudy-appen och du vill förstå hur den fungerar. Denna studie gör att du kan se alla appens funktioner. Tack för ditt intresse!',
       es: '¡Has sido invitado a un estudio de investigaciòn de ejemplo! Probablemente estás probando la aplicación Mobsitudy y quieres comprender cómo funciona. Este estudio te permitirá ver todas las funcionalidades de la aplicación. ¡Gracias por tu interés!',
       it: 'Sei stato invitato a uno studio di ricerca di esempio! Probabilmente stai testando l\'app Mobsitudy e vuoi capire come funziona. Questo studio ti permetterà di vedere tutte le funzionalità dell\'app. Grazie per il tuo interesse!'
