@@ -54,7 +54,7 @@ export default {
         it: 'Hai da segnalare qualche sintomo avvertito ieri?',
         en: 'Do you have any symptoms to report from yesterday?'
       },
-      type: 'singlechoice',
+      type: 'singleChoice',
       answerChoices: [
         {
           id: 'Q1A1',
