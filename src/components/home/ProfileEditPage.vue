@@ -65,6 +65,7 @@ import ProfileEditor from '@components/userMgmt/ProfileEditor'
 import API from '@shared/API'
 import session from '@shared/session'
 import DB from '@shared/db'
+import * as scheduler from '@shared/scheduler'
 import notifications from '@shared/notifications'
 
 export default {
@@ -128,6 +129,7 @@ export default {
           API.setBaseUrl(null)
           API.unsetToken()
           session.removeUserSession()
+          await scheduler.cancelNotifications()
           await DB.emptyUserData()
         } catch (error) {
           console.error('Cannot logout correctly', error)
@@ -181,6 +183,7 @@ export default {
           API.setBaseUrl(null)
           API.unsetToken()
           session.removeUserSession()
+          await scheduler.cancelNotifications()
           await DB.emptyUserData()
         } catch (error) {
           console.error('Cannot logout correctly', error)
@@ -218,6 +221,7 @@ export default {
             API.setBaseUrl(null)
             API.unsetToken()
             session.removeUserSession()
+            await scheduler.cancelNotifications()
             await DB.emptyUserData()
           } catch (error) {
             console.error('Cannot logout correctly', error)
