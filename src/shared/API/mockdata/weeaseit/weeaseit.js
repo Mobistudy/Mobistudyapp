@@ -181,6 +181,17 @@ export default {
         it: 'Trend effetti collaterali',
         en: 'Side Effects trend'
       }
+    },
+
+    {
+      id: 8,
+      type: 'jstyle',
+      scheduling: {
+        startEvent: 'consent',
+        untilSecs: 60 * 60 * 24 * 60, // 2 months
+        intervalType: 'd',
+        interval: 1
+      }
     }
   ],
   consent: {
@@ -258,6 +269,14 @@ export default {
           en: 'I agree to answer the side effects trend questionnaire daily.'
         },
         taskId: 7
+      },
+
+      {
+        description: {
+          it: 'Accetto di scaricare i dati dallo smartwatch ogni giorno.',
+          en: 'I agree to download data from the smartwatch daily.'
+        },
+        taskId: 8
       }
     ],
     extraItems: [
