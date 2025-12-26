@@ -330,8 +330,6 @@ export default {
               answerText: chosenAnswerChoice.text,
               answerId: chosenAnswerChoice.id,
               nestedAnswers: this.nestedAnswers[chosenAnswerIndex].map(nestedAnsId => {
-                console.log('nestedAnsId', nestedAnsId)
-                console.log('nestedQuestions', chosenAnswerChoice.nestedQuestions)
                 // find the nested question text
                 const nestedText = chosenAnswerChoice.nestedQuestions.find(nestQuest =>
                   nestQuest.answerChoices.some(nestAns => nestAns.id === nestedAnsId)
