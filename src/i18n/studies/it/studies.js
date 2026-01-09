@@ -73,7 +73,7 @@ const studies = {
       consentUpdated: 'Consenso aggiornato',
       joinStudy: 'Partecipa allo studio',
       accepted: 'Hai appena aderito',
-      contactReminder: 'Ricorda, se hai bisogno puoi sempre contattare i ricercatori principali a:',
+      contactReminder: 'Ricorda, se hai bisogno puoi sempre contattare il ricercatore principale presso:',
       withdraw: 'Ritirati',
       withdrawalConfirm: 'Sei sicuro di voler ritirarti da questo studio? Se sì, specifica il motivo'
     }

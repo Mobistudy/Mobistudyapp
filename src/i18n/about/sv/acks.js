@@ -8,7 +8,8 @@ Projektet koordineras just nu av Dario Salvi och Carl Magnus Olsson på Malmö U
 och är finansierat av: \
 <ul>
 <li>The Knowledge Foundation genom \
-<a href="https://mau.se/en/research/research-centres/internet-of-things-and-people/">Internet of Things and People</a> forskningsprofil</li>
+<a href="https://mau.se/en/research/research-centres/internet-of-things-and-people/">Internet of Things and People</a> forskningsprofil och projektet
+<a href="https://mau.se/en/research/projects/intelligenta-och-trovardiga-iot-system/">Intelligent and Trustworthy IoT Systems</a></li>
 <li>och <a href="https://www.matspaulssonstiftelserna.com/">Mats Paulsson Foundation</a></li>
 </ul>
 <br>
@@ -57,5 +58,5 @@ Denna app har utvecklats med tack till följande projekt med öppen källkod:
 <li><a href="https://github.com/kevinchtsang/cordova-plugin-spf">cordova-plugin-spf</a></li>
 </ul>
 <br>
-Mobistudy:s ikoner och illustrationer skapades av <a href="https://www.behance.net/matildasvensson1"> Matilda Thorwaldsson</a>.
+Mobistudy:s ikoner och illustrationer skapades av <a href="https://www.behance.net/matildathorwaldsson"> Matilda Thorwaldsson</a>.
 `

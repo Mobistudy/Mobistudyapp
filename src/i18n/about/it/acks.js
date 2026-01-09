@@ -8,9 +8,10 @@ e Rishi Arvin Goburdhun all'Università di Oxford attraverso le seguenti fonti d
 Il progetto è attualmente coordinato da Dario Salvi e Carl Magnus Olsson presso \
 l'Università di Malmö ed è finanziato da: \
 <ul>
-<li>The Knowledge Foundation attraverso la \
-<a href="https://mau.se/en/research/research-centres/internet-of-things-and-people/">Internet of Things and People</a> ricerca profilo</li>
-<li><a href="https://www.matspaulssonstiftelserna.com/">Fondazione Mats Paulsson</a></li>
+<li>La Knowledge Foundation attraverso il profilo di ricerca \
+<a href="https://mau.se/en/research/research-centres/internet-of-things-and-people/">Internet of Things and People</a> ed il progetto
+<a href="https://mau.se/en/research/projects/intelligenta-och-trovardiga-iot-system/">Intelligent and Trustworthy IoT Systems</a></li>
+<li>La <a href="https://www.matspaulssonstiftelserna.com/">Fondazione Mats Paulsson</a></li>
 </ul>
 <br>
 Le seguenti persone hanno contribuito al progetto con codice, design o idee:
@@ -58,5 +59,5 @@ Questa app è stata sviluppata grazie ai seguenti progetti open source:
 <li><a href="https://github.com/kevinchtsang/cordova-plugin-spf">cordova-plugin-spf</a></li>
 </ul>
 <br>
-Le icone e le illustrazioni di Mobistudy sono state progettate da <a href="https://www.behance.net/matildasvensson1">Matilda Thorwaldsson</a>.
+Le icone e le illustrazioni di Mobistudy sono state progettate da <a href="https://www.behance.net/matildathorwaldsson">Matilda Thorwaldsson</a>.
 `
