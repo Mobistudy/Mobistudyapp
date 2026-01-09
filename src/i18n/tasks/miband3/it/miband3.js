@@ -2,14 +2,12 @@ export default {
   title: 'Download dal tracker di attività',
   shortTitle: 'Tracker di attività',
   shortDescription: 'Estrai i dati dal tuo tracker di attività',
-  OSpermissioniOS: `Questa attività richiede che l’app acceda al Bluetooth del tuo telefono.
-  Questo è necessario per connettere l’app al fitness tracker MiBand3 e raccogliere i dati da esso.
-  I dati raccolti saranno condivisi con il team di ricerca di questo studio per l’analisi.
-  Tocca "Avanti" se desideri procedere con il processo di autorizzazione.`,
-  OSpermissionAndroid: `Questa attività richiede che l’app acceda al Bluetooth del tuo telefono.
-  Questo è necessario per connettere l’app al fitness tracker MiBand3 e raccogliere i dati da esso.
-  I dati raccolti saranno condivisi con il team di ricerca di questo studio per l’analisi.
-  Tocca "Avanti" se desideri procedere con il processo di autorizzazione.`,
+  OSpermissioniOS: `Questa attività richiede che l’app acceda al Bluetooth per connettere il tuo telefono all'orologio intelligente e scaricare i dati.
+  I dati raccolti saranno condivisi con il team di ricerca di questo studio per essere analizzati.
+  Tocca "Concedi i permessi" se desideri procedere con il processo di autorizzazione.`,
+  OSpermissionAndroid: `Questa attività richiede che l’app acceda al Bluetooth per connettere il tuo telefono all'orologio intelligente e scaricare i dati.
+  I dati raccolti saranno condivisi con il team di ricerca di questo studio per essere analizzati.
+  Tocca "Concedi i permessi" se desideri procedere con il processo di autorizzazione.`,
   introductionSlides: [
     {
       title: 'Introduzione',
