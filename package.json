@@ -42,7 +42,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
     "@babel/plugin-transform-private-methods": "^7.27.1",
-    "@quasar/app-webpack": "^4.2.0",
+    "@quasar/app-webpack": "^4.4.4",
     "@quasar/quasar-app-extension-testing-unit-jest": "^3.0.3",
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.21",
