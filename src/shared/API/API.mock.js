@@ -17,7 +17,8 @@ import formQlqC30 from './mockdata/weeaseit/form_qlqC30'
 import formProctcae from './mockdata/weeaseit/form_proctcae'
 import formSideEffects from './mockdata/weeaseit/form_sideeffects'
 
-import epropp from './mockdata/ePROPP/epropp5.3'
+import epropp53 from './mockdata/ePROPP/epropp5.3'
+import epropp13 from './mockdata/ePROPP/epropp1.3'
 import eproppQ1 from './mockdata/ePROPP/eproppQ1'
 import eproppQ2 from './mockdata/ePROPP/eproppQ2'
 
@@ -247,9 +248,13 @@ export default {
         setTimeout(function () {
           resolve(weeaseit)
         }, 1000)
-      } else if (studyKey === epropp._key) {
+      } else if (studyKey === epropp53._key) {
         setTimeout(function () {
-          resolve(epropp)
+          resolve(epropp53)
+        }, 1000)
+      } else if (studyKey === epropp13._key) {
+        setTimeout(function () {
+          resolve(epropp13)
         }, 1000)
       } else {
         setTimeout(function () {
@@ -284,8 +289,10 @@ export default {
         resolve(synergyouh)
       } else if (invitationalCode === weeaseit.invitationCode) {
         resolve(weeaseit)
-      } else if (invitationalCode === epropp.invitationCode) {
-        resolve(epropp)
+      } else if (invitationalCode === epropp53.invitationCode) {
+        resolve(epropp53)
+      } else if (invitationalCode === epropp13.invitationCode) {
+        resolve(epropp13)
       } else {
         const err = new Error(
           'Cannot retrieve invitational study based on code.'
