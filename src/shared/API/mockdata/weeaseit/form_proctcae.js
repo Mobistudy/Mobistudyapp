@@ -11,7 +11,7 @@ export default {
     en: 'As individuals go through treatment for their cancer they sometimes experience different symptoms and side effects. For each question, please select the one response that best describes your experiences over the past 7 days.'
   },
   summaryFunction: `return {
-    symptomsNumber: answers.reduce( (acc, ans) => {
+    symptomsNumber: answers?.reduce( (acc, ans) => {
       // count how many symptom choices were selected overall
       return acc + (Array.isArray(ans.answer) ? ans.answer.length : (ans.answer ? 1 : 0))
     }, 0 )

@@ -8,7 +8,7 @@ export default {
   description: {
     it: 'PHQ-9 è uno strumento per screening, diagnosi, monitoraggio e misura della gravità della depressione. Può essere somministrato ripetutamente allo scopo di misurare il trend della depressione sotto terapia.'
   },
-  summaryFunction: 'return { total: answers.reduce((acc, curr, idx)=>{ return acc + ( (idx==9)? 0 : (parseInt(curr.answer.slice(-1)) -1) ) }, 0) };',
+  summaryFunction: 'return { total: answers?.reduce((acc, curr, idx)=>{ return acc + ( (idx==9)? 0 : (parseInt(curr.answer.slice(-1)) -1) ) }, 0) };',
   summaryFunctionDescription: {
     total: {
       name: {

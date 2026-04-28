@@ -10,7 +10,7 @@ export default {
     it: 'Riporta il tuo peso.',
     en: 'Report your weight.'
   },
-  summaryFunction: 'return { weight: answers[0].answer };',
+  summaryFunction: 'return { weight: answers[0]?.answer };',
   summaryFunctionDescription: {
     weight: {
       name: {

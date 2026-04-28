@@ -10,7 +10,7 @@ export default {
     it: 'Questionario per la valutazione dello stile di vita.',
     en: 'Questionnaire for lifestyle assessment.'
   },
-  summaryFunction: 'return { smokedTimesWeek: answers[1].answer, exerciseTotalTime: answers[2].answer * answers[3].answer, alcoholTimesWeek: answers[4].answer, socialContactsWeek: answers[5].answer, unprescribedMedsWeek: answers[6].answer, sexTimesWeek: answers[7].answer, hobbiesTotalTime: answers[8].answer * answers[9].answer };',
+  summaryFunction: 'return { smokedTimesWeek: answers[1]?.answer, exerciseTotalTime: answers[2]?.answer * answers[3]?.answer, alcoholTimesWeek: answers[4]?.answer, socialContactsWeek: answers[5]?.answer, unprescribedMedsWeek: answers[6]?.answer, sexTimesWeek: answers[7]?.answer, hobbiesTotalTime: answers[8]?.answer * answers[9]?.answer };',
   summaryFunctionDescription: {
     smokedTimesWeek: {
       name: {

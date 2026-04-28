@@ -10,7 +10,7 @@ export default {
     it: 'Questo breve questionario è necessario per indicare il proprio livello di dolore.',
     en: 'This short questionnaire is needed to indicate your pain level.'
   },
-  summaryFunction: 'return { painLevel: answers[0].answer };',
+  summaryFunction: 'return { painLevel: answers[0]?.answer };',
   summaryFunctionDescription: {
     painLevel: {
       name: {
