@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.17.0",
-    "axios": "^1.15.0",
+    "axios": "^1.15.2",
     "browserify-aes": "^1.2.0",
     "buffer": "^6.0.3",
     "chart.js": "^4.5.1",
