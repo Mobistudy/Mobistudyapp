@@ -31,7 +31,7 @@
                 <q-item class="full-width">
                   <q-item-section class="full-width">
                     <q-item-label class="text-center q-mt-lg q-mb-md mobitxt1">{{ $t('userMgmt.login.noAcc')
-                      }}</q-item-label>
+                    }}</q-item-label>
                   </q-item-section>
                 </q-item>
                 <q-item class="full-width">
@@ -86,12 +86,21 @@ export default {
     }
   },
   async created () {
-    this.serverOptions = API.getServersList().map((opt) => {
-      return {
-        label: opt.names[this.$root.$i18n.locale],
-        value: opt.url
+    const serversList = API.getServersList()
+    const serverUrls = {}
+    for (const server of serversList) {
+      for (const locale in server.names) {
+        const serverKey = 'server_' + server.id
+        serverUrls[serverKey] = server.url
+        this.$root.$i18n.mergeLocaleMessage(locale, { [serverKey]: server.names[locale] })
       }
-    })
+    }
+    for (const serverKey in serverUrls) {
+      this.serverOptions.push({
+        label: this.$t(serverKey),
+        value: serverUrls[serverKey]
+      })
+    }
     notifications.cancelAll()
     try {
       // make sure we are logged out

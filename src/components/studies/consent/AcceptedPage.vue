@@ -4,7 +4,7 @@
       <img src="~/assets/thank-you.svg" style="width:30vw; max-width:150px;"><br />
     </div>
     <div class="text-h5 text-center">
-      {{ $t('studies.consent.accepted') }} {{ studyDescription.generalities.title[$i18n.locale] }}!
+      {{ $t('studies.consent.accepted') }} {{ translate(studyDescription.generalities.title) }}!
     </div>
     <div class="q-my-md mobitxt1 text-center">
       {{ $t('studies.consent.contactReminder') }}
@@ -76,6 +76,16 @@ export default {
     }
   },
   methods: {
+    translate (messages) {
+      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
+      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
+      else {
+        // eslint-disable-next-line no-unreachable-loop
+        for (const locale in messages) {
+          return messages[locale]
+        }
+      }
+    },
     next () {
       session.removeStudyDescription()
       this.$router.go(-1)

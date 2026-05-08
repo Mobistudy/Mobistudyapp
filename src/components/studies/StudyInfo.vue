@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="text-h6 text-center">
-      {{ studyDescription.generalities.title[$i18n.locale] }}
+      {{ translate(studyDescription.generalities.title) }}
     </div>
     <q-separator class="q-my-md" />
-    <div class="mobitxt1" v-html="studyDescription.generalities.longDescription[$i18n.locale]">
+    <div class="mobitxt1" v-html="translate(studyDescription.generalities.longDescription)">
     </div>
     <q-separator class="q-my-md" />
     <div class="text-subtitle1">
@@ -77,7 +77,7 @@
       <q-item v-if="institution.reasonForDataAccess">
         <q-item-section>
           <q-item-label>{{ $t('studies.dataAccess.reason') }}:</q-item-label>
-          <q-item-label caption>{{ institution.reasonForDataAccess[$i18n.locale] }}</q-item-label>
+          <q-item-label caption>{{ translate(institution.reasonForDataAccess) }}</q-item-label>
         </q-item-section>
       </q-item>
 
@@ -101,6 +101,18 @@ export default {
     studyDescription: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    translate (messages) {
+      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
+      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
+      else {
+        // eslint-disable-next-line no-unreachable-loop
+        for (const locale in messages) {
+          return messages[locale]
+        }
+      }
     }
   }
 }

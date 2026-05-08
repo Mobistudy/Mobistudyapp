@@ -276,7 +276,11 @@ export default {
         this.tasks = response
 
         if (response.completedStudyAlert) {
-          this.completedStudyTitle = response.completedStudyAlert.studyTitle[this.$root.$i18n.locale]
+          const studyKey = 'study_' + response.completedStudyAlert.studyPart.studyKey
+          for (const locale in response.completedStudyAlert.studyTitle) {
+            this.$root.$i18n.mergeLocaleMessage(locale, { [studyKey]: response.completedStudyAlert.studyTitle[locale] })
+          }
+          this.completedStudyTitle = this.$t(studyKey)
           this.completedStudyModal = true
         }
         this.$q.loading.hide()

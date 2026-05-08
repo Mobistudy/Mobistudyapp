@@ -16,7 +16,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="privacy">
-        <div v-html="studyDescription.consent.privacyPolicy[$i18n.locale].replace(new RegExp('\n', 'g'), '<br>')"></div>
+        <div v-html="translate(studyDescription.consent.privacyPolicy)"></div>
       </q-tab-panel>
 
       <q-tab-panel name="consent">
@@ -99,6 +99,16 @@ export default {
     }
   },
   methods: {
+    translate (messages) {
+      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
+      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
+      else {
+        // eslint-disable-next-line no-unreachable-loop
+        for (const locale in messages) {
+          return messages[locale]
+        }
+      }
+    },
     async updateConsent () {
       // call the API
       const userSession = session.getUserSession()

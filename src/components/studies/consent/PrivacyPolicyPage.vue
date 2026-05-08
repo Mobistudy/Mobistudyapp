@@ -3,7 +3,7 @@
     <div class="text-h5 text-center">
       {{ $t('studies.privacyPolicy') }}
     </div>
-    <div class="q-my-md mobitxt1" v-html="studyDescription.consent.privacyPolicy[$i18n.locale]"></div>
+    <div class="q-my-md mobitxt1" v-html="translate(studyDescription.consent.privacyPolicy)"></div>
 
     <div class="q-my-md row justify-around">
       <q-btn class="mobibtn" :label="$t('common.reject')" color="negative" @click="deny()"></q-btn>
@@ -40,6 +40,16 @@ export default {
     }
   },
   methods: {
+    translate (messages) {
+      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
+      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
+      else {
+        // eslint-disable-next-line no-unreachable-loop
+        for (const locale in messages) {
+          return messages[locale]
+        }
+      }
+    },
     accept () {
       this.$router.replace({ name: 'consentItems' })
     },

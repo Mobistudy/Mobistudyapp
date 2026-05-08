@@ -5,8 +5,8 @@
         <div class="row no-wrap">
           <div class="col">
             <div class="text-h6">{{ $t('studies.newStudyInvite') }}</div>
-            <div class="text-subtitle1">{{ study.generalities.title[$i18n.locale] }}</div>
-            <div class="text-subtitle2">{{ study.generalities.shortDescription[$i18n.locale] }}</div>
+            <div class="text-subtitle1">{{ translate(study.generalities.title) }}</div>
+            <div class="text-subtitle2">{{ translate(study.generalities.shortDescription) }}</div>
           </div>
         </div>
       </q-card-section>
@@ -14,7 +14,7 @@
         v-if="study.inclusionCriteria.criteriaQuestions && study.inclusionCriteria.criteriaQuestions.length > 0">
         {{ $t('studies.newStudyExtraCriteria') }}:
         <div v-for="(question, questionIndex) in study.inclusionCriteria.criteriaQuestions" :key="questionIndex">
-          <p class="q-mt-md text-subtitle2">{{ question.title[$i18n.locale] }}</p>
+          <p class="q-mt-md text-subtitle2">{{ translate(question.title) }}</p>
           <div class="row">
             <q-radio class="col" v-model="newStudiesCustomAnswers[studyIndex][questionIndex]" val="yes"
               :label="$t('common.yes')" />
@@ -48,7 +48,7 @@
           <q-icon color="primary" name="settings" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>{{ study.generalities.title[$i18n.locale] }}</q-item-label>
+          <q-item-label>{{ translate(study.generalities.title) }}</q-item-label>
           <q-item-label caption lines="1">End Date: {{ nicerDate(study.generalities.endDate) }}</q-item-label>
         </q-item-section>
       </q-item>
@@ -66,7 +66,7 @@
           <q-icon color="primary" name="settings" />
         </q-item-section>
         <q-item-section>
-          <q-item-label>{{ study.generalities.title[$i18n.locale] }}</q-item-label>
+          <q-item-label>{{ translate(study.generalities.title) }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
@@ -158,6 +158,16 @@ export default {
   methods: {
     nicerDate (d) {
       return date.formatDate(d, 'YYYY/MM/DD')
+    },
+    translate (messages) {
+      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
+      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
+      else {
+        // eslint-disable-next-line no-unreachable-loop
+        for (const locale in messages) {
+          return messages[locale]
+        }
+      }
     },
     showDetails (studyKey) {
       this.$router.replace({ name: 'studyConfig', params: { studyKey } })

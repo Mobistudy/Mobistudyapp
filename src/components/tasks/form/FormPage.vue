@@ -4,10 +4,10 @@
       <transition :enter-active-class="'animated ' + this.slideName" leave-active-class="fadeOut" mode="out-in">
         <div v-show="slideName != ''" key="">
           <div class="text-center text-h6 q-mt-lg">
-            <div v-html="currentQuestion.text[$i18n.locale]"></div>
+            <div v-html="translate(currentQuestion.text)"></div>
           </div>
           <div class="text-center text-body2 q-my-md">
-            <div v-if="currentQuestion.helper" v-html="currentQuestion.helper[$i18n.locale]"></div>
+            <div v-if="currentQuestion.helper" v-html="translate(currentQuestion.helper)"></div>
           </div>
 
           <!-- freetext -->
@@ -43,8 +43,8 @@
 
           <div v-show="currentQuestion.type === 'singleChoice'"
             v-for="(answerChoice, index) in currentQuestion.answerChoices" :key="'sc' + index">
-            <q-radio size="lg" v-model="singleChoiceAnswer" :val="answerChoice.id"
-              :label="answerChoice.text[$i18n.locale]" class="q-mt-md" />
+            <q-radio size="lg" v-model="singleChoiceAnswer" :val="answerChoice.id" :label="translate(answerChoice.text)"
+              class="q-mt-md" />
             <q-input v-show="answerChoice.includeFreeText" :disable="singleChoiceAnswer !== answerChoice.id"
               v-model="singleChoiceAnswerFreeText" type="textarea" :label="$t('tasks.form.freeTextExplanation')"
               rows="3" outlined />
@@ -55,15 +55,15 @@
           <div v-show="currentQuestion.type === 'multiChoice'"
             v-for="(answerChoice, answerChoiceIndex) in currentQuestion.answerChoices" :key="'mc' + answerChoiceIndex">
             <q-checkbox size="lg" v-model="multiChoiceAnswer" :val="answerChoice.id"
-              :label="answerChoice.text[$i18n.locale]" class="q-mt-md" />
+              :label="translate(answerChoice.text)" class="q-mt-md" />
             <q-card flat bordered v-if="answerChoice.nestedQuestions && multiChoiceAnswer.includes(answerChoice.id)">
               <!-- nested questions -->
               <q-card-section v-for="(nestedQuestion, nestedIndex) in answerChoice.nestedQuestions"
                 :key="'nested' + nestedIndex">
-                <p>{{ nestedQuestion.text[$i18n.locale] }}</p>
+                <p>{{ translate(nestedQuestion.text) }}</p>
                 <q-radio v-for="(nestedChoice, nestedChoiceIndex) in nestedQuestion.answerChoices"
                   :key="'nci' + nestedChoiceIndex" v-model="nestedAnswers[answerChoiceIndex][nestedIndex]"
-                  :val="nestedChoice.id" :label="nestedChoice.text[$i18n.locale]" />
+                  :val="nestedChoice.id" :label="translate(nestedChoice.text)" />
               </q-card-section>
             </q-card>
             <q-input v-show="answerChoice.includeFreeText" :disable="!multiChoiceAnswer.includes(answerChoice.id)"
@@ -100,7 +100,7 @@
           :label="$t('common.skip')" />
       </div>
       <div v-if="currentQuestion.footer" class="text-left text-caption absolute-bottom q-pa-sm">
-        {{ currentQuestion.footer[$i18n.locale] }}
+        {{ translate(currentQuestion.footer) }}
       </div>
     </div>
 
@@ -263,6 +263,16 @@ export default {
     }
   },
   methods: {
+    translate (messages) {
+      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
+      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
+      else {
+        // eslint-disable-next-line no-unreachable-loop
+        for (const locale in messages) {
+          return messages[locale]
+        }
+      }
+    },
     prepareNestedAnswers (nextQuestion) {
       this.nestedAnswers = []
       if (nextQuestion.type === 'multiChoice') {

@@ -32,6 +32,16 @@ export default {
     }
   },
   methods: {
+    translate (messages) {
+      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
+      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
+      else {
+        // eslint-disable-next-line no-unreachable-loop
+        for (const locale in messages) {
+          return messages[locale]
+        }
+      }
+    },
     changeRoute (evt, go) {
       evt.preventDefault()
 
@@ -81,7 +91,7 @@ export default {
       this.main = this.$i18n.t('tasks.dataQuery.shortDescription')
       this.icon = 'insert_chart_outlined'
     } else if (this.task.type === 'form') {
-      this.title = this.task.formName[this.$root.$i18n.locale]
+      this.title = this.translate(this.task.formName)
       this.main = this.$i18n.t('tasks.form.shortDescription')
       this.icon = 'format_list_bulleted'
     } else if (this.task.type === 'smwt') {

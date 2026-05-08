@@ -65,6 +65,8 @@ export default {
         // eslint-disable-next-line no-new-func
         const summaryFun = new Function('answers', '"use strict";' + formDescr.summaryFunction)
 
+        console.log('Computing summary values on data', report.data)
+
         const summary = summaryFun(report.data)
 
         for (const summaryField in summary) {
@@ -73,12 +75,12 @@ export default {
 
           // translate the summary field for view
           const fieldNames = formDescr.summaryFunctionDescription[summaryField].name
-          const fieldNamesTranslated = fieldNames[this.$i18n.locale]
+          const fieldNamesTranslated = this.translate(fieldNames)
 
           if (formDescr.summaryFunctionDescription[summaryField].type === 'category') {
             // translate the category
             const categoryName = formDescr.summaryFunctionDescription[summaryField].categories[summary[summaryField]].name
-            const categoryNameTranslated = categoryName[this.$i18n.locale]
+            const categoryNameTranslated = this.translate(categoryName)
             this.summaryFunctionValues[fieldNamesTranslated] = categoryNameTranslated
           } else if (typeof summary[summaryField] === 'number') {
             this.summaryFunctionValues[fieldNamesTranslated] = summary[summaryField].toFixed(1)
@@ -93,7 +95,16 @@ export default {
     }
   },
   methods: {
-
+    translate (messages) {
+      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
+      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
+      else {
+        // eslint-disable-next-line no-unreachable-loop
+        for (const locale in messages) {
+          return messages[locale]
+        }
+      }
+    },
     async send () {
       this.sending = true
 

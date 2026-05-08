@@ -3,7 +3,7 @@
     <q-list v-if="studyDescription.consent.extraItems">
       <q-item v-for="(extraItem, extraIndex) in studyDescription.consent.extraItems" :key="extraIndex">
         <q-item-section>
-          <q-item-label class="q-my-xs mobitxt1">{{ extraItem.description[$i18n.locale] }}</q-item-label>
+          <q-item-label class="q-my-xs mobitxt1">{{ translate(extraItem.description) }}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
           <q-checkbox size="lg" v-model="participation.extraItemsConsent[extraIndex].consented" />
@@ -14,7 +14,7 @@
     <q-list>
       <q-item v-for="(taskItem, taskIndex) in studyDescription.consent.taskItems" :key="taskIndex">
         <q-item-section>
-          <q-item-label class="q-my-xs mobitxt1">{{ taskItem.description[$i18n.locale] }}
+          <q-item-label class="q-my-xs mobitxt1">{{ translate(taskItem.description) }}
           </q-item-label>
         </q-item-section>
         <q-item-section avatar>
@@ -70,6 +70,17 @@ export default {
     }
   },
   methods: {
+    translate (messages) {
+      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
+      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
+      else {
+        // eslint-disable-next-line no-unreachable-loop
+        for (const locale in messages) {
+          return messages[locale]
+        }
+      }
+    },
+
     async selectAllToggles () {
       this.participation.extraItemsConsent.forEach((item) => {
         item.consented = true

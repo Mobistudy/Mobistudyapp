@@ -27,7 +27,7 @@ export default {
   },
   created () {
     const sd = session.getStudyDescription()
-    this.invitationText = sd.consent.invitation[this.$i18n.locale]
+    this.invitationText = this.translate(sd.consent.invitation)
     if (!sd) {
       this.$router.go(-1)
     } else {
@@ -35,6 +35,16 @@ export default {
     }
   },
   methods: {
+    translate (messages) {
+      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
+      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
+      else {
+        // eslint-disable-next-line no-unreachable-loop
+        for (const locale in messages) {
+          return messages[locale]
+        }
+      }
+    },
     next () {
       this.$router.replace({ name: 'studyDetails' })
     }
