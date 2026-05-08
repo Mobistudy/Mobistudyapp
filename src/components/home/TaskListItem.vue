@@ -17,9 +17,11 @@
 import { mergeDeep } from '@shared/tools'
 import i18nStudies from '@i18n/studies'
 import i18nTasksTitles from '@i18n/tasks/titles'
+import translateMixin from '@shared/mixins/translate'
 
 export default {
   name: 'TaskListItem',
+  mixins: [translateMixin],
   props: ['task', 'isMissedTask'],
   i18n: {
     messages: mergeDeep(i18nStudies, i18nTasksTitles)
@@ -32,16 +34,6 @@ export default {
     }
   },
   methods: {
-    translate (messages) {
-      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
-      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
-      else {
-        // eslint-disable-next-line no-unreachable-loop
-        for (const locale in messages) {
-          return messages[locale]
-        }
-      }
-    },
     changeRoute (evt, go) {
       evt.preventDefault()
 

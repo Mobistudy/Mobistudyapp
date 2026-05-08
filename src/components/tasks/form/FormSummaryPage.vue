@@ -34,6 +34,7 @@ import i18nStudies from '@i18n/studies'
 import i18nCommon from '@i18n/common'
 import i18nForm from '@i18n/tasks/form'
 import { mergeDeep } from '@shared/tools.js'
+import translateMixin from '@shared/mixins/translate'
 
 import API from '@shared/API'
 import DB from '@shared/db'
@@ -41,6 +42,7 @@ import session from '@shared/session'
 
 export default {
   name: 'FormSummaryPage',
+  mixins: [translateMixin],
   data: function () {
     return {
       sending: false,
@@ -95,16 +97,6 @@ export default {
     }
   },
   methods: {
-    translate (messages) {
-      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
-      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
-      else {
-        // eslint-disable-next-line no-unreachable-loop
-        for (const locale in messages) {
-          return messages[locale]
-        }
-      }
-    },
     async send () {
       this.sending = true
 

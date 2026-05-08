@@ -57,12 +57,14 @@ import DB from '@shared/db'
 import API from '@shared/API'
 import session from '@shared/session'
 import notifications from '@shared/notifications'
+import translateMixin from '@shared/mixins/translate'
 
 import { patterns } from 'quasar'
 const { testPattern } = patterns
 
 export default {
   name: 'LoginPage',
+  mixins: [translateMixin],
   i18n: {
     messages: mergeDeep(i18nCommon, i18nUserMgmt)
   },
@@ -87,18 +89,10 @@ export default {
   },
   async created () {
     const serversList = API.getServersList()
-    const serverUrls = {}
     for (const server of serversList) {
-      for (const locale in server.names) {
-        const serverKey = 'server_' + server.id
-        serverUrls[serverKey] = server.url
-        this.$root.$i18n.mergeLocaleMessage(locale, { [serverKey]: server.names[locale] })
-      }
-    }
-    for (const serverKey in serverUrls) {
       this.serverOptions.push({
-        label: this.$t(serverKey),
-        value: serverUrls[serverKey]
+        label: this.translate(server.names),
+        value: server.url
       })
     }
     notifications.cancelAll()

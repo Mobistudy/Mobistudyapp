@@ -55,6 +55,7 @@ import i18nCommon from '@i18n/common'
 import i18nUserMgmt from '@i18n/userMgmt'
 import i18npwdCheck from '@i18n/passwordcheck'
 import { mergeDeep } from '@shared/tools.js'
+import translateMixin from '@shared/mixins/translate'
 
 import { patterns } from 'quasar'
 const { testPattern } = patterns
@@ -66,6 +67,7 @@ import DB from '@shared/db'
 
 export default {
   name: 'SignUp',
+  mixins: [translateMixin],
   i18n: {
     messages: mergeDeep(i18nCommon, i18nUserMgmt, i18npwdCheck)
   },
@@ -94,18 +96,10 @@ export default {
   },
   async created () {
     const serversList = API.getServersList()
-    const serverUrls = {}
     for (const server of serversList) {
-      for (const locale in server.names) {
-        const serverKey = 'server_' + server.id
-        serverUrls[serverKey] = server.url
-        this.$root.$i18n.mergeLocaleMessage(locale, { [serverKey]: server.names[locale] })
-      }
-    }
-    for (const serverKey in serverUrls) {
       this.serverOptions.push({
-        label: this.$t(serverKey),
-        value: serverUrls[serverKey]
+        label: this.translate(server.names),
+        value: server.url
       })
     }
   },

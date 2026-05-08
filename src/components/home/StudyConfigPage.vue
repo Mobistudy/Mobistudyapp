@@ -46,6 +46,7 @@
 import { mergeDeep } from '@shared/tools'
 import i18nCommon from '@i18n/common'
 import i18nStudies from '@i18n/studies'
+import translateMixin from '@shared/mixins/translate'
 
 import ConsentForm from '@components/studies/ConsentForm.vue'
 import StudyInfo from '@components/studies/StudyInfo'
@@ -55,6 +56,7 @@ import API from '@shared/API'
 
 export default {
   name: 'StudyConfigPage',
+  mixins: [translateMixin],
   i18n: {
     messages: mergeDeep(i18nCommon, i18nStudies)
   },
@@ -99,16 +101,6 @@ export default {
     }
   },
   methods: {
-    translate (messages) {
-      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
-      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
-      else {
-        // eslint-disable-next-line no-unreachable-loop
-        for (const locale in messages) {
-          return messages[locale]
-        }
-      }
-    },
     async updateConsent () {
       // call the API
       const userSession = session.getUserSession()

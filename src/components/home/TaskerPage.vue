@@ -103,6 +103,7 @@
 import i18nStudies from '@i18n/studies'
 import i18nCommon from '@i18n/common'
 import { mergeDeep } from '@shared/tools.js'
+import translateMixin from '@shared/mixins/translate'
 
 import taskListItem from '@components/home/TaskListItem.vue'
 import session from '@shared/session'
@@ -119,6 +120,7 @@ export default {
   components: {
     taskListItem
   },
+  mixins: [translateMixin],
   i18n: {
     messages: mergeDeep(i18nCommon, i18nStudies)
   },
@@ -276,11 +278,7 @@ export default {
         this.tasks = response
 
         if (response.completedStudyAlert) {
-          const studyKey = 'study_' + response.completedStudyAlert.studyPart.studyKey
-          for (const locale in response.completedStudyAlert.studyTitle) {
-            this.$root.$i18n.mergeLocaleMessage(locale, { [studyKey]: response.completedStudyAlert.studyTitle[locale] })
-          }
-          this.completedStudyTitle = this.$t(studyKey)
+          this.completedStudyTitle = this.translate(response.completedStudyAlert.studyTitle)
           this.completedStudyModal = true
         }
         this.$q.loading.hide()

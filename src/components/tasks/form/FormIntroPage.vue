@@ -15,9 +15,11 @@
 <script>
 import API from '@shared/API'
 import DB from '@shared/db'
+import translateMixin from '@shared/mixins/translate'
 
 export default {
   name: 'FormIntroPage',
+  mixins: [translateMixin],
   props: {
     studyKey: String,
     taskId: String,
@@ -30,16 +32,6 @@ export default {
     }
   },
   methods: {
-    translate (messages) {
-      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
-      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
-      else {
-        // eslint-disable-next-line no-unreachable-loop
-        for (const locale in messages) {
-          return messages[locale]
-        }
-      }
-    },
     start () {
       this.$router.replace({ name: 'form', params: { studyKey: this.studyKey, taskId: this.taskId, formKey: this.formKey } })
     }

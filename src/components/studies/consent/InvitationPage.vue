@@ -12,11 +12,13 @@
 import { mergeDeep } from '@shared/tools'
 import i18nCommon from '@i18n/common'
 import i18nStudies from '@i18n/studies'
+import translateMixin from '@shared/mixins/translate'
 
 import session from '@shared/session'
 
 export default {
   name: 'InvitationPage',
+  mixins: [translateMixin],
   i18n: {
     messages: mergeDeep(i18nCommon, i18nStudies)
   },
@@ -35,16 +37,6 @@ export default {
     }
   },
   methods: {
-    translate (messages) {
-      if (messages[this.$i18n.locale]) return messages[this.$i18n.locale]
-      else if (messages[this.$i18n.fallbackLocale]) return messages[this.$i18n.fallbackLocale]
-      else {
-        // eslint-disable-next-line no-unreachable-loop
-        for (const locale in messages) {
-          return messages[locale]
-        }
-      }
-    },
     next () {
       this.$router.replace({ name: 'studyDetails' })
     }
