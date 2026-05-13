@@ -97,3 +97,5 @@
 
 0.4.9
 - cancel "ghost" notifications when logging out
+- support default language also with data provided by the server
+- bugfixes and updated dependencies
