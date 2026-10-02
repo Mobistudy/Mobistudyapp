@@ -189,7 +189,7 @@ export default {
     },
     {
       id: 11,
-      type: 'tugt',
+      type: 'tug',
       scheduling: {
         alwaysOn: true,
         startEvent: 'consent',

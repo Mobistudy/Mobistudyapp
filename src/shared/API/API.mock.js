@@ -2,12 +2,6 @@
 import studyTest from './mockdata/studyTest'
 import formTest from './mockdata/formTest'
 
-import synergyhgb from './mockdata/synergy/synergyhgb'
-import acceptance1hgb from './mockdata/synergy/acceptance1hgb'
-import acceptance1ouh from './mockdata/synergy/acceptance1ouh'
-import acceptance2hgb from './mockdata/synergy/acceptance2hgb'
-import acceptance3hgb from './mockdata/synergy/acceptance3hgb'
-
 import weeaseit from './mockdata/weeaseit/weeaseit'
 import formPain from './mockdata/weeaseit/form_painlevel'
 import formTreatment from './mockdata/weeaseit/form_treatments'
@@ -22,9 +16,11 @@ import epropp13 from './mockdata/ePROPP/epropp1.3'
 import eproppQ1 from './mockdata/ePROPP/eproppQ1'
 import eproppQ2 from './mockdata/ePROPP/eproppQ2'
 
+import jane from './mockdata/jane/jane'
+import janeQ from './mockdata/jane/janeQ'
+
 import participant from './mockdata/participant'
 import environmentmock from './mockdata/environment'
-import * as synergyouh from './mockdata/synergy/synergyouh.json'
 
 export default {
   getServersList: () => {
@@ -236,14 +232,6 @@ export default {
         setTimeout(function () {
           resolve(studyTest)
         }, 2000)
-      } else if (studyKey === synergyhgb._key) {
-        setTimeout(function () {
-          resolve(synergyhgb)
-        }, 1000)
-      } else if (studyKey === synergyouh._key) {
-        setTimeout(function () {
-          resolve(synergyouh)
-        }, 1000)
       } else if (studyKey === weeaseit._key) {
         setTimeout(function () {
           resolve(weeaseit)
@@ -255,6 +243,10 @@ export default {
       } else if (studyKey === epropp13._key) {
         setTimeout(function () {
           resolve(epropp13)
+        }, 1000)
+      } else if (studyKey === jane._key) {
+        setTimeout(function () {
+          resolve(jane)
         }, 1000)
       } else {
         setTimeout(function () {
@@ -283,16 +275,14 @@ export default {
   async getInvitationalStudy (invitationalCode) {
     console.log('API - getting invitational study from code ' + invitationalCode)
     return new Promise((resolve, reject) => {
-      if (invitationalCode === synergyhgb.invitationCode) {
-        resolve(synergyhgb)
-      } else if (invitationalCode === synergyouh.invitationCode) {
-        resolve(synergyouh)
-      } else if (invitationalCode === weeaseit.invitationCode) {
+      if (invitationalCode === weeaseit.invitationCode) {
         resolve(weeaseit)
       } else if (invitationalCode === epropp53.invitationCode) {
         resolve(epropp53)
       } else if (invitationalCode === epropp13.invitationCode) {
         resolve(epropp13)
+      } else if (invitationalCode === jane.invitationCode) {
+        resolve(jane)
       } else {
         const err = new Error(
           'Cannot retrieve invitational study based on code.'
@@ -309,22 +299,6 @@ export default {
       if (key === formTest._key) {
         setTimeout(function () {
           resolve(formTest)
-        }, 1000)
-      } else if (key === acceptance1hgb._key) {
-        setTimeout(function () {
-          resolve(acceptance1hgb)
-        }, 1000)
-      } else if (key === acceptance1ouh._key) {
-        setTimeout(function () {
-          resolve(acceptance1ouh)
-        }, 1000)
-      } else if (key === acceptance2hgb._key) {
-        setTimeout(function () {
-          resolve(acceptance2hgb)
-        }, 1000)
-      } else if (key === acceptance3hgb._key) {
-        setTimeout(function () {
-          resolve(acceptance3hgb)
         }, 1000)
       } else if (key === formPain._key) {
         setTimeout(function () {
@@ -361,6 +335,10 @@ export default {
       } else if (key === eproppQ2._key) {
         setTimeout(function () {
           resolve(eproppQ2)
+        }, 1000)
+      } else if (key === janeQ._key) {
+        setTimeout(function () {
+          resolve(janeQ)
         }, 1000)
       } else {
         reject(new Error('Questionnaire not found ' + key))
