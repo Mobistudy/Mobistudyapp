@@ -36,6 +36,16 @@ export default {
         }
       },
       {
+        id: 'ucbm',
+        url: process.env.API_ENDPOINT === 'OFFICIAL' ? 'https://mobistudy.ucbm.org/api' : process.env.API_ENDPOINT,
+        names: {
+          en: 'Campus Bio Medico University of Rome',
+          sv: 'Università Campus Bio-Medico di Roma',
+          es: 'Università Campus Bio-Medico di Roma',
+          it: 'Università Campus Bio-Medico di Roma'
+        }
+      },
+      {
         id: 'test',
         url: 'https://test.mobistudy.org/api',
         names: {
