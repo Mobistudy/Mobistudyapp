@@ -94,8 +94,11 @@
 - record operating system and timezone of each phone
 - bugfixes and updated dependencies
 
-
 0.4.9
 - cancel "ghost" notifications when logging out
 - support default language also with data provided by the server
+- bugfixes and updated dependencies
+
+0.4.10
+- added UCBM server
 - bugfixes and updated dependencies
