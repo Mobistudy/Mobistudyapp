@@ -34,13 +34,6 @@
         </template>
       </q-input>
 
-      <q-select padding="md lg" v-model="serverUrl" :options="serverOptions" emit-value map-options
-        :label="$t('userMgmt.server')" :rules="[val => !!val || $t('userMgmt.serverRequiredError')]">
-        <template v-slot:prepend>
-          <q-icon name="domain" />
-        </template>
-      </q-select>
-
       <div class="row fit justify-around q-mt-lg">
         <q-btn class="mobibtn" color="negative" to="/login" :label="$t('common.cancel')" />
         <q-btn class="mobibtn" color="primary" :loading="creating" @click="register()"
@@ -67,6 +60,9 @@ import DB from '@shared/db'
 
 export default {
   name: 'SignUp',
+  props: {
+    serverId: String
+  },
   mixins: [translateMixin],
   i18n: {
     messages: mergeDeep(i18nCommon, i18nUserMgmt, i18npwdCheck)
@@ -74,8 +70,6 @@ export default {
   data () {
     return {
       creating: false,
-      serverUrl: '',
-      serverOptions: [],
       account: {
         email: '',
         pw1: '',
@@ -94,15 +88,6 @@ export default {
       ]
     }
   },
-  async created () {
-    const serversList = API.getServersList()
-    for (const server of serversList) {
-      this.serverOptions.push({
-        label: this.translate(server.names),
-        value: server.url
-      })
-    }
-  },
   methods: {
     validatePasswordStrength (pwd) {
       const msg = checkPwdStrength(this.email, pwd)
@@ -116,8 +101,16 @@ export default {
       } else {
         this.creating = true
         try {
+          let serverUrl = ''
+          const serversList = API.getServersList()
+          for (const server of serversList) {
+            if (server.id === this.serverId) {
+              serverUrl = server.url
+              break
+            }
+          }
           // set the server URL
-          API.setBaseUrl(this.serverUrl)
+          API.setBaseUrl(serverUrl)
           // register the user
           await API.registerUser(this.account.email.toLowerCase(), this.account.pw1)
           // if registered, also do login
@@ -130,7 +123,7 @@ export default {
               participantKey: null
             },
             server: {
-              serverUrl: this.serverUrl,
+              serverUrl,
               token: user.token
             }
           }

@@ -13,9 +13,9 @@ const routes = [
     path: '/register',
     component: () => import('@components/usermgmt/RegisterLayout.vue'),
     children: [
-      { path: '/register_pp', name: 'register_pp', component: () => import('@components/usermgmt/PrivacyPolicyPage.vue') },
+      { path: '/register_pp/:serverId', name: 'register_pp', component: () => import('@components/usermgmt/PrivacyPolicyPage.vue'), props: true },
       { path: '/register_profile', name: 'register_profile', component: () => import('@components/usermgmt/ProfilePage.vue') },
-      { path: '/signup', name: 'signup', component: () => import('@components/usermgmt/SignUpPage.vue') }
+      { path: '/signup/:serverId', name: 'signup', component: () => import('@components/usermgmt/SignUpPage.vue'), props: true }
     ]
   },
   {

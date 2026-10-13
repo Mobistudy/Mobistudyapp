@@ -37,7 +37,7 @@ export default {
       },
       {
         id: 'ucbm',
-        url: process.env.API_ENDPOINT === 'OFFICIAL' ? 'https://mobistudy.ucbm.org/api' : process.env.API_ENDPOINT,
+        url: 'https://ucbm.mobistudy.org/api',
         names: {
           en: 'Campus Bio Medico University of Rome',
           sv: 'Università Campus Bio-Medico di Roma',

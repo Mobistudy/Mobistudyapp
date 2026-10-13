@@ -7,7 +7,15 @@
           <div class="q-title text-h5 text-center">Mobistudy v {{ appVersion }}</div>
         </div>
         <q-form ref="loginForm" @submit.prevent="">
-          <div style="width: 90vw">
+          <div style="width: 90vw;">
+
+            <p style="margin-top: 30px;" class="text-center mobitxt1">Choose an institution</p>
+
+            <q-select v-model="server" :options="serverOptions" emit-value map-options :label="$t('userMgmt.server')"
+              :error="missingInstitution" :rules="[val => !!val || $t('userMgmt.serverRequiredError')]" />
+
+            <p style="margin-top: 30px;" class="text-center mobitxt1">Do you have an account?</p>
+
             <q-input v-model="username" :label="$t('userMgmt.email')" :rules="emailRules" />
 
             <q-input v-model="password" :label="$t('userMgmt.password')" :type="showPassword ? 'text' : 'password'"
@@ -18,30 +26,18 @@
               </template>
             </q-input>
 
-            <q-select v-model="server" :options="serverOptions" emit-value map-options :label="$t('userMgmt.server')"
-              :rules="[val => !!val || $t('userMgmt.serverRequiredError')]" />
+            <q-btn class="q-ma-sm full-width mobibtn" :label="$t('userMgmt.login.login')" color="primary" @click="login"
+              type="submit" />
 
-            <div class="row">
-              <q-btn class="q-ma-sm full-width mobibtn" :label="$t('userMgmt.login.login')" color="primary"
-                @click="login" type="submit" />
-              <q-btn class="q-ma-sm q-mb-lg full-width mobibtn" :label="$t('userMgmt.login.lostpw')" color="grey" flat
-                outline to="resetpw" />
-              <q-list class="full-width">
-                <q-separator />
-                <q-item class="full-width">
-                  <q-item-section class="full-width">
-                    <q-item-label class="text-center q-mt-lg q-mb-md mobitxt1">{{ $t('userMgmt.login.noAcc')
-                    }}</q-item-label>
-                  </q-item-section>
-                </q-item>
-                <q-item class="full-width">
-                  <q-item-section class="full-width">
-                    <q-btn class="full-width mobibtn" :label="$t('userMgmt.register')" color="secondary"
-                      to="register_pp" />
-                  </q-item-section>
-                </q-item>
-              </q-list>
-            </div>
+            <q-btn class="q-ma-sm q-mb-lg full-width mobibtn" :label="$t('userMgmt.login.lostpw')" color="grey" flat
+              outline to="resetpw" />
+
+            <p style="margin-top: 30px;" class="text-center mobitxt1">{{ $t('userMgmt.login.noAcc')
+              }}</p>
+
+            <q-btn class="q-ma-sm q-mb-lg full-width mobibtn" :label="$t('userMgmt.register')" color="secondary"
+              @click="register" />
+
           </div>
         </q-form>
       </q-page>
@@ -74,6 +70,7 @@ export default {
       password: '',
       server: '',
       serverOptions: [],
+      missingInstitution: false,
       error: false,
       showPassword: false,
       emailRules: [
@@ -92,7 +89,7 @@ export default {
     for (const server of serversList) {
       this.serverOptions.push({
         label: this.translate(server.names),
-        value: server.url
+        value: server
       })
     }
     notifications.cancelAll()
@@ -107,12 +104,21 @@ export default {
     }
   },
   methods: {
+    register () {
+      if (!this.server) {
+        this.missingInstitution = true
+        return
+      }
+      this.missingInstitution = false
+      console.log(this.server)
+      this.$router.replace({ name: 'register_pp', params: { serverId: this.server.id } })
+    },
     async login () {
       const valid = await this.$refs.loginForm.validate(true)
       if (valid) {
         let userSession
         try {
-          API.setBaseUrl(this.server)
+          API.setBaseUrl(this.server.url)
 
           const user = await API.login(this.username.toLowerCase(), this.password)
           if (user.role !== 'participant') {
@@ -131,7 +137,7 @@ export default {
               participantKey: null
             },
             server: {
-              serverUrl: this.server,
+              serverUrl: this.server.url,
               token: user.token
             }
           }

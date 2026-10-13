@@ -1,19 +1,35 @@
-import PPen from './en/privacyPolicy'
-import PPsv from './sv/privacyPolicy'
-import PPes from './es/privacyPolicy'
-import PPit from './it/privacyPolicy'
+import PPMalmoen from './en/privacyPolicyMalmo'
+import PPUCBMen from './en/privacyPolicyUCBM'
+import PPTesten from './en/privacyPolicyTest'
+import PPMalmosv from './sv/privacyPolicyMalmo'
+import PPUCBMsv from './sv/privacyPolicyUCBM'
+import PPTestsv from './sv/privacyPolicyTest'
+import PPMalmoes from './es/privacyPolicyMalmo'
+import PPUCBMes from './es/privacyPolicyUCBM'
+import PPTestes from './es/privacyPolicyTest'
+import PPMalmoit from './it/privacyPolicyMalmo'
+import PPUCBMit from './it/privacyPolicyUCBM'
+import PPTestit from './it/privacyPolicyTest'
 
 export default {
   en: {
-    privacyPolicy: PPen
+    privacyPolicyMalmo: PPMalmoen,
+    privacyPolicyTest: PPTesten,
+    privacyPolicyUCBM: PPUCBMen
   },
   sv: {
-    privacyPolicy: PPsv
+    privacyPolicyMalmo: PPMalmosv,
+    privacyPolicyUCBM: PPUCBMsv,
+    privacyPolicyTest: PPTestsv
   },
   es: {
-    privacyPolicy: PPes
+    privacyPolicyUCBM: PPUCBMes,
+    privacyPolicyMalmo: PPMalmoes,
+    privacyPolicyTest: PPTestes
   },
   it: {
-    privacyPolicy: PPit
+    privacyPolicyMalmo: PPMalmoit,
+    privacyPolicyUCBM: PPUCBMit,
+    privacyPolicyTest: PPTestit
   }
 }
