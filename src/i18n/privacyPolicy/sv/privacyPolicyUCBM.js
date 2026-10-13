@@ -4,7 +4,7 @@ export default `
 <p>Campus Bio-Medico University of Rome (nedan kallat "Universitetet" eller "UCBM"), med registrerat säte i Rom på Via Álvaro del Portillo 21 - 00128 Rom, som "PROMOTERINGSCENTER",</p>
 
 <p>Arrangören har utsett ett dataskyddsombud (nedan, för korthetens skull, "Dataskyddsombudet" eller "DPO") som kan nås på följande adresser:</p>
-<p>e-post: dpo@unicampus.it</p>
+<p>e-mail: <a href="mailto:dpo{'@'}unicampus.it">dpo{'@'}unicampus.it</a></p>
 <p>vanlig post: Campus Bio-Medico University, med registrerat säte i Rom (RM) på Via Alvaro del Portillo, 200 00128 Rom, att. dataskyddsombudet.</p>
 
 <p>Sponsorn, i egenskap av personuppgiftsansvarig, kommer att behandla de allmänna personuppgifterna för rekryterade deltagare, såsom personuppgifter och kontaktuppgifter samt den unika identifieringskod som tilldelats vid registrering.</p>

@@ -4,7 +4,7 @@ export default `
 <p>The University Campus Bio-Medico of Rome (hereinafter, the “University” or “UCBM”), based in Rome at Via Álvaro del Portillo 21 - 00128 Rome, acting as the “PROMOTING CENTER,”</p>
 
 <p>The Promoter has appointed a Data Protection Officer (hereinafter, for brevity, “Data Protection Officer” or “DPO”), who may be contacted at the following addresses:</p>
-<p>e-mail: dpo@unicampus.it</p>
+<p>e-mail: <a href="mailto:dpo{'@'}unicampus.it">dpo{'@'}unicampus.it</a></p>
 <p>postal mail: Università Campus Bio-Medico, Via Alvaro del Portillo 200, 00128 Rome (RM), to the attention of the Data Protection Officer.</p>
 
 <p>The Promoter, acting as the Data Controller, will process ordinary personal data of the recruited subjects, such as personal identification and contact details and the unique identification code assigned at the time of enrollment.</p>

@@ -5,7 +5,7 @@ export default `
 
 
 <p>Il Promotore ha nominato il responsabile per la protezione dei dati (d’ora innanzi, per brevità “Data Protection Officer” o “DPO”) raggiungibile ai seguenti indirizzi:</p>
-<p>e-mail, all’indirizzo: dpo@unicampus.it</p>
+<p>e-mail: <a href="mailto:dpo{'@'}unicampus.it">dpo{'@'}unicampus.it</a></p>
 <p>posta ordinaria, all’indirizzo dell’Università Campus Bio-Medico, con sede in Roma (RM) Via Alvaro del Portillo, 200 00128 Roma c.a. del Data Protection Officer.</p>
 
 <p>Il Promotore, in qualità di Titolare del trattamento, tratterà dati personali comuni dei soggetti reclutati, quali dati anagrafici e di contatto e il codice identificativo univoco assegnato al momento dell’arruolamento.</p>

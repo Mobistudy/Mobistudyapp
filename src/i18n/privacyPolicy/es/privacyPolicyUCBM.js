@@ -4,7 +4,7 @@ export default `
 <p>Universidad Campus Bio-Medico de Roma (en adelante, la «Universidad» o «UCBM»), con domicilio social en Roma, Via Álvaro del Portillo 21 - 00128 Roma, en calidad de «CENTRO PROMOTOR».</p>
 
 <p>El Promotor ha designado un responsable de protección de datos (en adelante, el «Responsable de Protección de Datos» o «RPD»), a quien se puede contactar en las siguientes direcciones:</p>
-<p>Correo electrónico: dpo@unicampus.it</p>
+<p>e-mail: <a href="mailto:dpo{'@'}unicampus.it">dpo{'@'}unicampus.it</a></p>
 <p>Correo postal: Universidad Campus Bio-Medico, con domicilio social en Roma (RM), Via Álvaro del Portillo, 200 00128 Roma, a la atención del Responsable de Protección de Datos.</p>
 
 <p>El patrocinador, como responsable del tratamiento, procesará los datos personales generales de los participantes reclutados, como sus datos personales y de contacto, así como el código de identificación único asignado al momento de la inscripción.</p>
