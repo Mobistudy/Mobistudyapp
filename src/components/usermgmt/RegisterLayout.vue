@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     goBack () {
-      this.$router.replace('login')
+      this.$router.replace({ name: 'login' })
     }
   }
 }

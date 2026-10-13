@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     signup () {
-      this.$router.push({ name: 'signup', params: { serverId: this.serverId } })
+      this.$router.replace({ name: 'signup', params: { serverId: this.serverId } })
     }
   }
 }
