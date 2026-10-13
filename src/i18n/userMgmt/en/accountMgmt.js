@@ -1,5 +1,3 @@
-'use strict'
-
 export default {
   email: 'Email',
   emailRequiredError: 'A valid email address is required',
@@ -8,8 +6,10 @@ export default {
   confirmPassword: 'Confirm Password',
   confirmPasswordError: 'Passwords must match',
   server: 'Institution',
+  serverIntro: 'Choose an institution',
   serverRequiredError: 'An institution must be specified',
   participantOnly: 'You can only login as participant in this app!',
+  loginIntro: 'Do you have an account?',
   register: 'Register',
   deleteAccount: 'Delete Account',
   deleteShort: "You can permanently delete your account, Mobistudy won't ever collect anymore data unless you create a new account.",

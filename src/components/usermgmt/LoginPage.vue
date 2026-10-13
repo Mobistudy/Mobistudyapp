@@ -9,12 +9,12 @@
         <q-form ref="loginForm" @submit.prevent="">
           <div style="width: 90vw;">
 
-            <p style="margin-top: 30px;" class="text-center mobitxt1">Choose an institution</p>
+            <p style="margin-top: 30px;" class="text-center mobitxt1">{{ $t('userMgmt.serverIntro') }}</p>
 
             <q-select v-model="server" :options="serverOptions" emit-value map-options :label="$t('userMgmt.server')"
               :error="missingInstitution" :rules="[val => !!val || $t('userMgmt.serverRequiredError')]" />
 
-            <p style="margin-top: 30px;" class="text-center mobitxt1">Do you have an account?</p>
+            <p style="margin-top: 30px;" class="text-center mobitxt1">{{ $t('userMgmt.loginIntro') }}</p>
 
             <q-input v-model="username" :label="$t('userMgmt.email')" :rules="emailRules" />
 
@@ -33,7 +33,7 @@
               outline to="resetpw" />
 
             <p style="margin-top: 30px;" class="text-center mobitxt1">{{ $t('userMgmt.login.noAcc')
-              }}</p>
+            }}</p>
 
             <q-btn class="q-ma-sm q-mb-lg full-width mobibtn" :label="$t('userMgmt.register')" color="secondary"
               @click="register" />

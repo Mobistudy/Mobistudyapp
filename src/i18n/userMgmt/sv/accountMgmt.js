@@ -1,5 +1,3 @@
-'use strict'
-
 export default {
   email: 'Email',
   emailRequiredError: 'Email addressen är inte giltig',
@@ -8,8 +6,10 @@ export default {
   confirmPassword: 'Bekräfta lösenordet',
   confirmPasswordError: 'Lösenorden måste matcha',
   server: 'Institution',
+  serverIntro: 'Välj en institution',
   serverRequiredError: 'En institution måste anges',
   participantOnly: 'Du kan bara logga in som deltagare i denna app!',
+  loginIntro: 'Har du ett konto?',
   register: 'Registrera',
   deleteAccount: 'Ta bort konto',
   deleteShort: 'Du kan ta bort ditt konto permanent, Mobistudy kommer inte fortsätta samla data om du inte installerar appen igen.',

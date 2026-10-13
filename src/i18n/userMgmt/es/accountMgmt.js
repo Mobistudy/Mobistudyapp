@@ -1,5 +1,3 @@
-'use strict'
-
 export default {
   email: 'Email',
   emailRequiredError: 'Un email válido es requerido',
@@ -8,8 +6,10 @@ export default {
   confirmPassword: 'Confirmar Contraseña',
   confirmPasswordError: 'La contraseña debe coincidir',
   server: 'Institución',
+  serverIntro: 'Elige una institución',
   serverRequiredError: 'Una institutciòn debe ser selecionada',
   participantOnly: 'Puedes logearte solo como participante en este app!',
+  loginIntro: '¿Tienes una cuenta?',
   register: 'Registar',
   deleteAccount: 'Eliminar Cuenta',
   deleteShort: 'Puedes eliminar permanentemente tu cuenta, Mobistudy nunca recopilará más datos a menos que crees una nueva cuenta. ',
