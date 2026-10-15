@@ -17,7 +17,7 @@ export default {
     {
       title: 'Configurazione',
       img: 'imgs/BT.svg',
-      description: 'Assicurati che Bluetooth e Localizzazione (o la scansione Bluetooth) siano attivati sul telefono, che il MiBand sia carico e vicino al telefono.'
+      description: 'Assicurati che Bluetooth e Localizzazione (o la scansione Bluetooth) siano attivati sul telefono, che lo smartwatchsia carico e vicino al telefono.'
     }
   ],
   connect: 'Connetti',
