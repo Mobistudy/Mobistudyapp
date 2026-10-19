@@ -10,11 +10,11 @@
       </q-list>
 
       <q-inner-loading :showing="showSearching">
-        <div class="mobitxt2" color="dark-grey">{{ $t('tasks.jstyle.searching') }}</div>
+        <div class="mobitxt2 q-pa-md" color="dark-grey">{{ $t('tasks.jstyle.searching') }}</div>
         <q-spinner-dots size="40px" color="primary" />
       </q-inner-loading>
       <q-inner-loading :showing="showConnecting">
-        <div class="mobitxt2" color="dark-grey">{{ $t('tasks.jstyle.connecting') }}</div>
+        <div class="mobitxt2 q-pa-md" color="dark-grey">{{ $t('tasks.jstyle.connecting') }}</div>
         <q-spinner-dots size="40px" color="primary" />
       </q-inner-loading>
     </div>
