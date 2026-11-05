@@ -10,7 +10,7 @@ export default {
   getDetailedActivityHistory: 0x52,
   getDetailedHRHistory: 0x54, // seems not to work always?
   getHRHistory: 0x55,
-  getName: 0x3e,
+  getName: 0x3e, // 62 in decimal
   getMACAddress: 0x22,
   setAutoMode: 0x2a,
   getAutoMode: 0x2b,
