@@ -45,7 +45,10 @@ import phone from '@shared/phone'
 
 import { DateTime } from 'luxon'
 
-const jstyle = session.getConnectedDevice()
+// NOTE: must NOT be read at module load: the module is evaluated only once per app run,
+// while a new JStyle2025 instance is created at every connection.
+// It is read in mounted() instead.
+let jstyle = null
 
 // holders of all the stored data, this is kept outside of Vue for efficiency
 let activitySummary = []
@@ -544,6 +547,7 @@ export default {
     }
   },
   async mounted () {
+    jstyle = session.getConnectedDevice()
     this.createActivityLineChart()
     await this.downloadData()
   },
