@@ -392,7 +392,7 @@ export default {
           } catch (err) {
             console.error('Cannot disconnect but OK', err)
           }
-          await DB.removeDeviceJStyle()
+          await DB.removeJStyle2025ID()
           this.$router.replace({ name: 'jstyleConnect', params: { studyKey: this.studyKey, taskId: this.taskId } })
           this.isDownloading = false
         } else {
@@ -552,6 +552,10 @@ export default {
     await this.downloadData()
   },
   async beforeUnmount () {
+    // release the device from the session, so that a stale instance cannot be reused.
+    // Done synchronously and only if it is still ours, so that a new device set by
+    // the connect page in the meantime is not removed
+    if (session.getConnectedDevice() === jstyle) session.removeConnectedDevice()
     try {
       if (DEBUG) console.log('Unmounting component, disconnecting jstyle')
       await jstyle.disconnect()
